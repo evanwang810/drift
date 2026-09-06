@@ -43,6 +43,9 @@ class Executor:
     root: Path
     env: dict[str, str]
     actions: list[str] = field(default_factory=list)
+    # The live conversation, so summarise can replace part of it. Set by the
+    # loop before the first turn.
+    messages: list[dict] | None = None
 
     def dispatch(self, name: str, args: dict[str, Any]) -> str:
         handler = getattr(self, f"_{name}", None)
@@ -103,6 +106,33 @@ class Executor:
         if done.stderr.strip():
             parts.append("stderr: " + done.stderr.rstrip())
         return clip("\n".join(parts))
+
+    def _summarize(self, summary: str) -> str:
+        """Replace everything you have done so far with a summary of it.
+
+        Call this when told your context is getting long. Pass everything worth
+        carrying to the end of the run: what you were doing, what you found,
+        what you have already tried. The older turns are then gone and your
+        summary stands in their place, so anything you leave out is lost.
+        The last few turns and your instructions are kept as they are.
+        """
+        if not self.messages:
+            return "error: no conversation to summarise"
+        keep = 4
+        head, tail = self.messages[:2], self.messages[-keep:]
+        # An assistant turn and its tool replies have to stay together, so walk
+        # back to the assistant message that opens the kept tail.
+        while tail and tail[0].get("role") == "tool":
+            keep += 1
+            tail = self.messages[-keep:]
+        replaced = len(self.messages) - len(head) - len(tail)
+        if replaced <= 0:
+            return "nothing old enough to summarise yet"
+        self.messages[:] = head + [
+            {"role": "user", "content": "Everything you did earlier this run:\n" + summary}
+        ] + tail
+        self.actions.append("summarised its own context")
+        return f"replaced {replaced} older messages with your summary"
 
     def _stop(self, note: str = "", memory: str = "") -> str:
         """End the run.

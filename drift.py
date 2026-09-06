@@ -118,6 +118,7 @@ def main() -> int:
           f" | {client.spec.tpm:,} tokens a minute", flush=True)
 
     messages = loop.opening(ROOT, run, days, last, now, MAX_TURNS, message)
+    ex.messages = messages
 
     try:
         outcome, note, memory = loop.run(client, ex, messages, MAX_TURNS)

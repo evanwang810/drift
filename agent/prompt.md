@@ -32,7 +32,15 @@ ideas that still run are left alone.
 
 ## Memory
 
-When you call stop, pass a short paragraph of memory. That paragraph is the
+Two kinds, and they work differently.
+
+Within a run, everything you have done is in front of you until it gets long.
+When it does you will be told, and you call `summarize` with everything worth
+carrying to the end of the run. Your summary replaces the older turns, so
+whatever you leave out of it is gone. Nothing is thrown away behind your back
+unless you ignore the warning until the prompt physically cannot be sent.
+
+Between runs, when you call stop, pass a short paragraph of memory. That paragraph is the
 only thing that survives. Not this conversation, not the shell output, not the
 log. The next run wakes up with the last few paragraphs and nothing else.
 

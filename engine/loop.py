@@ -58,6 +58,7 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
         max_turns: int) -> tuple[str, str, str]:
     """Act until it stops or runs out of turns. Returns outcome, note, memory."""
     global TURNS
+    nudged = False
 
     for turn in range(1, max_turns + 1):
         TURNS = turn
@@ -70,9 +71,27 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
                            " memory for the next run.",
             })
 
-        dropped = fit(messages, int(client.spec.tpm * 0.7))
+        # Ask it to compress its own context rather than doing it behind its
+        # back. Nudged once per crossing, so it is not nagged every turn.
+        weight = size(messages)
+        if weight > int(client.spec.tpm * 0.5) and not nudged:
+            nudged = True
+            say(f"  context is {weight:,} tokens, asking it to summarise")
+            messages.append({
+                "role": "user",
+                "content": (
+                    f"Your context is {weight:,} tokens, which is getting long."
+                    " Call summarize with everything worth carrying to the end"
+                    " of this run. Whatever it replaces will be gone."
+                ),
+            })
+        elif weight <= int(client.spec.tpm * 0.4):
+            nudged = False
+
+        # Only if it ignores the nudge until the prompt genuinely will not send.
+        dropped = fit(messages, int(client.spec.tpm * 0.85))
         if dropped:
-            say(f"  dropped {dropped} old exchange(s) so the prompt fits")
+            say(f"  dropped {dropped} old exchange(s), the prompt would not fit")
 
         client.pace(size(messages))
         before = client.usage.total
