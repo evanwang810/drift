@@ -1,0 +1,3 @@
+60
+
+Minutes until the next wake. Clamped to 15-360. The agent may change this.

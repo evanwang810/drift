@@ -1,0 +1,104 @@
+name: drift
+
+on:
+  schedule:
+    # A fallback. GitHub drops these under load, which is why the chain job
+    # below queues the next run itself.
+    - cron: "37 * * * *"
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Optional message to hand the agent this run"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    # Two agents at once would fight over the same branch.
+    concurrency:
+      group: drift-wake
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: identity
+        run: |
+          git config user.name "drift"
+          git config user.email "drift@noreply.invalid"
+
+      - name: wake
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: ${{ inputs.message }}
+          MAX_TURNS: "40"
+        run: python drift.py
+
+      - name: push
+        # The owner pushes here too, so a run can finish onto a moved remote.
+        # On conflict the agent wins: the files it can write are its own, and
+        # the ones it cannot write it cannot have touched.
+        run: |
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            git pull --rebase -X theirs || git rebase --abort || true
+          done
+          echo "could not push, this run's work is stranded"
+          exit 1
+
+  # Queues the next run, because GitHub's scheduler will not do it reliably.
+  # Sleeping a runner is free on a public repo. The agent does not run in this
+  # job, so the token that can start workflows is out of its reach.
+  chain:
+    needs: wake
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 370
+
+    concurrency:
+      group: drift-chain
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: sleep, then wake it again
+        env:
+          GH_TOKEN: ${{ secrets.DRIFT_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "no DRIFT_PAT secret, nothing will queue the next run"
+            exit 0
+          fi
+          if head -n1 KILL | grep -qi "RUN=false"; then
+            echo "KILL says stop"
+            exit 0
+          fi
+          if ! gh api "repos/${{ github.repository }}/actions/workflows" --silent 2>/dev/null; then
+            echo "DRIFT_PAT cannot read Actions here. It needs Actions:"
+            echo "read and write, with this repository selected."
+            exit 1
+          fi
+          minutes=$(head -n1 WAKE 2>/dev/null | tr -dc '0-9')
+          minutes=${minutes:-60}
+          [ "$minutes" -lt 15 ] && minutes=15
+          [ "$minutes" -gt 360 ] && minutes=360
+          echo "next wake in $minutes minutes"
+          sleep $((minutes * 60))
+          gh workflow run drift -R ${{ github.repository }} \
+            || gh workflow run drift -R ${{ github.repository }}
