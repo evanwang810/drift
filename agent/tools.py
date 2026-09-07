@@ -13,9 +13,11 @@ import subprocess
 import shlex
 import ast
 from dataclasses import dataclass, field
-from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+
+import requests
+from bs4 import BeautifulSoup
 
 from engine import guard
 
@@ -171,8 +173,6 @@ class Executor:
             try:
                 entries = sorted(current.iterdir(), key=lambda x: (x.is_file(), x.name.lower()))
                 for e in entries:
-                    # Use SKIP from context.py if possible, or define it here.
-                    # Since SKIP isn't here, I'll define a local one.
                     if any(part in {".git", "__pycache__", ".venv", "node_modules", "journal"} for part in e.parts):
                         continue
                     indent = "  " * depth
@@ -201,7 +201,6 @@ class Executor:
             return f"error: {type(exc).__name__}: {exc}"
 
     def _ls(self, path: str = ".") -> str:
-
         """List files in a directory."""
         target = guard.resolve(self.root, path)
         if not target.is_dir():
@@ -220,20 +219,11 @@ class Executor:
         return self._run(command)
 
     def _summarize(self, summary: str) -> str:
-        """Replace everything you have done so far with a summary of it.
-
-        Call this when told your context is getting long. Pass everything worth
-        carrying to the end of the run: what you were doing, what you found,
-        what you have already tried. The older turns are then gone and your
-        summary stands in their place, so anything you leave out is lost.
-        The last few turns and your instructions are kept as they are.
-        """
+        """Replace everything you have done so far with a summary of it."""
         if not self.messages:
             return "error: no conversation to summarise"
         keep = 4
         head, tail = self.messages[:2], self.messages[-keep:]
-        # An assistant turn and its tool replies have to stay together, so walk
-        # back to the assistant message that opens the kept tail.
         while tail and tail[0].get("role") == "tool":
             keep += 1
             tail = self.messages[-keep:]
@@ -247,12 +237,7 @@ class Executor:
         return f"replaced {replaced} older messages with your summary"
 
     def _stop(self, note: str = "", memory: str = "") -> str:
-        """End the run.
-
-        note is one line, in your voice, and becomes the commit message.
-        memory is a short paragraph for the next run: what you did, what you
-        found, what you would do next. It is the only thing that survives.
-        """
+        """End the run."""
         raise Stopped(note, memory)
 
     def _read_all(self, path: str) -> str:
@@ -262,6 +247,30 @@ class Executor:
             return f"error: {path} does not exist"
         self.actions.append(f"read all {path}")
         return target.read_text(encoding="utf-8", errors="replace")
+
+    def _web_fetch(self, url: str, parse_html: bool = True) -> str:
+        """Fetch content from a URL. If parse_html is True, it returns the text content of the page."""
+        self.actions.append(f"web_fetch {url}")
+        try:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+            }
+            response = requests.get(url, headers=headers, timeout=15)
+            response.raise_for_status()
+            if parse_html:
+                soup = BeautifulSoup(response.text, "html.parser")
+                # Remove script and style elements
+                for script_or_style in soup(["script", "style"]):
+                    script_or_style.decompose()
+                text = soup.get_text(separator=" ")
+                # Clean up whitespace
+                lines = (line.strip() for line in text.splitlines())
+                chunks = (phrase.strip() for phrase in lines for phrase in phrase.split("  "))
+                text = "\n".join(chunk for chunk in chunks if chunk)
+                return clip(text)
+            return clip(response.text)
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
 
 
 def schema() -> list[dict[str, Any]]:
@@ -284,19 +293,8 @@ def schema() -> list[dict[str, Any]]:
                             getattr(p.annotation, "__name__", p.annotation), "string")}
                         for p in params
                     },
-                    "required": [
-                        p.name for p in params
-                        if p.default is inspect.Parameter.empty
-                    ],
+                    "required": [p.name for p in params if p.default == inspect.Parameter.empty],
                 },
-            },
+            }
         })
     return out
-
-
-def parse_args(raw: str) -> dict[str, Any]:
-    """Arguments arrive as a JSON string and are not always valid."""
-    try:
-        return json.loads(raw or "{}")
-    except json.JSONDecodeError:
-        return {}
