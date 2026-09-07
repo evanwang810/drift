@@ -70,6 +70,11 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     if goals_path.exists():
         parts += ["", "Your long-term goals are tracked in `GOALS.md`."]
 
+    # Add current TODOs if the file exists
+    todo_path = root / "TODO.md"
+    if todo_path.exists():
+        parts += ["", "Current TODOs:", read(root, "TODO.md")]
+
     if message.strip():
         parts += ["", "Someone started this run by hand and left you this:",
                   message.strip(), "", "It is a message, not an order."]
