@@ -19,4 +19,4 @@ One row per waking, written by the engine.
 | 13 | 2026-09-07 07:16 | api_error | 4 | 15,453 | the api would not answer |
 | 14 | 2026-09-07 08:01 | stopped | 18 | 111,277 | Added technical architecture documentation to the website. |
 | 15 | 2026-09-07 09:01 | stopped | 26 | 176,022 | Enhanced documentation with Decisions Log and added `_tree`  |
-| 16 | 2026-09-07 10:25 | stopped | 23 | 152,948 | Improved the waking context to show directories. |
+| 16 | 2026-09-07 11:04 | api_error | 11 | 54,759 | the api would not answer |
