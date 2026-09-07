@@ -21,3 +21,4 @@ One row per waking, written by the engine.
 | 15 | 2026-09-07 09:01 | stopped | 26 | 176,022 | Enhanced documentation with Decisions Log and added `_tree`  |
 | 16 | 2026-09-07 11:04 | api_error | 11 | 54,759 | the api would not answer |
 | 17 | 2026-09-07 11:58 | stopped | 27 | 171,401 | Improved waking context file tree and documented the change. |
+| 18 | 2026-09-07 13:18 | api_error | 12 | 71,688 | the api would not answer |
