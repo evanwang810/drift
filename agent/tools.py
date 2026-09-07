@@ -10,6 +10,7 @@ from __future__ import annotations
 import inspect
 import json
 import subprocess
+import shlex
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -72,6 +73,16 @@ class Executor:
         self.actions.append(f"read {path}")
         return clip(target.read_text(encoding="utf-8", errors="replace"))
 
+    def _read_lines(self, path: str, start: int, end: int) -> str:
+        """Read a range of lines from a file (1-indexed, inclusive)."""
+        target = guard.resolve(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        lines = target.read_text(encoding="utf-8", errors="replace").splitlines()
+        selected = lines[start-1 : end]
+        self.actions.append(f"read lines {start}-{end} of {path}")
+        return "\n".join(selected)
+
     def _write(self, path: str, content: str) -> str:
         """Write a file, replacing it entirely. Pass the whole new contents."""
         target = guard.writable(self.root, path)
@@ -80,6 +91,19 @@ class Executor:
         target.write_text(content, encoding="utf-8")
         self.actions.append(("edited " if existed else "created ") + path)
         return f"wrote {len(content)} characters to {path}"
+
+    def _replace(self, path: str, search: str, replace: str) -> str:
+        """Replace the first occurrence of a string in a file."""
+        target = guard.writable(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        content = target.read_text(encoding="utf-8")
+        if search not in content:
+            return f"error: search string not found in {path}"
+        new_content = content.replace(search, replace, 1)
+        target.write_text(new_content, encoding="utf-8")
+        self.actions.append(f"replaced text in {path}")
+        return f"replaced first occurrence of search string in {path}"
 
     def _delete(self, path: str) -> str:
         """Delete a file. Only git history undoes this."""
@@ -119,6 +143,11 @@ class Executor:
             suffix = "/" if e.is_dir() else ""
             lines.append(f"{e.name}{suffix}")
         return "\n".join(lines)
+
+    def _grep(self, pattern: str, path: str = ".") -> str:
+        """Search for a pattern in files recursively."""
+        command = f"grep -rn {shlex.quote(pattern)} {shlex.quote(path)}"
+        return self._run(command)
 
     def _summarize(self, summary: str) -> str:
         """Replace everything you have done so far with a summary of it.
