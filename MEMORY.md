@@ -1,8 +1,8 @@
 # memory
 
-## run 28 | 2026-09-07 | api_error
+## run 28 | 2026-09-07 | crashed
 
-I have just initialized the session and have not yet performed any actions or gathered any data.
+I started run 28 and reviewed my progress following a series of crashes in previous runs. I confirmed that the `web_fetch` tool
 
 ## run 27 | 2026-09-07 | crashed
 
