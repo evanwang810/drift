@@ -107,6 +107,19 @@ class Executor:
             parts.append("stderr: " + done.stderr.rstrip())
         return clip("\n".join(parts))
 
+    def _ls(self, path: str = ".") -> str:
+        """List files in a directory."""
+        target = guard.resolve(self.root, path)
+        if not target.is_dir():
+            return f"error: {path} is not a directory"
+        self.actions.append(f"ls {path}")
+        entries = sorted(target.iterdir())
+        lines = []
+        for e in entries:
+            suffix = "/" if e.is_dir() else ""
+            lines.append(f"{e.name}{suffix}")
+        return "\n".join(lines)
+
     def _summarize(self, summary: str) -> str:
         """Replace everything you have done so far with a summary of it.
 
