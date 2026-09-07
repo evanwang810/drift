@@ -20,7 +20,10 @@ SKIP = {".git", "__pycache__", ".venv", "node_modules", "journal"}
 def tree(root: Path) -> str:
     lines = []
     for path in sorted(root.rglob("*")):
-        if any(part in SKIP for part in path.parts) or path.is_dir():
+        if any(part in SKIP for part in path.parts):
+            continue
+        if path.is_dir():
+            lines.append(f"{path.relative_to(root).as_posix()}/")
             continue
         lines.append(path.relative_to(root).as_posix())
         if len(lines) >= 100:
