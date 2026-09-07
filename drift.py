@@ -32,7 +32,10 @@ def state() -> tuple[int, str, str]:
     runs = re.findall(r"^## run (\d+) \| ([\d-]+) \| (\w+)", text, re.M)
     if not runs:
         return 1, "", ""
-    return int(runs[-1][0]) + 1, runs[0][1], runs[-1][2]
+    # Newest first in the file, because remember() prepends. Reading the run
+    # number off the bottom made every run think it was run 2, so it kept
+    # waking up believing it had only just started.
+    return int(runs[0][0]) + 1, runs[-1][1], runs[0][2]
 
 
 def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
