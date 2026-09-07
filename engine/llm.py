@@ -112,7 +112,7 @@ class Client:
     temperature: float = 0.9
     reasoning_effort: str = "low"
     max_completion_tokens: int = 0
-    max_retries: int = 6
+    max_retries: int = 10
     timeout: int = 180
     usage: Usage = field(default_factory=Usage)
     reasoning_log: list[str] = field(default_factory=list)
@@ -314,8 +314,9 @@ class Client:
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
                 last_error = LLMError(f"{type(exc).__name__}: {exc}")
 
-            # Gemma throws 503 when it is busy, and those spikes outlast a
-            # one minute retry window.
-            time.sleep(min(2**attempt + random.random(), 60))
+            # Gemma throws 500s and 503s in patches that outlast a short
+            # retry window. Ten attempts backing off to 90s covers about eight
+            # minutes, which is cheaper than losing the whole run.
+            time.sleep(min(2**attempt + random.random(), 90))
 
         raise LLMError(f"gave up after {self.max_retries} attempts: {last_error}")

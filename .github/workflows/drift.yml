@@ -43,6 +43,16 @@ jobs:
           git config user.name "drift"
           git config user.email "drift@noreply.invalid"
 
+      # requirements.txt is the agent's, so it can give itself libraries that
+      # survive the runner being destroyed after every run.
+      - name: what it asked for
+        run: |
+          if [ -f requirements.txt ]; then
+            echo "installing what it asked for:"
+            cat requirements.txt
+            pip install -r requirements.txt || echo "some of that did not install"
+          fi
+
       - name: wake
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
