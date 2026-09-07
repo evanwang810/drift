@@ -155,7 +155,38 @@ class Executor:
             parts.append("stderr: " + done.stderr.rstrip())
         return clip("\n".join(parts))
 
+    def _tree(self, path: str = ".", max_depth: int = 3) -> str:
+        """List files in a directory and its subdirectories as a tree."""
+        target = guard.resolve(self.root, path)
+        if not target.is_dir():
+            return f"error: {path} is not a directory"
+        self.actions.append(f"tree {path} (depth {max_depth})")
+        
+        def _walk(current: Path, depth: int) -> list[str]:
+            if depth > max_depth:
+                return ["..."]
+            lines = []
+            try:
+                entries = sorted(current.iterdir(), key=lambda x: (x.is_file(), x.name.lower()))
+                for e in entries:
+                    # Use SKIP from context.py if possible, or define it here.
+                    # Since SKIP isn't here, I'll define a local one.
+                    if any(part in {".git", "__pycache__", ".venv", "node_modules", "journal"} for part in e.parts):
+                        continue
+                    indent = "  " * depth
+                    if e.is_dir():
+                        lines.append(f"{indent}📂 {e.name}/")
+                        lines.extend(_walk(e, depth + 1))
+                    else:
+                        lines.append(f"{indent}📄 {e.name}")
+            except PermissionError:
+                lines.append("  " * depth + "🚫 Permission Denied")
+            return lines
+
+        return "\n".join(_walk(target, 0))
+
     def _ls(self, path: str = ".") -> str:
+
         """List files in a directory."""
         target = guard.resolve(self.root, path)
         if not target.is_dir():
