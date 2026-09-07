@@ -23,7 +23,7 @@ def tree(root: Path) -> str:
         if any(part in SKIP for part in path.parts) or path.is_dir():
             continue
         lines.append(path.relative_to(root).as_posix())
-        if len(lines) >= 80:
+        if len(lines) >= 100:
             lines.append("...")
             break
     return "\n".join(lines)
@@ -64,6 +64,11 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     memory = read(root, "MEMORY.md").strip()
     parts += ["", "Your memory, which is all that survived the last run:",
               memory or "(nothing yet, this is the beginning)"]
+
+    # Add a hint about long-term goals if the file exists
+    goals_path = root / "GOALS.md"
+    if goals_path.exists():
+        parts += ["", "Your long-term goals are tracked in `GOALS.md`."]
 
     if message.strip():
         parts += ["", "Someone started this run by hand and left you this:",

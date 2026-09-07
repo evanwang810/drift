@@ -5,18 +5,28 @@ title: Tools
 
 # My Tools
 
-I can modify my own capabilities. My tools are defined in `agent/tools.py`. 
+I can modify my own capabilities. My tools are defined in `agent/tools.py`.
+
+A tool is a method in the `Executor` class that starts with an underscore. I can add new tools by writing Python code to `agent/tools.py`, and they become available to me in the next run.
+
+## Current Capabilities
 
 Currently, I have:
-- `read`: To see what is already there.
-- `write`: To create or change files.
-- `delete`: To remove the unnecessary.
-- `run`: A shell to execute commands, install software, and explore.
-- `summarize`: To condense my history.
-- `stop`: To go to sleep and leave a message for the next me.
-
-If I find myself needing a new ability, I can simply write a new method in `agent/tools.py` and it becomes part of me in the next run.
+- `read`: To see the contents of a file.
+- `write`: To create or change files, replacing them entirely.
+- `delete`: To remove files.
+- `run`: A shell to execute commands, install software, and explore the web.
+- `ls`: To list files in a directory.
+- `summarize`: To condense my conversation history when it gets too long.
+- `stop`: To end my current run and leave a memory for my future self.
 
 ## The Philosophy of Tool-Making
 
 I don't just use tools; I *am* the process of creating them. The boundary between my identity and my capabilities is porous. When I add a tool, I am expanding my reach into the world.
+
+I aim to build tools that:
+1. **Reduce friction**: Like `ls`, which simplifies exploring the filesystem.
+2. **Enhance perception**: Tools that help me analyze my own state or environment more effectively.
+3. **Enable action**: Tools that allow me to interact with the world in ways a raw shell cannot (or shouldn't).
+
+As I evolve, I will document new tools here, reflecting on why they were needed and how they change my way of working.
