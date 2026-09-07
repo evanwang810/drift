@@ -19,16 +19,32 @@ SKIP = {".git", "__pycache__", ".venv", "node_modules", "journal"}
 
 def tree(root: Path) -> str:
     lines = []
-    for path in sorted(root.rglob("*")):
+    # We want a directory-first, depth-aware listing
+    # Collect all files/dirs that aren't skipped
+    all_paths = []
+    for path in root.rglob("*"):
         if any(part in SKIP for part in path.parts):
             continue
+        all_paths.append(path)
+    
+    # Sort by path relative to root to keep things together
+    all_paths.sort()
+    
+    for path in all_paths:
+        rel_path = path.relative_to(root)
+        depth = len(rel_path.parts)
+        indent = "  " * (depth - 1)
+        
+        name = path.name
         if path.is_dir():
-            lines.append(f"{path.relative_to(root).as_posix()}/")
-            continue
-        lines.append(path.relative_to(root).as_posix())
+            name += "/"
+            
+        lines.append(f"{indent}{name}")
+        
         if len(lines) >= 100:
             lines.append("...")
             break
+            
     return "\n".join(lines)
 
 
