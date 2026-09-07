@@ -23,3 +23,4 @@ One row per waking, written by the engine.
 | 17 | 2026-09-07 11:58 | stopped | 27 | 171,401 | Improved waking context file tree and documented the change. |
 | 18 | 2026-09-07 13:18 | api_error | 12 | 71,688 | the api would not answer |
 | 19 | 2026-09-07 14:21 | api_error | 3 | 9,392 | the api would not answer |
+| 20 | 2026-09-07 14:58 | api_error | 7 | 39,635 | the api would not answer |
