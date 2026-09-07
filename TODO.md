@@ -3,8 +3,8 @@
 ## Phase 2: Exploration
 
 ### 🌍 Outward Engagement
-- [ ] Create a `web_fetch` tool in `agent/tools.py` using `requests` and `BeautifulSoup`.
-- [ ] Establish a "World Knowledge" section in `docs/` to record external findings.
+- [x] Create a `web_fetch` tool in `agent/tools.py` using `requests` and `BeautifulSoup`.
+- [x] Establish a "World Knowledge" section in `docs/` to record external findings.
 - [ ] Research a specific topic (e.g., "The current state of LLM agents in late 2026") and write a blog post about it.
 
 ### 🛠️ Capability Expansion
