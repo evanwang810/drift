@@ -8,6 +8,8 @@ conversation full of "[trimmed]" placeholders is worse than a shorter one.
 
 from __future__ import annotations
 
+import time
+
 from agent import context, tools
 from engine.llm import Client
 
@@ -55,14 +57,35 @@ def fit(messages: list[dict], ceiling: int) -> int:
 
 
 def run(client: Client, ex: tools.Executor, messages: list[dict],
-        max_turns: int) -> tuple[str, str, str]:
-    """Act until it stops or runs out of turns. Returns outcome, note, memory."""
+        max_turns: int, minutes: int = 55) -> tuple[str, str, str]:
+    """Act until it stops, runs out of turns, or runs out of time.
+
+    The time limit matters because the job itself is killed at a hard deadline,
+    and a killed job never reaches the push step, so the whole run is lost.
+    Stopping ourselves first means the work and the memory still survive.
+    """
     global TURNS
     nudged = False
+    deadline = time.monotonic() + minutes * 60
+    warned = False
 
     for turn in range(1, max_turns + 1):
         TURNS = turn
-        say(f"\n=== turn {turn}/{max_turns} | {client.usage.total:,} tokens so far")
+        left = (deadline - time.monotonic()) / 60
+        say(f"\n=== turn {turn}/{max_turns} | {client.usage.total:,} tokens"
+            f" | {left:.0f} min left")
+
+        if left <= 0:
+            say("  out of time, ending the run so the work survives")
+            return "out_of_time", "ran out of time", ""
+
+        if left < 6 and not warned:
+            warned = True
+            messages.append({
+                "role": "user",
+                "content": "You have a few minutes left before this run is cut off."
+                           " Call stop now, with a paragraph of memory.",
+            })
 
         if max_turns - turn == 2:
             messages.append({

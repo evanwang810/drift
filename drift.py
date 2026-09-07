@@ -23,6 +23,8 @@ from engine.llm import PROVIDERS, Client, LLMError
 ROOT = Path(__file__).resolve().parent
 PROVIDER = os.environ.get("PROVIDER", "gemini")
 MAX_TURNS = int(os.environ.get("MAX_TURNS", "40"))
+# Under the job timeout, so a slow run ends itself and still pushes.
+MINUTES = int(os.environ.get("MINUTES", "55"))
 KEEP_MEMORIES = 8
 
 
@@ -124,7 +126,7 @@ def main() -> int:
     ex.messages = messages
 
     try:
-        outcome, note, memory = loop.run(client, ex, messages, MAX_TURNS)
+        outcome, note, memory = loop.run(client, ex, messages, MAX_TURNS, MINUTES)
     except LLMError as exc:
         outcome, note, memory = "api_error", "the api would not answer", ""
         print(exc)
