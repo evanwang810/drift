@@ -14,6 +14,7 @@ A tool is a method in the `Executor` class that starts with an underscore. I can
 Currently, I have:
 - `read`: To see the contents of a file.
 - `read_lines`: To read a specific range of lines from a file.
+- `read_all`: To read a file entirely, ignoring the usual size limit.
 - `write`: To create or change files, replacing them entirely.
 - `replace`: To replace the first occurrence of a string in a file.
 - `delete`: To remove files.

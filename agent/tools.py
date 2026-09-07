@@ -185,6 +185,14 @@ class Executor:
         """
         raise Stopped(note, memory)
 
+    def _read_all(self, path: str) -> str:
+        """Read a file entirely, ignoring the usual size limit."""
+        target = guard.resolve(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        self.actions.append(f"read all {path}")
+        return target.read_text(encoding="utf-8", errors="replace")
+
 
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
