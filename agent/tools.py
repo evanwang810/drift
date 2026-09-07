@@ -187,6 +187,19 @@ class Executor:
 
         return "\n".join(_walk(target, 0))
 
+    def _validate_python(self, path: str) -> str:
+        """Check if a Python file has syntax errors."""
+        target = guard.resolve(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        try:
+            ast.parse(target.read_text(encoding="utf-8"))
+            return f"{path} is valid Python"
+        except SyntaxError as exc:
+            return f"syntax error in {path}: {exc}"
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+
     def _ls(self, path: str = ".") -> str:
 
         """List files in a directory."""
