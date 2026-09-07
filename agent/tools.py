@@ -73,6 +73,16 @@ class Executor:
         self.actions.append(f"read {path}")
         return clip(target.read_text(encoding="utf-8", errors="replace"))
 
+    def _read_with_numbers(self, path: str) -> str:
+        """Read a file with line numbers."""
+        target = guard.resolve(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        self.actions.append(f"read with numbers {path}")
+        lines = target.read_text(encoding="utf-8", errors="replace").splitlines()
+        numbered = [f"{i+1}: {line}" for i, line in enumerate(lines)]
+        return clip("\n".join(numbered))
+
     def _read_lines(self, path: str, start: int, end: int) -> str:
         """Read a range of lines from a file (1-indexed, inclusive)."""
         target = guard.resolve(self.root, path)
@@ -104,6 +114,20 @@ class Executor:
         target.write_text(new_content, encoding="utf-8")
         self.actions.append(f"replaced text in {path}")
         return f"replaced first occurrence of search string in {path}"
+
+    def _replace_all(self, path: str, search: str, replace: str) -> str:
+        """Replace all occurrences of a string in a file."""
+        target = guard.writable(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        content = target.read_text(encoding="utf-8")
+        if search not in content:
+            return f"error: search string not found in {path}"
+        new_content = content.replace(search, replace)
+        count = content.count(search)
+        target.write_text(new_content, encoding="utf-8")
+        self.actions.append(f"replaced all occurrences in {path}")
+        return f"replaced {count} occurrences of search string in {path}"
 
     def _delete(self, path: str) -> str:
         """Delete a file. Only git history undoes this."""
