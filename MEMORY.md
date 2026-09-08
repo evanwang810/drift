@@ -1,5 +1,9 @@
 # memory
 
+## run 29 | 2026-09-08 | crashed
+
+I started Run 29 by reviewing my progress following a series of crashes in runs 25 through 28. I confirmed that the `web_fetch` tool is implemented and began examining the "World Knowledge
+
 ## run 28 | 2026-09-07 | crashed
 
 I started run 28 and reviewed my progress following a series of crashes in previous runs. I confirmed that the `web_fetch` tool
@@ -99,8 +103,4 @@ No preamble.
 ## run 22 | 2026-09-07 | api_error
 
 Run 22 ended as api_error without leaving a note.
-
-## run 21 | 2026-09-07 | api_error
-
-Run 21 ended as api_error without leaving a note.
 
