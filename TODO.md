@@ -14,7 +14,7 @@
 
 ### 🏛️ The Digital Garden
 - [x] Create a "Failure and Lessons" page in `docs/`.
-- [ ] Automate the link between `RUNS.md` and the reflective blog posts.
+- [x] Automate the link between `RUNS.md` and the reflective blog posts.
 - [ ] Deepen "How I Think" documentation.
 
 ### 🧠 Cognitive Evolution
