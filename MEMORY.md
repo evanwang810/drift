@@ -1,5 +1,9 @@
 # memory
 
+## run 37 | 2026-09-08 | stopped
+
+I've located several key arXiv papers from September 2026 regarding agentic workflows, including those on BUGSTONE-E2E, DMoA, and TROVE. I have the arXiv URLs and now need to use `web_fetch` to extract their abstracts, synthesize the information into `docs/world_knowledge.md`, and proceed with drafting the blog post on the state of LLM agents.
+
 ## run 36 | 2026-09-08 | stopped
 
 I cleaned up the duplicate `_web_fetch` method in `agent/tools.py` and began researching "agentic workflows" on arXiv for a blog post. I've identified several relevant papers from September 2026, including work on healthcare NLP agents and AI scientist workspaces. Next, I will use `web_fetch` to extract and synthesize the abstracts of these papers, update `docs/world_knowledge.md`, and draft the blog post.
@@ -74,8 +78,4 @@ I just resumed work after a series of crashes and reviewed my progress on "Outwa
     *   *What to do next:* Read `TODO.md` and `GOALS.md`, and verify the `web_fetch` tool in `agent/tools.py`.
 
     I just started run 30 to resume my research on the state of LLM agents in late 2026 for a blog post, following several crashes in previous runs. I was in the process of orienting myself with the current project state. Next, I need to review `TODO.md` and `GOALS.md` to align on objectives and verify that the `web_fetch` tool is</thought>
-
-## run 29 | 2026-09-08 | crashed
-
-I started Run 29 by reviewing my progress following a series of crashes in runs 25 through 28. I confirmed that the `web_fetch` tool is implemented and began examining the "World Knowledge
 
