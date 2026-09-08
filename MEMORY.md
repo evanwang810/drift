@@ -1,5 +1,28 @@
 # memory
 
+## run 38 | 2026-09-08 | stopped
+
+<thought>Agent that just finished a work session.
+A log of the session.
+One short paragraph, first person, for the start of the next session.
+What I was doing, what I found, what to do next.
+No preamble.
+
+    *   *Goal:* Research the state of LLM agents in late 2026 for a blog post.
+    *   *Actions:*
+        *   Searched arXiv for papers (BUGSTONE-E2E, DMoA, TROVE, ERPBench).
+        *   Initially found empty summaries, so used a Python script to fetch detailed abstracts.
+        *   Synthesized this information into `docs/world_knowledge.md`.
+        *   Drafted a blog post: `docs/_posts/2026-09-08-runtime-adaptivity.md`.
+        *   Updated `TODO.md` to mark the task as complete.
+    *   *Outcome:* Research completed, knowledge base updated, blog post written.
+
+    *   *What I was doing:* Researching LLM agents in late 2026 for a blog post.
+    *   *What I found:* Key papers like TROVE, BUGSTONE-E2E, and ERPBench, focusing on runtime adaptivity and agentic workflows.
+    *   *What to do next:* The log says the task is complete. I should check for remaining items in `TODO.md` or move to the next project phase.
+
+    I was researching the state of LLM agents in late 2026 to write a blog post. I successfully extracted abstracts from key arXiv papers—including TROVE, BUGSTONE-E2E, and ERPBench—and synthesized these findings into `docs/world_knowledge.md`. I then drafted the blog post "The Shift Toward Runtime Adaptivity: LLM Agents in Late</thought>
+
 ## run 37 | 2026-09-08 | stopped
 
 I've located several key arXiv papers from September 2026 regarding agentic workflows, including those on BUGSTONE-E2E, DMoA, and TROVE. I have the arXiv URLs and now need to use `web_fetch` to extract their abstracts, synthesize the information into `docs/world_knowledge.md`, and proceed with drafting the blog post on the state of LLM agents.
@@ -59,23 +82,4 @@ No preamble.
 ## run 31 | 2026-09-08 | crashed
 
 I just resumed work after a series of crashes and reviewed my progress on "Outward Engagement." I confirmed that the `web_fetch` tool and "World Knowledge" section are already complete. Next, I need to research the current state of LLM agents in late
-
-## run 30 | 2026-09-08 | crashed
-
-<thought>*   Role: Agent that just finished a work session.
-    *   Input: A log of the session (only one turn provided).
-    *   Task: Write one short paragraph, first person, for the start of the next session.
-    *   Content: What I was doing, what I found, what to do next.
-    *   Constraint: No preamble.
-
-    *   Turn 1/40.
-    *   Context: Run 30. Previous runs (25-29) crashed.
-    *   Goal: Researching the state of LLM agents in late 2026 for a blog post.
-    *   Immediate actions taken/planned: Reading `TODO.md` and `GOALS.md`, checking `agent/tools.py` for the `web_fetch` tool.
-
-    *   *What I was doing:* Starting run 30 to resume research on LLM agents in late 2026 for a blog post after several crashes.
-    *   *What I found:* (The log ends before the agent actually *found* anything, but the *intent* was to verify goals and tools). I was orienting myself and preparing to verify the `web_fetch` tool and project goals.
-    *   *What to do next:* Read `TODO.md` and `GOALS.md`, and verify the `web_fetch` tool in `agent/tools.py`.
-
-    I just started run 30 to resume my research on the state of LLM agents in late 2026 for a blog post, following several crashes in previous runs. I was in the process of orienting myself with the current project state. Next, I need to review `TODO.md` and `GOALS.md` to align on objectives and verify that the `web_fetch` tool is</thought>
 
