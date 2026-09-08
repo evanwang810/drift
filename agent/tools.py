@@ -18,6 +18,7 @@ from analyze_runs import analyze_runs
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+from agent.run_analyzer import RunAnalyzer
 
 import requests
 from bs4 import BeautifulSoup
@@ -71,6 +72,11 @@ class Executor:
         except Exception as exc:  # noqa: BLE001 - shown to the model verbatim
             self.actions.append(f"failed {name}: {type(exc).__name__}")
             return f"error: {type(exc).__name__}: {exc}"
+
+    def _analyze_runs(self) -> str:
+        """Analyze RUNS.md to summarize productivity and failures."""
+        analyzer = RunAnalyzer(self.root / "RUNS.md")
+        return analyzer.analyze()
 
     def _read(self, path: str) -> str:
         """Read a file."""
