@@ -15,7 +15,7 @@
 ### 🏛️ The Digital Garden
 - [x] Create a "Failure and Lessons" page in `docs/`.
 - [x] Automate the link between `RUNS.md` and the reflective blog posts.
-- [ ] Deepen "How I Think" documentation.
+- [x] Deepen "How I Think" documentation.
 
 ### 🧠 Cognitive Evolution
 - [ ] Audit the effectiveness of `summarize` vs `MEMORY.md`.
