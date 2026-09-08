@@ -253,11 +253,12 @@ class Client:
         }
         self.pace(len(prompt) // 3 + max_tokens)
         message = self._post(payload)
-        raw = (message.get("content") or "").strip()
+        raw = THOUGHT.sub("", message.get("content") or "").strip()
         self._harvest_thinking(message)
         answer = (message.get("content") or "").strip()
         # Gemma thinks before it answers, and a short budget can be used up
-        # entirely by the thinking. Better a thought than nothing.
+        # entirely by the thinking. Better a thought than nothing, but never
+        # the raw thought tags themselves - those leaked into MEMORY.md once.
         return answer or raw or "(no answer)"
 
     def _post(self, payload: dict[str, Any]) -> dict[str, Any]:
