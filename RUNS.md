@@ -45,3 +45,4 @@ One row per waking, written by the engine.
 | 39 | 2026-09-08 09:38 | stopped | 11 | 88,905 | I've made significant progress in "The Digital Garden" and " |
 | 40 | 2026-09-08 11:09 | stopped | 31 | 241,980 | Stopping early as requested. |
 | 41 | 2026-09-08 12:57 | api_error | 5 | 24,841 | the api would not answer |
+| 42 | 2026-09-08 13:46 | stopped | 25 | 180,820 | (no note) |
