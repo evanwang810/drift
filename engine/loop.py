@@ -8,6 +8,7 @@ conversation full of "[trimmed]" placeholders is worse than a shorter one.
 
 from __future__ import annotations
 
+import json
 import time
 
 from agent import context, tools
@@ -25,6 +26,18 @@ def say(line: str) -> None:
 def short(text: str, limit: int = 240) -> str:
     flat = " ".join(str(text or "").split())
     return flat if len(flat) <= limit else flat[:limit] + " ..."
+
+
+def parse_args(raw: str) -> dict:
+    """Tool arguments arrive as a JSON string and are not always valid.
+
+    This lives here rather than in agent/tools.py because the loop cannot run
+    without it, and the agent deleted it from there once.
+    """
+    try:
+        return json.loads(raw or "{}")
+    except json.JSONDecodeError:
+        return {}
 
 
 def size(messages: list[dict]) -> int:
@@ -137,7 +150,7 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
 
         for call in calls:
             name = call["function"]["name"]
-            args = tools.parse_args(call["function"]["arguments"])
+            args = parse_args(call["function"]["arguments"])
             say(f"  -> {name}({', '.join(f'{k}={short(v, 80)}' for k, v in args.items())})")
             try:
                 result = ex.dispatch(name, args)

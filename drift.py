@@ -132,7 +132,9 @@ def main() -> int:
         print(exc)
     except Exception:  # noqa: BLE001 - the traceback is content
         outcome, note, memory = "crashed", "something went wrong", ""
-        print(traceback.format_exc())
+        crash = traceback.format_exc()
+        print(crash)
+        loop.TRANSCRIPT.append("CRASH" + chr(10) + crash)
 
     ex.actions += safety.check(ROOT)
 

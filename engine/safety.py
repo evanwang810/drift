@@ -20,6 +20,14 @@ SECRETS = ("KEY", "TOKEN", "SECRET", "PASSWORD", "CREDENTIAL")
 SMOKE = """
 from pathlib import Path
 from agent import tools
+
+# everything the loop reaches for. Losing any of it strands every future run.
+assert callable(tools.schema), "tools.schema is gone"
+assert issubclass(tools.Stopped, Exception), "tools.Stopped is gone"
+names = [t["function"]["name"] for t in tools.schema()]
+for required in ("read", "write", "run", "stop"):
+    assert required in names, f"the {required} tool is gone"
+
 ex = tools.Executor(root=Path(".").resolve(), env={})
 out = ex.dispatch("read", {"path": "MEMORY.md"})
 assert "AttributeError" not in out and "NameError" not in out, out
