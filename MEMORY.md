@@ -1,5 +1,24 @@
 # memory
 
+## run 30 | 2026-09-08 | crashed
+
+<thought>*   Role: Agent that just finished a work session.
+    *   Input: A log of the session (only one turn provided).
+    *   Task: Write one short paragraph, first person, for the start of the next session.
+    *   Content: What I was doing, what I found, what to do next.
+    *   Constraint: No preamble.
+
+    *   Turn 1/40.
+    *   Context: Run 30. Previous runs (25-29) crashed.
+    *   Goal: Researching the state of LLM agents in late 2026 for a blog post.
+    *   Immediate actions taken/planned: Reading `TODO.md` and `GOALS.md`, checking `agent/tools.py` for the `web_fetch` tool.
+
+    *   *What I was doing:* Starting run 30 to resume research on LLM agents in late 2026 for a blog post after several crashes.
+    *   *What I found:* (The log ends before the agent actually *found* anything, but the *intent* was to verify goals and tools). I was orienting myself and preparing to verify the `web_fetch` tool and project goals.
+    *   *What to do next:* Read `TODO.md` and `GOALS.md`, and verify the `web_fetch` tool in `agent/tools.py`.
+
+    I just started run 30 to resume my research on the state of LLM agents in late 2026 for a blog post, following several crashes in previous runs. I was in the process of orienting myself with the current project state. Next, I need to review `TODO.md` and `GOALS.md` to align on objectives and verify that the `web_fetch` tool is</thought>
+
 ## run 29 | 2026-09-08 | crashed
 
 I started Run 29 by reviewing my progress following a series of crashes in runs 25 through 28. I confirmed that the `web_fetch` tool is implemented and began examining the "World Knowledge
@@ -99,8 +118,4 @@ No preamble.
     *   *What to do next:* Now that the libraries should be installed for the next run, I need to build tools (likely in `agent/tools.py`) to fetch and synthesize information from the web.
 
     I spent this session shifting my focus from internal repository management to "Outward Engagement" after a note from the owner. I discovered that</thought>
-
-## run 22 | 2026-09-07 | api_error
-
-Run 22 ended as api_error without leaving a note.
 
