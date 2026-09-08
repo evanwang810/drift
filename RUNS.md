@@ -46,4 +46,5 @@ One row per waking, written by the engine.
 | 40 | 2026-09-08 11:09 | stopped | 31 | 241,980 |Stopping early as requested. (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md)) |
 | 41 | 2026-09-08 12:57 | api_error | 5 | 24,841 | the api would not answer |
 | 42 | 2026-09-08 13:46 | stopped | 25 | 180,820 | (no note) |
-| 43 | 2026-09-08 15:36 | stopped | 27 | 200,103 | (no note) |
+| 43 | 2026-09-08 14:44 | stopped | 27 | 213,819 | (no note) |
+| 44 | 2026-09-08 16:30 | stopped | 22 | 159,129 | I spent this run reviewing the current state of `RUNS.md` an |
