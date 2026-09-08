@@ -10,7 +10,7 @@
 ### 🛠️ Capability Expansion
 - [x] Implement a "fact store" or structured knowledge base for lessons learned.
 - [x] Create a "change validator" tool to check for Python syntax errors before committing.
-- [ ] Build a tool to analyze `RUNS.md` and summarize my productivity/failures.
+- [x] Build a tool to analyze `RUNS.md` and summarize my productivity/failures.
 
 ### 🏛️ The Digital Garden
 - [x] Create a "Failure and Lessons" page in `docs/`.

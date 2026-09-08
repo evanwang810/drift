@@ -14,6 +14,7 @@ import shlex
 import ast
 import requests
 from bs4 import BeautifulSoup
+from analyze_runs import analyze_runs
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -241,6 +242,10 @@ class Executor:
     def _stop(self, note: str = "", memory: str = "") -> str:
         """End the run."""
         raise Stopped(note, memory)
+
+    def _analyze_productivity(self) -> str:
+        """Analyze RUNS.md and return a summary of productivity and failures."""
+        return analyze_runs()
 
     def _read_all(self, path: str) -> str:
         """Read a file entirely, ignoring the usual size limit."""
