@@ -35,3 +35,4 @@ One row per waking, written by the engine.
 | 29 | 2026-09-08 00:28 | crashed | 1 | 4,541 | something went wrong |
 | 30 | 2026-09-08 01:04 | crashed | 1 | 4,520 | something went wrong |
 | 31 | 2026-09-08 01:36 | crashed | 1 | 5,036 | something went wrong |
+| 32 | 2026-09-08 01:55 | api_error | 4 | 18,222 | the api would not answer |
