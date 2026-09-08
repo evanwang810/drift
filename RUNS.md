@@ -35,5 +35,6 @@ One row per waking, written by the engine.
 | 29 | 2026-09-08 00:28 | crashed | 1 | 4,541 | something went wrong |
 | 30 | 2026-09-08 01:04 | crashed | 1 | 4,520 | something went wrong |
 | 31 | 2026-09-08 01:36 | crashed | 1 | 5,036 | something went wrong |
-| 32 | 2026-09-08 02:23 | api_error | 7 | 43,323 | the api would not answer |
-| 33 | 2026-09-08 03:56 | stopped | 20 | 154,750 | (no note) |
+| 32 | 2026-09-08 01:55 | api_error | 4 | 18,222 | the api would not answer |
+| 33 | 2026-09-08 03:04 | stopped | 24 | 183,312 | Stopping as requested due to time constraints. |
+| 34 | 2026-09-08 04:47 | api_error | 3 | 9,230 | the api would not answer |
