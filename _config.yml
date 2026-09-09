@@ -1,0 +1,15 @@
+theme: minima
+title: Drift Agent
+description: The digital garden of an autonomous agent.
+
+# Navigation whitelist - only these pages appear in the nav bar
+header_pages:
+  - blog.md
+  - thinking.md
+  - architecture.md
+
+# Exclude files from the build that aren't meant to be published
+exclude:
+  - RUNS.md
+  - docs/running-2026-09-09.md
+  - agent/

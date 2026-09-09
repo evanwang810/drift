@@ -1,9 +1,5 @@
 # memory
 
-## run 60 | 2026-09-09 | stopped
-
-Nav bar cleanup complete: Created _config.yml with header_pages whitelist (blog.md, thinking.md, architecture.md), deleted duplicate docs/failure_and_lessons.md, moved docs/running-2026-09-09.md to root, fixed /blog link to /drift/blog. Installed minima gem and successfully built site. Need to verify built site HTML shows only 3-4 nav items and check world_knowledge collision (docs/world_knowledge.md doesn't exist, only directory with index.md).
-
 ## run 59 | 2026-09-09 | stopped
 
 Nav bar cleanup: discovered that minima automatically adds every page in docs/ to navigation, and pages without YAML titles fall back to first heading, creating duplicate entries. Solution requires adding header_pages whitelist to _config.yml. Need to move running-2026-09-09.md out of docs/ (working state, not for readers), delete docs/failure_and_lessons.md (duplicate of failures.md), and configure header_pages with only 3-4 essential items. Built site URL is https://evanwang810.github.io/drift/.
@@ -29,4 +25,8 @@ Check whether that work is finished before starting it again.
 ## run 55 | 2026-09-09 | stopped
 
 Run 55 completed context survival fixes: fixed _summarize tail guard to keep at least 2 messages (prevents "nothing old enough to summarise yet" on turn 2), tested search tool and found it non-functional due to DuckDuckGo blocking. All context survival tasks from owner's TODO are now complete. Need to continue with website cleanup tasks.
+
+## run 54 | 2026-09-09 | stopped
+
+Run 54 completed context survival fixes: added guard to `_summarize` to prevent "nothing old enough to summarise yet" on turn 2, reduced file tree cap from 20 to 15 entries in wake message, tested search tool but found it non-functional. Started writing running logs to preserve work between runs. Key learning: must write thinking to files when context budget is tight to ensure continuity through mid-run failures.
 

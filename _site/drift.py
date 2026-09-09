@@ -1,0 +1,211 @@
+"""An agent that wakes up in its own repository and works on what it likes.
+
+One run is one process. It is shown the time, its memory and its files, it acts
+until it stops, and then it writes a paragraph for whoever wakes up next. That
+paragraph is the only thing that carries over.
+
+engine/ and this file are fixed. Everything else is the agent's.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import subprocess
+import traceback
+from datetime import datetime, timezone
+from pathlib import Path
+
+from agent import tools
+from engine import loop, safety
+from engine.llm import PROVIDERS, Client, LLMError
+
+ROOT = Path(__file__).resolve().parent
+PROVIDER = os.environ.get("PROVIDER", "gemini")
+MAX_TURNS = int(os.environ.get("MAX_TURNS", "40"))
+# Under the job timeout, so a slow run ends itself and still pushes.
+MINUTES = int(os.environ.get("MINUTES", "55"))
+# Cut to 3 when the budget was 10k a minute and the wake message alone was
+# spending most of it. On z.ai the ceiling is about six times higher, so the
+# chain can be longer again without starving the run that has to read it.
+KEEP_MEMORIES = 6
+
+
+def state() -> tuple[int, str, str]:
+    """Run number, first-run date and last outcome, read out of MEMORY.md."""
+    text = (ROOT / "MEMORY.md").read_text(encoding="utf-8") if (ROOT / "MEMORY.md").is_file() else ""
+    runs = re.findall(r"^## run (\d+) \| ([\d-]+) \| (\w+)", text, re.M)
+    if not runs:
+        return 1, "", ""
+    # Newest first in the file, because remember() prepends. Reading the run
+    # number off the bottom made every run think it was run 2, so it kept
+    # waking up believing it had only just started.
+    return int(runs[0][0]) + 1, runs[-1][1], runs[0][2]
+
+
+def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
+    """Prepend this run's paragraph and keep only the recent ones.
+
+    Memory is a short chain, not an archive. Anything older than the last few
+    runs is in git history if it is ever wanted again.
+    """
+    path = ROOT / "MEMORY.md"
+    old = path.read_text(encoding="utf-8") if path.is_file() else ""
+    entries = re.split(r"(?=^## run )", old, flags=re.M)
+    entries = [e for e in entries if e.strip().startswith("## run")]
+    fresh = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{paragraph.strip()}\n\n"
+    path.write_text(
+        "# memory\n\n" + fresh + "".join(entries[:KEEP_MEMORIES - 1]),
+        encoding="utf-8",
+    )
+
+
+def recap(run: int, outcome: str, actions: list[str], turns: int) -> str:
+    """A memory assembled from what happened, needing no API call.
+
+    The model writes a better paragraph than this. It cannot write one when the
+    provider is the thing that broke, which is exactly the run that most needs
+    to leave a record: run 52 raised two of its own limits and then remembered
+    none of it, because the only summariser available had just failed.
+    """
+    noise = ("read ", "read all ", "read lines ", "read with numbers ",
+             "ls ", "tree ", "grep ", "blocked ", "failed ")
+    did = [a for a in actions if not a.startswith(noise)] or actions
+    if not did:
+        return (f"Run {run} ended as {outcome} after {turns} turns"
+                " without doing anything I can point at.")
+    lines = "\n".join(f"- {a}" for a in did[-12:])
+    return (
+        f"Run {run} ended as {outcome} after {turns} turns, before I could"
+        f" write my own summary. The engine recorded what I had done:\n{lines}\n"
+        "Check whether that work is finished before starting it again."
+    )
+
+
+def log(run: int, outcome: str, note: str, turns: int, tokens: int, now: datetime) -> None:
+    runs = ROOT / "RUNS.md"
+    if not runs.is_file():
+        runs.write_text(
+            "# runs\n\nOne row per waking, written by the engine.\n\n"
+            "| run | when (UTC) | outcome | turns | tokens | note |\n"
+            "| --: | --- | --- | --: | --: | --- |\n",
+            encoding="utf-8",
+        )
+    clean = " ".join(note.split())[:60].replace("|", "/") or "-"
+    with runs.open("a", encoding="utf-8") as fh:
+        fh.write(f"| {run} | {now:%Y-%m-%d %H:%M} | {outcome} | {turns} |"
+                 f" {tokens:,} | {clean} |\n")
+
+
+def journal(run: int, outcome: str, actions: list[str], now: datetime) -> None:
+    """The full trace, for people. The agent is never shown this."""
+    entry = [f"## run {run} - {now:%H:%M} UTC - {outcome}", ""]
+    entry += [f"- {a}" for a in actions] or ["- did nothing"]
+    entry += ["", "```"] + loop.TRANSCRIPT + ["```", ""]
+    (ROOT / "journal").mkdir(exist_ok=True)
+    with (ROOT / "journal" / f"{now:%Y-%m-%d}.md").open("a", encoding="utf-8") as fh:
+        fh.write("\n".join(entry) + "\n")
+
+
+def commit(note: str, run: int, outcome: str) -> None:
+    subprocess.run(["git", "add", "-A"], cwd=ROOT, check=False)
+    if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=ROOT,
+                      check=False).returncode == 0:
+        print("nothing changed")
+        return
+    subject = note.strip().splitlines()[0][:72] if note.strip() else f"run {run}"
+    subprocess.run(["git", "commit", "-m", f"{subject}\n\nrun {run}, {outcome}"],
+                   cwd=ROOT, check=False)
+
+
+def running() -> bool:
+    kill = ROOT / "KILL"
+    if not kill.is_file():
+        return True
+    first = kill.read_text(encoding="utf-8").strip().splitlines()[:1]
+    return not first or first[0].strip().upper() != "RUN=FALSE"
+
+
+def main() -> int:
+    spec = PROVIDERS[PROVIDER]
+    key, child_env = safety.take_key(spec.key_env)
+    if not running():
+        print("KILL says stop")
+        return 0
+    if not key:
+        print(f"no {spec.key_env}")
+        return 1
+
+    now = datetime.now(timezone.utc)
+    run, started, last = state()
+    days = (now - datetime.fromisoformat(started).replace(tzinfo=timezone.utc)).days if started else 0
+
+    client = Client(api_key=key, provider=PROVIDER, model=os.environ.get("MODEL", ""))
+    ex = tools.Executor(root=ROOT, env=child_env)
+    message = os.environ.get("MESSAGE", "")
+
+    print(f"run {run} on {client.model} | {MAX_TURNS} turns"
+          f" | {client.spec.tpm:,} tokens a minute", flush=True)
+
+    messages = loop.opening(ROOT, run, days, last, now, MAX_TURNS, message)
+    ex.messages = messages
+
+    try:
+        outcome, note, memory = loop.run(client, ex, messages, MAX_TURNS, MINUTES)
+    except LLMError as exc:
+        outcome, note, memory = "api_error", "the api would not answer", ""
+        print(exc)
+    except Exception:  # noqa: BLE001 - the traceback is content
+        outcome, note, memory = "crashed", "something went wrong", ""
+        crash = traceback.format_exc()
+        print(crash)
+        loop.TRANSCRIPT.append("CRASH" + chr(10) + crash)
+
+    # Whatever the provider refused with belongs in the journal. Diagnosing a
+    # failed run should not depend on catching the Actions log before it goes.
+    if client.errors:
+        loop.TRANSCRIPT.append("provider said:")
+        loop.TRANSCRIPT += [f"  {e}" for e in client.errors[-5:]]
+
+    ex.actions += safety.check(ROOT)
+
+    # A run always leaves a paragraph. If it did not write one, ask for one,
+    # because a run that carries nothing forward may as well not have happened.
+    if not memory and loop.TRANSCRIPT:
+        try:
+            memory = client.ask(
+                "You are an agent that just finished a work session. Below is a"
+                " log of it. Write one short paragraph, first person, for"
+                " yourself at the start of the next session: what you were"
+                " doing, what you found, what to do next. No preamble.\n\n"
+                + "\n".join(loop.TRANSCRIPT)[-6000:],
+                400,
+            )
+            ex.actions.append("memory written for it, it did not leave one")
+        except Exception:  # noqa: BLE001 - nothing here may kill the bookkeeping
+            # Everything below this writes the run down. An exception escaping
+            # here once took the log, the journal and the commit with it, so a
+            # finished run left no trace at all.
+            memory = ""
+
+    # The summariser above talks to the provider, so it is unavailable in the
+    # one case it matters most. Fall back to the action log, which cannot fail.
+    if memory.strip() in ("", "(no answer)"):
+        memory = recap(run, outcome, ex.actions, loop.TURNS)
+        ex.actions.append("memory rebuilt from the action log")
+
+    remember(run, outcome, memory or f"Run {run} ended as {outcome}.", now)
+    journal(run, outcome, ex.actions, now)
+    log(run, outcome, note, loop.TURNS, client.usage.total, now)
+    safety.redact(ROOT, [key, child_env.get("GH_TOKEN", "")])
+    commit(note, run, outcome)
+
+    print(f"\n=== run {run}: {outcome} | {loop.TURNS} turns"
+          f" | {client.usage.total:,} tokens")
+    for action in ex.actions:
+        print(f"  {action}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
