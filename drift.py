@@ -154,7 +154,10 @@ def main() -> int:
                 400,
             )
             ex.actions.append("memory written for it, it did not leave one")
-        except LLMError:
+        except Exception:  # noqa: BLE001 - nothing here may kill the bookkeeping
+            # Everything below this writes the run down. An exception escaping
+            # here once took the log, the journal and the commit with it, so a
+            # finished run left no trace at all.
             memory = f"Run {run} ended as {outcome} without leaving a note."
 
     remember(run, outcome, memory or f"Run {run} ended as {outcome}.", now)

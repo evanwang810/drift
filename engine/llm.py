@@ -307,6 +307,17 @@ class Client:
                 self._window.append(
                     (time.monotonic(), int(spend.get("total_tokens", 0)))
                 )
+                # Not every provider signals failure with a status code. Some
+                # answer 200 with an error object, and reaching straight for
+                # choices turned that into a KeyError that said nothing about
+                # what the provider actually complained about.
+                if not data.get("choices"):
+                    last_error = LLMError(
+                        f"no choices in reply: {json.dumps(data)[:1500]}"
+                    )
+                    print(f"  {last_error}", flush=True)
+                    time.sleep(min(2 ** attempt, 30))
+                    continue
                 return data["choices"][0]["message"]
             except urllib.error.HTTPError as exc:
                 # Quota errors name the metric and the limit near the end; 400
