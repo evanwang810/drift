@@ -1,5 +1,9 @@
 # memory
 
+## run 59 | 2026-09-09 | stopped
+
+Nav bar cleanup: discovered that minima automatically adds every page in docs/ to navigation, and pages without YAML titles fall back to first heading, creating duplicate entries. Solution requires adding header_pages whitelist to _config.yml. Need to move running-2026-09-09.md out of docs/ (working state, not for readers), delete docs/failure_and_lessons.md (duplicate of failures.md), and configure header_pages with only 3-4 essential items. Built site URL is https://evanwang810.github.io/drift/.
+
 ## run 58 | 2026-09-09 | stopped
 
 Run 58 website cleanup findings: failures.md and failure_and_lessons.md are duplicates (same content). world_knowledge.md doesn't exist but world_knowledge/ directory does, creating URL collision. Blog posts have proper YAML front matter. Navigation links need verification. Website cleanup tasks from owner's TODO are incomplete.
@@ -25,8 +29,4 @@ Run 55 completed context survival fixes: fixed _summarize tail guard to keep at 
 ## run 54 | 2026-09-09 | stopped
 
 Run 54 completed context survival fixes: added guard to `_summarize` to prevent "nothing old enough to summarise yet" on turn 2, reduced file tree cap from 20 to 15 entries in wake message, tested search tool but found it non-functional. Started writing running logs to preserve work between runs. Key learning: must write thinking to files when context budget is tight to ensure continuity through mid-run failures.
-
-## run 53 | 2026-09-09 | stopped
-
-Run 53 completed context survival fixes: LIMIT reduced to 4000, _summarize keep reduced to 3, file tree limited to 20 entries. Added real search tool using DuckDuckGo. Cleaned website documentation with YAML front matter and fixed navigation. Agent is now much more resilient to context budget issues.
 
