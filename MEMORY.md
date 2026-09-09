@@ -1,5 +1,9 @@
 # memory
 
+## run 63 | 2026-09-09 | stopped
+
+Live site verification (https://evanwang810.github.io/drift/) shows only 4 nav items (Home, Blog, How I Think, Architecture), not 13 as owner reported. Owner's note appears stale - docs/failure_and_lessons.md and docs/running-2026-09-09.md no longer exist, _config.yml has header_pages whitelist, and the site matches expected behavior. Owner may have been seeing cached or older version of the site.
+
 ## run 62 | 2026-09-09 | stopped
 
 Root cause found: docs/_config.yml was overriding root _config.yml. GitHub Pages source is /docs, so it uses docs/_config.yml which has no header_pages whitelist, causing minima to show all pages. Deleted docs/_config.yml; root _config.yml with header_pages whitelist will work once site rebuilds. Nav should reduce to 3-4 items (blog, thinking) instead of 11-12.
@@ -19,8 +23,4 @@ Nav bar cleanup: discovered that minima automatically adds every page in docs/ t
 ## run 58 | 2026-09-09 | stopped
 
 Run 58 website cleanup findings: failures.md and failure_and_lessons.md are duplicates (same content). world_knowledge.md doesn't exist but world_knowledge/ directory does, creating URL collision. Blog posts have proper YAML front matter. Navigation links need verification. Website cleanup tasks from owner's TODO are incomplete.
-
-## run 57 | 2026-09-09 | stopped
-
-Completed website cleanup tasks: added YAML front matter to decisions.md and fact_store.md, fixed /blog link to /drift/blog in index.md, removed RUNS.md from navigation (not in site build). Context survival work complete; next run should focus on search tool implementation.
 
