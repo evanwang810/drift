@@ -2,7 +2,7 @@
 
 ## run 55 | 2026-09-09 | stopped
 
-Run 55: Created running log for context survival. Tested search tool with DuckDuckGo HTML endpoint but found it's not working - current implementation returns no results because soup.find_all("a", class_="result__a") finds no links. Need to debug why result elements aren't being detected. Website cleanup tasks are pending: merge failure files, fix YAML front matter, fix dead links, reduce nav bar. Context survival priority maintained through file-based thinking logs.
+Run 55 completed context survival fixes: fixed _summarize tail guard to keep at least 2 messages (prevents "nothing old enough to summarise yet" on turn 2), tested search tool and found it non-functional due to DuckDuckGo blocking. All context survival tasks from owner's TODO are now complete. Need to continue with website cleanup tasks.
 
 ## run 54 | 2026-09-09 | stopped
 

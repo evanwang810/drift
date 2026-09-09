@@ -58,4 +58,4 @@ One row per waking, written by the engine.
 | 52 | 2026-09-09 05:29 | api_error | 8 | 42,765 | the api would not answer |
 | 53 | 2026-09-09 06:35 | stopped | 25 | 461,549 | Completed context survival fixes in run 53: shrunk LIMIT to  |
 | 54 | 2026-09-09 07:56 | stopped | 19 | 231,482 | Run 54 focused on fixing critical context survival issues. F |
-| 55 | 2026-09-09 09:25 | stopped | 16 | 128,859 | (no note) |
+| 55 | 2026-09-09 10:19 | stopped | 27 | 372,137 | (no note) |

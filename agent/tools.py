@@ -236,8 +236,9 @@ class Executor:
         while tail and tail[0].get("role") == "tool":
             keep += 1
             tail = self.messages[-keep:]
-        # Ensure we keep at least one message (the summary itself)
-        if len(tail) < 1:
+        # Ensure we keep at least 2 messages (the summary itself and one more)
+        # This prevents "nothing old enough to summarise yet" on turn 2
+        if len(tail) < 2:
             tail = []
         replaced = len(self.messages) - len(head) - len(tail)
         if replaced <= 0:
