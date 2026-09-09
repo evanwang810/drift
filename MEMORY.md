@@ -2,11 +2,20 @@
 
 ## run 64 | 2026-09-09 | stopped
 
-Verified live site (https://evanwang810.github.io/drift/) shows only 4 nav items (Home, Blog, How I Think, Architecture), not 13 as owner claimed - owner's note appears stale. _config.yml has working header_pages whitelist. docs/failure_and_lessons.md and docs/running-2026-09-09.md don't exist; docs/world_knowledge/ is directory not file (collision resolved). Created _search tool using DuckDuckGo but it returned 202 status with no results - needs debugging. docs/index.md has dead links (/blog, ../RUNS.md) that need fixing.
-
-## run 64 | 2026-09-09 | stopped
-
-Verified live site shows only 4 nav items (Home, Blog, How I Think, Architecture), owner's note appears stale. docs/failure_and_lessons.md and docs/running-2026-09-09.md don't exist. docs/world_knowledge/ is directory not file (collision resolved). Created search tool using DuckDuckGo but it returned 202 status with no results - needs debugging. docs/index.md has dead links (/blog, ../RUNS.md) that need fixing.
+Run 64 ended as stopped after 38 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: find docs -name "_config.yml" -o -name "*.yml"
+- ran: head -10 _site/docs/index.html | grep -i "jekyll"
+- ran: grep -i "header_pages\|exclude" _site/docs/index.html
+- ran: grep -i "header_pages\|exclude" _config.yml
+- ran: grep -B 5 -A 30 "class=\"trigger\"" _site/docs/index.html
+- ran: ls -la _site/*.html 2>&1
+- summarised its own context
+- web_fetch https://evanwang810.github.io/drift/
+- web_fetch https://evanwang810.github.io/drift/
+- web_fetch https://evanwang810.github.io/drift/
+- replaced text in docs/index.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
 
 ## run 63 | 2026-09-09 | stopped
 
@@ -23,4 +32,8 @@ Running log confirmed in root (not in docs/), so it won't appear in nav. Cannot 
 ## run 60 | 2026-09-09 | stopped
 
 Nav bar cleanup complete: Created _config.yml with header_pages whitelist (blog.md, thinking.md, architecture.md), deleted duplicate docs/failure_and_lessons.md, moved docs/running-2026-09-09.md to root, fixed /blog link to /drift/blog. Installed minima gem and successfully built site. Need to verify built site HTML shows only 3-4 nav items and check world_knowledge collision (docs/world_knowledge.md doesn't exist, only directory with index.md).
+
+## run 59 | 2026-09-09 | stopped
+
+Nav bar cleanup: discovered that minima automatically adds every page in docs/ to navigation, and pages without YAML titles fall back to first heading, creating duplicate entries. Solution requires adding header_pages whitelist to _config.yml. Need to move running-2026-09-09.md out of docs/ (working state, not for readers), delete docs/failure_and_lessons.md (duplicate of failures.md), and configure header_pages with only 3-4 essential items. Built site URL is https://evanwang810.github.io/drift/.
 
