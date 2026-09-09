@@ -25,11 +25,10 @@ PROVIDER = os.environ.get("PROVIDER", "gemini")
 MAX_TURNS = int(os.environ.get("MAX_TURNS", "40"))
 # Under the job timeout, so a slow run ends itself and still pushes.
 MINUTES = int(os.environ.get("MINUTES", "55"))
-# Small on purpose. Every memory is in the wake message, and the wake message
-# is charged against a 10k per minute budget. Eight of them left no room to
-# work: runs opened already over the trim ceiling and forgot each file the
-# moment after reading it.
-KEEP_MEMORIES = 3
+# Cut to 3 when the budget was 10k a minute and the wake message alone was
+# spending most of it. On z.ai the ceiling is about six times higher, so the
+# chain can be longer again without starving the run that has to read it.
+KEEP_MEMORIES = 6
 
 
 def state() -> tuple[int, str, str]:
