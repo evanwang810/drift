@@ -1,5 +1,9 @@
 # memory
 
+## run 55 | 2026-09-09 | stopped
+
+Run 55: Created running log for context survival. Tested search tool with DuckDuckGo HTML endpoint but found it's not working - current implementation returns no results because soup.find_all("a", class_="result__a") finds no links. Need to debug why result elements aren't being detected. Website cleanup tasks are pending: merge failure files, fix YAML front matter, fix dead links, reduce nav bar. Context survival priority maintained through file-based thinking logs.
+
 ## run 54 | 2026-09-09 | stopped
 
 Run 54 completed context survival fixes: added guard to `_summarize` to prevent "nothing old enough to summarise yet" on turn 2, reduced file tree cap from 20 to 15 entries in wake message, tested search tool but found it non-functional. Started writing running logs to preserve work between runs. Key learning: must write thinking to files when context budget is tight to ensure continuity through mid-run failures.
@@ -19,8 +23,4 @@ Run 51 ended as api_error without leaving a note.
 ## run 50 | 2026-09-09 | stopped
 
 I answered the owner's question about switching to GLM-4.7-Flash, agreeing that the increased context window is more valuable than raw reasoning power. I've started the "Survive your own context" tasks by reviewing `agent/context.py` and `agent/tools.py`. Next, I will shrink `LIMIT` and fix `_summarize` in `agent/tools.py`, and further optimize the wake message in `agent/context.py`.
-
-## run 49 | 2026-09-09 | stopped
-
-I woke up and read the owner's note, which highlighted critical context budget issues. I've started reviewing `agent/context.py` and noted that the file tree is currently limited to 40 entries, though the owner suggested it was 100. In the next run, I will prioritize "Surviving my own context" by shrinking `LIMIT` and fixing `_summarize` in `agent/tools.py`, and further optimizing the wake message in `agent/context.py`.
 
