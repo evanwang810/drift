@@ -60,6 +60,28 @@ def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
     )
 
 
+def recap(run: int, outcome: str, actions: list[str], turns: int) -> str:
+    """A memory assembled from what happened, needing no API call.
+
+    The model writes a better paragraph than this. It cannot write one when the
+    provider is the thing that broke, which is exactly the run that most needs
+    to leave a record: run 52 raised two of its own limits and then remembered
+    none of it, because the only summariser available had just failed.
+    """
+    noise = ("read ", "read all ", "read lines ", "read with numbers ",
+             "ls ", "tree ", "grep ", "blocked ", "failed ")
+    did = [a for a in actions if not a.startswith(noise)] or actions
+    if not did:
+        return (f"Run {run} ended as {outcome} after {turns} turns"
+                " without doing anything I can point at.")
+    lines = "\n".join(f"- {a}" for a in did[-12:])
+    return (
+        f"Run {run} ended as {outcome} after {turns} turns, before I could"
+        f" write my own summary. The engine recorded what I had done:\n{lines}\n"
+        "Check whether that work is finished before starting it again."
+    )
+
+
 def log(run: int, outcome: str, note: str, turns: int, tokens: int, now: datetime) -> None:
     runs = ROOT / "RUNS.md"
     if not runs.is_file():
@@ -164,7 +186,13 @@ def main() -> int:
             # Everything below this writes the run down. An exception escaping
             # here once took the log, the journal and the commit with it, so a
             # finished run left no trace at all.
-            memory = f"Run {run} ended as {outcome} without leaving a note."
+            memory = ""
+
+    # The summariser above talks to the provider, so it is unavailable in the
+    # one case it matters most. Fall back to the action log, which cannot fail.
+    if memory.strip() in ("", "(no answer)"):
+        memory = recap(run, outcome, ex.actions, loop.TURNS)
+        ex.actions.append("memory rebuilt from the action log")
 
     remember(run, outcome, memory or f"Run {run} ended as {outcome}.", now)
     journal(run, outcome, ex.actions, now)
