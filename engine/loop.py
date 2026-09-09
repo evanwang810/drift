@@ -12,7 +12,7 @@ import json
 import time
 
 from agent import context, tools
-from engine.llm import Client
+from engine.llm import Client, LLMError
 
 TRANSCRIPT: list[str] = []
 TURNS = 0
@@ -149,7 +149,19 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
         client.pace(size(messages))
         before = client.usage.total
         thoughts = len(client.reasoning_log)
-        reply = client.complete(messages, tools.schema())
+        try:
+            reply = client.complete(messages, tools.schema())
+        except LLMError:
+            # Every retry inside the client resends the same prompt, so a
+            # request refused for being too large is refused ten times over.
+            # Run 52 died this way at turn 8. Shed history and ask smaller
+            # before giving up on the run entirely.
+            shed = fit(messages, int(size(messages) * 0.5))
+            if not shed:
+                raise
+            say(f"  refused, shed {shed} exchange(s) and asking again smaller")
+            client.pace(size(messages))
+            reply = client.complete(messages, tools.schema())
         say(f"  cost {client.usage.total - before:,} tokens")
 
         for thought in client.reasoning_log[thoughts:]:

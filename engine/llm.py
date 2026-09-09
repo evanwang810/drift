@@ -74,10 +74,11 @@ PROVIDERS = {
         # The documented free tier ceiling is about 60 requests a minute.
         min_interval=1.0,
         max_output=4000,
-        # z.ai publishes no token per minute cap, and the model's own window is
-        # 131k. This is a deliberate guess: high enough that the trim ceiling
-        # stops being the cage, low enough to notice if they do throttle.
-        tpm=int(os.environ.get("ZAI_TPM", "60000")),
+        # z.ai publishes no token per minute cap. 60k was too generous: run 52
+        # reached a roughly 25k prompt and was then refused with 1305 for ten
+        # minutes straight. This keeps the trim ceiling near 25k, which is
+        # still three times what the old provider allowed.
+        tpm=int(os.environ.get("ZAI_TPM", "30000")),
         output_key="max_tokens",
     ),
 }
