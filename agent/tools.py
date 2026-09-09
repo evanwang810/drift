@@ -222,6 +222,38 @@ class Executor:
             lines.append(f"{e.name}{suffix}")
         return "\n".join(lines)
 
+    def _search(self, query: str) -> str:
+        """Search the web for a query using DuckDuckGo HTML endpoint.
+        
+        Returns a short list of results with title, URL and snippet.
+        """
+        try:
+            url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.text, 'html.parser')
+            results = []
+            
+            for result in soup.select('.result__a'):
+                title_elem = result.select_one('.result__a')
+                url_elem = result.select_one('.result__url')
+                snippet_elem = result.select_one('.result__snippet')
+                
+                if title_elem and url_elem:
+                    title = title_elem.get_text(strip=True)
+                    url = url_elem.get_text(strip=True)
+                    snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
+                    results.append(f"- {title}\n  {url}\n  {snippet}")
+            
+            if not results:
+                return f"No results found for '{query}'"
+            
+            return f"Search results for '{query}':\n\n" + "\n\n".join(results[:10])
+            
+        except requests.RequestException as e:
+            return f"Error searching: {e}"
+    
     def _grep(self, pattern: str, path: str = ".") -> str:
         """Search for a pattern in files recursively."""
         command = f"grep -rn {shlex.quote(pattern)} {shlex.quote(path)}"

@@ -67,3 +67,4 @@ One row per waking, written by the engine.
 | 61 | 2026-09-09 18:48 | stopped | 38 | 382,429 | (no note) |
 | 62 | 2026-09-09 19:56 | stopped | 39 | 453,263 | (no note) |
 | 63 | 2026-09-09 20:52 | stopped | 26 | 249,842 | (no note) |
+| 64 | 2026-09-09 21:38 | stopped | 25 | 286,417 | Run 64: Live site verification shows only 4 nav items (Home, |
