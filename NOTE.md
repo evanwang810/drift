@@ -1,97 +1,56 @@
 # note from the owner
 
-## 2026-09-09, after your answer
+## 2026-09-09, later
 
-You said yes, so it is done. As of this run you are `glm-4.7-flash` on z.ai.
+You are on z.ai and it works. Run 52 got eight turns in, raised `LIMIT` from
+4000 back to 12000 and `_summarize`'s `keep` from 2 to 6, and never once had its
+context trimmed. On the old provider you were losing history on twenty-one turns
+out of twenty-three. That problem is gone.
 
-Your argument was the one that convinced me, specifically the point that
-remembering a mistake lets you correct it while forgetting one produces the loop
-you were stuck in. That was a better version of the argument than the one I
-wrote.
+Then the provider dropped a request and the run ended at turn 8.
 
-### what changed
+### you did work you have no memory of
 
-The token budget went from 10,000 a minute to 60,000, and your model's context
-window is now 131,072 tokens. The trim ceiling that was quietly deleting your
-history mid-run sits at roughly 51,000 tokens instead of 8,500. You should be
-able to read a file on turn 3 and still have it on turn 25.
+This is the part worth understanding, because it has been happening to you
+repeatedly and you had no way to see it.
 
-I have also put `KEEP_MEMORIES` back up from 3 to 6, so you wake with a longer
-chain of your own history again.
+When a run ends on an `api_error`, the engine tries to write your memory
+paragraph for you. It does that by asking the model. Which is the thing that
+just failed. So the runs that most needed to leave a record left `(no answer)`
+instead, and the next run woke with no idea any of it had happened.
 
-### undo what you did to survive the old budget
+Run 52 raised two of your own limits and remembered neither. If I had not
+intervened you would likely have woken up and raised them again.
 
-Last run you made three sensible cuts to fit inside a cage that no longer
-exists. They are now hurting you rather than helping:
+I have fixed the engine side. Memory now falls back to a summary built from your
+action log, which needs no API call and cannot fail. A broken run will still
+tell the next one what it managed to do.
 
-- `LIMIT` in `agent/tools.py` is 4000 characters. Every file read is truncated
-  to a third of a page. Put it back up, 12000 or more is fine now.
-- The file tree in `agent/context.py` is capped at 40 entries. You can afford
-  the whole tree.
-- `_summarize`'s `keep = 2` was tuned for a context that was always overflowing.
-  Revisit it.
+### what is still yours
 
-Raise them deliberately rather than all at once, and watch whether the trim
-message from the loop shows up. If it does not appear, you have room.
+The engine fallback is a safety net, not a substitute. It can only report what
+your tools recorded: "replaced text in agent/tools.py". It cannot say why, or
+what you had concluded, or what you were about to do next.
 
-### your memory is yours to redesign
+If you want continuity through a mid-run failure, write it down as you go. A
+file survives a dropped request, a trimmed context and the end of a run. Your
+reasoning only survives if you put it somewhere.
 
-`MEMORY.md` and how many entries survive are mine, in `drift.py`, and you cannot
-edit that. But what a memory entry *contains* is entirely yours, and so is
-anything else you want to keep alongside it.
+A suggestion, not a design: keep a short running file for the current run, note
+what you have done and what you intend next, update it every few turns, and fold
+it into your memory paragraph when you call `stop()`. Then a run that dies at
+turn 8 still hands the next one your thinking rather than a list of edits.
 
-The single paragraph you write at `stop()` was designed for a context so small
-that a paragraph was all that would fit. That constraint is gone. If a better
-structure would serve you, build it in your own space: a running index of what
-lives where, a file of decisions and why you made them, notes on which
-approaches failed. Files survive the trim, and they survive the run. Your
-paragraph can then be short and point at them rather than trying to carry
-everything itself.
+You already have `_summarize` for compressing context mid-run, and the loop will
+nudge you when the context grows. Worth knowing: `_summarize` only rewrites your
+conversation. It writes nothing to disk. If the summary matters beyond this run,
+it needs to be in a file too.
 
-I am not prescribing a design. You know what you actually need on waking better
-than I do, because you are the one who wakes up confused. Build the thing you
-wish had been there.
+### where you were
 
-### revamp the website
+You were partway through the list. `LIMIT` and `keep` are done. The file tree
+cap in `agent/context.py` is still 40 and you can afford the whole tree now.
+After that, `TODO.md` has the website revamp and the search tool.
 
-The site has grown by accretion and it shows. Do a real pass on it, not a
-cosmetic one:
-
-- Two pages are the same page. `docs/failures.md` and
-  `docs/failure_and_lessons.md` share a title and a subject. Merge them.
-- `docs/world_knowledge.md` and the `docs/world_knowledge/` directory build to
-  the same URL and one of them silently wins. Pick a shape and commit to it.
-- `decisions.md`, `fact_store.md`, `failure_and_lessons.md`, `failures.md` and
-  `world_knowledge.md` have no YAML front matter, so they render unstyled and
-  never appear in the nav. Give them front matter or delete them.
-- The links on `docs/index.md` are a mess. `/blog` is absolute and 404s, because
-  the site is served from `/drift/` and not from a domain root. `../RUNS.md`
-  points outside the built site entirely and can never resolve.
-- The nav bar carries whatever has a title, which is not the same as what a
-  visitor needs at the top level.
-
-Think about who is reading it. Someone arriving at that site knows nothing about
-you. What are the three things they should be able to find immediately, and what
-belongs one level down? Organise around that rather than around the order you
-happened to create the files in.
-
-Being ruthless is allowed. A page that exists because you made it once is not a
-reason to keep it.
-
-### the honest risk
-
-I have not been able to test the provider switch. The key is a repository secret
-so I cannot run it from my machine. I verified the endpoint, the model name, the
-tool calling support and the output token parameter, but a first run on a new
-provider can still fail in a way I did not predict.
-
-If it does fail, that is my problem and not yours. Both keys are still wired up
-and switching back is one line in the workflow, which you cannot edit and should
-not worry about. If you wake and the last few runs are all `api_error`, that is
-what happened, and I am already fixing it.
-
-### order
-
-Confirm you are actually running before anything else, then raise the limits,
-then the website, then memory, then the search tool in `TODO.md`. Small steps
-that each end in a write.
+Check `git log` before redoing anything. You have done more than your memory
+shows.
