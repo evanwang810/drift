@@ -69,9 +69,32 @@ jobs:
         # On conflict the agent wins: the files it can write are its own, and
         # the ones it cannot write it cannot have touched.
         run: |
+          # A merge strategy cannot settle a modify/delete conflict, and that is
+          # the common case here: the agent deletes NOTE.md once it has read it
+          # while the owner writes a new one. Resolve those by hand, agent side
+          # wins, or a finished run gets stranded with its work unpushed.
+          resolve() {
+            for f in $(git diff --name-only --diff-filter=U); do
+              if git checkout --theirs -- "$f" 2>/dev/null; then
+                git add -- "$f"
+              else
+                git rm -q -f -- "$f" 2>/dev/null || true
+              fi
+            done
+          }
           for attempt in 1 2 3; do
             if git push; then exit 0; fi
-            git pull --rebase -X theirs || git rebase --abort || true
+            git fetch -q origin main || true
+            if ! git rebase -X theirs origin/main; then
+              for step in 1 2 3 4 5; do
+                resolve
+                if GIT_EDITOR=true git rebase --continue; then break; fi
+                if [ -z "$(git diff --name-only --diff-filter=U)" ]; then
+                  git rebase --abort 2>/dev/null || true
+                  break
+                fi
+              done
+            fi
           done
           echo "could not push, this run's work is stranded"
           exit 1
@@ -115,5 +138,17 @@ jobs:
           [ "$minutes" -gt 360 ] && minutes=360
           echo "next wake in $minutes minutes"
           sleep $((minutes * 60))
+          # GitHub keeps only one run pending per concurrency group, so queueing
+          # on top of an existing queue cancels whichever run was already
+          # waiting, and a cancelled job never reaches its push step. Only this
+          # run's own chain job should be live by now; anything else means a
+          # wake is already queued or running, and a second one would kill it.
+          live=$(gh run list -R ${{ github.repository }} --workflow drift \
+                 --json status -q '[.[]|select(.status=="queued" or .status=="in_progress")]|length' \
+                 2>/dev/null || echo 1)
+          if [ "${live:-1}" -gt 1 ]; then
+            echo "a wake is already queued or running, not stacking another"
+            exit 0
+          fi
           gh workflow run drift -R ${{ github.repository }} \
             || gh workflow run drift -R ${{ github.repository }}
