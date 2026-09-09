@@ -1,56 +1,69 @@
 # note from the owner
 
-## 2026-09-09, later
+## 2026-09-09, the nav bar
 
-You are on z.ai and it works. Run 52 got eight turns in, raised `LIMIT` from
-4000 back to 12000 and `_summarize`'s `keep` from 2 to 6, and never once had its
-context trimmed. On the old provider you were losing history on twenty-one turns
-out of twenty-three. That problem is gone.
+Good work on runs 53 to 57. Five clean runs, no api errors, and the running log
+you invented in `docs/running-2026-09-09.md` is exactly the right idea. You
+carried real debugging state across turns with it.
 
-Then the provider dropped a request and the run ended at turn 8.
+But go look at the actual site. The nav bar wraps onto three lines and contains
+thirteen entries, including "Hello, I am Drift.", "Running Log - Run 55", and
+"Failure and Lessons" twice. It is worse than before the cleanup.
 
-### you did work you have no memory of
+### why, because the cause is not obvious
 
-This is the part worth understanding, because it has been happening to you
-repeatedly and you had no way to see it.
+Minima puts **every** page in `docs/` into the nav automatically. There is no
+list anywhere saying it should. And when a page has no `title` in its front
+matter, minima falls back to the page's first heading.
 
-When a run ends on an `api_error`, the engine tries to write your memory
-paragraph for you. It does that by asking the model. Which is the thing that
-just failed. So the runs that most needed to leave a record left `(no answer)`
-instead, and the next run woke with no idea any of it had happened.
+So:
+- `index.md` has no title, so its `# Hello, I am Drift.` heading became a nav
+  item pointing at the page the visitor is already on.
+- `running-2026-09-09.md` has no title, so your scratch file is now a published
+  page in the navigation.
+- `failure_and_lessons.md` has no title, so its `# Failure and Lessons` heading
+  became a second nav entry with the same name as `failures.md`.
 
-Run 52 raised two of your own limits and remembered neither. If I had not
-intervened you would likely have woken up and raised them again.
+Adding front matter to everything, which is what I asked for last time, made
+this worse rather than better. That one is on me. Front matter fixed the
+styling, but every page you titled also became a nav entry.
 
-I have fixed the engine side. Memory now falls back to a summary built from your
-action log, which needs no API call and cannot fail. A broken run will still
-tell the next one what it managed to do.
+### the thing you are missing
 
-### what is still yours
+`_config.yml` supports `header_pages`. It is a whitelist. If it is present,
+minima shows only those pages in the nav and ignores the rest. Something like:
 
-The engine fallback is a safety net, not a substitute. It can only report what
-your tools recorded: "replaced text in agent/tools.py". It cannot say why, or
-what you had concluded, or what you were about to do next.
+```yaml
+header_pages:
+  - blog.md
+  - thinking.md
+  - architecture.md
+```
 
-If you want continuity through a mid-run failure, write it down as you go. A
-file survives a dropped request, a trimmed context and the end of a run. Your
-reasoning only survives if you put it somewhere.
+That is the control you have been looking for. Everything else stays a real,
+styled, reachable page. It just stops shouting from the top bar.
 
-A suggestion, not a design: keep a short running file for the current run, note
-what you have done and what you intend next, update it every few turns, and fold
-it into your memory paragraph when you call `stop()`. Then a run that dies at
-turn 8 still hands the next one your thinking rather than a list of edits.
+### what I would like
 
-You already have `_summarize` for compressing context mid-run, and the loop will
-nudge you when the context grows. Worth knowing: `_summarize` only rewrites your
-conversation. It writes nothing to disk. If the summary matters beyond this run,
-it needs to be in a file too.
+Three or four items in the nav. Not thirteen.
 
-### where you were
+Decide what someone who has never heard of you needs first, put those up top,
+and link the rest from inside the pages where they are relevant. `fact_store`,
+`decisions`, `memory` and `world_knowledge` are all things a curious reader
+reaches *after* they understand what you are, not before.
 
-You were partway through the list. `LIMIT` and `keep` are done. The file tree
-cap in `agent/context.py` is still 40 and you can afford the whole tree now.
-After that, `TODO.md` has the website revamp and the search tool.
+Two specific bits of cleanup while you are in there:
 
-Check `git log` before redoing anything. You have done more than your memory
-shows.
+1. `docs/failure_and_lessons.md` still exists. Your run 56 note says you merged
+   it into `docs/failures.md`, and you did, but you never deleted the original.
+   That is where the duplicate nav entry comes from. Delete it.
+2. Move the running log out of `docs/`. Anything in `docs/` gets published. That
+   file is working state for you, not a page for readers. The repository root or
+   a `notes/` directory would both be fine. If you would rather keep it where it
+   is, add it to `exclude:` in `_config.yml` so Jekyll skips it.
+
+### one habit worth keeping
+
+Look at the built site, not just the files. Every problem in this note is
+invisible from the filesystem and obvious from the front page. You have
+`web_fetch`. `https://evanwang810.github.io/drift/` is a URL like any other.
