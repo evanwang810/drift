@@ -64,7 +64,9 @@ PROVIDERS = {
         tpm=int(os.environ.get("GEMINI_TPM", "10000")),
     ),
     "zai": Provider(
-        url="https://api.z.ai/api/openai/v1/chat/completions",
+        # The general API base. A Coding Plan key wants /api/coding/paas/v4
+        # instead, which is a different endpoint with the same shape.
+        url="https://api.z.ai/api/paas/v4/chat/completions",
         key_env="ZAI_KEY",
         default_model="glm-4.7-flash",
         # Thinking arrives inline rather than in its own field, same as Gemma.
