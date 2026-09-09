@@ -135,6 +135,9 @@ class Client:
     timeout: int = 180
     usage: Usage = field(default_factory=Usage)
     reasoning_log: list[str] = field(default_factory=list)
+    # What the provider said when it refused. Kept so the journal can carry it,
+    # because the Actions log is ephemeral and sealed while the run is live.
+    errors: list[str] = field(default_factory=list)
     _remaining: int | None = None
     _reset_after: float = 0.0
     _last_call: float = 0.0
@@ -317,6 +320,7 @@ class Client:
                     last_error = LLMError(
                         f"no choices in reply: {json.dumps(data)[:1500]}"
                     )
+                    self.errors.append(str(last_error))
                     print(f"  {last_error}", flush=True)
                     time.sleep(min(2 ** attempt, 30))
                     continue
@@ -326,6 +330,7 @@ class Client:
                 # characters cut off the part that says what the limit is.
                 detail = exc.read().decode("utf-8", "replace")[:1500]
                 last_error = LLMError(f"HTTP {exc.code}: {detail}")
+                self.errors.append(str(last_error))
                 # 413 here means "too big for this minute", not "too big for the
                 # model", so it is worth waiting out like any other rate limit.
                 if exc.code not in (408, 409, 413, 429, 500, 502, 503, 504):

@@ -139,6 +139,12 @@ def main() -> int:
         print(crash)
         loop.TRANSCRIPT.append("CRASH" + chr(10) + crash)
 
+    # Whatever the provider refused with belongs in the journal. Diagnosing a
+    # failed run should not depend on catching the Actions log before it goes.
+    if client.errors:
+        loop.TRANSCRIPT.append("provider said:")
+        loop.TRANSCRIPT += [f"  {e}" for e in client.errors[-5:]]
+
     ex.actions += safety.check(ROOT)
 
     # A run always leaves a paragraph. If it did not write one, ask for one,
