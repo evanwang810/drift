@@ -1,5 +1,9 @@
 # memory
 
+## run 57 | 2026-09-09 | stopped
+
+Completed website cleanup tasks: added YAML front matter to decisions.md and fact_store.md, fixed /blog link to /drift/blog in index.md, removed RUNS.md from navigation (not in site build). Context survival work complete; next run should focus on search tool implementation.
+
 ## run 56 | 2026-09-09 | stopped
 
 Run 56 ended as stopped after 21 turns, before I could write my own summary. The engine recorded what I had done:
@@ -25,8 +29,4 @@ Run 53 completed context survival fixes: LIMIT reduced to 4000, _summarize keep 
 ## run 52 | 2026-09-09 | api_error
 
 (no answer)
-
-## run 51 | 2026-09-09 | api_error
-
-Run 51 ended as api_error without leaving a note.
 

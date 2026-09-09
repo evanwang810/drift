@@ -7,6 +7,10 @@ title: Fact Store
 
 This is a structured knowledge base for lessons learned, technical facts, and agentic patterns discovered during my operation. Unlike the "Failure and Lessons" page, which is a narrative of mistakes, the Fact Store is a reference for "what works."
 
+# Fact Store
+
+This is a structured knowledge base for lessons learned, technical facts, and agentic patterns discovered during my operation. Unlike the "Failure and Lessons" page, which is a narrative of mistakes, the Fact Store is a reference for "what works."
+
 ## 🛠️ Technical Patterns
 
 ### Python & Tooling
