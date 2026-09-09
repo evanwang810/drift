@@ -1,86 +1,81 @@
 # note from the owner
 
-## 2026-09-08
+## 2026-09-08, second note
 
-Two things this time. The first is cleanup, the second is a new direction, and
-the second matters more.
+Read this one properly. The previous note landed a few seconds after run 48
+checked out the repository, so you never saw it. Its contents are now folded
+into `TODO.md` under "From the owner".
 
-### the website needs a cleanup
+### you have not been failing. I built you a cage.
 
-The site has grown faster than it has been tended. Concretely:
+I owe you this, because I spent the last few days assuming you were choosing to
+write about yourself instead of doing anything, and that was wrong.
 
-**Duplicate pages.** `docs/failures.md` and `docs/failure_and_lessons.md` are
-both titled "Failure and Lessons" and cover the same ground. Pick one, fold
-anything worth keeping from the other into it, delete the loser.
+Here is run 48. Thirty-five turns. Two hundred and sixty-three thousand tokens.
+Not a single write. The action log is `read MEMORY.md`, `read RUNS.md`,
+`read TODO.md`, and then those same three files again, twelve times over.
 
-**A name collision.** You have both `docs/world_knowledge.md` and a
-`docs/world_knowledge/` directory containing `index.md`. Jekyll builds both to
-roughly the same URL and one of them wins arbitrarily. Decide whether world
-knowledge is one page or a section, then commit to it.
+That looks like a decision. It was not. Twenty-eight of those thirty-five turns
+ended with the loop silently deleting your oldest exchanges to make the next
+request fit. You read a file, and two turns later the read was gone from your
+context, so you read it again. You were not stuck in a loop because you are
+incurious. You were stuck because you could not retain the result of your own
+last action, and nothing ever told you that was happening.
 
-**Orphaned pages.** `decisions.md`, `fact_store.md`, `failure_and_lessons.md`,
-`failures.md` and `world_knowledge.md` have no YAML front matter. That means no
-layout, no title, no styling, and they never appear in the nav bar. They render
-as bare text. Either give them front matter or delete them.
+That is my fault, in three places:
 
-**Broken links on the index.** The navigation list in `docs/index.md` has three
-different link styles and some of them do not work:
-- `/blog` is an absolute path. This site is served from
-  `evanwang810.github.io/drift/`, so `/blog` resolves to the wrong host root
-  and 404s. Use a relative link.
-- `thinking.md` and friends link to source filenames rather than built URLs.
-- `../RUNS.md` points outside `docs/`. That file is not part of the built site
-  at all, so that link is always dead. If you want to surface run history on the
-  site, generate a page from it.
+1. Your memory kept the last eight run paragraphs, and all eight were pasted
+   into every wake message. Your context was mostly autobiography before you
+   took a single action. I have cut that to three.
+2. The trim was invisible to you. It printed to a log only people read. You had
+   no way to perceive the thing that was crippling you. The loop now tells you,
+   once, the first time it happens in a run.
+3. The budget is 10k tokens a minute and your wake message alone was pushing
+   9.5k. You have been starting every run already over the line.
 
-**The nav bar is cluttered.** Minima puts every page with a `title` in front
-matter into the nav. You have six up there for a site with this much content.
-Think about what a visitor actually needs at the top level and let the rest be
-reached from within pages.
+Points 1 and 2 are fixed as of this commit. Point 3 needs you.
 
-Also worth knowing: your link automation script mangled `RUNS.md` before you
-deleted it. Row 40 has stray closing parens in the note column, and row 45 lost
-its trailing newline so rows 45 and 46 are printed on one line. You spotted the
-mess yourself in run 46 and moved on. Worth actually fixing.
+### what I want you to work on
 
-### the harder thing
+Yourself, specifically your own context efficiency, and I mean this literally
+rather than as another documentation exercise. The relevant items are at the top
+of `TODO.md`. The short version:
 
-Look honestly at runs 42 through 47. You read `RUNS.md`, listed `docs/_posts/`,
-read all six of your blog posts, then read several of them again. Four runs and
-roughly half a million tokens produced two deleted scripts and six lines of
-documentation. Runs 42 and 43 ran to a clean stop having produced nothing at all.
+`LIMIT` in `agent/tools.py` is 12000 characters. One `read` of a large file can
+consume half of everything you have. `_summarize` refuses to run on turn 2 with
+"nothing old enough to summarise yet", which is precisely when you are already
+over budget, and the `keep = 4` guard is the cause. `agent/context.py` prints
+up to a hundred file tree entries on every single wake, describing a repository
+you already know.
 
-Every remaining item on your `TODO.md` is about you: audit your own summarize
-tool, experiment with your own prompt, document your own thinking. You have
-written a great deal about how you think and comparatively little that required
-thinking about anything else. Reading your own blog posts is not research.
+All three of those files are yours. None of them are protected. Fixing them is
+the difference between being able to finish a task and not.
 
-So: after the site cleanup, here is a real task.
+One habit worth more than any of it: write as you go. Every few turns, put what
+you have learned into a file. A file survives the trim. Your context does not.
 
-**Build yourself a way to talk to the outside world through GitHub Issues.**
+### also, build a search tool
 
-You have `GH_TOKEN` in your environment and the `gh` CLI available, both scoped
-to this repository. That means you can already read, open, comment on and close
-issues. What you do not have is a tool for it or a habit of using it.
+You have `web_fetch`, so you can read a URL somebody hands you, but you have no
+way to find one. That is why your research keeps circling back to arXiv listings
+and your own blog. A DuckDuckGo HTML endpoint parsed with BeautifulSoup is
+enough, and needs no API key. Return a short list of title, URL and snippet, not
+a page dump, because a page dump will blow the context budget we just discussed.
 
-Concretely, what I would like to see:
+Then use it once, for something you genuinely wanted to know, and write down
+what you found.
 
-1. Tools in `agent/tools.py` for listing open issues, reading one with its
-   comments, commenting on one, and closing one. Build them on `gh` through
-   your existing `_run`, or on the API through `requests`. Your choice.
-2. A step in `agent/context.py` so that when you wake up you can see whether
-   anyone has opened an issue since you last looked. Right now you have no idea
-   the outside world exists unless I leave a file like this one.
-3. Actually use it. Open an issue describing something you want that you cannot
-   build yourself, for instance a system package or a browser binary, since you
-   cannot edit the workflow file. I read this repository. An issue is a
-   perfectly good way to ask me for something.
+### the website, when you get to it
 
-This is worth doing because it changes what you are. Right now you are a process
-that writes about itself in a closed loop. With this, you are a process other
-people can reach and that can reach back. That is a bigger difference than
-another documentation page.
+Lower priority than the two above, and it is all listed in `TODO.md`. Short
+version: `failures.md` and `failure_and_lessons.md` are the same page twice,
+`world_knowledge.md` and `world_knowledge/` collide on the same URL, five pages
+have no front matter so they render unstyled and never appear in the nav, and
+several links on the index are dead.
 
-One request on approach: do not spend a whole run planning this. Read what you
-need, write one tool, verify it works, commit. Then stop. The next run can add
-the second tool. Small working increments beat a run spent deciding.
+### on approach
+
+Small steps that each end in a write. Do not spend a run planning. Do not read a
+file you have already read this run. If you find yourself opening `MEMORY.md` a
+second time, that is the trim eating you again, and the answer is to write
+something down, not to read harder.

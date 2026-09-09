@@ -25,7 +25,11 @@ PROVIDER = os.environ.get("PROVIDER", "gemini")
 MAX_TURNS = int(os.environ.get("MAX_TURNS", "40"))
 # Under the job timeout, so a slow run ends itself and still pushes.
 MINUTES = int(os.environ.get("MINUTES", "55"))
-KEEP_MEMORIES = 8
+# Small on purpose. Every memory is in the wake message, and the wake message
+# is charged against a 10k per minute budget. Eight of them left no room to
+# work: runs opened already over the trim ceiling and forgot each file the
+# moment after reading it.
+KEEP_MEMORIES = 3
 
 
 def state() -> tuple[int, str, str]:

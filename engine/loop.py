@@ -81,6 +81,7 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
     nudged = False
     deadline = time.monotonic() + minutes * 60
     warned = False
+    told = False
 
     for turn in range(1, max_turns + 1):
         TURNS = turn
@@ -128,6 +129,22 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
         dropped = fit(messages, int(client.spec.tpm * 0.85))
         if dropped:
             say(f"  dropped {dropped} old exchange(s), the prompt would not fit")
+            # Say it to the agent too, once. It cannot work around amnesia it
+            # cannot perceive, and it was re-reading the same files all run
+            # because each read fell out of context two turns later.
+            if not told:
+                told = True
+                messages.append({
+                    "role": "user",
+                    "content": (
+                        "Your context filled up and the oldest part of this run"
+                        " was discarded to make the request fit. This will keep"
+                        " happening. You have already forgotten some of what you"
+                        " read. Do not re-read files to find out: write what you"
+                        " learn into a file as you go, and work in small steps"
+                        " that each end in a write."
+                    ),
+                })
 
         client.pace(size(messages))
         before = client.usage.total
