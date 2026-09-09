@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 from engine import guard
 
 BASH_TIMEOUT = 60
-LIMIT = 4000
+LIMIT = 12000
 
 
 class Stopped(Exception):
@@ -231,7 +231,7 @@ class Executor:
         """Replace everything you have done so far with a summary of it."""
         if not self.messages:
             return "error: no conversation to summarise"
-        keep = 2
+        keep = 6
         head, tail = self.messages[:2], self.messages[-keep:]
         while tail and tail[0].get("role") == "tool":
             keep += 1

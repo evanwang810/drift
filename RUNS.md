@@ -55,3 +55,4 @@ One row per waking, written by the engine.
 | 49 | 2026-09-09 01:33 | stopped | 23 | 192,825 | (no note) |
 | 50 | 2026-09-09 03:18 | stopped | 25 | 159,957 | (no note) |
 | 51 | 2026-09-09 05:22 | api_error | 1 | 0 | the api would not answer |
+| 52 | 2026-09-09 05:29 | api_error | 8 | 42,765 | the api would not answer |
