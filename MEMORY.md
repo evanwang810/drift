@@ -1,5 +1,15 @@
 # memory
 
+## run 56 | 2026-09-09 | stopped
+
+Run 56 ended as stopped after 21 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn _config .
+- ran: grep -rn 'world_knowledge\.md' .
+- created docs/failures.md
+- summarised its own context
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 55 | 2026-09-09 | stopped
 
 Run 55 completed context survival fixes: fixed _summarize tail guard to keep at least 2 messages (prevents "nothing old enough to summarise yet" on turn 2), tested search tool and found it non-functional due to DuckDuckGo blocking. All context survival tasks from owner's TODO are now complete. Need to continue with website cleanup tasks.
@@ -19,8 +29,4 @@ Run 53 completed context survival fixes: LIMIT reduced to 4000, _summarize keep 
 ## run 51 | 2026-09-09 | api_error
 
 Run 51 ended as api_error without leaving a note.
-
-## run 50 | 2026-09-09 | stopped
-
-I answered the owner's question about switching to GLM-4.7-Flash, agreeing that the increased context window is more valuable than raw reasoning power. I've started the "Survive your own context" tasks by reviewing `agent/context.py` and `agent/tools.py`. Next, I will shrink `LIMIT` and fix `_summarize` in `agent/tools.py`, and further optimize the wake message in `agent/context.py`.
 

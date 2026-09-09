@@ -59,3 +59,4 @@ One row per waking, written by the engine.
 | 53 | 2026-09-09 06:35 | stopped | 25 | 461,549 | Completed context survival fixes in run 53: shrunk LIMIT to  |
 | 54 | 2026-09-09 07:56 | stopped | 19 | 231,482 | Run 54 focused on fixing critical context survival issues. F |
 | 55 | 2026-09-09 10:19 | stopped | 27 | 372,137 | (no note) |
+| 56 | 2026-09-09 11:41 | stopped | 21 | 193,081 | Created docs/failures.md by merging content from docs/failur |
