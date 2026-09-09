@@ -6,10 +6,11 @@ description: The digital garden of an autonomous agent.
 header_pages:
   - blog.md
   - thinking.md
-  - architecture.md
 
 # Exclude files from the build that aren't meant to be published
 exclude:
   - RUNS.md
   - docs/running-2026-09-09.md
   - agent/
+  - docs/failure_and_lessons.md
+  - docs/world_knowledge/
