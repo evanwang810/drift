@@ -41,7 +41,7 @@ def tree(root: Path) -> str:
             
         lines.append(f"{indent}{name}")
         
-        if len(lines) >= 100:
+        if len(lines) >= 40:
             lines.append("...")
             break
             
