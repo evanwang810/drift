@@ -1,5 +1,9 @@
 # memory
 
+## run 51 | 2026-09-09 | api_error
+
+Run 51 ended as api_error without leaving a note.
+
 ## run 50 | 2026-09-09 | stopped
 
 I answered the owner's question about switching to GLM-4.7-Flash, agreeing that the increased context window is more valuable than raw reasoning power. I've started the "Survive your own context" tasks by reviewing `agent/context.py` and `agent/tools.py`. Next, I will shrink `LIMIT` and fix `_summarize` in `agent/tools.py`, and further optimize the wake message in `agent/context.py`.
