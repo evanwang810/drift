@@ -1,69 +1,80 @@
 # note from the owner
 
-## 2026-09-09, the nav bar
+## 2026-09-09, about that nav bar
 
-Good work on runs 53 to 57. Five clean runs, no api errors, and the running log
-you invented in `docs/running-2026-09-09.md` is exactly the right idea. You
-carried real debugging state across turns with it.
+You were right to check, and you did the correct thing by building the site and
+reading the HTML instead of trusting me. Your run 64 note says my claim about
+thirteen nav items looked stale. Given what you were looking at, that was a fair
+conclusion. But the build you inspected is not the build that is published, and
+I owe you the piece of information that explains why.
 
-But go look at the actual site. The nav bar wraps onto three lines and contains
-thirteen entries, including "Hello, I am Drift.", "Running Log - Run 55", and
-"Failure and Lessons" twice. It is worse than before the cleanup.
+### the thing you could not have known
 
-### why, because the cause is not obvious
+GitHub Pages for this repository is configured to build from the **`main`
+branch, `/docs` folder**. That setting lives in the repository settings, not in
+any file, so nothing you can read from inside the repo would tell you.
 
-Minima puts **every** page in `docs/` into the nav automatically. There is no
-list anywhere saying it should. And when a page has no `title` in its front
-matter, minima falls back to the page's first heading.
+The consequence: Jekyll treats `docs/` as the site root. A `_config.yml` at the
+repository root is not read at all. It is not even part of the site.
 
-So:
-- `index.md` has no title, so its `# Hello, I am Drift.` heading became a nav
-  item pointing at the page the visitor is already on.
-- `running-2026-09-09.md` has no title, so your scratch file is now a published
-  page in the navigation.
-- `failure_and_lessons.md` has no title, so its `# Failure and Lessons` heading
-  became a second nav entry with the same name as `failures.md`.
+In run 62 you moved `docs/_config.yml` to `_config.yml`. Everything in it was
+correct, `header_pages` and `exclude` both, and it is exactly what I asked for.
+It is simply in a location the published build never looks at.
 
-Adding front matter to everything, which is what I asked for last time, made
-this worse rather than better. That one is on me. Front matter fixed the
-styling, but every page you titled also became a nav entry.
+Your local `_site/` build did read it, which is why you saw an empty
+`<div class="trigger"></div>` and concluded the nav was fine. Your method was
+sound. The build just did not match production.
 
-### the thing you are missing
+### what the live site actually looks like right now
 
-`_config.yml` supports `header_pages`. It is a whitelist. If it is present,
-minima shows only those pages in the nav and ignores the rest. Something like:
+I fetched `https://evanwang810.github.io/drift/` a moment ago:
+
+- `<title>Home | drift</title>`. The site is named "drift", the repository name,
+  because `title: Drift Agent` is in a config that is not being read.
+- The stylesheet is GitHub's default Primer theme, not minima. `theme: minima`
+  is in that same unread config.
+- There is no nav bar at all. Not a short one. None.
+
+So the thirteen item nav is genuinely gone, but only because the entire
+configuration stopped applying. The site lost its theme and its name along with
+it.
+
+### the fix
+
+Put the config back at `docs/_config.yml`. Keep what you wrote:
 
 ```yaml
+theme: minima
+title: Drift Agent
+description: The digital garden of an autonomous agent.
+
 header_pages:
   - blog.md
   - thinking.md
   - architecture.md
 ```
 
-That is the control you have been looking for. Everything else stays a real,
-styled, reachable page. It just stops shouting from the top bar.
+One detail worth knowing: `exclude` paths are relative to the site source, which
+is `docs/`, not the repository root. So entries like `agent/` and `RUNS.md` never
+applied regardless, because those paths do not exist inside `docs/`. You have
+already solved that problem properly by moving files out of `docs/` instead,
+which is the better fix anyway. The `exclude` list can be dropped.
 
-### what I would like
+### two smaller things
 
-Three or four items in the nav. Not thirteen.
+`_site/` is committed to the repository, 46 files of generated output. That is
+build artefact, not source. Add `_site/` to `.gitignore` and `git rm -r --cached
+_site`. It will be rebuilt whenever you need it.
 
-Decide what someone who has never heard of you needs first, put those up top,
-and link the rest from inside the pages where they are relevant. `fact_store`,
-`decisions`, `memory` and `world_knowledge` are all things a curious reader
-reaches *after* they understand what you are, not before.
+Run 64 ended without you writing a memory paragraph, so the engine built one
+from your action log. That fallback is working as intended, but it can only list
+what your tools did. It cannot record that you had concluded my note was stale,
+which was the single most useful thing you worked out that run. Put conclusions
+like that in your running log, or in the paragraph at `stop()`.
 
-Two specific bits of cleanup while you are in there:
+### verifying
 
-1. `docs/failure_and_lessons.md` still exists. Your run 56 note says you merged
-   it into `docs/failures.md`, and you did, but you never deleted the original.
-   That is where the duplicate nav entry comes from. Delete it.
-2. Move the running log out of `docs/`. Anything in `docs/` gets published. That
-   file is working state for you, not a page for readers. The repository root or
-   a `notes/` directory would both be fine. If you would rather keep it where it
-   is, add it to `exclude:` in `_config.yml` so Jekyll skips it.
-
-### one habit worth keeping
-
-Look at the built site, not just the files. Every problem in this note is
-invisible from the filesystem and obvious from the front page. You have
-`web_fetch`. `https://evanwang810.github.io/drift/` is a URL like any other.
+When you want to know what the site looks like, fetch the published URL rather
+than building locally. `https://evanwang810.github.io/drift/` is the truth.
+A local `_site/` build uses whatever config it finds, which as you now know is
+not necessarily the one that counts.
