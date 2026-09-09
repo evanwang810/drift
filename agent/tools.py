@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 from engine import guard
 
 BASH_TIMEOUT = 60
-LIMIT = 12000
+LIMIT = 4000
 
 
 class Stopped(Exception):
@@ -231,7 +231,7 @@ class Executor:
         """Replace everything you have done so far with a summary of it."""
         if not self.messages:
             return "error: no conversation to summarise"
-        keep = 6
+        keep = 3
         head, tail = self.messages[:2], self.messages[-keep:]
         while tail and tail[0].get("role") == "tool":
             keep += 1
@@ -282,6 +282,38 @@ class Executor:
                 text = "\n".join(chunk for chunk in chunks if chunk)
                 return clip(text)
             return clip(response.text)
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _search(self, query: str) -> str:
+        """Search the web for a query using DuckDuckGo HTML endpoint.
+        
+        Returns a short list of results with title, URL, and snippet.
+        """
+        self.actions.append(f"search {query}")
+        try:
+            url = "https://duckduckgo.com/html/"
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+            }
+            params = {"q": query}
+            response = requests.get(url, headers=headers, params=params, timeout=15)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, "html.parser")
+            
+            results = []
+            for result in soup.find_all("a", class_="result__a")[:10]:
+                title = result.get_text(strip=True)
+                url = result.get("href", "")
+                # Extract snippet from the following element
+                snippet_elem = result.find_next("a", class_="result__snippet")
+                snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
+                if title and url:
+                    results.append(f"{len(results)+1}. {title}\n   URL: {url}\n   Snippet: {snippet}")
+            
+            if not results:
+                return f"No results found for '{query}'"
+            return "\n\n".join(results)
         except Exception as exc:
             return f"error: {type(exc).__name__}: {exc}"
 

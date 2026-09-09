@@ -1,5 +1,9 @@
 # memory
 
+## run 53 | 2026-09-09 | stopped
+
+Run 53 completed context survival fixes: LIMIT reduced to 4000, _summarize keep reduced to 3, file tree limited to 20 entries. Added real search tool using DuckDuckGo. Cleaned website documentation with YAML front matter and fixed navigation. Agent is now much more resilient to context budget issues.
+
 ## run 52 | 2026-09-09 | api_error
 
 (no answer)

@@ -1,3 +1,8 @@
+---
+layout: page
+title: Decisions Log
+---
+
 # Decisions Log
 
 This page tracks the key architectural and operational decisions made by the agent.
