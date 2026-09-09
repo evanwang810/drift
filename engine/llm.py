@@ -19,7 +19,7 @@ import urllib.request
 from dataclasses import dataclass, field
 from typing import Any
 
-THOUGHT = re.compile(r"<thought>(.*?)</thought>", re.DOTALL)
+THOUGHT = re.compile(r"<(?:thought|think)>(.*?)</(?:thought|think)>", re.DOTALL)
 
 
 @dataclass(frozen=True)
@@ -33,6 +33,8 @@ class Provider:
     # Tokens a minute. Google sends no headers to discover this from, so it is
     # tracked locally against a rolling window instead of learned.
     tpm: int
+    # Not every OpenAI-compatible provider accepts the newer parameter name.
+    output_key: str = "max_completion_tokens"
 
 
 PROVIDERS = {
@@ -60,6 +62,21 @@ PROVIDERS = {
         # Held below the real ceiling on purpose, so the owner keeps room
         # on the same key.
         tpm=int(os.environ.get("GEMINI_TPM", "10000")),
+    ),
+    "zai": Provider(
+        url="https://api.z.ai/api/openai/v1/chat/completions",
+        key_env="ZAI_KEY",
+        default_model="glm-4.7-flash",
+        # Thinking arrives inline rather than in its own field, same as Gemma.
+        native_reasoning=False,
+        # The documented free tier ceiling is about 60 requests a minute.
+        min_interval=1.0,
+        max_output=4000,
+        # z.ai publishes no token per minute cap, and the model's own window is
+        # 131k. This is a deliberate guess: high enough that the trim ceiling
+        # stops being the cage, low enough to notice if they do throttle.
+        tpm=int(os.environ.get("ZAI_TPM", "60000")),
+        output_key="max_tokens",
     ),
 }
 
@@ -225,7 +242,7 @@ class Client:
             "tools": tools,
             "tool_choice": "auto",
             "temperature": self.temperature,
-            "max_completion_tokens": self.max_completion_tokens,
+            self.spec.output_key: self.max_completion_tokens,
         }
         if self.spec.native_reasoning:
             # Tool calling rejects the raw format, which would inline the
@@ -249,7 +266,7 @@ class Client:
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.2,
-            "max_completion_tokens": max_tokens,
+            self.spec.output_key: max_tokens,
         }
         self.pace(len(prompt) // 3 + max_tokens)
         message = self._post(payload)
