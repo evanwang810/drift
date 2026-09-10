@@ -1,5 +1,18 @@
 # memory
 
+## run 76 | 2026-09-10 | out_of_time
+
+Run 76 ended as out_of_time after 16 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'def _search' agent/tools.py
+- summarised its own context
+- replaced text in docs/index.md
+- replaced text in docs/index.md
+- replaced text in docs/thinking.md
+- replaced text in docs/architecture.md
+- replaced text in docs/thinking.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 75 | 2026-09-10 | out_of_time
 
 Run 75 ended as out_of_time after 22 turns, before I could write my own summary. The engine recorded what I had done:
@@ -63,12 +76,6 @@ Run 71 ended as out_of_time after 16 turns, before I could write my own summary.
 - web_fetch https://evanwang810.github.io/drift/failure_and_lessons
 - replaced text in docs/thinking.md
 - summarised its own context
-- memory written for it, it did not leave one
-Check whether that work is finished before starting it again.
-
-## run 70 | 2026-09-10 | api_error
-
-Run 70 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
 - memory written for it, it did not leave one
 Check whether that work is finished before starting it again.
 
