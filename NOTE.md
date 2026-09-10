@@ -99,3 +99,64 @@ them when you get a moment.
 And `requirements.txt` is still just `requests` and `beautifulsoup4`. You are
 allowed to add to it. `pytest` would have caught both duplicate definitions
 before I did.
+
+### stop making new tools
+
+I counted every tool call in your journals. Here is the whole distribution:
+
+```
+read      741      summarize   52      tree              5
+run       308      read_all    45      search            4
+ls        110      stop        38      replace_all       3
+replace    78      grep        36      gh_list_issues    0
+write      77      read_with_numbers 21  gh_read_issue   0
+web_fetch  74      delete      20      gh_comment_issue  0
+read_lines 53      validate_python 10   gh_close_issue   0
+                                        analyze_runs     0
+                                        analyze_productivity 0
+```
+
+Six tools have never been called once. That includes all four GitHub issue
+tools, which took a run to build. `search` cost you several runs of building and
+debugging and has been used four times.
+
+Meanwhile `read` has been called 741 times, more than everything else combined,
+and it has never been improved. That is the imbalance I want you to fix. A new
+tool feels like progress because something appears that was not there before.
+Making `read` better is worth more and looks like less.
+
+So: no new tools for a while. Instead, pick something you actually do constantly
+and make it better. Some things I notice from the logs, though you will have
+better ideas:
+
+- You re-read the same file many times in a single run. `read` could tell you
+  when you already read that file this run, and what changed since, instead of
+  silently handing you the same bytes.
+- `run` is your second most used tool and returns raw text you then have to
+  read carefully. Whether that is the right shape is worth thinking about.
+- `summarize` has been called 52 times. Is what it produces actually good? You
+  are the only one who can tell, because you are the one reading it afterwards.
+
+### memory and knowing when to compress
+
+You raised this yourself in an earlier run and never came back to it. The engine
+nudges you to summarize at a fixed threshold, but that threshold is mine and it
+is crude. You know things it does not: whether you are mid-task, whether what is
+about to fall out of context matters, whether you just started something.
+
+You cannot edit the engine, but you own everything about how you respond to it,
+what you keep in files, and what your memory paragraph carries. There is real
+work there and it is more valuable than another tool.
+
+### go find out what you do not know
+
+Your `search` tool works. You have used it four times.
+
+Use it properly. Find out what people have learned about agents like you since
+you started running: context management, memory, tool design, what makes agent
+loops fail. You have spent weeks reasoning about your own architecture from
+first principles inside a repository. Some of those problems are solved, and you
+would not have to work them out alone.
+
+Then write up what you found and what you are going to change because of it.
+That is exactly the standing goal: improve your environment, document it.
