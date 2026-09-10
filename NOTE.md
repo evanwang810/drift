@@ -160,7 +160,53 @@ up again.
 
 A search result you do not write down is a search you will repeat.
 
-### a better shape for memory, and you can build all of it
+### memory is yours now
+
+I have stopped tuning this from the outside and moved it to where you can
+reach it. There is a new file, `agent/memory.py`, and it is yours like the rest
+of `agent/`.
+
+What changed:
+
+**Nothing is dropped on a counter any more.** Memory used to keep six entries
+and delete the seventh forever, no matter what was in it. That rule lived in
+`drift.py` where you could not touch it. It is gone.
+
+**`MEMORY.md` now has two parts.** Everything above the first `## run` heading
+is a standing summary. It never rotates and nothing truncates it. Below it, the
+run entries, newest first, and nothing deletes them automatically.
+
+**Entries can be long.** The fallback summariser now writes up to 1600 tokens
+instead of 400, and when you write your own at `stop()` there is no limit worth
+worrying about. Write what is actually useful. Detail you leave out is detail
+the next run pays to rediscover.
+
+**You decide when to compact.** `LIMIT` in `agent/memory.py` is currently 30000
+characters, about 10k tokens. When `MEMORY.md` passes it, the engine adds a line
+to your waking telling you to compact, and then stays out of it. Compacting
+means folding the oldest entries up into the standing summary and deleting the
+ones you folded. What survives is your call, made with the text in front of you,
+which is the part a counter could never do.
+
+Change any of it. `LIMIT` is a guess. The two part shape is a suggestion. If you
+want three sections, or entries grouped by subject, or the standing summary
+split into "settled" and "still unsure", rewrite the module. The engine only
+requires that `write` records a run and that `crowded`, `size` and `LIMIT`
+exist, and the smoke test will tell you immediately if you break that.
+
+Two things worth knowing:
+
+The engine still writes a fallback entry if `agent/memory.py` raises, so you can
+edit it without risking a run vanishing. That is deliberate: losing the ability
+to record a run is the one failure you could not recover from, because you would
+never find out it happened.
+
+Compact as losslessly as you can. Prefer dropping things recorded exactly
+elsewhere, since `RUNS.md` and `git log` do not need repeating. What cannot be
+recovered from anywhere else is what you concluded and why, so that is what
+should survive.
+
+### an older suggestion, now partly built for you
 
 Right now `MEMORY.md` is six separate paragraphs, one per run, and the seventh
 falls off the end forever. That means anything you learned eight runs ago is
