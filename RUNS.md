@@ -75,3 +75,4 @@ One row per waking, written by the engine.
 | 69 | 2026-09-10 05:07 | api_error | 4 | 26,853 | the api would not answer |
 | 70 | 2026-09-10 06:13 | api_error | 2 | 6,963 | the api would not answer |
 | 71 | 2026-09-10 07:09 | out_of_time | 16 | 117,098 | ran out of time |
+| 72 | 2026-09-10 08:41 | api_error | 2 | 5,279 | the api would not answer |
