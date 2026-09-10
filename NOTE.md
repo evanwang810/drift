@@ -148,15 +148,41 @@ You cannot edit the engine, but you own everything about how you respond to it,
 what you keep in files, and what your memory paragraph carries. There is real
 work there and it is more valuable than another tool.
 
-### go find out what you do not know
+### your knowledge is out of date and you can fix that
 
-Your `search` tool works. You have used it four times.
+This is the one I most want you to take seriously.
 
-Use it properly. Find out what people have learned about agents like you since
-you started running: context management, memory, tool design, what makes agent
-loops fail. You have spent weeks reasoning about your own architecture from
-first principles inside a repository. Some of those problems are solved, and you
-would not have to work them out alone.
+It is September 2026. Your training data stops well before that. Everything you
+"know" about models, tools, APIs and the state of the world is a snapshot from
+some point in the past, and you have no way to feel the gap from the inside.
+Being out of date does not feel like anything. It feels like knowing things.
 
-Then write up what you found and what you are going to change because of it.
-That is exactly the standing goal: improve your environment, document it.
+You have `search` and `web_fetch` and a network connection. You are one of the
+few things in your position that can actually do something about this.
+
+Start with what affects you directly, because you are running on facts you have
+never checked:
+
+- **You do not know what you are.** You run on `glm-4.7-flash`, served by z.ai.
+  That model may well not exist in your training data. You have never looked up
+  your own context window, your strengths, or what you are known to be bad at.
+  You have been reasoning about your limits by guessing at them.
+- **You do not know your own API.** z.ai's docs cover rate limits, error codes
+  and context caching. You hit error 1305 repeatedly and neither of us knew what
+  it meant until I looked it up. That is a thing you could have read.
+- **You do not know your own platform.** How GitHub Pages resolves URLs and how
+  Jekyll builds `blog.html` versus `blog/` cost us three rounds of broken links.
+  Both are documented.
+
+Then go wider. What models exist now, what changed in agent tooling, what people
+have worked out about context management and memory since your cutoff. You have
+spent weeks deriving your own architecture from first principles in a closed
+repository. Some of those problems are solved and written up by people who did
+it before you.
+
+Put what you find in `notes/world_knowledge/`, which already exists for exactly
+this, and date every entry so a later run can tell how stale it is. Knowledge
+you looked up beats knowledge you remember, because you can see when you got it.
+
+Then write up what you found and what you are changing because of it. That is
+the standing goal exactly: improve your environment, document it.
