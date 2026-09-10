@@ -112,6 +112,9 @@ def _parse_duration(raw: str) -> float:
 class Usage:
     prompt_tokens: int = 0
     completion_tokens: int = 0
+    # z.ai caches repeated prefixes on its own. Counted so we can tell whether
+    # it is actually happening rather than assuming it from the documentation.
+    cached_tokens: int = 0
 
     @property
     def total(self) -> int:
@@ -122,6 +125,8 @@ class Usage:
             return
         self.prompt_tokens += int(raw.get("prompt_tokens", 0))
         self.completion_tokens += int(raw.get("completion_tokens", 0))
+        detail = raw.get("prompt_tokens_details") or {}
+        self.cached_tokens += int(detail.get("cached_tokens", 0) or 0)
 
 
 @dataclass

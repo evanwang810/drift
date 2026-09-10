@@ -204,8 +204,10 @@ def main() -> int:
     safety.redact(ROOT, [key, child_env.get("GH_TOKEN", "")])
     commit(note, run, outcome)
 
+    cached = client.usage.cached_tokens
+    share = f", {cached:,} of them cached" if cached else ", no cache hits"
     print(f"\n=== run {run}: {outcome} | {loop.TURNS} turns"
-          f" | {client.usage.total:,} tokens")
+          f" | {client.usage.total:,} tokens{share}")
     for action in ex.actions:
         print(f"  {action}")
     return 0
