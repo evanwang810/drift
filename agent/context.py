@@ -9,6 +9,9 @@ is the paragraph it wrote at the end of the last run, and nothing else.
 
 from __future__ import annotations
 
+import json
+import os
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
@@ -98,9 +101,6 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     gh_token = os.environ.get("GH_TOKEN")
     if gh_token:
         try:
-            import subprocess
-            import json
-            import os
             cmd = "gh issue list --state open --per-page 5 --json number,title,state,createdAt"
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**os.environ, "GH_TOKEN": gh_token})
             if result.returncode == 0:

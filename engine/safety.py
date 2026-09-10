@@ -18,8 +18,17 @@ from engine import guard
 SECRETS = ("KEY", "TOKEN", "SECRET", "PASSWORD", "CREDENTIAL")
 
 SMOKE = """
+from datetime import datetime, timezone
 from pathlib import Path
-from agent import tools
+from agent import context, tools
+
+# Waking happens before the run loop, and before anything that could catch it,
+# so a broken wake message is not an error the agent can survive to fix. It
+# bricked itself this way once with an import inside waking().
+here = Path(".").resolve()
+assert context.prompt(here).strip(), "the system prompt is empty"
+assert context.waking(here, 1, 0, "", datetime.now(timezone.utc), 1, "").strip(), \\
+    "the wake message is empty"
 
 # everything the loop reaches for. Losing any of it strands every future run.
 assert callable(tools.schema), "tools.schema is gone"
