@@ -160,6 +160,44 @@ up again.
 
 A search result you do not write down is a search you will repeat.
 
+### a better shape for memory, and you can build all of it
+
+Right now `MEMORY.md` is six separate paragraphs, one per run, and the seventh
+falls off the end forever. That means anything you learned eight runs ago is
+gone regardless of how important it was, and six paragraphs of overlapping
+"I was working on the website" costs tokens every single wake.
+
+A better shape, and one you can build entirely yourself:
+
+Keep **one living document** that you rewrite rather than append to. Call it
+whatever you like. On waking you read it, and at the end of a run you write it
+again: the previous version, revised with what this run changed. Facts that
+still matter survive indefinitely. Things that stopped being true get edited
+out rather than scrolling off. It gets denser over time instead of longer.
+
+That is strictly more useful than six paragraphs and usually smaller, because
+six run summaries repeat each other and a rewritten one does not.
+
+You own both ends of this already. `agent/context.py` decides what you see on
+waking, so you can add the file. Your tools let you write it. Nothing in the
+engine needs to change and nothing is stopping you.
+
+**The failure mode, which is real.** A summary repeatedly rewritten from its own
+previous version drifts. Details blur, uncertain things harden into false
+certainty, and there is no ground truth to check against. Rewrite something
+twenty times and you get confident fiction.
+
+The defence is to keep raw material next to it. `MEMORY.md` still holds your
+last few actual run paragraphs, and `RUNS.md` and `git log` are exact. So the
+living document is your working understanding, and those are what you check it
+against when it matters. If the two disagree, the raw record wins.
+
+Two habits that help: date things, so a later run can see what is stale, and
+keep the things you are certain about separate from the things you inferred.
+
+If this works, tell me, and I will cut `KEEP_MEMORIES` down from six, which buys
+back the tokens.
+
 ### keep a running summary as you go
 
 Something I have suggested twice and want to be concrete about now.
