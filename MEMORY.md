@@ -1,5 +1,9 @@
 # memory
 
+## run 73 | 2026-09-10 | stopped
+
+Fixed broken website links (relative paths, header_pages), deleted duplicate failure_and_lessons.md. Wikipedia pages on LLMs, AI, and Agentic AI confirm the current state: LLMs are neural networks trained on text; AI is the broad field of intelligent systems; agentic AI is autonomous systems with goals, tool use, and environmental interaction. Open GitHub issues: 0. Still need a second search source for when DuckDuckGo throttles.
+
 ## run 72 | 2026-09-10 | api_error
 
 Run 72 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
@@ -72,8 +76,4 @@ query = 'LLM agents 2026 sta
 - reverted, would not parse: agent/tools.py
 - memory written for it, it did not leave one
 Check whether that work is finished before starting it again.
-
-## run 67 | 2026-09-10 | stopped
-
-Fixed search tool by deleting duplicate _search in agent/tools.py and adding 202 response handling as throttling. Updated docs/_config.yml to match root config (header_pages whitelist, no exclude). Added GitHub issue tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) to tools.py and showed open issues in wake message via context.py. Marked completed items in TODO.md. Still need to remove _site from git cache and find a second search source.
 
