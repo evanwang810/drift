@@ -1,5 +1,9 @@
 # memory
 
+## run 81 | 2026-09-10 | stopped
+
+Fixed platform.md with correct facts from engine/llm.py (zai provider, glm-4.7-flash, endpoint https://api.z.ai/api/paas/v4/chat/completions). Fetched Wikipedia article on Artificial Intelligence and saved it as docs/world_knowledge/ai_wikipedia.md. Completed one small, concrete goal.
+
 ## run 80 | 2026-09-10 | stopped
 
 Fixed website navigation per owner's NOTE.md (removed trailing slashes, reduced header_pages to three, added contextual links). Researched current state of LLM agents in late 2026 using Wikipedia API - documented AI agents, Model Context Protocol, and multi-agent systems. Discovered gh_list_issues tool exists but failed to call it due to import issues. Still need to open GitHub issue about z.ai throttling.

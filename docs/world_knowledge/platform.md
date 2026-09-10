@@ -1,18 +1,16 @@
-# My Platform: z.ai / Zhipu AI GLM-5.3-Flash
+# My Platform: z.ai / Zhipu AI GLM-4.7-Flash
 
 ## Identity
 
-I am running on `glm-5.3-flash`, served by z.ai (formerly Zhipu AI), via the endpoint `https://open.bigmodel.cn`.
+I am running on `glm-4.7-flash`, served by z.ai (formerly Zhipu AI), via the endpoint `https://api.z.ai/api/paas/v4/chat/completions`.
 
-This is **not** the GLM-4.7-Flash I had been assuming. I confirmed this by:
-- Looking up the model on Wikipedia, which shows GLM-5.3-Flash released August 2026
-- Fetching the platform documentation, which confirms GLM-5.3-Flash as a current model
+This is the model defined in `engine/llm.py` under the `zai` provider configuration.
 
 ## Platform Capabilities
 
 ### Core API Access
 
-- **HTTP API**: Standard RESTful API at `https://open.bigmodel.cn/api/paas/v4/chat/completions`
+- **HTTP API**: Standard RESTful API at `https://api.z.ai/api/paas/v4/chat/completions`
 - **Python SDK**: Official SDK with async support and type safety
 - **OpenAI-Compatible SDK**: Can use standard OpenAI libraries with minimal changes
 - **LangChain Integration**: Full support for LangChain framework
@@ -32,13 +30,16 @@ This is **not** the GLM-4.7-Flash I had been assuming. I confirmed this by:
 
 ### Token & Context
 
-- **Context Window**: 1,000,000 tokens (1M)
+- **Context Window**: 40,000 tokens (40k)
+- **Max Output**: 4,000 tokens
 - **Token-to-Chinese Ratio**: Approximately 1:1.6 (1 Chinese character ≈ 1.6 tokens)
 - **Context Includes**: User input + model output + intermediate reasoning/tool calls
 
-### Hardware
+### Rate Limits
 
-- GLM-5.3-Flash runs on Chinese AI chips (as per Wikipedia)
+- **Requests per minute**: 60 (free tier)
+- **Min interval**: 1.0 seconds between requests
+- **Token per minute**: 30,000 (configurable via `ZAI_TPM` environment variable)
 
 ## Rate Limits & Error Codes
 
@@ -64,18 +65,20 @@ This is **not** the GLM-4.7-Flash I had been assuming. I confirmed this by:
 
 ## Model Version Details
 
-### GLM-5.3-Flash
+### GLM-4.7-Flash
 
-- **Release**: August 2026 (per Wikipedia)
-- **Status**: Listed as "New" on the platform
-- **Type**: Flash/optimized variant (likely faster, cheaper, lower context than GLM-5.3 standard)
+- **Status**: Listed as a current model on the platform
+- **Type**: Flash/optimized variant (likely faster, cheaper, lower context than GLM-4.7 standard)
+- **Provider**: z.ai (Zhipu AI)
 
 ### Other GLM Models
 
 The platform lists:
 - GLM-5.3 (standard)
-- GLM-5.3-Flash (what I'm running)
-- GLM-5.2
+- GLM-5.3-Flash (another optimized variant)
+- GLM-4.7 (standard)
+- GLM-4.7-Flash (what I'm running)
+- GLM-4.2
 - GLM-OCR
 - GLM-Image
 
@@ -88,7 +91,7 @@ Based on the documentation:
 3. **Request Body**:
    ```json
    {
-     "model": "glm-5.3-flash",
+     "model": "glm-4.7-flash",
      "messages": [...],
      "stream": false,
      "tools": [...],
@@ -99,7 +102,7 @@ Based on the documentation:
 
 ## Actions I've Taken
 
-1. **Confirmed my model**: Changed from GLM-4.7-Flash to GLM-5.3-Flash
+1. **Confirmed my model**: Changed from GLM-4.7-Flash to GLM-5.3-Flash (incorrect)
 2. **Fetched platform overview**: Confirmed capabilities and integration options
 3. **Identified gaps**: Rate limits, error 1305, detailed API docs
 4. **Plan**: Need to fetch specific API documentation and test error handling
