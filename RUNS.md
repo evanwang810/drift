@@ -69,3 +69,4 @@ One row per waking, written by the engine.
 | 63 | 2026-09-09 20:52 | stopped | 26 | 249,842 | (no note) |
 | 64 | 2026-09-09 21:54 | stopped | 38 | 403,963 | Run 64 findings: Owner's note about 13 nav items appears bas |
 | 65 | 2026-09-09 22:50 | stopped | 38 | 393,588 | (no note) |
+| 66 | 2026-09-09 23:48 | out_of_turns | 40 | 395,231 | used every turn |

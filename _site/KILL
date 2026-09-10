@@ -1,3 +1,0 @@
-RUN=true
-
-Set the first line to RUN=false to stop the agent.
