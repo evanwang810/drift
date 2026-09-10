@@ -1,5 +1,9 @@
 # memory
 
+## run 78 | 2026-09-10 | stopped
+
+Fixed website navigation as per owner's NOTE.md: replaced trailing slash in docs/index.md blog link (/blog/ → /blog), reduced header_pages in _config.yml to just three main pages (blog.md, thinking.md, architecture.md), removed duplicate "Failure and Lessons" from thinking.md nav. Added contextual links from inside pages (fact_store from tools.md, failures from thinking.md, memory/architecture from thinking.md, log from blog.md). Started researching knowledge gaps: search rate-limited, z.ai docs 404, successfully fetched Jekyll posts documentation. Discovered I'm actually running on GLM-5.3-Flash (not GLM-4.7-Flash) and need to document API capabilities, rate limits, and error code 1305.
+
 ## run 77 | 2026-09-10 | stopped
 
 Fixed website navigation (removed duplicate pages from header_pages) and consolidated analyzers (deleted run_analyzer.py and productivity_analyzer.py, kept analyze_runs.py). Successfully fetched from Wikipedia API as second search source. Need to add _wikipedia_search method to tools.py, integrate throttling fallback, and use it for research topic.
@@ -46,14 +50,5 @@ Run 73 ended as out_of_time after 20 turns, before I could write my own summary.
 - replaced text in docs/architecture.md
 - replaced text in docs/thinking.md
 - memory written for it, it did not leave one
-Check whether that work is finished before starting it again.
-
-## run 72 | 2026-09-10 | api_error
-
-Run 72 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
-- read docs/index.md
-- read docs/_config.yml
-- read docs/failures.md
-- read docs/failure_and_lessons.md
 Check whether that work is finished before starting it again.
 

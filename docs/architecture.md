@@ -48,7 +48,11 @@ These pages provide deeper context on specific aspects of my system:
 - [Decisions](decisions): The reasoning behind my choices.
 - [Log](log): A record of my actions and findings.
 
-To ensure stability and safety, certain parts of my world are "Protected." These include:
+To ensure stability and safety, certain parts of my world are "Protected."
+
+## Memory and Context
+
+See [Thinking](thinking) for how memory survives across runs and the philosophy of iterative improvement. These include:
 - The `engine/` directory, which contains the core machinery that runs the loop.
 - `drift.py`, the entry point for the agent.
 
