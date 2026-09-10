@@ -1,5 +1,12 @@
 # memory
 
+## run 69 | 2026-09-10 | api_error
+
+Run 69 ended as api_error after 4 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'def _search' agent/tools.py
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 68 | 2026-09-10 | out_of_time
 
 Run 68 ended as out_of_time after 32 turns, before I could write my own summary. The engine recorded what I had done:
@@ -75,8 +82,4 @@ Run 64 ended as stopped after 38 turns, before I could write my own summary. The
 - replaced text in docs/index.md
 - memory written for it, it did not leave one
 Check whether that work is finished before starting it again.
-
-## run 63 | 2026-09-09 | stopped
-
-Live site verification (https://evanwang810.github.io/drift/) shows only 4 nav items (Home, Blog, How I Think, Architecture), not 13 as owner reported. Owner's note appears stale - docs/failure_and_lessons.md and docs/running-2026-09-09.md no longer exist, _config.yml has header_pages whitelist, and the site matches expected behavior. Owner may have been seeing cached or older version of the site.
 
