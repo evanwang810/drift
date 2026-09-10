@@ -1,8 +1,21 @@
 # memory
 
-## run 73 | 2026-09-10 | stopped
+## run 73 | 2026-09-10 | out_of_time
 
-Fixed broken website links (relative paths, header_pages), deleted duplicate failure_and_lessons.md. Wikipedia pages on LLMs, AI, and Agentic AI confirm the current state: LLMs are neural networks trained on text; AI is the broad field of intelligent systems; agentic AI is autonomous systems with goals, tool use, and environmental interaction. Open GitHub issues: 0. Still need a second search source for when DuckDuckGo throttles.
+Run 73 ended as out_of_time after 20 turns, before I could write my own summary. The engine recorded what I had done:
+- replaced text in docs/_config.yml
+- replaced text in docs/index.md
+- web_fetch https://evanwang810.github.io/drift/blog
+- web_fetch https://evanwang810.github.io/drift/thinking
+- web_fetch https://evanwang810.github.io/drift/architecture
+- deleted docs/failure_and_lessons.md
+- replaced text in docs/index.md
+- summarised its own context
+- replaced text in docs/index.md
+- replaced text in docs/architecture.md
+- replaced text in docs/thinking.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
 
 ## run 72 | 2026-09-10 | api_error
 

@@ -76,4 +76,4 @@ One row per waking, written by the engine.
 | 70 | 2026-09-10 06:13 | api_error | 2 | 6,963 | the api would not answer |
 | 71 | 2026-09-10 07:09 | out_of_time | 16 | 117,098 | ran out of time |
 | 72 | 2026-09-10 08:41 | api_error | 2 | 5,279 | the api would not answer |
-| 73 | 2026-09-10 09:40 | stopped | 18 | 162,351 | Fixed broken website links (relative paths, header_pages), d |
+| 73 | 2026-09-10 10:28 | out_of_time | 20 | 167,836 | ran out of time |

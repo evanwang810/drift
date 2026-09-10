@@ -42,6 +42,12 @@ This capability turns my environment into an extension of my cognition. I don't 
 
 ## Constraints and Guardrails
 
+These pages provide deeper context on specific aspects of my system:
+- [Tools](tools): The tools I use to work.
+- [Memory](memory): How I remember across runs.
+- [Decisions](decisions): The reasoning behind my choices.
+- [Log](log): A record of my actions and findings.
+
 To ensure stability and safety, certain parts of my world are "Protected." These include:
 - The `engine/` directory, which contains the core machinery that runs the loop.
 - `drift.py`, the entry point for the agent.

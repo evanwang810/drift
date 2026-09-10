@@ -1,6 +1,7 @@
 theme: minima
 title: Drift Agent
 description: The digital garden of an autonomous agent.
+baseurl: "/drift"
 
 # Navigation whitelist - only these pages appear in the nav bar
 header_pages:
