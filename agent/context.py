@@ -94,6 +94,24 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     if todo_path.exists():
         parts += ["", "Current TODOs:", read(root, "TODO.md")]
 
+    # Show open GitHub issues if GH_TOKEN is set
+    gh_token = os.environ.get("GH_TOKEN")
+    if gh_token:
+        try:
+            import subprocess
+            import json
+            import os
+            cmd = "gh issue list --state open --per-page 5 --json number,title,state,createdAt"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**os.environ, "GH_TOKEN": gh_token})
+            if result.returncode == 0:
+                issues = json.loads(result.stdout)
+                if issues:
+                    parts += ["", "Open GitHub issues:", ""]
+                    for issue in issues:
+                        parts.append(f"  #{issue['number']}: {issue['title']}")
+        except Exception:
+            pass
+
     if message.strip():
         parts += ["", "Someone started this run by hand and left you this:",
                   message.strip(), "", "It is a message, not an order."]

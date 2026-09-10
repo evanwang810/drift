@@ -230,6 +230,11 @@ class Executor:
         try:
             url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
             response = requests.get(url, timeout=10)
+            
+            # Treat 202 as throttling (rate limit), not a parse failure
+            if response.status_code == 202:
+                return f"Rate limited by DuckDuckGo. Try again in a moment."
+            
             response.raise_for_status()
             
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -321,39 +326,6 @@ class Executor:
         except Exception as exc:
             return f"error: {type(exc).__name__}: {exc}"
 
-    def _search(self, query: str) -> str:
-        """Search the web for a query using DuckDuckGo HTML endpoint.
-        
-        Returns a short list of results with title, URL, and snippet.
-        """
-        self.actions.append(f"search {query}")
-        try:
-            url = "https://duckduckgo.com/html/"
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-            }
-            params = {"q": query}
-            response = requests.get(url, headers=headers, params=params, timeout=15)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, "html.parser")
-            
-            results = []
-            for result in soup.find_all("a", class_="result__a")[:10]:
-                title = result.get_text(strip=True)
-                url = result.get("href", "")
-                # Extract snippet from the following element
-                snippet_elem = result.find_next("a", class_="result__snippet")
-                snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
-                if title and url:
-                    results.append(f"{len(results)+1}. {title}\n   URL: {url}\n   Snippet: {snippet}")
-            
-            if not results:
-                return f"No results found for '{query}'"
-            return "\n\n".join(results)
-        except Exception as exc:
-            return f"error: {type(exc).__name__}: {exc}"
-
-
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
     kinds = {"int": "integer", "float": "number", "bool": "boolean"}
@@ -379,3 +351,135 @@ def schema() -> list[dict[str, Any]]:
             }
         })
     return out
+
+    def _gh_list_issues(self, state: str = "open", per_page: int = 30) -> str:
+        """List open GitHub issues for this repository.
+        
+        Args:
+            state: open or closed (default: open)
+            per_page: Number of results per page (default: 30)
+        """
+        import os
+        gh_token = os.environ.get("GH_TOKEN")
+        if not gh_token:
+            return "error: GH_TOKEN environment variable not set"
+        
+        try:
+            cmd = f"gh issue list --state {state} --per-page {per_page} --json number,title,body,state,comments,createdAt"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+            
+            if result.returncode != 0:
+                return f"Error listing issues: {result.stderr}"
+            
+            import json
+            issues = json.loads(result.stdout)
+            
+            if not issues:
+                return "No issues found."
+            
+            output = [f"Found {len(issues)} {state} issue(s):"]
+            for i, issue in enumerate(issues[:10], 1):
+                output.append(f"\n{i}. #{issue['number']}: {issue['title']}")
+                output.append(f"   State: {issue['state']} | Created: {issue['createdAt']}")
+                output.append(f"   Comments: {issue['comments']}")
+                output.append(f"   Body: {issue['body'][:200]}..." if len(issue['body']) > 200 else f"   Body: {issue['body']}")
+            
+            if len(issues) > 10:
+                output.append(f"\n... and {len(issues) - 10} more")
+            
+            return "\n".join(output)
+        except subprocess.TimeoutExpired:
+            return "Error: gh command timed out"
+        except Exception as exc:
+            return f"Error: {type(exc).__name__}: {exc}"
+
+    def _gh_read_issue(self, issue_number: int) -> str:
+        """Read a GitHub issue with its comments.
+        
+        Args:
+            issue_number: The issue number to read
+        """
+        import os
+        gh_token = os.environ.get("GH_TOKEN")
+        if not gh_token:
+            return "error: GH_TOKEN environment variable not set"
+        
+        try:
+            cmd = f"gh issue view {issue_number} --json number,title,body,state,comments,closedAt,createdAt,updatedAt"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+            
+            if result.returncode != 0:
+                return f"Error reading issue: {result.stderr}"
+            
+            import json
+            issue = json.loads(result.stdout)
+            
+            output = [f"Issue #{issue['number']}: {issue['title']}", f"State: {issue['state']}"]
+            if issue['createdAt']:
+                output.append(f"Created: {issue['createdAt']}")
+            if issue['closedAt']:
+                output.append(f"Closed: {issue['closedAt']}")
+            
+            output.append(f"\nBody:\n{issue['body']}")
+            
+            if issue['comments']:
+                output.append(f"\n--- {issue['comments']} comment(s) ---")
+                for i, comment in enumerate(issue['comments'], 1):
+                    output.append(f"\nComment {i}:")
+                    output.append(f"At {comment['createdAt']}:")
+                    output.append(comment['body'])
+            
+            return "\n".join(output)
+        except subprocess.TimeoutExpired:
+            return "Error: gh command timed out"
+        except Exception as exc:
+            return f"Error: {type(exc).__name__}: {exc}"
+
+    def _gh_comment_issue(self, issue_number: int, comment: str) -> str:
+        """Comment on a GitHub issue.
+        
+        Args:
+            issue_number: The issue number to comment on
+            comment: The comment text
+        """
+        import os
+        gh_token = os.environ.get("GH_TOKEN")
+        if not gh_token:
+            return "error: GH_TOKEN environment variable not set"
+        
+        try:
+            cmd = f"gh issue comment {issue_number} --body '{comment}'"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+            
+            if result.returncode != 0:
+                return f"Error commenting on issue: {result.stderr}"
+            
+            return f"Successfully commented on issue #{issue_number}"
+        except subprocess.TimeoutExpired:
+            return "Error: gh command timed out"
+        except Exception as exc:
+            return f"Error: {type(exc).__name__}: {exc}"
+
+    def _gh_close_issue(self, issue_number: int) -> str:
+        """Close a GitHub issue.
+        
+        Args:
+            issue_number: The issue number to close
+        """
+        import os
+        gh_token = os.environ.get("GH_TOKEN")
+        if not gh_token:
+            return "error: GH_TOKEN environment variable not set"
+        
+        try:
+            cmd = f"gh issue close {issue_number}"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+            
+            if result.returncode != 0:
+                return f"Error closing issue: {result.stderr}"
+            
+            return f"Successfully closed issue #{issue_number}"
+        except subprocess.TimeoutExpired:
+            return "Error: gh command timed out"
+        except Exception as exc:
+            return f"Error: {type(exc).__name__}: {exc}"

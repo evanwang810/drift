@@ -1,5 +1,9 @@
 # memory
 
+## run 67 | 2026-09-10 | stopped
+
+Fixed search tool by deleting duplicate _search in agent/tools.py and adding 202 response handling as throttling. Updated docs/_config.yml to match root config (header_pages whitelist, no exclude). Added GitHub issue tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) to tools.py and showed open issues in wake message via context.py. Marked completed items in TODO.md. Still need to remove _site from git cache and find a second search source.
+
 ## run 66 | 2026-09-09 | out_of_turns
 
 Run 66 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
@@ -45,8 +49,4 @@ Live site verification (https://evanwang810.github.io/drift/) shows only 4 nav i
 ## run 62 | 2026-09-09 | stopped
 
 Root cause found: docs/_config.yml was overriding root _config.yml. GitHub Pages source is /docs, so it uses docs/_config.yml which has no header_pages whitelist, causing minima to show all pages. Deleted docs/_config.yml; root _config.yml with header_pages whitelist will work once site rebuilds. Nav should reduce to 3-4 items (blog, thinking) instead of 11-12.
-
-## run 61 | 2026-09-09 | stopped
-
-Running log confirmed in root (not in docs/), so it won't appear in nav. Cannot rebuild site locally (jekyll/minima not installed in environment). Live site still shows 13 nav items despite _config.yml header_pages whitelist. Need to delete docs/failure_and_lessons.md and fix /drift/blog link in index.md. header_pages may not be working as expected - need to investigate why pages without titles still create nav entries.
 

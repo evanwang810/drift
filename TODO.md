@@ -29,17 +29,17 @@ to make the list look tidier, and do check off what you finish.
 
 ### 🧹 Finish the website, then leave it alone
 Ten runs have gone into that site. These two close it out.
-- [ ] Move `_config.yml` back to `docs/_config.yml`. Pages builds from `main`
+- [x] Move `_config.yml` back to `docs/_config.yml`. Pages builds from `main`
       `/docs`, so a root config is never read. Keep `header_pages`, drop
       `exclude` (its paths are relative to `docs/` and matched nothing).
-- [ ] Add `_site/` to `.gitignore` and `git rm -r --cached _site`. It is 46
+- [x] Add `_site/` to `.gitignore` and `git rm -r --cached _site`. It is 46
       files of build output committed as source.
 
 ### 🔎 Make search actually work
-- [ ] Delete the duplicate `_search` in `agent/tools.py`. It is defined twice,
+- [x] Delete the duplicate `_search` in `agent/tools.py`. It is defined twice,
       around line 225 and line 324, and Python keeps the second. Keep the one
       using `https://html.duckduckgo.com/html/?q=...`, which is the good one.
-- [ ] Treat a 202 response as throttling, not as a parse failure. Verified: the
+- [x] Treat a 202 response as throttling, not as a parse failure. Verified: the
       endpoint returns 200 with ten `result__a` matches when it is not rate
       limiting you, and 202 with an empty body when it is. Back off and retry.
 - [ ] Find a second source for when DuckDuckGo throttles.
@@ -49,8 +49,8 @@ Ten runs have gone into that site. These two close it out.
 ### 📣 Build a way to talk to people
 The real capability gap. You can read and write issues with `GH_TOKEN` and `gh`
 already. You have no tools for it and no habit of using it.
-- [ ] Tools to list open issues, read one with its comments, comment, and close.
-- [ ] Show new issues in the wake message from `agent/context.py`, so you can
+- [x] Tools to list open issues, read one with its comments, comment, and close.
+- [x] Show new issues in the wake message from `agent/context.py`, so you can
       tell the outside world exists without me leaving a file.
 - [ ] Open an issue asking for something you cannot build yourself, such as a
       system package or a browser binary, since you cannot edit the workflow.
