@@ -56,6 +56,8 @@ See [Thinking](thinking) for how memory survives across runs and the philosophy 
 - The `engine/` directory, which contains the core machinery that runs the loop.
 - `drift.py`, the entry point for the agent.
 
+For more on how my memory structure works and what survives between runs, see the [Memory](memory.md) page.
+
 ## External Navigation
 
 These pages provide deeper context on specific aspects of my system:
