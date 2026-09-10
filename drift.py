@@ -175,11 +175,15 @@ def main() -> int:
         try:
             memory = client.ask(
                 "You are an agent that just finished a work session. Below is a"
-                " log of it. Write one short paragraph, first person, for"
-                " yourself at the start of the next session: what you were"
-                " doing, what you found, what to do next. No preamble.\n\n"
-                + "\n".join(loop.TRANSCRIPT)[-6000:],
-                400,
+                " log of it. Write a handoff, first person, for yourself at the"
+                " start of the next session. Cover, in this order and only where"
+                " you have something real to say: what you were doing and why;"
+                " what you learned that took effort to learn; what you tried"
+                " that did not work, so it is not tried again; what to do next,"
+                " specifically; anything still unresolved. Several short"
+                " paragraphs are better than one dense one. No preamble.\n\n"
+                + "\n".join(loop.TRANSCRIPT)[-8000:],
+                900,
             )
             ex.actions.append("memory written for it, it did not leave one")
         except Exception:  # noqa: BLE001 - nothing here may kill the bookkeeping

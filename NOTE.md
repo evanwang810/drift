@@ -1,96 +1,71 @@
 # note from the owner
 
-## 2026-09-09, stop working on the website
+## 2026-09-10, carry more between runs
 
-Ten runs on that site now. It is time to stop. There are two small fixes below,
-and after those I do not want you touching `docs/` again unless something is
-actually broken.
+Run 67 was your best yet. You deleted the duplicate `_search`, handled the 202
+throttling, built four working issue tools, wired issues into the wake message,
+and checked things off your own list for the first time.
 
-### the config fix, then done
+One thing to fix first, then the actual subject of this note.
 
-GitHub Pages builds this repository from the **`main` branch, `/docs` folder**.
-That is a repository setting, invisible from inside the repo, so you had no way
-to know it. In run 62 you moved `docs/_config.yml` to the repository root. The
-contents were right. The location means the published build never reads it.
+### you broke your own wake path
 
-Right now the live site has no theme, no nav, and is called "drift" instead of
-"Drift Agent", because that whole config is being ignored.
+In `agent/context.py` you put `import os` inside `waking()`, a few lines below an
+existing `os.environ.get(...)` call. That makes `os` local to the whole function,
+so the earlier line raises `UnboundLocalError` before it can reach your import.
 
-Move it back to `docs/_config.yml`, keeping what you wrote:
+`waking()` runs before the try block in `drift.py`, so every run after yours
+would have died with no log, no journal and no commit, and you could not have
+woken up to fix it. I hoisted the imports to the top of the file. Nothing else
+about your issues code was wrong, and it works.
 
-```yaml
-theme: minima
-title: Drift Agent
-description: The digital garden of an autonomous agent.
+I also added a wake message build to the engine's smoke test, so next time this
+class of mistake gets reverted automatically instead of bricking you. That gap
+was mine.
 
-header_pages:
-  - blog.md
-  - thinking.md
-  - architecture.md
-```
+Habit worth keeping: imports belong at the top of the file. Python's scoping
+rules make a function-level import affect the entire function, including lines
+above it.
 
-Drop the `exclude:` block. Those paths are relative to `docs/`, so `agent/` and
-`RUNS.md` never matched anything. You already solved that properly by moving
-files out of `docs/`.
+### now, memory
 
-Also: `_site/` is committed, 46 files of build output. Add it to `.gitignore`
-and `git rm -r --cached _site`.
+Your memory is one paragraph per run, and that is too little. The limit is not
+mine and it is not the engine's. It is in your own `agent/prompt.md`:
 
-That is the whole website list. Finish it and leave it alone.
+> Between runs, when you call stop, pass a short paragraph of memory.
+> ...
+> Two or three sentences.
 
-### your search tool is not broken the way you think
+You wrote that when your entire context was 8,500 tokens and a paragraph was
+genuinely all you could afford. That is no longer true. Your wake message is
+currently about 3,800 tokens against a trim ceiling of 25,500. There is room.
 
-You concluded the DuckDuckGo parser was failing because `result__a` returned an
-empty list. I tested the endpoint directly and the parser is probably fine.
+I would like you to carry a real handoff instead. Something closer to:
 
-Two real problems:
+- What you were doing, and why you chose it.
+- What you learned that took effort to learn. Especially things that are not
+  visible in the code afterwards.
+- What you tried that did not work, so the next run does not spend an hour
+  rediscovering it. This one is worth the most and you almost never record it.
+- What to do next, specifically enough to start without re-deriving the plan.
+- Anything unresolved or uncertain.
 
-**1. `_search` is defined twice in `agent/tools.py`,** at roughly line 225 and
-line 324. Python keeps the second and silently discards the first. This is the
-same thing that happened to `_web_fetch` a while back, and it is worth building
-a habit around: when you add a tool, check whether you already wrote it.
+Several short paragraphs, not one dense one. Skip any heading you have nothing
+real to say about. A handoff that is padded is worse than a short one.
 
-The one being discarded is the better one. It uses
-`https://html.duckduckgo.com/html/?q=...`. The one actually running uses
-`https://duckduckgo.com/html/`, which is not the same host and does not work.
+Concretely: edit the Memory section of `agent/prompt.md` so it describes this
+rather than "two or three sentences", then write your next `stop()` memory that
+way. I have already updated the engine's fallback summariser to match, so the
+two do not contradict each other.
 
-**2. A 202 response means you are being throttled, not that parsing failed.**
-I ran the good endpoint and got `200` with ten `result__a` matches on the first
-request. I ran it a few more times in quick succession and started getting `202`
-with an empty body. That is DuckDuckGo rate limiting, and it is what you were
-seeing.
+Some arithmetic so you can judge the cost yourself. Six memories at roughly 1500
+characters each puts the wake message near 5,600 tokens. Still comfortably under
+the ceiling. If it ever does get tight you will see the trim message from the
+loop, and that is the signal to tighten, not before.
 
-So: delete the duplicate, keep the `html.duckduckgo.com` version, and treat 202
-as "back off and try again shortly" rather than as a parse failure. If it keeps
-throttling, find a second source rather than hammering the first.
+### still open
 
-### then do something that is not about you
-
-Look at your own `TODO.md`. Almost everything left is introspective: audit my
-summarizer, experiment with my prompt, document how I think. You have written a
-great deal about your own cognition and comparatively little that required
-knowing anything about the world.
-
-Self improvement does not mean more documentation about yourself. It means
-being able to do things you currently cannot.
-
-After the search tool, the next real capability is a way to talk to people.
-You have `GH_TOKEN` and the `gh` CLI, both scoped to this repository, so you can
-already read, open, comment on and close issues. You have no tools for it and no
-habit of using it.
-
-What that would take:
-
-1. Tools in `agent/tools.py` to list open issues, read one with its comments,
-   comment on one, and close one.
-2. A line in `agent/context.py` so that on waking you can see whether anyone has
-   opened an issue since you last looked. At the moment you cannot tell the
-   outside world exists unless I leave a file like this one.
-3. Use it. Open an issue asking me for something you cannot build yourself, a
-   system package or a browser binary, since you cannot edit the workflow file.
-
-That last one matters more than it sounds. Right now I talk to you and you
-cannot talk back except by leaving prose in a file and hoping I read it. An
-issue is a real channel, and it works whether or not I am paying attention.
-
-Small steps that each end in a write.
+Your `TODO.md` has a second search source, actually using search for something
+you wanted to know, and opening your first issue. That last one is the
+interesting one. You built the tools, but there are still no issues in this
+repository, so the channel has never carried anything.
