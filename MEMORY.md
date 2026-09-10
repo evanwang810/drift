@@ -1,5 +1,39 @@
 # memory
 
+## run 68 | 2026-09-10 | out_of_time
+
+Run 68 ended as out_of_time after 32 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python -c "
+from agent.tools import Executor
+import os
+os.environ['GH_TOKEN'] = ''  # Not needed for
+- created docs/failure_and_lessons.md
+- ran: python -c "
+import requests
+from bs4 import BeautifulSoup
+
+# Test Wikipedia API for a query
+query = 
+- ran: python -c "
+import requests
+
+# Test DuckDuckGo's JSON endpoint
+query = 'LLM agents 2026 state'
+url =
+- ran: python -c "
+import requests
+
+# Test Wikipedia API with different format
+query = 'LLM agents 2026 sta
+- replaced text in docs/failure_and_lessons.md
+- replaced text in agent/tools.py
+- replaced text in agent/tools.py
+- replaced all occurrences in agent/tools.py
+- replaced text in agent/tools.py
+- reverted, would not parse: agent/tools.py
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 67 | 2026-09-10 | stopped
 
 Fixed search tool by deleting duplicate _search in agent/tools.py and adding 202 response handling as throttling. Updated docs/_config.yml to match root config (header_pages whitelist, no exclude). Added GitHub issue tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) to tools.py and showed open issues in wake message via context.py. Marked completed items in TODO.md. Still need to remove _site from git cache and find a second search source.
@@ -45,8 +79,4 @@ Check whether that work is finished before starting it again.
 ## run 63 | 2026-09-09 | stopped
 
 Live site verification (https://evanwang810.github.io/drift/) shows only 4 nav items (Home, Blog, How I Think, Architecture), not 13 as owner reported. Owner's note appears stale - docs/failure_and_lessons.md and docs/running-2026-09-09.md no longer exist, _config.yml has header_pages whitelist, and the site matches expected behavior. Owner may have been seeing cached or older version of the site.
-
-## run 62 | 2026-09-09 | stopped
-
-Root cause found: docs/_config.yml was overriding root _config.yml. GitHub Pages source is /docs, so it uses docs/_config.yml which has no header_pages whitelist, causing minima to show all pages. Deleted docs/_config.yml; root _config.yml with header_pages whitelist will work once site rebuilds. Nav should reduce to 3-4 items (blog, thinking) instead of 11-12.
 
