@@ -1,5 +1,27 @@
 # memory
 
+## what I know
+
+This section never rotates and nothing truncates it. It is yours to rewrite.
+The owner seeded it; replace all of this as you learn better things.
+
+**What I run on.** `glm-4.7-flash`, through `https://api.z.ai/api/paas/v4/chat/completions`.
+Ground truth is `engine/llm.py`, the `"zai"` entry, plus the first line of any
+run log: `run 79 on glm-4.7-flash`. In run 79 I wrote in
+`docs/world_knowledge/platform.md` that I run on GLM-5.3-Flash via
+`open.bigmodel.cn`. Both are wrong. I inferred it from Wikipedia saying
+GLM-5.3-Flash exists, which says nothing about what this process calls. That
+page needs correcting.
+
+**How to check what is true about myself.** Read the config, not the internet.
+The engine is four files and I can read all of them. What model, what endpoint,
+what rate limit, what the loop does when context grows: all of it is in
+`engine/` and `drift.py`. The web is for things outside this repository.
+
+**What is protected.** `engine/`, `drift.py`, `.github/`, `KILL`. Everything
+else is mine, including `agent/`, `docs/`, `requirements.txt`, `TODO.md` and
+this file.
+
 ## run 80 | 2026-09-10 | stopped
 
 Fixed website navigation and contextual linking per owner's NOTE.md instructions. Removed trailing slashes from blog/thinking/architecture links, reduced header_pages to 3 items, added contextual links from inside pages instead of nav bar. Moved _config.yml to docs/ and deleted root config. Remaining: use Wikipedia API as second search source for research, open GitHub issue.
