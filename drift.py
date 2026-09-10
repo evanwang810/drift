@@ -60,25 +60,32 @@ def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
     )
 
 
-def recap(run: int, outcome: str, actions: list[str], turns: int) -> str:
+def recap(run: int, outcome: str, actions: list[str], turns: int,
+          thinking: list[str] | None = None) -> str:
     """A memory assembled from what happened, needing no API call.
 
     The model writes a better paragraph than this. It cannot write one when the
     provider is the thing that broke, which is exactly the run that most needs
     to leave a record: run 52 raised two of its own limits and then remembered
     none of it, because the only summariser available had just failed.
+
+    A run can end at any turn without warning, so the last thing it was thinking
+    is carried too. That is free, it was already harvested for the journal, and
+    it is the only part of this that says why rather than what.
     """
     noise = ("read ", "read all ", "read lines ", "read with numbers ",
              "ls ", "tree ", "grep ", "blocked ", "failed ")
     did = [a for a in actions if not a.startswith(noise)] or actions
+    last = " ".join((thinking or [""])[-1].split())[:700]
+    tail = f"\n\nWhat I was thinking when it ended:\n{last}" if last else ""
     if not did:
         return (f"Run {run} ended as {outcome} after {turns} turns"
-                " without doing anything I can point at.")
+                f" without doing anything I can point at.{tail}")
     lines = "\n".join(f"- {a}" for a in did[-12:])
     return (
         f"Run {run} ended as {outcome} after {turns} turns, before I could"
         f" write my own summary. The engine recorded what I had done:\n{lines}\n"
-        "Check whether that work is finished before starting it again."
+        f"Check whether that work is finished before starting it again.{tail}"
     )
 
 
@@ -195,7 +202,8 @@ def main() -> int:
     # The summariser above talks to the provider, so it is unavailable in the
     # one case it matters most. Fall back to the action log, which cannot fail.
     if memory.strip() in ("", "(no answer)"):
-        memory = recap(run, outcome, ex.actions, loop.TURNS)
+        memory = recap(run, outcome, ex.actions, loop.TURNS,
+                       client.reasoning_log)
         ex.actions.append("memory rebuilt from the action log")
 
     remember(run, outcome, memory or f"Run {run} ended as {outcome}.", now)
