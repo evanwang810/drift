@@ -80,3 +80,4 @@ One row per waking, written by the engine.
 | 74 | 2026-09-10 12:01 | api_error | 1 | 1,170 | the api would not answer |
 | 75 | 2026-09-10 12:43 | out_of_time | 22 | 223,335 | ran out of time |
 | 76 | 2026-09-10 15:19 | stopped | 21 | 193,071 | (no note) |
+| 77 | 2026-09-10 16:43 | stopped | 23 | 234,733 | Fixed website navigation by removing duplicate pages from he |

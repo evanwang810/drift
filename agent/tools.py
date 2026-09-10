@@ -18,7 +18,7 @@ from analyze_runs import analyze_runs
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
-from agent.run_analyzer import RunAnalyzer
+from analyze_runs import analyze_runs
 
 import requests
 from bs4 import BeautifulSoup
