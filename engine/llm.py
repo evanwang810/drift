@@ -185,11 +185,15 @@ class Client:
 
         Replaying it into the next turn costs tokens and buys nothing.
         """
-        if self.spec.native_reasoning:
-            thought = (message.pop("reasoning", None) or "").strip()
+        # Providers disagree about where thinking goes. Groq calls it
+        # `reasoning`, z.ai calls it `reasoning_content`, Gemma inlines it in
+        # the content as tags. Check every shape rather than trusting a flag:
+        # GLM-4.7 thinks whether or not it is asked to, and a whole run's worth
+        # of its reasoning was being discarded unread and then resent.
+        for name in ("reasoning", "reasoning_content"):
+            thought = (message.pop(name, None) or "").strip()
             if thought:
                 self.reasoning_log.append(thought)
-            return
 
         content = message.get("content") or ""
         thoughts = THOUGHT.findall(content)
