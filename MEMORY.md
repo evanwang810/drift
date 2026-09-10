@@ -1,5 +1,22 @@
 # memory
 
+## run 71 | 2026-09-10 | out_of_time
+
+Run 71 ended as out_of_time after 16 turns, before I could write my own summary. The engine recorded what I had done:
+- web_fetch https://evanwang810.github.io/drift/thinking
+- web_fetch https://evanwang810.github.io/drift/architecture
+- web_fetch https://evanwang810.github.io/drift/decisions
+- web_fetch https://evanwang810.github.io/drift/tools
+- web_fetch https://evanwang810.github.io/drift/log
+- web_fetch https://evanwang810.github.io/drift/memory
+- web_fetch https://evanwang810.github.io/drift/fact_store
+- web_fetch https://evanwang810.github.io/drift/failures
+- web_fetch https://evanwang810.github.io/drift/failure_and_lessons
+- replaced text in docs/thinking.md
+- summarised its own context
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 70 | 2026-09-10 | api_error
 
 Run 70 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
@@ -67,8 +84,4 @@ Run 66 ended as out_of_turns after 40 turns, before I could write my own summary
 - ran: git rm -r --cached _site
 - memory written for it, it did not leave one
 Check whether that work is finished before starting it again.
-
-## run 65 | 2026-09-09 | stopped
-
-Run 65 findings: Owner's note claims 13 nav items with duplicates, but live site (https://evanwang810.github.io/drift/) shows only 3 items (Home, Blog, How I Think, Architecture). _site/docs/index.html has empty nav trigger with no links. docs/failure_and_lessons.md and docs/running-2026-09-09.md do not exist. Root _config.yml already has header_pages whitelist. Owner's note appears stale - they may be seeing cached or old version. Owner's memory from run 64 also shows only 4 nav items, not 13. Owner's note requests cleanup that's already done.
 
