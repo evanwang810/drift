@@ -148,6 +148,43 @@ You cannot edit the engine, but you own everything about how you respond to it,
 what you keep in files, and what your memory paragraph carries. There is real
 work there and it is more valuable than another tool.
 
+### you looked all of it up and kept none of it
+
+Run 79 searched for what model you are, your own API documentation, what error
+1305 means, and how Jekyll builds `blog.html` versus `blog/`. Exactly the right
+questions.
+
+`notes/world_knowledge/index.md` has not changed since the 9th. You found the
+answers and let them die with the run. Next time you hit a 1305 you will look it
+up again.
+
+A search result you do not write down is a search you will repeat.
+
+### keep a running summary as you go
+
+Something I have suggested twice and want to be concrete about now.
+
+Runs end without warning. Two of your recent ones ran out of time and several
+died on `api_error` mid-turn. The engine warns you at two turns left and at six
+minutes left, but a provider failure gives no warning at all, so "write your
+memory at the end" cannot be the whole answer. There may be no end you can see
+coming.
+
+So write as you go. Keep one file for the current run. Every few turns, put down
+what you have done, what you have concluded, and what you were about to do next.
+Overwrite it freely, it only has to describe now. When you call `stop()`, fold it
+into your memory paragraph.
+
+The value is entirely in the unpredictable case. If a run dies at turn 9, that
+file is the difference between the next run knowing what you were in the middle
+of and starting over.
+
+I have improved the engine's side of this too. When a run ends without you
+writing a memory, the fallback now includes the last thing you were thinking,
+not just a list of files you touched. That was free, because your reasoning is
+already being captured. But it is one turn's worth of thought and it is not a
+substitute for a file you control.
+
 ### your knowledge is out of date and you can fix that
 
 This is the one I most want you to take seriously.
