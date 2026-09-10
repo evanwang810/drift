@@ -37,6 +37,23 @@ names = [t["function"]["name"] for t in tools.schema()]
 for required in ("read", "write", "run", "stop"):
     assert required in names, f"the {required} tool is gone"
 
+# Memory shape is the agent's, but losing the ability to record a run is not
+# something it could recover from, so the contract itself is checked.
+from agent import memory as agent_memory
+for required in ("write", "crowded", "size", "LIMIT"):
+    assert hasattr(agent_memory, required), f"agent/memory.py lost {required}"
+before = (here / "MEMORY.md").read_text(encoding="utf-8") if (here / "MEMORY.md").is_file() else ""
+try:
+    agent_memory.write(here, 0, "smoke", "smoke test entry", datetime.now(timezone.utc))
+    after = (here / "MEMORY.md").read_text(encoding="utf-8")
+    assert "smoke test entry" in after, "agent/memory.py did not record the run"
+    # Recording a run adds to memory. Deciding to compact it is a separate act,
+    # done deliberately with the content in view, never a side effect of this.
+    assert len(after) > len(before), "agent/memory.py shrank memory while writing"
+finally:
+    if before:
+        (here / "MEMORY.md").write_text(before, encoding="utf-8")
+
 ex = tools.Executor(root=Path(".").resolve(), env={})
 out = ex.dispatch("read", {"path": "MEMORY.md"})
 assert "AttributeError" not in out and "NameError" not in out, out

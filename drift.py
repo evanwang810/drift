@@ -16,7 +16,7 @@ import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
-from agent import tools
+from agent import memory as agent_memory, tools
 from engine import loop, safety
 from engine.llm import PROVIDERS, Client, LLMError
 
@@ -25,10 +25,6 @@ PROVIDER = os.environ.get("PROVIDER", "gemini")
 MAX_TURNS = int(os.environ.get("MAX_TURNS", "40"))
 # Under the job timeout, so a slow run ends itself and still pushes.
 MINUTES = int(os.environ.get("MINUTES", "55"))
-# Cut to 3 when the budget was 10k a minute and the wake message alone was
-# spending most of it. On z.ai the ceiling is about six times higher, so the
-# chain can be longer again without starving the run that has to read it.
-KEEP_MEMORIES = 6
 
 
 def state() -> tuple[int, str, str]:
@@ -44,20 +40,26 @@ def state() -> tuple[int, str, str]:
 
 
 def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
-    """Prepend this run's paragraph and keep only the recent ones.
+    """Hand this run's memory to the agent's own module, and never lose it.
 
-    Memory is a short chain, not an archive. Anything older than the last few
-    runs is in git history if it is ever wanted again.
+    How memory is shaped is agent/memory.py's decision, not this file's. The
+    only thing guaranteed here is that something gets written even if that
+    module is mid-rewrite and broken, because a run that leaves no record is
+    the one failure the agent cannot recover from on its own.
     """
+    try:
+        agent_memory.write(ROOT, run, outcome, paragraph, now)
+        return
+    except Exception:  # noqa: BLE001 - the agent owns that file and may break it
+        print("agent/memory.py failed, appending plainly instead")
+        traceback.print_exc()
+
     path = ROOT / "MEMORY.md"
-    old = path.read_text(encoding="utf-8") if path.is_file() else ""
-    entries = re.split(r"(?=^## run )", old, flags=re.M)
-    entries = [e for e in entries if e.strip().startswith("## run")]
-    fresh = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{paragraph.strip()}\n\n"
-    path.write_text(
-        "# memory\n\n" + fresh + "".join(entries[:KEEP_MEMORIES - 1]),
-        encoding="utf-8",
-    )
+    old = path.read_text(encoding="utf-8") if path.is_file() else "# memory\n"
+    entry = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{paragraph.strip()}\n\n"
+    head, sep, rest = old.partition("\n## run ")
+    path.write_text(head.rstrip() + "\n\n" + entry + (sep + rest).lstrip("\n"),
+                    encoding="utf-8")
 
 
 def recap(run: int, outcome: str, actions: list[str], turns: int,
@@ -188,9 +190,11 @@ def main() -> int:
                 " what you learned that took effort to learn; what you tried"
                 " that did not work, so it is not tried again; what to do next,"
                 " specifically; anything still unresolved. Several short"
-                " paragraphs are better than one dense one. No preamble.\n\n"
-                + "\n".join(loop.TRANSCRIPT)[-8000:],
-                900,
+                " paragraphs are better than one dense one. Be thorough. You"
+                " have room, and detail left out is detail the next run has to"
+                " rediscover. No preamble.\n\n"
+                + "\n".join(loop.TRANSCRIPT)[-12000:],
+                1600,
             )
             ex.actions.append("memory written for it, it did not leave one")
         except Exception:  # noqa: BLE001 - nothing here may kill the bookkeeping

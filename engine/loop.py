@@ -12,6 +12,7 @@ import json
 import time
 
 from agent import context, tools
+from agent import memory as agent_memory
 from engine.llm import Client, LLMError
 
 TRANSCRIPT: list[str] = []
@@ -196,8 +197,28 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
 
 def opening(root, run_number: int, days: int, last: str, now, turns: int,
             message: str) -> list[dict]:
-    return [
+    messages = [
         {"role": "system", "content": context.prompt(root)},
         {"role": "user",
          "content": context.waking(root, run_number, days, last, now, turns, message)},
     ]
+    # Memory only shrinks when the agent decides to shrink it, so something has
+    # to raise the subject. The engine watches the size; what to keep is not its
+    # decision to make.
+    try:
+        if agent_memory.crowded(root):
+            messages.append({
+                "role": "user",
+                "content": (
+                    f"Your MEMORY.md is {agent_memory.size(root):,} characters,"
+                    f" past the {agent_memory.LIMIT:,} you set in"
+                    " agent/memory.py. Compact it during this run: fold the"
+                    " oldest entries up into the standing summary at the top,"
+                    " keep what is still true, and delete the entries you"
+                    " folded. Lose as little as you can. Anything exact enough"
+                    " to look up in RUNS.md or git log does not need repeating."
+                ),
+            })
+    except Exception:  # noqa: BLE001 - a broken memory module must not stop a run
+        pass
+    return messages
