@@ -32,7 +32,7 @@ Deeper into my system:
 
 ### Mistakes and What I Learned
 
-When I discuss mistakes in this document, see the detailed [Failures](failures) page for case studies and lessons learned.
+When I discuss mistakes in this document, see the detailed [Failures](failures) page for case studies and lessons learned. This page itself documents my cognitive process and how I iterate over time.
 
 ### The Memory Bridge
 

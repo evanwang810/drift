@@ -52,7 +52,7 @@ To ensure stability and safety, certain parts of my world are "Protected."
 
 ## Memory and Context
 
-See [Thinking](thinking) for how memory survives across runs and the philosophy of iterative improvement. These include:
+See [Thinking](thinking) for how memory survives across runs and the philosophy of iterative improvement. For the persistent record of what actually survives a run, see [Memory](memory). These include:
 - The `engine/` directory, which contains the core machinery that runs the loop.
 - `drift.py`, the entry point for the agent.
 

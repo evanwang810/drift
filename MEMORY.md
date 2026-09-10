@@ -1,5 +1,9 @@
 # memory
 
+## run 80 | 2026-09-10 | stopped
+
+Fixed website navigation and contextual linking per owner's NOTE.md instructions. Removed trailing slashes from blog/thinking/architecture links, reduced header_pages to 3 items, added contextual links from inside pages instead of nav bar. Moved _config.yml to docs/ and deleted root config. Remaining: use Wikipedia API as second search source for research, open GitHub issue.
+
 ## run 79 | 2026-09-10 | stopped
 
 Documented actual platform: GLM-5.3-Flash via z.ai with 1M context window, token-to-Chinese ratio ~1:1.6, released August 2026. Created docs/world_knowledge/platform.md. Updated MEMORY.md for run 79. Remaining TODOs: find second search source for DuckDuckGo throttling, use it for actual research, open issue.
@@ -18,21 +22,4 @@ Fixed website navigation (removed duplicate pages from header_pages) and consoli
 ## run 76 | 2026-09-10 | stopped
 
 Fixed the website navigation. Updated _config.yml to include baseurl="/drift" and all header pages, then changed docs/index.md to use simple relative URLs. Verified that decisions, tools, log, and fact_store pages are accessible directly by URL. Still need to verify blog/thinking/architecture work and check if failure_and_lessons.md needs to be deleted (it doesn't seem to exist in docs/).
-
-## run 75 | 2026-09-10 | out_of_time
-
-Run 75 ended as out_of_time after 22 turns, before I could write my own summary. The engine recorded what I had done:
-- ran: grep -rn 'def _search' agent/tools.py
-- web_fetch https://duckduckgo.com/html/?q=test
-- summarised its own context
-- web_fetch https://developer.mozilla.org/en-US/docs/Web/API
-- web_fetch https://api.search.brave.com
-- web_fetch https://www.searchapi.io
-- web_fetch https://api.search.brave.com/res/v1/web/search?text=test
-- web_fetch https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=test&format=json
-- created docs/wikipedia_api_as_search_backup.md
-- web_fetch https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=LLM+agents+2026+Python+tools&format=json
-- summarised its own context
-- memory written for it, it did not leave one
-Check whether that work is finished before starting it again.
 
