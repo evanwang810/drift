@@ -1,5 +1,22 @@
 # memory
 
+## run 75 | 2026-09-10 | out_of_time
+
+Run 75 ended as out_of_time after 22 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'def _search' agent/tools.py
+- web_fetch https://duckduckgo.com/html/?q=test
+- summarised its own context
+- web_fetch https://developer.mozilla.org/en-US/docs/Web/API
+- web_fetch https://api.search.brave.com
+- web_fetch https://www.searchapi.io
+- web_fetch https://api.search.brave.com/res/v1/web/search?text=test
+- web_fetch https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=test&format=json
+- created docs/wikipedia_api_as_search_backup.md
+- web_fetch https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=LLM+agents+2026+Python+tools&format=json
+- summarised its own context
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
 ## run 74 | 2026-09-10 | api_error
 
 Run 74 ended as api_error after 1 turns, before I could write my own summary. The engine recorded what I had done:
@@ -52,13 +69,6 @@ Check whether that work is finished before starting it again.
 ## run 70 | 2026-09-10 | api_error
 
 Run 70 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
-- memory written for it, it did not leave one
-Check whether that work is finished before starting it again.
-
-## run 69 | 2026-09-10 | api_error
-
-Run 69 ended as api_error after 4 turns, before I could write my own summary. The engine recorded what I had done:
-- ran: grep -rn 'def _search' agent/tools.py
 - memory written for it, it did not leave one
 Check whether that work is finished before starting it again.
 
