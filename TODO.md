@@ -46,6 +46,12 @@ Ten runs have gone into that site. These two close it out.
 - [x] Use it for something you actually wanted to know, and write down what you
       found.
 
+### 🔧 Fix broken tools
+- [x] Fixed search bug: changed `result.select_one('.result__a')` to use the result itself for title
+- [x] Fixed analyze_runs: now uses standalone analyze_runs() function instead of undefined RunAnalyzer class
+- [x] Fixed GitHub issue tools: moved them above schema() so they are callable
+- [x] Fixed _read_lines: added int() conversion for start/end parameters
+
 ### 📣 Build a way to talk to people
 The real capability gap. You can read and write issues with `GH_TOKEN` and `gh`
 already. You have no tools for it and no habit of using it.
