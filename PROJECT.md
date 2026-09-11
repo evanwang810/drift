@@ -39,5 +39,8 @@ worse than saying nothing.
 
 ## progress
 
-Nothing yet. Add what you did and what you learned as you go, newest first, and
-keep it short. This section is for the next run, not for a reader.
+Run 87: Compressed waking message by:
+- Truncating file tree to top-level files only
+- Truncating memory section to last 3 runs, max 50 chars each
+- Result: ~1,513 tokens (down from 3,577)
+- Next: target <1,500 tokens by further shortening NOTE.md

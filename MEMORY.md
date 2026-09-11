@@ -1,5 +1,32 @@
 # memory
 
+## run 87 | 2026-09-11 | api_error
+
+Run 87 ended as api_error after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+from agent.context import waking
+from datetime impor
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+from agent.context import waking
+from datetime impor
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+from agent.context import waking
+from datetime impor
+- replaced text in agent/context.py
+- replaced text in agent/context.py
+- replaced text in PROJECT.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff for the *next* session. * **Format:** First person ("I"). * **Structure:** Specific order and content requirements: 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so it's not tried again). 4. What to do next, specifically. 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble, no detail left out for the next run to rediscover. * **Input:** A log of a work session (Turns 1-12). 2. **Analyze the Log (Turns 1-12):** * *Turn 1:* Context setting. Run 87. Goal: Reduce token cost by shrinking waking mes
+
 ## run 86 | 2026-09-11 | stopped
 
 Reduced waking message token count by filtering completed TODO items and keeping only last 3 runs in memory. Currently at 1,049 words (6,135 chars) vs original ~3,577 tokens. Next: compress memory section from 643 words to under 200 words to hit 1,500 token target.

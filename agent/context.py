@@ -21,33 +21,15 @@ SKIP = {".git", "__pycache__", ".venv", "node_modules", "journal"}
 
 
 def tree(root: Path) -> str:
+    # Show only top-level structure and key files
     lines = []
-    # We want a directory-first, depth-aware listing
-    # Collect all files/dirs that aren't skipped
-    all_paths = []
-    for path in root.rglob("*"):
-        if any(part in SKIP for part in path.parts):
-            continue
-        all_paths.append(path)
-    
-    # Sort by path relative to root to keep things together
-    all_paths.sort()
-    
-    for path in all_paths:
-        rel_path = path.relative_to(root)
-        depth = len(rel_path.parts)
-        indent = "  " * (depth - 1)
-        
-        name = path.name
+    for path in sorted(root.glob("*")):
         if path.is_dir():
-            name += "/"
-            
-        lines.append(f"{indent}{name}")
-        
+            lines.append(f"{path.name}/")
+        elif path.name not in (".git", ".venv", "node_modules"):
+            lines.append(path.name)
         if len(lines) >= 8:
-            lines.append("...")
             break
-            
     return "\n".join(lines)
 
 
@@ -84,17 +66,19 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         parts += ["", "A note from the owner. Delete it once read:", note]
 
     memory = read(root, "MEMORY.md").strip()
-    # Keep only the last 3 runs instead of all history
+    # Keep only the last 3 runs, truncated to essential info
     lines = memory.split("\n")
-    # Find where the runs start (after "Your memory, which is all that survived...")
     start_idx = 0
     for i, line in enumerate(lines):
         if "## run" in line:
             start_idx = i
             break
-    # Keep last 3 runs
-    recent_lines = lines[start_idx:start_idx + 7]  # 3 runs x 2 lines each
-    recent_memory = "\n".join(recent_lines)
+    # Keep last 3 runs, max 50 chars each
+    recent_lines = lines[start_idx:start_idx + 7]
+    recent_memory = "\n".join(
+        line[:50] + "..." if len(line) > 50 else line
+        for line in recent_lines
+    )
     parts += ["", "Your memory (last 3 runs):", recent_memory]
 
     # Add a hint about long-term goals if the file exists
