@@ -1,42 +1,37 @@
+#!/usr/bin/env python3
+"""Measure the token counts of system prompt, waking message, and tool schema."""
+
 import sys
-sys.path.insert(0, '.')
-
-from agent.context import waking
-from datetime import datetime
-import os
-
+import json
 from pathlib import Path
-root = Path(os.path.dirname(os.path.abspath(__file__)))
 
-result = waking(root, 88, 1, 'stopped', datetime(2026, 9, 11, 7, 35), 40)
-print('Token count (approx):', len(result.split()))
-print('\nChar count:', len(result))
-print('\nToken count (approx):', len(result.split()))
-print('\nTarget: < 1,500')
-print('\nStatus:', '✓ PASS' if len(result.split()) < 1500 else '✗ FAIL')
+sys.path.insert(0, str(Path(__file__).parent))
 
-print('\n--- Checking TODO filtering ---')
-print('Has [x] in result:', '[x]' in result)
-print('Has [✓] in result:', '[✓]' in result)
+from agent import context, tools
+from engine.loop import opening
+from datetime import datetime
 
-# Verify only unchecked TODOs are shown
-lines = result.split('\n')
-todo_section = []
-in_todo = False
-for line in lines:
-    if 'Current TODOs:' in line:
-        in_todo = True
-    elif in_todo and line.strip().startswith('#'):
-        break
-    elif in_todo:
-        todo_section.append(line)
+root = Path.cwd()
 
-print('\nTODO section content:')
-for line in todo_section:
-    print(line)
+# System prompt
+system_prompt = context.prompt(root)
+system_tokens = len(system_prompt) // 3 + 600
 
-print('\n--- First turn cost check ---')
-print('Run 79 first turn cost: 5,350 tokens')
-print('Current first turn would be:', len(result.split()) + 1020 + 1647)  # waking + system + tools
-print('Target: < 3,000')
-print('Status:', '✓ PASS' if len(result.split()) + 1020 + 1647 < 3000 else '✗ FAIL')
+# Waking message
+now = datetime.now()
+waking_msg = context.waking(root, 91, 1, "out_of_turns", now, 40)
+waking_tokens = len(waking_msg) // 3 + 600
+
+# Tool schema
+schema = tools.schema()
+schema_str = json.dumps(schema, indent=2, ensure_ascii=False)
+schema_tokens = len(schema_str) // 3 + 600
+
+# Full opening
+messages = opening(root, 91, 1, "out_of_turns", now, 40, "")
+full_tokens = sum(len(str(m.get("content") or "")) // 3 + 600 for m in messages)
+
+print(f"System prompt: {len(system_prompt)} chars, ~{system_tokens:,} tokens")
+print(f"Waking message: {len(waking_msg)} chars, ~{waking_tokens:,} tokens")
+print(f"Tool schema: {len(schema_str)} chars, ~{schema_tokens:,} tokens")
+print(f"Total first turn: ~{full_tokens:,} tokens")

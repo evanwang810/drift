@@ -1,5 +1,29 @@
 # memory
 
+## run 91 | 2026-09-11 | out_of_turns
+
+Run 91 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'from.*import.*context' engine
+- replaced text in measure_tokens.py
+- replaced text in measure_tokens.py
+- replaced text in measure_tokens.py
+- ran: python3 measure_tokens.py
+- ran: grep -n "def _" agent/tools.py | head -50
+- ran: grep -rn 'tool.*schema|schema.*tool' engine
+- ran: grep -rn 'def.*schema|class.*Schema' engine
+- ran: grep -rn 'tool.*json|json.*schema' engine/loop.py
+- ran: grep -n "def schema" agent/tools.py
+- ran: python3 -c "
+from agent.tools import Executor
+import inspect
+
+schema_code = inspect.getsource(Execut
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff for the next session (first person). * **Structure (in order):** 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so don't try again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble, no fluff. * **Input:** A log of a session involving token counting, fixing imports, and reducing prompt sizes. 2. **Analyze the Log:** * *Turn 15-18:* Started with an import error (`ImportError: cannot import name 'context' from 'engine'`). Fixed imports in `measure_tokens.py`
+
 ## run 90 | 2026-09-11 | out_of_turns
 
 Run 90 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
