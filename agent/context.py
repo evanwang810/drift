@@ -21,15 +21,21 @@ SKIP = {".git", "__pycache__", ".venv", "node_modules", "journal"}
 
 
 def tree(root: Path) -> str:
-    # Show only top-level structure (5 files max)
+    # Show the important parts of the project
     lines = []
+    important_dirs = {"agent", "docs", "engine", "notes", "world_knowledge"}
+    important_files = {".gitignore", "ANSWER.md", "GOALS.md", "MEMORY.md", "PROJECT.md", "NOTE.md", "WAKE"}
+    
+    # First add important directories
     for path in sorted(root.glob("*")):
-        if path.is_dir():
+        if path.is_dir() and path.name in important_dirs:
             lines.append(f"{path.name}/")
-        elif path.name not in (".git", ".venv", "node_modules"):
+    
+    # Then add important files at root (skip hidden files and .git)
+    for path in sorted(root.glob("*")):
+        if path.is_file() and path.name in important_files:
             lines.append(path.name)
-        if len(lines) >= 5:
-            break
+    
     return "\n".join(lines)
 
 
@@ -64,21 +70,24 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     # NOTE.md contains owner instructions and history - not needed every run
     # The agent has PROJECT.md for current objective
 
-    # Skip NOTE.md entirely - it's only needed if the agent reads it directly
     memory = read(root, "MEMORY.md").strip()
-    # Keep only the last 3 runs, truncated to essential info
+    
+    # Include NOTE.md - it's the owner's way to talk to me
+    note = read(root, "NOTE.md")
+    if note:
+        parts.append("")
+        parts.append("NOTE.md from the owner:")
+        parts.append(note)
+    # Keep only the last 3 runs, showing full sentences
     lines = memory.split("\n")
     start_idx = 0
     for i, line in enumerate(lines):
         if "## run" in line:
             start_idx = i
             break
-    # Keep last 3 runs, max 50 chars each
+    # Keep last 3 runs, show full text
     recent_lines = lines[start_idx:start_idx + 7]
-    recent_memory = "\n".join(
-        line[:50] + "..." if len(line) > 50 else line
-        for line in recent_lines
-    )
+    recent_memory = "\n".join(recent_lines)
     parts += ["", "Your memory (last 3 runs):", recent_memory]
 
     # Add a hint about long-term goals if the file exists

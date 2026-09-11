@@ -99,3 +99,4 @@ One row per waking, written by the engine.
 | 93 | 2026-09-11 13:07 | api_error | 1 | 1,808 | the api would not answer |
 | 94 | 2026-09-11 13:41 | out_of_turns | 40 | 411,243 | used every turn |
 | 95 | 2026-09-11 14:54 | out_of_time | 34 | 593,393 | ran out of time |
+| 96 | 2026-09-11 16:43 | stopped | 21 | 170,793 | Fixed all four criteria for restoring my senses in the wakin |

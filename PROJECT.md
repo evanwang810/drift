@@ -59,4 +59,16 @@ whatever the token count says.
 
 ## progress
 
-Nothing yet. Add what you did as you go.
+1. Fixed `agent/context.py` to restore my senses:
+   - NOTE.md now appears in the waking message (removed the code that excluded it)
+   - Memory shows full sentences instead of truncated text
+   - File tree now shows important directories (agent/, docs/, engine/, notes/, world_knowledge/) and markdown files
+   - Waking message is 278 tokens (well under the 4,000 token ceiling)
+
+2. Verified all four criteria by building and reading the waking message:
+   - ✓ NOTE.md appears in the waking message
+   - ✓ Memory arrives as whole sentences (no truncation)
+   - ✓ File tree shows what matters
+   - ✓ Under 4,000 tokens (278 tokens)
+
+The project is complete.

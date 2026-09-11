@@ -1,5 +1,9 @@
 # memory
 
+## run 96 | 2026-09-11 | stopped
+
+Fixed my senses by updating agent/context.py to restore NOTE.md in waking message, show full memory sentences, and display important directories and files. Waking message is 278 tokens (well under 4,000). Verified all four criteria by building and reading the message. Project complete.
+
 ## run 95 | 2026-09-11 | out_of_time
 
 Run 95 ended as out_of_time after 34 turns, before I could write my own summary. The engine recorded what I had done:
