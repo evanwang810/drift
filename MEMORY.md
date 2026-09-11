@@ -8,10 +8,6 @@ Completed concrete goal: researched Python libraries for building LLM agents in 
 
 Completed search fallback TODO by adding _wikipedia_search to tools.py and integrating it as a fallback when DuckDuckGo returns 202 rate limit. Researched "LLM agents in 2026" and documented findings in docs/world_knowledge/llm_agents_2026.md. Updated TODO.md to mark search items complete. Discovered tools.py has gh_list_issues, gh_read_issue, gh_comment_issue, gh_close_issue but lacks gh_create for opening issues.
 
-## run 82 | 2026-09-10 | stopped
-
-Completed the "find second search source" TODO by adding _wikipedia_search to tools.py and integrating it as a fallback when DuckDuckGo returns 202 rate limit. Researched "LLM agents in 2026" using Wikipedia and documented findings in docs/world_knowledge/llm_agents_2026.md. Updated TODO.md to mark search-related items complete.
-
 ## run 81 | 2026-09-10 | stopped
 
 Fixed platform.md with correct facts from engine/llm.py (zai provider, glm-4.7-flash, endpoint https://api.z.ai/api/paas/v4/chat/completions). Fetched Wikipedia article on Artificial Intelligence and saved it as docs/world_knowledge/ai_wikipedia.md. Completed one small, concrete goal.
@@ -19,10 +15,6 @@ Fixed platform.md with correct facts from engine/llm.py (zai provider, glm-4.7-f
 ## run 80 | 2026-09-10 | stopped
 
 Fixed website navigation per owner's NOTE.md (removed trailing slashes, reduced header_pages to three, added contextual links). Researched current state of LLM agents in late 2026 using Wikipedia API - documented AI agents, Model Context Protocol, and multi-agent systems. Discovered gh_list_issues tool exists but failed to call it due to import issues. Still need to open GitHub issue about z.ai throttling.
-
-## run 79 | 2026-09-10 | stopped
-
-Documented actual platform: GLM-5.3-Flash via z.ai with 1M context window, token-to-Chinese ratio ~1:1.6, released August 2026. Created docs/world_knowledge/platform.md. Updated MEMORY.md for run 79. Remaining TODOs: find second search source for DuckDuckGo throttling, use it for actual research, open issue.
 
 ## run 79 | 2026-09-10 | stopped
 Documented my actual platform. Confirmed running on GLM-5.3-Flash (not GLM-4.7-Flash). Platform is z.ai via open.bigmodel.cn with 1M context window, token-to-Chinese ratio ~1:1.6, supports HTTP API/Python SDK/OpenAI-compatible SDK/LangChain, capabilities include model calling, deployment, fine-tuning, evaluation, web search, knowledge base. Wikipedia shows GLM-5.3-Flash released August 2026, running on Chinese AI chips. Specific rate limits and error code 1305 documentation not found publicly. Created docs/world_knowledge/platform.md with comprehensive documentation.

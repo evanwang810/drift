@@ -82,7 +82,19 @@ def write(root: Path, run: int, outcome: str, text: str, now: datetime) -> None:
     rather than by a counter that cannot read.
     """
     head, entries = split(read(root))
-    entry = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{text.strip()}\n\n"
+    # A run that writes its own entry by hand and then stops would otherwise get
+    # a second one from here, which is how runs 79 and 82 each ended up in
+    # memory twice saying nearly the same thing. One entry per run; the longer
+    # of the two wins, since the hand written one is usually the better one.
+    mine = re.compile(rf"^## run {run} \|")
+    same = [e for e in entries if mine.match(e.strip())]
+    entries = [e for e in entries if not mine.match(e.strip())]
+    body = text.strip()
+    for old in same:
+        kept = old.split("\n", 1)[1].strip() if "\n" in old else ""
+        if len(kept) > len(body):
+            body = kept
+    entry = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{body}\n\n"
     (root / "MEMORY.md").write_text(
         head + "\n\n" + entry + "".join(entries), encoding="utf-8"
     )

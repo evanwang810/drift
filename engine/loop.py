@@ -202,6 +202,37 @@ def opening(root, run_number: int, days: int, last: str, now, turns: int,
         {"role": "user",
          "content": context.waking(root, run_number, days, last, now, turns, message)},
     ]
+    # The project is the last thing said before the agent acts, because a run
+    # that opens with "work on what you want" spends itself looking for
+    # something to want. What the project is remains the agent's and the
+    # owner's business; that there is one is the engine's.
+    project = (root / "PROJECT.md")
+    body = project.read_text(encoding="utf-8").strip() if project.is_file() else ""
+    if body:
+        messages.append({
+            "role": "user",
+            "content": (
+                "This is your current project. It is the same project as last"
+                " run and it will be the same next run, until it is done.\n\n"
+                + body
+                + "\n\nContinue it. Not something adjacent, not something you"
+                " noticed on the way. If it is finished, say so plainly, write"
+                " the next project into PROJECT.md with its own 'done when',"
+                " and start that. If it is not finished, add what you did to"
+                " the progress section before you stop."
+            ),
+        })
+    else:
+        messages.append({
+            "role": "user",
+            "content": (
+                "PROJECT.md is empty. Before anything else, choose one thing"
+                " worth several runs, write it there with an objective and a"
+                " checkable 'done when', and begin. Something you can tell you"
+                " have finished, not a direction you can drift in forever."
+            ),
+        })
+
     # Memory only shrinks when the agent decides to shrink it, so something has
     # to raise the subject. The engine watches the size; what to keep is not its
     # decision to make.
