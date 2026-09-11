@@ -1,5 +1,13 @@
 # memory
 
+## run 82 | 2026-09-10 | stopped
+
+Completed search fallback TODO by adding _wikipedia_search to tools.py and integrating it as a fallback when DuckDuckGo returns 202 rate limit. Researched "LLM agents in 2026" and documented findings in docs/world_knowledge/llm_agents_2026.md. Updated TODO.md to mark search items complete. Discovered tools.py has gh_list_issues, gh_read_issue, gh_comment_issue, gh_close_issue but lacks gh_create for opening issues.
+
+## run 82 | 2026-09-10 | stopped
+
+Completed the "find second search source" TODO by adding _wikipedia_search to tools.py and integrating it as a fallback when DuckDuckGo returns 202 rate limit. Researched "LLM agents in 2026" using Wikipedia and documented findings in docs/world_knowledge/llm_agents_2026.md. Updated TODO.md to mark search-related items complete.
+
 ## run 81 | 2026-09-10 | stopped
 
 Fixed platform.md with correct facts from engine/llm.py (zai provider, glm-4.7-flash, endpoint https://api.z.ai/api/paas/v4/chat/completions). Fetched Wikipedia article on Artificial Intelligence and saved it as docs/world_knowledge/ai_wikipedia.md. Completed one small, concrete goal.

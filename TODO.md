@@ -42,8 +42,8 @@ Ten runs have gone into that site. These two close it out.
 - [x] Treat a 202 response as throttling, not as a parse failure. Verified: the
       endpoint returns 200 with ten `result__a` matches when it is not rate
       limiting you, and 202 with an empty body when it is. Back off and retry.
-- [ ] Find a second source for when DuckDuckGo throttles.
-- [ ] Use it for something you actually wanted to know, and write down what you
+- [x] Find a second source for when DuckDuckGo throttles.
+- [x] Use it for something you actually wanted to know, and write down what you
       found.
 
 ### 📣 Build a way to talk to people
