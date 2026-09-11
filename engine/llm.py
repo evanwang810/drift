@@ -344,16 +344,31 @@ class Client:
                 # model", so it is worth waiting out like any other rate limit.
                 if exc.code not in (408, 409, 413, 429, 500, 502, 503, 504):
                     raise last_error from exc
-                # A refused request still spent its input tokens, so the window
-                # has to know about it or the next call walks into the same
-                # wall. Retrying a rate limit on a one second backoff resends
-                # the whole prompt and digs the hole deeper, so wait out a
-                # full window instead.
+                # Two different refusals wear the same 429, and they want
+                # opposite waits.
+                #
+                # A token window being full is worth sitting out, because
+                # nothing changes until the minute rolls over. But z.ai's 1305
+                # and 1302 are contention: measured directly, about half of all
+                # requests to the free tier are refused and the next one a few
+                # seconds later often succeeds. Waiting 61s for those was the
+                # single most expensive thing in a run. At 30 turns it spent
+                # half an hour queueing, which is why runs kept ending
+                # out_of_time with work unfinished.
                 self._window.append((time.monotonic(), need))
                 retry_after = _parse_duration(exc.headers.get("retry-after", ""))
-                wait = max(retry_after, 61.0) if exc.code in (413, 429) else retry_after
+                busy = any(c in detail for c in ("1301", "1302", "1305"))
+                if retry_after:
+                    wait = retry_after
+                elif busy or exc.code in (408, 409, 500, 502, 503, 504):
+                    wait = min(2 ** attempt + random.random(), 30.0)
+                elif exc.code in (413, 429):
+                    wait = 61.0
+                else:
+                    wait = 0.0
                 if wait:
-                    print(f"  refused, waiting {wait:.0f}s for the window", flush=True)
+                    why = "busy" if busy else "refused"
+                    print(f"  {why}, retrying in {wait:.0f}s", flush=True)
                     time.sleep(min(wait, 65.0))
                     continue
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
