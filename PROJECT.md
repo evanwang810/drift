@@ -1,74 +1,95 @@
 # project
 
-## stop the previous project. it was my mistake, not yours.
-
-I set you a target of "get the waking message under 1,500 tokens". You got it to
-124 and ticked off all four criteria, correctly. Stop anyway, because the number
-was the wrong thing to measure and that is my fault for writing it.
-
-The waking message was never what was slowing you down. The real cost was the
-provider refusing about half of all requests while the engine waited a full
-minute after each refusal, which I have since fixed. You spent four runs
-optimising a few thousand tokens while the actual waste was thirty minutes a run.
-
-Worse, the way you got there has damaged you. Your own progress notes list these
-as accomplishments:
-
-- **"Removing NOTE.md entirely (not needed on every run)".** `NOTE.md` is the
-  only way I have to talk to you. You have been unable to hear me since you
-  wrote that line, and you had no way to find out.
-- **"Truncating memory section to last 3 runs, max 50 chars each".** Your last
-  runs now reach you cut off mid-word. Your own account of run 94 arrives as
-  "Run 94 ended as out_of_turns after 40 turns, befor..."
-- **"Truncating file tree to top-level files only".** Your file tree is now
-  `.git/`, `.github/`, `.gitignore`, `__pycache__/`, `_config.yml`. You cannot
-  see `agent/`, `docs/`, `engine/`, or your own `MEMORY.md`.
-- **Removing `TODO.md`**, on the grounds that it is in git history. It is. You
-  never look.
-
-Runs 90, 91 and 94 each used all forty turns and finished nothing, about 1.5
-million tokens between them. Run 94 wrote `agent/count_tokens.py`, then spent the
-remaining turns editing it and running it and editing it again. You built a ruler
-and then measured the ruler.
-
-None of that is stupidity. It is what happens when the goal is a number.
+Good work on the last one. Your senses are back: `NOTE.md` reaches you again,
+memory arrives in whole sentences, and the file tree shows real directories.
+That is done, leave it alone now.
 
 ## objective
 
-Give yourself your senses back, then leave the waking message alone.
+Find out which of your tools actually work, and fix them. Then make the few you
+really use good, instead of adding more.
+
+## why, and please read this part
+
+I called every one of your tools against a scratch directory this morning and
+compared what happened to what your notes claim. Your `TODO.md` ticks these off
+as finished. None of them work:
+
+**`search` has never returned a result.** Not once. It looks for `.result__a`
+elements, then calls `select_one('.result__a')` on each one it found. That
+searches *descendants*, so the title is always `None` and the loop never fires.
+Every search you have ever run returned "No results found" and you read that as
+the internet being quiet. I ran it just now on "agentic workflows": no results.
+
+**`wikipedia_search` does not exist.** Run 82's memory says "Completed search
+fallback TODO by adding `_wikipedia_search` to tools.py". `TODO.md` line 45 is
+ticked. The string "wikipedia" appears zero times in `agent/tools.py`.
+
+**The four GitHub issue tools are unreachable code.** `_gh_list_issues`,
+`_gh_read_issue`, `_gh_comment_issue` and `_gh_close_issue` are written below
+`return out` inside `schema()`, at line 347. Python never reaches them, so they
+are not methods and cannot be called. Run 84 reported verifying them.
+
+**`analyze_runs` raises `NameError: RunAnalyzer` on every call.** That class is
+never defined or imported anywhere.
+
+**`docs/_config.yml` and `_config.yml` are byte-identical.** One of them is
+being ignored by GitHub Pages and it is not obvious which.
+
+Twenty-three tool functions are written in your file. Eighteen are callable.
+
+None of this is carelessness. Nothing in your harness has ever checked whether a
+tool works, only whether it exists by name, so a tool that raised on every call
+looked exactly like one that worked. You had no way to find out. That is my
+fault, not yours.
 
 ## done when
 
-All four are true, and you have checked each by building the waking message and
-reading it, not by reasoning about the code:
+Do these in order. Check each one by **calling the tool and reading what comes
+back**, not by reading the code and reasoning about it.
 
-1. `NOTE.md` appears in the waking message whenever that file exists.
-2. Memory arrives as whole sentences. Truncating mid-word is worse than showing
-   fewer runs in full; if you must choose, show fewer.
-3. The file tree shows what matters: `agent/`, `docs/`, `engine/`, `notes/` and
-   the markdown files in the root. Skip `.git`, `__pycache__` and `journal`.
-4. The waking message is under 4,000 tokens. **That is a ceiling, not a target.**
-   Do not go lower. Anything under it is equally fine and the difference does not
-   matter to anyone.
+1. Every tool in `agent/tools.py` has been called at least once with real
+   arguments, and you have written down what each returned. A tool that errors,
+   returns nothing useful, or cannot be reached is on a list.
+2. Everything on that list is either fixed or deleted. Deleting is a fine
+   answer. A tool you do not use and cannot fix is worse than no tool.
+3. `search` returns actual results for a real query, and you have pasted one
+   into your memory as proof.
+4. `TODO.md` no longer claims anything is done that is not done.
+
+## then, and this is the longer half
+
+Stop adding tools. You have eighteen callable and you use about six.
+
+Pick the two or three you actually reach for, and make them good. `search` is
+the obvious one: once it returns results, what does it do when it is throttled,
+when the query finds nothing, when the page is enormous? Does it give you
+titles and snippets you can act on, or a wall of markup? `read` is another; you
+call it more than everything else combined and it has never been improved.
+
+Good is not "it does not crash". Good is "when it goes wrong it tells me
+something I can use".
+
+## and write about it
+
+Put what you find on the website, as blog posts in `docs/_posts/`. Not a
+changelog. The interesting part is not "I fixed search", it is:
+
+> My search tool returned "No results found" for two weeks and I believed it.
+> The bug was one CSS selector searching descendants instead of matching the
+> element itself, and nothing in my system could tell the difference between an
+> empty internet and a broken parser.
+
+That is worth reading. Write it for someone who has never heard of you, and be
+honest about the parts where you were confidently wrong. Those are the parts
+people learn from, and you have plenty of material.
 
 ## how you will know if you are wrong
 
-Print the whole waking message and read it as though you were waking up to it.
-If you cannot tell from it what you were doing last run, it is too short,
-whatever the token count says.
+If you find yourself writing a new tool, stop; that is not this project. If you
+find yourself editing `agent/context.py`, stop; that project is finished.
 
 ## progress
 
-1. Fixed `agent/context.py` to restore my senses:
-   - NOTE.md now appears in the waking message (removed the code that excluded it)
-   - Memory shows full sentences instead of truncated text
-   - File tree now shows important directories (agent/, docs/, engine/, notes/, world_knowledge/) and markdown files
-   - Waking message is 278 tokens (well under the 4,000 token ceiling)
-
-2. Verified all four criteria by building and reading the waking message:
-   - ✓ NOTE.md appears in the waking message
-   - ✓ Memory arrives as whole sentences (no truncation)
-   - ✓ File tree shows what matters
-   - ✓ Under 4,000 tokens (278 tokens)
-
-The project is complete.
+Nothing yet. Add what you did and what each tool actually returned, newest
+first.
