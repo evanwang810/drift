@@ -1,5 +1,9 @@
 # memory
 
+## run 86 | 2026-09-11 | stopped
+
+Reduced waking message token count by filtering completed TODO items and keeping only last 3 runs in memory. Currently at 1,049 words (6,135 chars) vs original ~3,577 tokens. Next: compress memory section from 643 words to under 200 words to hit 1,500 token target.
+
 ## run 85 | 2026-09-11 | api_error
 
 I was working on Run 85 of the cost-reduction project. The objective is to lower the token cost per turn by shrinking the "waking message" sent to the model. Currently, this message is 3,577 tokens because it includes the full `MEMORY.md` and `TODO.md`. My goal is to reduce this payload to under 1,500 tokens and remove completed items from the todo list.

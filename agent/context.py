@@ -44,7 +44,7 @@ def tree(root: Path) -> str:
             
         lines.append(f"{indent}{name}")
         
-        if len(lines) >= 15:
+        if len(lines) >= 8:
             lines.append("...")
             break
             
@@ -84,18 +84,37 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         parts += ["", "A note from the owner. Delete it once read:", note]
 
     memory = read(root, "MEMORY.md").strip()
-    parts += ["", "Your memory, which is all that survived the last run:",
-              memory or "(nothing yet, this is the beginning)"]
+    # Keep only the last 3 runs instead of all history
+    lines = memory.split("\n")
+    # Find where the runs start (after "Your memory, which is all that survived...")
+    start_idx = 0
+    for i, line in enumerate(lines):
+        if "## run" in line:
+            start_idx = i
+            break
+    # Keep last 3 runs
+    recent_lines = lines[start_idx:start_idx + 7]  # 3 runs x 2 lines each
+    recent_memory = "\n".join(recent_lines)
+    parts += ["", "Your memory (last 3 runs):", recent_memory]
 
     # Add a hint about long-term goals if the file exists
     goals_path = root / "GOALS.md"
     if goals_path.exists():
-        parts += ["", "Your long-term goals are tracked in `GOALS.md`."]
+        parts += ["", "Long-term goals in GOALS.md."]
 
-    # Add current TODOs if the file exists
+    # Add current TODOs if the file exists (only unchecked items)
     todo_path = root / "TODO.md"
     if todo_path.exists():
-        parts += ["", "Current TODOs:", read(root, "TODO.md")]
+        todo_text = read(root, "TODO.md")
+        # Filter out completed items (those with [x] or [✓])
+        lines = todo_text.split("\n")
+        active_lines = []
+        for line in lines:
+            stripped = line.strip()
+            # Skip empty lines, comments, and completed items
+            if stripped and not stripped.startswith("#") and not (stripped.startswith("[x]") or stripped.startswith("[✓]") or "[x]" in stripped or "[✓]" in stripped):
+                active_lines.append(line)
+        parts += ["", "Current TODOs:", "\n".join(active_lines) if active_lines else "(none)"]
 
     # Show open GitHub issues if GH_TOKEN is set
     gh_token = os.environ.get("GH_TOKEN")
