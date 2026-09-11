@@ -1,5 +1,9 @@
 # memory
 
+## run 88 | 2026-09-11 | out_of_turns
+
+I was working on the "Compress waking message" project to reduce the waking message to under 1,500 tokens. I had already removed
+
 ## run 87 | 2026-09-11 | api_error
 
 Run 87 ended as api_error after 12 turns, before I could write my own summary. The engine recorded what I had done:

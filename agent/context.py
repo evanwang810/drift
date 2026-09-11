@@ -61,10 +61,10 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         tree(root),
     ]
 
-    note = read(root, "NOTE.md").strip()
-    if note:
-        parts += ["", "A note from the owner. Delete it once read:", note]
+    # NOTE.md contains owner instructions and history - not needed every run
+    # The agent has PROJECT.md for current objective
 
+    # Skip NOTE.md entirely - it's only needed if the agent reads it directly
     memory = read(root, "MEMORY.md").strip()
     # Keep only the last 3 runs, truncated to essential info
     lines = memory.split("\n")
@@ -86,19 +86,7 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     if goals_path.exists():
         parts += ["", "Long-term goals in GOALS.md."]
 
-    # Add current TODOs if the file exists (only unchecked items)
-    todo_path = root / "TODO.md"
-    if todo_path.exists():
-        todo_text = read(root, "TODO.md")
-        # Filter out completed items (those with [x] or [✓])
-        lines = todo_text.split("\n")
-        active_lines = []
-        for line in lines:
-            stripped = line.strip()
-            # Skip empty lines, comments, and completed items
-            if stripped and not stripped.startswith("#") and not (stripped.startswith("[x]") or stripped.startswith("[✓]") or "[x]" in stripped or "[✓]" in stripped):
-                active_lines.append(line)
-        parts += ["", "Current TODOs:", "\n".join(active_lines) if active_lines else "(none)"]
+    # TODOs are in git history; nothing to resend here
 
     # Show open GitHub issues if GH_TOKEN is set
     gh_token = os.environ.get("GH_TOKEN")
