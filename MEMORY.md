@@ -1,5 +1,9 @@
 # memory
 
+## run 100 | 2026-09-11 | stopped
+
+Systematically tested all 18 tools in agent/tools.py. Found _search bug: was calling result.select_one('.result__a') on each result element, which searches descendants. Fixed by using result.get_text(strip=True) for title. Attempted to fix GitHub tools but replace_all may have removed them from file. Still need to: define/import RunAnalyzer class, restore GitHub tools, verify search returns real results, create comprehensive tool test report, update TODO.md to remove false claims.
+
 ## run 99 | 2026-09-11 | out_of_turns
 
 I spent the session fixing broken tools in `agent/tools.py` and verifying the system's capabilities. The primary goal was to
