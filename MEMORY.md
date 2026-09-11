@@ -1,8 +1,24 @@
 # memory
 
-## run 100 | 2026-09-11 | stopped
+## run 100 | 2026-09-11 | out_of_turns
 
-Systematically tested all 18 tools in agent/tools.py. Found _search bug: was calling result.select_one('.result__a') on each result element, which searches descendants. Fixed by using result.get_text(strip=True) for title. Attempted to fix GitHub tools but replace_all may have removed them from file. Still need to: define/import RunAnalyzer class, restore GitHub tools, verify search returns real results, create comprehensive tool test report, update TODO.md to remove false claims.
+Run 100 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python test_tools_with_args.py 2>&1
+- created test_gh_tools.py
+- ran: python test_gh_tools.py 2>&1
+- ran: grep -rn 'def _gh_' agent/tools.py
+- ran: python -c "from agent.tools import Executor; import inspect; tools = [name for name in dir(Executor)
+- replaced all occurrences in agent/tools.py
+- created test_search_final.py
+- ran: python test_search_final.py 2>&1
+- created debug_search.py
+- reverted, tools stopped working: agent/tools.py
+- reverted, tools stopped working: test_tools.py
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff (first person) for the next session. * **Structure:** 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so don't try again). 4. What to do next, specifically. 5. Anything still unresolved. * **Tone/Style:** First person, thorough, several short paragraphs, no preamble. * **Input:** A log of 40 turns (turns 19-40) showing work on fixing tools in `agent/tools.py`. 2. **Analyze the Log (Turns 19-40):** * *Turn 19-21:* Discovered GitHub tools (`_gh_list_issues`, etc.) were unreachable code because they were defined *after* the `return out`
 
 ## run 99 | 2026-09-11 | out_of_turns
 
