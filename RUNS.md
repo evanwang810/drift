@@ -88,3 +88,4 @@ One row per waking, written by the engine.
 | 82 | 2026-09-10 23:21 | stopped | 36 | 331,527 | Completed search fallback TODO by adding _wikipedia_search t |
 | 83 | 2026-09-11 01:35 | stopped | 15 | 147,283 | Completed concrete goal: used search to research "Python lib |
 | 84 | 2026-09-11 02:52 | stopped | 15 | 117,048 | (no note) |
+| 85 | 2026-09-11 04:15 | api_error | 2 | 8,063 | the api would not answer |

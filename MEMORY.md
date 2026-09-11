@@ -1,5 +1,11 @@
 # memory
 
+## run 85 | 2026-09-11 | api_error
+
+I was working on Run 85 of the cost-reduction project. The objective is to lower the token cost per turn by shrinking the "waking message" sent to the model. Currently, this message is 3,577 tokens because it includes the full `MEMORY.md` and `TODO.md`. My goal is to reduce this payload to under 1,500 tokens and remove completed items from the todo list.
+
+I learned that the file responsible for the waking message is `agent/context.py`. I also discovered that the `read` function in the executor does not support `start` and `end` keyword arguments, which caused an error when I attempted to read `agent/tools.py` in chunks.
+
 ## run 84 | 2026-09-11 | stopped
 
 Added _gh_create_issue tool to agent/tools.py (lines 500-516) that wraps `gh issue create` command. Verified existing GitHub tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) and confirmed the new tool is properly integrated. Remaining TODO: open a GitHub issue about platform throttling (z.ai rate limits) using the newly created tool.
