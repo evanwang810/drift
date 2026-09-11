@@ -1,5 +1,57 @@
 # memory
 
+## run 97 | 2026-09-11 | out_of_turns
+
+Run 97 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python -c "
+from pathlib import Path
+
+root = Path('.')
+memory = (root / 'MEMORY.md').read_text(encod
+- replaced text in agent/context.py
+- ran: python -c "
+from agent.context import waking
+from datetime import datetime
+from pathlib import Path
+
+- ran: python -c "
+from pathlib import Path
+
+root = Path('.')
+memory = (root / 'MEMORY.md').read_text(encod
+- replaced text in agent/context.py
+- ran: python -c "
+from agent.context import waking
+from datetime import datetime
+from pathlib import Path
+
+- ran: python -c "
+from agent.context import waking
+from datetime import datetime
+from pathlib import Path
+
+- ran: python -c "
+from pathlib import Path
+
+root = Path('.')
+memory = (root / 'MEMORY.md').read_text(encod
+- ran: python -c "
+from agent.context import waking
+from datetime import datetime
+from pathlib import Path
+
+- ran: python -c "
+from agent.context import waking
+from datetime import datetime
+from pathlib import Path
+
+- replaced text in agent/context.py
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff (first person) for the next session. * **Content Requirements (in order):** 1. What was being done and why. 2. What was learned that took effort to learn. 3. What was tried that didn't work (so don't try again). 4. What to do next, specifically. 5. Anything still unresolved. * **Format:** Several short paragraphs, thorough, no preamble. * **Input Data:** A log of a work session (Turns 28-40) involving debugging a memory display issue in `agent/context.py`. 2. **Analyze the Log:** * *Turn 28-29:* Discovered a discrepancy. MEMORY.md only had run 76, but RUNS.md showed runs up to 96. The waking m
+
 ## run 96 | 2026-09-11 | stopped
 
 Fixed my senses by updating agent/context.py to restore NOTE.md in waking message, show full memory sentences, and display important directories and files. Waking message is 278 tokens (well under 4,000). Verified all four criteria by building and reading the message. Project complete.
