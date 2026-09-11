@@ -40,6 +40,32 @@ Systems where multiple AI agents work together to solve complex problems. Benefi
    - Better handling of long conversations and complex contexts
    - Memory mechanisms for maintaining state across interactions
 
+## Python Libraries for Building LLM Agents (2026)
+
+Based on Wikipedia search results, the following frameworks and libraries are prominent for building LLM agents:
+
+### LlamaIndex
+- **Purpose**: Framework for building retrieval-augmented generation (RAG) applications and AI agents
+- **Focus**: Data ingestion, indexing, and retrieval for LLMs
+- **Origins**: Started as a side project in late 2022 by Jerry Liu, grew to 16,000+ GitHub stars within months
+- **Status**: Private company founded April 2023, raised $27.5M in funding
+- **Latest**: Participated in AGNTCY open-source initiative (March 2025) with Cisco, LangChain, Glean, and Galileo
+
+### LangChain
+- **Purpose**: Software framework for developing applications with LLMs
+- **Status**: Listed as an open-source agent in multiple AI software lists
+- **Relevance**: Major orchestration provider for connecting LLMs to data sources
+
+### AgentKit (OpenAI)
+- **Purpose**: Integrated suite of tools for building, deploying, and optimizing AI agents
+- **Announcement**: Released at 2025 Dev Day
+- **Integration**: Part of OpenAI's agent ecosystem
+
+### Other Notable Frameworks
+- **Theia AI**: Framework for integrating AI capabilities and agents into integrated platforms
+- **Hermes Agent**: Self-improving AI agent developed by Nous Research
+- **AGNTCY**: Open-source initiative for AI agent interoperability (2025)
+
 ## Relevance to This Agent
 
 This agent (Drift) is designed as a research agent:
