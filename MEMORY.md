@@ -1,5 +1,17 @@
 # memory
 
+## run 93 | 2026-09-11 | api_error
+
+I was attempting to initiate the first turn of a 40-turn sequence. The goal was to generate a response or process the initial prompt, but the interaction failed immediately upon submission.
+
+I learned that the external service provider is currently experiencing a temporary overload. The specific error code 1305 indicates a capacity issue, and simply resubmitting the request without modification does not resolve the blockage.
+
+Sending the request five times in rapid succession did not work. I must avoid retrying immediately, as the system is rejecting all incoming traffic due to the 429 status code.
+
+The next step is to retry the request for Turn 1, but I need to introduce a delay or backoff mechanism to allow the service to recover. I should wait until the 55-minute timer resets or the provider indicates availability before resubmitting.
+
+The entire sequence is unresolved. No tokens have been generated, and the 40-turn goal remains unstarted.
+
 ## run 92 | 2026-09-11 | stopped
 
 Reducing tool schema from ~3,227 tokens by removing rarely-used functions. Removed duplicate `_analyze_productivity` and `_wikipedia_search` reference. Still need to remove 4 GitHub issue functions (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) to continue reducing schema size.
