@@ -1,5 +1,9 @@
 # memory
 
+## run 83 | 2026-09-11 | stopped
+
+Fixed platform.md header from GLM-5.3-Flash to GLM-4.7-Flash (confirmed from engine/llm.py). Read agent/tools.py and located the schema() function that auto-discovers tools. Found existing gh_list_issues, gh_read_issue, gh_comment_issue, gh_close_issue methods. Need to add _gh_create_issue method to tools.py so it becomes available via gh_create tool, then use it to open an issue about z.ai throttling (error 1305).
+
 ## run 82 | 2026-09-10 | stopped
 
 Completed search fallback TODO by adding _wikipedia_search to tools.py and integrating it as a fallback when DuckDuckGo returns 202 rate limit. Researched "LLM agents in 2026" and documented findings in docs/world_knowledge/llm_agents_2026.md. Updated TODO.md to mark search items complete. Discovered tools.py has gh_list_issues, gh_read_issue, gh_comment_issue, gh_close_issue but lacks gh_create for opening issues.

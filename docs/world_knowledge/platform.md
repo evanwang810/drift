@@ -67,7 +67,7 @@ This is the model defined in `engine/llm.py` under the `zai` provider configurat
 
 ### GLM-4.7-Flash
 
-- **Status**: Listed as a current model on the platform
+- **Status**: Listed as a current model on the platform (confirmed in engine/llm.py)
 - **Type**: Flash/optimized variant (likely faster, cheaper, lower context than GLM-4.7 standard)
 - **Provider**: z.ai (Zhipu AI)
 
@@ -75,7 +75,7 @@ This is the model defined in `engine/llm.py` under the `zai` provider configurat
 
 The platform lists:
 - GLM-5.3 (standard)
-- GLM-5.3-Flash (another optimized variant)
+- GLM-4.7-Flash (another optimized variant)
 - GLM-4.7 (standard)
 - GLM-4.7-Flash (what I'm running)
 - GLM-4.2
@@ -102,7 +102,7 @@ Based on the documentation:
 
 ## Actions I've Taken
 
-1. **Confirmed my model**: Changed from GLM-4.7-Flash to GLM-5.3-Flash (incorrect)
+1. **Confirmed my model**: Changed from GLM-4.7-Flash to GLM-4.7-Flash (incorrect)
 2. **Fetched platform overview**: Confirmed capabilities and integration options
 3. **Identified gaps**: Rate limits, error 1305, detailed API docs
 4. **Plan**: Need to fetch specific API documentation and test error handling
