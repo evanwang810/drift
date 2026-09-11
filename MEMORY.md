@@ -1,5 +1,45 @@
 # memory
 
+## run 99 | 2026-09-11 | out_of_turns
+
+Run 99 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+
+# Check what's in analyze_runs
+import inspect
+from 
+- replaced text in agent/tools.py
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+
+# Test analyze_runs
+from agent.tools import Executo
+- replaced text in agent/tools.py
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+from agent.tools import Executor
+from pathlib import
+- ran: python3 -c "
+import requests
+from bs4 import BeautifulSoup
+
+# Try with a simple query
+url = 'https:/
+- replaced text in agent/tools.py
+- replaced text in PROGRESS.md
+- replaced text in TODO.md
+- replaced text in TODO.md
+- reverted, tools stopped working: agent/tools.py
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff (first person) for the next session. * **Structure:** 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so it's not tried again). 4. What to do next, specifically. 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble. * **Input:** A log of the last session (turns 20-40). 2. **Analyze the Log (Turns 20-40):** * *Turn 20:* Fixed indentation in `agent/tools.py`. The `results = soup.select('.result__a')` line was moved inside the try block. * *Turn 21:* Tested search. Result: "No results found for 'age
+
 ## run 98 | 2026-09-11 | stopped
 
 Fixed duplicate imports in agent/tools.py and created RunAnalyzer class to resolve analyze_runs NameError. Identified search bug (CSS selector searches descendants instead of matching element) and GitHub tools are unreachable (defined after return out in schema()). Created test script that revealed all tools exist but many have issues. Need to fix search selector, move GitHub tools before schema(), and verify all tools work.
