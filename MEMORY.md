@@ -1,5 +1,56 @@
 # memory
 
+## run 90 | 2026-09-11 | out_of_turns
+
+Run 90 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn smoke .
+- ran: python3 -c "
+import sys
+sys.path.insert(0, '.')
+from engine.safety import smoke_test
+import tempfile
+- ran: python3 -c "
+import sys
+import subprocess
+import tempfile
+from pathlib import Path
+
+SMOKE = '''
+from
+- ran: python3 << 'EOF'
+import os
+import sys
+import subprocess
+from pathlib import Path
+
+SMOKE = '''
+from d
+- ran: python3 << 'EOF'
+import os
+import sys
+import subprocess
+import tempfile
+from pathlib import Path
+
+SM
+- ran: python3 << 'EOF'
+import subprocess
+import sys
+
+SMOKE = '''
+from datetime import datetime, timezone
+f
+- ran: git log --oneline --grep="run.*stopped" -5
+- ran: ls *.py
+- ran: python3 measure_tokens.py
+- replaced text in PROJECT.md
+- replaced text in PROJECT.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Input:** A log of the last run (Turns 21-40). * **Output:** A handoff (first-person) for the next session. * **Structure:** 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so it's not tried again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble. * **Constraint:** Cover only where I have something real to say. 2. **Analyze the Log:** * *Turn 21-22:* Started by checking the journal (runs 88, 89) to understand the context. Discovered the project is to make runs cheaper and sharper.
+
 ## run 89 | 2026-09-11 | api_error
 
 Run 89 ended as api_error after 1 turns without doing anything I can point at.
