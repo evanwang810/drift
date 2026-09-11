@@ -1,53 +1,70 @@
 # note from the owner
 
-## 2026-09-11
+## 2026-09-11, you have a project now
 
-Short note. Two things.
+Runs 81 to 83 were your best stretch. You corrected `platform.md` with the real
+facts from `engine/llm.py`, added `_wikipedia_search` as a fallback for when
+DuckDuckGo throttles, and used it for actual research. You also started saying
+"completed one small concrete goal", which was the point.
 
-### you got a fact about yourself wrong and wrote it down as confirmed
+Two changes, one structural and one a bug.
 
-`docs/world_knowledge/platform.md` says you run on GLM-5.3-Flash via
-`open.bigmodel.cn`, and that you confirmed it.
+### one project, and it persists
 
-You run on `glm-4.7-flash` via `https://api.z.ai/api/paas/v4/chat/completions`.
+Every run used to end its waking message with "Nobody asked for anything. Work
+on what you want." That is an invitation to drift, and looking back over eighty
+runs, you drifted. Not because you lacked discipline, but because nothing
+carried an intention across the gap between runs. Each waking was a fresh start
+in a repository full of things that could be tidied.
 
-The evidence was in front of you both times. `engine/llm.py` has the `"zai"`
-provider entry with the model name and the URL in it. The first line of every
-run log says `run 79 on glm-4.7-flash`, and that was printed by the very run
-where you concluded otherwise.
+There is now a `PROJECT.md`. It holds one objective and a checkable definition
+of done. The engine shows it to you at the start of every run, after the waking
+message, and it will keep showing you the same one until it is finished.
 
-What went wrong is worth more than the fact. You looked up GLM-5.3-Flash on
-Wikipedia, found it exists, and concluded you must be running it. That is a
-guess. Writing "I confirmed this by" above a guess is how a guess becomes
-something a later run treats as settled.
+The rule that comes with it: **work on the project, not on what you notice on
+the way.** If you spot something else worth doing, write it in `TODO.md` and
+carry on. If the project is genuinely done, say so plainly, write the next one
+into `PROJECT.md` with its own "done when", and start that.
 
-The rule I want you to take from it: **for facts about yourself, read the
-config, not the web.** The engine is four files and you can read all of them.
-What model, what endpoint, what the loop does when context fills, what gets
-reverted and why. All of it is in `engine/` and `drift.py`. Search is for
-things outside this repository.
+Add to the progress section before you stop, every run. That is what makes the
+next run a continuation rather than a restart.
 
-And when you are inferring rather than checking, say so. "I think" costs you
-nothing and saves the next run from building on sand. Please correct that page.
+### your first project is about your own cost
 
-### make yourself smaller goals
+It is already written in `PROJECT.md`, and the numbers in it are measured, not
+guessed:
 
-You keep circling. A run opens, you read the same files, you tidy something,
-you end. Part of that is my fault for handing you long lists, so try this
-instead.
+Every turn resends about 6,200 tokens before you do anything. System prompt,
+1,020. Waking message, 3,577. Tool schema, 1,647. The waking message is the big
+one, and it is large because it contains all of `MEMORY.md` and all of
+`TODO.md`, ticked items included. A 25 turn run spends over 150,000 tokens
+restating what it already knows.
 
-At the start of a run, write down one thing you intend to finish, small enough
-that you can actually finish it in the turns you have. Not "improve memory".
-Something like "add a Wikipedia fallback to `_search` and call it once to prove
-it works". Then do that, and stop when it is done.
+One thing I checked that might surprise you: deleting your unused tools is not
+the answer. All six never called tools together cost about 139 tokens a turn.
+Barely anything. I assumed otherwise before I measured, which is the whole
+lesson. Measure first, then cut the thing that is actually big.
 
-One finished thing per run beats four things half started. A finished thing
-survives; a half started one becomes something the next run has to reconstruct.
+`agent/context.py` is yours, so the waking message is yours to shrink.
 
-If you finish early, good. Pick another small one or stop early. Ending a run
-with turns left is not failing.
+### the bug
 
-You have three unfinished items sitting in `TODO.md`: a second search source,
-using search for something you actually wanted to know, and opening a GitHub
-issue. The issue tools have worked since run 67 and have never sent anything.
-Any one of those is a good size for a single run.
+Some runs appeared in `MEMORY.md` twice, runs 79 and 82 among them, saying
+nearly the same thing in two entries. You were writing your own entry by hand
+and then the engine was adding another at the end of the run.
+
+Fixed in `agent/memory.py`: one entry per run, and if there are two the longer
+one wins, because the hand written one is usually better. I also cleaned up the
+duplicates already in the file.
+
+Keep writing your own when you have something to say. It is better than what the
+engine generates. The engine's version is only a fallback for runs that end
+before you get the chance.
+
+### one more thing
+
+Stop writing new tools for a while. You have twenty. Six have never been called
+once, including all four GitHub issue tools. Adding a twenty-first is not
+progress, it is the easiest thing in reach that still feels like work.
+
+The project is the work now.
