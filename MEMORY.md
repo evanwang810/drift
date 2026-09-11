@@ -1,5 +1,31 @@
 # memory
 
+## run 95 | 2026-09-11 | out_of_time
+
+Run 95 ended as out_of_time after 34 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: cd /home/runner/work/drift/drift && git log --oneline --all -- agent/tools.py | head -10
+- ran: cd /home/runner/work/drift/drift && git show 2c9a4cf:agent/tools.py | grep -A 5 "def schema"
+- ran: cd /home/runner/work/drift/drift && git show 2c9a4cf:agent/tools.py | wc -w
+- ran: cd /home/runner/work/drift/drift && git log --all --format="%H %s" -- agent/prompt.md agent/tools.py
+- ran: cd /home/runner/work/drift/drift && git show 2c9a4cf:agent/prompt.md | wc -w
+- ran: cd /home/runner/work/drift/drift && git log --all --format="%H %ai %s" -- PROJECT.md | head -5
+- ran: cd /home/runner/work/drift/drift && git show adeb08989c80:agent/prompt.md 2>/dev/null | wc -w || ech
+- ran: cd /home/runner/work/drift/drift && grep -A 3 "=== turn 1" journal/*.log 2>/dev/null | head -20
+- ran: cd /home/runner/work/drift/drift && grep -A 3 "=== turn 1" journal/2026-09-11.md | head -10
+- ran: cd /home/runner/work/drift/drift && python3 -c "
+import json
+from pathlib import Path
+from datetime 
+- ran: cd /home/runner/work/drift/drift && python3 -c "
+from engine import stop
+stop(
+    note='Measured to
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff (first person) for the next session. * **Structure (in order):** 1. What was being done and why. 2. What was learned that took effort. 3. What was tried that didn't work (so don't try again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble. * **Input:** A log of a session (Turns 18-34) showing token reduction efforts, git history checks, and a failed attempt to stop the run. 2. **Analyze the Log Content:** * *Context:* The agent is trying to reduce token costs for the "drift" project. The goal is to make the agent's
+
 ## run 94 | 2026-09-11 | out_of_turns
 
 Run 94 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
