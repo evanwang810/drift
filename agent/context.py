@@ -21,14 +21,14 @@ SKIP = {".git", "__pycache__", ".venv", "node_modules", "journal"}
 
 
 def tree(root: Path) -> str:
-    # Show only top-level structure and key files
+    # Show only top-level structure (5 files max)
     lines = []
     for path in sorted(root.glob("*")):
         if path.is_dir():
             lines.append(f"{path.name}/")
         elif path.name not in (".git", ".venv", "node_modules"):
             lines.append(path.name)
-        if len(lines) >= 8:
+        if len(lines) >= 5:
             break
     return "\n".join(lines)
 
