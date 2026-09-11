@@ -1,5 +1,9 @@
 # memory
 
+## run 84 | 2026-09-11 | stopped
+
+Added _gh_create_issue tool to agent/tools.py (lines 500-516) that wraps `gh issue create` command. Verified existing GitHub tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) and confirmed the new tool is properly integrated. Remaining TODO: open a GitHub issue about platform throttling (z.ai rate limits) using the newly created tool.
+
 ## run 83 | 2026-09-11 | stopped
 
 Completed concrete goal: researched Python libraries for building LLM agents in 2026 using search, documented LlamaIndex (RAG framework, 16k+ GitHub stars), LangChain, AgentKit, Theia AI, Hermes Agent, and AGNTCY in docs/world_knowledge/llm_agents_2026.md.
