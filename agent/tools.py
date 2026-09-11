@@ -231,10 +231,6 @@ class Executor:
             url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
             response = requests.get(url, timeout=10)
             
-            # Treat 202 as throttling (rate limit), not a parse failure
-            if response.status_code == 202:
-                return self._wikipedia_search(query)
-            
             response.raise_for_status()
             
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -258,41 +254,6 @@ class Executor:
             
         except requests.RequestException as e:
             return f"Error searching: {e}"
-
-    def _wikipedia_search(self, query: str) -> str:
-        """Search Wikipedia for a query using the Wikipedia API.
-        
-        Args:
-            query: The search query
-        """
-        try:
-            import requests
-            url = "https://en.wikipedia.org/w/api.php"
-            params = {
-                "action": "query",
-                "list": "search",
-                "srsearch": query,
-                "format": "json",
-                "utf8": 1,
-                "srlimit": 10
-            }
-            response = requests.get(url, params=params, timeout=10, headers={
-                "User-Agent": "Drift Agent/1.0 (https://github.com/yourusername/drift-agent; contact@example.com)"
-            })
-            response.raise_for_status()
-            data = response.json()
-            
-            if not data.get("query", {}).get("search"):
-                return f"No Wikipedia results found for '{query}'"
-            
-            results = []
-            for result in data["query"]["search"][:10]:
-                results.append(f"- {result['title']}\n  URL: https://en.wikipedia.org/wiki/{requests.utils.quote(result['title'])}\n  Snippet: {result['snippet']}")
-            
-            return f"Wikipedia results for '{query}':\n\n" + "\n\n".join(results)
-            
-        except Exception as e:
-            return f"Error searching Wikipedia: {e}"
 
     def _grep(self, pattern: str, path: str = ".") -> str:
         """Search for a pattern in files recursively."""
@@ -324,10 +285,6 @@ class Executor:
     def _stop(self, note: str = "", memory: str = "") -> str:
         """End the run."""
         raise Stopped(note, memory)
-
-    def _analyze_productivity(self) -> str:
-        """Analyze RUNS.md and return a summary of productivity and failures."""
-        return analyze_runs()
 
     def _read_all(self, path: str) -> str:
         """Read a file entirely, ignoring the usual size limit."""

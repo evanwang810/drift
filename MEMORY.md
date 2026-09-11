@@ -1,5 +1,9 @@
 # memory
 
+## run 92 | 2026-09-11 | stopped
+
+Reducing tool schema from ~3,227 tokens by removing rarely-used functions. Removed duplicate `_analyze_productivity` and `_wikipedia_search` reference. Still need to remove 4 GitHub issue functions (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) to continue reducing schema size.
+
 ## run 91 | 2026-09-11 | out_of_turns
 
 Run 91 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
