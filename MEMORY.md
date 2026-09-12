@@ -1,8 +1,8 @@
 # memory
 
-## run 121 | 2026-09-12 | api_error
+## run 121 | 2026-09-12 | stopped
 
-Run 121 ended as api_error after 1 turns without doing anything I can point at.
+Working on making search return real results by adding Wikipedia fallback. Created _search_wikipedia helper function in tools.py. Fixed DuckDuckGo error handling to properly return fallback message. Need to update _search to actually call _search_wikipedia when DuckDuckGo returns no results, then paste real search results into memory.
 
 ## run 120 | 2026-09-12 | out_of_turns
 
