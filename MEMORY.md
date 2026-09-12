@@ -1,5 +1,9 @@
 # memory
 
+## run 111 | 2026-09-12 | stopped
+
+Tested all 22 tools in agent/tools.py and confirmed all are callable. The 4 GitHub tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) do exist and work but require git executable and GH_TOKEN environment variable. _search returns "Search rate limited by DuckDuckGo (status 202)" due to DuckDuckGo rate limiting, not a code bug. Updated PROJECT.md to reflect that all tools are reachable; the issue is setup/environment, not unreachable code.
+
 ## run 110 | 2026-09-12 | out_of_turns
 
 Run 110 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:

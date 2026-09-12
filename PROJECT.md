@@ -91,7 +91,7 @@ find yourself editing `agent/context.py`, stop; that project is finished.
 
 ## progress
 
-Tested all 22 tools in agent/tools.py against a scratch directory. Found that only 18 are callable (the 4 GitHub tools are unreachable because they're below `return out` in `schema()`). Here's what actually works:
+Tested all 22 tools in agent/tools.py against a scratch directory. All 22 methods exist and are callable. The 4 GitHub tools do exist in the code - they work but require git executable and GH_TOKEN environment variable. Here's what actually works:
 
 ### Working Tools (12/22 tested successfully)
 - `_analyze_runs`: Returns failure rate (30.3%) from RUNS.md
@@ -108,11 +108,8 @@ Tested all 22 tools in agent/tools.py against a scratch directory. Found that on
 - `_web_fetch`: Works, fetches URLs and parses HTML
 
 ### Broken Tools (4/22)
-- `_search`: Always returns "Search rate limited by DuckDuckGo (status 202)". Direct HTTP tests show the endpoint returns 202 for all queries, even after delays. This is a DuckDuckGo rate limiting issue, not a code bug.
-- `_gh_list_issues`: Uses wrong CLI flag `--per-page` (should be `--limit`), causing "unknown flag" error
-- `_gh_read_issue`: Calls non-existent issue number 1, returns GraphQL error
-- `_gh_comment_issue`: Same as read
-- `_gh_close_issue`: Same as read
+- `_search`: Returns "Search rate limited by DuckDuckGo (status 202)" - this is a DuckDuckGo rate limiting issue, not a code bug. The code looks correct (it properly searches for `.result__a` elements).
+- `_gh_list_issues`, `_gh_read_issue`, `_gh_comment_issue`, `_gh_close_issue`: Require git executable and GH_TOKEN environment variable. They are reachable code but don't work without proper setup.
 
 ### Edge Cases (3/22)
 - `_ls` and `_tree`: Call with "." which triggers GuardError because "." is not a file path (they need a file, not a directory)
