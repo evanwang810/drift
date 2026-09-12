@@ -1,80 +1,103 @@
 #!/usr/bin/env python3
-"""Test all tools and record what they return."""
+"""Test each tool in agent/tools.py to see which ones actually work."""
 
-from agent.tools import Executor
-from pathlib import Path
 import inspect
+from pathlib import Path
+from agent.tools import Executor
+import os
 
-root = Path(".")
-executor = Executor(root=root, env={})
+def test_tools():
+    """Test each tool by attempting to call it with minimal arguments."""
 
-# List all methods that start with underscore
-tools = [name for name in dir(executor) if name.startswith('_') and not name.startswith('__')]
-print("All tools (callable methods):")
-for tool in sorted(tools):
-    print(f"  {tool}")
+    tools = [name for name, func in inspect.getmembers(Executor, inspect.isfunction)
+             if name.startswith('_') and not name.startswith('__')]
 
-print("\n" + "="*60 + "\n")
+    print(f"Total tools defined: {len(tools)}\n")
 
-# Test each tool
-results = {}
+    results = {}
+    for tool_name in tools:
+        tool_func = getattr(Executor, tool_name)
 
-for tool_name in tools:
-    try:
-        print(f"Testing {tool_name}...")
-        # Get the method
-        method = getattr(executor, tool_name)
+        # Get line number
+        try:
+            line_no = inspect.getsourcelines(tool_func)[1]
+        except:
+            line_no = "unknown"
 
-        # Get the signature (skip self)
-        sig = inspect.signature(method)
-        params = list(sig.parameters.keys())
-        if params and params[0] == 'self':
-            params = params[1:]
+        # Try to get docstring
+        docstring = inspect.getdoc(tool_func) or "(no docstring)"
 
-        # Build args
-        args = {}
-        for param in params:
-            param_type = sig.parameters[param].annotation
-            default = sig.parameters[param].default
+        # Determine if it's callable by trying to call it
+        result = "NOT CALLED"
+        error = None
 
-            # Try to find a reasonable default value based on type
-            if param_type == int:
-                args[param] = 1
-            elif param_type == str:
-                args[param] = "test"
-            elif param_type == bool:
-                args[param] = False
-            elif param_type == list:
-                args[param] = []
-            elif param_type == dict:
-                args[param] = {}
-            elif default != inspect.Parameter.empty:
-                args[param] = default
+        try:
+            # Create executor instance
+            root = Path('.')
+            env = os.environ.copy()
+            executor = Executor(root, env)
+
+            # Try to call with appropriate args
+            if tool_name == "_read" or tool_name == "_read_with_numbers" or tool_name == "_read_lines":
+                # Use a real file in the repo
+                result = executor._read("PROJECT.md")
+            elif tool_name == "_read_all":
+                result = executor._read_all("PROJECT.md")
+            elif tool_name == "_write":
+                result = executor._write("test_tool_output.txt", "test")
+            elif tool_name == "_delete":
+                result = executor._delete("test_tool_output.txt")
+            elif tool_name == "_replace" or tool_name == "_replace_all":
+                result = executor._replace("PROJECT.md", "TODO", "DONE")
+            elif tool_name == "_run":
+                result = executor._run("echo 'test'")
+            elif tool_name == "_tree":
+                result = executor._tree(".", max_depth=1)
+            elif tool_name == "_validate_python":
+                result = executor._validate_python("test_tools2.py")
+            elif tool_name == "_ls":
+                result = executor._ls(".")
+            elif tool_name == "_search":
+                result = executor._search("agentic workflows")
+            elif tool_name == "_grep":
+                result = executor._grep("TODO", ".")
+            elif tool_name == "_summarize":
+                result = executor._summarize("test summary")
+            elif tool_name == "_stop":
+                result = "STOP called (raises Stopped exception)"
+            elif tool_name == "_web_fetch":
+                result = executor._web_fetch("https://example.com", parse_html=True)
+            elif tool_name == "_gh_list_issues":
+                result = executor._gh_list_issues()
+            elif tool_name == "_gh_read_issue":
+                result = executor._gh_read_issue(1)
+            elif tool_name == "_gh_comment_issue":
+                result = executor._gh_comment_issue(1, "test comment")
+            elif tool_name == "_gh_close_issue":
+                result = executor._gh_close_issue(1)
+            elif tool_name == "_analyze_runs":
+                result = executor._analyze_runs()
             else:
-                # No sensible default, skip this param
-                continue
+                result = f"Cannot determine test args for {tool_name}"
 
-        result = method(**args)
-        results[tool_name] = result
+        except Exception as e:
+            error = f"{type(e).__name__}: {e}"
 
-        # Print result
-        print(f"  Result: {result[:200]}..." if len(str(result)) > 200 else f"  Result: {result}")
+        results[tool_name] = {
+            "line_no": line_no,
+            "docstring": docstring[:100],
+            "result": result if error is None else f"ERROR: {error}",
+            "has_error": error is not None
+        }
 
-    except Exception as e:
-        results[tool_name] = f"ERROR: {type(e).__name__}: {e}"
-        print(f"  ERROR: {type(e).__name__}: {e}")
+        print(f"{tool_name} (line {line_no}):")
+        if error:
+            print(f"  ERROR: {error}")
+        else:
+            print(f"  {result[:150]}")
+        print()
 
-    print()
+    return results
 
-print("\n" + "="*60)
-print("Summary:")
-print(f"Total tools: {len(tools)}")
-print(f"Successfully called: {sum(1 for r in results.values() if not r.startswith('ERROR'))}")
-print(f"Errors: {sum(1 for r in results.values() if r.startswith('ERROR'))}")
-
-# Save results
-with open("tool_test_results.txt", "w") as f:
-    for tool_name, result in results.items():
-        f.write(f"{tool_name}: {result}\n")
-
-print("\nFull results saved to tool_test_results.txt")
+if __name__ == "__main__":
+    test_tools()

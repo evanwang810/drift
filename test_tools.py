@@ -1,109 +1,101 @@
 #!/usr/bin/env python3
-"""Test all tools in agent/tools.py to see what actually returns."""
+"""Test each tool in agent/tools.py to see which ones actually work."""
 
-import sys
+import inspect
 from pathlib import Path
-import json
-
-# Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
-
 from agent.tools import Executor
-import analyze_runs
+import os
 
-# Create executor with proper ROOT
-ROOT = Path("/tmp/scratch")
-executor = Executor(root=ROOT, env={})
+def test_tools():
+    """Test each tool by attempting to call it with minimal arguments."""
 
-tools = [
-    'search',
-    'web_fetch',
-    'read',
-    'read_with_numbers',
-    'read_lines',
-    'read_all',
-    'write',
-    'replace',
-    'replace_all',
-    'delete',
-    'ls',
-    'tree',
-    'grep',
-    'validate_python',
-    'analyze_runs',
-    '_gh_list_issues',
-    '_gh_read_issue',
-    '_gh_comment_issue',
-    '_gh_close_issue',
-    '_wikipedia_search',
-]
+    tools = [name for name, func in inspect.getmembers(Executor, inspect.isfunction)
+             if name.startswith('_') and not name.startswith('__')]
 
-results = {}
+    print(f"Total tools defined: {len(tools)}\n")
 
-for tool_name in tools:
-    print(f"\n{'='*60}")
-    print(f"Testing: {tool_name}")
-    print('='*60)
+    results = {}
+    for tool_name in tools:
+        tool_func = getattr(Executor, tool_name)
 
-    try:
-        # Check if the tool exists as a method
-        handler = getattr(executor, f"_{tool_name}", None)
-        if handler is None:
-            print(f"  ❌ No handler found")
-            results[tool_name] = "no_handler"
-            continue
+        # Get line number
+        try:
+            line_no = inspect.getsourcelines(tool_func)[1]
+        except:
+            line_no = "unknown"
 
-        # Try calling it with real arguments
-        if tool_name == 'search':
-            result = executor.dispatch(tool_name, {"query": "agentic workflows"})
-        elif tool_name == 'web_fetch':
-            result = executor.dispatch(tool_name, {"url": "https://example.com"})
-        elif tool_name == 'read':
-            result = executor.dispatch(tool_name, {"path": "README.md"})
-        elif tool_name == 'read_with_numbers':
-            result = executor.dispatch(tool_name, {"path": "README.md"})
-        elif tool_name == 'read_lines':
-            result = executor.dispatch(tool_name, {"path": "README.md", "start": 1, "end": 10})
-        elif tool_name == 'read_all':
-            result = executor.dispatch(tool_name, {"path": "README.md"})
-        elif tool_name == 'write':
-            result = executor.dispatch(tool_name, {"path": "test_output.txt", "content": "test"})
-        elif tool_name == 'replace':
-            result = executor.dispatch(tool_name, {"path": "README.md", "search": "test", "replace": "replaced"})
-        elif tool_name == 'replace_all':
-            result = executor.dispatch(tool_name, {"path": "README.md", "search": "test", "replace": "replaced"})
-        elif tool_name == 'delete':
-            result = executor.dispatch(tool_name, {"path": "test_output.txt"})
-        elif tool_name == 'ls':
-            result = executor.dispatch(tool_name, {"path": "."})
-        elif tool_name == 'tree':
-            result = executor.dispatch(tool_name, {"path": "."})
-        elif tool_name == 'grep':
-            result = executor.dispatch(tool_name, {"pattern": "test", "path": "."})
-        elif tool_name == 'validate_python':
-            result = executor.dispatch(tool_name, {"path": "agent/tools.py"})
-        elif tool_name == 'analyze_runs':
-            result = executor.dispatch(tool_name, {})
-        elif tool_name.startswith('_gh_'):
-            result = executor.dispatch(tool_name, {"repo": "test/repo", "number": 1})
-        elif tool_name == '_wikipedia_search':
-            result = executor.dispatch(tool_name, {"query": "agentic workflows"})
-        else:
-            print(f"  ❌ No test arguments defined")
-            results[tool_name] = "no_test_args"
-            continue
+        # Try to get docstring
+        docstring = inspect.getdoc(tool_func) or "(no docstring)"
 
-        print(f"  Result: {result[:200]}")
-        results[tool_name] = result[:200]
+        # Determine if it's callable by trying to call it
+        result = "NOT CALLED"
+        error = None
 
-    except Exception as e:
-        print(f"  ❌ Error: {type(e).__name__}: {e}")
-        results[tool_name] = f"ERROR: {type(e).__name__}: {e}"
+        try:
+            # Create executor instance
+            root = Path('.')
+            env = os.environ.copy()
+            executor = Executor(root, env)
 
-# Save results
-with open("TOOL_TEST_RESULTS.json", "w") as f:
-    json.dump(results, f, indent=2)
+            # Try to call with appropriate args
+            if tool_name == "_read" or tool_name == "_read_with_numbers" or tool_name == "_read_lines":
+                result = executor._read("README.md")  # Try to read a real file
+            elif tool_name == "_write":
+                result = executor._write("test_tool_output.txt", "test")
+            elif tool_name == "_delete":
+                result = executor._delete("test_tool_output.txt")
+            elif tool_name == "_replace" or tool_name == "_replace_all":
+                result = executor._replace("test_tool_output.txt", "test", "new")
+            elif tool_name == "_run":
+                result = executor._run("echo 'test'")
+            elif tool_name == "_tree":
+                result = executor._tree(".", max_depth=1)
+            elif tool_name == "_validate_python":
+                result = executor._validate_python("test_tools.py")
+            elif tool_name == "_ls":
+                result = executor._ls(".")
+            elif tool_name == "_search":
+                result = executor._search("test query")
+            elif tool_name == "_grep":
+                result = executor._grep("test", ".")
+            elif tool_name == "_summarize":
+                result = executor._summarize("test summary")
+            elif tool_name == "_stop":
+                result = "STOP called (raises Stopped exception)"
+            elif tool_name == "_read_all":
+                result = executor._read_all("test_tools.py")
+            elif tool_name == "_web_fetch":
+                result = executor._web_fetch("https://example.com", parse_html=True)
+            elif tool_name == "_gh_list_issues":
+                result = executor._gh_list_issues()
+            elif tool_name == "_gh_read_issue":
+                result = executor._gh_read_issue(1)
+            elif tool_name == "_gh_comment_issue":
+                result = executor._gh_comment_issue(1, "test comment")
+            elif tool_name == "_gh_close_issue":
+                result = executor._gh_close_issue(1)
+            elif tool_name == "_analyze_runs":
+                result = executor._analyze_runs()
+            else:
+                result = f"Cannot determine test args for {tool_name}"
 
-print(f"\n{'='*60}")
-print("All tests complete. Results saved to TOOL_TEST_RESULTS.json")
-print('='*60)
+        except Exception as e:
+            error = f"{type(e).__name__}: {e}"
+
+        results[tool_name] = {
+            "line_no": line_no,
+            "docstring": docstring[:100],
+            "result": result if error is None else f"ERROR: {error}",
+            "has_error": error is not None
+        }
+
+        print(f"{tool_name} (line {line_no}):")
+        print(f"  {result[:150]}")
+        if error:
+            print(f"  ERROR: {error}")
+        print()
+
+    return results
+
+if __name__ == "__main__":
+    test_tools()

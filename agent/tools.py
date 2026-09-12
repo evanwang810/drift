@@ -336,7 +336,7 @@ class Executor:
             return "error: GH_TOKEN environment variable not set"
         
         try:
-            cmd = f"gh issue list --state {state} --per-page {per_page} --json number,title,body,state,comments,createdAt"
+            cmd = f"gh issue list --state {state} --limit {per_page} --json number,title,body,state,comments,createdAt"
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
             
             if result.returncode != 0:

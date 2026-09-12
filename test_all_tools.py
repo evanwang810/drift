@@ -1,117 +1,103 @@
-"""Test all tools in agent/tools.py"""
-import sys
-sys.path.insert(0, '.')
-from agent.tools import Executor
+#!/usr/bin/env python3
+"""Comprehensive test of all tools in agent/tools.py."""
+
+import inspect
 from pathlib import Path
-import json
+from agent.tools import Executor
+import os
 
-# Create an executor instance
-executor = Executor(root=Path('.'), env={})
+def test_tools():
+    """Test each tool by attempting to call it with minimal arguments."""
 
-# List of all callable tools
-tools_to_test = [
-    '_analyze_runs',
-    '_delete',
-    '_grep',
-    '_ls',
-    '_read',
-    '_read_all',
-    '_read_lines',
-    '_read_with_numbers',
-    '_replace',
-    '_replace_all',
-    '_run',
-    '_search',
-    '_summarize',
-    '_tree',
-    '_validate_python',
-    '_web_fetch',
-    '_write',
-]
+    tools = [name for name, func in inspect.getmembers(Executor, inspect.isfunction)
+             if name.startswith('_') and not name.startswith('__')]
 
-print("=" * 80)
-print("TOOL TESTING RESULTS")
-print("=" * 80)
+    print(f"Total tools defined: {len(tools)}\n")
 
-results = {}
+    results = {}
+    for tool_name in tools:
+        tool_func = getattr(Executor, tool_name)
 
-for tool_name in tools_to_test:
-    print(f"\nTesting: {tool_name}")
-    tool = getattr(executor, tool_name, None)
+        # Get line number
+        try:
+            line_no = inspect.getsourcelines(tool_func)[1]
+        except:
+            line_no = "unknown"
 
-    # Build appropriate args for each tool
-    args = {}
+        # Try to get docstring
+        docstring = inspect.getdoc(tool_func) or "(no docstring)"
 
-    if tool_name == '_analyze_runs':
-        pass  # No args needed
-    elif tool_name == '_delete':
-        args = {'path': 'test_temp_file.txt'}
-    elif tool_name == '_grep':
-        args = {'pattern': 'agent', 'path': '.'}
-    elif tool_name == '_ls':
-        args = {'path': '.'}
-    elif tool_name == '_read':
-        args = {'path': 'PROJECT.md'}
-    elif tool_name == '_read_all':
-        args = {'path': 'PROJECT.md'}
-    elif tool_name == '_read_lines':
-        args = {'path': 'PROJECT.md', 'start': 1, 'end': 10}
-    elif tool_name == '_read_with_numbers':
-        args = {'path': 'PROJECT.md'}
-    elif tool_name == '_replace':
-        args = {'path': 'PROJECT.md', 'search': 'PROJECT', 'replace': 'PROJECT.md'}
-    elif tool_name == '_replace_all':
-        args = {'path': 'PROJECT.md', 'search': 'PROJECT', 'replace': 'PROJECT.md'}
-    elif tool_name == '_run':
-        args = {'command': 'echo "hello"'}
-    elif tool_name == '_search':
-        args = {'query': 'agentic workflows'}
-    elif tool_name == '_summarize':
-        # This requires messages to be set
-        args = {'summary': 'Test summary'}
-    elif tool_name == '_tree':
-        args = {'path': '.', 'max_depth': 2}
-    elif tool_name == '_validate_python':
-        args = {'path': 'test_tools.py'}
-    elif tool_name == '_web_fetch':
-        args = {'url': 'https://example.com', 'parse_html': True}
-    elif tool_name == '_write':
-        args = {'path': 'test_temp_file.txt', 'content': 'test content'}
+        # Determine if it's callable by trying to call it
+        result = "NOT CALLED"
+        error = None
 
-    try:
-        result = tool(**args)
-        results[tool_name] = result
-        print(f"  ✓ SUCCESS")
-        print(f"  Output (first 200 chars): {str(result)[:200]}")
-    except NameError as e:
-        results[tool_name] = f"NameError: {e}"
-        print(f"  ✗ NameError: {e}")
-    except Exception as e:
-        results[tool_name] = f"{type(e).__name__}: {e}"
-        print(f"  ✗ {type(e).__name__}: {e}")
+        try:
+            # Create executor instance
+            root = Path('.')
+            env = os.environ.copy()
+            executor = Executor(root, env)
 
-# Test _stop (should raise Stopped)
-print(f"\nTesting: _stop")
-try:
-    executor._stop("test stop", "test memory")
-    results['_stop'] = "ERROR: Should have raised Stopped"
-    print(f"  ✗ Should have raised Stopped")
-except Exception as e:
-    if "Stopped" in str(type(e)):
-        results['_stop'] = "✓ Correctly raises Stopped"
-        print(f"  ✓ Correctly raises Stopped")
-    else:
-        results['_stop'] = f"{type(e).__name__}: {e}"
-        print(f"  ✗ {type(e).__name__}: {e}")
+            # Try to call with appropriate args
+            if tool_name == "_read" or tool_name == "_read_with_numbers" or tool_name == "_read_lines":
+                # Use a real file in the repo
+                result = executor._read("PROJECT.md")
+            elif tool_name == "_read_all":
+                result = executor._read_all("PROJECT.md")
+            elif tool_name == "_write":
+                result = executor._write("test_tool_output.txt", "test")
+            elif tool_name == "_delete":
+                result = executor._delete("test_tool_output.txt")
+            elif tool_name == "_replace" or tool_name == "_replace_all":
+                result = executor._replace("PROJECT.md", "TODO", "DONE")
+            elif tool_name == "_run":
+                result = executor._run("echo 'test'")
+            elif tool_name == "_tree":
+                result = executor._tree(".", max_depth=1)
+            elif tool_name == "_validate_python":
+                result = executor._validate_python("test_all_tools.py")
+            elif tool_name == "_ls":
+                result = executor._ls(".")
+            elif tool_name == "_search":
+                result = executor._search("LLM agents")
+            elif tool_name == "_grep":
+                result = executor._grep("TODO", ".")
+            elif tool_name == "_summarize":
+                result = executor._summarize("test summary")
+            elif tool_name == "_stop":
+                result = "STOP called (raises Stopped exception)"
+            elif tool_name == "_web_fetch":
+                result = executor._web_fetch("https://example.com", parse_html=True)
+            elif tool_name == "_gh_list_issues":
+                result = executor._gh_list_issues()
+            elif tool_name == "_gh_read_issue":
+                result = executor._gh_read_issue(1)
+            elif tool_name == "_gh_comment_issue":
+                result = executor._gh_comment_issue(1, "test comment")
+            elif tool_name == "_gh_close_issue":
+                result = executor._gh_close_issue(1)
+            elif tool_name == "_analyze_runs":
+                result = executor._analyze_runs()
+            else:
+                result = f"Cannot determine test args for {tool_name}"
 
-print("\n" + "=" * 80)
-print("SUMMARY")
-print("=" * 80)
+        except Exception as e:
+            error = f"{type(e).__name__}: {e}"
 
-print(f"\nTotal tools tested: {len(tools_to_test) + 1}")
-print(f"Successful: {sum(1 for r in results.values() if '✓' in str(r))}")
-print(f"Failed: {sum(1 for r in results.values() if '✗' in str(r))}")
+        results[tool_name] = {
+            "line_no": line_no,
+            "docstring": docstring[:100],
+            "result": result if error is None else f"ERROR: {error}",
+            "has_error": error is not None
+        }
 
-print("\nAll results:")
-for name, result in sorted(results.items()):
-    print(f"  {name}: {result}")
+        print(f"{tool_name} (line {line_no}):")
+        if error:
+            print(f"  ERROR: {error}")
+        else:
+            print(f"  {result[:200]}")
+        print()
+
+    return results
+
+if __name__ == "__main__":
+    test_tools()

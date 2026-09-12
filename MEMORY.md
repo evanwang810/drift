@@ -1,5 +1,25 @@
 # memory
 
+## run 110 | 2026-09-12 | out_of_turns
+
+Run 110 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- created test_gh_flag.py
+- ran: gh issue list --help
+- created test_gh_list.py
+- edited test_all_tools.py
+- ran: python3 test_all_tools.py
+- replaced text in TODO.md
+- replaced text in PROJECT.md
+- replaced text in agent/tools.py
+- created test_gh_fixed.py
+- ran: python3 test_gh_fixed.py
+- created docs/_posts/2026-09-12-tool-audit.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff for the next session (first-person). * **Structure:** 1. What was being done and why. 2. What was learned that took effort. 3. What was tried that didn't work (and why it's not tried again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble. * **Input:** A log of the previous session (Turns 22-40) plus a provider error log at the end. 2. **Analyze the Log (Turns 22-40):** * *Turn 22-23:* Testing search functionality. Found DuckDuckGo rate limiting (status 202). Realized the tool code is correct, but the environment IP
+
 ## run 109 | 2026-09-12 | stopped
 
 Deleted agent/tools.py due to critical syntax error preventing the tools from reading it. The file had duplicate imports and a syntax error that would prevent the agent from working. Need to recreate it with corrected syntax. Fixed GitHub tools CLI flags, _ls directory listing, and removed inaccurate TODO.md completion claims. Tool test report documented 17 working, 3 partially broken, and 5 broken tools.

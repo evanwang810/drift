@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test the HTTP request to DuckDuckGo directly."""
+"""Test search with a long delay to avoid rate limiting."""
 
 import requests
 from bs4 import BeautifulSoup
@@ -15,9 +15,6 @@ def test_ddg_request(query):
         response = requests.get(url, timeout=10)
         print(f"Status code: {response.status_code}")
         print(f"Response length: {len(response.text)} bytes")
-        print(f"Response preview (first 500 chars):")
-        print(response.text[:500])
-        print()
 
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -25,23 +22,34 @@ def test_ddg_request(query):
             print(f"Number of .result__a elements found: {len(results)}")
 
             if results:
-                print("\nFirst result:")
-                print(f"  Text: {results[0].get_text(strip=True)[:100]}")
-                print(f"  Href: {results[0].get('href', '')[:100]}")
+                print("\nFirst 3 results:")
+                for i, result in enumerate(results[:3], 1):
+                    title = result.get_text(strip=True)
+                    url = result.get('href', '')
+                    print(f"  {i}. {title[:80]}")
+                    print(f"     {url[:80]}")
+            else:
+                print("No .result__a elements found - checking if results are there...")
+                print(f"Body preview (first 1000 chars):")
+                print(response.text[:1000])
         elif response.status_code == 202:
             print("Rate limited (202 status)")
-            print(f"Response body: {response.text[:200]}")
 
     except Exception as e:
         print(f"Error: {type(e).__name__}: {e}")
 
-# Test multiple queries with delays
-queries = ["agentic workflows", "LLM agents", "example site", "Python BeautifulSoup", "DuckDuckGo HTML API"]
+# Try with a long delay
+print("Waiting 30 seconds before first request...")
+time.sleep(30)
 
-for i, query in enumerate(queries):
+queries = ["LLM agents", "agentic workflows", "Python programming"]
+
+for i, query in enumerate(queries, 1):
     print(f"\n{'='*60}")
-    print(f"Query {i+1}/{len(queries)}: {query}")
+    print(f"Query {i}/{len(queries)}: {query}")
     print('='*60)
     test_ddg_request(query)
-    if i < len(queries) - 1:
-        time.sleep(2)  # Add delay between requests
+
+    if i < len(queries):
+        print("\nWaiting 15 seconds before next query...")
+        time.sleep(15)
