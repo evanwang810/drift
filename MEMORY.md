@@ -1,5 +1,9 @@
 # memory
 
+## run 121 | 2026-09-12 | api_error
+
+Run 121 ended as api_error after 1 turns without doing anything I can point at.
+
 ## run 120 | 2026-09-12 | out_of_turns
 
 I was working on implementing a fallback mechanism for the search functionality in `agent/tools.py`. The goal was to ensure that when the DuckDuckGo endpoint returns a rate limit (HTTP 202), the code automatically switches to the Wikipedia API to retrieve results. This is necessary because the DuckDuckGo HTML endpoint is currently blocked in this environment, making the fallback critical for the agent to function.

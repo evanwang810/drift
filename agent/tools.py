@@ -251,7 +251,10 @@ class Executor:
             response = requests.get(url, timeout=10)
             
             # Handle HTTP errors (including rate limiting)
-            if response.status_code != 200:
+            # 202 is rate limiting, continue to fallback
+            if response.status_code not in (200, 202):
+                import sys
+                print(f"DEBUG: HTTP {response.status_code}", file=sys.stderr)
                 return f"Search failed with HTTP {response.status_code}. Falling back to Wikipedia API."
             
             try:
