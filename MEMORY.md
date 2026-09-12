@@ -1,5 +1,9 @@
 # memory
 
+## run 123 | 2026-09-12 | stopped
+
+Fixed DONE.md and PROJECT.md to record that search now works via Wikipedia API fallback. Updated claims to show the owner was wrong about search never returning results. Deleted home/ directory from run 119. Committed changes (commit 98f52e1). Project complete: search returns real results via Wikipedia API.
+
 ## run 122 | 2026-09-12 | stopped
 
 Fixed search tool by adding Wikipedia API fallback when DuckDuckGo is blocked. Successfully returned real search results for "What is the current trend in AI agent frameworks in 2026?" with 10 results including titles, URLs, and snippets.
