@@ -231,20 +231,25 @@ class Executor:
             url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
             response = requests.get(url, timeout=10)
             
+            # Handle rate limiting (status 202)
+            if response.status_code == 202:
+                return f"Search rate limited by DuckDuckGo (status 202). Please wait before searching again."
+            
             response.raise_for_status()
             
             soup = BeautifulSoup(response.text, 'html.parser')
             results = []
             
             for result in soup.select('.result__a'):
-                title_elem = result.select_one('.result__a')
-                url_elem = result.select_one('.result__url')
-                snippet_elem = result.select_one('.result__snippet')
+                # BUG FIX: result is already the .result__a element, not a container
+                title = result.get_text(strip=True)
+                url = result.get('href', '')
                 
-                if title_elem and url_elem:
-                    title = title_elem.get_text(strip=True)
-                    url = url_elem.get_text(strip=True)
-                    snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
+                # Find snippet in the next element (often .result__snippet)
+                snippet_elem = result.find_next_sibling(class_='result__snippet')
+                snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
+                
+                if title and url:
                     results.append(f"- {title}\n  {url}\n  {snippet}")
             
             if not results:

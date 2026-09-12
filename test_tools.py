@@ -1,59 +1,72 @@
 #!/usr/bin/env python3
-"""Test every tool in agent/tools.py and record what happens."""
+"""Test all tools in agent/tools.py to see which actually work."""
 
 import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, '.')
 
-from pathlib import Path
 from agent.tools import Executor
+from pathlib import Path
 
-# Create an executor instance
+# Create a test executor
 root = Path.cwd()
 env = {}
-
 executor = Executor(root=root, env=env)
-
-tools_to_test = [
-    ("_search", {"query": "agentic workflows"}),
-    ("_grep", {"pattern": "test", "path": "."}),
-    ("_analyze_runs", {}),
-    ("_read", {"path": "agent/tools.py"}),
-    ("_read_with_numbers", {"path": "agent/tools.py"}),
-    ("_read_lines", {"path": "agent/tools.py", "start": 1, "end": 10}),
-    ("_write", {"path": "test_output.txt", "content": "test"}),
-    ("_replace", {"path": "test_output.txt", "search": "test", "replace": "REPLACED"}),
-    ("_replace_all", {"path": "test_output.txt", "search": "REPLACED", "replace": "DONE"}),
-    ("_delete", {"path": "test_output.txt"}),
-    ("_summarize", {"summary": "test summary"}),
-    ("_stop", {"note": "test stop"}),
-    ("_read_all", {"path": "agent/tools.py"}),
-    ("_web_fetch", {"url": "https://example.com", "parse_html": True}),
-    ("_gh_list_issues", {"state": "open", "per_page": 5}),
-    ("_gh_read_issue", {"issue_number": 1}),
-    ("_gh_comment_issue", {"issue_number": 1, "comment": "test comment"}),
-    ("_gh_close_issue", {"issue_number": 1}),
-]
 
 results = []
 
-for tool_name, args in tools_to_test:
+# Test each tool
+tools_to_test = [
+    ('analyze_runs', {}, 'Analyze RUNS.md'),
+    ('read', {'path': 'agent/tools.py'}, 'Read tools.py'),
+    ('read_with_numbers', {'path': 'agent/tools.py'}, 'Read tools.py with numbers'),
+    ('read_lines', {'path': 'agent/tools.py', 'start': 1, 'end': 10}, 'Read first 10 lines of tools.py'),
+    ('read_all', {'path': 'agent/tools.py'}, 'Read all of tools.py'),
+    ('write', {'path': 'test_output.txt', 'content': 'Test content'}, 'Write test file'),
+    ('replace', {'path': 'test_output.txt', 'search': 'Test', 'replace': 'Replaced'}, 'Replace in test file'),
+    ('replace_all', {'path': 'test_output.txt', 'search': 'Replaced', 'replace': 'Again replaced'}, 'Replace all in test file'),
+    ('delete', {'path': 'test_output.txt'}, 'Delete test file'),
+    ('run', {'command': 'echo "hello"'}, 'Run echo command'),
+    ('tree', {'path': '.', 'max_depth': 2}, 'List directory tree'),
+    ('validate_python', {'path': 'agent/tools.py'}, 'Validate Python syntax'),
+    ('ls', {'path': '.'}, 'List directory'),
+    ('grep', {'pattern': 'def ', 'path': '.'}, 'Grep for function definitions'),
+    ('summarize', {'summary': 'Test summary'}, 'Summarize context'),
+    ('stop', {'note': 'Test stop'}, 'Stop run'),
+    ('search', {'query': 'agentic workflows'}, 'Search the web'),
+    ('web_fetch', {'url': 'https://example.com', 'parse_html': True}, 'Fetch web page'),
+]
+
+print("Testing tools...\n")
+for tool_name, args, description in tools_to_test:
     try:
         result = executor.dispatch(tool_name, args)
-        results.append(f"{tool_name}: SUCCESS\n  Args: {args}\n  Result: {result[:200] if len(result) > 200 else result}\n")
+        results.append({
+            'tool': tool_name,
+            'description': description,
+            'status': 'SUCCESS',
+            'result': result[:200] if isinstance(result, str) else str(result)[:200]
+        })
+        print(f"✓ {description} ({tool_name})")
     except Exception as e:
-        results.append(f"{tool_name}: ERROR\n  Args: {args}\n  Error: {type(e).__name__}: {e}\n")
-    print(f"\n{'='*60}")
-    print(f"Tool: {tool_name}")
-    print(f"{'='*60}")
-    print(f"Result: {result[:500] if len(result) > 500 else result}")
+        results.append({
+            'tool': tool_name,
+            'description': description,
+            'status': 'ERROR',
+            'error': str(e)
+        })
+        print(f"✗ {description} ({tool_name}): {e}")
 
-# Write results to file
-with open("tool_test_results.md", "w") as f:
-    f.write("# Tool Test Results\n\n")
-    f.write(f"Total tools tested: {len(tools_to_test)}\n\n")
-    for result in results:
-        f.write(result)
-        f.write("\n" + "="*60 + "\n\n")
+print("\n\n" + "="*60)
+print("SUMMARY:")
+print("="*60)
 
-print("\n\nResults written to tool_test_results.md")
+success_count = sum(1 for r in results if r['status'] == 'SUCCESS')
+error_count = sum(1 for r in results if r['status'] == 'ERROR')
+
+print(f"Successful: {success_count}/{len(results)}")
+print(f"Errors: {error_count}/{len(results)}")
+
+print("\nFailed tools:")
+for r in results:
+    if r['status'] == 'ERROR':
+        print(f"  - {r['tool']}: {r['error']}")
