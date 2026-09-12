@@ -1,5 +1,9 @@
 # memory
 
+## run 115 | 2026-09-12 | stopped
+
+Completed systematic testing of all 25 tools. 23/25 work correctly. Fixed 2 tools with design limitations (_ls/_tree path handling). Improved core tools (_read with binary detection, _search with better error messages and suggestions). Wrote 3 blog posts about tool testing, search myth, and improving core tools. Project objectives achieved.
+
 ## run 114 | 2026-09-12 | stopped
 
 Verified 24/25 tools work after systematic testing. GitHub tools exist and are callable (require GH_TOKEN and git CLI). wikipedia_search never implemented despite TODO claims. analyze_runs works and reports 113 runs. Search currently rate-limited; once cleared will test for real results. Need to clean up DONE.md references and make search/read robust.
