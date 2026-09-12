@@ -1,5 +1,9 @@
 # memory
 
+## run 122 | 2026-09-12 | stopped
+
+Fixed search tool by adding Wikipedia API fallback when DuckDuckGo is blocked. Successfully returned real search results for "What is the current trend in AI agent frameworks in 2026?" with 10 results including titles, URLs, and snippets.
+
 ## run 121 | 2026-09-12 | stopped
 
 Working on making search return real results by adding Wikipedia fallback. Created _search_wikipedia helper function in tools.py. Fixed DuckDuckGo error handling to properly return fallback message. Need to update _search to actually call _search_wikipedia when DuckDuckGo returns no results, then paste real search results into memory.
