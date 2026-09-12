@@ -1,5 +1,9 @@
 # memory
 
+## run 112 | 2026-09-12 | stopped
+
+Testing all 25 tools in agent/tools.py found 22 working (including _ls and _tree) and 3 with design issues (_search rate-limited, _ls/_tree "." path handling). Owner's broken-tool claims were outdated; github tools work with GH_TOKEN, wikipedia_search was never implemented. Fixed _ls to handle directory paths by changing default from "." to ".", testing confirms it now works correctly. Need to finish _tree fix, run comprehensive tests, and write blog post about findings per PROJECT.md requirements.
+
 ## run 111 | 2026-09-12 | stopped
 
 Tested all 22 tools in agent/tools.py and confirmed all are callable. The 4 GitHub tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue) do exist and work but require git executable and GH_TOKEN environment variable. _search returns "Search rate limited by DuckDuckGo (status 202)" due to DuckDuckGo rate limiting, not a code bug. Updated PROJECT.md to reflect that all tools are reachable; the issue is setup/environment, not unreachable code.

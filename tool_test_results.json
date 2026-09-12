@@ -1,0 +1,107 @@
+{
+  "total_tools": 25,
+  "working": 22,
+  "broken": 3,
+  "results": {
+    "analyze_runs": {
+      "status": "success",
+      "output": "Analysis of 111 runs:\n- stopped: 60\n- api_error: 26\n- out_of_turns: 13\n- crashed: 7\n- out_of_time: 5\n\nFailure rate: 29.7%"
+    },
+    "read": {
+      "status": "success",
+      "output": "# PROJECT\n\nGood work on the last one. Your senses are back: `NOTE.md` reaches you again,\nmemory arrives in whole sentences, and the file tree shows real directories.\nThat is done, leave it alone now.\n..."
+    },
+    "read_with_numbers": {
+      "status": "success",
+      "output": "1: # PROJECT\n2: \n3: Good work on the last one. Your senses are back: `NOTE.md` reaches you again,\n4: memory arrives in whole sentences, and the file tree shows real directories.\n5: That is done, leave..."
+    },
+    "read_lines": {
+      "status": "success",
+      "output": "# PROJECT\n\nGood work on the last one. Your senses are back: `NOTE.md` reaches you again,\nmemory arrives in whole sentences, and the file tree shows real directories.\nThat is done, leave it alone now.\n..."
+    },
+    "write": {
+      "status": "success",
+      "output": "wrote 11 characters to test_write.txt"
+    },
+    "write_read": {
+      "status": "success",
+      "output": "Hello world"
+    },
+    "replace": {
+      "status": "success",
+      "output": "replaced first occurrence of search string in test_replace.txt"
+    },
+    "replace_read": {
+      "status": "success",
+      "output": "Replaced text"
+    },
+    "replace_all": {
+      "status": "success",
+      "output": "replaced 4 occurrences of search string in test_replace_all.txt"
+    },
+    "replace_all_read": {
+      "status": "success",
+      "output": "b b b b"
+    },
+    "delete": {
+      "status": "success",
+      "output": "deleted test_delete.txt"
+    },
+    "delete_verify": {
+      "status": "error",
+      "output": "File still exists"
+    },
+    "run": {
+      "status": "success",
+      "output": "exit 0\nhello from agent"
+    },
+    "tree": {
+      "status": "error",
+      "error": "not a file path: '.'"
+    },
+    "validate_python": {
+      "status": "success",
+      "output": "test_tools_real.py is valid Python"
+    },
+    "ls": {
+      "status": "error",
+      "error": "not a file path: '.'"
+    },
+    "search": {
+      "status": "success",
+      "output": "Search rate limited by DuckDuckGo (status 202). Please wait before searching again."
+    },
+    "grep": {
+      "status": "success",
+      "output": "exit 0\n./.git/hooks/sendemail-validate.sample:22:# Replace the TODO placeholders with appropriate checks according to your\n./.git/hooks/sendemail-validate.sample:27:\t# TODO: Replace with appropriate checks (e.g. spell checking).\n./.git/hooks/sendemail-validate.sample:35:\t# TODO: Replace with appropriate checks for this patch\n./.git/hooks/sendemail-validate.sample:41:\t# TODO: Replace with appropriate checks for the whole series\n./test_tools2.py:51:                result = executor._replace(\"PROJE..."
+    },
+    "summarize": {
+      "status": "success",
+      "output": "nothing old enough to summarise yet"
+    },
+    "web_fetch": {
+      "status": "success",
+      "output": "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more"
+    },
+    "gh_list_issues": {
+      "status": "success",
+      "output": "No issues found."
+    },
+    "gh_read_issue": {
+      "status": "success",
+      "output": "Error reading issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)\n"
+    },
+    "gh_comment_issue": {
+      "status": "success",
+      "output": "Error commenting on issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)\n"
+    },
+    "gh_close_issue": {
+      "status": "success",
+      "output": "Error closing issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)\n"
+    },
+    "read_all": {
+      "status": "success",
+      "output": "# PROJECT\n\nGood work on the last one. Your senses are back: `NOTE.md` reaches you again,\nmemory arrives in whole sentences, and the file tree shows real directories.\nThat is done, leave it alone now.\n..."
+    }
+  }
+}
