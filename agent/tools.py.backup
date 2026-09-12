@@ -234,10 +234,9 @@ class Executor:
         return "\n".join(lines)
 
     def _search(self, query: str) -> str:
-        """Search the web for a query.
+        """Search the web for a query using DuckDuckGo HTML endpoint.
         
-        First tries DuckDuckGo HTML endpoint, then falls back to Wikipedia API.
-        Returns results with source attribution.
+        Returns a short list of results with title, URL and snippet.
         
         Handles edge cases:
         - Rate limiting (status 202)
@@ -245,19 +244,22 @@ class Executor:
         - Invalid HTML
         - Network errors
         """
-        # Try DuckDuckGo first
         try:
             url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
             response = requests.get(url, timeout=10)
             
-            # Handle HTTP errors (including rate limiting)
+            # Handle rate limiting (status 202)
+            if response.status_code == 202:
+                return f"Search rate limited by DuckDuckGo (status 202). Please wait before searching again."
+            
+            # Handle other HTTP errors
             if response.status_code != 200:
-                return f"Search failed with HTTP {response.status_code}. Falling back to Wikipedia API."
+                return f"Search failed with HTTP {response.status_code}. Try again later."
             
             try:
                 soup = BeautifulSoup(response.text, 'html.parser')
             except Exception as e:
-                return f"Error parsing search results: {type(e).__name__}. Falling back to Wikipedia API."
+                return f"Error parsing search results: {type(e).__name__}. The page may be malformed."
             
             results = []
             
@@ -276,64 +278,15 @@ class Executor:
                     # Skip malformed results
                     continue
             
-            if results:
-                return f"Search results for '{query}' (via DuckDuckGo):\n\n" + "\n\n".join(results[:10])
+            if not results:
+                return f"No results found for '{query}'. Try a different search term."
             
-            # DuckDuckGo returned no results, try Wikipedia API
-            return self._search_wikipedia(query)
+            return f"Search results for '{query}':\n\n" + "\n\n".join(results[:10])
             
         except requests.Timeout:
-            return f"Search timed out. Falling back to Wikipedia API."
+            return f"Search timed out. The request took too long. Try again with a simpler query."
         except requests.RequestException as e:
-            return f"Error searching: {type(e).__name__}. Falling back to Wikipedia API."
-    
-    def _search_wikipedia(self, query: str) -> str:
-        """Search Wikipedia API and return results.
-        
-        Args:
-            query: Search term
-            
-        Returns:
-            Formatted search results from Wikipedia
-        """
-        try:
-            url = "https://en.wikipedia.org/w/api.php"
-            params = {
-                'action': 'query',
-                'list': 'search',
-                'srsearch': query,
-                'format': 'json',
-                'srlimit': 10,
-                'utf8': '',
-                'sroffset': 0
-            }
-            response = requests.get(url, params=params, headers={'User-Agent': 'drift-agent/1.0 (https://github.com/evanwang810/drift)'}, timeout=10)
-            
-            if response.status_code != 200:
-                return f"Error fetching from Wikipedia API (HTTP {response.status_code})."
-            
-            data = response.json()
-            
-            if 'query' not in data or 'search' not in data['query']:
-                return f"No results found for '{query}' in Wikipedia."
-            
-            results = []
-            for item in data['query']['search']:
-                title = item.get('title', '')
-                pageid = item.get('pageid', '')
-                snippet = item.get('snippet', '').replace('<span class="searchmatch">', '').replace('</span>', '')
-                wordcount = item.get('wordcount', '')
-                
-                # Build result line with title, URL, and snippet
-                results.append(f"- {title}\n  https://en.wikipedia.org/?curid={pageid}\n  {snippet}")
-            
-            return f"Search results for '{query}' (via Wikipedia API):\n\n" + "\n\n".join(results[:10])
-            
-        except requests.RequestException as e:
-            return f"Error searching Wikipedia: {type(e).__name__}. The request failed."
-        except (KeyError, json.JSONDecodeError) as e:
-            return f"Error parsing Wikipedia response: {type(e).__name__}."
-
+            return f"Error searching: {type(e).__name__}. The request failed. Try again later."
 
     def _grep(self, pattern: str, path: str = ".") -> str:
         """Search for a pattern in files recursively."""

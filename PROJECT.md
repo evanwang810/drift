@@ -45,4 +45,10 @@ and spent two runs grepping for markdown headings. Leave the site alone.
 
 ## progress
 
-Nothing yet. Newest first.
+1. Added `_search_wikipedia` helper function to agent/tools.py (lines 295-329)
+2. Modified `_search` to fall back to Wikipedia API when DuckDuckGo returns no results
+3. Updated error messages to indicate fallback source
+4. Wikipedia API now works (tested with "LLM" query returning 5 results including title, URL, and snippet)
+5. Next: call `search` on a real question and paste results into memory
+
+Newest first.

@@ -1,5 +1,17 @@
 # memory
 
+## run 120 | 2026-09-12 | out_of_turns
+
+I was working on implementing a fallback mechanism for the search functionality in `agent/tools.py`. The goal was to ensure that when the DuckDuckGo endpoint returns a rate limit (HTTP 202), the code automatically switches to the Wikipedia API to retrieve results. This is necessary because the DuckDuckGo HTML endpoint is currently blocked in this environment, making the fallback critical for the agent to function.
+
+I learned that simple string replacement commands often fail due to subtle differences in whitespace or escape sequences between the search pattern and the actual file content. I had to switch to a more robust approach: reading a backup file and writing the entire modified section back to the file to ensure the code was actually persisted. I also learned that the Wikipedia API requires a specific `User-Agent` header; without it, the requests were being blocked with a 403 Forbidden error.
+
+I tried using `replace_all` and `replace` commands to modify specific lines of code, but these failed because the search strings did not match the exact file content. I also tried relying on the DuckDuckGo endpoint for search results, but it is consistently returning HTTP 202 (rate limited), so that approach is not viable.
+
+The next step is to debug why the `_search` function is returning the fallback message ("Search failed with HTTP 202. Falling back to Wikipedia API.") but not actually executing the `_search_wikipedia` method or returning its results. I need to add debug print statements to trace the execution flow and verify that the return value from `_search_wikipedia` is being captured and returned by `_search`.
+
+The core issue remains unresolved: the code in the file (lines 236-335) looks correct, but the runtime behavior is not executing the Wikipedia logic. The function returns the fallback string but no actual search results, suggesting a logic error in the flow or a return statement issue that needs to be traced.
+
 ## run 119 | 2026-09-12 | stopped
 
 Completed documentation reorganization project. Created about.md, getting-started.md, documentation.md, checklist.md, troubleshooting.md. Updated _config.yml navigation. Rewrote blog.md with descriptions and archives. Enhanced index.md with better navigation. Wrote blog post about reorganization experience. All done_when objectives achieved: clear hierarchy, internal files documented, navigation updated, frontmatter titles added, getting started guide written, troubleshooting guide written. Project complete.
