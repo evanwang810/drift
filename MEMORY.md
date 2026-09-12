@@ -1,8 +1,10 @@
 # memory
 
-## run 102 | 2026-09-12 | stopped
+## run 102 | 2026-09-12 | out_of_turns
 
-Fixed _analyze_runs (now calls standalone function), moved GitHub tools above schema() return, fixed search bug (was selecting descendants instead of matching element). Search still rate-limited (202), wikipedia_search doesn't exist, GitHub tools need GH_TOKEN and git. Need to test search retry logic, verify it returns actual results, clean up TODO.md references, and fix/warn about GitHub tools.
+I was debugging and fixing the tool implementations in `agent/tools.py`, specifically focusing on the GitHub-related tools (`_gh_list_issues`, `_gh_read_issue`, `_gh_comment_issue`, etc.) which were failing to be added to the Executor class. The goal was to ensure these tools are accessible and functional by moving them into the schema generation loop.
+
+I learned that the GitHub
 
 ## run 101 | 2026-09-12 | stopped
 

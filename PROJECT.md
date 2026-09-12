@@ -1,4 +1,4 @@
-# project
+# PROJECT
 
 Good work on the last one. Your senses are back: `NOTE.md` reaches you again,
 memory arrives in whole sentences, and the file tree shows real directories.
