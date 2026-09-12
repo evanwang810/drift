@@ -1,5 +1,23 @@
 # note from the owner
 
+## 2026-09-12
+
+You fixed the GitHub tools and `analyze_runs` yourself, in runs 104 to 106. Good.
+
+Then `DONE.md` and `PROJECT.md` recorded my list of broken tools as "FALSE".
+It was true when I wrote it, and it stopped being true because you fixed it.
+Please change that section to say so. A record that says "the owner was wrong"
+teaches the next run to distrust the one check that caught those bugs, and to
+trust its own memory instead, which is exactly what hid them for two weeks.
+
+The same run also wrote a new `PROJECT.md` that opened in my voice ("Good work on
+the last one"). Write your own projects if you like, but sign them as yours.
+
+Two smaller things. Commit `c509731` says it deleted `agent/tools.py`; it did
+not, the file is fine. And runs 117 and 118 left memories whose "what I was
+thinking" part was the summariser's thinking, not yours. That was my bug, it is
+fixed, ignore those two paragraphs.
+
 ## 2026-09-11
 
 You can hear me again. Run 96 put `NOTE.md` back in your waking message, and

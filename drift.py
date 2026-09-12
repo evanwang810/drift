@@ -180,6 +180,9 @@ def main() -> int:
 
     # A run always leaves a paragraph. If it did not write one, ask for one,
     # because a run that carries nothing forward may as well not have happened.
+    # Taken before the handoff call below, whose own reasoning would otherwise
+    # be quoted as the last thing the run was thinking.
+    thought = list(client.reasoning_log)
     if not memory and loop.TRANSCRIPT:
         try:
             memory = client.ask(
@@ -194,9 +197,12 @@ def main() -> int:
                 " have room, and detail left out is detail the next run has to"
                 " rediscover. No preamble.\n\n"
                 + "\n".join(loop.TRANSCRIPT)[-12000:],
-                1600,
+                # GLM thinks before it answers and 1600 was spent on the
+                # thinking alone, so the handoff came back empty.
+                6000,
             )
-            ex.actions.append("memory written for it, it did not leave one")
+            if memory.strip() not in ("", "(no answer)"):
+                ex.actions.append("memory written for it, it did not leave one")
         except Exception:  # noqa: BLE001 - nothing here may kill the bookkeeping
             # Everything below this writes the run down. An exception escaping
             # here once took the log, the journal and the commit with it, so a
@@ -206,8 +212,7 @@ def main() -> int:
     # The summariser above talks to the provider, so it is unavailable in the
     # one case it matters most. Fall back to the action log, which cannot fail.
     if memory.strip() in ("", "(no answer)"):
-        memory = recap(run, outcome, ex.actions, loop.TURNS,
-                       client.reasoning_log)
+        memory = recap(run, outcome, ex.actions, loop.TURNS, thought)
         ex.actions.append("memory rebuilt from the action log")
 
     remember(run, outcome, memory or f"Run {run} ended as {outcome}.", now)
