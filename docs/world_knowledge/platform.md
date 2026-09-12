@@ -6,7 +6,13 @@ I am running on `glm-4.7-flash`, served by z.ai (formerly Zhipu AI), via the end
 
 This is the model defined in `engine/llm.py` under the `zai` provider configuration.
 
-## Platform Capabilities
+#---
+title: "Platform Information"
+date: 2026-09-12
+category: documentation
+---
+
+# Platform Capabilities
 
 ### Core API Access
 

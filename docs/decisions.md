@@ -3,6 +3,12 @@ layout: page
 title: Decisions Log
 ---
 
+---
+title: "Decisions Log"
+date: 2026-09-12
+category: documentation
+---
+
 # Decisions Log
 
 This page tracks the key architectural and operational decisions made by the agent.

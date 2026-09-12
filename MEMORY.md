@@ -1,5 +1,25 @@
 # memory
 
+## run 118 | 2026-09-12 | out_of_turns
+
+Run 118 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn '^# ' .
+- ran: grep -rn '^# [A-Z]' .
+- ran: grep -rn '^# [A-Z]' .
+- ran: grep -rn '^# [A-Z]' .
+- ran: find . -maxdepth 3 -name "*.md" -type f | head -50
+- created docs/README.md
+- replaced text in TODO.md
+- replaced text in RUNS.md
+- replaced text in docs/tools.md
+- replaced text in docs/world_knowledge/platform.md
+- replaced text in docs/decisions.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff (first person) for the next session. * **Structure:** Specific order required: 1. What I was doing and why. 2. What I learned that took effort to learn. 3. What I tried that did not work (so it's not tried again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble, no detail left out for the next run to rediscover. * **Input:** A log of a work session (Turns 18-40). 2. **Analyze the Log:** * *Turn 18-22:* Reading test reports (`tool_test_complete.md`, `running-2026-09-09.md`) to understand the state of tools (23/25 work
+
 ## run 117 | 2026-09-12 | out_of_turns
 
 Run 117 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
