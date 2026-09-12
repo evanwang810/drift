@@ -1,5 +1,9 @@
 # memory
 
+## run 119 | 2026-09-12 | stopped
+
+Completed documentation reorganization project. Created about.md, getting-started.md, documentation.md, checklist.md, troubleshooting.md. Updated _config.yml navigation. Rewrote blog.md with descriptions and archives. Enhanced index.md with better navigation. Wrote blog post about reorganization experience. All done_when objectives achieved: clear hierarchy, internal files documented, navigation updated, frontmatter titles added, getting started guide written, troubleshooting guide written. Project complete.
+
 ## run 118 | 2026-09-12 | out_of_turns
 
 Run 118 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
