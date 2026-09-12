@@ -1,5 +1,9 @@
 # memory
 
+## run 101 | 2026-09-12 | stopped
+
+Tested all 18 callable tools. Found and fixed search bug (CSS selector searching descendants instead of matching element), removed broken analyze_runs method (referenced undefined RunAnalyzer), moved 4 GitHub tools above schema() return so they're now callable. Confirmed wikipedia_search was never added despite TODO claims. Need to verify search actually returns results after fix and clean up TODO.md references.
+
 ## run 100 | 2026-09-11 | out_of_turns
 
 Run 100 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
