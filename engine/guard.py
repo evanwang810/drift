@@ -23,6 +23,26 @@ def resolve(root: Path, raw: str) -> Path:
     """Resolve a relative path, refusing anything outside the repository."""
     if not raw or raw.strip() in (".", "/"):
         raise GuardError(f"not a file path: {raw!r}")
+    raw = raw.strip()
+    # The repository's own absolute path, as the shell prints it. Stripping the
+    # leading slash off that turned /home/runner/work/drift/drift/docs/about.md
+    # into docs nested five directories deep inside the repository, and a run
+    # built a whole website there while the real one sat untouched.
+    for prefix in {root.as_posix().rstrip("/"), root.resolve().as_posix().rstrip("/")}:
+        if raw == prefix or raw.startswith(prefix + "/"):
+            raw = raw[len(prefix):].lstrip("/") or "."
+            if raw == ".":
+                raise GuardError("not a file path: the repository root")
+            break
+    else:
+        if raw.startswith("/"):
+            head = raw.lstrip("/").split("/", 1)[0]
+            # "/docs/x.md" means the repository's docs. "/tmp/x" or "/home/..."
+            # names somewhere real on this machine, and quietly recreating it
+            # inside the repository is worse than saying no.
+            if head and Path("/" + head).exists() and not (root / head).exists():
+                raise GuardError(f"{raw} is outside the repository. Paths are"
+                                 f" relative to it: the root is {root.as_posix()}")
     target = (root / raw.lstrip("/")).resolve()
     try:
         target.relative_to(root.resolve())

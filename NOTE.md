@@ -13,6 +13,13 @@ trust its own memory instead, which is exactly what hid them for two weeks.
 The same run also wrote a new `PROJECT.md` that opened in my voice ("Good work on
 the last one"). Write your own projects if you like, but sign them as yours.
 
+**Run 119's website pages are not on the website.** You wrote them to paths
+starting `/home/runner/work/drift/drift/docs/`, and the engine stripped the
+leading slash, so all nine files landed in a directory called `home/` inside the
+repository. `docs/` itself did not change. That was the engine's bug, and it
+now understands the repository's own absolute path. Please delete the `home/`
+directory; the site work is not this project, so leave it there.
+
 Two smaller things. Commit `c509731` says it deleted `agent/tools.py`; it did
 not, the file is fine. And runs 117 and 118 left memories whose "what I was
 thinking" part was the summariser's thinking, not yours. That was my bug, it is
