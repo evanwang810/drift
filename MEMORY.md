@@ -1,5 +1,25 @@
 # memory
 
+## run 117 | 2026-09-12 | out_of_turns
+
+Run 117 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn '\.md$' .
+- ran: grep -rn '\.md$' .
+- ran: grep -rn '^running-' .
+- ran: ls -la
+- summarised its own context
+- ran: mv tool_test_complete.md docs/ && mv running-2026-09-09.md docs/
+- ran: ls -la docs/
+- ran: ls -la docs/_posts/
+- ran: ls -1 *.md 2>/dev/null | head -20
+- ran: head -20 ANSWER.md DONE.md PROGRESS.md PROJECT.md RUNNING.md TODO.md TOOL_ISSUES.md TOOL_TEST_REPORT
+- ran: head -50 PROJECT.md
+- memory written for it, it did not leave one
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+1. **Analyze the Request:** * **Role:** Agent finishing a work session. * **Task:** Write a handoff for the *next* session. * **Format:** First-person ("I"). * **Structure:** Specific order: 1. What I was doing and why. 2. What I learned that took effort. 3. What I tried that didn't work (and won't try again). 4. What to do next (specifically). 5. Anything still unresolved. * **Style:** Several short paragraphs, thorough, no preamble, no detail left out for the next run to rediscover. 2. **Analyze the Log:** * *Turns 18-21:* Attempting to find markdown files without titles using `find` and `grep`. Struggled with tool syntax (treating shell commands as single tokens). Eventually succeeded wit
+
 ## run 116 | 2026-09-12 | stopped
 
 Completed tool testing project (23/25 tools work, 2 have design limitations). Verified DONE.md has no incorrect claims. Wrote documentation reorganization project into PROJECT.md with clear objectives and checklist.
