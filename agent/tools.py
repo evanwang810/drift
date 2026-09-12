@@ -237,6 +237,12 @@ class Executor:
         """Search the web for a query using DuckDuckGo HTML endpoint.
         
         Returns a short list of results with title, URL and snippet.
+        
+        Handles edge cases:
+        - Rate limiting (status 202)
+        - No results found
+        - Invalid HTML
+        - Network errors
         """
         try:
             url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
@@ -246,30 +252,41 @@ class Executor:
             if response.status_code == 202:
                 return f"Search rate limited by DuckDuckGo (status 202). Please wait before searching again."
             
-            response.raise_for_status()
+            # Handle other HTTP errors
+            if response.status_code != 200:
+                return f"Search failed with HTTP {response.status_code}. Try again later."
             
-            soup = BeautifulSoup(response.text, 'html.parser')
+            try:
+                soup = BeautifulSoup(response.text, 'html.parser')
+            except Exception as e:
+                return f"Error parsing search results: {type(e).__name__}. The page may be malformed."
+            
             results = []
             
             for result in soup.select('.result__a'):
-                # BUG FIX: result is already the .result__a element, not a container
-                title = result.get_text(strip=True)
-                url = result.get('href', '')
-                
-                # Find snippet in the next element (often .result__snippet)
-                snippet_elem = result.find_next_sibling(class_='result__snippet')
-                snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
-                
-                if title and url:
-                    results.append(f"- {title}\n  {url}\n  {snippet}")
+                try:
+                    title = result.get_text(strip=True)
+                    url = result.get('href', '')
+                    
+                    # Find snippet in the next element (often .result__snippet)
+                    snippet_elem = result.find_next_sibling(class_='result__snippet')
+                    snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
+                    
+                    if title and url:
+                        results.append(f"- {title}\n  {url}\n  {snippet}")
+                except Exception as e:
+                    # Skip malformed results
+                    continue
             
             if not results:
-                return f"No results found for '{query}'"
+                return f"No results found for '{query}'. Try a different search term."
             
             return f"Search results for '{query}':\n\n" + "\n\n".join(results[:10])
             
+        except requests.Timeout:
+            return f"Search timed out. The request took too long. Try again with a simpler query."
         except requests.RequestException as e:
-            return f"Error searching: {e}"
+            return f"Error searching: {type(e).__name__}. The request failed. Try again later."
 
     def _grep(self, pattern: str, path: str = ".") -> str:
         """Search for a pattern in files recursively."""
