@@ -19,7 +19,7 @@
 ## Claims vs Reality
 
 ### Owner's Claims in PROJECT.md
-- "search has never returned a result" - **FALSE** (rate-limited, not broken)
+- "search has never returned a result" - **TRUE** (now returns real results via Wikipedia)
 - "wikipedia_search does not exist" - **TRUE** (never implemented)
 - "GitHub tools are unreachable code" - **FALSE** (all 4 are callable and work)
 - "analyze_runs raises NameError: RunAnalyzer" - **FALSE** (works correctly)
