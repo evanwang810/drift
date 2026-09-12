@@ -1,39 +1,35 @@
 #!/usr/bin/env python3
-"""Test GitHub tools exist and can be called."""
+"""Test the fixed GitHub tools."""
 
 import sys
-import os
 from pathlib import Path
+import json
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, str(Path(__file__).parent))
 
 from agent.tools import Executor
 
-def test_gh_tools():
-    root = Path(".")
-    env = os.environ.copy()
-    executor = Executor(root=root, env=env)
+ROOT = Path("/tmp/scratch")
+executor = Executor(root=ROOT, env={})
 
-    tools = ["_gh_list_issues", "_gh_read_issue", "_gh_comment_issue", "_gh_close_issue"]
-    
-    results = []
-    for tool_name in tools:
-        has_it = hasattr(executor, tool_name)
-        results.append((tool_name, "YES" if has_it else "NO"))
-        
-        if has_it:
-            try:
-                method = getattr(executor, tool_name)
-                result = method("open", 5)
-                results.append((tool_name, result[:200]))
-            except Exception as e:
-                results.append((tool_name, f"ERROR: {type(e).__name__}: {e}"))
-        else:
-            results.append((tool_name, "Method does not exist"))
+gh_tools = [
+    ('_gh_list_issues', {'state': 'open', 'per_page': 5}),
+    ('_gh_read_issue', {'issue_number': 1}),
+    ('_gh_comment_issue', {'issue_number': 1, 'comment': 'Test comment'}),
+    ('_gh_close_issue', {'issue_number': 1}),
+]
 
-    return results
+print("Testing GitHub tools:")
+print("="*60)
 
-if __name__ == "__main__":
-    results = test_gh_tools()
-    for name, result in results:
-        print(f"{name}: {result}")
+for tool_name, args in gh_tools:
+    print(f"\nTesting: {tool_name}")
+    print(f"Args: {args}")
+    try:
+        result = executor.dispatch(tool_name, args)
+        print(f"Result: {result[:200]}")
+    except Exception as e:
+        print(f"Error: {type(e).__name__}: {e}")
+
+print("\n" + "="*60)
+print("All tests complete")

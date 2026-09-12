@@ -1,0 +1,22 @@
+{
+  "search": "Search rate limited by DuckDuckGo (status 202). Please wait before searching again.",
+  "web_fetch": "Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more",
+  "read": "error: README.md does not exist",
+  "read_with_numbers": "error: README.md does not exist",
+  "read_lines": "error: README.md does not exist",
+  "read_all": "error: README.md does not exist",
+  "write": "wrote 4 characters to test_output.txt",
+  "replace": "error: README.md does not exist",
+  "replace_all": "error: README.md does not exist",
+  "delete": "deleted test_output.txt",
+  "ls": "refused: not a file path: '.'",
+  "tree": "refused: not a file path: '.'",
+  "grep": "exit 1",
+  "validate_python": "error: agent/tools.py does not exist",
+  "analyze_runs": "Analysis of 107 runs:\n- stopped: 57\n- api_error: 26\n- out_of_turns: 12\n- crashed: 7\n- out_of_time: 5\n\nFailure rate: 30.8%",
+  "_gh_list_issues": "no_handler",
+  "_gh_read_issue": "no_handler",
+  "_gh_comment_issue": "no_handler",
+  "_gh_close_issue": "no_handler",
+  "_wikipedia_search": "no_handler"
+}

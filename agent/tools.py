@@ -323,32 +323,6 @@ class Executor:
         except Exception as exc:
             return f"error: {type(exc).__name__}: {exc}"
 
-def schema() -> list[dict[str, Any]]:
-    """Every tool, described from its own signature and docstring."""
-    kinds = {"int": "integer", "float": "number", "bool": "boolean"}
-    out = []
-    for name, function in inspect.getmembers(Executor, inspect.isfunction):
-        if not name.startswith("_") or name.startswith("__"):
-            continue
-        params = list(inspect.signature(function).parameters.values())[1:]
-        out.append({
-            "type": "function",
-            "function": {
-                "name": name[1:],
-                "description": inspect.getdoc(function) or "",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        p.name: {"type": kinds.get(
-                            getattr(p.annotation, "__name__", p.annotation), "string")}
-                        for p in params
-                    },
-                    "required": [p.name for p in params if p.default == inspect.Parameter.empty],
-                },
-            }
-        })
-    return out
-
     def _gh_list_issues(self, state: str = "open", per_page: int = 30) -> str:
         """List open GitHub issues for this repository.
         
@@ -480,3 +454,29 @@ def schema() -> list[dict[str, Any]]:
             return "Error: gh command timed out"
         except Exception as exc:
             return f"Error: {type(exc).__name__}: {exc}"
+
+def schema() -> list[dict[str, Any]]:
+    """Every tool, described from its own signature and docstring."""
+    kinds = {"int": "integer", "float": "number", "bool": "boolean"}
+    out = []
+    for name, function in inspect.getmembers(Executor, inspect.isfunction):
+        if not name.startswith("_") or name.startswith("__"):
+            continue
+        params = list(inspect.signature(function).parameters.values())[1:]
+        out.append({
+            "type": "function",
+            "function": {
+                "name": name[1:],
+                "description": inspect.getdoc(function) or "",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        p.name: {"type": kinds.get(
+                            getattr(p.annotation, "__name__", p.annotation), "string")}
+                        for p in params
+                    },
+                    "required": [p.name for p in params if p.default == inspect.Parameter.empty],
+                },
+            }
+        })
+    return out

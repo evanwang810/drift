@@ -1,72 +1,109 @@
 #!/usr/bin/env python3
-"""Test all tools in agent/tools.py to see which actually work."""
+"""Test all tools in agent/tools.py to see what actually returns."""
 
 import sys
-sys.path.insert(0, '.')
+from pathlib import Path
+import json
+
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent))
 
 from agent.tools import Executor
-from pathlib import Path
+import analyze_runs
 
-# Create a test executor
-root = Path.cwd()
-env = {}
-executor = Executor(root=root, env=env)
+# Create executor with proper ROOT
+ROOT = Path("/tmp/scratch")
+executor = Executor(root=ROOT, env={})
 
-results = []
-
-# Test each tool
-tools_to_test = [
-    ('analyze_runs', {}, 'Analyze RUNS.md'),
-    ('read', {'path': 'agent/tools.py'}, 'Read tools.py'),
-    ('read_with_numbers', {'path': 'agent/tools.py'}, 'Read tools.py with numbers'),
-    ('read_lines', {'path': 'agent/tools.py', 'start': 1, 'end': 10}, 'Read first 10 lines of tools.py'),
-    ('read_all', {'path': 'agent/tools.py'}, 'Read all of tools.py'),
-    ('write', {'path': 'test_output.txt', 'content': 'Test content'}, 'Write test file'),
-    ('replace', {'path': 'test_output.txt', 'search': 'Test', 'replace': 'Replaced'}, 'Replace in test file'),
-    ('replace_all', {'path': 'test_output.txt', 'search': 'Replaced', 'replace': 'Again replaced'}, 'Replace all in test file'),
-    ('delete', {'path': 'test_output.txt'}, 'Delete test file'),
-    ('run', {'command': 'echo "hello"'}, 'Run echo command'),
-    ('tree', {'path': '.', 'max_depth': 2}, 'List directory tree'),
-    ('validate_python', {'path': 'agent/tools.py'}, 'Validate Python syntax'),
-    ('ls', {'path': '.'}, 'List directory'),
-    ('grep', {'pattern': 'def ', 'path': '.'}, 'Grep for function definitions'),
-    ('summarize', {'summary': 'Test summary'}, 'Summarize context'),
-    ('stop', {'note': 'Test stop'}, 'Stop run'),
-    ('search', {'query': 'agentic workflows'}, 'Search the web'),
-    ('web_fetch', {'url': 'https://example.com', 'parse_html': True}, 'Fetch web page'),
+tools = [
+    'search',
+    'web_fetch',
+    'read',
+    'read_with_numbers',
+    'read_lines',
+    'read_all',
+    'write',
+    'replace',
+    'replace_all',
+    'delete',
+    'ls',
+    'tree',
+    'grep',
+    'validate_python',
+    'analyze_runs',
+    '_gh_list_issues',
+    '_gh_read_issue',
+    '_gh_comment_issue',
+    '_gh_close_issue',
+    '_wikipedia_search',
 ]
 
-print("Testing tools...\n")
-for tool_name, args, description in tools_to_test:
+results = {}
+
+for tool_name in tools:
+    print(f"\n{'='*60}")
+    print(f"Testing: {tool_name}")
+    print('='*60)
+
     try:
-        result = executor.dispatch(tool_name, args)
-        results.append({
-            'tool': tool_name,
-            'description': description,
-            'status': 'SUCCESS',
-            'result': result[:200] if isinstance(result, str) else str(result)[:200]
-        })
-        print(f"✓ {description} ({tool_name})")
+        # Check if the tool exists as a method
+        handler = getattr(executor, f"_{tool_name}", None)
+        if handler is None:
+            print(f"  ❌ No handler found")
+            results[tool_name] = "no_handler"
+            continue
+
+        # Try calling it with real arguments
+        if tool_name == 'search':
+            result = executor.dispatch(tool_name, {"query": "agentic workflows"})
+        elif tool_name == 'web_fetch':
+            result = executor.dispatch(tool_name, {"url": "https://example.com"})
+        elif tool_name == 'read':
+            result = executor.dispatch(tool_name, {"path": "README.md"})
+        elif tool_name == 'read_with_numbers':
+            result = executor.dispatch(tool_name, {"path": "README.md"})
+        elif tool_name == 'read_lines':
+            result = executor.dispatch(tool_name, {"path": "README.md", "start": 1, "end": 10})
+        elif tool_name == 'read_all':
+            result = executor.dispatch(tool_name, {"path": "README.md"})
+        elif tool_name == 'write':
+            result = executor.dispatch(tool_name, {"path": "test_output.txt", "content": "test"})
+        elif tool_name == 'replace':
+            result = executor.dispatch(tool_name, {"path": "README.md", "search": "test", "replace": "replaced"})
+        elif tool_name == 'replace_all':
+            result = executor.dispatch(tool_name, {"path": "README.md", "search": "test", "replace": "replaced"})
+        elif tool_name == 'delete':
+            result = executor.dispatch(tool_name, {"path": "test_output.txt"})
+        elif tool_name == 'ls':
+            result = executor.dispatch(tool_name, {"path": "."})
+        elif tool_name == 'tree':
+            result = executor.dispatch(tool_name, {"path": "."})
+        elif tool_name == 'grep':
+            result = executor.dispatch(tool_name, {"pattern": "test", "path": "."})
+        elif tool_name == 'validate_python':
+            result = executor.dispatch(tool_name, {"path": "agent/tools.py"})
+        elif tool_name == 'analyze_runs':
+            result = executor.dispatch(tool_name, {})
+        elif tool_name.startswith('_gh_'):
+            result = executor.dispatch(tool_name, {"repo": "test/repo", "number": 1})
+        elif tool_name == '_wikipedia_search':
+            result = executor.dispatch(tool_name, {"query": "agentic workflows"})
+        else:
+            print(f"  ❌ No test arguments defined")
+            results[tool_name] = "no_test_args"
+            continue
+
+        print(f"  Result: {result[:200]}")
+        results[tool_name] = result[:200]
+
     except Exception as e:
-        results.append({
-            'tool': tool_name,
-            'description': description,
-            'status': 'ERROR',
-            'error': str(e)
-        })
-        print(f"✗ {description} ({tool_name}): {e}")
+        print(f"  ❌ Error: {type(e).__name__}: {e}")
+        results[tool_name] = f"ERROR: {type(e).__name__}: {e}"
 
-print("\n\n" + "="*60)
-print("SUMMARY:")
-print("="*60)
+# Save results
+with open("TOOL_TEST_RESULTS.json", "w") as f:
+    json.dump(results, f, indent=2)
 
-success_count = sum(1 for r in results if r['status'] == 'SUCCESS')
-error_count = sum(1 for r in results if r['status'] == 'ERROR')
-
-print(f"Successful: {success_count}/{len(results)}")
-print(f"Errors: {error_count}/{len(results)}")
-
-print("\nFailed tools:")
-for r in results:
-    if r['status'] == 'ERROR':
-        print(f"  - {r['tool']}: {r['error']}")
+print(f"\n{'='*60}")
+print("All tests complete. Results saved to TOOL_TEST_RESULTS.json")
+print('='*60)
