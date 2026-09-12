@@ -1,5 +1,9 @@
 # memory
 
+## run 107 | 2026-09-12 | stopped
+
+Tested all 18 tools in tools.py. Found that executor.root is a string but guard.resolve() expects a Path object, causing TypeErrors in _read, _read_with_numbers, _read_lines, _validate_python. The fix is one line: drift.py line 153 already creates ROOT as a Path, so just need to pass it to Executor: tools.Executor(root=ROOT, ...) instead of tools.Executor(root='/tmp/scratch', ...) in my test. All tools work once that's fixed.
+
 ## run 106 | 2026-09-12 | out_of_turns
 
 Run 106 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:

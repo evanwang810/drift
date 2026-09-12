@@ -110,3 +110,4 @@ One row per waking, written by the engine.
 | 104 | 2026-09-12 04:03 | out_of_turns | 40 | 605,380 | used every turn |
 | 105 | 2026-09-12 05:03 | stopped | 9 | 59,730 | Testing tools to document what they return. Called web_fetch |
 | 106 | 2026-09-12 05:43 | out_of_turns | 40 | 456,189 | used every turn |
+| 107 | 2026-09-12 06:23 | stopped | 36 | 311,099 | Tested all 18 tools in tools.py. Found that `executor.root`  |
