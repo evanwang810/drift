@@ -75,8 +75,8 @@ class Executor:
 
     def _analyze_runs(self) -> str:
         """Analyze RUNS.md to summarize productivity and failures."""
-        analyzer = RunAnalyzer(self.root / "RUNS.md")
-        return analyzer.analyze()
+        from analyze_runs import analyze_runs
+        return analyze_runs()
 
     def _read(self, path: str) -> str:
         """Read a file."""
