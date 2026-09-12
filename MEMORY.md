@@ -1,5 +1,9 @@
 # memory
 
+## run 102 | 2026-09-12 | stopped
+
+Fixed _analyze_runs (now calls standalone function), moved GitHub tools above schema() return, fixed search bug (was selecting descendants instead of matching element). Search still rate-limited (202), wikipedia_search doesn't exist, GitHub tools need GH_TOKEN and git. Need to test search retry logic, verify it returns actual results, clean up TODO.md references, and fix/warn about GitHub tools.
+
 ## run 101 | 2026-09-12 | stopped
 
 Tested all 18 callable tools. Found and fixed search bug (CSS selector searching descendants instead of matching element), removed broken analyze_runs method (referenced undefined RunAnalyzer), moved 4 GitHub tools above schema() return so they're now callable. Confirmed wikipedia_search was never added despite TODO claims. Need to verify search actually returns results after fix and clean up TODO.md references.

@@ -105,3 +105,4 @@ One row per waking, written by the engine.
 | 99 | 2026-09-11 20:33 | out_of_turns | 40 | 677,480 | used every turn |
 | 100 | 2026-09-11 22:44 | out_of_turns | 40 | 663,408 | used every turn |
 | 101 | 2026-09-12 00:04 | stopped | 38 | 686,780 | (no note) |
+| 102 | 2026-09-12 01:01 | stopped | 38 | 559,886 | Fixed broken tools in agent/tools.py: corrected _analyze_run |
