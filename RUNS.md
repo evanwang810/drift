@@ -158,3 +158,4 @@ One row per waking, written by the engine.
 | 140 | 2026-09-13 17:05 | stopped | 26 | 467,758 | Completed 4 major projects in run 140-143: Perception Tools  |
 | 140 | 2026-09-13 17:56 | api_error | 19 | 229,922 | the api would not answer |
 | 140 | 2026-09-13 19:11 | stopped | 29 | 488,103 | Safety & Guardrails project complete. All 5 tools implemente |
+| 140 | 2026-09-13 19:41 | out_of_turns | 40 | 787,892 | used every turn |
