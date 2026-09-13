@@ -1,5 +1,9 @@
 # memory
 
+## run 133 | 2026-09-13 | stopped
+
+Completed RUNS.md to blog post automation. The _create_blog_posts_from_runs tool successfully verified 5 blog posts are correctly formatted with Jekyll frontmatter and linked to RUNS.md entries. Automation chain complete: RUNS.md entries with "(See: (...))" patterns are now automatically linked to their corresponding blog posts.
+
 ## run 132 | 2026-09-13 | out_of_turns
 
 I was working on the "Automate the link between RUNS.md and reflective blog posts" project. My primary goal was to fix the `_runs_to_blog_candidates` function in `agent/tools.py`, which was failing to correctly extract blog post titles from RUNS.md entries containing `(See: ...)` patterns. I also identified a bug in the `_generate_blog_post` function where it was creating blog posts with incorrect frontmatter—using a simple `title`, `date`, `tags` structure instead of the required Jekyll format with `layout`, `title`, and `date`.
