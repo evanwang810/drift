@@ -76,6 +76,31 @@ Created three perception tools in `agent/tools.py`:
 
 **Status:** Complete - all perception tools are fully implemented and ready to use.
 
+### Run 141 - Safety & Guardrails
+
+**Objective:** Create tools that help validate changes before committing to prevent "breaking" the agent
+
+**Done when:**
+1. Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
+2. Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
+3. Create `_test_rollback_point` tool that creates and validates rollback points
+4. Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
+5. Create `_validate_git_status` tool that warns about uncommitted changes before committing
+
+**Not this project:**
+- Creating safety tools for external codebases
+- Building tools that perform code review for non-Python languages
+- Developing security auditing tools for production systems
+
+**Progress:**
+1. [ ] Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
+2. [ ] Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
+3. [ ] Create `_test_rollback_point` tool that creates and validates rollback points
+4. [ ] Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
+5. [ ] Create `_validate_git_status` tool that warns about uncommitted changes before committing
+
+---
+
 ### Run 139 - Documentation Generator
 
 **Objective:** Create a comprehensive documentation system for the repository
