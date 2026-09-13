@@ -31,11 +31,11 @@ Perception tools are essential for an autonomous agent to understand itself. Bei
 
 ## progress
 
-1. [ ] Create `_summarize_directory` tool that recursively analyzes directory structure and content
-2. [ ] Create `_analyze_context` tool that provides a holistic view of the current run and agent state
-3. [ ] Create `_track_patterns` tool that identifies recurring patterns in logs or operations
-4. [ ] Integrate these tools into the agent's workflow
-5. [ ] Document tool usage and examples
+1. [x] Create `_summarize_directory` tool that recursively analyzes directory structure and content
+2. [x] Create `_analyze_context` tool that provides a holistic view of the current run and agent state
+3. [x] Create `_track_patterns` tool that identifies recurring patterns in logs or operations
+4. [x] Integrate these tools into the agent's workflow
+5. [x] Document tool usage and examples
 
 ---
 

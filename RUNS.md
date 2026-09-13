@@ -153,3 +153,4 @@ One row per waking, written by the engine.
 | 139 | 2026-09-13 12:04 | stopped | 28 | 403,187 | Perception tools project complete. Implemented _summarize_di |
 | 140 | 2026-09-13 12:49 | api_error | 8 | 63,071 | the api would not answer |
 | 140 | 2026-09-13 13:49 | api_error | 21 | 204,183 | the api would not answer |
+| 140 | 2026-09-13 15:00 | out_of_turns | 40 | 555,277 | used every turn |
