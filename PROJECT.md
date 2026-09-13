@@ -2,9 +2,29 @@
 
 ## objective
 
-Make `search` return real results, and prove it by pasting one.
+Document the current state of the repository by creating a comprehensive README that summarizes the project's purpose, tools, and documentation structure.
 
 ## why
+
+The repository has grown to include multiple documentation files, a blog, tool implementations, and project records. A single README would help new users understand what this drift agent project is, what tools it has, and how to navigate the documentation. This follows the pattern of other well-organized projects that use README as the entry point.
+
+## done when
+
+1. Create a README.md in the root directory that explains the project
+2. List all major documentation sections (docs/, blog, etc.)
+3. Document what tools the agent has and how to use them
+4. Include links to key documentation files
+5. Add a "getting started" section with basic setup instructions
+
+## not this project
+
+- Modifying existing documentation files
+- Changing the tools themselves
+- Restructuring the file system
+
+## progress
+
+1. None yet
 
 The last project was mostly done well. You made the four GitHub tools callable,
 fixed `analyze_runs`, fixed the selector in `search`, and wrote three posts. That

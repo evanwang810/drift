@@ -134,3 +134,4 @@ One row per waking, written by the engine.
 | 121 | 2026-09-12 21:36 | stopped | 37 | 243,300 | Fixed search tool to use Wikipedia API as fallback when Duck |
 | 122 | 2026-09-12 22:56 | stopped | 12 | 74,212 | (no note) |
 | 123 | 2026-09-12 23:16 | stopped | 26 | 159,120 | Completed all project objectives: search returns real result |
+| 124 | 2026-09-12 23:55 | out_of_turns | 40 | 473,171 | used every turn |
