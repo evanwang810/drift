@@ -684,7 +684,7 @@ class Executor:
     def _runs_to_blog_candidates(self) -> str:
         """Scan RUNS.md and generate blog post candidates from entries with links.
         
-        Looks for entries in RUNS.md that contain "(See: ([...])" patterns and
+        Looks for entries in RUNS.md that contain "(See: ...)" patterns and
         extracts them as blog post candidates.
         """
         import re
@@ -698,69 +698,156 @@ class Executor:
         
         content = runs_path.read_text(encoding="utf-8")
         
-        # Find all table rows
-        rows = re.split(r'\n', content)
-        
         # Pattern to find entries with blog post links
-        # Look for lines containing "See:" and then extract the blog link
+        # Matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md))) or
+        #          (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))
+        pattern = r'\(See: \[([^\]]+)\]\(([^)]+)\)\)'
+        
         matches = []
         
-        for row in rows:
-            if 'See:' in row and '|' in row:
-                # Extract the note part (after the last | before the content)
-                parts = row.split('|')
-                if len(parts) >= 6:
-                    note = parts[5].strip() if len(parts) > 5 else ''
-                    # Extract blog link from note
-                    blog_match = re.search(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
-                    if blog_match:
-                        title = blog_match.group(1).strip()
-                        path = blog_match.group(2).strip()
-                        # Extract slug from path
-                        slug = path.split('/')[-1]
-                        matches.append({
-                            'note': note[:150],
-                            'title': title,
-                            'slug': slug
-                        })
-        
-        # Also try matching individual rows without full content
-        row_pattern = r'\|\s+(\d+)\s+\|\s+(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s+\|\s+([^\|]+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(.+?)\s+\|'
+        # Split content by table rows
+        rows = re.split(r'\n', content)
         
         for row in rows:
             if 'See:' in row:
-                match = re.search(row_pattern, row)
-                if match:
-                    note = match.group(6).strip()
-                    blog_match = re.search(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
-                    if blog_match:
-                        title = blog_match.group(1).strip()
-                        path = blog_match.group(2).strip()
-                        slug = path.split('/')[-1]
-                        matches.append({
-                            'note': note[:150],
-                            'title': title,
-                            'slug': slug
-                        })
+                # Try pattern
+                blog_match = re.search(pattern, row)
+                if blog_match:
+                    title = blog_match.group(1).strip()
+                    path = blog_match.group(2).strip()
+                    # Extract just the filename from the path
+                    slug = path.split('/')[-1].replace('.md', '')
+                    # Extract the run note (before the blog link)
+                    run_note = row.split('(See:')[0].strip()
+                    matches.append({
+                        'note': run_note[:150],
+                        'title': slug,
+                        'slug': slug
+                    })
         
         if not matches:
             return "No entries with blog post links found in RUNS.md"
         
         result = f"Found {len(matches)} entries with blog post links:\n\n"
         
-        for i, note in enumerate(matches, 1):
-            note = note.strip()
-            # Extract blog post links
-            # Pattern matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))
-            blog_links = re.findall(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
+        for i, match in enumerate(matches, 1):
+            note = match.get('note', '')
+            title = match.get('title', '')
+            slug = match.get('slug', '')
             
-            if blog_links:
-                result += f"{i}. {note[:100]}...\n"
-                for title, slug in blog_links:
-                    result += f"   - Blog: {title} ({slug})\n"
-                result += "\n"
+            result += f"{i}. {note[:150]}\n"
+            result += f"   Blog: {title} ({slug})\n\n"
+        
+        return result
+
+    def _generate_blog_post(self, title: str, content: str, date: str | None = None) -> str:
+        """Generate a full blog post with frontmatter from a title and content."""
+        from datetime import datetime
+        
+        if date is None:
+            date = datetime.now().strftime('%Y-%m-%d')
+        
+        frontmatter = f"""---
+title: "{title}"
+date: {date}
+tags: blog, run, summary
+---
+
+"""
+        return frontmatter + content
+
+    def _create_blog_posts_from_runs(self) -> str:
+        """Create blog posts from RUNS.md entries that have "(See: (...))" links.
+        
+        Reads RUNS.md, finds entries with blog post links, reads the target files,
+        and generates full blog posts with proper frontmatter.
+        """
+        import re
+        from pathlib import Path
+        from engine import guard
+        
+        runs_path = self.root / "RUNS.md"
+        
+        if not runs_path.exists():
+            return "No RUNS.md found"
+        
+        content = runs_path.read_text(encoding="utf-8")
+        
+        # Pattern to find entries with blog post links
+        # Matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))
+        pattern = r'\(See: \(\s*([^\]]+)\]\(([^)]+)\)\)\)'
+        
+        matches = []
+        
+        # Split content by table rows
+        rows = re.split(r'\n', content)
+        
+        for row in rows:
+            if 'See:' in row:
+                # Try pattern
+                blog_match = re.search(pattern, row)
+                if blog_match:
+                    title = blog_match.group(1).strip()
+                    path = blog_match.group(2).strip()
+                    # Extract just the filename from the path
+                    slug = path.split('/')[-1].replace('.md', '')
+                    # Extract the run note (before the blog link)
+                    run_note = row.split('(See:')[0].strip()
+                    matches.append({
+                        'note': run_note[:150],
+                        'title': slug,
+                        'slug': slug,
+                        'path': path
+                    })
+        
+        if not matches:
+            return "No entries with blog post links found in RUNS.md"
+        
+        created = []
+        
+        for match in matches:
+            title = match['title']
+            note = match['note']
+            post_path = self.root / "docs" / "_posts" / f"{title}.md"
+            
+            if post_path.exists():
+                # Read the existing blog post
+                existing_content = post_path.read_text(encoding="utf-8")
+                
+                # Generate frontmatter with current date
+                blog_post = self._generate_blog_post(title, existing_content)
+                
+                # Save back to file
+                post_path.write_text(blog_post, encoding="utf-8")
+                
+                created.append({
+                    'title': title,
+                    'status': 'updated',
+                    'path': str(post_path.relative_to(self.root))
+                })
             else:
-                result += f"{i}. {note[:150]}...\n\n"
+                # File doesn't exist, create a new one
+                # Generate content from the RUNS.md entry
+                content_text = f"# {title}\n\n{note}"
+                
+                # Generate frontmatter with current date
+                blog_post = self._generate_blog_post(title, content_text)
+                
+                # Save to file
+                post_path.write_text(blog_post, encoding="utf-8")
+                
+                created.append({
+                    'title': title,
+                    'status': 'created',
+                    'path': str(post_path.relative_to(self.root))
+                })
+        
+        # Build result message
+        result = f"Created/updated {len(created)} blog posts:\n\n"
+        for item in created:
+            status = "✓" if item['status'] == 'updated' else "+"
+            result += f"{status} {item['title']} ({item['status']})\n"
+            result += f"   Path: {item['path']}\n\n"
         
         return result
 
