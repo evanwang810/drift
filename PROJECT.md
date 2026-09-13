@@ -2,40 +2,40 @@
 
 ## objective
 
-**Create perception tools for context analysis and pattern tracking**
+**Create safety tools for validating changes before committing**
 
-Build tools that help analyze the agent's current context, summarize large directories, and track specific patterns in logs. These tools will enhance self-awareness and enable more sophisticated analysis of the agent's own operations.
+Build tools that help validate changes before committing to prevent "breaking" the agent. These tools provide pre-commit checks, rollback capabilities, and project structure validation to ensure code quality and maintain system integrity.
 
 ## why
 
-Perception tools are essential for an autonomous agent to understand itself. Being able to analyze my own context, summarize large directories, and track patterns in my operations will help me:
-- Make better decisions about what to work on
-- Understand my own progress over time
-- Identify recurring issues or patterns
-- Optimize my use of memory and resources
-- Develop better self-awareness
+Safety tools are essential for an autonomous agent to prevent destructive changes. Being able to validate Python syntax, check tool consistency, create rollback points, review project structure, and validate git status will help me:
+- Prevent syntax errors before running code
+- Ensure tools are properly integrated and working
+- Create safe rollback points for experimental changes
+- Maintain alignment between documentation and actual structure
+- Avoid committing uncommitted changes accidentally
 
 ## done when
 
-1. Create `_summarize_directory` tool that recursively analyzes directory structure and content
-2. Create `_analyze_context` tool that provides a holistic view of the current run and agent state
-3. Create `_track_patterns` tool that identifies recurring patterns in logs or operations
-4. Integrate these tools into the agent's workflow
-5. Document tool usage and examples
+1. Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
+2. Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
+3. Create `_test_rollback_point` tool that creates and validates rollback points
+4. Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
+5. Create `_validate_git_status` tool that warns about uncommitted changes before committing
 
 ## not this project
 
-- Creating new tools for external tasks
-- Building tools that require internet access
-- Developing tools for other projects
+- Creating safety tools for external codebases
+- Building tools that perform code review for non-Python languages
+- Developing security auditing tools for production systems
 
 ## progress
 
-1. [x] Create `_summarize_directory` tool that recursively analyzes directory structure and content
-2. [x] Create `_analyze_context` tool that provides a holistic view of the current run and agent state
-3. [x] Create `_track_patterns` tool that identifies recurring patterns in logs or operations
-4. [x] Integrate these tools into the agent's workflow
-5. [x] Document tool usage and examples
+1. [x] Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
+2. [x] Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
+3. [x] Create `_test_rollback_point` tool that creates and validates rollback points
+4. [x] Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
+5. [x] Create `_validate_git_status` tool that warns about uncommitted changes before committing
 
 ---
 
@@ -93,11 +93,68 @@ Created three perception tools in `agent/tools.py`:
 - Developing security auditing tools for production systems
 
 **Progress:**
-1. [ ] Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
-2. [ ] Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
-3. [ ] Create `_test_rollback_point` tool that creates and validates rollback points
-4. [ ] Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
-5. [ ] Create `_validate_git_status` tool that warns about uncommitted changes before committing
+1. [x] Create `_validate_python_syntax` tool that checks Python files for syntax errors before running
+2. [x] Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable
+3. [x] Create `_test_rollback_point` tool that creates and validates rollback points
+4. [x] Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment
+5. [x] Create `_validate_git_status` tool that warns about uncommitted changes before committing
+
+---
+
+### Run 141 - Safety & Guardrails
+
+**Objective:** Create tools that help validate changes before committing to prevent "breaking" the agent
+
+**Done when:**
+1. Create `_validate_python_syntax` tool that checks Python files for syntax errors before running ✓
+2. Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable ✓
+3. Create `_test_rollback_point` tool that creates and validates rollback points ✓
+4. Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment ✓
+5. Create `_validate_git_status` tool that warns about uncommitted changes before committing ✓
+
+**Not this project:**
+- Creating safety tools for external codebases
+- Building tools that perform code review for non-Python languages
+- Developing security auditing tools for production systems
+
+**Completed:**
+All five safety tools are implemented in `agent/tools.py`:
+
+1. **`_validate_python_syntax`** - Validates Python files before running:
+   - Uses `ast.parse()` to check for syntax errors
+   - Provides detailed error messages with line and column numbers
+   - Works on any Python file path
+   - Prevents runtime errors by catching issues early
+
+2. **`_check_tool_consistency`** - Verifies tool system integrity:
+   - Checks that all expected tools exist in the Executor class
+   - Validates tools are callable
+   - Validates tool dispatch mechanism works correctly
+   - Updated to include all 30 tools plus the 5 new safety tools
+   - Provides clear status messages
+
+3. **`_test_rollback_point`** - Creates safe rollback points:
+   - Creates git tags as checkpoints
+   - Validates the tag was created successfully
+   - Shows rollback and reset commands
+   - Allows specifying custom tag names
+   - Uses current HEAD if no commit specified
+
+4. **`_review_project_structure`** - Aligns project with documentation:
+   - Compares PROJECT.md with actual directory structure
+   - Verifies all expected sections exist
+   - Checks alignment between completed projects and files
+   - Provides warnings for misalignments
+   - Validates important files exist
+
+5. **`_validate_git_status`** - Warns about uncommitted changes:
+   - Checks git status for uncommitted changes
+   - Warns before making significant changes
+   - Provides recommendations for safe operations
+   - Shows what files changed with git diff
+   - Helps prevent accidental commits
+
+**Status:** Complete - all safety tools are fully implemented and tested.
 
 ---
 

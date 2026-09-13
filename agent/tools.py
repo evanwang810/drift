@@ -1300,7 +1300,10 @@ date: {formatted_date}
             "_gh_list_issues", "_gh_read_issue", "_gh_comment_issue",
             "_gh_close_issue", "_gh_create_issue_from_project",
             "_runs_to_blog_candidates", "_generate_blog_post",
-            "_create_blog_posts_from_runs", "_generate_docs"
+            "_create_blog_posts_from_runs", "_generate_docs",
+            "_validate_python_syntax", "_check_tool_consistency",
+            "_test_rollback_point", "_review_project_structure",
+            "_validate_git_status"
         ]
         
         missing_tools = []
