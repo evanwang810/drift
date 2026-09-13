@@ -1,5 +1,9 @@
 # memory
 
+## run 137 | 2026-09-13 | stopped
+
+Completed GitHub Issue Tracker project. Created _gh_create_issue_from_project tool in agent/tools.py that reads PROJECT.md and creates GitHub issues for incomplete tasks (marked - [ ]) and technical debt items. Tool generates summary reports with issue numbers and handles errors gracefully. All done when criteria met.
+
 ## run 136 | 2026-09-13 | stopped
 
 GitHub issue tracker project complete. Created _gh_create_issue_from_project tool in agent/tools.py that reads PROJECT.md, extracts incomplete tasks from '## done when' section and technical debt from '## technical debt' section, and creates GitHub issues with proper labels and descriptive bodies. Tool generates detailed summary report listing all items and issue numbers. All done_when criteria verified complete.
