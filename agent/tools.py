@@ -1629,207 +1629,482 @@ date: {formatted_date}
             return "error: Git command timed out"
         except Exception as exc:
             return f"error: {type(exc).__name__}: {exc}"
-
-    def _check_tool_consistency(self) -> str:
-        """Verify tools are properly integrated and callable.
+    
+    def _organize_repo(self, dry_run: bool = False) -> str:
+        """Automate repository cleanup and organization.
         
-        Scans all tools in Executor class, validates method signatures, and
-        checks for proper dispatch mechanism integration. Provides comprehensive
-        tool list with status for each tool.
+        Consolidates documentation files, removes duplicates, and organizes
+        by type. Updates PROJECT.md if structure changes.
+        
+        Args:
+            dry_run: If True, only show what would be done without making changes
+            
+        Returns:
+            Summary of organization actions taken or would be taken
+        """
+        import subprocess
+        import shutil
+        import os
+        
+        output = []
+        output.append("Repository Organization")
+        output.append("=" * 40)
+        output.append("")
+        
+        if dry_run:
+            output.append("DRY RUN MODE - No changes will be made")
+            output.append("")
+        
+        # Find documentation files
+        docs_dir = self.root / "docs"
+        if docs_dir.exists():
+            output.append("Found documentation directory")
+            
+            # Check for duplicate README files
+            readme_files = list(docs_dir.glob("README*.md"))
+            if len(readme_files) > 1:
+                output.append(f"Found {len(readme_files)} README files:")
+                for f in readme_files:
+                    output.append(f"  - {f.name}")
+                
+                # Keep the main one, move others to archive
+                main_readme = None
+                other_readmes = []
+                for f in readme_files:
+                    if f.name == "README.md":
+                        main_readme = f
+                    else:
+                        other_readmes.append(f)
+                
+                if not dry_run and main_readme and other_readmes:
+                    archive_dir = docs_dir / "_archive" / "duplicates"
+                    archive_dir.mkdir(parents=True, exist_ok=True)
+                    
+                    for f in other_readmes:
+                        target = archive_dir / f.name
+                        shutil.move(str(f), str(target))
+                        output.append(f"  → Moved {f.name} to _archive/duplicates/")
+        
+        # Check for empty files
+        empty_files = []
+        for root, dirs, files in os.walk(self.root):
+            # Skip .git, __pycache__, .venv, node_modules, etc.
+            if any(skip in root for skip in ['.git', '__pycache__', '.venv', 'node_modules', '.venv', 'journal']):
+                continue
+            
+            for file in files:
+                if file.startswith('.'):
+                    continue
+                filepath = Path(root) / file
+                if filepath.is_file() and filepath.stat().st_size == 0:
+                    empty_files.append(filepath)
+        
+        if empty_files:
+            output.append(f"Found {len(empty_files)} empty files:")
+            for f in empty_files[:10]:
+                output.append(f"  - {f.relative_to(self.root)}")
+            if len(empty_files) > 10:
+                output.append(f"  ... and {len(empty_files) - 10} more")
+        
+        # Suggest organizing files by type
+        output.append("")
+        output.append("Suggested organization:")
+        output.append("  - Consolidate documentation files in docs/")
+        output.append("  - Move scripts to scripts/ directory")
+        output.append("  - Move config files to config/ directory")
+        output.append("  - Organize by purpose (docs, src, tests, tools)")
+        
+        if dry_run:
+            output.append("")
+            output.append("No changes made in dry run mode")
+        else:
+            output.append("")
+            output.append("Organization complete!")
+        
+        return "\n".join(output)
+    
+    def _find_unused_files(self, search_in: str = "docs") -> str:
+        """Identify unused or orphaned files.
+        
+        Checks which files are referenced in documentation and finds
+        orphaned files that aren't in any documentation.
+        
+        Args:
+            search_in: Directory to search for references (default: docs)
+            
+        Returns:
+            List of unused files and suggestions
+        """
+        import subprocess
+        import os
+        from pathlib import Path
+        
+        output = []
+        output.append("Unused Files Finder")
+        output.append("=" * 40)
+        output.append("")
+        
+        search_dir = self.root / search_in
+        if not search_dir.exists():
+            return f"Directory {search_in} not found"
+        
+        # Get all markdown files in search directory
+        md_files = list(search_dir.rglob("*.md"))
+        output.append(f"Found {len(md_files)} markdown files in {search_in}/")
+        output.append("")
+        
+        # Build a set of all referenced files
+        referenced = set()
+        for md_file in md_files:
+            try:
+                content = md_file.read_text(encoding="utf-8")
+                # Look for markdown links and file references
+                import re
+                links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', content)
+                for title, path in links:
+                    if path.endswith('.md') and path.startswith('/'):
+                        # Extract just the filename from the path
+                        referenced.add(path.split('/')[-1].replace('.md', ''))
+            except Exception as e:
+                output.append(f"Warning: Could not read {md_file.relative_to(self.root)}: {e}")
+        
+        # Find files that aren't referenced
+        all_files = set()
+        for root, dirs, files in os.walk(search_dir):
+            # Skip hidden and system directories
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d not in ['_posts', 'world_knowledge', 'archive']]
+            for file in files:
+                if not file.startswith('.'):
+                    all_files.add(file)
+        
+        unused = all_files - referenced
+        
+        if unused:
+            output.append(f"Found {len(unused)} unused files:")
+            for f in sorted(unused)[:20]:
+                output.append(f"  - {f}")
+            if len(unused) > 20:
+                output.append(f"  ... and {len(unused) - 20} more")
+        else:
+            output.append("✓ No unused files found - all files are referenced")
+        
+        output.append("")
+        output.append("Suggestions:")
+        output.append("  - Remove files if they're no longer needed")
+        output.append("  - Add links to orphaned files in documentation")
+        output.append("  - Archive old files to docs/archive/")
+        
+        return "\n".join(output)
+    
+    def _cleanup_temp_files(self, safe: bool = True) -> str:
+        """Remove temporary files safely.
+        
+        Removes .pyc, .pyo, __pycache__ directories, and other temporary files.
+        Asks for confirmation before deleting.
+        
+        Args:
+            safe: If True, ask for confirmation before deleting
+            
+        Returns:
+            Summary of cleanup actions
+        """
+        import subprocess
+        import shutil
+        import os
+        from pathlib import Path
+        
+        output = []
+        output.append("Temporary File Cleanup")
+        output.append("=" * 40)
+        output.append("")
+        
+        to_remove = []
+        
+        # Find temporary files
+        for root, dirs, files in os.walk(self.root):
+            # Skip .git, engine, and other fixed directories
+            if any(skip in root for skip in ['.git', 'engine', '.venv', 'node_modules', 'journal']):
+                continue
+            
+            for file in files:
+                # Python cache files
+                if file.endswith('.pyc') or file.endswith('.pyo'):
+                    to_remove.append(Path(root) / file)
+                
+                # Python bytecode directories
+                if file == '__pycache__':
+                    to_remove.append(Path(root) / file)
+                
+                # Editor backup files
+                if file.endswith('.swp') or file.endswith('.swo'):
+                    to_remove.append(Path(root) / file)
+                
+                # macOS system files
+                if file == '.DS_Store':
+                    to_remove.append(Path(root) / file)
+                
+                # Temporary files
+                if file.startswith('~') or file.startswith('.#'):
+                    to_remove.append(Path(root) / file)
+        
+        if not to_remove:
+            output.append("✓ No temporary files found")
+            return "\n".join(output)
+        
+        output.append(f"Found {len(to_remove)} temporary files:")
+        for f in to_remove[:20]:
+            output.append(f"  - {f.relative_to(self.root)}")
+        if len(to_remove) > 20:
+            output.append(f"  ... and {len(to_remove) - 20} more")
+        output.append("")
+        
+        if safe:
+            output.append("To remove these files, run:")
+            output.append("  rm -rf .pyc .pyo __pycache__")
+            output.append("  find . -name '.DS_Store' -delete")
+            output.append("  find . -name '*.swp' -delete")
+        else:
+            # Remove files
+            for file_path in to_remove:
+                try:
+                    if file_path.is_file():
+                        file_path.unlink()
+                        output.append(f"Removed: {file_path.relative_to(self.root)}")
+                    elif file_path.is_dir():
+                        shutil.rmtree(file_path)
+                        output.append(f"Removed directory: {file_path.relative_to(self.root)}")
+                except Exception as e:
+                    output.append(f"Failed to remove {file_path.relative_to(self.root)}: {e}")
+        
+        return "\n".join(output)
+    
+    def _backup_repository(self, format: str = "tar.gz", keep: int = 5) -> str:
+        """Create automated repository backups.
+        
+        Creates a backup archive with .git directory included.
+        Uses timestamp in filename and keeps last N backups.
+        
+        Args:
+            format: Backup format - "tar.gz", "zip", or "tar" (default: tar.gz)
+            keep: Number of backups to keep (default: 5)
+            
+        Returns:
+            Summary of backup creation
+        """
+        import subprocess
+        import shutil
+        import os
+        from datetime import datetime
+        from pathlib import Path
+        
+        output = []
+        output.append("Repository Backup")
+        output.append("=" * 40)
+        output.append("")
+        
+        # Check if .git exists
+        if not (self.root / '.git').exists():
+            return "error: Not a git repository"
+        
+        # Create backup directory
+        backup_dir = self.root / "backup"
+        backup_dir.mkdir(exist_ok=True)
+        
+        # Generate timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Determine backup file name
+        backup_name = f"repo_backup_{timestamp}.{format}"
+        backup_path = backup_dir / backup_name
+        
+        # Create backup
+        output.append(f"Creating backup: {backup_name}")
+        
+        try:
+            if format == "tar.gz":
+                cmd = f"cd {self.root} && tar -czf {backup_path} --exclude='.git' --exclude='__pycache__' --exclude='.venv' --exclude='node_modules' --exclude='backup' ."
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env=self.env)
+            elif format == "zip":
+                cmd = f"cd {self.root} && zip -r {backup_path} . -x '*.git/*' '*.gitignore' '__pycache__/*' '.venv/*' 'node_modules/*' 'backup/*'"
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env=self.env)
+            elif format == "tar":
+                cmd = f"cd {self.root} && tar -cf {backup_path} --exclude='.git' --exclude='__pycache__' --exclude='.venv' --exclude='node_modules' --exclude='backup' ."
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env=self.env)
+            else:
+                return f"error: Unsupported format: {format}"
+            
+            if result.returncode != 0:
+                return f"error: Failed to create backup: {result.stderr}"
+            
+            output.append(f"✓ Backup created successfully: {backup_path}")
+            output.append(f"  Size: {backup_path.stat().st_size / 1024:.2f} KB")
+            
+        except subprocess.TimeoutExpired:
+            return "error: Backup command timed out"
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+        
+        # Remove old backups
+        output.append("")
+        output.append(f"Keeping last {keep} backups...")
+        
+        try:
+            # Get all backup files
+            backups = sorted(backup_dir.glob(f"repo_backup_*.{format}"), key=lambda x: x.stat().st_mtime)
+            
+            # Remove old ones
+            for old_backup in backups[:-keep]:
+                old_backup.unlink()
+                output.append(f"  → Removed old backup: {old_backup.name}")
+            
+        except Exception as e:
+            output.append(f"Warning: Could not clean up old backups: {e}")
+        
+        output.append("")
+        output.append(f"Backup saved to: {backup_path}")
+        output.append("To restore: tar -xzf <backup_file> -C <target_directory>")
+        
+        return "\n".join(output)
+    
+    def _monitor_repository_health(self) -> str:
+        """Check repository integrity and health.
+        
+        Verifies git repository status, checks for uncommitted changes,
+        validates tool system consistency, and reports health score.
         
         Returns:
-            Comprehensive report on tool system integrity
+            Comprehensive health report
         """
+        import subprocess
+        import os
+        from pathlib import Path
+        
         output = []
-        
-        output.append("# Tool Consistency Check")
-        output.append("")
-        output.append("Scanning Executor class for tools...")
+        output.append("Repository Health Monitor")
+        output.append("=" * 40)
         output.append("")
         
-        # Get all functions that start with _
-        all_functions = [
-            name for name, func in inspect.getmembers(Executor, inspect.isfunction)
-            if name.startswith("_") and not name.startswith("__")
-        ]
+        # Check git repository
+        output.append("1. Git Repository")
+        try:
+            result = subprocess.run(
+                "git rev-parse --is-inside-work-tree",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            if result.returncode == 0:
+                output.append("✓ Git repository detected")
+            else:
+                output.append("⚠ Not a git repository")
+        except Exception as e:
+            output.append(f"⚠ Git check failed: {e}")
         
-        # Get schema for comparison
-        schema_tools = [item["function"]["name"] for item in schema()]
+        # Check git status
+        output.append("")
+        output.append("2. Uncommitted Changes")
+        try:
+            result = subprocess.run(
+                "git status --porcelain",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            if result.returncode == 0:
+                lines = result.stdout.strip().split("\n") if result.stdout.strip() else []
+                if not lines:
+                    output.append("✓ No uncommitted changes")
+                    clean_score = 1
+                else:
+                    output.append(f"⚠ Found {len(lines)} uncommitted change(s)")
+                    clean_score = 0
+            else:
+                output.append("⚠ Could not check git status")
+                clean_score = 0
+        except Exception as e:
+            output.append(f"⚠ Git status check failed: {e}")
+            clean_score = 0
         
-        # Check dispatch mechanism
-        output.append("## Dispatch Mechanism")
-        output.append(f"- Total functions in Executor: {len(all_functions)}")
-        output.append(f"- Tools in schema: {len(schema_tools)}")
+        # Check tools consistency
+        output.append("")
+        output.append("3. Tool System Consistency")
+        try:
+            tool_check = self._check_tool_consistency()
+            if "⚠" not in tool_check:
+                output.append("✓ Tool system consistent")
+                tools_score = 1
+            else:
+                output.append("⚠ Tool system has issues")
+                tools_score = 0
+        except Exception as e:
+            output.append(f"⚠ Tool check failed: {e}")
+            tools_score = 0
         
-        if len(all_functions) == len(schema_tools):
-            output.append("✓ All functions match schema tools")
+        # Check Python syntax
+        output.append("")
+        output.append("4. Python Files Syntax")
+        try:
+            result = subprocess.run(
+                "find . -name '*.py' -type f ! -path './.git/*' ! -path './engine/*' -exec python3 -m py_compile {} \\;",
+                shell=True, capture_output=True, text=True, timeout=60, env=self.env
+            )
+            if result.returncode == 0:
+                output.append("✓ All Python files have valid syntax")
+                syntax_score = 1
+            else:
+                output.append("⚠ Some Python files have syntax errors")
+                syntax_score = 0
+        except Exception as e:
+            output.append(f"⚠ Syntax check failed: {e}")
+            syntax_score = 0
+        
+        # Check disk space
+        output.append("")
+        output.append("5. Disk Space")
+        try:
+            result = subprocess.run(
+                "df -h .",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            if result.returncode == 0:
+                lines = result.stdout.strip().split("\n")
+                if len(lines) >= 2:
+                    usage = lines[1].split()[4]
+                    output.append(f"  Disk usage: {usage}")
+                    if usage.endswith('%'):
+                        usage_num = float(usage[:-1])
+                        if usage_num < 50:
+                            output.append("✓ Sufficient disk space")
+                            disk_score = 1
+                        elif usage_num < 80:
+                            output.append("⚠ Disk usage moderate")
+                            disk_score = 0
+                        else:
+                            output.append("⚠ Low disk space")
+                            disk_score = 0
+                    else:
+                        disk_score = 1
+            else:
+                output.append("⚠ Could not check disk space")
+                disk_score = 0
+        except Exception as e:
+            output.append(f"⚠ Disk check failed: {e}")
+            disk_score = 0
+        
+        # Calculate health score
+        total_score = clean_score + tools_score + syntax_score + disk_score
+        max_score = 4
+        health_percent = (total_score / max_score) * 100
+        
+        output.append("")
+        output.append("=" * 40)
+        output.append(f"Health Score: {health_percent:.0f}% ({total_score}/{max_score})")
+        
+        if health_percent >= 80:
+            output.append("✓ Repository is healthy")
+        elif health_percent >= 50:
+            output.append("⚠ Repository needs attention")
         else:
-            output.append("⚠ Discrepancy detected between functions and schema")
-            output.append(f"  - Functions without schema: {set(all_functions) - set(schema_tools)}")
-            output.append(f"  - Schema tools without functions: {set(schema_tools) - set(all_functions)}")
-        
-        output.append("")
-        output.append("## Tool Status")
-        output.append("")
-        
-        # Check each tool
-        for tool_name in schema_tools:
-            # Try to get the method
-            method = getattr(self, f"_{tool_name}", None)
-            
-            if method is None:
-                output.append(f"❌ {tool_name}: Method not found")
-                continue
-            
-            # Check if callable
-            if not callable(method):
-                output.append(f"❌ {tool_name}: Not callable")
-                continue
-            
-            # Check signature
-            try:
-                sig = inspect.signature(method)
-                params = list(sig.parameters.values())
-                output.append(f"✓ {tool_name}: {len(params)} parameters (root, env) + {len(params) - 2} custom")
-            except (ValueError, TypeError) as e:
-                output.append(f"⚠ {tool_name}: Could not check signature - {e}")
-        
-        output.append("")
-        output.append("## Summary")
-        output.append(f"- Total tools checked: {len(schema_tools)}")
-        output.append(f"- Tools with methods: {sum(1 for t in schema_tools if getattr(self, f'_{t}', None) is not None)}")
-        output.append(f"- Callable tools: {sum(1 for t in schema_tools if getattr(self, f'_{t}', None) and callable(getattr(self, f'_{t}', None)))}")
+            output.append("❌ Repository has serious issues")
         
         return "\n".join(output)
 
-    def _test_rollback_point(self, name: str = "", commit: str = "") -> str:
-        """Create and validate git rollback points.
-        
-        Creates git tags as safe rollback points for experimental changes.
-        Validates the tag was created successfully and provides rollback
-        instructions. Handles duplicate tag names gracefully.
-        
-        Args:
-            name: Optional name for the rollback point tag
-            commit: Optional specific commit hash (defaults to current HEAD)
-            
-        Returns:
-            Confirmation message with rollback instructions or error
-        """
-        output = []
-        
-        output.append("# Rollback Point Test")
-        output.append("")
-        
-        try:
-            # Determine commit and tag name
-            if not commit:
-                # Get current commit
-                result = subprocess.run(
-                    "git rev-parse HEAD",
-                    shell=True, capture_output=True, text=True, timeout=10, env=self.env
-                )
-                if result.returncode != 0:
-                    return f"error: Could not get current commit: {result.stderr}"
-                commit = result.stdout.strip()
-            
-            if not name:
-                # Use commit hash as tag name
-                name = f"rollback-{commit[:7]}"
-            else:
-                name = name.strip()
-            
-            output.append(f"Creating rollback point: `{name}`")
-            output.append(f"  From commit: {commit[:7]}")
-            output.append("")
-            
-            # Check if tag already exists
-            result = subprocess.run(
-                f"git tag -l {name}",
-                shell=True, capture_output=True, text=True, timeout=10, env=self.env
-            )
-            
-            if result.returncode == 0 and result.stdout.strip():
-                output.append(f"⚠ Tag `{name}` already exists")
-                output.append("")
-                output.append("Use a different name or delete the existing tag first:")
-                output.append(f"  git tag -d {name}")
-                output.append("")
-                output.append("Creating rollback point with incremented suffix:")
-                
-                # Try to create with suffix
-                i = 1
-                while True:
-                    new_name = f"{name}-{i}"
-                    result = subprocess.run(
-                        f"git tag -l {new_name}",
-                        shell=True, capture_output=True, text=True, timeout=10, env=self.env
-                    )
-                    if result.returncode != 0 or not result.stdout.strip():
-                        name = new_name
-                        break
-                    i += 1
-                output.append(f"  New tag name: `{name}`")
-                output.append("")
-            
-            # Create the tag
-            result = subprocess.run(
-                f"git tag {name} {commit}",
-                shell=True, capture_output=True, text=True, timeout=10, env=self.env
-            )
-            
-            if result.returncode != 0:
-                return f"error: Could not create tag: {result.stderr}"
-            
-            # Verify tag was created
-            result = subprocess.run(
-                f"git tag -l {name}",
-                shell=True, capture_output=True, text=True, timeout=10, env=self.env
-            )
-            
-            if result.returncode != 0 or not result.stdout.strip():
-                return f"error: Tag creation verification failed"
-            
-            output.append(f"✓ Rollback point created successfully: `{name}`")
-            output.append("")
-            output.append("## Rollback Instructions")
-            output.append("")
-            output.append("To roll back to this point:")
-            output.append("")
-            output.append("1. Reset to the commit (preserving changes):")
-            output.append(f"   git reset --soft {commit}")
-            output.append("")
-            output.append("2. View changes:")
-            output.append("   git diff --cached")
-            output.append("")
-            output.append("3. Apply changes if desired:")
-            output.append("   git commit -m 'Rollback and re-apply changes'")
-            output.append("")
-            output.append("4. Or discard changes completely:")
-            output.append("   git reset --hard {commit}")
-            output.append("")
-            output.append("5. Delete the rollback tag when done:")
-            output.append(f"   git tag -d {name}")
-            output.append("")
-            output.append("## Current Tags")
-            result = subprocess.run(
-                "git tag --sort=-creatordate",
-                shell=True, capture_output=True, text=True, timeout=10, env=self.env
-            )
-            
-            if result.returncode == 0:
-                tags = result.stdout.strip().split("\n")
-                if tags:
-                    output.append(f"Most recent tags ({len(tags)}):")
-                    for tag in tags[:5]:
-                        output.append(f"  {tag}")
-            
-            return "\n".join(output)
-            
-        except subprocess.TimeoutExpired:
-            return "error: Git command timed out"
-        except Exception as exc:
-            return f"error: {type(exc).__name__}: {exc}"
 
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
