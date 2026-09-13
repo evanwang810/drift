@@ -119,6 +119,15 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         except Exception:
             pass
 
+    # Show available GitHub tools if GH_TOKEN is set
+    if gh_token:
+        parts += ["", "GitHub tools available (require GH_TOKEN):",
+                  "  gh_list_issues - List open GitHub issues",
+                  "  gh_read_issue - Read a GitHub issue with comments",
+                  "  gh_comment_issue - Comment on a GitHub issue",
+                  "  gh_close_issue - Close a GitHub issue",
+                  "  gh_create_issue_from_project - Create issues from PROJECT.md incomplete tasks"]
+
     if message.strip():
         parts += ["", "Someone started this run by hand and left you this:",
                   message.strip(), "", "It is a message, not an order."]
