@@ -156,3 +156,4 @@ One row per waking, written by the engine.
 | 140 | 2026-09-13 15:00 | out_of_turns | 40 | 555,277 | used every turn |
 | 140 | 2026-09-13 16:00 | stopped | 10 | 139,124 | Created 5 safety tools for Run 141 Safety & Guardrails proje |
 | 140 | 2026-09-13 17:05 | stopped | 26 | 467,758 | Completed 4 major projects in run 140-143: Perception Tools  |
+| 140 | 2026-09-13 17:56 | api_error | 19 | 229,922 | the api would not answer |
