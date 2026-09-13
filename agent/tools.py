@@ -849,6 +849,323 @@ Please review and update the status in PROJECT.md when this technical debt item 
         
         return result
 
+    def _save_run_insights_to_knowledge(self, title: str = "", description: str = "",
+                                        type: str = "discovery", source: str = "",
+                                        tags: str = "run_insight") -> str:
+        """Add insights from a run to the knowledge base.
+        
+        Automatically extracts insights from current work context and saves them
+        to the knowledge base for future reference.
+        
+        Args:
+            title: Title of the insight (auto-generated if empty)
+            description: Brief description of what was discovered
+            type: Type of entry (default: discovery, other options: tool_fix, platform, research)
+            source: Source/run where this was discovered (auto-detected if empty)
+            tags: Comma-separated tags for categorization
+        """
+        import json
+        from pathlib import Path
+        from engine import guard
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        # Generate title if not provided
+        if not title:
+            title = f"Run Insight: {type.title()}"
+        
+        # Auto-detect source from current run context
+        if not source:
+            try:
+                runs_file = self.root / "RUNS.md"
+                if runs_file.exists():
+                    # Read last few lines to get run context
+                    lines = runs_file.read_text(encoding='utf-8', errors='replace').splitlines()
+                    # Find current run info
+                    for line in reversed(lines[-20:]):
+                        if line.startswith("## run"):
+                            source = line.strip()
+                            break
+                if not source:
+                    source = "Current run"
+            except Exception:
+                source = "Current run"
+        
+        # Load existing knowledge
+        if knowledge_path.exists():
+            try:
+                with open(knowledge_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, IOError):
+                data = {"version": "1.0", "created": "", "entries": []}
+        else:
+            data = {"version": "1.0", "created": "", "entries": []}
+        
+        # Create new entry
+        entry = {
+            "id": f"k-{len(data['entries']) + 1:03d}",
+            "type": type,
+            "title": title,
+            "description": description,
+            "source": source,
+            "tags": tags.split(",") if tags else [],
+            "implementation": "Auto-extracted from run context",
+            "verification": "Manual review during run",
+            "impact": "Captured for future reference and context"
+        }
+        
+        # Add to entries
+        data["entries"].append(entry)
+        
+        # Write back
+        with open(knowledge_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        
+        self.actions.append(f"knowledge_add {title}")
+        return f"Saved knowledge entry: {title}\nSource: {source}\nType: {type}\nTags: {tags}"
+    
+    def _contextual_knowledge_query(self, context: str, type_filter: str = "",
+                                    max_results: int = 10) -> str:
+        """Query knowledge base based on current work context.
+        
+        Searches the knowledge base for entries that are relevant to the current
+        work context, providing filtered results based on context and optional
+        type filtering.
+        
+        Args:
+            context: Current work context or topic to search for
+            type_filter: Optional filter by type (e.g., tool_fix, platform, research)
+            max_results: Maximum number of results to return
+        """
+        import json
+        from pathlib import Path
+        from engine import guard
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            return "No knowledge base found. Add insights first."
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        # Filter by type if specified
+        if type_filter:
+            entries = [e for e in entries if e.get("type") == type_filter]
+        
+        if not entries:
+            return f"No entries found for type: {type_filter}"
+        
+        # Search for context relevance
+        context_lower = context.lower()
+        scored = []
+        
+        for entry in entries:
+            # Score based on multiple fields
+            fields = [
+                entry.get("title", ""),
+                entry.get("description", ""),
+                entry.get("source", ""),
+                " ".join(entry.get("tags", []))
+            ]
+            
+            text = " ".join(fields).lower()
+            
+            # Calculate relevance score
+            score = 0
+            if context_lower in text:
+                score += 10
+            
+            # Check for partial matches
+            words = context_lower.split()
+            for word in words:
+                if word in text and len(word) > 3:
+                    score += 1
+            
+            # Check if context is mentioned in tags
+            tags = " ".join(entry.get("tags", [])).lower()
+            for word in words:
+                if word in tags:
+                    score += 2
+            
+            if score > 0:
+                scored.append((entry, score))
+        
+        # Sort by score descending
+        scored.sort(key=lambda x: x[1], reverse=True)
+        
+        # Limit results
+        scored = scored[:max_results]
+        
+        if not scored:
+            return f"No relevant knowledge entries found for context: {context}"
+        
+        result = f"Found {len(scored)} relevant knowledge entries for context: {context}\n\n"
+        for entry, score in scored:
+            result += f"**[{entry.get('type', 'general')}] {entry.get('title', 'Untitled')}** (score: {score})\n"
+            result += f"ID: {entry.get('id', 'N/A')}\n"
+            result += f"Tags: {', '.join(entry.get('tags', []))}\n"
+            if entry.get('source'):
+                result += f"Source: {entry.get('source')}\n"
+            if entry.get('description'):
+                result += f"{entry.get('description')}\n"
+            result += "\n"
+        
+        return result
+    
+    def _generate_knowledge_report(self, type_filter: str = "",
+                                   summary_type: str = "by_type") -> str:
+        """Generate knowledge-based reports and summaries.
+        
+        Creates comprehensive reports from knowledge base entries, optionally
+        filtered by type and summarizing by different dimensions.
+        
+        Args:
+            type_filter: Optional filter by type (e.g., tool_fix, platform, research)
+            summary_type: Type of summary to generate (by_type, by_tag, by_source, comprehensive)
+        """
+        import json
+        from pathlib import Path
+        from engine import guard
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            return "No knowledge base found"
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        # Filter by type if specified
+        if type_filter:
+            entries = [e for e in entries if e.get("type") == type_filter]
+        
+        if not entries:
+            return f"No entries found for type: {type_filter}"
+        
+        result = f"Knowledge Base Report ({len(entries)} entries)\n"
+        result += f"{'=' * 50}\n\n"
+        
+        if summary_type == "by_type":
+            result += self._generate_by_type_summary(entries)
+        elif summary_type == "by_tag":
+            result += self._generate_by_tag_summary(entries)
+        elif summary_type == "by_source":
+            result += self._generate_by_source_summary(entries)
+        else:  # comprehensive
+            result += self._generate_comprehensive_report(entries)
+        
+        return result
+    
+    def _generate_by_type_summary(self, entries: list) -> str:
+        """Generate summary organized by entry type."""
+        from collections import Counter
+        
+        type_counts = Counter(e.get("type", "unknown") for e in entries)
+        
+        result = "Entries by Type:\n"
+        result += "-" * 40 + "\n"
+        
+        for type_name, count in type_counts.most_common():
+            result += f"{type_name:20s}: {count}\n"
+        
+        result += "\n"
+        return result
+    
+    def _generate_by_tag_summary(self, entries: list) -> str:
+        """Generate summary organized by tags."""
+        from collections import Counter
+        
+        all_tags = []
+        for e in entries:
+            all_tags.extend(e.get("tags", []))
+        
+        tag_counts = Counter(all_tags)
+        
+        result = "Entries by Tag:\n"
+        result += "-" * 40 + "\n"
+        
+        for tag, count in tag_counts.most_common():
+            result += f"{tag:30s}: {count}\n"
+        
+        result += "\n"
+        return result
+    
+    def _generate_by_source_summary(self, entries: list) -> str:
+        """Generate summary organized by source."""
+        from collections import Counter
+        
+        source_counts = Counter(e.get("source", "Unknown") for e in entries)
+        
+        result = "Entries by Source:\n"
+        result += "-" * 40 + "\n"
+        
+        for source, count in source_counts.most_common():
+            result += f"{source:30s}: {count}\n"
+        
+        result += "\n"
+        return result
+    
+    def _generate_comprehensive_report(self, entries: list) -> str:
+        """Generate comprehensive report with all dimensions."""
+        from collections import Counter
+        
+        # Type breakdown
+        type_counts = Counter(e.get("type", "unknown") for e in entries)
+        
+        # Tag breakdown
+        all_tags = []
+        for e in entries:
+            all_tags.extend(e.get("tags", []))
+        tag_counts = Counter(all_tags)
+        
+        # Source breakdown
+        source_counts = Counter(e.get("source", "Unknown") for e in entries)
+        
+        result = "Comprehensive Knowledge Base Report\n"
+        result += "=" * 50 + "\n\n"
+        
+        result += "1. Overview\n"
+        result += f"   Total Entries: {len(entries)}\n"
+        result += f"   Unique Types: {len(type_counts)}\n"
+        result += f"   Unique Tags: {len(tag_counts)}\n"
+        result += f"   Unique Sources: {len(source_counts)}\n\n"
+        
+        result += "2. By Type\n"
+        result += "-" * 40 + "\n"
+        for type_name, count in type_counts.most_common():
+            result += f"   {type_name:20s}: {count}\n"
+        result += "\n"
+        
+        result += "3. By Tag\n"
+        result += "-" * 40 + "\n"
+        for tag, count in tag_counts.most_common():
+            result += f"   {tag:30s}: {count}\n"
+        result += "\n"
+        
+        result += "4. By Source\n"
+        result += "-" * 40 + "\n"
+        for source, count in source_counts.most_common():
+            result += f"   {source:30s}: {count}\n"
+        result += "\n"
+        
+        result += "5. Top Entries\n"
+        result += "-" * 40 + "\n"
+        for entry in entries[:5]:
+            result += f"   [{entry.get('type', 'unknown')}] {entry.get('title', 'Untitled')}\n"
+            result += f"      ID: {entry.get('id', 'N/A')}\n"
+            if entry.get('source'):
+                result += f"      Source: {entry.get('source')}\n"
+            if entry.get('description'):
+                result += f"      {entry.get('description')[:80]}...\n"
+            result += "\n"
+        
+        return result
+
     def _runs_to_blog_candidates(self) -> str:
         """Scan RUNS.md and generate blog post candidates from entries with links.
         
