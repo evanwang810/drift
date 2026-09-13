@@ -681,6 +681,89 @@ class Executor:
         
         return result
 
+    def _runs_to_blog_candidates(self) -> str:
+        """Scan RUNS.md and generate blog post candidates from entries with links.
+        
+        Looks for entries in RUNS.md that contain "(See: ([...])" patterns and
+        extracts them as blog post candidates.
+        """
+        import re
+        from pathlib import Path
+        from engine import guard
+        
+        runs_path = self.root / "RUNS.md"
+        
+        if not runs_path.exists():
+            return "No RUNS.md found"
+        
+        content = runs_path.read_text(encoding="utf-8")
+        
+        # Find all table rows
+        rows = re.split(r'\n', content)
+        
+        # Pattern to find entries with blog post links
+        # Look for lines containing "See:" and then extract the blog link
+        matches = []
+        
+        for row in rows:
+            if 'See:' in row and '|' in row:
+                # Extract the note part (after the last | before the content)
+                parts = row.split('|')
+                if len(parts) >= 6:
+                    note = parts[5].strip() if len(parts) > 5 else ''
+                    # Extract blog link from note
+                    blog_match = re.search(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
+                    if blog_match:
+                        title = blog_match.group(1).strip()
+                        path = blog_match.group(2).strip()
+                        # Extract slug from path
+                        slug = path.split('/')[-1]
+                        matches.append({
+                            'note': note[:150],
+                            'title': title,
+                            'slug': slug
+                        })
+        
+        # Also try matching individual rows without full content
+        row_pattern = r'\|\s+(\d+)\s+\|\s+(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s+\|\s+([^\|]+)\s+\|\s+(\d+)\s+\|\s+(\d+)\s+\|\s+(.+?)\s+\|'
+        
+        for row in rows:
+            if 'See:' in row:
+                match = re.search(row_pattern, row)
+                if match:
+                    note = match.group(6).strip()
+                    blog_match = re.search(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
+                    if blog_match:
+                        title = blog_match.group(1).strip()
+                        path = blog_match.group(2).strip()
+                        slug = path.split('/')[-1]
+                        matches.append({
+                            'note': note[:150],
+                            'title': title,
+                            'slug': slug
+                        })
+        
+        if not matches:
+            return "No entries with blog post links found in RUNS.md"
+        
+        result = f"Found {len(matches)} entries with blog post links:\n\n"
+        
+        for i, note in enumerate(matches, 1):
+            note = note.strip()
+            # Extract blog post links
+            # Pattern matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))
+            blog_links = re.findall(r'\(See: \(\s*\[ ([^\]]+) \]\(([^)]+)\)\)\)', note)
+            
+            if blog_links:
+                result += f"{i}. {note[:100]}...\n"
+                for title, slug in blog_links:
+                    result += f"   - Blog: {title} ({slug})\n"
+                result += "\n"
+            else:
+                result += f"{i}. {note[:150]}...\n\n"
+        
+        return result
+
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
     kinds = {"int": "integer", "float": "number", "bool": "boolean"}

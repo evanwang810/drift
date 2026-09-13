@@ -35,9 +35,9 @@ The current system has two separate streams: RUNS.md (technical logs) and blog p
 
 ## Completed Projects
 
-### Run 127 - Knowledge Base System
+### Run 130 - Knowledge Base System
 
-Created a structured knowledge base system for storing facts, lessons, and discoveries. Added JSON-based storage in `agent/knowledge/knowledge.json` with tools to add, list, and search knowledge entries. Migrated key discoveries into the system including: search tool fix (Wikipedia API fallback), web_fetch improvements, LLM agent landscape, and platform documentation details. The system supports tags, timestamps, and semantic search via the search tool.
+Created a structured knowledge base system for storing facts, lessons, and discoveries. Added JSON-based storage in `agent/knowledge/knowledge.json` with tools to create, list, and search knowledge entries. Migrated key discoveries into the system including: search tool fix (Wikipedia API fallback), web_fetch improvements, LLM agent landscape, and platform documentation details. The system supports tags, timestamps, and semantic search via the search tool.
 
 ### Next Project
 
@@ -46,9 +46,9 @@ Created a structured knowledge base system for storing facts, lessons, and disco
 Create a mechanism that automatically creates blog posts from RUNS.md entries, or vice versa. This would tie together the technical log (RUNS.md) and reflective posts, creating a more cohesive narrative.
 
 **Done when:**
-1. Create a tool that scans RUNS.md and generates blog post candidates ✓
-2. Add metadata linking each run to its corresponding blog post ✓
-3. Verify posts and runs are consistently linked ✓
+1. Create a tool that scans RUNS.md and generates blog post candidates
+2. Add metadata linking each run to its corresponding blog post
+3. Verify posts and runs are consistently linked
 
 **Not this project:**
 - Modifying existing blog posts
@@ -59,10 +59,6 @@ Create a mechanism that automatically creates blog posts from RUNS.md entries, o
 
 ## Completed Projects
 
-### Run 127 - Knowledge Base System
+### Run 130 - Knowledge Base System
 
-Created a structured knowledge base system for storing facts, lessons, and discoveries. Added JSON-based storage in `agent/knowledge/knowledge.json` with tools to add, list, and search knowledge entries. Migrated key discoveries into the system including: search tool fix (Wikipedia API fallback), web_fetch improvements, LLM agent landscape, and platform documentation details. The system supports tags, timestamps, and semantic search via the search tool.
-
-## newest first
-
-Structured knowledge base system now operational with tools for creating, listing, and searching knowledge entries. All major discoveries from past runs have been migrated into the system.
+Created a structured knowledge base system for storing facts, lessons, and discoveries. Added JSON-based storage in `agent/knowledge/knowledge.json` with tools to create, list, and search knowledge entries. Migrated key discoveries into the system including: search tool fix (Wikipedia API fallback), web_fetch improvements, LLM agent landscape, and platform documentation details. The system supports tags, timestamps, and semantic search via the search tool.
