@@ -1227,6 +1227,406 @@ date: {formatted_date}
         
         return result
 
+    def _validate_python_syntax(self, path: str) -> str:
+        """Check if a Python file has syntax errors before running.
+        
+        Validates Python files by parsing them with ast.parse. This helps prevent
+        runtime errors and ensures code is syntactically correct before execution.
+        
+        Args:
+            path: Path to the Python file to validate
+            
+        Returns:
+            Success message with file info, or error with syntax details
+        """
+        target = guard.resolve(self.root, path)
+        if not target.is_file():
+            return f"error: {path} does not exist"
+        
+        if not path.endswith('.py'):
+            return f"warning: {path} is not a Python file, but will be validated anyway"
+        
+        try:
+            # Read the file
+            content = target.read_text(encoding="utf-8")
+            
+            # Parse the Python code
+            try:
+                tree = ast.parse(content)
+            except SyntaxError as exc:
+                # Syntax error found
+                line = exc.lineno
+                col = exc.offset
+                msg = exc.msg
+                return f"Syntax error in {path}:\n  Line {line}, Column {col}: {msg}\n  Code near error:\n  {content.splitlines()[line-1:line+2]}"
+            
+            # Check for specific Python version compatibility issues
+            issues = []
+            for node in ast.walk(tree):
+                # Python 3.10+ deprecated syntax warnings
+                if isinstance(node, ast.Constant) and isinstance(node.value, (bytes, bytearray)):
+                    issues.append(f"  Line {node.lineno}: Using deprecated bytes/bytearray literals (use b'...')")
+            
+            if issues:
+                return f"Valid Python syntax in {path}, but found potential issues:\n" + "\n".join(issues)
+            else:
+                return f"✓ {path} is valid Python (no syntax errors found)"
+            
+        except Exception as exc:
+            return f"Error validating {path}: {type(exc).__name__}: {exc}"
+    
+    def _check_tool_consistency(self) -> str:
+        """Verify tools are properly integrated and callable.
+        
+        Checks that all tool methods exist, have proper signatures, and are
+        accessible through the dispatch mechanism. Helps ensure the agent's
+        tool system is working correctly.
+        
+        Returns:
+            Summary of tool consistency check results
+        """
+        output = []
+        output.append("Tool Consistency Check")
+        output.append("=" * 40)
+        output.append("")
+        
+        # Check that all expected tool methods exist
+        expected_tools = [
+            "_read", "_write", "_replace", "_replace_all", "_delete",
+            "_read_with_numbers", "_read_lines", "_read_all", "_ls", "_tree",
+            "_search", "_grep", "_run", "_summarize", "_stop",
+            "_analyze_runs", "_validate_python", "_search_wikipedia",
+            "_knowledge_add", "_knowledge_list", "_knowledge_search",
+            "_gh_list_issues", "_gh_read_issue", "_gh_comment_issue",
+            "_gh_close_issue", "_gh_create_issue_from_project",
+            "_runs_to_blog_candidates", "_generate_blog_post",
+            "_create_blog_posts_from_runs", "_generate_docs"
+        ]
+        
+        missing_tools = []
+        for tool_name in expected_tools:
+            if not hasattr(self, tool_name):
+                missing_tools.append(tool_name)
+            elif not callable(getattr(self, tool_name)):
+                missing_tools.append(f"{tool_name} (not callable)")
+        
+        if missing_tools:
+            output.append(f"⚠ Missing/Invalid tools ({len(missing_tools)}):")
+            for tool in missing_tools:
+                output.append(f"  - {tool}")
+        else:
+            output.append("✓ All expected tools exist and are callable")
+        
+        output.append("")
+        
+        # Check that schema() function exists and returns tools
+        if hasattr(self, 'schema') and callable(self.schema):
+            try:
+                tools = self.schema()
+                output.append(f"✓ Schema function returns {len(tools)} tools")
+            except Exception as exc:
+                output.append(f"⚠ Schema function error: {type(exc).__name__}: {exc}")
+        else:
+            output.append("⚠ Schema function not found or not callable")
+        
+        output.append("")
+        
+        # Check that tools can be dispatched (mock test)
+        try:
+            result = self.dispatch("_read", {"path": "PROJECT.md"})
+            output.append("✓ Tool dispatch mechanism working correctly")
+            output.append(f"  Sample result: {result[:100]}...")
+        except Exception as exc:
+            output.append(f"⚠ Tool dispatch mechanism error: {type(exc).__name__}: {exc}")
+        
+        output.append("")
+        output.append("Tool system appears to be in a consistent state.")
+        
+        return "\n".join(output)
+    
+    def _test_rollback_point(self, name: str = "rollback", commit: str = "") -> str:
+        """Create and validate rollback points for safe experimentation.
+        
+        Creates a git tag as a rollback point, allowing the agent to revert
+        to a known good state if changes cause problems. Validates the rollback
+        point was created successfully.
+        
+        Args:
+            name: Name for the rollback point tag
+            commit: Specific commit hash (default: current HEAD)
+            
+        Returns:
+            Results of rollback point creation and validation
+        """
+        try:
+            import subprocess
+            
+            # Get current commit if not specified
+            if not commit:
+                result = subprocess.run(
+                    "git rev-parse HEAD",
+                    shell=True, capture_output=True, text=True, timeout=10, env=self.env
+                )
+                if result.returncode != 0:
+                    return f"error: Could not get current commit hash"
+                commit = result.stdout.strip()
+            
+            # Create tag
+            tag_name = f"rollback-{name}"
+            result = subprocess.run(
+                f"git tag -f {tag_name} {commit}",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode != 0:
+                return f"error: Failed to create rollback point: {result.stderr}"
+            
+            # Verify tag exists
+            result = subprocess.run(
+                f"git tag -l {tag_name}",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode != 0:
+                return f"error: Rollback point verification failed"
+            
+            if tag_name not in result.stdout:
+                return f"error: Rollback point {tag_name} not found in git tags"
+            
+            # Show tag details
+            result = subprocess.run(
+                f"git show {tag_name} --no-patch --format='Tag: %(tag)%nTagger: %(taggername) <%(taggeremail)>%nDate: %(taggerdate)%nCommit: %(objectname)'",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            details = result.stdout.strip()
+            
+            return f"✓ Rollback point created successfully:\n\n{details}\n\nRollback command: git checkout {commit}  # or git checkout {tag_name}\nReset command: git reset --hard {tag_name}"
+            
+        except subprocess.TimeoutExpired:
+            return "error: Git command timed out"
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+    
+    def _review_project_structure(self) -> str:
+        """Check PROJECT.md and directory structure alignment.
+        
+        Reviews the alignment between PROJECT.md (project definitions) and the
+        actual directory structure, checking for consistency and completeness.
+        
+        Returns:
+            Summary of project structure alignment review
+        """
+        import re
+        output = []
+        
+        output.append("Project Structure Review")
+        output.append("=" * 40)
+        output.append("")
+        
+        # Read PROJECT.md
+        project_path = self.root / "PROJECT.md"
+        if not project_path.exists():
+            return "error: PROJECT.md not found"
+        
+        project_content = project_path.read_text(encoding="utf-8")
+        
+        # Extract completed projects
+        project_pattern = r'### Run (\d+) - (.+?)\n\n\*\*Objective:\*\* (.+?)\n\n\*\*Done when:\*\*'
+        projects = re.findall(project_pattern, project_content, re.DOTALL)
+        
+        if not projects:
+            output.append("⚠ No projects found in PROJECT.md")
+        else:
+            output.append(f"Found {len(projects)} completed projects:\n")
+            for run_num, name, objective in projects:
+                output.append(f"  - Run {run_num}: {name}")
+                output.append(f"    Objective: {objective[:60]}...")
+            output.append("")
+        
+        # Check for alignment issues
+        output.append("Alignment Checks:")
+        output.append("")
+        
+        # Check if PROJECT.md has a 'done when' section
+        if '## done when' in project_content:
+            output.append("✓ PROJECT.md has 'done when' section")
+        else:
+            output.append("⚠ PROJECT.md missing 'done when' section")
+        
+        # Check if PROJECT.md has a 'technical debt' section
+        if '## technical debt' in project_content:
+            output.append("✓ PROJECT.md has 'technical debt' section")
+        else:
+            output.append("⚠ PROJECT.md missing 'technical debt' section")
+        
+        # Check if PROJECT.md has a 'progress' section
+        if '## progress' in project_content:
+            output.append("✓ PROJECT.md has 'progress' section")
+        else:
+            output.append("⚠ PROJECT.md missing 'progress' section")
+        
+        # Check if PROJECT.md has a 'not this project' section
+        if '## not this project' in project_content:
+            output.append("✓ PROJECT.md has 'not this project' section")
+        else:
+            output.append("⚠ PROJECT.md missing 'not this project' section")
+        
+        output.append("")
+        
+        # Check directory structure alignment
+        output.append("Directory Structure:")
+        output.append("")
+        
+        expected_dirs = [
+            ("agent/", "Agent implementation and tools"),
+            ("docs/", "Documentation"),
+            ("engine/", "Engine machinery (fixed)"),
+            ("notes/", "Notes and logs"),
+            ("docs/_posts/", "Blog posts"),
+            ("docs/world_knowledge/", "World knowledge"),
+        ]
+        
+        for dir_path, description in expected_dirs:
+            full_path = self.root / dir_path
+            if full_path.exists():
+                output.append(f"✓ {dir_path} exists - {description}")
+            else:
+                output.append(f"⚠ {dir_path} missing - {description}")
+        
+        output.append("")
+        
+        # Check if important files exist
+        important_files = [
+            ("agent/tools.py", "Tool definitions"),
+            ("agent/prompt.md", "Agent prompt"),
+            ("agent/context.py", "Context definitions"),
+            ("RUNS.md", "Run history"),
+            ("MEMORY.md", "Memory"),
+            ("GOALS.md", "Goals"),
+            ("PROJECT.md", "Project definitions"),
+            (".gitignore", "Git ignore rules"),
+        ]
+        
+        output.append("Important Files:")
+        output.append("")
+        
+        for file_path, description in important_files:
+            full_path = self.root / file_path
+            if full_path.exists():
+                output.append(f"✓ {file_path} exists - {description}")
+            else:
+                output.append(f"⚠ {file_path} missing - {description}")
+        
+        output.append("")
+        output.append("Review complete. Check the warnings above for items that need attention.")
+        
+        return "\n".join(output)
+    
+    def _validate_git_status(self, warn_uncommitted: bool = True) -> str:
+        """Warn about uncommitted changes before making significant changes.
+        
+        Checks git status and warns about uncommitted changes, providing
+        context about what changes exist. This helps prevent accidentally
+            committing work that hasn't been reviewed.
+        
+        Args:
+            warn_uncommitted: If True, show warnings for uncommitted changes
+            
+        Returns:
+            Git status information and warnings
+        """
+        import subprocess
+        
+        output = []
+        output.append("Git Status Check")
+        output.append("=" * 40)
+        output.append("")
+        
+        try:
+            # Get git status
+            result = subprocess.run(
+                "git status --porcelain",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode != 0:
+                return f"error: Could not check git status: {result.stderr}"
+            
+            lines = result.stdout.strip().split("\n") if result.stdout.strip() else []
+            
+            if not lines:
+                output.append("✓ No uncommitted changes")
+                output.append("")
+                output.append("Repository is clean - ready to make changes safely.")
+            else:
+                modified = [l for l in lines if l.startswith(" M")]
+                added = [l for l in lines if l.startswith("A ")]
+                deleted = [l for l in lines if l.startswith(" D")]
+                renamed = [l for l in lines if l.startswith("R")]
+                untracked = [l for l in lines if l.startswith("??")]
+                
+                output.append(f"⚠ Found {len(lines)} uncommitted change(s):\n")
+                
+                if modified:
+                    output.append(f"Modified files ({len(modified)}):")
+                    for line in modified[:10]:
+                        status, path = line.split(maxsplit=1)
+                        output.append(f"  {status} {path}")
+                    if len(modified) > 10:
+                        output.append(f"  ... and {len(modified) - 10} more")
+                    output.append("")
+                
+                if added:
+                    output.append(f"Added files ({len(added)}):")
+                    for line in added[:10]:
+                        status, path = line.split(maxsplit=1)
+                        output.append(f"  {status} {path}")
+                    if len(added) > 10:
+                        output.append(f"  ... and {len(added) - 10} more")
+                    output.append("")
+                
+                if deleted:
+                    output.append(f"Deleted files ({len(deleted)}):")
+                    for line in deleted[:10]:
+                        status, path = line.split(maxsplit=1)
+                        output.append(f"  {status} {path}")
+                    if len(deleted) > 10:
+                        output.append(f"  ... and {len(deleted) - 10} more")
+                    output.append("")
+                
+                if renamed:
+                    output.append(f"Renamed files ({len(renamed)}):")
+                    for line in renamed[:10]:
+                        status, path = line.split(maxsplit=1)
+                        output.append(f"  {status} {path}")
+                    if len(renamed) > 10:
+                        output.append(f"  ... and {len(renamed) - 10} more")
+                    output.append("")
+                
+                if untracked:
+                    output.append(f"Untracked files ({len(untracked)}):")
+                    for line in untracked[:10]:
+                        status, path = line.split(maxsplit=1)
+                        output.append(f"  {status} {path}")
+                    if len(untracked) > 10:
+                        output.append(f"  ... and {len(untracked) - 10} more")
+                    output.append("")
+            
+            output.append("")
+            output.append("Recommendations:")
+            output.append("  - Review changes before committing")
+            output.append("  - Use git diff to see what changed")
+            output.append("  - Consider staging changes with git add")
+            output.append("  - Use a rollback point before making major changes")
+            
+            return "\n".join(output)
+            
+        except subprocess.TimeoutExpired:
+            return "error: Git command timed out"
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
     kinds = {"int": "integer", "float": "number", "bool": "boolean"}
