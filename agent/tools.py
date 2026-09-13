@@ -532,6 +532,174 @@ class Executor:
             return "Error: gh command timed out"
         except Exception as exc:
             return f"Error: {type(exc).__name__}: {exc}"
+
+    def _gh_create_issue_from_project(self, labels: str = "project") -> str:
+        """Create GitHub issues from PROJECT.md incomplete tasks and technical debt.
+        
+        Reads PROJECT.md and creates issues for:
+        - Incomplete tasks in the 'done when' section
+        - Technical debt items in the 'technical debt' section
+        
+        Args:
+            labels: Comma-separated labels to apply to all issues (default: "project")
+        """
+        import os
+        gh_token = os.environ.get("GH_TOKEN")
+        if not gh_token:
+            return "error: GH_TOKEN environment variable not set"
+        
+        try:
+            # Read PROJECT.md
+            project_path = self.root / "PROJECT.md"
+            if not project_path.exists():
+                return "error: PROJECT.md not found"
+            
+            content = project_path.read_text(encoding="utf-8")
+            
+            # Extract incomplete tasks from 'done when' section
+            done_when_start = content.find("## done when")
+            if done_when_start == -1:
+                return "error: '## done when' section not found in PROJECT.md"
+            
+            done_when_section = content[done_when_start:]
+            done_when_end = done_when_section.find("## ", done_when_start + 50)
+            if done_when_end != -1:
+                done_when_section = done_when_section[:done_when_end]
+            
+            # Parse 'done when' items
+            done_when_items = []
+            for line in done_when_section.split("\n"):
+                line = line.strip()
+                if line.startswith("- [ ]"):
+                    # Incomplete task
+                    task = line[5:].strip()
+                    if task and not task.startswith("Create _gh_create_issue_from_project"):
+                        done_when_items.append(("task", task))
+                elif line.startswith("- [x]"):
+                    # Completed task - skip
+                    pass
+            
+            # Extract technical debt from 'technical debt' section
+            technical_debt_start = content.find("## technical debt")
+            if technical_debt_start == -1:
+                return "warning: '## technical debt' section not found in PROJECT.md"
+            
+            technical_debt_section = content[technical_debt_start:]
+            technical_debt_end = technical_debt_section.find("## ", technical_debt_start + 50)
+            if technical_debt_end != -1:
+                technical_debt_section = technical_debt_section[:technical_debt_end]
+            
+            # Parse technical debt items
+            technical_debt_items = []
+            for line in technical_debt_section.split("\n"):
+                line = line.strip()
+                if line.startswith("- [ ]"):
+                    # Incomplete technical debt item
+                    debt = line[5:].strip()
+                    if debt:
+                        technical_debt_items.append(("technical_debt", debt))
+                elif line.startswith("- [x]"):
+                    # Completed technical debt item - skip
+                    pass
+            
+            # Create issues
+            issues_created = []
+            labels_list = labels.split(",") if labels else ["project"]
+            labels_param = " --label " + ",".join(labels_list)
+            
+            # Create issues for incomplete tasks
+            for i, (item_type, item) in enumerate(done_when_items, 1):
+                title = f"Project Task: {item[:60]}{'...' if len(item) > 60 else ''}"
+                body = f"""## {item}
+
+**Type:** Project Task
+
+**Status:** Incomplete
+
+**Original location:** PROJECT.md 'done when' section
+
+---
+
+This issue was automatically created from PROJECT.md by the issue tracker automation.
+
+Please review and update the status in PROJECT.md when this task is completed.
+"""
+                cmd = f"gh issue create --title '{title}' --body '{body}'{labels_param}"
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+                
+                if result.returncode == 0:
+                    import json
+                    issue_data = json.loads(result.stdout)
+                    issue_number = issue_data['number']
+                    issues_created.append((item_type, item, issue_number, "created"))
+                else:
+                    issues_created.append((item_type, item, 0, f"failed: {result.stderr}"))
+            
+            # Create issues for technical debt
+            for i, (item_type, item) in enumerate(technical_debt_items, 1):
+                title = f"Technical Debt: {item[:60]}{'...' if len(item) > 60 else ''}"
+                body = f"""## {item}
+
+**Type:** Technical Debt
+
+**Status:** Incomplete
+
+**Original location:** PROJECT.md 'technical debt' section
+
+---
+
+This issue was automatically created from PROJECT.md by the issue tracker automation.
+
+Please review and update the status in PROJECT.md when this technical debt item is addressed.
+"""
+                cmd = f"gh issue create --title '{title}' --body '{body}'{labels_param}"
+                result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+                
+                if result.returncode == 0:
+                    import json
+                    issue_data = json.loads(result.stdout)
+                    issue_number = issue_data['number']
+                    issues_created.append((item_type, item, issue_number, "created"))
+                else:
+                    issues_created.append((item_type, item, 0, f"failed: {result.stderr}"))
+            
+            # Generate summary
+            output = []
+            output.append(f"Project Issue Tracker: {len(done_when_items) + len(technical_debt_items)} items found in PROJECT.md")
+            output.append(f"Labels: {labels}")
+            output.append("")
+            
+            # Summary of tasks
+            if done_when_items:
+                output.append(f"Incomplete Tasks ({len(done_when_items)}):")
+                for i, (item_type, item, issue_number, status) in enumerate(issues_created, 1):
+                    if item_type == "task":
+                        if issue_number:
+                            output.append(f"  {i}. {item[:70]}")
+                            output.append(f"     → Issue #{issue_number} {status}")
+                        else:
+                            output.append(f"  {i}. {item[:70]}")
+                            output.append(f"     → {status}")
+                output.append("")
+            
+            # Summary of technical debt
+            if technical_debt_items:
+                output.append(f"Technical Debt Items ({len(technical_debt_items)}):")
+                for i, (item_type, item, issue_number, status) in enumerate(issues_created[len(done_when_items):], len(done_when_items) + 1):
+                    if item_type == "technical_debt":
+                        if issue_number:
+                            output.append(f"  {i}. {item[:70]}")
+                            output.append(f"     → Issue #{issue_number} {status}")
+                        else:
+                            output.append(f"  {i}. {item[:70]}")
+                            output.append(f"     → {status}")
+            
+            return "\n".join(output)
+            
+        except subprocess.TimeoutExpired:
+            return "Error: gh command timed out"
+        except Exception as exc:
+            return f"Error: {type(exc).__name__}: {exc}"
     
     def _knowledge_add(self, title: str, description: str, type: str = "general",
                        tags: str = "", source: str = "", implementation: str = "",

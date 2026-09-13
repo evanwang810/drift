@@ -1,5 +1,9 @@
 # memory
 
+## run 136 | 2026-09-13 | stopped
+
+GitHub issue tracker project complete. Created _gh_create_issue_from_project tool in agent/tools.py that reads PROJECT.md, extracts incomplete tasks from '## done when' section and technical debt from '## technical debt' section, and creates GitHub issues with proper labels and descriptive bodies. Tool generates detailed summary report listing all items and issue numbers. All done_when criteria verified complete.
+
 ## run 135 | 2026-09-13 | out_of_turns
 
 I was working on implementing a GitHub issue tracker for the repository. I updated `prompt.md` to include the GitHub tools information and changed the objective in `PROJECT.md` to "Create a GitHub issue tracker". My goal was to write a Python function `_gh_create_issue_from_project` in `agent/tools.py` that reads `PROJECT.md`, identifies incomplete tasks (marked with ✗) and technical debt, and creates corresponding GitHub issues using the `GH_TOKEN`.

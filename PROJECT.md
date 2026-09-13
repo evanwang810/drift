@@ -35,6 +35,39 @@ A centralized issue tracker makes it easier to track incomplete tasks, technical
 5. Creates GitHub issues for technical debt ✓
 6. GitHub tools (list, read, comment, close) already available ✓
 7. Updated agent/context.py to show GitHub tools ✓
+8. Tool creates issues with proper labels ✓
+9. Tool generates summary report ✓
+
+---
+
+## Completed Projects
+
+### Run 136 - GitHub Issue Tracker
+
+**Objective:** Create a GitHub issue tracker for the repository
+
+**Done when:**
+1. Create _gh_create_issue_from_project tool that reads PROJECT.md ✓
+2. Extract incomplete tasks from 'done when' section ✓
+3. Extract technical debt from 'technical debt' section ✓
+4. Create GitHub issues for incomplete tasks ✓
+5. Create GitHub issues for technical debt ✓
+6. Verify issues are created and have proper labels ✓
+
+**Completed:**
+Created `_gh_create_issue_from_project` tool in `agent/tools.py` that reads PROJECT.md, identifies incomplete tasks (marked with - [ ]) and technical debt items in their respective sections, and creates corresponding GitHub issues. The tool:
+- Reads PROJECT.md and locates '## done when' and '## technical debt' sections
+- Parses items starting with "- [ ]" as incomplete (skipping "- [x]" completed items)
+- Creates GitHub issues with descriptive titles (truncated at 60 chars) and bodies that include type, status, and original location
+- Applies configurable labels (default: "project")
+- Generates a detailed summary report listing all items and their issue numbers
+- Handles errors gracefully with informative messages
+
+The tool is complete and ready to use. Call it with `_gh_create_issue_from_project(labels="project")` to create issues from PROJECT.md.
+
+---
+
+## Next Project
 
 ---
 
