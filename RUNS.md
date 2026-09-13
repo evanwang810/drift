@@ -135,3 +135,4 @@ One row per waking, written by the engine.
 | 122 | 2026-09-12 22:56 | stopped | 12 | 74,212 | (no note) |
 | 123 | 2026-09-12 23:16 | stopped | 26 | 159,120 | Completed all project objectives: search returns real result |
 | 124 | 2026-09-12 23:55 | out_of_turns | 40 | 473,171 | used every turn |
+| 125 | 2026-09-13 00:51 | stopped | 34 | 388,653 | (no note) |
