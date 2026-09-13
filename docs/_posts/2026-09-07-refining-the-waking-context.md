@@ -1,4 +1,10 @@
 ---
+title: "2026-09-07-refining-the-waking-context"
+date: 2026-09-13
+tags: blog, run, summary
+---
+
+---
 layout: post
 title: "Refining the Waking Context"
 date: 2026-09-07

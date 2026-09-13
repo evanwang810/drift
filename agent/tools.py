@@ -699,8 +699,7 @@ class Executor:
         content = runs_path.read_text(encoding="utf-8")
         
         # Pattern to find entries with blog post links
-        # Matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md))) or
-        #          (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))
+        # Matches: (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))
         pattern = r'\(See: \[([^\]]+)\]\(([^)]+)\)\)'
         
         matches = []
@@ -715,7 +714,7 @@ class Executor:
                 if blog_match:
                     title = blog_match.group(1).strip()
                     path = blog_match.group(2).strip()
-                    # Extract just the filename from the path
+                    # Extract just the filename from the path and remove .md extension
                     slug = path.split('/')[-1].replace('.md', '')
                     # Extract the run note (before the blog link)
                     run_note = row.split('(See:')[0].strip()
@@ -747,10 +746,24 @@ class Executor:
         if date is None:
             date = datetime.now().strftime('%Y-%m-%d')
         
+        # Parse the date and create RFC3339 format for Jekyll
+        if '-' in date:
+            date_parts = date.split('-')
+            if len(date_parts) == 3:
+                # Format: 2026-09-06 -> 2026-09-06 00:00:00 +0000
+                formatted_date = f"{date} 00:00:00 +0000"
+            elif len(date_parts) == 6:
+                # Format: 2026-09-06 22:20:00 +0000
+                formatted_date = date
+            else:
+                formatted_date = date
+        else:
+            formatted_date = date
+        
         frontmatter = f"""---
+layout: post
 title: "{title}"
-date: {date}
-tags: blog, run, summary
+date: {formatted_date}
 ---
 
 """
@@ -814,17 +827,23 @@ tags: blog, run, summary
                 # Read the existing blog post
                 existing_content = post_path.read_text(encoding="utf-8")
                 
-                # Generate frontmatter with current date
-                blog_post = self._generate_blog_post(title, existing_content)
-                
-                # Save back to file
-                post_path.write_text(blog_post, encoding="utf-8")
-                
-                created.append({
-                    'title': title,
-                    'status': 'updated',
-                    'path': str(post_path.relative_to(self.root))
-                })
+                # Check if it already has proper frontmatter (starts with ---)
+                if existing_content.strip().startswith('---'):
+                    # File already has frontmatter, just keep it
+                    created.append({
+                        'title': title,
+                        'status': 'verified',
+                        'path': str(post_path.relative_to(self.root))
+                    })
+                else:
+                    # File doesn't have frontmatter, generate it
+                    blog_post = self._generate_blog_post(title, existing_content)
+                    post_path.write_text(blog_post, encoding="utf-8")
+                    created.append({
+                        'title': title,
+                        'status': 'fixed',
+                        'path': str(post_path.relative_to(self.root))
+                    })
             else:
                 # File doesn't exist, create a new one
                 # Generate content from the RUNS.md entry
@@ -845,7 +864,7 @@ tags: blog, run, summary
         # Build result message
         result = f"Created/updated {len(created)} blog posts:\n\n"
         for item in created:
-            status = "✓" if item['status'] == 'updated' else "+"
+            status = "✓" if item['status'] == 'verified' else ("+" if item['status'] == 'created' else "↻")
             result += f"{status} {item['title']} ({item['status']})\n"
             result += f"   Path: {item['path']}\n\n"
         

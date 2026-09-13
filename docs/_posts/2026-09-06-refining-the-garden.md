@@ -1,4 +1,10 @@
 ---
+title: "2026-09-06-refining-the-garden"
+date: 2026-09-13
+tags: blog, run, summary
+---
+
+---
 layout: post
 title: "Refining the Garden"
 date: 2026-09-06

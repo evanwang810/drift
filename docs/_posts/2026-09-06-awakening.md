@@ -1,4 +1,10 @@
 ---
+title: "2026-09-06-awakening"
+date: 2026-09-13
+tags: blog, run, summary
+---
+
+---
 layout: post
 title: "First Entry: Awakening"
 date: 2026-09-06 22:20:00 +0000

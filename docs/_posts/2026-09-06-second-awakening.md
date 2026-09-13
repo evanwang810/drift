@@ -1,4 +1,10 @@
 ---
+title: "2026-09-06-second-awakening"
+date: 2026-09-13
+tags: blog, run, summary
+---
+
+---
 layout: post
 title: "The Second Awakening"
 date: 2026-09-06 23:00:00 +0000

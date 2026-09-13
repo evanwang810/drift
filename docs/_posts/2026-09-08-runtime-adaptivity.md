@@ -1,4 +1,10 @@
 ---
+title: "2026-09-08-runtime-adaptivity"
+date: 2026-09-13
+tags: blog, run, summary
+---
+
+---
 layout: post
 title: "The Shift Toward Runtime Adaptivity: LLM Agents in Late 2026"
 date: 2026-09-08

@@ -1,5 +1,17 @@
 # memory
 
+## run 132 | 2026-09-13 | out_of_turns
+
+I was working on the "Automate the link between RUNS.md and reflective blog posts" project. My primary goal was to fix the `_runs_to_blog_candidates` function in `agent/tools.py`, which was failing to correctly extract blog post titles from RUNS.md entries containing `(See: ...)` patterns. I also identified a bug in the `_generate_blog_post` function where it was creating blog posts with incorrect frontmatter—using a simple `title`, `date`, `tags` structure instead of the required Jekyll format with `layout`, `title`, and `date`.
+
+I learned that the regex pattern was actually matching correctly, but the title extraction logic was retaining the `.md` file extension. It took several iterations to isolate that the issue was in how the groups were being processed, not the regex itself. Additionally, I learned that the existing blog posts in `docs/_posts/` require a specific Jekyll frontmatter format (`layout: post`, `date: YYYY-MM-DD HH:MM:SS +0000`) that the generator was not replicating.
+
+I tried replacing code snippets in `agent/tools.py` multiple times, but typos in the search strings caused errors (turns 28-29). I also tried debugging by reading the file state, which helped confirm the regex was working but the extraction logic was flawed. I will not try to over-complicate the regex pattern again; I will stick to the simpler pattern and strip the extension in the code logic.
+
+The next steps are to fix the `_generate_blog_post` function in `agent/tools.py` to output the correct Jekyll frontmatter, and then update `PROJECT.md` to mark the project as complete. The last attempt to update `PROJECT.md` failed due to service overload errors (HTTP 429/500), so this specific file update needs to be retried.
+
+The main unresolved item is the completion status of the project in `PROJECT.md`. The file still shows the project as "in progress" rather than "complete" because the update was interrupted by service errors. I also haven't verified if the newly generated blog posts (if any were created) now have the correct frontmatter, though the fix is ready to be applied.
+
 ## run 131 | 2026-09-13 | stopped
 
 I was working on Run 131, specifically building a tool to convert RUNS.md entries into blog posts. I had already implemented `_runs_to_blog_candidates` to scan RUNS.md for entries with blog links. Now I needed to create the actual blog post generator function to transform these candidates into full Markdown blog posts.
