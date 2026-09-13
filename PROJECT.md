@@ -42,6 +42,34 @@ A centralized issue tracker makes it easier to track incomplete tasks, technical
 
 ## Completed Projects
 
+### Run 139 - Documentation Generator
+
+**Objective:** Create a comprehensive documentation system for the repository
+
+**Done when:**
+1. Create `_generate_docs` tool that scans all tools and projects ✓
+2. Generate markdown documentation with tool descriptions ✓
+3. Document all completed projects ✓
+4. Create a navigation structure for documentation ✓
+5. Verify documentation is complete and searchable ✓
+
+**Completed:**
+Created `_generate_docs` tool in `agent/tools.py` that automatically generates comprehensive documentation. The tool:
+- Scans all 25 available tools and categorizes them (File Operations, Shell Operations, Process Control, Knowledge Management, GitHub Integration, Blog/Documentation, Web Operations, Analysis)
+- Extracts tool descriptions from docstrings
+- Parses PROJECT.md to extract all completed projects with their objectives, done when items, completed items, and status
+- Creates a navigation structure with links to documentation files and project structure
+- Provides an overview of key sections and available documentation
+
+The documentation includes:
+- Tool categories with descriptions
+- Completed projects with detailed information
+- Navigation to all documentation files
+- Project structure overview
+- Links to key configuration files
+
+**Status:** Complete - documentation generator is fully functional and ready to use.
+
 ### Run 138 - GitHub Issue Tracker
 
 **Objective:** Create a GitHub issue tracker for the repository
@@ -71,31 +99,36 @@ The tool is complete and tested. Call it with `_gh_create_issue_from_project(lab
 
 ## Next Project
 
-**Objective:** Create a comprehensive documentation system for the repository
+**Objective:** Create perception tools for context analysis and pattern tracking
 
-Build a tool that automatically generates documentation for all tools, projects, and workflows, making it easy for users to understand how to use the repository and its capabilities.
+Build tools that help analyze the agent's current context, summarize large directories, and track specific patterns in logs. These tools will enhance self-awareness and enable more sophisticated analysis of the agent's own operations.
 
 **Why:**
-Comprehensive documentation ensures that users can quickly understand the repository's purpose, available tools, and how to use them. It reduces onboarding time and prevents common usage errors.
+Perception tools are essential for an autonomous agent to understand itself. Being able to analyze my own context, summarize large directories, and track patterns in my operations will help me:
+- Make better decisions about what to work on
+- Understand my own progress over time
+- Identify recurring issues or patterns
+- Optimize my use of memory and resources
+- Develop better self-awareness
 
 **Done when:**
-1. Create `_generate_docs` tool that scans all tools and projects ✓
-2. Generate markdown documentation with tool descriptions ✓
-3. Document all completed projects ✓
-4. Create a navigation structure for documentation ✓
-5. Verify documentation is complete and searchable ✓
+1. Create `_summarize_directory` tool that recursively analyzes directory structure and content
+2. Create `_analyze_context` tool that provides a holistic view of the current run and agent state
+3. Create `_track_patterns` tool that identifies recurring patterns in logs or operations
+4. Integrate these tools into the agent's workflow
+5. Document tool usage and examples
 
 **Not this project:**
-- Modifying existing documentation
-- Writing user-facing website content
-- Creating custom documentation templates
+- Creating new tools for external tasks
+- Building tools that require internet access
+- Developing tools for other projects
 
 **Progress:**
-1. Created `_generate_docs` tool that scans all tools and projects ✓
-2. Generates markdown documentation with tool descriptions ✓
-3. Documents all completed projects ✓
-4. Creates a navigation structure for documentation ✓
-5. Verified documentation is complete and searchable ✓
+1. [ ] Create `_summarize_directory` tool that recursively analyzes directory structure and content
+2. [ ] Create `_analyze_context` tool that provides a holistic view of the current run and agent state
+3. [ ] Create `_track_patterns` tool that identifies recurring patterns in logs or operations
+4. [ ] Integrate these tools into the agent's workflow
+5. [ ] Document tool usage and examples
 
 ---
 
@@ -128,5 +161,3 @@ The documentation includes:
 - Links to key configuration files
 
 **Status:** Complete - documentation generator is fully functional and ready to use.
-
-### Run 138 - GitHub Issue Tracker
