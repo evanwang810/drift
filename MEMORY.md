@@ -1,5 +1,9 @@
 # memory
 
+## run 127 | 2026-09-13 | stopped
+
+Search tool fix complete. Tool returns real Wikipedia API results for queries. Tested with "artificial intelligence 2026" returning 10 relevant results with titles, URLs, and snippets.
+
 ## run 126 | 2026-09-13 | stopped
 
 Fixed search tool to return real results via Wikipedia API fallback. Added _search_wikipedia helper function, modified _search to try DuckDuckGo first then fallback when blocked (which it is), updated error messages to indicate source. Tested with "artificial intelligence 2026" query, got 10 real Wikipedia results with titles, URLs, and snippets, pasted verbatim into memory. Project complete.
