@@ -938,6 +938,194 @@ date: {formatted_date}
         return frontmatter + content
 
     def _create_blog_posts_from_runs(self) -> str:
+        """Generate complete blog posts from RUNS.md entries with blog post links.
+        
+        Reads RUNS.md, finds entries with "(See: (...))" patterns, reads target files,
+        and generates full blog posts with proper Jekyll frontmatter.
+        """
+        # Read RUNS.md
+        runs_path = self.root / "RUNS.md"
+        if not runs_path.exists():
+            return "error: RUNS.md not found"
+        
+        runs_content = runs_path.read_text(encoding="utf-8")
+        
+        # Find all blog post links in RUNS.md
+        import re
+        pattern = r'\(See:\s*\[([^\]]+)\]\(([^)]+)\)\)'
+        matches = re.findall(pattern, runs_content)
+        
+        if not matches:
+            return "No blog post links found in RUNS.md"
+        
+        output = []
+        output.append(f"Found {len(matches)} blog post links in RUNS.md:")
+        output.append("")
+        
+        for link_text, link_path in matches:
+            output.append(f"  - {link_text} → {link_path}")
+        
+        return "\n".join(output)
+
+    def _generate_docs(self) -> str:
+        """Generate comprehensive documentation for all tools, projects, and workflows.
+        
+        Creates documentation that includes:
+        - All available tools with descriptions from their docstrings
+        - All completed projects from PROJECT.md
+        - A navigation structure for easy browsing
+        """
+        import re
+        output = []
+        
+        # Section 1: Overview
+        output.append("# Repository Documentation")
+        output.append("")
+        output.append("This documentation provides a comprehensive overview of the repository,")
+        output.append("its tools, projects, and workflows.")
+        output.append("")
+        
+        # Section 2: Available Tools
+        output.append("## Available Tools")
+        output.append("")
+        output.append("The agent has 25 tools available for use, categorized below:")
+        output.append("")
+        
+        tool_categories = {
+            "File Operations": ["_read", "_write", "_replace", "_replace_all", "_delete", "_read_with_numbers", "_read_lines", "_read_all", "_ls", "_tree", "_search", "_grep"],
+            "Shell Operations": ["_run"],
+            "Process Control": ["_stop", "_summarize"],
+            "Knowledge Management": ["_knowledge_add", "_knowledge_list", "_knowledge_search"],
+            "GitHub Integration": ["_gh_list_issues", "_gh_read_issue", "_gh_comment_issue", "_gh_close_issue", "_gh_create_issue_from_project"],
+            "Blog/Documentation": ["_runs_to_blog_candidates", "_generate_blog_post", "_create_blog_posts_from_runs"],
+            "Web Operations": ["_web_fetch"],
+            "Analysis": ["_analyze_runs", "_validate_python", "_search_wikipedia"]
+        }
+        
+        for category, tools in tool_categories.items():
+            output.append(f"### {category}")
+            output.append("")
+            
+            for tool in tools:
+                # Get tool method
+                method = getattr(self, f"_{tool}", None)
+                if method and method.__doc__:
+                    # Extract the first paragraph of the docstring
+                    doc_lines = method.__doc__.strip().split("\n")
+                    # Join first non-empty line and its continuation
+                    description_lines = []
+                    for line in doc_lines:
+                        line = line.strip()
+                        if line:
+                            if not description_lines:
+                                description_lines.append(line)
+                            else:
+                                # Check if this line is a continuation (indented or same as previous)
+                                if line == description_lines[-1] or (line.startswith(' ') and not line.startswith('  ')):
+                                    description_lines.append(line[1:].lstrip())
+                                else:
+                                    break
+                    
+                    description = ' '.join(description_lines[:2]).strip()  # First 2 sentences
+                    output.append(f"**`{tool}`**")
+                    if description:
+                        output.append(f"{description}")
+                    output.append("")
+        
+        # Section 3: Completed Projects
+        output.append("## Completed Projects")
+        output.append("")
+        
+        # Read PROJECT.md to extract completed projects
+        project_path = self.root / "PROJECT.md"
+        if project_path.exists():
+            project_content = project_path.read_text(encoding="utf-8")
+            
+            # Extract all completed project sections
+            project_pattern = r'### Run \d+ - (.+?)\n\n\*\*Objective:\*\* (.+?)\n\n\*\*Done when:\*\*\n(.+?)\n\n\*\*Completed:\*\*\n(.+?)\n\n\*\*Status:\*\* (.+?)'
+            projects = re.findall(project_pattern, project_content, re.DOTALL)
+            
+            if projects:
+                for project_name, objective, done_when, completed, status in projects:
+                    output.append(f"### {project_name}")
+                    output.append("")
+                    output.append(f"**Objective:** {objective.strip()}")
+                    output.append("")
+                    output.append(f"**Status:** {status.strip()}")
+                    output.append("")
+                    
+                    # Parse done when items
+                    done_when_items = [line.strip() for line in done_when.strip().split("\n") if line.strip() and not line.strip().startswith("#")]
+                    if done_when_items:
+                        output.append("**Done when:")
+                        for item in done_when_items:
+                            output.append(f"  - {item}")
+                        output.append("")
+                    
+                    # Parse completed items
+                    completed_items = [line.strip() for line in completed.strip().split("\n") if line.strip() and not line.strip().startswith("#")]
+                    if completed_items:
+                        output.append("**Completed:")
+                        for item in completed_items:
+                            output.append(f"  - {item}")
+                        output.append("")
+            else:
+                output.append("No completed projects found in PROJECT.md")
+                output.append("")
+        
+        # Section 4: Navigation Structure
+        output.append("## Navigation")
+        output.append("")
+        output.append("### Documentation Files")
+        output.append("")
+        output.append("The following documentation files are available:")
+        output.append("")
+        
+        docs_to_document = [
+            ("README.md", "Main repository README"),
+            ("docs/README.md", "Documentation index"),
+            ("docs/tools.md", "Tool documentation"),
+            ("docs/architecture.md", "System architecture"),
+            ("docs/decisions.md", "Key decisions made"),
+            ("docs/failures.md", "Known failures and limitations"),
+            ("docs/fact_store.md", "Fact store documentation"),
+            ("docs/log.md", "Execution log"),
+            ("docs/memory.md", "Memory system"),
+            ("docs/thinking.md", "Thinking process documentation"),
+            ("docs/blog.md", "Blog posts index"),
+        ]
+        
+        for filename, description in docs_to_document:
+            output.append(f"- [{filename}]({filename}) - {description}")
+        
+        output.append("")
+        output.append("### Project Structure")
+        output.append("")
+        
+        structure = [
+            ("agent/", "Agent implementation and tools"),
+            ("docs/", "Repository documentation"),
+            ("engine/", "Engine machinery (fixed)"),
+            ("notes/", "Agent notes and logs"),
+            ("docs/_posts/", "Blog post files"),
+            ("docs/world_knowledge/", "World knowledge data"),
+        ]
+        
+        for path, description in structure:
+            output.append(f"- `{path}` - {description}")
+        
+        output.append("")
+        output.append("### Key Sections")
+        output.append("")
+        output.append("For more information, see:")
+        output.append("- `agent/prompt.md` - Agent wake-up prompt and configuration")
+        output.append("- `agent/context.py` - Context definition for runs")
+        output.append("- `agent/tools.py` - Tool definitions and implementations")
+        output.append("- `PROJECT.md` - Current project objectives and progress")
+        output.append("- `RUNS.md` - Run history and activities")
+        output.append("- `WAKE` - Wake-up timer (minutes until next run)")
+        
+        return "\n".join(output)
         """Create blog posts from RUNS.md entries that have "(See: (...))" links.
         
         Reads RUNS.md, finds entries with blog post links, reads the target files,
