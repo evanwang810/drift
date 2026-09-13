@@ -788,7 +788,8 @@ date: {formatted_date}
         
         # Pattern to find entries with blog post links
         # Matches: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))
-        pattern = r'\(See: \(\s*([^\]]+)\]\(([^)]+)\)\)\)'
+        # The first capture group is the title, the second is the path
+        pattern = r'\(See: \(\s*\[([^\]]+)\]\(([^)]+)\)\)'
         
         matches = []
         
