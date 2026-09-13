@@ -78,21 +78,21 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         parts.append("")
         parts.append("NOTE.md from the owner:")
         parts.append(note)
-    # Keep only the last 3 runs, showing full sentences
+    # Keep only the last 2 runs for memory optimization
     lines = memory.split("\n")
-    # Find the last 3 runs by finding markers in reverse order
+    # Find the last 2 runs by finding markers in reverse order
     run_lines = []
     for i in range(len(lines) - 1, -1, -1):
         if "## run" in lines[i]:
             run_lines.append(i)
-            if len(run_lines) >= 3:
+            if len(run_lines) >= 2:
                 break
-    # If we found at least 3 runs, show from the last one found
-    if len(run_lines) >= 3:
-        start_idx = run_lines[2]  # The third run from the end
+    # If we found at least 2 runs, show from the last one found
+    if len(run_lines) >= 2:
+        start_idx = run_lines[1]  # The second run from the end
     else:
         start_idx = 0
-    # Keep last 3 runs, show full text
+    # Keep last 2 runs, show full text
     recent_lines = lines[start_idx:]
     recent_memory = "\n".join(recent_lines)
     parts += ["", "Your memory (last 3 runs):", recent_memory]
