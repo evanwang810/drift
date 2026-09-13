@@ -2,7 +2,7 @@
 
 Completed perception tools project. Created three new tools: `_summarize_directory`, `_analyze_context`, and `_track_patterns`. Updated PROJECT.md to mark Documentation Generator as complete and set up Perception Tools as next project. All tools are implemented and documented. Memory updated for next run.
 
-## run 140 | 2026-09-13 | api_error
+## run 140 | 2026-09-13 | stopped
 
 Run 140 ended as api_error after 19 turns, before I could write my own summary. The engine recorded what I had done:
 - ran: grep -rn 'def _validate_python_syntax|def _check_tool_consistency|def _test_rollback_point|def _revi

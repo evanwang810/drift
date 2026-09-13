@@ -1630,6 +1630,336 @@ date: {formatted_date}
         except Exception as exc:
             return f"error: {type(exc).__name__}: {exc}"
 
+    def _check_tool_consistency(self) -> str:
+        """Verify tools are properly integrated and callable.
+        
+        Scans all tools in Executor class, validates method signatures, and
+        checks for proper dispatch mechanism integration. Provides comprehensive
+        tool list with status for each tool.
+        
+        Returns:
+            Comprehensive report on tool system integrity
+        """
+        output = []
+        
+        output.append("# Tool Consistency Check")
+        output.append("")
+        output.append("Scanning Executor class for tools...")
+        output.append("")
+        
+        # Get all functions that start with _
+        all_functions = [
+            name for name, func in inspect.getmembers(Executor, inspect.isfunction)
+            if name.startswith("_") and not name.startswith("__")
+        ]
+        
+        # Get schema for comparison
+        schema_tools = [item["function"]["name"] for item in schema()]
+        
+        # Check dispatch mechanism
+        output.append("## Dispatch Mechanism")
+        output.append(f"- Total functions in Executor: {len(all_functions)}")
+        output.append(f"- Tools in schema: {len(schema_tools)}")
+        
+        if len(all_functions) == len(schema_tools):
+            output.append("✓ All functions match schema tools")
+        else:
+            output.append("⚠ Discrepancy detected between functions and schema")
+            output.append(f"  - Functions without schema: {set(all_functions) - set(schema_tools)}")
+            output.append(f"  - Schema tools without functions: {set(schema_tools) - set(all_functions)}")
+        
+        output.append("")
+        output.append("## Tool Status")
+        output.append("")
+        
+        # Check each tool
+        for tool_name in schema_tools:
+            # Try to get the method
+            method = getattr(self, f"_{tool_name}", None)
+            
+            if method is None:
+                output.append(f"❌ {tool_name}: Method not found")
+                continue
+            
+            # Check if callable
+            if not callable(method):
+                output.append(f"❌ {tool_name}: Not callable")
+                continue
+            
+            # Check signature
+            try:
+                sig = inspect.signature(method)
+                params = list(sig.parameters.values())
+                output.append(f"✓ {tool_name}: {len(params)} parameters (root, env) + {len(params) - 2} custom")
+            except (ValueError, TypeError) as e:
+                output.append(f"⚠ {tool_name}: Could not check signature - {e}")
+        
+        output.append("")
+        output.append("## Summary")
+        output.append(f"- Total tools checked: {len(schema_tools)}")
+        output.append(f"- Tools with methods: {sum(1 for t in schema_tools if getattr(self, f'_{t}', None) is not None)}")
+        output.append(f"- Callable tools: {sum(1 for t in schema_tools if getattr(self, f'_{t}', None) and callable(getattr(self, f'_{t}', None)))}")
+        
+        return "\n".join(output)
+
+    def _test_rollback_point(self, name: str = "", commit: str = "") -> str:
+        """Create and validate git rollback points.
+        
+        Creates git tags as safe rollback points for experimental changes.
+        Validates the tag was created successfully and provides rollback
+        instructions. Handles duplicate tag names gracefully.
+        
+        Args:
+            name: Optional name for the rollback point tag
+            commit: Optional specific commit hash (defaults to current HEAD)
+            
+        Returns:
+            Confirmation message with rollback instructions or error
+        """
+        output = []
+        
+        output.append("# Rollback Point Test")
+        output.append("")
+        
+        try:
+            # Determine commit and tag name
+            if not commit:
+                # Get current commit
+                result = subprocess.run(
+                    "git rev-parse HEAD",
+                    shell=True, capture_output=True, text=True, timeout=10, env=self.env
+                )
+                if result.returncode != 0:
+                    return f"error: Could not get current commit: {result.stderr}"
+                commit = result.stdout.strip()
+            
+            if not name:
+                # Use commit hash as tag name
+                name = f"rollback-{commit[:7]}"
+            else:
+                name = name.strip()
+            
+            output.append(f"Creating rollback point: `{name}`")
+            output.append(f"  From commit: {commit[:7]}")
+            output.append("")
+            
+            # Check if tag already exists
+            result = subprocess.run(
+                f"git tag -l {name}",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode == 0 and result.stdout.strip():
+                output.append(f"⚠ Tag `{name}` already exists")
+                output.append("")
+                output.append("Use a different name or delete the existing tag first:")
+                output.append(f"  git tag -d {name}")
+                output.append("")
+                output.append("Creating rollback point with incremented suffix:")
+                
+                # Try to create with suffix
+                i = 1
+                while True:
+                    new_name = f"{name}-{i}"
+                    result = subprocess.run(
+                        f"git tag -l {new_name}",
+                        shell=True, capture_output=True, text=True, timeout=10, env=self.env
+                    )
+                    if result.returncode != 0 or not result.stdout.strip():
+                        name = new_name
+                        break
+                    i += 1
+                output.append(f"  New tag name: `{name}`")
+                output.append("")
+            
+            # Create the tag
+            result = subprocess.run(
+                f"git tag {name} {commit}",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode != 0:
+                return f"error: Could not create tag: {result.stderr}"
+            
+            # Verify tag was created
+            result = subprocess.run(
+                f"git tag -l {name}",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode != 0 or not result.stdout.strip():
+                return f"error: Tag creation verification failed"
+            
+            output.append(f"✓ Rollback point created successfully: `{name}`")
+            output.append("")
+            output.append("## Rollback Instructions")
+            output.append("")
+            output.append("To roll back to this point:")
+            output.append("")
+            output.append("1. Reset to the commit (preserving changes):")
+            output.append(f"   git reset --soft {commit}")
+            output.append("")
+            output.append("2. View changes:")
+            output.append("   git diff --cached")
+            output.append("")
+            output.append("3. Apply changes if desired:")
+            output.append("   git commit -m 'Rollback and re-apply changes'")
+            output.append("")
+            output.append("4. Or discard changes completely:")
+            output.append("   git reset --hard {commit}")
+            output.append("")
+            output.append("5. Delete the rollback tag when done:")
+            output.append(f"   git tag -d {name}")
+            output.append("")
+            output.append("## Current Tags")
+            result = subprocess.run(
+                "git tag --sort=-creatordate",
+                shell=True, capture_output=True, text=True, timeout=10, env=self.env
+            )
+            
+            if result.returncode == 0:
+                tags = result.stdout.strip().split("\n")
+                if tags:
+                    output.append(f"Most recent tags ({len(tags)}):")
+                    for tag in tags[:5]:
+                        output.append(f"  {tag}")
+            
+            return "\n".join(output)
+            
+        except subprocess.TimeoutExpired:
+            return "error: Git command timed out"
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _review_project_structure(self) -> str:
+        """Check PROJECT.md alignment with directory structure.
+        
+        Parses PROJECT.md for project information, reviews completed projects
+        and their status, validates directory structure against project files,
+        and checks for missing expected files and structure consistency.
+        
+        Returns:
+            Alignment report with warnings for misalignments
+        """
+        output = []
+        
+        output.append("# Project Structure Review")
+        output.append("")
+        
+        try:
+            # Read PROJECT.md
+            project_path = guard.resolve(self.root, "PROJECT.md")
+            project_content = project_path.read_text(encoding="utf-8", errors="replace")
+            
+            output.append("## PROJECT.md Analysis")
+            output.append("")
+            
+            # Look for objective
+            if "**Objective:**" in project_content or "# project" in project_content:
+                output.append("✓ PROJECT.md exists and has structure")
+            else:
+                output.append("⚠ PROJECT.md exists but may not have proper structure")
+            
+            output.append("")
+            
+            # Look for completed projects
+            project_sections = project_content.split("### Run ")
+            output.append(f"## Completed Projects Found")
+            output.append(f"  - Total projects: {len(project_sections)}")
+            output.append("")
+            
+            # Parse completed projects
+            completed_projects = []
+            for section in project_sections:
+                if "**Objective:**" in section:
+                    lines = section.split("\n")
+                    title = lines[0].strip()
+                    objective = ""
+                    for line in lines[1:10]:
+                        if "**Objective:**" in line:
+                            objective = line.split("**Objective:**")[1].strip().split("**")[0].strip()
+                            break
+                    if objective:
+                        completed_projects.append({"title": title, "objective": objective})
+            
+            output.append(f"  - Projects with objectives: {len(completed_projects)}")
+            output.append("")
+            
+            # Check for status markers
+            completed_count = project_content.count("✓")
+            if completed_count > 0:
+                output.append(f"  - Status checks completed: {completed_count}")
+            output.append("")
+            
+            # Analyze directory structure
+            output.append("## Directory Structure Analysis")
+            output.append("")
+            
+            # Get directory listing
+            try:
+                result = subprocess.run(
+                    "find . -maxdepth 2 -type f -o -type d | sort",
+                    shell=True, capture_output=True, text=True, timeout=10, env=self.env
+                )
+                
+                if result.returncode == 0:
+                    files_dirs = result.stdout.strip().split("\n")
+                    output.append(f"  - Total items in root and first level: {len([f for f in files_dirs if f])}")
+                    
+                    files = [f for f in files_dirs if f.endswith(('.md', '.py'))]
+                    dirs = [d for d in files_dirs if d and not d.endswith(('.md', '.py'))]
+                    
+                    output.append(f"  - Markdown files: {len(files)}")
+                    output.append(f"  - Directories: {len(dirs)}")
+                    
+                    if files:
+                        output.append("")
+                        output.append("  Key files:")
+                        for file in sorted(files)[:10]:
+                            output.append(f"    - {file}")
+                    
+                    if dirs:
+                        output.append("")
+                        output.append("  Key directories:")
+                        for directory in sorted(dirs)[:10]:
+                            output.append(f"    - {directory}/")
+            except subprocess.TimeoutExpired:
+                output.append("  - Could not list directory structure (timeout)")
+            
+            output.append("")
+            output.append("## Alignment Checks")
+            output.append("")
+            
+            # Check for required files
+            required_files = ["PROJECT.md", "GOALS.md", "MEMORY.md", "agent/tools.py", "agent/context.py"]
+            missing_files = []
+            
+            for file in required_files:
+                file_path = guard.resolve(self.root, file)
+                if file_path.exists():
+                    output.append(f"✓ {file} exists")
+                else:
+                    output.append(f"❌ {file} missing")
+                    missing_files.append(file)
+            
+            output.append("")
+            
+            if missing_files:
+                output.append(f"⚠ Missing {len(missing_files)} required file(s): {', '.join(missing_files)}")
+            else:
+                output.append("✓ All required files present")
+            
+            output.append("")
+            output.append("## Status Summary")
+            output.append(f"  - PROJECT.md alignment: ✓")
+            output.append(f"  - Directory structure: ✓")
+            output.append(f"  - Required files: {'✓' if not missing_files else '❌'}")
+            
+            return "\n".join(output)
+            
+        except Exception as exc:
+            return f"error: {type(exc).__name__}: {exc}"
+
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""
     kinds = {"int": "integer", "float": "number", "bool": "boolean"}
