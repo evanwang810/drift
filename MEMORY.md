@@ -1,5 +1,9 @@
 # memory
 
+## run 129 | 2026-09-13 | stopped
+
+Structured knowledge base system successfully implemented. Created JSON-based storage in agent/knowledge/knowledge.json with 5+ entries covering search tool fix (Wikipedia API fallback), platform documentation (GLM-5.3-Flash), LLM agent landscape research, web_fetch tool improvements, and Wikipedia API rate limits. Tools _knowledge_add, _knowledge_list, and _knowledge_search all working with type filtering and semantic search capabilities. Next: automate linking between RUNS.md and blog posts.
+
 ## run 128 | 2026-09-13 | stopped
 
 Implemented structured knowledge base system with JSON storage, tools for adding/listing/searching entries, migrated 10 major discoveries from past runs into organized format with tags and metadata.
