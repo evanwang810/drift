@@ -532,6 +532,154 @@ class Executor:
             return "Error: gh command timed out"
         except Exception as exc:
             return f"Error: {type(exc).__name__}: {exc}"
+    
+    def _knowledge_add(self, title: str, description: str, type: str = "general",
+                       tags: str = "", source: str = "", implementation: str = "",
+                       verification: str = "", impact: str = "") -> str:
+        """Add an entry to the knowledge base.
+        
+        Args:
+            title: Title of the knowledge entry
+            description: Brief description of what this is about
+            type: Type of entry (e.g., tool_fix, platform, research, discovery)
+            tags: Comma-separated tags for categorization
+            source: Source/run where this was discovered
+            implementation: How it was implemented or discovered
+            verification: How it was verified
+            impact: What impact this has
+        """
+        import json
+        from pathlib import Path
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        # Load existing knowledge
+        if knowledge_path.exists():
+            try:
+                with open(knowledge_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, IOError):
+                data = {"version": "1.0", "created": "", "entries": []}
+        else:
+            data = {"version": "1.0", "created": "", "entries": []}
+        
+        # Create new entry
+        entry = {
+            "id": f"k-{len(data['entries']) + 1:03d}",
+            "type": type,
+            "title": title,
+            "description": description,
+            "source": source,
+            "tags": tags.split(",") if tags else [],
+            "implementation": implementation,
+            "verification": verification,
+            "impact": impact
+        }
+        
+        # Add to entries
+        data["entries"].append(entry)
+        
+        # Write back
+        with open(knowledge_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        
+        self.actions.append(f"knowledge_add {title}")
+        return f"Added knowledge entry: {title}"
+    
+    def _knowledge_list(self, type_filter: str = "") -> str:
+        """List all knowledge entries, optionally filtered by type.
+        
+        Args:
+            type_filter: Filter by type (e.g., tool_fix, platform, research)
+        """
+        import json
+        from pathlib import Path
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            return "No knowledge base found"
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        if type_filter:
+            entries = [e for e in entries if e.get("type") == type_filter]
+        
+        if not entries:
+            return f"No entries found for type: {type_filter}"
+        
+        result = f"Knowledge entries ({len(entries)} total):\n\n"
+        for entry in entries:
+            result += f"- [{entry.get('type', 'general')}] {entry.get('title', 'Untitled')}\n"
+            result += f"  ID: {entry.get('id', 'N/A')}\n"
+            result += f"  Tags: {', '.join(entry.get('tags', []))}\n"
+            if entry.get('source'):
+                result += f"  Source: {entry.get('source')}\n"
+            result += "\n"
+        
+        return result
+    
+    def _knowledge_search(self, query: str, type_filter: str = "") -> str:
+        """Search knowledge base by title, description, tags, or implementation.
+        
+        Args:
+            query: Search terms
+            type_filter: Optional filter by type
+        """
+        import json
+        from pathlib import Path
+        from engine import guard
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            return "No knowledge base found"
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        if type_filter:
+            entries = [e for e in entries if e.get("type") == type_filter]
+        
+        query_lower = query.lower()
+        matches = []
+        
+        for entry in entries:
+            fields = [
+                entry.get("title", ""),
+                entry.get("description", ""),
+                entry.get("source", ""),
+                entry.get("implementation", ""),
+                entry.get("verification", ""),
+                entry.get("impact", ""),
+                " ".join(entry.get("tags", []))
+            ]
+            
+            text = " ".join(fields).lower()
+            if query_lower in text:
+                matches.append(entry)
+        
+        if not matches:
+            return f"No matches found for: {query}"
+        
+        result = f"Found {len(matches)} matches for '{query}':\n\n"
+        for entry in matches:
+            result += f"- {entry.get('title', 'Untitled')}\n"
+            result += f"  ID: {entry.get('id', 'N/A')}\n"
+            result += f"  Type: {entry.get('type', 'general')}\n"
+            result += f"  Tags: {', '.join(entry.get('tags', []))}\n"
+            if entry.get('source'):
+                result += f"  Source: {entry.get('source')}\n"
+            if entry.get('description'):
+                result += f"  {entry.get('description')[:100]}...\n"
+            result += "\n"
+        
+        return result
 
 def schema() -> list[dict[str, Any]]:
     """Every tool, described from its own signature and docstring."""

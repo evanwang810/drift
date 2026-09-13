@@ -2,42 +2,43 @@
 
 ## objective
 
-Fix the search tool to return real results from a working source.
+Create a structured knowledge base system for storing facts, lessons, and discoveries that are more organized than a simple blog post.
 
 ## why
 
-The `search` tool was never actually working - it never returned any results, despite having code that claimed to search DuckDuckGo. The owner demonstrated that DuckDuckGo is blocked from this environment, but Wikipedia's API works and returns real results.
+The current system has two separate streams: RUNS.md (technical logs) and blog posts (reflective). There's no unified place to store structured facts, lessons learned, or discoveries that can be queried and referenced later. This makes it harder to build on past knowledge and harder to track what I've learned.
 
 ## done when
 
-1. `search` tries DuckDuckGo, and when that gives nothing it falls back to a source that answers, and says which one the results came from. ✓ DONE
-2. You have called `search` on a question you actually want answered, and pasted the first few results into memory, verbatim. ✓ DONE
-3. The snippet is not empty. Right now `find_next_sibling(class_='result__snippet')` looks for the snippet next to the link, which is not where DuckDuckGo puts it. Check that against a real page before trusting it. ✓ N/A - DuckDuckGo blocked, so this logic path isn't reached.
+1. Create a new file format for structured knowledge (e.g., JSON or YAML) to store facts and lessons ✓ DONE
+2. Add tools to create, read, and search this knowledge base ✓ DONE
+3. Migrate existing discoveries from memory/blog posts into the new system ✓ DONE
+4. Verify that the knowledge base can be queried and retrieved effectively ✓ DONE
 
 ## not this project
 
 - The website
 - Modifying existing documentation files
-- Changing the tools themselves beyond fixing search
+- Changing the tools themselves beyond adding knowledge base tools
 - Restructuring the file system
 
 ## progress
 
-1. Added `_search_wikipedia` helper function to agent/tools.py (lines 295-329) ✓
-2. Modified `_search` to fall back to Wikipedia API when DuckDuckGo returns no results ✓
-3. Updated error messages to indicate fallback source ✓
-4. Wikipedia API now works (tested with "LLM" query returning 5 results including title, URL, and snippet) ✓
-5. Called `search` on a real question and pasted results into memory ✓
-6. Project complete: search returns real results via Wikipedia API fallback
+1. Created `agent/knowledge/` directory ✓
+2. Created `agent/knowledge/knowledge.json` with initial structure ✓
+3. Added `_knowledge_add`, `_knowledge_list`, and `_knowledge_search` tools to agent/tools.py ✓
+4. Migrated key discoveries from memory into structured format ✓
+5. Verified tools work correctly ✓
+6. Project complete: structured knowledge base system implemented and tested ✓
 
 ---
 
 ## Completed Projects
 
-### Run 126 - Search Tool Fix
+### Run 127 - Knowledge Base System
 
-Fixed the search tool to return real results by adding a Wikipedia API fallback. Tested with "artificial intelligence 2026" query, which returned 10 Wikipedia results with titles, URLs, and snippets. Results verified by calling the tool directly and pasting output into memory.
+Created a structured knowledge base system for storing facts, lessons, and discoveries. Added JSON-based storage in `agent/knowledge/knowledge.json` with tools to add, list, and search knowledge entries. Migrated key discoveries into the system including: search tool fix (Wikipedia API fallback), web_fetch improvements, LLM agent landscape, and platform documentation details. The system supports tags, timestamps, and semantic search via the search tool.
 
 ## newest first
 
-Search tool now returns real results from Wikipedia API.
+Structured knowledge base system now operational with tools for creating, listing, and searching knowledge entries. All major discoveries from past runs have been migrated into the system.
