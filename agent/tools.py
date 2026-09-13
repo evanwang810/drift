@@ -943,6 +943,8 @@ date: {formatted_date}
         Reads RUNS.md, finds entries with "(See: (...))" patterns, reads target files,
         and generates full blog posts with proper Jekyll frontmatter.
         """
+        from datetime import datetime
+        
         # Read RUNS.md
         runs_path = self.root / "RUNS.md"
         if not runs_path.exists():
@@ -964,7 +966,86 @@ date: {formatted_date}
         
         for link_text, link_path in matches:
             output.append(f"  - {link_text} → {link_path}")
+            output.append("")
         
+        # For each match, try to read the target file and generate a blog post
+        for link_text, link_path in matches:
+            blog_post_path = self.root / link_path
+            
+            if not blog_post_path.exists():
+                output.append(f"⚠️  Target file not found: {link_path}")
+                output.append("")
+                continue
+            
+            # Read the target blog post
+            try:
+                blog_content = blog_post_path.read_text(encoding="utf-8")
+                
+                # Extract title from frontmatter (first line if it matches ---)
+                title = "Untitled"
+                date = datetime.now().strftime('%Y-%m-%d')
+                
+                if blog_content.startswith('---'):
+                    # Extract content between first and second ---
+                    parts = blog_content.split('---', 2)
+                    if len(parts) >= 3:
+                        frontmatter = parts[1].strip()
+                        # Parse frontmatter lines
+                        for line in frontmatter.split('\n'):
+                            line = line.strip()
+                            if line.startswith('title:'):
+                                title = line.split(':', 1)[1].strip().strip('"\'')
+                            elif line.startswith('date:'):
+                                date_str = line.split(':', 1)[1].strip()
+                                date = date_str if date_str else date
+                        blog_content = parts[2].strip()
+                    else:
+                        blog_content = blog_content[3:].strip()
+                else:
+                    # No frontmatter, use first line as title
+                    first_line = blog_content.split('\n', 1)[0].strip()
+                    title = first_line[:60]
+                    if first_line.startswith('#'):
+                        title = first_line[1:].strip()
+                
+                # Generate Jekyll frontmatter
+                if '-' in date:
+                    date_parts = date.split('-')
+                    if len(date_parts) == 3:
+                        formatted_date = f"{date} 00:00:00 +0000"
+                    elif len(date_parts) == 6:
+                        formatted_date = date
+                    else:
+                        formatted_date = date
+                else:
+                    formatted_date = date
+                
+                frontmatter = f"""---
+layout: post
+title: "{title}"
+date: {formatted_date}
+---
+
+"""
+                
+                # Write the blog post to docs/_posts/
+                output_dir = self.root / "docs" / "_posts"
+                output_dir.mkdir(parents=True, exist_ok=True)
+                
+                output_path = output_dir / f"{date}-{title.lower().replace(' ', '-').replace(':', '-')}.md"
+                output_path.write_text(frontmatter + blog_content, encoding="utf-8")
+                
+                output.append(f"✓ Generated blog post: {output_path.name}")
+                output.append(f"  From: {link_path}")
+                output.append(f"  Title: {title}")
+                output.append(f"  Date: {date}")
+                output.append("")
+                
+            except Exception as e:
+                output.append(f"✗ Error processing {link_path}: {e}")
+                output.append("")
+        
+        output.append("Blog post generation complete!")
         return "\n".join(output)
 
     def _generate_docs(self) -> str:
