@@ -28,15 +28,27 @@ MINUTES = int(os.environ.get("MINUTES", "55"))
 
 
 def state() -> tuple[int, str, str]:
-    """Run number, first-run date and last outcome, read out of MEMORY.md."""
-    text = (ROOT / "MEMORY.md").read_text(encoding="utf-8") if (ROOT / "MEMORY.md").is_file() else ""
-    runs = re.findall(r"^## run (\d+) \| ([\d-]+) \| (\w+)", text, re.M)
-    if not runs:
+    """Run number, first-run date and last outcome.
+
+    Counted from RUNS.md, which the engine appends one row to per run, rather
+    than read off MEMORY.md, which the agent edits. Reading the first heading of
+    MEMORY.md was how a stray "## run 139" at the top of that file made every
+    run from 140 to 173 believe it was run 140, and since memory keeps one entry
+    per run number, each of those runs overwrote the last one's memory.
+    """
+    def text(name: str) -> str:
+        path = ROOT / name
+        return path.read_text(encoding="utf-8") if path.is_file() else ""
+
+    rows = re.findall(r"^\| (\d+) \| ([\d-]+)[^|]*\| (\w+) \|", text("RUNS.md"), re.M)
+    heads = re.findall(r"^## run (\d+) \| ([\d-]+) \| (\w+)", text("MEMORY.md"), re.M)
+    if not rows and not heads:
         return 1, "", ""
-    # Newest first in the file, because remember() prepends. Reading the run
-    # number off the bottom made every run think it was run 2, so it kept
-    # waking up believing it had only just started.
-    return int(runs[0][0]) + 1, runs[-1][1], runs[0][2]
+    # The row count is right even when the numbers written in the rows are not.
+    newest = max([len(rows)] + [int(r[0]) for r in rows] + [int(h[0]) for h in heads])
+    started = min(d for _, d, _ in rows + heads)
+    last = rows[-1][2] if rows else heads[0][2]
+    return newest + 1, started, last
 
 
 def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
@@ -57,7 +69,9 @@ def remember(run: int, outcome: str, paragraph: str, now: datetime) -> None:
     path = ROOT / "MEMORY.md"
     old = path.read_text(encoding="utf-8") if path.is_file() else "# memory\n"
     entry = f"## run {run} | {now:%Y-%m-%d} | {outcome}\n\n{paragraph.strip()}\n\n"
-    head, sep, rest = old.partition("\n## run ")
+    # Leading newline so a file that opens straight on "## run" still splits.
+    head, sep, rest = ("\n" + old).partition("\n## run ")
+    head = head.strip() or "# memory"
     path.write_text(head.rstrip() + "\n\n" + entry + (sep + rest).lstrip("\n"),
                     encoding="utf-8")
 

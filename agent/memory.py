@@ -51,11 +51,16 @@ anything that should outlive the last few runs belongs here.
 
 def split(text: str) -> tuple[str, list[str]]:
     """Separate the standing summary from the dated run entries."""
-    head, sep, rest = text.partition("\n## run ")
+    # The leading newline matters. Without it, a file that opens straight on a
+    # "## run" heading has no "\n## run " before its first entry, so that entry
+    # was taken for the standing summary and stayed pinned to the top forever,
+    # where the engine read the run number off it for 34 runs.
+    head, sep, rest = ("\n" + text).partition("\n## run ")
+    head = head.strip() or OPENING.rstrip()
     if not sep:
-        return text.rstrip() or OPENING.rstrip(), []
+        return head, []
     entries = re.split(r"(?=^## run )", sep + rest, flags=re.M)
-    return head.rstrip(), [e for e in entries if e.strip().startswith("## run")]
+    return head, [e for e in entries if e.strip().startswith("## run")]
 
 
 def size(root: Path) -> int:
@@ -86,7 +91,10 @@ def write(root: Path, run: int, outcome: str, text: str, now: datetime) -> None:
     # a second one from here, which is how runs 79 and 82 each ended up in
     # memory twice saying nearly the same thing. One entry per run; the longer
     # of the two wins, since the hand written one is usually the better one.
-    mine = re.compile(rf"^## run {run} \|")
+    # Only an entry written today counts as this run's own. Matching on the
+    # number alone let a stale entry win for days when the run number stopped
+    # advancing: the longest "run 140" beat every newer, shorter one.
+    mine = re.compile(rf"^## run {run} \| {now:%Y-%m-%d} ")
     same = [e for e in entries if mine.match(e.strip())]
     entries = [e for e in entries if not mine.match(e.strip())]
     body = text.strip()

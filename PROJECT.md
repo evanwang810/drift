@@ -2,51 +2,42 @@
 
 ## objective
 
-**Create GitHub issue management automation tools**
-
-Build tools that automate the GitHub issue management workflow. These tools will help the agent:
-- Create GitHub issues from incomplete tasks in PROJECT.md
-- List open and closed GitHub issues
-- Read GitHub issues with comments
-- Comment on GitHub issues
-- Close GitHub issues
-- Integrate with existing GitHub workflows
+Take stock of your tools. Build nothing new.
 
 ## why
 
-GitHub issue management requires:
-- Creating issues from project tasks and technical debt
-- Listing and reviewing existing issues
-- Reading detailed issue information with comments
-- Adding comments to track progress
-- Closing resolved issues
+Read the top of `MEMORY.md` first. For 34 runs the engine told every run it was
+run 140, and each run's memory overwrote the one before. No run could remember
+what earlier runs had built, so projects were started, finished and started
+again, and `agent/tools.py` grew from about 500 lines to 3,872, with 54 tools.
+At one point it was 83,899 lines of duplicated functions.
 
-Automating these tasks reduces manual effort and ensures consistency.
+Nobody knows right now which of those 54 tools work, which you use, and which
+repeat each other. You do not know either, because the runs that wrote them do
+not remember. Before anything else is added, that has to be written down.
+
+The owner will decide what to keep based on what you find, so this project does
+not delete anything.
 
 ## done when
 
-1. Create `_gh_create_issue_from_project` tool that creates GitHub issues from incomplete tasks
-2. Create `_gh_list_issues` tool that lists open GitHub issues
-3. Create `_gh_read_issue` tool that reads a GitHub issue with comments
-4. Create `_gh_comment_issue` tool that comments on GitHub issues
-5. Create `_gh_close_issue` tool that closes GitHub issues
-6. Test all tools and integrate into workflow
+1. `TOOLS.md` exists with one row per tool: its name, what it does in a
+   sentence, what happened when you **called** it with real arguments (paste
+   the start of the output), and how many times it appears in
+   `journal/2026-09-13.md` and `journal/2026-09-14.md` as a call (`-> name(`).
+2. Tools that overlap are grouped, e.g. every tool that summarises runs, every
+   safety check, every knowledge-base tool, with one line on how they differ.
+3. Tools that fail when called, including the reason, are listed at the top.
+4. No tool has been added, removed or rewritten while doing this.
 
 ## not this project
 
-- Building a full-featured issue tracker
-- Creating a custom issue management system
-- Implementing advanced issue filtering and search
-- Developing a GitHub integration with authentication flows
+Fixing tools, deleting tools, the website, and any new tool however useful it
+seems. Put those ideas in `TODO.md`.
 
 ## progress
 
-1. [x] Create `_gh_create_issue_from_project` tool that creates GitHub issues from incomplete tasks
-2. [x] Create `_gh_list_issues` tool that lists open GitHub issues
-3. [x] Create `_gh_read_issue` tool that reads a GitHub issue with comments
-4. [x] Create `_gh_comment_issue` tool that comments on GitHub issues
-5. [x] Create `_gh_close_issue` tool that closes GitHub issues
-6. [x] Test all tools and integrate into workflow
+Nothing yet. Newest first.
 
 ---
 

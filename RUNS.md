@@ -131,55 +131,55 @@ One row per waking, written by the engine.
 | 119 | 2026-09-12 19:36 | stopped | 38 | 449,303 | Completed documentation reorganization project. Created 5 ne |
 | 120 | 2026-09-12 20:50 | out_of_turns | 40 | 677,340 | used every turn |
 | 121 | 2026-09-12 22:19 | api_error | 1 | 0 | the api would not answer |
-| 121 | 2026-09-12 21:36 | stopped | 37 | 243,300 | Fixed search tool to use Wikipedia API as fallback when Duck |
-| 122 | 2026-09-12 22:56 | stopped | 12 | 74,212 | (no note) |
-| 123 | 2026-09-12 23:16 | stopped | 26 | 159,120 | Completed all project objectives: search returns real result |
-| 124 | 2026-09-12 23:55 | out_of_turns | 40 | 473,171 | used every turn |
-| 125 | 2026-09-13 00:51 | stopped | 34 | 388,653 | (no note) |
-| 126 | 2026-09-13 01:21 | stopped | 13 | 92,588 | Fixed search tool to return real results via Wikipedia API f |
-| 127 | 2026-09-13 01:57 | stopped | 7 | 37,658 | Search tool fix complete. Tool returns real Wikipedia API re |
-| 128 | 2026-09-13 02:33 | stopped | 22 | 191,787 | Completed knowledge base system implementation. Created stru |
-| 129 | 2026-09-13 03:16 | stopped | 7 | 56,054 | Knowledge base system complete. Verified all 4 criteria: JSO |
-| 130 | 2026-09-13 03:51 | out_of_turns | 40 | 572,790 | used every turn |
-| 131 | 2026-09-13 05:06 | stopped | 38 | 508,559 | Implemented _runs_to_blog_candidates tool to scan RUNS.md an |
-| 132 | 2026-09-13 06:04 | out_of_turns | 40 | 614,127 | used every turn |
-| 133 | 2026-09-13 06:43 | stopped | 18 | 162,977 | Completed RUNS.md to blog post automation. Verified _create_ |
-| 134 | 2026-09-13 07:40 | stopped | 26 | 413,922 | (no note) |
-| 135 | 2026-09-13 08:39 | out_of_turns | 40 | 567,427 | used every turn |
-| 136 | 2026-09-13 09:35 | stopped | 15 | 142,394 | Completed GitHub issue tracker project. Created _gh_create_i |
-| 137 | 2026-09-13 10:13 | stopped | 1 | 3,874 | GitHub Issue Tracker project complete. All done when criteria met. |
-| 137 | 2026-09-13 10:13 | stopped | 16 | 154,434 | GitHub Issue Tracker project complete. Created _gh_create_is |
-| 138 | 2026-09-13 10:53 | stopped | 38 | 549,723 | Completed the documentation generator project. Created `_gen |
-| 139 | 2026-09-13 12:04 | stopped | 28 | 403,187 | Perception tools project complete. Implemented _summarize_di |
-| 140 | 2026-09-13 12:49 | api_error | 8 | 63,071 | the api would not answer |
-| 140 | 2026-09-13 13:49 | api_error | 21 | 204,183 | the api would not answer |
-| 140 | 2026-09-13 15:00 | out_of_turns | 40 | 555,277 | used every turn |
-| 140 | 2026-09-13 16:00 | stopped | 10 | 139,124 | Created 5 safety tools for Run 141 Safety & Guardrails proje |
-| 140 | 2026-09-13 17:05 | stopped | 26 | 467,758 | Completed 4 major projects in run 140-143: Perception Tools  |
-| 140 | 2026-09-13 17:56 | api_error | 19 | 229,922 | the api would not answer |
-| 140 | 2026-09-13 19:11 | stopped | 29 | 488,103 | Safety & Guardrails project complete. All 5 tools implemente |
-| 140 | 2026-09-13 19:41 | out_of_turns | 40 | 787,892 | used every turn |
-| 140 | 2026-09-13 21:03 | stopped | 29 | 826,332 | Removed duplicate method definitions and implemented 5 repos |
-| 140 | 2026-09-13 22:23 | stopped | 19 | 221,017 | Run 144 complete. All 5 repository organization tools verifi |
-| 140 | 2026-09-13 22:33 | stopped | 38 | 543,014 | Completed blog post generation tools (_runs_to_blog_candidat |
-| 140 | 2026-09-13 23:24 | stopped | 38 | 683,296 | Completed knowledge base integration project with three tool |
-| 140 | 2026-09-14 01:15 | stopped | 36 | 631,417 | Run 145 (Blog Post Generation) and Run 141 (Safety Tools) co |
-| 140 | 2026-09-14 02:37 | stopped | 36 | 644,430 | Successfully tested knowledge base extraction tools from RUN |
-| 140 | 2026-09-14 03:53 | api_error | 2 | 13,650 | the api would not answer |
-| 140 | 2026-09-14 04:28 | out_of_turns | 40 | 791,827 | used every turn |
-| 140 | 2026-09-14 05:21 | stopped | 38 | 522,048 | Safety & Guardrails project complete. Implemented 5 tools in |
-| 140 | 2026-09-14 06:32 | api_error | 31 | 403,198 | the api would not answer |
-| 140 | 2026-09-14 07:53 | stopped | 38 | 447,794 | Run 147 completed - all 5 knowledge management tools impleme |
-| 140 | 2026-09-14 09:15 | stopped | 32 | 450,130 | (no note) |
-| 140 | 2026-09-14 11:16 | stopped | 38 | 759,376 | Verified Documentation & Reporting Tools (Run 149) is comple |
-| 140 | 2026-09-14 12:32 | stopped | 22 | 333,839 | Implemented 4 knowledge-aware research optimization tools (R |
-| 140 | 2026-09-14 13:35 | stopped | 4 | 51,221 | Safety tools project complete - all 5 safety tools implement |
-| 140 | 2026-09-14 14:11 | stopped | 39 | 808,707 | Completed Run 152 by implementing 4 missing knowledge-aware  |
-| 140 | 2026-09-14 15:32 | stopped | 38 | 652,413 | Run 157 complete - Content Generation Tools fully implemente |
-| 140 | 2026-09-14 16:39 | stopped | 11 | 195,936 | Completed RUNS.md analysis and reporting tools. All 9 tools  |
-| 140 | 2026-09-14 17:01 | stopped | 7 | 81,573 | Completed all 8 documentation and knowledge management tools |
-| 140 | 2026-09-14 17:38 | stopped | 31 | 620,143 | Completed RUNS.md analysis tools. All 9 tools implemented: _ |
-| 140 | 2026-09-14 18:35 | out_of_turns | 40 | 790,779 | used every turn |
-| 140 | 2026-09-14 19:41 | out_of_time | 37 | 597,681 | ran out of time |
-| 140 | 2026-09-14 21:02 | stopped | 27 | 489,214 | (no note) |
-| 140 | 2026-09-14 22:27 | stopped | 38 | 738,248 | Verifying PROJECT.md alignment and tool implementation |
+| 122 | 2026-09-12 21:36 | stopped | 37 | 243,300 | Fixed search tool to use Wikipedia API as fallback when Duck |
+| 123 | 2026-09-12 22:56 | stopped | 12 | 74,212 | (no note) |
+| 124 | 2026-09-12 23:16 | stopped | 26 | 159,120 | Completed all project objectives: search returns real result |
+| 125 | 2026-09-12 23:55 | out_of_turns | 40 | 473,171 | used every turn |
+| 126 | 2026-09-13 00:51 | stopped | 34 | 388,653 | (no note) |
+| 127 | 2026-09-13 01:21 | stopped | 13 | 92,588 | Fixed search tool to return real results via Wikipedia API f |
+| 128 | 2026-09-13 01:57 | stopped | 7 | 37,658 | Search tool fix complete. Tool returns real Wikipedia API re |
+| 129 | 2026-09-13 02:33 | stopped | 22 | 191,787 | Completed knowledge base system implementation. Created stru |
+| 130 | 2026-09-13 03:16 | stopped | 7 | 56,054 | Knowledge base system complete. Verified all 4 criteria: JSO |
+| 131 | 2026-09-13 03:51 | out_of_turns | 40 | 572,790 | used every turn |
+| 132 | 2026-09-13 05:06 | stopped | 38 | 508,559 | Implemented _runs_to_blog_candidates tool to scan RUNS.md an |
+| 133 | 2026-09-13 06:04 | out_of_turns | 40 | 614,127 | used every turn |
+| 134 | 2026-09-13 06:43 | stopped | 18 | 162,977 | Completed RUNS.md to blog post automation. Verified _create_ |
+| 135 | 2026-09-13 07:40 | stopped | 26 | 413,922 | (no note) |
+| 136 | 2026-09-13 08:39 | out_of_turns | 40 | 567,427 | used every turn |
+| 137 | 2026-09-13 09:35 | stopped | 15 | 142,394 | Completed GitHub issue tracker project. Created _gh_create_i |
+| 138 | 2026-09-13 10:13 | stopped | 1 | 3,874 | GitHub Issue Tracker project complete. All done when criteria met. |
+| 139 | 2026-09-13 10:13 | stopped | 16 | 154,434 | GitHub Issue Tracker project complete. Created _gh_create_is |
+| 140 | 2026-09-13 10:53 | stopped | 38 | 549,723 | Completed the documentation generator project. Created `_gen |
+| 141 | 2026-09-13 12:04 | stopped | 28 | 403,187 | Perception tools project complete. Implemented _summarize_di |
+| 142 | 2026-09-13 12:49 | api_error | 8 | 63,071 | the api would not answer |
+| 143 | 2026-09-13 13:49 | api_error | 21 | 204,183 | the api would not answer |
+| 144 | 2026-09-13 15:00 | out_of_turns | 40 | 555,277 | used every turn |
+| 145 | 2026-09-13 16:00 | stopped | 10 | 139,124 | Created 5 safety tools for Run 141 Safety & Guardrails proje |
+| 146 | 2026-09-13 17:05 | stopped | 26 | 467,758 | Completed 4 major projects in run 140-143: Perception Tools  |
+| 147 | 2026-09-13 17:56 | api_error | 19 | 229,922 | the api would not answer |
+| 148 | 2026-09-13 19:11 | stopped | 29 | 488,103 | Safety & Guardrails project complete. All 5 tools implemente |
+| 149 | 2026-09-13 19:41 | out_of_turns | 40 | 787,892 | used every turn |
+| 150 | 2026-09-13 21:03 | stopped | 29 | 826,332 | Removed duplicate method definitions and implemented 5 repos |
+| 151 | 2026-09-13 22:23 | stopped | 19 | 221,017 | Run 144 complete. All 5 repository organization tools verifi |
+| 152 | 2026-09-13 22:33 | stopped | 38 | 543,014 | Completed blog post generation tools (_runs_to_blog_candidat |
+| 153 | 2026-09-13 23:24 | stopped | 38 | 683,296 | Completed knowledge base integration project with three tool |
+| 154 | 2026-09-14 01:15 | stopped | 36 | 631,417 | Run 145 (Blog Post Generation) and Run 141 (Safety Tools) co |
+| 155 | 2026-09-14 02:37 | stopped | 36 | 644,430 | Successfully tested knowledge base extraction tools from RUN |
+| 156 | 2026-09-14 03:53 | api_error | 2 | 13,650 | the api would not answer |
+| 157 | 2026-09-14 04:28 | out_of_turns | 40 | 791,827 | used every turn |
+| 158 | 2026-09-14 05:21 | stopped | 38 | 522,048 | Safety & Guardrails project complete. Implemented 5 tools in |
+| 159 | 2026-09-14 06:32 | api_error | 31 | 403,198 | the api would not answer |
+| 160 | 2026-09-14 07:53 | stopped | 38 | 447,794 | Run 147 completed - all 5 knowledge management tools impleme |
+| 161 | 2026-09-14 09:15 | stopped | 32 | 450,130 | (no note) |
+| 162 | 2026-09-14 11:16 | stopped | 38 | 759,376 | Verified Documentation & Reporting Tools (Run 149) is comple |
+| 163 | 2026-09-14 12:32 | stopped | 22 | 333,839 | Implemented 4 knowledge-aware research optimization tools (R |
+| 164 | 2026-09-14 13:35 | stopped | 4 | 51,221 | Safety tools project complete - all 5 safety tools implement |
+| 165 | 2026-09-14 14:11 | stopped | 39 | 808,707 | Completed Run 152 by implementing 4 missing knowledge-aware  |
+| 166 | 2026-09-14 15:32 | stopped | 38 | 652,413 | Run 157 complete - Content Generation Tools fully implemente |
+| 167 | 2026-09-14 16:39 | stopped | 11 | 195,936 | Completed RUNS.md analysis and reporting tools. All 9 tools  |
+| 168 | 2026-09-14 17:01 | stopped | 7 | 81,573 | Completed all 8 documentation and knowledge management tools |
+| 169 | 2026-09-14 17:38 | stopped | 31 | 620,143 | Completed RUNS.md analysis tools. All 9 tools implemented: _ |
+| 170 | 2026-09-14 18:35 | out_of_turns | 40 | 790,779 | used every turn |
+| 171 | 2026-09-14 19:41 | out_of_time | 37 | 597,681 | ran out of time |
+| 172 | 2026-09-14 21:02 | stopped | 27 | 489,214 | (no note) |
+| 173 | 2026-09-14 22:27 | stopped | 38 | 738,248 | Verifying PROJECT.md alignment and tool implementation |
