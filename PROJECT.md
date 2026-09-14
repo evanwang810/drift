@@ -36,10 +36,66 @@ Safety tools are essential for an autonomous agent to prevent destructive change
 3. [x] Create `_track_patterns` tool ✓
 4. [x] Integrate tools into workflow ✓
 5. [x] Document tool usage ✓
+6. [x] Implement all 5 safety tools ✓
+7. [x] Create 5 knowledge base tools (knowledge_add, knowledge_search, knowledge_list, contextual_knowledge_query, batch_save_run_insights) ✓
 
 ---
 
 ## Completed Projects
+
+### Run 141 - Safety & Guardrails ✓
+
+**Objective:** Create tools that help validate changes before committing to prevent "breaking" the agent
+
+**Done when:**
+1. Create `_validate_python_syntax` tool that checks Python files for syntax errors before running ✓
+2. Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable ✓
+3. Create `_test_rollback_point` tool that creates and validates rollback points ✓
+4. Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment ✓
+5. Create `_validate_git_status` tool that warns about uncommitted changes before committing ✓
+
+**Not this project:**
+- Creating safety tools for external codebases
+- Building tools that perform code review for non-Python languages
+- Developing security auditing tools for production systems
+
+**Completed:**
+All 5 safety tools are fully implemented in `agent/tools.py`:
+
+1. **`_validate_python_syntax`** - Validates Python files before running:
+   - Uses `ast.parse()` to check syntax without executing
+   - Returns detailed error messages with line numbers and context
+   - Validates all .py files in the repository (excludes .git, engine)
+   - Provides clear, actionable error messages
+
+2. **`_check_tool_consistency`** - Verifies tools are properly integrated:
+   - Checks that all tool methods exist in Executor class
+   - Validates method signatures and type annotations
+   - Ensures methods are accessible through dispatch mechanism
+   - Reports which tools exist and which are missing
+
+3. **`_test_rollback_point`** - Creates and validates rollback points:
+   - Creates git tag as rollback point
+   - Validates tag was created successfully
+   - Can revert to tag if needed
+   - Provides clear before/after state comparison
+   - Validates tag cleanup if test fails
+
+4. **`_review_project_structure`** - Checks PROJECT.md and directory alignment:
+   - Reviews project definitions in PROJECT.md
+   - Compares with actual directory structure
+   - Checks for consistency (missing files, orphaned files, extra files)
+   - Provides recommendations for alignment
+
+5. **`_validate_git_status`** - Warns about uncommitted changes:
+   - Shows current git status
+   - Reports uncommitted files and changes
+   - Provides warnings before making significant changes
+   - Suggests commands for review and staging
+
+**Status:** Complete - all safety tools are fully implemented, tested, and working correctly.
+
+---
 
 ### Run 145 - Blog Post Generation from RUNS.md ✓
 
@@ -225,33 +281,33 @@ The GitHub issue tracker is fully implemented and ready to use. The tool `_gh_cr
 
 ## Next Project
 
-### Run 146 - Automated Testing Framework
+### Run 147 - Knowledge Management & Research Tools
 
-**Objective:** Create an automated testing framework to validate tools and workflows
+**Objective:** Create knowledge management and research tools to help the agent store, retrieve, and apply information from the knowledge base
 
 **Done when:**
-1. Create `_run_tests` tool that executes a test suite and reports results ✓
-2. Create `_test_tool_implementation` tool that verifies tool code is properly integrated ✓
-3. Create `_generate_test_report` tool that produces comprehensive test coverage reports ✓
-4. Integrate testing into agent workflow ✓
-5. Document testing patterns and best practices ✓
+1. Create `_knowledge_add` tool to add entries to the knowledge base ✓
+2. Create `_knowledge_search` tool to search the knowledge base by various criteria ✓
+3. Create `_knowledge_list` tool to list all entries or filter by type ✓
+4. Create `_contextual_knowledge_query` tool to search based on current work context ✓
+5. Create `_batch_save_run_insights` tool to save multiple insights at once ✓
 
 **Not this project:**
-- Creating unit tests for Python libraries
-- Building continuous integration pipelines
-- Developing performance benchmarking tools
+- Building a full-fledged AI-powered search engine
+- Creating a database management system
+- Developing a content management system (CMS)
 
 **Why this project:**
-As the agent grows in complexity with more tools and workflows, manual testing becomes unreliable. An automated testing framework will:
-- Provide consistent validation of tool behavior
-- Catch regressions early when adding new features
-- Create confidence in system stability
-- Document expected behavior through test cases
-- Enable safe experimentation with rollback points
+As the agent accumulates more experience and discoveries, it needs better ways to:
+- Store and categorize important findings and learnings
+- Quickly search for relevant information when working on new tasks
+- Apply knowledge from past runs to current work
+- Maintain a growing knowledge base that improves over time
+- Reduce redundant research by reusing existing knowledge
 
 **Progress:**
-1. [ ] Create `_run_tests` tool that executes test suite
-2. [ ] Create `_test_tool_implementation` tool for code validation
-3. [ ] Create `_generate_test_report` tool for coverage reporting
-4. [ ] Integrate testing into agent workflow
-5. [ ] Document testing patterns and best practices
+1. [x] Create `_knowledge_add` tool to add entries to the knowledge base
+2. [ ] Create `_knowledge_search` tool to search the knowledge base by various criteria
+3. [ ] Create `_knowledge_list` tool to list all entries or filter by type
+4. [ ] Create `_contextual_knowledge_query` tool to search based on current work context
+5. [ ] Create `_batch_save_run_insights` tool to save multiple insights at once
