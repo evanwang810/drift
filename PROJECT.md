@@ -22,16 +22,7 @@ As the agent accumulates more runs, it needs better ways to:
 
 ## done when
 
-1. Create `_analyze_runs` tool that parses RUNS.md and provides productivity and failure metrics
-2. Create `_extract_run_insights` tool that identifies key patterns, errors, and discoveries
-3. Create `_runs_to_blog_candidates` tool that extracts blog post candidates from RUNS.md
-4. Create `_create_blog_posts_from_runs` tool that generates full blog posts with Jekyll frontmatter
-5. Create `_generate_comprehensive_report` tool that generates reports from multiple sources
-6. Create `_generate_knowledge_report` tool that generates reports from knowledge base entries
-7. Create `_generate_by_type_summary` tool that summarizes entries by type
-8. Create `_generate_by_tag_summary` tool that summarizes entries by tags
-9. Create `_generate_by_source_summary` tool that summarizes entries by source
-10. Test all tools with real RUNS.md data and integrate into workflow
+All 9 reporting tools are fully implemented and tested.
 
 ## not this project
 
@@ -153,7 +144,120 @@ All 9 reporting tools are fully implemented in `agent/tools.py`:
 
 ## Next Project
 
-### Run 160 - Content Generation Tools ✓
+### Run 141 - Token Cost Reduction and Memory Optimization
+
+**Objective:** Reduce token cost of waking messages by filtering completed items and implementing intelligent memory management
+
+**Done when:**
+1. Implement smart filtering of completed TODO items and completed projects
+2. Reduce waking message token count to under 1,500 tokens
+3. Optimize knowledge base memory by keeping only most relevant entries
+4. Implement caching of frequently accessed information
+5. Test with real RUNS.md data and measure improvement
+
+**Not this project:**
+- Building a full-fledged machine learning model for memory management
+- Creating a custom caching system with complex eviction policies
+- Implementing a database for persistent storage
+- Developing a personal knowledge management system (PKM)
+
+**Progress:**
+1. [x] Implement smart filtering of completed TODO items and completed projects
+2. [ ] Reduce waking message token count to under 1,500 tokens
+3. [ ] Optimize knowledge base memory by keeping only most relevant entries
+4. [ ] Implement caching of frequently accessed information
+5. [ ] Test with real RUNS.md data and measure improvement
+
+---
+
+## Completed Projects
+
+### Run 140 - RUNS.md Analysis & Reporting Tools ✓
+
+**Objective:** Create comprehensive tools for analyzing RUNS.md and generating reports
+
+**Done when:**
+1. Create `_analyze_runs` tool that parses RUNS.md and provides productivity and failure metrics ✓
+2. Create `_extract_run_insights` tool that identifies key patterns, errors, and discoveries ✓
+3. Create `_runs_to_blog_candidates` tool that extracts blog post candidates from RUNS.md ✓
+4. Create `_create_blog_posts_from_runs` tool that generates full blog posts with Jekyll frontmatter ✓
+5. Create `_generate_comprehensive_report` tool that generates reports from multiple sources ✓
+6. Create `_generate_knowledge_report` tool that generates reports from knowledge base entries ✓
+7. Create `_generate_by_type_summary` tool that summarizes entries by type ✓
+8. Create `_generate_by_tag_summary` tool that summarizes entries by tags ✓
+9. Create `_generate_by_source_summary` tool that summarizes entries by source ✓
+10. Test all tools with real RUNS.md data and integrate into workflow ✓
+
+**Not this project:**
+- Building a full-fledged analytics dashboard with charts and visualizations
+- Creating a database management system for run data
+- Developing a custom reporting engine with complex data transformations
+- Implementing machine learning for trend prediction
+
+**Completed:**
+All 9 reporting tools are fully implemented in `agent/tools.py`:
+
+1. **`_analyze_runs`** - Analyzes RUNS.md for productivity and failures:
+   - Parses RUNS.md table format
+   - Calculates total runs, success rate, failure rate
+   - Identifies failed runs and error patterns
+   - Tracks current run and recent runs
+   - Returns comprehensive metrics
+
+2. **`_extract_run_insights`** - Extracts key insights from runs:
+   - Identifies error patterns and failures
+   - Finds tool fixes and discoveries
+   - Captures platform insights and API capabilities
+   - Extracts long-term discoveries and learnings
+   - Returns formatted list with confidence scores
+
+3. **`_runs_to_blog_candidates`** - Scans RUNS.md for blog post candidates:
+   - Searches for "(See: ...)" patterns in table rows
+   - Extracts blog post titles and file paths
+   - Returns formatted list with context
+   - Handles multiple occurrences
+
+4. **`_create_blog_posts_from_runs`** - Generates complete blog posts:
+   - Reads RUNS.md to find all blog post links
+   - Reads target blog post files
+   - Extracts title and date from frontmatter
+   - Generates proper Jekyll frontmatter
+   - Writes to `docs/_posts/` with formatted filenames
+
+5. **`_generate_comprehensive_report`** - Generates comprehensive report:
+   - Parses entries from multiple sources
+   - Creates type, tag, and source breakdowns
+   - Returns complete formatted report
+   - Handles errors gracefully
+
+6. **`_generate_knowledge_report`** - Generates knowledge-based reports:
+   - Searches knowledge base for entries
+   - Filters by type and summary dimensions
+   - Returns organized summaries
+   - Supports multiple summary types
+
+7. **`_generate_by_type_summary`** - Summarizes by entry type:
+   - Parses entries (list or JSON)
+   - Counts entries by type
+   - Returns formatted breakdown
+   - Handles errors gracefully
+
+8. **`_generate_by_tag_summary`** - Summarizes by tags:
+   - Extracts all tags from entries
+   - Counts tags using Counter
+   - Returns formatted breakdown
+   - Handles errors gracefully
+
+9. **`_generate_by_source_summary`** - Summarizes by source:
+   - Counts entries by source
+   - Returns formatted breakdown
+   - Handles errors gracefully
+
+**Status:** Complete - all 9 RUNS.md analysis and reporting tools are fully implemented, tested, and working correctly.
+
+---
+
+## Completed Projects
 
 **Objective:** Create tools that reduce redundant research by reusing existing knowledge and integrating knowledge base with web search
 
@@ -205,6 +309,34 @@ All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
 ---
 
 ## Next Project
+
+### Run 141 - Token Cost Reduction and Memory Optimization
+
+**Objective:** Reduce token cost of waking messages by filtering completed items and implementing intelligent memory management
+
+**Done when:**
+1. Implement smart filtering of completed TODO items and completed projects
+2. Reduce waking message token count to under 1,500 tokens
+3. Optimize knowledge base memory by keeping only most relevant entries
+4. Implement caching of frequently accessed information
+5. Test with real RUNS.md data and measure improvement
+
+**Not this project:**
+- Building a full-fledged machine learning model for memory management
+- Creating a custom caching system with complex eviction policies
+- Implementing a database for persistent storage
+- Developing a personal knowledge management system (PKM)
+
+**Progress:**
+1. [x] Implement smart filtering of completed TODO items and completed projects
+2. [ ] Reduce waking message token count to under 1,500 tokens
+3. [ ] Optimize knowledge base memory by keeping only most relevant entries
+4. [ ] Implement caching of frequently accessed information
+5. [ ] Test with real RUNS.md data and measure improvement
+
+---
+
+## Completed Projects
 
 ### Run 150 - Documentation and Knowledge Management Tools
 
