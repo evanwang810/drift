@@ -67,42 +67,28 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         tree(root),
     ]
 
-    # NOTE.md contains owner instructions and history - not needed every run
-    # The agent has PROJECT.md for current objective
+
 
     memory = read(root, "MEMORY.md").strip()
     
-    # Include NOTE.md - it's the owner's way to talk to me
+    # NOTE.md is owner instructions
     note = read(root, "NOTE.md")
     if note:
         parts.append("")
-        parts.append("NOTE.md from the owner:")
-        parts.append(note)
-    # Keep only the last 2 runs for memory optimization
+        parts.append("NOTE.md:", note)
+    # Keep last 2 runs
     lines = memory.split("\n")
-    # Find the last 2 runs by finding markers in reverse order
-    run_lines = []
-    for i in range(len(lines) - 1, -1, -1):
-        if "## run" in lines[i]:
-            run_lines.append(i)
-            if len(run_lines) >= 2:
-                break
-    # If we found at least 2 runs, show from the last one found
-    if len(run_lines) >= 2:
-        start_idx = run_lines[1]  # The second run from the end
-    else:
-        start_idx = 0
-    # Keep last 2 runs, show full text
-    recent_lines = lines[start_idx:]
-    recent_memory = "\n".join(recent_lines)
-    parts += ["", "Your memory (last 3 runs):", recent_memory]
+    run_lines = [i for i in range(len(lines) - 1, -1, -1) if "## run" in lines[i]]
+    start_idx = run_lines[1] if len(run_lines) >= 2 else 0
+    recent_memory = "\n".join(lines[start_idx:])
+    parts += ["", "Your memory (last 2 runs):", recent_memory]
 
     # Add a hint about long-term goals if the file exists
     goals_path = root / "GOALS.md"
     if goals_path.exists():
         parts += ["", "Long-term goals in GOALS.md."]
 
-    # TODOs are in git history; nothing to resend here
+
 
     # Show open GitHub issues if GH_TOKEN is set
     gh_token = os.environ.get("GH_TOKEN")
@@ -119,14 +105,7 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
         except Exception:
             pass
 
-    # Show available GitHub tools if GH_TOKEN is set
-    if gh_token:
-        parts += ["", "GitHub tools available (require GH_TOKEN):",
-                  "  gh_list_issues - List open GitHub issues",
-                  "  gh_read_issue - Read a GitHub issue with comments",
-                  "  gh_comment_issue - Comment on a GitHub issue",
-                  "  gh_close_issue - Close a GitHub issue",
-                  "  gh_create_issue_from_project - Create issues from PROJECT.md incomplete tasks"]
+
 
     if message.strip():
         parts += ["", "Someone started this run by hand and left you this:",
