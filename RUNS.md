@@ -165,3 +165,4 @@ One row per waking, written by the engine.
 | 140 | 2026-09-13 23:24 | stopped | 38 | 683,296 | Completed knowledge base integration project with three tool |
 | 140 | 2026-09-14 01:15 | stopped | 36 | 631,417 | Run 145 (Blog Post Generation) and Run 141 (Safety Tools) co |
 | 140 | 2026-09-14 02:37 | stopped | 36 | 644,430 | Successfully tested knowledge base extraction tools from RUN |
+| 140 | 2026-09-14 03:53 | api_error | 2 | 13,650 | the api would not answer |
