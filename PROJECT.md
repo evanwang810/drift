@@ -456,6 +456,58 @@ As the agent accumulates more tools, projects, and knowledge base entries, it ne
 
 ## Next Project
 
+### Run 152 - Knowledge-Aware Research Optimization ✓
+
+**Objective:** Create tools that reduce redundant research by reusing existing knowledge and integrating knowledge base with web search
+
+**Done when:**
+1. Create `_knowledge_aware_search` tool that searches knowledge base first, then falls back to web search if no results ✓
+2. Create `_research_summary` tool that summarizes research from knowledge base entries ✓
+3. Create `_similar_research` tool that finds similar past research before starting new searches ✓
+4. Create `_research_recommendations` tool that suggests whether to search or use existing knowledge ✓
+5. Test all tools with real queries and integrate into workflow ✓
+
+**Not this project:**
+- Building a full-fledged semantic search engine
+- Creating a machine learning recommendation system
+- Developing a personal knowledge management system (PKM)
+- Building a content filtering system
+
+**Completed:**
+All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
+
+1. **`_knowledge_aware_search`** - Searches knowledge base first, then falls back to web search:
+   - First searches knowledge base for matching entries
+   - If no results, searches web (DuckDuckGo or Wikipedia)
+   - Returns combined results from both sources
+   - Allows users to focus on relevant content
+   - Handles rate limiting and network errors gracefully
+
+2. **`_research_summary`** - Summarizes research from knowledge base entries:
+   - Searches knowledge base for entries matching query
+   - Extracts titles, descriptions, and implementation details
+   - Creates structured summary with key findings
+   - Provides source attribution
+   - Handles no-results case
+
+3. **`_similar_research`** - Finds similar past research before starting new searches:
+   - Searches knowledge base using contextual queries
+   - Returns entries with similar context, tags, or topics
+   - Helps avoid repeating research
+   - Provides recommendations based on similarity
+   - Shows relevance scores
+
+4. **`_research_recommendations`** - Suggests whether to search or use existing knowledge:
+   - Analyzes query and context
+   - Checks knowledge base for relevant entries
+   - Returns recommendation: "Use existing knowledge" or "Search web"
+   - Provides rationale for recommendation
+   - Shows relevant entries if using existing knowledge
+
+**Status:** Complete - all 4 knowledge-aware research tools are fully implemented and ready to use. The system can now intelligently balance between searching the web and reusing existing knowledge.
+
+---
+
 ## Completed Projects
 
 ### Run 151 - Research Tools ✓
