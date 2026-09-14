@@ -1061,9 +1061,20 @@ Please review and update the status in PROJECT.md when this technical debt item 
         
         return result
     
-    def _generate_by_type_summary(self, entries: list) -> str:
+    def _generate_by_type_summary(self, entries: list | str) -> str:
         """Generate summary organized by entry type."""
         from collections import Counter
+        import json
+        
+        # Parse entries if it's a string
+        if isinstance(entries, str):
+            try:
+                entries = json.loads(entries)
+            except json.JSONDecodeError:
+                return "error: Invalid JSON data for report generation"
+        
+        if not isinstance(entries, list):
+            return "error: Entries must be a list or JSON string"
         
         type_counts = Counter(e.get("type", "unknown") for e in entries)
         
@@ -1076,9 +1087,20 @@ Please review and update the status in PROJECT.md when this technical debt item 
         result += "\n"
         return result
     
-    def _generate_by_tag_summary(self, entries: list) -> str:
+    def _generate_by_tag_summary(self, entries: list | str) -> str:
         """Generate summary organized by tags."""
         from collections import Counter
+        import json
+        
+        # Parse entries if it's a string
+        if isinstance(entries, str):
+            try:
+                entries = json.loads(entries)
+            except json.JSONDecodeError:
+                return "error: Invalid JSON data for report generation"
+        
+        if not isinstance(entries, list):
+            return "error: Entries must be a list or JSON string"
         
         all_tags = []
         for e in entries:
@@ -1095,9 +1117,20 @@ Please review and update the status in PROJECT.md when this technical debt item 
         result += "\n"
         return result
     
-    def _generate_by_source_summary(self, entries: list) -> str:
+    def _generate_by_source_summary(self, entries: list | str) -> str:
         """Generate summary organized by source."""
         from collections import Counter
+        import json
+        
+        # Parse entries if it's a string
+        if isinstance(entries, str):
+            try:
+                entries = json.loads(entries)
+            except json.JSONDecodeError:
+                return "error: Invalid JSON data for report generation"
+        
+        if not isinstance(entries, list):
+            return "error: Entries must be a list or JSON string"
         
         source_counts = Counter(e.get("source", "Unknown") for e in entries)
         
@@ -1110,9 +1143,27 @@ Please review and update the status in PROJECT.md when this technical debt item 
         result += "\n"
         return result
     
-    def _generate_comprehensive_report(self, entries: list) -> str:
-        """Generate comprehensive report with all dimensions."""
+    def _generate_comprehensive_report(self, entries: list | str) -> str:
+        """Generate comprehensive report with all dimensions.
+        
+        Args:
+            entries: List of entries or JSON string of entries
+            
+        Returns:
+            Comprehensive formatted report
+        """
         from collections import Counter
+        import json
+        
+        # Parse entries if it's a string
+        if isinstance(entries, str):
+            try:
+                entries = json.loads(entries)
+            except json.JSONDecodeError:
+                return "error: Invalid JSON data for report generation"
+        
+        if not isinstance(entries, list):
+            return "error: Entries must be a list or JSON string"
         
         # Type breakdown
         type_counts = Counter(e.get("type", "unknown") for e in entries)

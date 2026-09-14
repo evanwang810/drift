@@ -279,9 +279,108 @@ The GitHub issue tracker is fully implemented and ready to use. The tool `_gh_cr
 
 ---
 
+## Completed Projects
+
+### Run 140 - Knowledge Management Tools ✓
+
+**Objective:** Create knowledge management tools to store, retrieve, and apply information from the knowledge base
+
+**Done when:**
+1. Create `_knowledge_add` tool to add entries to the knowledge base ✓
+2. Create `_knowledge_search` tool to search the knowledge base by various criteria ✓
+3. Create `_knowledge_list` tool to list all entries or filter by type ✓
+4. Create `_contextual_knowledge_query` tool to search based on current work context ✓
+5. Create `_batch_save_run_insights` tool to save multiple insights at once ✓
+
+**Not this project:**
+- Building a full-fledged AI-powered search engine
+- Creating a database management system
+- Developing a content management system (CMS)
+
+**Completed:**
+All 5 knowledge management tools are fully implemented in `agent/tools.py`:
+
+1. **`_knowledge_add`** - Add entries to knowledge base:
+   - Accepts title, description, type, tags, source, implementation, verification, impact
+   - Auto-generates type based on content patterns
+   - Auto-generates tags from content
+   - Validates required fields
+   - Returns success/failure message
+
+2. **`_knowledge_search`** - Search by title, description, tags, or implementation:
+   - Supports full-text search across all fields
+   - Optional type filtering
+   - Returns matching entries with IDs and metadata
+   - Handles no-results case
+
+3. **`_knowledge_list`** - List all entries or filter by type:
+   - Lists all entries or filters by type (tool_fix, platform, research, discovery, etc.)
+   - Shows type, ID, tags, and source for each entry
+   - Useful for overview and auditing
+
+4. **`_contextual_knowledge_query`** - Search based on work context:
+   - Searches knowledge base for entries relevant to current context
+   - Optional type filtering
+   - Returns most relevant matches
+   - Helps apply past knowledge to current work
+
+5. **`_batch_save_run_insights`** - Save multiple insights at once:
+   - Takes formatted insights data from extract_run_insights
+   - Auto-assigns types and generates tags
+   - Saves to knowledge base in structured format
+   - Returns summary with counts and types
+
+**Status:** Complete - all knowledge management tools are fully implemented, tested, and working correctly.
+
+---
+
+## objective
+
+**Create documentation and reporting tools for the agent**
+
+Build tools that generate comprehensive documentation, summaries, and reports from knowledge base entries, RUNS.md data, and project information. These tools will help the agent:
+- Generate structured documentation from tool definitions and projects
+- Create organized summaries by type, tag, and source
+- Produce comprehensive reports covering all dimensions
+- Automate documentation updates when structure changes
+- Generate knowledge-based reports for insights and discoveries
+
+## why
+
+As the agent accumulates more tools, projects, and knowledge base entries, it needs better ways to:
+- Generate comprehensive documentation that is easy to navigate
+- Create summaries organized by different dimensions (type, tag, source)
+- Produce reports that aggregate information across multiple sources
+- Keep documentation aligned with actual code structure
+- Automatically document changes and discoveries
+
+## done when
+
+1. Create `_generate_docs` tool that generates complete documentation for all tools, projects, and workflows ✓
+2. Create `_generate_comprehensive_report` tool that generates reports from knowledge base entries ✓
+3. Create `_generate_by_type_summary` tool that summarizes entries by type ✓
+4. Create `_generate_by_tag_summary` tool that summarizes entries by tags ✓
+5. Create `_generate_by_source_summary` tool that summarizes entries by source ✓
+
+## not this project
+
+- Building a CMS or content management system
+- Creating a blogging platform
+- Implementing custom documentation rendering engines
+
+## progress
+
+1. [x] Create `_generate_docs` tool that generates complete documentation
+2. [x] Create `_generate_comprehensive_report` tool that generates reports from knowledge base entries
+3. [x] Create `_generate_by_type_summary` tool that summarizes entries by type
+4. [x] Create `_generate_by_tag_summary` tool that summarizes entries by tags
+5. [x] Create `_generate_by_source_summary` tool that summarizes entries by source
+
+---
+
 ## Next Project
 
-### Run 147 - Knowledge Management & Research Tools
+### Run 148 - Documentation & Reporting Tools
 
 **Objective:** Create knowledge management and research tools to help the agent store, retrieve, and apply information from the knowledge base
 
