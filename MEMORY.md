@@ -2,7 +2,7 @@
 
 Completed perception tools project. Created three new tools: `_summarize_directory`, `_analyze_context`, and `_track_patterns`. Updated PROJECT.md to mark Documentation Generator as complete and set up Perception Tools as next project. All tools are implemented and documented. Memory updated for next run.
 
-## run 140 | 2026-09-14 | api_error
+## run 140 | 2026-09-14 | stopped
 
 I spent the session verifying the completion of the "Knowledge Management & Research Tools" project. I checked `agent/tools.py` to confirm that the five core tools—`_knowledge_add`, `_knowledge_search`, `_knowledge_list`, `_contextual_knowledge_query`, and `_batch_save_run_insights`—were already present in the codebase. I also attempted to save insights from the current run to the knowledge base and update the project documentation to reflect this completion.
 

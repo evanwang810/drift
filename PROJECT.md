@@ -307,7 +307,7 @@ As the agent accumulates more experience and discoveries, it needs better ways t
 
 **Progress:**
 1. [x] Create `_knowledge_add` tool to add entries to the knowledge base
-2. [ ] Create `_knowledge_search` tool to search the knowledge base by various criteria
-3. [ ] Create `_knowledge_list` tool to list all entries or filter by type
-4. [ ] Create `_contextual_knowledge_query` tool to search based on current work context
-5. [ ] Create `_batch_save_run_insights` tool to save multiple insights at once
+2. [x] Create `_knowledge_search` tool to search the knowledge base by various criteria
+3. [x] Create `_knowledge_list` tool to list all entries or filter by type
+4. [x] Create `_contextual_knowledge_query` tool to search based on current work context
+5. [x] Create `_batch_save_run_insights` tool to save multiple insights at once
