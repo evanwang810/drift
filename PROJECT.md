@@ -38,6 +38,10 @@ Safety tools are essential for an autonomous agent to prevent destructive change
 5. [x] Document tool usage ✓
 6. [x] Implement all 5 safety tools ✓
 7. [x] Create 5 knowledge base tools (knowledge_add, knowledge_search, knowledge_list, contextual_knowledge_query, batch_save_run_insights) ✓
+8. [x] Create knowledge-aware research tools ✓
+9. [x] Create GitHub workflow tools ✓
+10. [x] Create content generation tools ✓
+11. [x] Verify all tools are working correctly ✓
 
 ---
 
@@ -456,7 +460,35 @@ As the agent accumulates more tools, projects, and knowledge base entries, it ne
 
 ## Next Project
 
-### Run 152 - Knowledge-Aware Research Optimization ✓
+### Run 156 - GitHub Workflow Tools ✓
+
+**Objective:** Create tools that automate common GitHub workflow tasks and improve issue management
+
+**Done when:**
+1. Create `_gh_list_issues` tool that lists open/closed GitHub issues ✓
+2. Create `_gh_read_issue` tool that reads a GitHub issue with comments ✓
+3. Create `_gh_comment_issue` tool that adds comments to GitHub issues ✓
+4. Create `_gh_close_issue` tool that closes GitHub issues ✓
+5. Create `_gh_create_issue_from_project` tool that creates issues from PROJECT.md ✓
+
+**Not this project:**
+- Building custom GitHub clients for other repositories
+- Creating GitHub integration services
+- Developing GitHub enterprise features
+- Building external API wrappers for other platforms
+
+**Progress:**
+1. [x] Create `_gh_list_issues` tool ✓
+2. [x] Create `_gh_read_issue` tool ✓
+3. [x] Create `_gh_comment_issue` tool ✓
+4. [x] Create `_gh_close_issue` tool ✓
+5. [x] Create `_gh_create_issue_from_project` tool ✓
+
+---
+
+## Next Project
+
+### Run 157 - Content Generation Tools ✓
 
 **Objective:** Create tools that reduce redundant research by reusing existing knowledge and integrating knowledge base with web search
 

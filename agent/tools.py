@@ -2649,6 +2649,450 @@ date: {formatted_date}
         
         return "\n".join(output)
     
+    def _knowledge_aware_search(self, query: str, max_knowledge_results: int = 5,
+                                max_web_results: int = 10) -> str:
+        """Search knowledge base first, then fall back to web search.
+        
+        This tool intelligently balances between searching existing knowledge
+        and gathering new information from the web. It first searches the
+        knowledge base for relevant entries, and if no results are found,
+        it falls back to web search using DuckDuckGo and Wikipedia API.
+        
+        Args:
+            query: Search query
+            max_knowledge_results: Maximum number of knowledge base results to return
+            max_web_results: Maximum number of web search results to return
+            
+        Returns:
+            Combined results from knowledge base and web search
+        """
+        output = []
+        output.append(f"Knowledge-Aware Search: {query}")
+        output.append("=" * 60)
+        output.append("")
+        
+        # First, search knowledge base
+        output.append("Searching knowledge base...")
+        knowledge_results = self._knowledge_search(query)
+        
+        if knowledge_results and "error:" not in knowledge_results.lower():
+            output.append(f"Found {knowledge_results.count('**') // 2} relevant entries in knowledge base")
+            output.append("")
+            output.append(knowledge_results)
+            output.append("")
+        else:
+            output.append("No relevant entries found in knowledge base")
+            output.append("")
+        
+        # Check if we got useful results
+        has_knowledge = "error:" not in knowledge_results.lower() and "**" in knowledge_results
+        
+        # Fall back to web search if no knowledge results
+        if not has_knowledge:
+            output.append("No knowledge base results found. Searching web...")
+            output.append("")
+            
+            # Try DuckDuckGo first
+            web_results = self._search(query)
+            
+            if "error:" not in web_results.lower() and web_results.strip():
+                output.append(f"Found {max(web_results.count('['), web_results.count('- '))} web results:")
+                output.append("")
+                output.append(web_results)
+                output.append("")
+            else:
+                output.append("Web search returned no results or errors")
+                output.append("")
+            
+            # Try Wikipedia as fallback
+            wiki_results = self._search_wikipedia(query)
+            
+            if "error:" not in wiki_results.lower() and wiki_results.strip():
+                output.append(f"Found {max(wiki_results.count('['), wiki_results.count('- '))} Wikipedia results:")
+                output.append("")
+                output.append(wiki_results)
+                output.append("")
+            else:
+                output.append("Wikipedia search returned no results or errors")
+        
+        output.append("Search complete")
+        return "\n".join(output)
+    
+    def _research_summary(self, query: str, max_results: int = 10) -> str:
+        """Summarize research from knowledge base entries.
+        
+        This tool searches the knowledge base for entries matching a query,
+        then extracts and summarizes the key findings from those entries.
+        It provides structured summaries with source attribution.
+        
+        Args:
+            query: Research query to search for
+            max_results: Maximum number of entries to include in summary
+            
+        Returns:
+            Structured summary of research findings with source attribution
+        """
+        import json
+        from pathlib import Path
+        
+        output = []
+        output.append(f"Research Summary: {query}")
+        output.append("=" * 60)
+        output.append("")
+        
+        # Search knowledge base
+        search_results = self._knowledge_search(query)
+        
+        if "error:" in search_results.lower():
+            output.append("Error searching knowledge base")
+            output.append(search_results)
+            return "\n".join(output)
+        
+        # Parse knowledge base entries
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            output.append("No knowledge base found")
+            return "\n".join(output)
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        # Filter entries matching query
+        matching_entries = []
+        for entry in entries:
+            title = entry.get("title", "").lower()
+            description = entry.get("description", "").lower()
+            tags = [tag.lower() for tag in entry.get("tags", [])]
+            implementation = entry.get("implementation", "").lower()
+            
+            query_lower = query.lower()
+            
+            # Check if entry matches query in any field
+            if (query_lower in title or 
+                query_lower in description or 
+                any(query_lower in tag for tag in tags) or
+                query_lower in implementation):
+                matching_entries.append(entry)
+        
+        if not matching_entries:
+            output.append("No matching entries found in knowledge base")
+            return "\n".join(output)
+        
+        # Limit results
+        matching_entries = matching_entries[:max_results]
+        
+        # Create structured summary
+        output.append(f"Found {len(matching_entries)} matching entries")
+        output.append("")
+        
+        for i, entry in enumerate(matching_entries, 1):
+            output.append(f"--- Entry {i} ---")
+            output.append(f"Title: {entry.get('title', 'N/A')}")
+            output.append(f"Type: {entry.get('type', 'N/A')}")
+            output.append(f"Tags: {', '.join(entry.get('tags', []))}")
+            if entry.get('source'):
+                output.append(f"Source: {entry.get('source')}")
+            if entry.get('description'):
+                output.append(f"Description: {entry.get('description')}")
+            if entry.get('implementation'):
+                output.append(f"Implementation: {entry.get('implementation')}")
+            output.append("")
+        
+        # Summary statistics
+        types = {}
+        tags = {}
+        sources = {}
+        
+        for entry in matching_entries:
+            # Count types
+            entry_type = entry.get('type', 'unknown')
+            types[entry_type] = types.get(entry_type, 0) + 1
+            
+            # Count tags
+            for tag in entry.get('tags', []):
+                tags[tag] = tags.get(tag, 0) + 1
+            
+            # Count sources
+            if entry.get('source'):
+                sources[entry.get('source')] = sources.get(entry.get('source'), 0) + 1
+        
+        output.append("Summary Statistics:")
+        output.append("-" * 40)
+        
+        if types:
+            output.append(f"Types: {', '.join(f'{k}({v})' for k, v in sorted(types.items()))}")
+        
+        if tags:
+            output.append(f"Tags: {', '.join(f'{k}({v})' for k, v in sorted(tags.items()))}")
+        
+        if sources:
+            output.append(f"Sources: {', '.join(f'{k}({v})' for k, v in sorted(sources.items()))}")
+        
+        return "\n".join(output)
+    
+    def _similar_research(self, query: str, max_results: int = 10,
+                          similarity_threshold: float = 0.5) -> str:
+        """Find similar past research before starting new searches.
+        
+        This tool searches the knowledge base for entries that are similar
+        to the current query based on context, tags, and implementation details.
+        It helps avoid repeating research and provides recommendations for
+        which entries are most relevant.
+        
+        Args:
+            query: Current research query
+            max_results: Maximum number of similar entries to return
+            similarity_threshold: Minimum relevance score threshold (0-1)
+            
+        Returns:
+            List of similar research entries with relevance scores and recommendations
+        """
+        import json
+        from pathlib import Path
+        from collections import Counter
+        
+        output = []
+        output.append(f"Similar Research: {query}")
+        output.append("=" * 60)
+        output.append("")
+        
+        # Parse knowledge base
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            output.append("No knowledge base found")
+            return "\n".join(output)
+        
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        
+        if not entries:
+            output.append("Knowledge base is empty")
+            return "\n".join(output)
+        
+        # Calculate similarity scores
+        query_lower = query.lower()
+        scored_entries = []
+        
+        for entry in entries:
+            # Score based on title match
+            title = entry.get("title", "").lower()
+            title_score = query_lower in title
+            
+            # Score based on description match
+            description = entry.get("description", "").lower()
+            description_score = query_lower in description
+            
+            # Score based on tag match
+            tags = entry.get("tags", [])
+            tag_score = any(query_lower in tag for tag in tags)
+            
+            # Score based on implementation match
+            implementation = entry.get("implementation", "").lower()
+            implementation_score = query_lower in implementation
+            
+            # Calculate combined score
+            score = 0.0
+            if title_score: score += 1.0
+            if description_score: score += 0.7
+            if tag_score: score += 0.5
+            if implementation_score: score += 0.3
+            
+            if score >= similarity_threshold:
+                scored_entries.append((entry, score))
+        
+        if not scored_entries:
+            output.append(f"No entries found with similarity >= {similarity_threshold}")
+            return "\n".join(output)
+        
+        # Sort by score (descending)
+        scored_entries.sort(key=lambda x: x[1], reverse=True)
+        
+        # Limit results
+        scored_entries = scored_entries[:max_results]
+        
+        output.append(f"Found {len(scored_entries)} similar research entries")
+        output.append("")
+        
+        # Categorize by relevance
+        high_relevance = []
+        medium_relevance = []
+        low_relevance = []
+        
+        for entry, score in scored_entries:
+            if score >= 0.8:
+                high_relevance.append((entry, score))
+            elif score >= 0.6:
+                medium_relevance.append((entry, score))
+            else:
+                low_relevance.append((entry, score))
+        
+        # Display high relevance entries first
+        if high_relevance:
+            output.append("**HIGH RELEVANCE** (score >= 0.8)")
+            output.append("-" * 40)
+            for entry, score in high_relevance:
+                output.append(f"- {entry.get('title', 'Untitled')} (score: {score:.2f})")
+                if entry.get('source'):
+                    output.append(f"  Source: {entry.get('source')}")
+                output.append("")
+        
+        if medium_relevance:
+            output.append("**MEDIUM RELEVANCE** (score >= 0.6)")
+            output.append("-" * 40)
+            for entry, score in medium_relevance:
+                output.append(f"- {entry.get('title', 'Untitled')} (score: {score:.2f})")
+                if entry.get('source'):
+                    output.append(f"  Source: {entry.get('source')}")
+                output.append("")
+        
+        if low_relevance:
+            output.append("**LOW RELEVANCE** (score >= 0.5)")
+            output.append("-" * 40)
+            for entry, score in low_relevance:
+                output.append(f"- {entry.get('title', 'Untitled')} (score: {score:.2f})")
+                if entry.get('source'):
+                    output.append(f"  Source: {entry.get('source')}")
+                output.append("")
+        
+        # Provide recommendations
+        output.append("")
+        output.append("Recommendations:")
+        output.append("-" * 40)
+        
+        if high_relevance:
+            output.append("✓ Use these entries - they are highly relevant to your query")
+            output.append(f"  Check out: {high_relevance[0][0].get('title', 'Untitled')}")
+        elif medium_relevance:
+            output.append("✓ Consider these entries - they have moderate relevance")
+            output.append(f"  Check out: {medium_relevance[0][0].get('title', 'Untitled')}")
+        else:
+            output.append("✓ No highly relevant entries found")
+            output.append("  Consider searching the web for fresh information")
+        
+        return "\n".join(output)
+    
+    def _research_recommendations(self, query: str, context: str = "",
+                                   use_existing: bool = True) -> str:
+        """Suggest whether to search web or use existing knowledge.
+        
+        This tool analyzes a query and its context to determine whether
+        to search the web for new information or use existing knowledge
+        from the knowledge base. It provides rationale for the recommendation
+        and shows relevant entries if using existing knowledge.
+        
+        Args:
+            query: Research query
+            context: Current work context (optional)
+            use_existing: Whether to check knowledge base first
+            
+        Returns:
+            Recommendation with rationale and relevant entries
+        """
+        import json
+        from pathlib import Path
+        
+        output = []
+        output.append(f"Research Recommendation: {query}")
+        output.append("=" * 60)
+        output.append("")
+        
+        # Analyze query
+        query_lower = query.lower()
+        
+        # Check knowledge base if requested
+        if use_existing:
+            knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+            
+            if knowledge_path.exists():
+                with open(knowledge_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                entries = data.get("entries", [])
+                
+                # Check for relevant entries
+                relevant_entries = []
+                for entry in entries:
+                    title = entry.get("title", "").lower()
+                    description = entry.get("description", "").lower()
+                    tags = [tag.lower() for tag in entry.get("tags", [])]
+                    implementation = entry.get("implementation", "").lower()
+                    
+                    query_lower = query.lower()
+                    
+                    # Check if entry matches query
+                    if (query_lower in title or 
+                        query_lower in description or 
+                        any(query_lower in tag for tag in tags) or
+                        query_lower in implementation):
+                        relevant_entries.append(entry)
+                
+                # Determine recommendation
+                if relevant_entries:
+                    # Get most relevant entry
+                    most_relevant = max(relevant_entries, 
+                                       key=lambda e: (
+                                           query_lower in e.get("title", "").lower(),
+                                           query_lower in e.get("description", "").lower()
+                                       ))
+                    
+                    output.append("✓ **RECOMMENDATION: Use existing knowledge**")
+                    output.append("")
+                    output.append("Rationale:")
+                    output.append(f"- Found {len(relevant_entries)} relevant entry/entries in knowledge base")
+                    output.append(f"- Entry: {most_relevant.get('title', 'Untitled')}")
+                    output.append(f"- Type: {most_relevant.get('type', 'N/A')}")
+                    if context:
+                        output.append(f"- Context: {context}")
+                    output.append("")
+                    
+                    # Show top entry
+                    output.append("Top relevant entry:")
+                    output.append("-" * 40)
+                    output.append(f"Title: {most_relevant.get('title', 'N/A')}")
+                    output.append(f"Type: {most_relevant.get('type', 'N/A')}")
+                    output.append(f"Tags: {', '.join(most_relevant.get('tags', []))}")
+                    if most_relevant.get('source'):
+                        output.append(f"Source: {most_relevant.get('source')}")
+                    if most_relevant.get('description'):
+                        output.append(f"Description: {most_relevant.get('description')}")
+                    output.append("")
+                    
+                    # Show other relevant entries
+                    if len(relevant_entries) > 1:
+                        output.append(f"Other relevant entries ({len(relevant_entries) - 1}):")
+                        output.append("-" * 40)
+                        for entry in relevant_entries[1:min(3, len(relevant_entries))]:
+                            output.append(f"- {entry.get('title', 'Untitled')}")
+                        output.append("")
+                    
+                    return "\n".join(output)
+        
+        # No relevant knowledge found - recommend web search
+        output.append("✓ **RECOMMENDATION: Search the web**")
+        output.append("")
+        output.append("Rationale:")
+        output.append("- No relevant entries found in knowledge base")
+        output.append("- This appears to be new research territory")
+        if context:
+            output.append(f"- Context: {context}")
+        output.append("")
+        
+        # Suggest search strategy
+        output.append("Search Strategy:")
+        output.append("-" * 40)
+        output.append("1. Use general web search for broad information")
+        output.append("2. Check Wikipedia for overview and references")
+        output.append("3. Save interesting findings to knowledge base for future reference")
+        output.append("")
+        
+        return "\n".join(output)
+    
     def _monitor_repository_health(self) -> str:
         """Check repository integrity and health.
         
@@ -2666,8 +3110,6 @@ date: {formatted_date}
         output.append("Repository Health Monitor")
         output.append("=" * 40)
         output.append("")
-        
-        # Check git repository
         output.append("1. Git Repository")
         try:
             result = subprocess.run(
