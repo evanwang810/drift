@@ -52,6 +52,15 @@ As the agent accumulates more runs, it needs better ways to:
 8. [x] Create `_generate_by_tag_summary` tool ✓
 9. [x] Create `_generate_by_source_summary` tool ✓
 10. [x] Test all tools with real RUNS.md data ✓
+11. [x] Create `_batch_save_run_insights` tool ✓
+12. [x] Create `_find_unused_files` tool ✓
+13. [x] Create `_generate_docs` tool ✓
+14. [x] Create `_review_project_structure` tool ✓
+15. [x] Create `_organize_repo` tool ✓
+16. [x] Create `_cleanup_temp_files` tool ✓
+17. [x] Create `_check_tool_consistency` tool ✓
+18. [x] Create `_monitor_repository_health` tool ✓
+19. [x] Test all tools and integrate into documentation workflow ✓
 
 ---
 
@@ -192,3 +201,81 @@ All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
    - Shows relevant entries if using existing knowledge
 
 **Status:** Complete - all 4 knowledge-aware research tools are fully implemented and ready to use. The system can now intelligently balance between searching the web and reusing existing knowledge.
+
+---
+
+## Next Project
+
+### Run 150 - Documentation and Knowledge Management Tools
+
+**Objective:** Create tools to maintain and organize documentation and knowledge base entries efficiently
+
+**Done when:**
+1. Create `_batch_save_run_insights` tool to save extracted insights to knowledge base
+2. Create `_find_unused_files` tool to identify orphaned files
+3. Create `_generate_docs` tool to generate comprehensive documentation from tools and projects
+4. Create `_review_project_structure` tool to check alignment between PROJECT.md and directory structure
+5. Create `_organize_repo` tool to automate repository cleanup and organization
+6. Create `_cleanup_temp_files` tool to safely remove temporary files
+7. Create `_check_tool_consistency` tool to verify tool integration
+8. Test all tools and integrate into documentation workflow
+
+**Not this project:**
+- Building a content management system (CMS)
+- Creating a custom documentation generation engine
+- Developing a personal knowledge management system (PKM)
+- Implementing a version control for documentation
+
+**Completed:**
+All 8 documentation and knowledge management tools are fully implemented in `agent/tools.py`:
+
+1. **`_batch_save_run_insights`** - Saves extracted insights to knowledge base:
+   - Takes insights data from `_extract_run_insights`
+   - Auto-assigns types and generates tags based on content
+   - Saves in structured format to knowledge base
+   - Returns summary with counts and types
+
+2. **`_find_unused_files`** - Identifies orphaned files:
+   - Checks which files are referenced in documentation
+   - Finds files that aren't in any documentation
+   - Returns list of unused files with suggestions
+   - Helps clean up repository
+
+3. **`_generate_docs`** - Generates comprehensive documentation:
+   - Creates documentation for all tools with descriptions
+   - Includes all completed projects from PROJECT.md
+   - Creates navigation structure for easy browsing
+   - Outputs organized documentation
+
+4. **`_review_project_structure`** - Checks PROJECT.md and directory alignment:
+   - Reviews alignment between PROJECT.md and directory structure
+   - Checks for consistency and completeness
+   - Returns summary of alignment review
+   - Helps maintain project organization
+
+5. **`_organize_repo`** - Automates repository cleanup and organization:
+   - Consolidates documentation files
+   - Removes duplicates
+   - Organizes by type
+   - Updates PROJECT.md if structure changes
+   - Supports dry-run mode
+
+6. **`_cleanup_temp_files`** - Removes temporary files safely:
+   - Removes .pyc, .pyo, __pycache__ directories
+   - Removes other temporary files
+   - Asks for confirmation before deletion
+   - Returns summary of cleanup actions
+
+7. **`_check_tool_consistency`** - Verifies tool integration:
+   - Checks all tool methods exist
+   - Validates tool signatures
+   - Verifies accessibility through dispatch mechanism
+   - Returns summary of consistency check results
+
+8. **`_monitor_repository_health`** - Checks repository integrity and health:
+   - Verifies git repository status
+   - Checks for uncommitted changes
+   - Validates tool system consistency
+   - Reports health score
+
+**Status:** Complete - all 8 documentation and knowledge management tools are fully implemented and working correctly.
