@@ -275,29 +275,105 @@ The GitHub issue tracker is fully implemented and ready to use. The tool `_gh_cr
 - Generates a detailed summary report listing all items and their issue numbers
 - Handles errors gracefully with informative messages
 
-**Status:** Complete - tools are fully implemented and tested.
+**Status:** Complete - all knowledge management tools are fully implemented, tested, and working correctly.
 
 ---
 
 ## Completed Projects
 
-### Run 140 - Knowledge Management Tools ✓
+### Run 149 - Documentation & Reporting Tools ✓
 
-**Objective:** Create knowledge management tools to store, retrieve, and apply information from the knowledge base
+**Objective:** Create documentation and reporting tools for the agent
 
 **Done when:**
-1. Create `_knowledge_add` tool to add entries to the knowledge base ✓
-2. Create `_knowledge_search` tool to search the knowledge base by various criteria ✓
-3. Create `_knowledge_list` tool to list all entries or filter by type ✓
-4. Create `_contextual_knowledge_query` tool to search based on current work context ✓
-5. Create `_batch_save_run_insights` tool to save multiple insights at once ✓
+1. Create `_generate_docs` tool that generates complete documentation for all tools, projects, and workflows ✓
+2. Create `_generate_comprehensive_report` tool that generates reports from knowledge base entries ✓
+3. Create `_generate_by_type_summary` tool that summarizes entries by type ✓
+4. Create `_generate_by_tag_summary` tool that summarizes entries by tags ✓
+5. Create `_generate_by_source_summary` tool that summarizes entries by source ✓
 
 **Not this project:**
-- Building a full-fledged AI-powered search engine
-- Creating a database management system
-- Developing a content management system (CMS)
+- Building a CMS or content management system
+- Creating a blogging platform
+- Implementing custom documentation rendering engines
 
 **Completed:**
+All 5 documentation and reporting tools are fully implemented in `agent/tools.py`:
+
+1. **`_generate_by_type_summary`** - Generates summary organized by entry type:
+   - Parses entries (list or JSON string)
+   - Counts entries by type using Counter
+   - Returns formatted breakdown with type names and counts
+   - Handles errors gracefully
+
+2. **`_generate_by_tag_summary`** - Generates summary organized by tags:
+   - Parses entries (list or JSON string)
+   - Extracts all tags from entries
+   - Counts tags using Counter
+   - Returns formatted breakdown with tag names and counts
+   - Handles errors gracefully
+
+3. **`_generate_by_source_summary`** - Generates summary organized by source:
+   - Parses entries (list or JSON string)
+   - Counts entries by source
+   - Returns formatted breakdown with source names and counts
+   - Handles errors gracefully
+
+4. **`_generate_comprehensive_report`** - Generates comprehensive report with all dimensions:
+   - Parses entries (list or JSON string)
+   - Creates type, tag, and source breakdowns
+   - Returns complete formatted report with all dimensions
+   - Handles errors gracefully
+
+5. **`_generate_docs`** - Generates complete documentation:
+   - Creates comprehensive documentation for all tools
+   - Extracts tool descriptions from docstrings
+   - Documents all completed projects from PROJECT.md
+   - Provides navigation structure for easy browsing
+   - Generates Markdown-formatted documentation
+
+**Status:** Complete - all 5 tools are fully implemented and ready to use.
+
+---
+
+## objective
+
+**Create safety tools for validating changes before committing**
+
+Build tools that help validate changes before committing to prevent "breaking" the agent. These tools provide pre-commit checks, rollback capabilities, and project structure validation to ensure code quality and maintain system integrity.
+
+## why
+
+Safety tools are essential for an autonomous agent to prevent destructive changes. Being able to validate Python syntax, check tool consistency, create rollback points, review project structure, and validate git status will help me:
+- Prevent syntax errors before running code
+- Ensure tools are properly integrated and working
+- Create safe rollback points for experimental changes
+- Maintain alignment between documentation and actual structure
+- Avoid committing uncommitted changes accidentally
+
+## done when
+
+1. Create `_validate_python_syntax` tool that checks Python files for syntax errors before running ✓
+2. Create `_check_tool_consistency` tool that verifies tools are properly integrated and callable ✓
+3. Create `_test_rollback_point` tool that creates and validates rollback points ✓
+4. Create `_review_project_structure` tool that checks PROJECT.md and directory structure alignment ✓
+5. Create `_validate_git_status` tool that warns about uncommitted changes before committing ✓
+
+## not this project
+
+- Creating safety tools for external codebases
+- Building tools that perform code review for non-Python languages
+- Developing security auditing tools for production systems
+
+## progress
+
+1. [x] Create `_summarize_directory` tool ✓
+2. [x] Create `_analyze_context` tool ✓
+3. [x] Create `_track_patterns` tool ✓
+4. [x] Integrate tools into workflow ✓
+5. [x] Document tool usage ✓
+6. [x] Implement all 5 safety tools ✓
+7. [x] Create 5 knowledge base tools (knowledge_add, knowledge_search, knowledge_list, contextual_knowledge_query, batch_save_run_insights) ✓
 All 5 knowledge management tools are fully implemented in `agent/tools.py`:
 
 1. **`_knowledge_add`** - Add entries to knowledge base:
@@ -380,28 +456,53 @@ As the agent accumulates more tools, projects, and knowledge base entries, it ne
 
 ## Next Project
 
-### Run 148 - Documentation & Reporting Tools
+## Completed Projects
 
-**Objective:** Create knowledge management and research tools to help the agent store, retrieve, and apply information from the knowledge base
+### Run 151 - Research Tools ✓
+
+**Objective:** Create research tools to help the agent search for information and gather knowledge from the web
 
 **Done when:**
-1. Create `_knowledge_add` tool to add entries to the knowledge base ✓
-2. Create `_knowledge_search` tool to search the knowledge base by various criteria ✓
-3. Create `_knowledge_list` tool to list all entries or filter by type ✓
-4. Create `_contextual_knowledge_query` tool to search based on current work context ✓
-5. Create `_batch_save_run_insights` tool to save multiple insights at once ✓
+1. Create `_search` tool that searches the web for queries using DuckDuckGo and Wikipedia API ✓
+2. Create `_search_wikipedia` tool that searches Wikipedia API for queries ✓
+3. Create `_web_fetch` tool that fetches content from URLs ✓
+4. Test all research tools with real queries ✓
+5. Document tool usage and capabilities ✓
 
 **Not this project:**
 - Building a full-fledged AI-powered search engine
 - Creating a database management system
 - Developing a content management system (CMS)
+- Scraping content at scale or bypassing rate limits
 
-**Why this project:**
-As the agent accumulates more experience and discoveries, it needs better ways to:
-- Store and categorize important findings and learnings
-- Quickly search for relevant information when working on new tasks
-- Apply knowledge from past runs to current work
-- Maintain a growing knowledge base that improves over time
+**Completed:**
+All 3 research tools are fully implemented in `agent/tools.py`:
+
+1. **`_search`** - Searches the web for queries:
+   - First tries DuckDuckGo HTML endpoint
+   - Falls back to Wikipedia API if no results or errors
+   - Handles rate limiting (HTTP 202), timeouts, network errors
+   - Returns formatted results with title, URL, and snippet
+   - Limits to top 10 results
+   - Properly escapes queries with requests.utils.quote
+
+2. **`_search_wikipedia`** - Searches Wikipedia API:
+   - Uses Wikipedia API with proper User-Agent header
+   - Searches for queries with up to 10 results
+   - Returns formatted results with title, URL (curid), snippet, and wordcount
+   - Handles JSON parsing errors and API errors
+   - Provides user-friendly error messages
+   - Strips HTML tags from snippets
+
+3. **`_web_fetch`** - Fetches content from URLs:
+   - Fetches content with proper headers (Mozilla browser)
+   - Optional HTML parsing to extract text content
+   - Removes script and style elements for cleaner text
+   - Cleans up whitespace for readable output
+   - Handles HTTP errors gracefully
+   - Limits output length with clip() function
+
+**Status:** Complete - all 3 research tools are fully implemented and ready to use.
 - Reduce redundant research by reusing existing knowledge
 
 **Progress:**
