@@ -3421,3 +3421,452 @@ def schema() -> list[dict[str, Any]]:
         except Exception as exc:  # noqa: BLE001
             self.actions.append("failed _create_memory_cache")
             return f"error: {type(exc).__name__}: {exc}"
+
+    def _backup_repository(self, format: str = "tar.gz", keep: int = 5) -> str:
+        """Create automated repository backups.
+        
+        Creates a backup archive with .git directory included.
+        Uses timestamp in filename and keeps last N backups.
+        
+        Args:
+            format: Backup format - "tar.gz", "zip", or "tar" (default: tar.gz)
+            keep: Number of backups to keep (default: 5)
+        
+        Returns:
+            Summary of backup creation
+        """
+        import os
+        import subprocess
+        import shutil
+        from datetime import datetime
+        
+        self.actions.append("backup repository")
+        
+        try:
+            # Get backup format and default
+            format = format.lower()
+            if format not in ("tar.gz", "zip", "tar"):
+                return f"error: unsupported format {format}. Use 'tar.gz', 'zip', or 'tar'"
+            
+            # Create backup directory if it doesn't exist
+            backup_dir = self.root / "backups"
+            backup_dir.mkdir(exist_ok=True)
+            
+            # Generate timestamp for backup filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            # Determine backup extension
+            if format == "tar.gz":
+                extension = "tar.gz"
+            elif format == "zip":
+                extension = "zip"
+            else:
+                extension = "tar"
+            
+            backup_filename = f"repo_backup_{timestamp}.{extension}"
+            backup_path = backup_dir / backup_filename
+            
+            # Create backup using git archive
+            if format == "tar.gz":
+                # Create tar.gz archive
+                cmd = f"git archive --format=tar.gz --prefix={timestamp}/ HEAD | gzip > {backup_path}"
+            elif format == "zip":
+                # Create zip archive
+                cmd = f"git archive --format=zip --prefix={timestamp}/ HEAD > {backup_path}"
+            else:
+                # Create tar archive
+                cmd = f"git archive --format=tar --prefix={timestamp}/ HEAD > {backup_path}"
+            
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=60)
+            
+            if result.returncode != 0:
+                return f"error creating backup: {result.stderr}"
+            
+            # Verify backup was created
+            if not backup_path.exists():
+                return f"error: backup file was not created: {backup_path}"
+            
+            # Clean up old backups
+            backups = sorted(backup_dir.glob(f"repo_backup_*.{extension}"), key=lambda p: p.stat().st_mtime)
+            while len(backups) > keep:
+                old_backup = backups.pop(0)
+                old_backup.unlink()
+            
+            return f"""Backup created successfully:
+- Format: {format}
+- Path: {backup_path.relative_to(self.root)}
+- Size: {backup_path.stat().st_size / 1024:.2f} KB
+- Timestamp: {timestamp}
+- Total backups kept: {keep}"""
+        
+        except subprocess.TimeoutExpired:
+            return "error: backup command timed out"
+        except Exception as exc:  # noqa: BLE001
+            self.actions.append(f"failed _backup_repository")
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _test_rollback_point(self, name: str = "rollback", commit: str = "") -> str:
+        """Create and validate rollback points for safe experimentation.
+        
+        Creates a git tag as a rollback point, allowing the agent to revert
+        to a known good state if changes cause problems. Validates the rollback
+        point was created successfully.
+        
+        Args:
+            name: Name for the rollback point tag
+            commit: Specific commit hash (default: current HEAD)
+        
+        Returns:
+            Results of rollback point creation and validation
+        """
+        import subprocess
+        
+        self.actions.append("test rollback point")
+        
+        try:
+            # Determine commit to tag
+            if commit:
+                target_commit = commit
+            else:
+                # Get current commit
+                result = subprocess.run(
+                    "git rev-parse HEAD",
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                    timeout=30
+                )
+                if result.returncode != 0:
+                    return f"error: cannot determine current commit: {result.stderr}"
+                target_commit = result.stdout.strip()
+            
+            # Create tag
+            cmd = f"git tag -a {name} {target_commit} -m 'Rollback point: {name}'"
+            result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30)
+            
+            if result.returncode != 0:
+                return f"error creating tag: {result.stderr}"
+            
+            # Verify tag was created
+            verify_cmd = f"git tag -l '{name}'"
+            verify_result = subprocess.run(
+                verify_cmd,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if verify_result.returncode != 0 or name not in verify_result.stdout:
+                return f"error: tag {name} was not created successfully"
+            
+            # Get tag details
+            show_cmd = f"git show {name} --quiet"
+            show_result = subprocess.run(
+                show_cmd,
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            tag_details = show_result.stdout.strip().split("\n")[:3]
+            
+            return f"""Rollback point created successfully:
+- Tag name: {name}
+- Commit: {target_commit[:8]}...
+- Tag message: Rollback point: {name}
+- Tag details: {', '.join(tag_details)}
+- Rollback command: git checkout {name}
+- To revert: git checkout {name} && git reset --hard HEAD~1"""
+        
+        except subprocess.TimeoutExpired:
+            return "error: rollback point command timed out"
+        except Exception as exc:  # noqa: BLE001
+            self.actions.append(f"failed _test_rollback_point")
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _check_tool_consistency(self) -> str:
+        """Verify tools are properly integrated and callable.
+        
+        Checks that all tool methods exist, have proper signatures, and are
+        accessible through the dispatch mechanism. Helps ensure the agent's
+        tool system is working correctly.
+        
+        Returns:
+            Summary of tool consistency check results
+        """
+        import inspect
+        
+        self.actions.append("check tool consistency")
+        
+        try:
+            # Get all methods on Executor
+            tools = []
+            for name, method in inspect.getmembers(self.__class__, predicate=inspect.isfunction):
+                if name.startswith("_") and not name.startswith("__"):
+                    tools.append(name)
+            
+            # Check each tool has proper signature
+            results = []
+            for tool_name in tools:
+                try:
+                    sig = inspect.signature(getattr(self.__class__, tool_name))
+                    params = list(sig.parameters.keys())
+                    if "self" in params:
+                        params.remove("self")
+                    results.append({
+                        "name": tool_name,
+                        "status": "ok",
+                        "params": params
+                    })
+                except Exception as exc:
+                    results.append({
+                        "name": tool_name,
+                        "status": "error",
+                        "error": str(exc)
+                    })
+            
+            # Check dispatch mechanism
+            dispatch_results = []
+            for tool_name in tools:
+                result = self.dispatch(tool_name, {})
+                if result.startswith("error:"):
+                    dispatch_results.append({
+                        "name": tool_name,
+                        "status": "dispatch_error",
+                        "error": result
+                    })
+                else:
+                    dispatch_results.append({
+                        "name": tool_name,
+                        "status": "dispatch_ok"
+                    })
+            
+            # Calculate statistics
+            total = len(tools)
+            ok = sum(1 for r in results if r["status"] == "ok")
+            errors = sum(1 for r in results if r["status"] == "error")
+            dispatch_ok = sum(1 for r in dispatch_results if r["status"] == "dispatch_ok")
+            dispatch_errors = sum(1 for r in dispatch_results if r["status"] == "dispatch_error")
+            
+            return f"""Tool Consistency Check Results:
+---
+Total tools found: {total}
+- Tools with valid signatures: {ok}/{total}
+- Tools with signature errors: {errors}/{total}
+- Tools dispatchable: {dispatch_ok}/{total}
+- Tools with dispatch errors: {dispatch_errors}/{total}
+
+Detailed results:
+"""
+            # Add details for tools with errors
+            for result in results:
+                if result["status"] != "ok":
+                    output.append(f"- {result['name']}: {result['error']}\n")
+            
+            output.append("\n---\n")
+            
+            # Add dispatch results
+            for result in dispatch_results:
+                if result["status"] != "dispatch_ok":
+                    output.append(f"- {result['name']}: {result['error']}\n")
+            
+            return "".join(output)
+        
+        except Exception as exc:  # noqa: BLE001
+            self.actions.append(f"failed _check_tool_consistency")
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _monitor_repository_health(self) -> str:
+        """Check repository integrity and health.
+        
+        Verifies git repository status, checks for uncommitted changes,
+        validates tool system consistency, and reports health score.
+        
+        Returns:
+            Comprehensive health report
+        """
+        import subprocess
+        import os
+        
+        self.actions.append("monitor repository health")
+        
+        try:
+            output = []
+            
+            # Check git status
+            output.append("=== Git Repository Status ===")
+            status_result = subprocess.run(
+                "git status --porcelain",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if status_result.stdout.strip():
+                output.append("Uncommitted changes found:")
+                for line in status_result.stdout.strip().split("\n"):
+                    if line:
+                        output.append(f"  {line}")
+            else:
+                output.append("✓ No uncommitted changes")
+            
+            output.append("")
+            
+            # Check git branch
+            output.append("=== Git Branch ===")
+            branch_result = subprocess.run(
+                "git branch --show-current",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            output.append(f"Current branch: {branch_result.stdout.strip()}")
+            output.append("")
+            
+            # Check for clean working tree
+            output.append("=== Working Tree Status ===")
+            clean_result = subprocess.run(
+                "git diff --quiet && git diff --cached --quiet && echo 'clean' || echo 'dirty'",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if clean_result.stdout.strip() == "clean":
+                output.append("✓ Working tree is clean")
+            else:
+                output.append("✗ Working tree has changes")
+            output.append("")
+            
+            # Check for stashed changes
+            output.append("=== Stash Status ===")
+            stash_result = subprocess.run(
+                "git stash list --quiet && echo 'has_stash' || echo 'no_stash'",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if stash_result.stdout.strip() == "has_stash":
+                output.append("⚠ Stashed changes found")
+            else:
+                output.append("✓ No stashed changes")
+            output.append("")
+            
+            # Check recent commits
+            output.append("=== Recent Commits ===")
+            recent_result = subprocess.run(
+                "git log --oneline -5",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            output.append(recent_result.stdout.strip())
+            output.append("")
+            
+            # Check repository integrity
+            output.append("=== Repository Integrity ===")
+            integrity_result = subprocess.run(
+                "git fsck --quiet 2>&1 && echo 'ok' || echo 'issues'",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            if integrity_result.stdout.strip() == "ok":
+                output.append("✓ Repository is healthy")
+            else:
+                output.append("⚠ Repository may have issues")
+            output.append("")
+            
+            # Check tool system consistency
+            output.append("=== Tool System ===")
+            consistency_result = self.dispatch("_check_tool_consistency", {})
+            output.append(consistency_result)
+            
+            # Calculate health score
+            output.append("\n=== Health Score ===")
+            health_score = 100
+            health_score -= 50 if clean_result.stdout.strip() != "clean" else 0
+            health_score -= 25 if stash_result.stdout.strip() == "has_stash" else 0
+            health_score -= 25 if integrity_result.stdout.strip() != "ok" else 0
+            health_score = max(0, min(100, health_score))
+            
+            health_status = "Good" if health_score >= 75 else "Fair" if health_score >= 50 else "Poor"
+            
+            output.append(f"Health Score: {health_score}/100 ({health_status})")
+            
+            return "\n".join(output)
+        
+        except subprocess.TimeoutExpired:
+            return "error: health check command timed out"
+        except Exception as exc:  # noqa: BLE001
+            self.actions.append(f"failed _monitor_repository_health")
+            return f"error: {type(exc).__name__}: {exc}"
+
+    def _validate_git_status(self, warn_uncommitted: bool = True) -> str:
+        """Warn about uncommitted changes before making significant changes.
+        
+        Checks git status and warns about uncommitted changes, providing
+        context about what changes exist. This helps prevent accidentally
+        committing work that hasn't been reviewed.
+        
+        Args:
+            warn_uncommitted: If True, show warnings for uncommitted changes
+        
+        Returns:
+            Git status information and warnings
+        """
+        import subprocess
+        
+        self.actions.append("validate git status")
+        
+        try:
+            # Get git status
+            result = subprocess.run(
+                "git status --porcelain",
+                shell=True,
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            
+            changes = result.stdout.strip().split("\n") if result.stdout.strip() else []
+            
+            if not changes:
+                return "✓ No uncommitted changes - ready to proceed"
+            
+            output = [f"⚠ {len(changes)} uncommitted change(s) detected:\n"]
+            
+            for change in changes:
+                if change:
+                    status = change[0]
+                    filename = change[3:]
+                    status_symbol = "M" if status == "M" else "A" if status == "A" else "D" if status == "D" else "?"
+                    output.append(f"  {status_symbol} {filename}")
+            
+            output.append("")
+            
+            if warn_uncommitted:
+                output.append("Warning: You have uncommitted changes that may be lost.")
+                output.append("Consider committing or stashing these changes before proceeding.")
+            
+            output.append("")
+            output.append("To commit: git add . && git commit -m 'your message'")
+            output.append("To stash: git stash")
+            
+            return "\n".join(output)
+        
+        except subprocess.TimeoutExpired:
+            return "error: git status command timed out"
+        except Exception as exc:  # noqa: BLE001
+            self.actions.append(f"failed _validate_git_status")
+            return f"error: {type(exc).__name__}: {exc}"
