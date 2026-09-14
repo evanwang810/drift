@@ -1166,6 +1166,240 @@ Please review and update the status in PROJECT.md when this technical debt item 
         
         return result
 
+    def _extract_run_insights(self) -> str:
+        """Extract insights from RUNS.md entries and identify key patterns.
+        
+        Reads RUNS.md table format and parses run entries to identify key insights such as:
+        - Error patterns and failures
+        - Tool fixes and discoveries
+        - Platform insights and API capabilities
+        - Long-term discoveries and learnings
+        
+        Args:
+            None - automatically reads current RUNS.md
+        
+        Returns:
+            Formatted list of extractable insights with confidence scores
+        """
+        import re
+        from pathlib import Path
+        from engine import guard
+        
+        runs_path = self.root / "RUNS.md"
+        
+        if not runs_path.exists():
+            return "No RUNS.md found"
+        
+        content = runs_path.read_text(encoding="utf-8")
+        
+        # Parse Markdown table rows
+        # Split by table rows (| run | when | outcome | turns | tokens | note |)
+        table_rows = re.split(r'\n\|', content)
+        
+        insights = []
+        
+        for i, row in enumerate(table_rows[1:]):  # Skip header row
+            # Extract run number from the first column
+            row_match = re.search(r'\|\s*(\d+)\s*\|', row)
+            if not row_match:
+                continue
+            
+            run_num = row_match.group(1)
+            
+            # Extract date from "when (UTC)" column
+            date_match = re.search(r'\|\s*(\d{4}-\d{2}-\d{2})\s*', row)
+            run_date = date_match.group(1) if date_match else "unknown"
+            
+            # Extract outcome from "outcome" column
+            outcome_match = re.search(r'\|\s*(stopped|api_error|crashed|out_of_turns|out_of_time)\s*\|', row, re.IGNORECASE)
+            outcome = outcome_match.group(1).lower() if outcome_match else "unknown"
+            
+            # Extract note from "note" column (last column)
+            note_match = re.search(r'\|\s*(.*?)\s*\|$', row, re.DOTALL)
+            note = note_match.group(1).strip() if note_match else ""
+            
+            # Look for patterns in the note
+            patterns = {
+                "errors": [],
+                "discoveries": [],
+                "tool_fixes": [],
+                "platform_insights": [],
+                "warnings": [],
+                "blog_posts": []
+            }
+            
+            # Detect errors
+            if outcome in ['api_error', 'crashed']:
+                patterns["errors"].append(f"Run {run_num} resulted in {outcome}")
+            
+            # Detect blog posts
+            if '(See:' in note:
+                blog_match = re.search(r'\(See: \[([^\]]+)\]\(([^)]+)\)\)', note)
+                if blog_match:
+                    blog_posts = blog_match.group(2)
+                    patterns["blog_posts"].append(blog_posts)
+            
+            # Detect tool-related actions
+            if note:
+                if any(word in note.lower() for word in ['added', 'created', 'implemented', 'enhanced', 'fixed', 'resolved']):
+                    patterns["discoveries"].append(f"Tool enhancement or fix in run {run_num}")
+                
+                if any(word in note.lower() for word in ['expanded', 'added']):
+                    patterns["discoveries"].append(f"Feature addition in run {run_num}")
+                
+                if any(word in note.lower() for word in ['improved', 'refined', 'corrected']):
+                    patterns["discoveries"].append(f"Improvement in run {run_num}")
+                
+                if any(word in note.lower() for word in ['api', 'platform']):
+                    patterns["platform_insights"].append(f"API/platform related in run {run_num}")
+            
+            # Build insight entry
+            if any(patterns.values()):
+                insight = {
+                    "run": run_num,
+                    "date": run_date,
+                    "outcome": outcome,
+                    "patterns": patterns,
+                    "confidence": min(100, len(patterns["errors"]) * 25 + len(patterns["discoveries"]) * 10 + len(patterns["blog_posts"]) * 20)
+                }
+                insights.append(insight)
+        
+        if not insights:
+            return "No insights extracted from RUNS.md"
+        
+        result = f"Extracted {len(insights)} insights from RUNS.md:\n\n"
+        
+        for i, insight in enumerate(insights, 1):
+            result += f"--- Insight {i} from Run {insight['run']} ({insight['date']}) ---\n"
+            result += f"Outcome: {insight['outcome'].upper()}\n"
+            result += f"Confidence: {insight['confidence']}%\n\n"
+            
+            if insight['patterns']['errors']:
+                result += f"Errors:\n"
+                for error in insight['patterns']['errors']:
+                    result += f"  - {error}\n"
+                result += "\n"
+            
+            if insight['patterns']['discoveries']:
+                result += f"Discoveries:\n"
+                for discovery in insight['patterns']['discoveries']:
+                    result += f"  - {discovery}\n"
+                result += "\n"
+            
+            if insight['patterns']['blog_posts']:
+                result += f"Blog Posts:\n"
+                for blog in insight['patterns']['blog_posts']:
+                    result += f"  - {blog}\n"
+                result += "\n"
+            
+            if insight['patterns']['platform_insights']:
+                result += f"Platform Insights:\n"
+                for platform in insight['patterns']['platform_insights']:
+                    result += f"  - {platform}\n"
+                result += "\n"
+        
+        result += f"\nTotal: {len(insights)} insights extracted"
+        return result
+    
+    def _batch_save_run_insights(self, insights_data: str) -> str:
+        """Batch save extracted insights to the knowledge base.
+        
+        Takes insights data from _extract_run_insights and saves them to the
+        knowledge base in a structured format. Auto-assigns types and generates
+        tags based on content patterns.
+        
+        Args:
+            insights_data: Formatted insights data from _extract_run_insights
+        
+        Returns:
+            Summary of saved insights with counts and types
+        """
+        import re
+        import json
+        from pathlib import Path
+        from engine import guard
+        
+        knowledge_path = self.root / "agent" / "knowledge" / "knowledge.json"
+        
+        if not knowledge_path.exists():
+            return "No knowledge base found. Cannot save insights."
+        
+        # Parse insights data
+        # Look for insight blocks
+        insight_blocks = re.findall(r'--- Insight (\d+) from Run (\d+) \(\d{4}-\d{2}-\d{2}\) ---\nOutcome: ([^\n]+)\nConfidence: (\d+)%\n\n(.*?)---', 
+                                    insights_data, re.DOTALL)
+        
+        if not insight_blocks:
+            return "No valid insights found in the provided data."
+        
+        # Load existing knowledge
+        with open(knowledge_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        entries = data.get("entries", [])
+        saved_count = 0
+        
+        for insight_block in insight_blocks:
+            # Unpack block data: (insight_num, run_num, outcome, confidence, block_content)
+            insight_num, run_num, outcome, confidence, block = insight_block
+            
+            # Parse patterns from block
+            errors = re.findall(r'- ([^\n]+)', block)
+            discoveries = re.findall(r'- ([^\n]+)', block)
+            tool_fixes = re.findall(r'- ([^\n]+)', block)
+            platform_insights = re.findall(r'- ([^\n]+)', block)
+            
+            # Determine type based on patterns
+            entry_type = "discovery"
+            tags = ["run_insight"]
+            
+            if errors:
+                entry_type = "issue"
+                tags.append("error")
+                tags.extend([e.split(':')[0] for e in errors[:2]])
+            elif tool_fixes:
+                entry_type = "tool_fix"
+                tags.append("tool")
+            elif platform_insights:
+                entry_type = "platform"
+                tags.append("platform")
+            elif discoveries:
+                entry_type = "discovery"
+                tags.append("discovery")
+            
+            # Create entry
+            entry = {
+                "id": f"k-{len(entries) + 1:03d}",
+                "type": entry_type,
+                "title": f"Run {run_num} Insight",
+                "description": f"Extracted {len(errors)} errors, {len(tool_fixes)} tool fixes, {len(platform_insights)} platform insights from run {run_num}",
+                "source": f"Run {run_num}",
+                "tags": tags,
+                "implementation": "Auto-extracted from RUNS.md",
+                "verification": "Batch saved from _extract_run_insights",
+                "impact": f"Captured insights from run {run_num} for future reference"
+            }
+            
+            entries.append(entry)
+            saved_count += 1
+        
+        # Write back to knowledge base
+        with open(knowledge_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        
+        # Count by type
+        type_counts = {}
+        for entry in entries:
+            type_name = entry.get("type", "unknown")
+            type_counts[type_name] = type_counts.get(type_name, 0) + 1
+        
+        result = f"Successfully saved {saved_count} insights to knowledge base\n\n"
+        result += "Summary by Type:\n"
+        for type_name, count in type_counts.items():
+            result += f"  {type_name}: {count}\n"
+        
+        return result
+
     def _runs_to_blog_candidates(self) -> str:
         """Scan RUNS.md and generate blog post candidates from entries with links.
         

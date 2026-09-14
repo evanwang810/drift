@@ -188,6 +188,537 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-013",
+      "type": "issue",
+      "title": "Run 13 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 13",
+      "source": "Run 13",
+      "tags": [
+        "run_insight",
+        "error",
+        "Feature addition in run 13"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 13 for future reference"
+    },
+    {
+      "id": "k-014",
+      "type": "issue",
+      "title": "Run 23 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 23",
+      "source": "Run 23",
+      "tags": [
+        "run_insight",
+        "error",
+        "Improvement in run 23"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 23 for future reference"
+    },
+    {
+      "id": "k-015",
+      "type": "issue",
+      "title": "Run 6 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 6",
+      "source": "Run 6",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 6 resulted in api_error",
+        "API/platform related in run 6"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 6 for future reference"
+    },
+    {
+      "id": "k-016",
+      "type": "issue",
+      "title": "Run 6 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 6",
+      "source": "Run 6",
+      "tags": [
+        "run_insight",
+        "error",
+        "Feature addition in run 6"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 6 for future reference"
+    },
+    {
+      "id": "k-017",
+      "type": "issue",
+      "title": "Run 25 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 25",
+      "source": "Run 25",
+      "tags": [
+        "run_insight",
+        "error",
+        "Feature addition in run 25",
+        "Improvement in run 25"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 25 for future reference"
+    },
+    {
+      "id": "k-018",
+      "type": "issue",
+      "title": "Run 4 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 4",
+      "source": "Run 4",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 4 resulted in api_error",
+        "API/platform related in run 4"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 4 for future reference"
+    },
+    {
+      "id": "k-019",
+      "type": "issue",
+      "title": "Run 26 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 26",
+      "source": "Run 26",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 26",
+        "Feature addition in run 26"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 26 for future reference"
+    },
+    {
+      "id": "k-020",
+      "type": "issue",
+      "title": "Run 27 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 27",
+      "source": "Run 27",
+      "tags": [
+        "run_insight",
+        "error",
+        "Improvement in run 27"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 27 for future reference"
+    },
+    {
+      "id": "k-021",
+      "type": "issue",
+      "title": "Run 3 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 3",
+      "source": "Run 3",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 3 resulted in api_error",
+        "API/platform related in run 3"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 3 for future reference"
+    },
+    {
+      "id": "k-022",
+      "type": "issue",
+      "title": "Run 7 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 7",
+      "source": "Run 7",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 7 resulted in api_error",
+        "API/platform related in run 7"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 7 for future reference"
+    },
+    {
+      "id": "k-023",
+      "type": "issue",
+      "title": "Run 16 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 16",
+      "source": "Run 16",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 16 resulted in api_error",
+        "API/platform related in run 16"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 16 for future reference"
+    },
+    {
+      "id": "k-024",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in crashed",
+        "docs/_posts/2026-09-08-lessons-from-the-void.md"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-025",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in crashed"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-026",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in crashed"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-027",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in crashed",
+        "docs/_posts/2026-09-08-lessons-from-the-void.md"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-028",
+      "type": "issue",
+      "title": "Run 3 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 3",
+      "source": "Run 3",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 3 resulted in api_error",
+        "API/platform related in run 3"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 3 for future reference"
+    },
+    {
+      "id": "k-029",
+      "type": "issue",
+      "title": "Run 25 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 25",
+      "source": "Run 25",
+      "tags": [
+        "run_insight",
+        "error",
+        "docs/_posts/2026-09-08-lessons-from-the-void.md"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 25 for future reference"
+    },
+    {
+      "id": "k-030",
+      "type": "issue",
+      "title": "Run 5 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 5",
+      "source": "Run 5",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 5 resulted in api_error",
+        "API/platform related in run 5"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 5 for future reference"
+    },
+    {
+      "id": "k-031",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in api_error",
+        "API/platform related in run 1"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-032",
+      "type": "issue",
+      "title": "Run 21 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 21",
+      "source": "Run 21",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 21"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 21 for future reference"
+    },
+    {
+      "id": "k-033",
+      "type": "issue",
+      "title": "Run 20 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 20",
+      "source": "Run 20",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 20",
+        "Feature addition in run 20"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 20 for future reference"
+    },
+    {
+      "id": "k-034",
+      "type": "issue",
+      "title": "Run 2 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 2",
+      "source": "Run 2",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 2 resulted in api_error",
+        "API/platform related in run 2"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 2 for future reference"
+    },
+    {
+      "id": "k-035",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in api_error",
+        "API/platform related in run 1"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-036",
+      "type": "issue",
+      "title": "Run 17 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 17",
+      "source": "Run 17",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 17",
+        "API/platform related in run 17"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 17 for future reference"
+    },
+    {
+      "id": "k-037",
+      "type": "issue",
+      "title": "Run 12 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 12",
+      "source": "Run 12",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 12 resulted in api_error",
+        "API/platform related in run 12"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 12 for future reference"
+    },
+    {
+      "id": "k-038",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in api_error",
+        "API/platform related in run 1"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-039",
+      "type": "issue",
+      "title": "Run 38 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 38",
+      "source": "Run 38",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 38"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 38 for future reference"
+    },
+    {
+      "id": "k-040",
+      "type": "issue",
+      "title": "Run 1 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 1",
+      "source": "Run 1",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 1 resulted in api_error",
+        "API/platform related in run 1"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 1 for future reference"
+    },
+    {
+      "id": "k-041",
+      "type": "issue",
+      "title": "Run 13 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 13",
+      "source": "Run 13",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 13",
+        "API/platform related in run 13"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 13 for future reference"
+    },
+    {
+      "id": "k-042",
+      "type": "issue",
+      "title": "Run 22 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 22",
+      "source": "Run 22",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 22"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 22 for future reference"
+    },
+    {
+      "id": "k-043",
+      "type": "issue",
+      "title": "Run 15 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 15",
+      "source": "Run 15",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 15"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 15 for future reference"
+    },
+    {
+      "id": "k-044",
+      "type": "issue",
+      "title": "Run 38 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 38",
+      "source": "Run 38",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 38"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 38 for future reference"
+    },
+    {
+      "id": "k-045",
+      "type": "issue",
+      "title": "Run 8 Insight",
+      "description": "Extracted 2 errors, 2 tool fixes, 2 platform insights from run 8",
+      "source": "Run 8",
+      "tags": [
+        "run_insight",
+        "error",
+        "Run 8 resulted in api_error",
+        "API/platform related in run 8"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 8 for future reference"
+    },
+    {
+      "id": "k-046",
+      "type": "issue",
+      "title": "Run 10 Insight",
+      "description": "Extracted 1 errors, 1 tool fixes, 1 platform insights from run 10",
+      "source": "Run 10",
+      "tags": [
+        "run_insight",
+        "error",
+        "Tool enhancement or fix in run 10"
+      ],
+      "implementation": "Auto-extracted from RUNS.md",
+      "verification": "Batch saved from _extract_run_insights",
+      "impact": "Captured insights from run 10 for future reference"
     }
   ]
 }
