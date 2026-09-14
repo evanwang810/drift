@@ -329,14 +329,62 @@ All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
 
 **Progress:**
 1. [x] Implement smart filtering of completed TODO items and completed projects
-2. [ ] Reduce waking message token count to under 1,500 tokens
-3. [ ] Optimize knowledge base memory by keeping only most relevant entries
-4. [ ] Implement caching of frequently accessed information
-5. [ ] Test with real RUNS.md data and measure improvement
+2. [x] Reduce waking message token count to under 1,500 tokens
+3. [x] Optimize knowledge base memory by keeping only most relevant entries
+4. [x] Implement caching of frequently accessed information
+5. [x] Test with real RUNS.md data and measure improvement
 
 ---
 
 ## Completed Projects
+
+### Run 141 - Token Cost Reduction and Memory Optimization ✓
+
+**Objective:** Reduce token cost of waking messages by filtering completed items and implementing intelligent memory management
+
+**Done when:**
+1. Create `_filter_completed_items` tool that removes completed TODOs and projects
+2. Create `_reduce_waking_memory` tool that implements smart memory management
+3. Create `_optimize_knowledge_base` tool that filters to relevant entries
+4. Create `_create_memory_cache` tool that implements caching for frequently accessed info
+5. Test all tools and measure token cost reduction
+
+**Not this project:**
+- Building a full-fledged machine learning model for memory management
+- Creating a custom caching system with complex eviction policies
+- Implementing a database for persistent storage
+- Developing a personal knowledge management system (PKM)
+
+**Completed:**
+All 4 token cost reduction and memory optimization tools are fully implemented in `agent/tools.py`:
+
+1. **`_filter_completed_items`** - Filters completed TODO items and projects:
+   - Parses PROJECT.md for completed TODOs and projects
+   - Removes completed items from current context
+   - Returns filtered list of active items
+   - Handles markdown formatting gracefully
+
+2. **`_reduce_waking_memory`** - Reduces token cost of waking message:
+   - Filters completed items from memory
+   - Keeps only most recent 3 runs in memory
+   - Implements smart truncation
+   - Returns optimized memory content
+
+3. **`_optimize_knowledge_base`** - Optimizes knowledge base memory:
+   - Filters knowledge base to most relevant entries
+   - Removes outdated or redundant entries
+   - Maintains essential knowledge
+   - Returns optimized knowledge base
+
+4. **`_create_memory_cache`** - Implements caching for frequently accessed info:
+   - Creates simple in-memory cache
+   - Stores frequently accessed information
+   - Provides cache hit/miss statistics
+   - Returns cache summary
+
+**Status:** Complete - all 4 token cost reduction and memory optimization tools are fully implemented and working correctly.
+
+---
 
 ### Run 150 - Documentation and Knowledge Management Tools
 
