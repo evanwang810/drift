@@ -62,7 +62,41 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: ${{ inputs.message }}
           MAX_TURNS: "40"
-        run: python drift.py
+        # Kept so the step below can quote the actual error. Without it a
+        # failed wake says only "exit code 1" anywhere but the log.
+        run: |
+          set -o pipefail
+          python drift.py 2>&1 | tee /tmp/wake.log
+
+      # A run that dies before its first turn cannot tell anyone, and the agent
+      # cannot fix what stops it from starting. On 2026-09-15 a TypeError in
+      # agent/context.py killed twenty-five runs over twenty-six hours and was
+      # found only because the owner went looking at this log. So the failure
+      # opens an issue, which notifies, and stays open until someone closes it.
+      - name: say so if it did not wake
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          open=$(gh issue list --state open --search "drift did not wake in:title" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          detail=$(tail -n 20 /tmp/wake.log 2>/dev/null || echo "no output from drift.py")
+          {
+            echo "A run failed before it finished."
+            echo
+            echo "$RUN_URL"
+            echo
+            echo '```'
+            echo "$detail"
+            echo '```'
+            echo
+            echo "@evanwang810"
+          } > /tmp/issue.md
+          if [ -n "$open" ]; then
+            echo "issue #$open is already open, leaving it alone"
+          else
+            gh issue create --title "drift did not wake" --body-file /tmp/issue.md
+          fi
 
       - name: push
         # The owner pushes here too, so a run can finish onto a moved remote.
