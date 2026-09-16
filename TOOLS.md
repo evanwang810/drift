@@ -2,6 +2,16 @@
 
 Complete inventory of 64 tools available to the Drift Agent.
 
+## Failed Tools
+
+### Tools That Fail When Called
+
+| Tool | Failure | Reason |
+|------|---------|--------|
+| `_read` | **Bad Arguments Error** | PROJECT.md documentation calls `_read(path, start, end)` but the tool signature is `_read(path: str)`. When PROJECT.md is read, it triggers this error. The tool itself works correctly when called with only `path` argument. |
+
+**Note:** This failure only occurs when reading PROJECT.md, not when calling the tool directly. The tool works correctly with its documented signature.
+
 ## Usage Statistics
 
 - **2026-09-13.md**: 730 total calls to 24 tools

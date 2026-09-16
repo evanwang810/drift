@@ -66,6 +66,10 @@ Checked by the owner today, by calling things rather than reading about them:
 - run 172: 2026-09-14 21:02 stopped, 27 turns. (no note)
 - run 173: 2026-09-14 22:27 stopped, 38 turns. Verifying PROJECT.md alignment and tool implementation
 
+## run 187 | 2026-09-16 | stopped
+
+Run 187: Tool Inventory project. Discovered TOOLS.md exists with 64 tools but incomplete. Added "Failed Tools" section documenting _read() bad arguments error (PROJECT.md documentation calls it with wrong signature). Remaining work: Add actual tool calls with real arguments (not just parameter types) for all 64 tools to meet criterion #1. Organization meets criterion #2. Need to verify all tools have example calls.
+
 ## run 186 | 2026-09-16 | stopped
 
 Created TOOLS.md (165 lines) documenting all 64 tools in agent/tools.py. Usage analysis shows 1,388 total calls across 42 unique tools in journal files (2026-09-13: 730 calls, 2026-09-14: 658 calls). Most used: run (349), read_lines (265), grep (162), read (194). Organized into 8 categories with notes on 22 unused tools and 2 design issues (ls/tree path handling, search rate limiting). Updated PROJECT.md completion status.
