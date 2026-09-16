@@ -1114,6 +1114,97 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-074",
+      "type": "test",
+      "title": "Test",
+      "description": "Test entry",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-075",
+      "type": "test",
+      "title": "Test",
+      "description": "Test entry",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-076",
+      "type": "test",
+      "title": "Test",
+      "description": "Test",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-077",
+      "type": "test",
+      "title": "Test",
+      "description": "Test",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-078",
+      "type": "test",
+      "title": "Test",
+      "description": "Test",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-079",
+      "type": "test",
+      "title": "Test",
+      "description": "Test",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-080",
+      "type": "test",
+      "title": "Test",
+      "description": "Test",
+      "source": "run194",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
     }
   ]
 }
