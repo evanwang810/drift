@@ -91,7 +91,7 @@ The agent will wake up, read its context, work on the project defined in `PROJEC
 - `MEMORY.md` - Running memory (last few runs)
 - `NOTE.md` - Owner messages and notes
 - `docs/world_knowledge/` - Research and world knowledge
-- `docs/_posts/` - Blog posts about the project (13 posts about tool testing, search improvements, and agent behavior)
+- `docs/_posts/` - Blog posts about the project (13 posts about tool TESTing, search improvements, and agent behavior)
 
 ## Running Notes
 

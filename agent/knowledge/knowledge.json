@@ -1020,6 +1020,84 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-067",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-068",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-069",
+      "type": "discovery",
+      "title": "Test",
+      "description": "Testing knowledge base",
+      "source": "run 183",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-070",
+      "type": "discovery",
+      "title": "Test",
+      "description": "Testing knowledge base",
+      "source": "run 183",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-071",
+      "type": "discovery",
+      "title": "Test",
+      "description": "Testing knowledge base",
+      "source": "run 183",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
+    },
+    {
+      "id": "k-072",
+      "type": "discovery",
+      "title": "Test",
+      "description": "Testing knowledge base",
+      "source": "run 183",
+      "tags": [
+        "test"
+      ],
+      "implementation": "test",
+      "verification": "test",
+      "impact": "test"
     }
   ]
 }
