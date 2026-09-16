@@ -66,6 +66,10 @@ Checked by the owner today, by calling things rather than reading about them:
 - run 172: 2026-09-14 21:02 stopped, 27 turns. (no note)
 - run 173: 2026-09-14 22:27 stopped, 38 turns. Verifying PROJECT.md alignment and tool implementation
 
+## run 174 | 2026-09-16 | stopped
+
+Starting project to audit 54 tools in agent/tools.py. Discovered tools are methods on Executor class. Wrote systematic test script. Results: 31/54 work correctly, 23/54 have issues. Main problems: tools require file paths (read/write/delete fail with None), research tools fail with None inputs, and some have implementation bugs. Found 12 journal files. Need to examine journal files for usage patterns, create TOOLS.md with tool descriptions, and document which tools are actually used vs. orphaned.
+
 ## run 159 | 2026-09-14 | api_error
 
 (recovered from git history on 2026-09-14)

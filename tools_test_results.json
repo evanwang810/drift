@@ -1,0 +1,272 @@
+{
+  "_analyze_runs": {
+    "status": "ok",
+    "result": "Analysis of 173 runs:\n- stopped: 104\n- api_error: 32\n- out_of_turns: 24\n- crashed: 7\n- out_of_time: 6\n\nFailure rate: 22.5%",
+    "error": null
+  },
+  "_backup_repository": {
+    "status": "ok",
+    "result": "Repository Backup\n========================================\n\nCreating backup: repo_backup_20260916_025423.tar.gz\n\u2713 Backup created successfully: backup/repo_backup_20260916_025423.tar.gz\n  Size: 737.47 ",
+    "error": null
+  },
+  "_batch_save_run_insights": {
+    "status": "error",
+    "result": null,
+    "error": "expected string or bytes-like object, got 'NoneType'"
+  },
+  "_check_tool_consistency": {
+    "status": "ok",
+    "result": "Tool Consistency Check\n========================================\n\n\u2713 All expected tools exist and are callable\n\n\u26a0 Schema function not found or not callable\n\n\u2713 Tool dispatch mechanism working correctly\n ",
+    "error": null
+  },
+  "_cleanup_temp_files": {
+    "status": "ok",
+    "result": "Temporary File Cleanup\n========================================\n\nFound 5 temporary files:\n  - __pycache__/analyze_runs.cpython-312.pyc\n  - agent/__pycache__/__init__.cpython-312.pyc\n  - agent/__pycach",
+    "error": null
+  },
+  "_contextual_knowledge_query": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_create_blog_posts_from_runs": {
+    "status": "ok",
+    "result": "Found 4 blog post links in RUNS.md:\n\n  - 2026-09-08-lessons-from-the-void.md \u2192 docs/_posts/2026-09-08-lessons-from-the-void.md\n\n  - 2026-09-08-lessons-from-the-void.md \u2192 docs/_posts/2026-09-08-lessons",
+    "error": null
+  },
+  "_delete": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_extract_run_insights": {
+    "status": "ok",
+    "result": "Extracted 74 insights from RUNS.md:\n\n--- Insight 1 from Run 13 (2026-09-06) ---\nOutcome: STOPPED\nConfidence: 10%\n\nDiscoveries:\n  - Feature addition in run 13\n\n--- Insight 2 from Run 9 (2026-09-06) ---",
+    "error": null
+  },
+  "_find_unused_files": {
+    "status": "ok",
+    "result": "Unused Files Finder\n========================================\n\nFound 33 markdown files in docs/\n\nFound 16 unused files:\n  - README.md\n  - _config.yml\n  - architecture.md\n  - blog.md\n  - decisions.md\n  ",
+    "error": null
+  },
+  "_generate_blog_post": {
+    "status": "error",
+    "result": null,
+    "error": "can only concatenate str (not \"NoneType\") to str"
+  },
+  "_generate_by_source_summary": {
+    "status": "ok",
+    "result": "error: Entries must be a list or JSON string",
+    "error": null
+  },
+  "_generate_by_tag_summary": {
+    "status": "ok",
+    "result": "error: Entries must be a list or JSON string",
+    "error": null
+  },
+  "_generate_by_type_summary": {
+    "status": "ok",
+    "result": "error: Entries must be a list or JSON string",
+    "error": null
+  },
+  "_generate_comprehensive_report": {
+    "status": "ok",
+    "result": "error: Entries must be a list or JSON string",
+    "error": null
+  },
+  "_generate_docs": {
+    "status": "ok",
+    "result": "# Repository Documentation\n\nThis documentation provides a comprehensive overview of the repository,\nits tools, projects, and workflows.\n\n## Available Tools\n\nThe agent has 25 tools available for use, c",
+    "error": null
+  },
+  "_generate_knowledge_report": {
+    "status": "ok",
+    "result": "Knowledge Base Report (58 entries)\n==================================================\n\nEntries by Type:\n----------------------------------------\nissue               : 34\ndiscovery           : 7\ntool_f",
+    "error": null
+  },
+  "_gh_close_issue": {
+    "status": "ok",
+    "result": "Error closing issue: invalid issue format: \"None\"\n",
+    "error": null
+  },
+  "_gh_comment_issue": {
+    "status": "ok",
+    "result": "Error commenting on issue: invalid issue format: \"None\"\n",
+    "error": null
+  },
+  "_gh_create_issue_from_project": {
+    "status": "ok",
+    "result": "Project Issue Tracker: 0 items found in PROJECT.md\nLabels: project\n",
+    "error": null
+  },
+  "_gh_list_issues": {
+    "status": "ok",
+    "result": "Error listing issues: unable to find git executable in PATH; please install git before retrying\n",
+    "error": null
+  },
+  "_gh_read_issue": {
+    "status": "ok",
+    "result": "Error reading issue: invalid issue format: \"None\"\n",
+    "error": null
+  },
+  "_grep": {
+    "status": "ok",
+    "result": "exit 0\n./.git/hooks/pre-merge-commit.sample:1:#!/bin/sh\n./.git/hooks/pre-merge-commit.sample:2:#\n./.git/hooks/pre-merge-commit.sample:3:# An example hook script to verify what is about to be committed",
+    "error": null
+  },
+  "_knowledge_add": {
+    "status": "ok",
+    "result": "Added knowledge entry: None",
+    "error": null
+  },
+  "_knowledge_aware_search": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_knowledge_list": {
+    "status": "ok",
+    "result": "Knowledge entries (59 total):\n\n- [tool_fix] Search Tool Wikipedia API Fallback\n  ID: k-001\n  Tags: search, wikipedia, duckduckgo, api\n  Source: Run 126\n\n- [platform] GLM-5.3-Flash Platform Details\n  I",
+    "error": null
+  },
+  "_knowledge_search": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_ls": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: '.'"
+  },
+  "_monitor_repository_health": {
+    "status": "ok",
+    "result": "Repository Health Monitor\n========================================\n\n1. Git Repository\n\u2713 Git repository detected\n\n2. Uncommitted Changes\n\u26a0 Found 3 uncommitted change(s)\n\n3. Tool System Consistency\n\u26a0 To",
+    "error": null
+  },
+  "_organize_repo": {
+    "status": "ok",
+    "result": "Repository Organization\n========================================\n\nFound documentation directory\nFound 2 empty files:\n  - engine/__init__.py\n  - agent/__init__.py\n\nSuggested organization:\n  - Consolida",
+    "error": null
+  },
+  "_read": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_read_all": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_read_lines": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_read_with_numbers": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_replace": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_replace_all": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_research_recommendations": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_research_summary": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_review_project_structure": {
+    "status": "ok",
+    "result": "Project Structure Review\n========================================\n\nFound 18 completed projects:\n\n  - Run 140: RUNS.md Analysis & Reporting Tools \u2713\n    Objective: Create comprehensive tools for analyzi",
+    "error": null
+  },
+  "_run": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object is not subscriptable"
+  },
+  "_runs_to_blog_candidates": {
+    "status": "ok",
+    "result": "Found 4 entries with blog post links:\n\n1. | 25 | 2026-09-07 22:07 | crashed | 1 | 3,874 | something went wrong ) )\n   Blog: 2026-09-08-lessons-from-the-void (2026-09-08-lessons-from-the-void)\n\n2. | 31",
+    "error": null
+  },
+  "_save_run_insights_to_knowledge": {
+    "status": "ok",
+    "result": "Saved knowledge entry: Run Insight: Discovery\nSource: Current run\nType: discovery\nTags: run_insight",
+    "error": null
+  },
+  "_search": {
+    "status": "error",
+    "result": null,
+    "error": "quote_from_bytes() expected bytes"
+  },
+  "_search_wikipedia": {
+    "status": "ok",
+    "result": "No results found for 'None' in Wikipedia.",
+    "error": null
+  },
+  "_similar_research": {
+    "status": "error",
+    "result": null,
+    "error": "'NoneType' object has no attribute 'lower'"
+  },
+  "_stop": {
+    "status": "error",
+    "result": null,
+    "error": ""
+  },
+  "_summarize": {
+    "status": "ok",
+    "result": "error: no conversation to summarise",
+    "error": null
+  },
+  "_test_rollback_point": {
+    "status": "ok",
+    "result": "\u2713 Rollback point created successfully:\n\nTag: %(tag)\nTagger: %(taggername) <%(taggeremail)>\nDate: %(taggerdate)\nCommit: %(objectname)\n\nRollback command: git checkout dedab97ac91571f15a76674696b0447100d",
+    "error": null
+  },
+  "_tree": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: '.'"
+  },
+  "_validate_git_status": {
+    "status": "ok",
+    "result": "Git Status Check\n========================================\n\n\u26a0 Found 3 uncommitted change(s):\n\nUntracked files (2):\n  ?? backup/repo_backup_20260916_025423.tar.gz\n  ?? tools_test.py\n\n\nRecommendations:\n ",
+    "error": null
+  },
+  "_validate_python": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_validate_python_syntax": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  },
+  "_web_fetch": {
+    "status": "ok",
+    "result": "error: MissingSchema: Invalid URL 'None': No scheme supplied. Perhaps you meant https://None?",
+    "error": null
+  },
+  "_write": {
+    "status": "error",
+    "result": null,
+    "error": "not a file path: None"
+  }
+}
