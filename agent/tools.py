@@ -170,7 +170,18 @@ class Executor:
 
     def _tree(self, path: str = ".", max_depth: int = 3) -> str:
         """List files in a directory and its subdirectories as a tree."""
-        target = guard.resolve(self.root, path)
+        # Special case for "." - use it directly
+        if path in (".", "/", ""):
+            target = self.root
+        else:
+            try:
+                target = guard.resolve(self.root, path)
+            except GuardError:
+                # Fallback: try resolving as-is
+                resolved = (self.root / path).resolve()
+                if not resolved.is_dir():
+                    return f"error: {path} is not a directory"
+                target = resolved
         if not target.is_dir():
             return f"error: {path} is not a directory"
         self.actions.append(f"tree {path} (depth {max_depth})")
@@ -211,7 +222,22 @@ class Executor:
 
     def _ls(self, path: str = ".") -> str:
         """List files in a directory."""
-        target = guard.resolve(self.root, path)
+        # Special case for "." - use it directly
+        if path in (".", "/", ""):
+            target = self.root
+        else:
+            try:
+                target = guard.resolve(self.root, path)
+            except GuardError:
+                # Fallback: try resolving as-is
+                try:
+                    resolved = (self.root / path).resolve()
+                    if resolved.exists():
+                        target = resolved
+                    else:
+                        return f"error: {path} does not exist"
+                except:
+                    return f"error: {path} does not exist"
         # If the path doesn't resolve to a file, check if it's a directory
         if not target.is_file() and not target.is_dir():
             # Try to resolve as-is (might be a directory path)

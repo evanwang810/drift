@@ -1,0 +1,251 @@
+Total tools defined: 54
+
+_analyze_runs (line 76):
+  Analysis of 182 runs:
+- stopped: 113
+- api_error: 32
+- out_of_turns: 24
+- crashed: 7
+- out_of_time: 6
+
+Failure rate: 21.4%
+
+_backup_repository (line 2590):
+  Cannot determine test args for _backup_repository
+
+_batch_save_run_insights (line 1381):
+  Cannot determine test args for _batch_save_run_insights
+
+_check_tool_consistency (line 1987):
+  Cannot determine test args for _check_tool_consistency
+
+_cleanup_temp_files (line 2508):
+  Cannot determine test args for _cleanup_temp_files
+
+_contextual_knowledge_query (line 953):
+  Cannot determine test args for _contextual_knowledge_query
+
+_create_blog_posts_from_runs (line 1568):
+  Cannot determine test args for _create_blog_posts_from_runs
+
+_delete (line 145):
+  deleted test_tool_output.txt
+
+_extract_run_insights (line 1246):
+  Cannot determine test args for _extract_run_insights
+
+_find_unused_files (line 2435):
+  Cannot determine test args for _find_unused_files
+
+_generate_blog_post (line 1538):
+  Cannot determine test args for _generate_blog_post
+
+_generate_by_source_summary (line 1146):
+  Cannot determine test args for _generate_by_source_summary
+
+_generate_by_tag_summary (line 1116):
+  Cannot determine test args for _generate_by_tag_summary
+
+_generate_by_type_summary (line 1090):
+  Cannot determine test args for _generate_by_type_summary
+
+_generate_comprehensive_report (line 1172):
+  Cannot determine test args for _generate_comprehensive_report
+
+_generate_docs (line 1679):
+  Cannot determine test args for _generate_docs
+
+_generate_knowledge_report (line 1044):
+  Cannot determine test args for _generate_knowledge_report
+
+_gh_close_issue (line 538):
+  Error closing issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)
+
+
+_gh_comment_issue (line 513):
+  Error commenting on issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)
+
+
+_gh_create_issue_from_project (line 562):
+  Cannot determine test args for _gh_create_issue_from_project
+
+_gh_list_issues (line 430):
+  No issues found.
+
+_gh_read_issue (line 471):
+  Error reading issue: GraphQL: Could not resolve to an issue or pull request with the number of 1. (repository.issue)
+
+
+_grep (line 367):
+  exit 0
+./.git/hooks/sendemail-validate.sample:22:# Replace the TODO placeholders with appropriate checks according to your
+./.git/hooks/sendemail-validate.sample:27:	# TODO: Replace with appropriate c
+
+_knowledge_add (line 730):
+  Cannot determine test args for _knowledge_add
+
+_knowledge_aware_search (line 2678):
+  Cannot determine test args for _knowledge_aware_search
+
+_knowledge_list (line 783):
+  Cannot determine test args for _knowledge_list
+
+_knowledge_search (line 819):
+  Cannot determine test args for _knowledge_search
+
+_ls (line 223):
+  .git/
+.github/
+.gitignore
+.local/
+ANSWER.md
+DONE.md
+GOALS.md
+KILL
+MEMORY.md
+NOTE.md
+PROGRESS.md
+PROJECT.md
+README.md
+RUNNING.md
+RUNS.md
+TODO.md
+TOOLS.md
+TOOLS_SUMMARY.md
+TOOL_ISSUES.md
+TOOL_TEST_REPOR
+
+_monitor_repository_health (line 3122):
+  Cannot determine test args for _monitor_repository_health
+
+_organize_repo (line 2342):
+  Cannot determine test args for _organize_repo
+
+_read (line 81):
+  # project
+
+## objective
+
+Take stock of your tools. Build nothing new.
+
+## why
+
+Read the top of `MEMORY.md` first. For 34 runs the engine told every run it was
+run 140, and each run's memory overwrote 
+
+_read_all (line 398):
+  # project
+
+## objective
+
+Take stock of your tools. Build nothing new.
+
+## why
+
+Read the top of `MEMORY.md` first. For 34 runs the engine told every run it was
+run 140, and each run's memory overwrote 
+
+_read_lines (line 99):
+  # project
+
+## objective
+
+Take stock of your tools. Build nothing new.
+
+## why
+
+Read the top of `MEMORY.md` first. For 34 runs the engine told every run it was
+run 140, and each run's memory overwrote 
+
+_read_with_numbers (line 89):
+  # project
+
+## objective
+
+Take stock of your tools. Build nothing new.
+
+## why
+
+Read the top of `MEMORY.md` first. For 34 runs the engine told every run it was
+run 140, and each run's memory overwrote 
+
+_replace (line 118):
+  replaced first occurrence of search string in PROJECT.md
+
+_replace_all (line 131):
+  replaced first occurrence of search string in PROJECT.md
+
+_research_recommendations (line 3006):
+  Cannot determine test args for _research_recommendations
+
+_research_summary (line 2747):
+  Cannot determine test args for _research_summary
+
+_review_project_structure (line 2123):
+  Cannot determine test args for _review_project_structure
+
+_run (line 154):
+  exit 0
+test
+
+_runs_to_blog_candidates (line 1480):
+  Cannot determine test args for _runs_to_blog_candidates
+
+_save_run_insights_to_knowledge (line 878):
+  Cannot determine test args for _save_run_insights_to_knowledge
+
+_search (line 262):
+  Search results for 'LLM agents' (via Wikipedia API):
+
+- AI agent
+  https://en.wikipedia.org/?curid=78823217
+  called AI agents, though they lacked the general purpose reasoning ability of later agents
+
+_search_wikipedia (line 319):
+  Cannot determine test args for _search_wikipedia
+
+_similar_research (line 2862):
+  Cannot determine test args for _similar_research
+
+_stop (line 394):
+  STOP called (raises Stopped exception)
+
+_summarize (line 372):
+  error: no conversation to summarise
+
+_test_rollback_point (line 2059):
+  Cannot determine test args for _test_rollback_point
+
+_tree (line 171):
+  📂 .github/
+  📂 workflows/
+...
+📂 .local/
+  📂 state/
+...
+📂 agent/
+  📂 knowledge/
+...
+  📄 __init__.py
+  📄 context.py
+  📄 count_tokens.py
+  📄 memory.py
+  📄 PROGRESS.md
+  📄 prompt.md
+  📄 repo_org_summary.m
+
+_validate_git_status (line 2238):
+  Cannot determine test args for _validate_git_status
+
+_validate_python (line 210):
+  test_all_tools.py is valid Python
+
+_validate_python_syntax (line 1939):
+  Cannot determine test args for _validate_python_syntax
+
+_web_fetch (line 406):
+  Example Domain Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations. Learn more
+
+_write (line 109):
+  wrote 4 characters to test_tool_output.txt
+

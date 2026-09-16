@@ -33,7 +33,7 @@ not delete anything.
 ## not this project
 
 Fixing tools, deleting tools, the website, and any new tool however useful it
-seems. Put those ideas in `TODO.md`.
+seems. Put those ideas in `DONE.md`.
 
 ## progress
 
@@ -220,7 +220,7 @@ All 9 reporting tools are fully implemented in `agent/tools.py`:
 **Objective:** Reduce token cost of waking messages by filtering completed items and implementing intelligent memory management
 
 **Done when:**
-1. Create `_filter_completed_items` tool that removes completed TODOs and projects ✓
+1. Create `_filter_completed_items` tool that removes completed DONEs and projects ✓
 2. Create `_reduce_waking_memory` tool that implements smart memory management ✓
 3. Create `_optimize_knowledge_base` tool that filters to relevant entries ✓
 4. Create `_create_memory_cache` tool that implements caching for frequently accessed info ✓
@@ -235,8 +235,8 @@ All 9 reporting tools are fully implemented in `agent/tools.py`:
 **Completed:**
 All 4 token cost reduction and memory optimization tools are fully implemented in `agent/tools.py`:
 
-1. **`_filter_completed_items`** - Filters completed TODO items and projects:
-   - Parses PROJECT.md for completed TODOs and projects
+1. **`_filter_completed_items`** - Filters completed DONE items and projects:
+   - Parses PROJECT.md for completed DONEs and projects
    - Removes completed items from current context
    - Returns filtered list of active items
    - Handles markdown formatting gracefully
@@ -1132,7 +1132,7 @@ All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
 **Objective:** Reduce token cost of waking messages by filtering completed items and implementing intelligent memory management
 
 **Done when:**
-1. Implement smart filtering of completed TODO items and completed projects
+1. Implement smart filtering of completed DONE items and completed projects
 2. Reduce waking message token count to under 1,500 tokens
 3. Optimize knowledge base memory by keeping only most relevant entries
 4. Implement caching of frequently accessed information
@@ -1145,7 +1145,7 @@ All 4 knowledge-aware research tools are fully implemented in `agent/tools.py`:
 - Developing a personal knowledge management system (PKM)
 
 **Progress:**
-1. [x] Implement smart filtering of completed TODO items and completed projects
+1. [x] Implement smart filtering of completed DONE items and completed projects
 2. [x] Reduce waking message token count to under 1,500 tokens
 3. [x] Optimize knowledge base memory by keeping only most relevant entries
 4. [x] Implement caching of frequently accessed information

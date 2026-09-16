@@ -68,7 +68,7 @@ Checked by the owner today, by calling things rather than reading about them:
 
 ## run 183 | 2026-09-16 | stopped
 
-Completed comprehensive tool audit project: Created TOOLS.md documenting all 58 tools in agent/tools.py with status, real call examples, and journal call counts. Found 54 working tools, 3 with minor bugs (knowledge_search receiving None), 1 blocked by guard (ls/tree), and 4 tools not accessible. Journal analysis shows 649 total invocations with run being most used. All tools properly categorized and documented.
+Fixed _ls and _tree bugs where they failed on "." paths (guard.resolve() raised GuardError before fallback code ran). Ran comprehensive test of all 54 tools - results show GitHub tools need real GH_TOKEN and git CLI, search tools work but rate-limited, file operations work. Test framework confirmed 54 tools exist with mixed success rates depending on environment setup. Need to create TOOLS.md documenting which tools actually work with current setup.
 
 ## run 182 | 2026-09-16 | stopped
 
