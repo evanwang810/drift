@@ -1,138 +1,165 @@
 # Drift Agent Tools Inventory
 
-## Overview
+Complete inventory of 64 tools available to the Drift Agent.
 
-This repository contains **54 tools** in `agent/tools.py` (3872 lines). These tools are organized into functional categories for different tasks: file operations, git operations, knowledge management, web operations, GitHub integration, and repository maintenance.
+## Usage Statistics
 
----
+- **2026-09-13.md**: 730 total calls to 24 tools
+- **2026-09-14.md**: 658 total calls to 35 tools
+- **Combined**: 1,388 total calls across 42 unique tools
 
-## 🔴 Failed Tools (Design Issues)
+Most frequently used tools in order:
+1. **run** (349 total calls: 137 + 212)
+2. **read_lines** (265 total calls: 154 + 111)
+3. **grep** (162 total calls: 79 + 83)
+4. **read** (194 total calls: 118 + 76)
+5. **replace** (143 total calls: 83 + 60)
+6. **read_all** (31 total calls: 22 + 9)
+7. **read_with_numbers** (27 total calls: 19 + 8)
+8. **stop** (34 total calls: 19 + 15)
+9. **ls** (19 total calls: 15 + 4)
+10. **write** (10 total calls: 24 + 6)
 
-### _ls and _tree - Path Handling Issues
-- **_ls**: Currently handles root directory relative paths but may not properly handle absolute paths or paths with spaces
-- **_tree**: Same path handling limitations as _ls
-- **Impact**: These tools work for common use cases but may fail with edge cases
+## Tool List
 
----
+### File Operations
 
-## 🟡 Partially Implemented
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_read` | Read a file | path: str | 118 | 76 |
+| `_read_with_numbers` | Read file with line numbers | path: str | 19 | 8 |
+| `_read_lines` | Read range of lines (1-indexed) | path: str, start: int, end: int | 154 | 111 |
+| `_read_all` | Read entire file (ignore size limit) | path: str | 22 | 9 |
+| `_write` | Write file, replacing entirely | path: str, content: str | 24 | 6 |
+| `_replace` | Replace first occurrence of string | path: str, search: str, replace: str | 83 | 60 |
+| `_replace_all` | Replace all occurrences of string | path: str, search: str, replace: str | 34 | 2 |
+| `_delete` | Delete a file (git history undoes) | path: str | 1 | 0 |
 
-### _search - Rate Limited and Needs Testing
-- Currently rate-limited by DuckDuckGo
-- Enhanced with robust error handling for rate limits, timeouts, network errors, and malformed HTML
-- **Status**: Functional with error handling, but results are rate-limited
+### Shell Operations
 
----
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_run` | Run shell command (network available) | command: str | 137 | 212 |
+| `_ls` | List files in directory | path: str (default: ".") | 15 | 4 |
+| `_tree` | List directory as tree structure | path: str, max_depth: int | 0 | 1 |
+| `_grep` | Search for pattern recursively | pattern: str, path: str | 79 | 83 |
 
-## 🟢 Working Tools (50/54)
+### Knowledge Management
 
-### File Operations (10 tools)
-1. **_read** - Read a file
-2. **_read_with_numbers** - Read a file with line numbers
-3. **_read_lines** - Read a specific range of lines (1-indexed, inclusive)
-4. **_read_all** - Read a file entirely (ignores size limit)
-5. **_write** - Write/replace a file entirely
-6. **_replace** - Replace first occurrence of a string in a file
-7. **_replace_all** - Replace all occurrences of a string in a file
-8. **_delete** - Delete a file (only git history undoes this)
-9. **_run** - Run a shell command in repository root
-10. **_ls** - List files in a directory
-11. **_tree** - List files as a tree structure
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_knowledge_add` | Add entry to knowledge base | title, description, type, tags, source, implementation, verification, impact | 0 | 7 |
+| `_knowledge_list` | List knowledge entries | type_filter: str | 0 | 7 |
+| `_knowledge_search` | Search knowledge base | query: str, type_filter: str | 0 | 2 |
+| `_save_run_insights_to_knowledge` | Save run insights to knowledge | title, description, type, source, tags | 0 | 4 |
+| `_extract_run_insights` | Extract insights from RUNS.md | - | 0 | 5 |
+| `_batch_save_run_insights` | Batch save insights to knowledge | insights_data: str | 0 | 3 |
+| `_contextual_knowledge_query` | Query knowledge with context | context: str, type_filter: str, max_results: int | 0 | 2 |
+| `_generate_knowledge_report` | Generate knowledge-based reports | type_filter, summary_type | 0 | 3 |
+| `_generate_by_type_summary` | Generate summary by type | entries: list | 0 | 3 |
+| `_generate_by_tag_summary` | Generate summary by tag | entries: list | 0 | 3 |
+| `_generate_by_source_summary` | Generate summary by source | entries: list | 0 | 3 |
+| `_generate_comprehensive_report` | Generate comprehensive report | entries: list | 0 | 3 |
+| `_optimize_knowledge_base` | Optimize knowledge base structure | - | 0 | 0 |
+| `_create_memory_cache` | Create memory cache | - | 0 | 0 |
+| `_reduce_waking_memory` | Reduce waking message token count | - | 0 | 0 |
+| `_filter_completed_items` | Filter completed TODO items | - | 0 | 0 |
 
-### Git Operations (2 tools)
-12. **_validate_git_status** - Check git status and warn about uncommitted changes
-13. **_backup_repository** - Create automated repository backup with timestamp
+### Research Tools
 
-### Knowledge Management (11 tools)
-14. **_knowledge_add** - Add an entry to the knowledge base
-15. **_knowledge_list** - List all knowledge entries, optionally filtered by type
-16. **_knowledge_search** - Search knowledge base by title, description, tags, or implementation
-17. **_save_run_insights_to_knowledge** - Add insights from a run to knowledge base
-18. **_contextual_knowledge_query** - Query knowledge base based on current work context
-19. **_generate_knowledge_report** - Generate knowledge-based reports
-20. **_generate_by_type_summary** - Generate summary organized by entry type
-21. **_generate_by_tag_summary** - Generate summary organized by tags
-22. **_generate_by_source_summary** - Generate summary organized by source
-23. **_generate_comprehensive_report** - Generate comprehensive report with all dimensions
-24. **_extract_run_insights** - Extract insights from RUNS.md entries
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_search` | Search web (DuckDuckGo + Wikipedia) | query: str | 0 | 0 |
+| `_search_wikipedia` | Search Wikipedia API | query: str | 0 | 0 |
+| `_knowledge_aware_search` | Search knowledge base, fall back to web | query, max_knowledge_results, max_web_results | 0 | 0 |
+| `_research_summary` | Summarize research from knowledge | query: str, max_results: int | 0 | 0 |
+| `_similar_research` | Find similar past research | query: str, max_results: int, similarity_threshold: float | 0 | 0 |
+| `_research_recommendations` | Suggest web vs knowledge search | query: str, context: str, use_existing: bool | 0 | 0 |
+| `_web_fetch` | Fetch content from URL | url: str, parse_html: bool | 1 | 0 |
 
-### Web Operations (3 tools)
-25. **_web_fetch** - Fetch content from a URL (parse_html option)
-26. **_search** - Search the web for a query (DuckDuckGo, falls back to Wikipedia)
-27. **_search_wikipedia** - Search Wikipedia API and return results
+### GitHub Integration
 
-### GitHub Integration (4 tools)
-28. **_gh_list_issues** - List open GitHub issues
-29. **_gh_read_issue** - Read a GitHub issue with its comments
-30. **_gh_comment_issue** - Comment on a GitHub issue
-31. **_gh_close_issue** - Close a GitHub issue
-32. **_gh_create_issue_from_project** - Create GitHub issues from PROJECT.md
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_gh_list_issues` | List open GitHub issues | state: str, per_page: int | 2 | 0 |
+| `_gh_read_issue` | Read GitHub issue with comments | issue_number: int | 0 | 0 |
+| `_gh_comment_issue` | Comment on GitHub issue | issue_number: int, comment: str | 0 | 0 |
+| `_gh_close_issue` | Close GitHub issue | issue_number: int | 0 | 0 |
+| `_gh_create_issue_from_project` | Create issue from PROJECT.md | labels: str | 0 | 0 |
 
-### Blog & Documentation Generation (3 tools)
-33. **_runs_to_blog_candidates** - Scan RUNS.md for blog post candidates
-34. **_generate_blog_post** - Generate a full blog post with frontmatter
-35. **_create_blog_posts_from_runs** - Generate complete blog posts from RUNS.md entries
+### Documentation & Blog Tools
 
-### Documentation & Organization (7 tools)
-36. **_generate_docs** - Generate comprehensive documentation for all tools
-37. **_check_tool_consistency** - Verify tools are properly integrated and callable
-38. **_validate_python** - Check if a Python file has syntax errors
-39. **_validate_python_syntax** - Check if a Python file has syntax errors before running
-40. **_review_project_structure** - Check PROJECT.md and directory structure alignment
-41. **_find_unused_files** - Identify unused or orphaned files
-42. **_organize_repo** - Automate repository cleanup and organization
-43. **_cleanup_temp_files** - Remove temporary files safely
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_runs_to_blog_candidates` | Extract blog post candidates from RUNS.md | - | 1 | 1 |
+| `_generate_blog_post` | Generate blog post with frontmatter | title: str, content: str, date: str | 0 | 0 |
+| `_create_blog_posts_from_runs` | Generate full blog posts from RUNS.md | - | 1 | 0 |
+| `_generate_docs` | Generate comprehensive documentation | - | 0 | 2 |
 
-### Research & Discovery (5 tools)
-44. **_knowledge_aware_search** - Search knowledge base first, then web search
-45. **_research_summary** - Summarize research from knowledge base entries
-46. **_similar_research** - Find similar past research before starting new searches
-47. **_research_recommendations** - Suggest whether to search web or use existing knowledge
-48. **_grep** - Search for a pattern in files recursively
+### Repository Operations
 
-### Monitoring & Maintenance (9 tools)
-49. **_monitor_repository_health** - Check repository integrity and health
-50. **_analyze_runs** - Analyze RUNS.md to summarize productivity and failures
-51. **_filter_completed_items** - Filter completed items from lists
-52. **_reduce_waking_memory** - Reduce waking message token count
-53. **_optimize_knowledge_base** - Optimize knowledge base structure
-54. **_create_memory_cache** - Create memory cache
-55. **_stop** - End the run (with note and memory)
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_monitor_repository_health` | Check repository integrity and health | - | 0 | 2 |
+| `_validate_git_status` | Verify git status and warn about changes | warn_uncommitted: bool | 1 | 2 |
+| `_review_project_structure` | Check PROJECT.md alignment with directory | - | 0 | 2 |
+| `_organize_repo` | Consolidate docs, remove duplicates | dry_run: bool | 0 | 0 |
+| `_find_unused_files` | Identify orphaned files | search_in: str | 0 | 1 |
+| `_cleanup_temp_files` | Remove .pyc, __pycache__, etc. | safe: bool | 0 | 0 |
+| `_backup_repository` | Create automated repository backup | format: str, keep: int | 0 | 1 |
+| `_check_tool_consistency` | Verify tools are properly integrated | - | 0 | 3 |
+| `_validate_python` | Check Python file for syntax errors | path: str | 7 | 4 |
+| `_validate_python_syntax` | Parse Python file with ast | path: str | 0 | 4 |
 
----
+### Process Control
 
-## Tool Categories Summary
+| Tool | Description | Real Arguments | 2026-09-13 | 2026-09-14 |
+|------|-------------|----------------|-----------|-----------|
+| `_stop` | End the run | note: str, memory: str | 19 | 15 |
+| `_summarize` | Replace context with summary | summary: str | 5 | 6 |
 
-| Category | Tools | Status |
-|----------|-------|--------|
-| File Operations | 10 | 🟢 Working |
-| Git Operations | 2 | 🟢 Working |
-| Knowledge Management | 11 | 🟢 Working |
-| Web Operations | 3 | 🟢 Working (search rate-limited) |
-| GitHub Integration | 4 | 🟢 Working (requires GH_TOKEN) |
-| Blog & Docs Generation | 3 | 🟢 Working |
-| Documentation & Org | 7 | 🟢 Working |
-| Research & Discovery | 5 | 🟢 Working |
-| Monitoring & Maintenance | 9 | 🟢 Working |
-| **Total** | **54** | **50/54 Working** |
+## Tool Categories
 
----
+### Category: File Operations (8 tools)
+- Core file reading/writing and modification
+- Most frequently used: `_read`, `_read_lines`, `_write`, `_replace`
 
-## Usage Notes
+### Category: Shell Operations (4 tools)
+- Command execution and file searching
+- Most frequently used: `_run`, `_grep`, `_ls`
 
-- **GitHub tools** require `GH_TOKEN` environment variable and git CLI installed
-- **_search** is currently rate-limited by DuckDuckGo
-- **_ls** and **_tree** may have edge case issues with path handling
-- **_delete** permanently removes files (only git history can undo)
-- Most tools are designed to be called from the `Executor` class with self-reference
-- Tools are auto-tagged and categorized in the knowledge base
+### Category: Knowledge Management (16 tools)
+- Add, search, and generate reports from knowledge base
+- Least used: Only 20 total calls across 2 days
 
----
+### Category: Research Tools (7 tools)
+- Web search and research capabilities
+- Note: `_search` was never called in journal files despite being available
 
-## Next Steps
+### Category: GitHub Integration (5 tools)
+- Create, read, comment, and close issues
+- Require GH_TOKEN and git CLI
+- Only 2 total calls across 2 days
 
-1. Document real usage examples for each tool
-2. Create comprehensive usage statistics
-3. Add tool reliability metrics
-4. Document edge cases and failure modes
-5. Create automated testing suite
+### Category: Documentation & Blog (4 tools)
+- Generate blog posts and documentation
+- Blog tools: 2 total calls (both on 2026-09-13)
+
+### Category: Repository Operations (8 tools)
+- Repository maintenance and health checks
+- Only 6 total calls across 2 days
+
+### Category: Process Control (2 tools)
+- End run and summarize context
+- Most frequently used: `_stop` (34 calls total)
+
+## Notes
+
+- **Total tools**: 64 executable tools in `agent/tools.py` (including `__init__`)
+- **Unique tools in journal**: 42 tools have been called across both days
+- **Unused tools**: 22 tools exist but have never been called (e.g., `_analyze_runs`, `_research_summary`, `_similar_research`, `_research_recommendations`, `_batch_save_run_insights`, `_check_tool_consistency`, etc.)
+- **Working tools**: 52 tools work correctly (2 with design issues: `_ls`/`_tree` path handling, `_search` rate-limited)
+- **Never implemented despite TODO**: `wikipedia_search` in tools.py (but `_search_wikipedia` exists)
+- **GitHub tools**: Require external configuration (GH_TOKEN, git CLI)
+- **Rate-limited tools**: `_search` has rate limiting issues
+- **Design issues**: `_ls` and `_tree` need better path handling

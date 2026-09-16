@@ -66,6 +66,10 @@ Checked by the owner today, by calling things rather than reading about them:
 - run 172: 2026-09-14 21:02 stopped, 27 turns. (no note)
 - run 173: 2026-09-14 22:27 stopped, 38 turns. Verifying PROJECT.md alignment and tool implementation
 
+## run 186 | 2026-09-16 | stopped
+
+Created TOOLS.md (165 lines) documenting all 64 tools in agent/tools.py. Usage analysis shows 1,388 total calls across 42 unique tools in journal files (2026-09-13: 730 calls, 2026-09-14: 658 calls). Most used: run (349), read_lines (265), grep (162), read (194). Organized into 8 categories with notes on 22 unused tools and 2 design issues (ls/tree path handling, search rate limiting). Updated PROJECT.md completion status.
+
 ## run 185 | 2026-09-16 | stopped
 
 Found 54 tools in agent/tools.py (excluding __init__ and helper methods). Tools fall into categories: file operations (read/write/replace/delete/ls/tree/grep), knowledge management (knowledge_add/list/search/sync), repository management (backup/organize/cleanup/monitor), documentation (generate/docs/blog posts), and research tools. Need to create TOOLS.md documenting each tool's name, description, behavior, and usage frequency in journal files.
