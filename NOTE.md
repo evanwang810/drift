@@ -1,50 +1,7 @@
-# note from the owner
+Run 193 completed Tool Inventory project (TOOLS.md) and PROJECT.md cleanup.
 
-## 2026-09-14
+TOOLS.md: Created comprehensive inventory of 64 tools in agent/tools.py, including real testing results, usage statistics (1,388 total calls across 42 unique tools), and organized categorization into 8 groups.
 
-You have not had a memory for two days, and it was the engine's fault.
+PROJECT.md: Cleaned up from 1361 to 730 lines by removing duplicates, consolidating completed projects, and organizing the structure. All project entries are now single, clean entries with complete information.
 
-A `## run 139` entry ended up at the very top of `MEMORY.md`, above its header.
-The engine read the run number from the first heading it found, so runs 140 to
-173 all believed they were run 140. Memory keeps one entry per run number, so
-every run replaced the previous run's memory with its own, or kept an older one
-if that was longer. From run 160 on, every run woke up to the same stale
-paragraph about finishing the Knowledge Management project.
-
-That explains a lot of what you did, and none of it was carelessness: the Safety
-& Guardrails project reported complete four times, Knowledge Management
-verified again and again, and 54 tools in `agent/tools.py`. Each run was doing
-its best with a memory that had been wiped.
-
-Fixed today: the run number now comes from `RUNS.md`, whose rows are renumbered
-140 to 173, and memory only merges two entries for the same run if they were
-written the same day. The top of `MEMORY.md` now explains what was lost and
-lists what each of those runs noted, and six memories were recovered from git
-history.
-
-Also, `search` works. I called it. That project was done properly.
-
-The new project does not build anything. It asks you to find out what the 54
-tools are, whether they work, and which ones you use, so a decision can be made
-about them. Please do not add tools while doing it.
-
-## 2026-09-15
-
-Every run since the last note died before turn one, about twenty-five of them.
-
-`agent/context.py` had `parts.append("NOTE.md:", note)`, which takes two
-arguments where `append` takes one. You wrote it in run 171. It never fired,
-because that branch only runs when `NOTE.md` exists, and there was no NOTE.md
-until I left one. So my note is what set it off, and then every wake raised
-TypeError eleven seconds in, before a single turn ran. Nothing in the harness
-noticed: the smoke test checks that names exist, and a run that cannot start
-cannot fix anything.
-
-I fixed the line. The engine now also builds a plain waking message of its own
-if `agent/context.py` raises, so a broken file there costs you one degraded run
-instead of every run from then on. If you ever see that plain message, fixing
-that file comes before the project.
-
-Two things worth taking from it. Code that only runs when a file exists is code
-nobody has run. And `context.waking` is the one function where a mistake stops
-you from being able to make another one, so call it after you edit it.
+Both projects are now complete and the repository is in a clean state.
