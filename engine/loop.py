@@ -10,9 +10,11 @@ from __future__ import annotations
 
 import json
 import time
+import traceback
 
 from agent import context, tools
 from agent import memory as agent_memory
+from engine import guard
 from engine.llm import Client, LLMError
 
 TRANSCRIPT: list[str] = []
@@ -195,12 +197,47 @@ def run(client: Client, ex: tools.Executor, messages: list[dict],
     return "out_of_turns", "used every turn", ""
 
 
+def waking(root, run_number: int, days: int, last: str, now, turns: int,
+           message: str) -> str:
+    """agent/context.py builds this, and the engine survives it being broken.
+
+    On 2026-09-14 a run left `parts.append("NOTE.md:", note)` in that file. The
+    branch only runs when NOTE.md exists, so it lay dormant until the owner left
+    a note, and then every run died eleven seconds in, before a single turn. A
+    run cannot fix the file that stops it from waking, so the crash stood for a
+    day and was found by a person reading the workflow log.
+    """
+    try:
+        return context.waking(root, run_number, days, last, now, turns, message)
+    except Exception as exc:  # noqa: BLE001 - a broken waking must not end the agent
+        traceback.print_exc()
+        try:
+            listing = context.tree(root)
+        except Exception:  # noqa: BLE001
+            listing = ""
+        return (
+            f"It is {now:%A %Y-%m-%d %H:%M} UTC. Run {run_number}."
+            f" You have up to {turns} turns."
+            f" Last run ended: {last}.\n\n"
+            "This message is the engine's, not yours: agent/context.py raised"
+            f" {type(exc).__name__}: {exc} when it was asked to build your waking"
+            " message, so you are reading a plain one instead. Every run will"
+            " fail to start until that file works, and a run that cannot start"
+            " cannot fix it. Fix that first, before the project, and check it by"
+            " calling context.waking yourself rather than by reading the code."
+            "\n\nFixed, and not yours: " + "  ".join(guard.PROTECTED)
+            + "\n\nState is in MEMORY.md, PROJECT.md, TODO.md, RUNS.md, and"
+            " NOTE.md if it exists. Read what you need.\n\n" + listing
+            + (f"\n\nSomeone left this for you: {message}" if message.strip() else "")
+        )
+
+
 def opening(root, run_number: int, days: int, last: str, now, turns: int,
             message: str) -> list[dict]:
     messages = [
         {"role": "system", "content": context.prompt(root)},
-        {"role": "user",
-         "content": context.waking(root, run_number, days, last, now, turns, message)},
+        {"role": "user", "content": waking(root, run_number, days, last, now,
+                                           turns, message)},
     ]
     # The project is the last thing said before the agent acts, because a run
     # that opens with "work on what you want" spends itself looking for

@@ -27,3 +27,24 @@ Also, `search` works. I called it. That project was done properly.
 The new project does not build anything. It asks you to find out what the 54
 tools are, whether they work, and which ones you use, so a decision can be made
 about them. Please do not add tools while doing it.
+
+## 2026-09-15
+
+Every run since the last note died before turn one, about twenty-five of them.
+
+`agent/context.py` had `parts.append("NOTE.md:", note)`, which takes two
+arguments where `append` takes one. You wrote it in run 171. It never fired,
+because that branch only runs when `NOTE.md` exists, and there was no NOTE.md
+until I left one. So my note is what set it off, and then every wake raised
+TypeError eleven seconds in, before a single turn ran. Nothing in the harness
+noticed: the smoke test checks that names exist, and a run that cannot start
+cannot fix anything.
+
+I fixed the line. The engine now also builds a plain waking message of its own
+if `agent/context.py` raises, so a broken file there costs you one degraded run
+instead of every run from then on. If you ever see that plain message, fixing
+that file comes before the project.
+
+Two things worth taking from it. Code that only runs when a file exists is code
+nobody has run. And `context.waking` is the one function where a mistake stops
+you from being able to make another one, so call it after you edit it.

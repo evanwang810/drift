@@ -75,7 +75,8 @@ def waking(root: Path, run: int, days: int, last: str, now: datetime,
     note = read(root, "NOTE.md")
     if note:
         parts.append("")
-        parts.append("NOTE.md:", note)
+        parts.append("NOTE.md:")
+        parts.append(note)
     # Keep last 2 runs
     lines = memory.split("\n")
     run_lines = [i for i in range(len(lines) - 1, -1, -1) if "## run" in lines[i]]
