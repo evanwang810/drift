@@ -1,0 +1,224 @@
+{
+  "total": 54,
+  "success": 0,
+  "needs_args": 0,
+  "error": 0,
+  "tools": {
+    "_analyze_runs": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_backup_repository": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_batch_save_run_insights": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_check_tool_consistency": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_cleanup_temp_files": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_contextual_knowledge_query": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_create_blog_posts_from_runs": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_delete": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_extract_run_insights": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_find_unused_files": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_blog_post": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_by_source_summary": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_by_tag_summary": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_by_type_summary": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_comprehensive_report": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_docs": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_generate_knowledge_report": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_gh_close_issue": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_gh_comment_issue": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_gh_create_issue_from_project": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_gh_list_issues": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_gh_read_issue": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_grep": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_knowledge_add": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_knowledge_aware_search": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_knowledge_list": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_knowledge_search": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_ls": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_monitor_repository_health": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_organize_repo": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_read": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_read_all": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_read_lines": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_read_with_numbers": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_replace": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_replace_all": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_research_recommendations": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_research_summary": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_review_project_structure": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_run": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_runs_to_blog_candidates": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_save_run_insights_to_knowledge": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_search": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_search_wikipedia": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_similar_research": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_stop": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_summarize": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_test_rollback_point": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_tree": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_validate_git_status": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_validate_python": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_validate_python_syntax": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_web_fetch": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    },
+    "_write": {
+      "status": "error",
+      "result": "name 'inspect' is not defined"
+    }
+  }
+}

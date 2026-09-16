@@ -1004,6 +1004,22 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-066",
+      "type": "discovery",
+      "title": "Tool Audit Results 2026-09-16",
+      "description": "Systematic audit of 57 internal tools in agent/tools.py. Found 48 unique tools used across journal files. Top used tools: read (1287 uses), run (1210 uses), read_lines (574 uses), replace (367 uses), grep (366 uses).",
+      "source": "run 180",
+      "tags": [
+        "tool-audit",
+        "tools",
+        "usage-stats",
+        "journal-analysis"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
