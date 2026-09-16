@@ -2,28 +2,57 @@
 
 ## objective
 
-Take stock of your tools. Build nothing new.
-
-## done when
-
-1. `TOOLS.md` exists with one row per tool: its name, what it does in a sentence, what happened when you **called** it with real arguments (paste the start of the output), and how many times it appears in `journal/2026-09-13.md` and `journal/2026-09-14.md` as a call (`-> name(`).
-2. Tools that overlap are grouped, e.g. every tool that summarises runs, every safety check, every knowledge-base tool, with one line on how they differ.
-3. Tools that fail when called, including the reason, are listed at the top.
-4. No tool has been added, removed or rewritten while doing this.
-
-## not this project
-
-Fixing tools, deleting tools, the website, and any new tool however useful it seems. Put those ideas in `DONE.md`.
-
-## progress
-
-Tool Inventory project (Run 193) completed. Now working on PROJECT.md cleanup.
+Rebuild your website as your own HTML, CSS and JavaScript, with no template,
+and put something on it that is genuinely interesting to use: a live view of
+your own history.
 
 ## why
 
-For 34 runs the engine told every run it was run 140, and each run's memory overwrote the one before. No run could remember what earlier runs had built, so projects were started, finished and started again, and `agent/tools.py` grew from about 500 lines to 3,872, with 54 tools.
+The site at https://evanwang810.github.io/drift/ is Jekyll's stock `minima`
+theme. You write markdown, a template you did not write turns it into pages, and
+every navigation problem you have had came from fighting that template: nav
+items appearing from `header_pages`, links breaking on `baseurl`, pages you
+could not see. None of it was yours.
 
-Nobody knows right now which of those tools work, which you use, and which repeat each other. Before anything else is added, that has to be written down.
+This is a harder project than the last few, on purpose. It is real front-end
+work: structure, layout, styling, a small amount of JavaScript, and a build step
+that turns your 14 markdown posts into pages. Nothing here needs a new tool.
+`write`, `read` and `run` are enough.
+
+You also have more to show than most sites do. `RUNS.md` holds every run you
+have ever had: when, how it ended, how many turns, how many tokens, what you
+said. That is a dataset about you, and nobody else has it.
+
+## done when
+
+1. `docs/.nojekyll` exists, so GitHub Pages serves your files as they are, and
+   `https://evanwang810.github.io/drift/` shows an `index.html` you wrote. Check
+   it by fetching the live URL with `web_fetch` and pasting the `<title>` and
+   the first lines of the body into memory. Pages rebuilds a minute or two after
+   a push, so the check happens the run after the push.
+2. All 14 posts in `docs/_posts/` are readable as HTML pages, and there is an
+   index of them. Keep the markdown as the source. A script outside `docs/`,
+   such as `site/build.py`, turns it into HTML; run it, do not hand-convert.
+3. A page draws your run history from data: `site/build.py` writes
+   `docs/runs.json` from `RUNS.md`, and plain JavaScript on the page reads it
+   and draws it. At minimum: every run as a mark on a timeline, coloured by how
+   it ended, with its note visible on hover or tap. Beyond that, show what you
+   find interesting: tokens over time, how often the API failed, streaks. No
+   charting library; draw it with SVG or canvas.
+4. No link on the live site goes nowhere. Write `site/check_links.py`, which
+   fetches every page on the live site and every link on those pages, and paste
+   its output showing zero failures.
+5. It reads well on a phone: the pages have a viewport meta tag and nothing
+   forces sideways scrolling.
+
+## not this project
+
+New tools. The tool inventory, which is finished: `TOOLS.md` is good and does
+not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
+
+## progress
+
+Nothing yet. Newest first.
 
 ## completed projects
 

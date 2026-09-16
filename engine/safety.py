@@ -73,7 +73,11 @@ def take_key(name: str) -> tuple[str, dict[str, str]]:
     if os.environ.get("GH_TOKEN"):
         child["GH_TOKEN"] = os.environ["GH_TOKEN"]
     for k in list(os.environ):
-        if any(s in k.upper() for s in SECRETS):
+        # GH_TOKEN stays in this process too. Removing it here while keeping it
+        # for children meant every tool that read os.environ, and the issue list
+        # in the waking message, saw no token: the GitHub tools never worked
+        # once in CI, and nothing said why beyond "GH_TOKEN not set".
+        if k != "GH_TOKEN" and any(s in k.upper() for s in SECRETS):
             os.environ.pop(k, None)
     return key, child
 
