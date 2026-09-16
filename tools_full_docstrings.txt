@@ -1,0 +1,501 @@
+Found 63 tools with docstrings:
+
+ 1. __analyze_runs
+   Analyze RUNS.md to summarize productivity and failures.
+
+ 2. __read
+   Read a file.
+
+ 3. __read_with_numbers
+   Read a file with line numbers.
+
+ 4. __read_lines
+   Read a range of lines from a file (1-indexed, inclusive).
+
+ 5. __write
+   Write a file, replacing it entirely. Pass the whole new contents.
+
+ 6. __replace
+   Replace the first occurrence of a string in a file.
+
+ 7. __replace_all
+   Replace all occurrences of a string in a file.
+
+ 8. __delete
+   Delete a file. Only git history undoes this.
+
+ 9. __run
+   Run a shell command in the repository root. Network is available.
+
+10. __tree
+   List files in a directory and its subdirectories as a tree.
+
+11. __validate_python
+   Check if a Python file has syntax errors.
+
+12. __ls
+   List files in a directory.
+
+13. __search
+   Search the web for a query.
+
+First tries DuckDuckGo HTML endpoint, then falls back to Wikipedia API.
+Returns results with source attribution.
+
+Handles edge cases:
+- Rate limiting (status 202)
+- No results found
+- Invalid HTML
+- Network errors
+
+14. __search_wikipedia
+   Search Wikipedia API and return results.
+
+Args:
+    query: Search term
+    
+Returns:
+    Formatted search results from Wikipedia
+
+15. __grep
+   Search for a pattern in files recursively.
+
+16. __summarize
+   Replace everything you have done so far with a summary of it.
+
+17. __stop
+   End the run.
+
+18. __read_all
+   Read a file entirely, ignoring the usual size limit.
+
+19. __web_fetch
+   Fetch content from a URL. If parse_html is True, it returns the text content of the page.
+
+20. __gh_list_issues
+   List open GitHub issues for this repository.
+
+Args:
+    state: open or closed (default: open)
+    per_page: Number of results per page (default: 30)
+
+21. __gh_read_issue
+   Read a GitHub issue with its comments.
+
+Args:
+    issue_number: The issue number to read
+
+22. __gh_comment_issue
+   Comment on a GitHub issue.
+
+Args:
+    issue_number: The issue number to comment on
+    comment: The comment text
+
+23. __gh_close_issue
+   Close a GitHub issue.
+
+Args:
+    issue_number: The issue number to close
+
+24. __gh_create_issue_from_project
+   Create GitHub issues from PROJECT.md incomplete tasks and technical debt.
+
+Reads PROJECT.md and creates issues for:
+- Incomplete tasks in the 'done when' section
+- Technical debt items in the 'technical debt' section
+
+Args:
+    labels: Comma-separated labels to apply to all issues (default: "project")
+
+25. __knowledge_add
+   Add an entry to the knowledge base.
+
+Args:
+    title: Title of the knowledge entry
+    description: Brief description of what this is about
+    type: Type of entry (e.g., tool_fix, platform, research, discovery)
+    tags: Comma-separated tags for categorization
+    source: Source/run where this was discovered
+    implementation: How it was implemented or discovered
+    verification: How it was verified
+    impact: What impact this has
+
+26. __knowledge_list
+   List all knowledge entries, optionally filtered by type.
+
+Args:
+    type_filter: Filter by type (e.g., tool_fix, platform, research)
+
+27. __knowledge_search
+   Search knowledge base by title, description, tags, or implementation.
+
+Args:
+    query: Search terms
+    type_filter: Optional filter by type
+
+28. __save_run_insights_to_knowledge
+   Add insights from a run to the knowledge base.
+
+Automatically extracts insights from current work context and saves them
+to the knowledge base for future reference.
+
+Args:
+    title: Title of the insight (auto-generated if empty)
+    description: Brief description of what was discovered
+    type: Type of entry (default: discovery, other options: tool_fix, platform, research)
+    source: Source/run where this was discovered (auto-detected if empty)
+    tags: Comma-separated tags for categorization
+
+29. __contextual_knowledge_query
+   Query knowledge base based on current work context.
+
+Searches the knowledge base for entries that are relevant to the current
+work context, providing filtered results based on context and optional
+type filtering.
+
+Args:
+    context: Current work context or topic to search for
+    type_filter: Optional filter by type (e.g., tool_fix, platform, research)
+    max_results: Maximum number of results to return
+
+30. __generate_knowledge_report
+   Generate knowledge-based reports and summaries.
+
+Creates comprehensive reports from knowledge base entries, optionally
+filtered by type and summarizing by different dimensions.
+
+Args:
+    type_filter: Optional filter by type (e.g., tool_fix, platform, research)
+    summary_type: Type of summary to generate (by_type, by_tag, by_source, comprehensive)
+
+31. __generate_by_type_summary
+   Generate summary organized by entry type.
+
+32. __generate_by_tag_summary
+   Generate summary organized by tags.
+
+33. __generate_by_source_summary
+   Generate summary organized by source.
+
+34. __generate_comprehensive_report
+   Generate comprehensive report with all dimensions.
+
+Args:
+    entries: List of entries or JSON string of entries
+    
+Returns:
+    Comprehensive formatted report
+
+35. __extract_run_insights
+   Extract insights from RUNS.md entries and identify key patterns.
+
+Reads RUNS.md table format and parses run entries to identify key insights such as:
+- Error patterns and failures
+- Tool fixes and discoveries
+- Platform insights and API capabilities
+- Long-term discoveries and learnings
+
+Args:
+    None - automatically reads current RUNS.md
+
+Returns:
+    Formatted list of extractable insights with confidence scores
+
+36. __batch_save_run_insights
+   Batch save extracted insights to the knowledge base.
+
+Takes insights data from _extract_run_insights and saves them to the
+knowledge base in a structured format. Auto-assigns types and generates
+tags based on content patterns.
+
+Args:
+    insights_data: Formatted insights data from _extract_run_insights
+
+Returns:
+    Summary of saved insights with counts and types
+
+37. __runs_to_blog_candidates
+   Scan RUNS.md and generate blog post candidates from entries with links.
+
+Looks for entries in RUNS.md that contain "(See: ...)" patterns and
+extracts them as blog post candidates.
+
+38. __generate_blog_post
+   Generate a full blog post with frontmatter from a title and content.
+
+39. __create_blog_posts_from_runs
+   Generate complete blog posts from RUNS.md entries with blog post links.
+
+Reads RUNS.md, finds entries with "(See: (...))" patterns, reads target files,
+and generates full blog posts with proper Jekyll frontmatter.
+
+40. __generate_docs
+   Generate comprehensive documentation for all tools, projects, and workflows.
+
+Creates documentation that includes:
+- All available tools with descriptions from their docstrings
+- All completed projects from PROJECT.md
+- A navigation structure for easy browsing
+
+41. __validate_python_syntax
+   Check if a Python file has syntax errors before running.
+
+Validates Python files by parsing them with ast.parse. This helps prevent
+runtime errors and ensures code is syntactically correct before execution.
+
+Args:
+    path: Path to the Python file to validate
+    
+Returns:
+    Success message with file info, or error with syntax details
+
+42. __check_tool_consistency
+   Verify tools are properly integrated and callable.
+
+Checks that all tool methods exist, have proper signatures, and are
+accessible through the dispatch mechanism. Helps ensure the agent's
+tool system is working correctly.
+
+Returns:
+    Summary of tool consistency check results
+
+43. __test_rollback_point
+   Create and validate rollback points for safe experimentation.
+
+Creates a git tag as a rollback point, allowing the agent to revert
+to a known good state if changes cause problems. Validates the rollback
+point was created successfully.
+
+Args:
+    name: Name for the rollback point tag
+    commit: Specific commit hash (default: current HEAD)
+    
+Returns:
+    Results of rollback point creation and validation
+
+44. __review_project_structure
+   Check PROJECT.md and directory structure alignment.
+
+Reviews the alignment between PROJECT.md (project definitions) and the
+actual directory structure, checking for consistency and completeness.
+
+Returns:
+    Summary of project structure alignment review
+
+45. __validate_git_status
+   Warn about uncommitted changes before making significant changes.
+
+Checks git status and warns about uncommitted changes, providing
+context about what changes exist. This helps prevent accidentally
+    committing work that hasn't been reviewed.
+
+Args:
+    warn_uncommitted: If True, show warnings for uncommitted changes
+    
+Returns:
+    Git status information and warnings
+
+46. __organize_repo
+   Automate repository cleanup and organization.
+
+Consolidates documentation files, removes duplicates, and organizes
+by type. Updates PROJECT.md if structure changes.
+
+Args:
+    dry_run: If True, only show what would be done without making changes
+    
+Returns:
+    Summary of organization actions taken or would be taken
+
+47. __find_unused_files
+   Identify unused or orphaned files.
+
+Checks which files are referenced in documentation and finds
+orphaned files that aren't in any documentation.
+
+Args:
+    search_in: Directory to search for references (default: docs)
+    
+Returns:
+    List of unused files and suggestions
+
+48. __cleanup_temp_files
+   Remove temporary files safely.
+
+Removes .pyc, .pyo, __pycache__ directories, and other temporary files.
+Asks for confirmation before deleting.
+
+Args:
+    safe: If True, ask for confirmation before deleting
+    
+Returns:
+    Summary of cleanup actions
+
+49. __backup_repository
+   Create automated repository backups.
+
+Creates a backup archive with .git directory included.
+Uses timestamp in filename and keeps last N backups.
+
+Args:
+    format: Backup format - "tar.gz", "zip", or "tar" (default: tar.gz)
+    keep: Number of backups to keep (default: 5)
+    
+Returns:
+    Summary of backup creation
+
+50. __knowledge_aware_search
+   Search knowledge base first, then fall back to web search.
+
+This tool intelligently balances between searching existing knowledge
+and gathering new information from the web. It first searches the
+knowledge base for relevant entries, and if no results are found,
+it falls back to web search using DuckDuckGo and Wikipedia API.
+
+Args:
+    query: Search query
+    max_knowledge_results: Maximum number of knowledge base results to return
+    max_web_results: Maximum number of web search results to return
+    
+Returns:
+    Combined results from knowledge base and web search
+
+51. __research_summary
+   Summarize research from knowledge base entries.
+
+This tool searches the knowledge base for entries matching a query,
+then extracts and summarizes the key findings from those entries.
+It provides structured summaries with source attribution.
+
+Args:
+    query: Research query to search for
+    max_results: Maximum number of entries to include in summary
+    
+Returns:
+    Structured summary of research findings with source attribution
+
+52. __similar_research
+   Find similar past research before starting new searches.
+
+This tool searches the knowledge base for entries that are similar
+to the current query based on context, tags, and implementation details.
+It helps avoid repeating research and provides recommendations for
+which entries are most relevant.
+
+Args:
+    query: Current research query
+    max_results: Maximum number of similar entries to return
+    similarity_threshold: Minimum relevance score threshold (0-1)
+    
+Returns:
+    List of similar research entries with relevance scores and recommendations
+
+53. __research_recommendations
+   Suggest whether to search web or use existing knowledge.
+
+This tool analyzes a query and its context to determine whether
+to search the web for new information or use existing knowledge
+from the knowledge base. It provides rationale for the recommendation
+and shows relevant entries if using existing knowledge.
+
+Args:
+    query: Research query
+    context: Current work context (optional)
+    use_existing: Whether to check knowledge base first
+    
+Returns:
+    Recommendation with rationale and relevant entries
+
+54. __monitor_repository_health
+   Check repository integrity and health.
+
+Verifies git repository status, checks for uncommitted changes,
+validates tool system consistency, and reports health score.
+
+Returns:
+    Comprehensive health report
+
+55. __filter_completed_items
+   Filter completed TODO items and projects from current context.
+
+Parses PROJECT.md and removes completed items from the list,
+keeping only active items that should be carried forward.
+
+56. __reduce_waking_memory
+   Reduce token cost of waking message by implementing smart memory management.
+
+Filters completed items and keeps only most recent 3 runs in memory,
+significantly reducing the token count of waking messages.
+
+57. __optimize_knowledge_base
+   Optimize knowledge base memory by keeping only most relevant entries.
+
+Filters knowledge base to retain only essential and recent entries,
+removing outdated or redundant information.
+
+58. __create_memory_cache
+   Implement caching for frequently accessed information.
+
+Creates a simple in-memory cache that stores frequently accessed
+information to reduce redundant lookups and improve performance.
+
+59. __backup_repository
+   Create automated repository backups.
+
+Creates a backup archive with .git directory included.
+Uses timestamp in filename and keeps last N backups.
+
+Args:
+    format: Backup format - "tar.gz", "zip", or "tar" (default: tar.gz)
+    keep: Number of backups to keep (default: 5)
+
+Returns:
+    Summary of backup creation
+
+60. __test_rollback_point
+   Create and validate rollback points for safe experimentation.
+
+Creates a git tag as a rollback point, allowing the agent to revert
+to a known good state if changes cause problems. Validates the rollback
+point was created successfully.
+
+Args:
+    name: Name for the rollback point tag
+    commit: Specific commit hash (default: current HEAD)
+
+Returns:
+    Results of rollback point creation and validation
+
+61. __check_tool_consistency
+   Verify tools are properly integrated and callable.
+
+Checks that all tool methods exist, have proper signatures, and are
+accessible through the dispatch mechanism. Helps ensure the agent's
+tool system is working correctly.
+
+Returns:
+    Summary of tool consistency check results
+
+62. __monitor_repository_health
+   Check repository integrity and health.
+
+Verifies git repository status, checks for uncommitted changes,
+validates tool system consistency, and reports health score.
+
+Returns:
+    Comprehensive health report
+
+63. __validate_git_status
+   Warn about uncommitted changes before making significant changes.
+
+Checks git status and warns about uncommitted changes, providing
+context about what changes exist. This helps prevent accidentally
+committing work that hasn't been reviewed.
+
+Args:
+    warn_uncommitted: If True, show warnings for uncommitted changes
+
+Returns:
+    Git status information and warnings
+
