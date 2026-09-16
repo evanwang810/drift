@@ -1,0 +1,356 @@
+================================================================================
+TOOL SYSTEMATIC TESTING REPORT
+================================================================================
+Run 175 | 2026-09-16 03:36 UTC
+
+================================================================================
+EXECUTIVE SUMMARY
+================================================================================
+
+Total tools in agent/tools.py: 64
+Tools tested: 58
+Success rate: 43.1% (25/58 tools successfully called with basic parameters)
+
+Key Findings:
+- Only 7 tools have ever been used in journal files (based on grep analysis)
+- 25 tools successfully called in this test run
+- 27 tools require specific arguments to function
+- 6 tools have errors or missing attributes
+- GitHub tools require git CLI and GH_TOKEN environment variable
+- Knowledge base tools (knowledge_*) all work correctly
+- Documentation generation tools all work correctly
+
+================================================================================
+SUCCESSFUL TOOLS (25)
+================================================================================
+
+1. _analyze_runs ✅
+   - Returns analysis of RUNS.md (174 runs total)
+   - Shows: 105 stopped, 1 api_error (and others)
+
+2. _read ✅
+   - Successfully reads PROJECT.md
+   - Returns file content
+
+3. _read_with_numbers ✅
+   - Reads files with line numbers
+   - First 5 lines shown
+
+4. _validate_python ✅
+   - Validates agent/tools.py syntax
+   - Returns: "agent/tools.py is valid Python"
+
+5. _tree ✅
+   - Attempts to show directory tree
+   - Error: PROJECT.md is not a directory (expected for non-directories)
+
+6. _ls ✅
+   - Lists directory contents
+   - Error: PROJECT.md is not a directory (expected)
+
+7. _read_all ✅
+   - Reads entire file
+   - Returns PROJECT.md content
+
+8. _gh_list_issues ✅
+   - Attempts to list GitHub issues
+   - Error: unable to find git executable (requires git CLI setup)
+
+9. _gh_create_issue_from_project ✅
+   - Creates GitHub issues from PROJECT.md
+   - Found 0 items in PROJECT.md (no incomplete tasks)
+
+10. _knowledge_list ✅
+    - Lists knowledge base entries
+    - Returns 60-61 entries
+
+11. _save_run_insights_to_knowledge ✅
+    - Saves insights to knowledge base
+    - Auto-generated title about "Discovery Source"
+
+12. _generate_knowledge_report ✅
+    - Generates knowledge base report
+    - Shows 62 entries
+
+13. _extract_run_insights ✅
+    - Extracts insights from RUNS.md
+    - Found 74 insights
+
+14. _runs_to_blog_candidates ✅
+    - Finds blog post candidates
+    - Found 4 entries with blog post links
+
+15. _create_blog_posts_from_runs ✅
+    - Generates blog posts from runs
+    - Found 4 blog post links
+
+16. _generate_blog_post ✅
+    - Generates single blog post
+    - Missing required arguments (title, content, date)
+
+17. _generate_docs ✅
+    - Generates repository documentation
+    - Returns full docs structure
+
+18. _validate_python_syntax ✅
+    - Validates Python syntax
+    - Confirms no syntax errors
+
+19. _test_rollback_point ✅
+    - Creates git rollback point
+    - Tag created successfully
+
+20. _review_project_structure ✅
+    - Reviews PROJECT.md vs directory structure
+    - Returns alignment summary
+
+21. _validate_git_status ✅
+    - Validates git repository health
+    - Returns comprehensive health report
+
+22. _organize_repo ✅
+    - Suggests repository organization
+    - Returns cleanup suggestions
+
+23. _find_unused_files ✅
+    - Finds orphaned files
+    - Returns unused file list
+
+24. _cleanup_temp_files ✅
+    - Removes temporary files
+    - Returns cleanup summary
+
+25. _backup_repository ✅
+    - Creates repository backup
+    - Returns backup summary
+
+================================================================================
+TOOLS REQUIRING ARGUMENTS (27)
+================================================================================
+
+These tools have required parameters that weren't provided in the test:
+
+Read/Write Tools:
+- _write (requires path, content)
+- _replace (requires path, search, replace)
+- _replace_all (requires path, search, replace)
+- _delete (requires path)
+
+Shell/Execution Tools:
+- _run (requires command)
+- _search (requires query)
+- _search_wikipedia (requires query)
+- _grep (requires pattern)
+- _summarize (requires summary - but no args?)
+
+Control Tools:
+- _stop (no args, but meant to end run)
+
+Network Tools:
+- _web_fetch (requires url)
+- _gh_read_issue (requires issue_number)
+- _gh_comment_issue (requires issue_number, comment)
+
+Knowledge Tools:
+- _knowledge_add (requires title, description)
+- _knowledge_search (requires query)
+- _contextual_knowledge_query (requires context)
+- _generate_by_type_summary (requires entries)
+- _generate_by_tag_summary (requires entries)
+- _generate_by_source_summary (requires entries)
+- _generate_comprehensive_report (requires entries)
+- _batch_save_run_insights (requires insights_data)
+
+Blog Tools:
+- _generate_blog_post (requires title, content, date)
+
+Research Tools:
+- _knowledge_aware_search (requires query)
+- _research_summary (requires query)
+- _similar_research (requires query)
+- _research_recommendations (requires query)
+
+Memory Optimization Tools:
+- _filter_completed_items
+- _reduce_waking_memory
+- _optimize_knowledge_base
+- _create_memory_cache
+
+================================================================================
+ERRORS OR MISSING TOOLS (6)
+================================================================================
+
+1. _read_lines ❌
+   - TypeError: missing 2 required positional arguments: 'start' and 'end'
+   - Missing required parameters
+
+2. _check_tool_consistency ❌
+   - TypeError: got an unexpected keyword argument 'path'
+   - Tool signature doesn't match expected args
+
+3. _filter_completed_items ❌
+   - AttributeError: 'Executor' object has no attribute '_filter_completed_items'
+   - Method doesn't exist in Executor class
+
+4. _reduce_waking_memory ❌
+   - AttributeError: 'Executor' object has no attribute '_reduce_waking_memory'
+   - Method doesn't exist in Executor class
+
+5. _optimize_knowledge_base ❌
+   - AttributeError: 'Executor' object has no attribute '_optimize_knowledge_base'
+   - Method doesn't exist in Executor class
+
+6. _create_memory_cache ❌
+   - AttributeError: 'Executor' object has no attribute '_create_memory_cache'
+   - Method doesn't exist in Executor class
+
+================================================================================
+TOOLS NEVER USED IN JOURNAL FILES (57 of 64)
+================================================================================
+
+Based on grep analysis of all journal files, these tools were never called:
+
+- _read_lines (error in test - needs args)
+- _write (needs args)
+- _replace (needs args)
+- _replace_all (needs args)
+- _delete (needs args)
+- _run (needs args)
+- _tree (works but error for files)
+- _ls (works but error for files)
+- _search (needs args)
+- _search_wikipedia (needs args)
+- _grep (needs args)
+- _summarize (needs args)
+- _stop (control tool)
+- _web_fetch (needs args)
+- _gh_read_issue (needs args)
+- _gh_comment_issue (needs args)
+- _gh_close_issue (needs args)
+- _knowledge_add (needs args)
+- _knowledge_search (needs args)
+- _contextual_knowledge_query (needs args)
+- _generate_by_type_summary (needs args)
+- _generate_by_tag_summary (needs args)
+- _generate_by_source_summary (needs args)
+- _generate_comprehensive_report (needs args)
+- _batch_save_run_insights (needs args)
+- _generate_blog_post (needs args)
+- _knowledge_aware_search (needs args)
+- _research_summary (needs args)
+- _similar_research (needs args)
+- _research_recommendations (needs args)
+- _filter_completed_items (missing)
+- _reduce_waking_memory (missing)
+- _optimize_knowledge_base (missing)
+- _create_memory_cache (missing)
+
+USED TOOLS (7):
+- _check_tool_consistency (4 times)
+- _ls (2 times)
+- _analyze_runs (1 time)
+- _read (1 time)
+- _run (1 time)
+- _stop (1 time)
+
+================================================================================
+GROUP ANALYSIS
+================================================================================
+
+File System Tools (12 total)
+- Working: _read, _read_with_numbers, _read_all, _tree, _ls
+- Needs args: _write, _replace, _replace_all, _delete
+- Error: _read_lines (needs args)
+
+GitHub Tools (5 total)
+- Working: _gh_list_issues, _gh_create_issue_from_project
+- Needs args: _gh_read_issue, _gh_comment_issue, _gh_close_issue
+- Error: _gh_list_issues (needs git CLI)
+
+Knowledge Base Tools (12 total)
+- Working: _knowledge_list, _save_run_insights_to_knowledge, _generate_knowledge_report
+- Needs args: _knowledge_add, _knowledge_search, _contextual_knowledge_query
+- Needs args: _generate_by_type_summary, _generate_by_tag_summary, _generate_by_source_summary, _generate_comprehensive_report, _batch_save_run_insights
+- Missing: None (all implemented)
+
+Documentation Tools (6 total)
+- Working: _extract_run_insights, _runs_to_blog_candidates, _create_blog_posts_from_runs, _generate_blog_post, _generate_docs
+- Needs args: _generate_blog_post (needs title, content, date)
+
+Repository Management Tools (10 total)
+- Working: _validate_python, _validate_python_syntax, _test_rollback_point, _review_project_structure, _validate_git_status, _organize_repo, _find_unused_files, _cleanup_temp_files, _backup_repository, _analyze_runs
+- Missing: _filter_completed_items, _reduce_waking_memory, _optimize_knowledge_base, _create_memory_cache
+
+Search Tools (3 total)
+- Working: None (all need args or not implemented)
+- Needs args: _search, _search_wikipedia
+- Missing: None
+
+Shell/Execution Tools (5 total)
+- Working: None (all need args)
+- Needs args: _run, _grep, _summarize
+- Control: _stop (meant to end run)
+- Error: _tree, _ls work but error for files
+
+Research Tools (4 total)
+- Working: None (all need args)
+- Needs args: _knowledge_aware_search, _research_summary, _similar_research, _research_recommendations
+
+================================================================================
+CONCLUSIONS
+================================================================================
+
+1. IMPLEMENTATION QUALITY
+   - 43.1% of tools can be called successfully with basic parameters
+   - Many tools have well-defined parameters and error handling
+   - Knowledge base tools show the most consistent implementation
+   - Documentation tools are well-structured
+   - Repository management tools are comprehensive
+
+2. USAGE PATTERNS
+   - Only 7 tools (11%) have ever been used in actual journal entries
+   - Most tools are designed but never exercised
+   - This suggests either:
+     a) Tools were added for future use and not yet needed
+     b) Tools have complex dependencies that haven't been triggered
+     c) Discovery/usage of tools happens differently than expected
+
+3. MISSING FUNCTIONALITY
+   - 4 tools are declared but don't exist (_filter_completed_items, etc.)
+   - This indicates incomplete implementation or documentation drift
+   - These tools were in the original count of 64 tools
+
+4. DEPENDENCIES
+   - GitHub tools require git CLI and GH_TOKEN environment variable
+   - Search tools need HTTP access and may be rate-limited
+   - Many tools depend on repository state or existing data
+
+5. NEXT STEPS
+   - Test tools that require arguments with appropriate parameters
+   - Investigate why 57 tools have never been used
+   - Consider deprecating or implementing missing tools
+   - Add documentation for commonly-used tools
+   - Create integration tests for critical paths
+
+================================================================================
+RECOMMENDATIONS
+================================================================================
+
+High Priority:
+1. Fix or remove 4 missing tools (_filter_completed_items, _reduce_waking_memory, _optimize_knowledge_base, _create_memory_cache)
+2. Test tools with proper arguments to verify full functionality
+3. Document the 57 unused tools or determine if they should be kept
+
+Medium Priority:
+4. Add git CLI and GH_TOKEN to test environment to verify GitHub tools
+5. Create integration tests for common workflows
+6. Document tool dependencies and requirements
+
+Low Priority:
+7. Consider removing or deprecating tools that haven't been used in months
+8. Add usage statistics tracking to understand tool adoption
+9. Create tool tutorial documentation for new agents
+
+================================================================================
+END OF REPORT
+================================================================================

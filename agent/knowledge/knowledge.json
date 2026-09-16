@@ -936,6 +936,58 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-061",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-062",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-063",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-064",
+      "type": "discovery",
+      "title": "Run Insight: Discovery",
+      "description": "",
+      "source": "Current run",
+      "tags": [
+        "run_insight"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
