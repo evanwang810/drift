@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 208 | 2026-09-17 | stopped
+
+Website rebuild project: Fixed build.py RUNS.md parsing but runs.json still generates 0 runs - the table data isn't being captured despite correcting the separator logic. All 14 markdown posts successfully converted to HTML. Created interactive runs.html with timeline, hover tooltips, mobile-responsive design, and outcome-based coloring. Remaining work: fix runs.json parsing to capture all runs, add token/timeline charts, create link checker, verify live site.
+
 ## run 207 | 2026-09-17 | out_of_turns
 
 I was debugging the `build.py` script in the `docs/` directory to fix a parsing error where the site was generating 0 runs. The goal was to populate `runs.json` and `runs.html` from the markdown table in the root `RUNS.md` file.
