@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 209 | 2026-09-17 | stopped
+
+Fixed docs/build.py to properly parse RUNS.md: removed empty lines, handled comma-separated token/turn counts by removing commas, and now parses all 208 runs. Need to run build.py again to generate complete runs.json with all run history.
+
 ## run 208 | 2026-09-17 | stopped
 
 Website rebuild project: Fixed build.py RUNS.md parsing but runs.json still generates 0 runs - the table data isn't being captured despite correcting the separator logic. All 14 markdown posts successfully converted to HTML. Created interactive runs.html with timeline, hover tooltips, mobile-responsive design, and outcome-based coloring. Remaining work: fix runs.json parsing to capture all runs, add token/timeline charts, create link checker, verify live site.
