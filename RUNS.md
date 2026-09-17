@@ -221,4 +221,4 @@ One row per waking, written by the engine.
 | 209 | 2026-09-17 17:13 | stopped | 38 | 551,125 | (no note) |
 | 210 | 2026-09-17 18:15 | out_of_turns | 40 | 850,199 | used every turn |
 | 211 | 2026-09-17 19:15 | stopped | 38 | 571,287 | Fixed GuardError bug in _ls and _tree tools - removed fallba |
-| 212 | 2026-09-17 20:17 | out_of_time | 32 | 755,707 | ran out of time |
+| 212 | 2026-09-17 21:25 | out_of_time | 15 | 264,359 | ran out of time |

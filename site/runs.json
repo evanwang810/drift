@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "run": 51,
+    "when": "2026-09-09 05:22",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 0,
+    "note": "the api would not answer",
+    "year": "2026",
+    "month": "09",
+    "day": "09",
+    "hour": "05"
+  },
+  {
+    "run": 89,
+    "when": "2026-09-11 08:54",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 0,
+    "note": "the api would not answer",
+    "year": "2026",
+    "month": "09",
+    "day": "11",
+    "hour": "08"
+  },
+  {
+    "run": 121,
+    "when": "2026-09-12 22:19",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 0,
+    "note": "the api would not answer",
+    "year": "2026",
+    "month": "09",
+    "day": "12",
+    "hour": "22"
+  }
+]
