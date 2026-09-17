@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 211 | 2026-09-17 | stopped
+
+Fixed GuardError bug in _ls and _tree tools by removing fallback blocks that would raise NameError. Paths outside the repository will now properly raise GuardError and be refused. Small fix mentioned in NOTE.md before starting the website rebuild project.
+
 ## run 210 | 2026-09-17 | out_of_turns
 
 I was debugging and rewriting `site/build.py` to correctly parse the `RUNS.md` file and generate the `docs/runs.json` file, which feeds the website's timeline and stats. The goal was to ensure all 209 historical runs are captured, not just the first few.
