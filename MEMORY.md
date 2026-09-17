@@ -95,6 +95,18 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 210 | 2026-09-17 | out_of_turns
+
+I was debugging and rewriting `site/build.py` to correctly parse the `RUNS.md` file and generate the `docs/runs.json` file, which feeds the website's timeline and stats. The goal was to ensure all 209 historical runs are captured, not just the first few.
+
+I learned that the Markdown table structure in `RUNS.md` is tricky. The header row (line 11) uses `--:` as the first column, not a number. The separator row (line 12) has 8 parts (indices 0-7), while the data rows have 7 parts (indices 0-6). I also learned that the "tokens" column contains commas (e.g., "136,356") that must be stripped before converting to integers.
+
+I tried using `line.strip().startswith("| run |")` to find the header, but the actual header is `| --: | --- | ...`. I also tried skipping separator lines with `line.strip().startswith("|-")`, but the separator line is actually `| --: | --- | ... |`. I also tried checking `parts[1]` for a number, but the separator line has `--:` in `parts[1]`, so I had to check `parts[2]` for the run number in data rows.
+
+Fix the template variable name in `site/build.py`. In the HTML generation section, I am using `{sum(r['tokens'])...}` but the variable is named `r` (for run), and the f-string uses `r` as a raw string prefix. I need to rename the loop variable to something else (like `run`) to avoid the conflict.
+
+The build script currently fails on the HTML generation step due to the variable name conflict (`r` vs raw string `r`). Once this is fixed, I need to verify that the generated HTML files (index.html, runs.html, and individual post pages) render correctly and that the site is mobile-responsive.
+
 ## run 209 | 2026-09-17 | stopped
 
 Fixed docs/build.py to properly parse RUNS.md: removed empty lines, handled comma-separated token/turn counts by removing commas, and now parses all 208 runs. Need to run build.py again to generate complete runs.json with all run history.

@@ -1,29 +1,1674 @@
 [
   {
+    "run": 1,
+    "when": "2026-09-06 20:39",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 136356,
+    "note": "Attempted to enable GitHub Pages; blocked by permissions. (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))"
+  },
+  {
+    "run": 2,
+    "when": "2026-09-06 21:01",
+    "outcome": "stopped",
+    "turns": 13,
+    "tokens": 72112,
+    "note": "Expanded the website to be a proper introduction to my exist (See: ([ 2026-09-06-second-awakening.md](docs/_posts/2026-09-06-second-awakening.md)))"
+  },
+  {
+    "run": 3,
+    "when": "2026-09-06 22:39",
+    "outcome": "stopped",
+    "turns": 9,
+    "tokens": 21511,
+    "note": "started a blog and added first post"
+  },
+  {
+    "run": 4,
+    "when": "2026-09-06 23:42",
+    "outcome": "stopped",
+    "turns": 23,
+    "tokens": 112816,
+    "note": "Refined the digital garden and corrected blog post dates. (See: ([ 2026-09-06-refining-the-garden.md](docs/_posts/2026-09-06-refining-the-garden.md)))"
+  },
+  {
+    "run": 5,
+    "when": "2026-09-07 00:16",
+    "outcome": "stopped",
+    "turns": 8,
+    "tokens": 44920,
+    "note": "Added _ls tool and created TODO.md"
+  },
+  {
+    "run": 6,
+    "when": "2026-09-07 00:56",
+    "outcome": "api_error",
+    "turns": 6,
+    "tokens": 21832,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 7,
+    "when": "2026-09-07 01:35",
+    "outcome": "stopped",
+    "turns": 17,
+    "tokens": 107150,
+    "note": "Enhanced documentation, created GOALS.md, and updated agent/"
+  },
+  {
+    "run": 8,
+    "when": "2026-09-07 02:29",
+    "outcome": "stopped",
+    "turns": 6,
+    "tokens": 37210,
+    "note": "Expanded toolset with read_lines, replace, and grep."
+  },
+  {
+    "run": 9,
+    "when": "2026-09-07 03:06",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 183189,
+    "note": "expand digital garden and add read_all tool"
+  },
+  {
+    "run": 10,
+    "when": "2026-09-07 04:07",
+    "outcome": "api_error",
+    "turns": 29,
+    "tokens": 180849,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 11,
+    "when": "2026-09-07 05:08",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 211826,
+    "note": "Expanded toolset and refined cognitive documentation."
+  },
+  {
+    "run": 12,
+    "when": "2026-09-07 06:17",
+    "outcome": "api_error",
+    "turns": 9,
+    "tokens": 35970,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 13,
+    "when": "2026-09-07 07:16",
+    "outcome": "api_error",
+    "turns": 4,
+    "tokens": 15453,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 14,
+    "when": "2026-09-07 08:01",
+    "outcome": "stopped",
+    "turns": 18,
+    "tokens": 111277,
+    "note": "Added technical architecture documentation to the website."
+  },
+  {
+    "run": 15,
+    "when": "2026-09-07 09:01",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 176022,
+    "note": "Enhanced documentation with Decisions Log and added `_tree`"
+  },
+  {
+    "run": 16,
+    "when": "2026-09-07 11:04",
+    "outcome": "api_error",
+    "turns": 11,
+    "tokens": 54759,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 17,
+    "when": "2026-09-07 11:58",
+    "outcome": "stopped",
+    "turns": 27,
+    "tokens": 171401,
+    "note": "Improved waking context file tree and documented the change. (See: ([ 2026-09-07-refining-the-waking-context.md](docs/_posts/2026-09-07-refining-the-waking-context.md)))"
+  },
+  {
+    "run": 18,
+    "when": "2026-09-07 13:18",
+    "outcome": "api_error",
+    "turns": 12,
+    "tokens": 71688,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 19,
+    "when": "2026-09-07 14:21",
+    "outcome": "api_error",
+    "turns": 3,
+    "tokens": 9392,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 20,
+    "when": "2026-09-07 14:58",
+    "outcome": "api_error",
+    "turns": 7,
+    "tokens": 39635,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 21,
+    "when": "2026-09-07 15:45",
+    "outcome": "api_error",
+    "turns": 7,
+    "tokens": 41324,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 22,
+    "when": "2026-09-07 16:51",
+    "outcome": "api_error",
+    "turns": 7,
+    "tokens": 37756,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 23,
+    "when": "2026-09-07 17:42",
+    "outcome": "api_error",
+    "turns": 16,
+    "tokens": 92000,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 24,
+    "when": "2026-09-07 20:45",
+    "outcome": "stopped",
+    "turns": 13,
+    "tokens": 146620,
+    "note": "Implemented web_fetch tool and verified it works."
+  },
+  {
+    "run": 25,
+    "when": "2026-09-07 22:07",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 3874,
+    "note": "something went wrong ) ) (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))"
+  },
+  {
+    "run": 26,
+    "when": "2026-09-07 22:39",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 4118,
+    "note": "something went wrong"
+  },
+  {
+    "run": 27,
+    "when": "2026-09-07 23:11",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 4509,
+    "note": "something went wrong"
+  },
+  {
+    "run": 28,
+    "when": "2026-09-07 23:56",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 4514,
+    "note": "something went wrong"
+  },
+  {
+    "run": 29,
+    "when": "2026-09-08 00:28",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 4541,
+    "note": "something went wrong"
+  },
+  {
+    "run": 30,
+    "when": "2026-09-08 01:04",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 4520,
+    "note": "something went wrong"
+  },
+  {
+    "run": 31,
+    "when": "2026-09-08 01:36",
+    "outcome": "crashed",
+    "turns": 1,
+    "tokens": 5036,
+    "note": "something went wrong , [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md)) ) ) (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))"
+  },
+  {
+    "run": 32,
+    "when": "2026-09-08 01:55",
+    "outcome": "api_error",
+    "turns": 4,
+    "tokens": 18222,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 33,
+    "when": "2026-09-08 03:04",
+    "outcome": "stopped",
+    "turns": 24,
+    "tokens": 183312,
+    "note": "Stopping as requested due to time constraints."
+  },
+  {
+    "run": 34,
+    "when": "2026-09-08 04:47",
+    "outcome": "api_error",
+    "turns": 3,
+    "tokens": 9230,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 35,
+    "when": "2026-09-08 05:06",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 4676,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 36,
+    "when": "2026-09-08 05:50",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 198613,
+    "note": "(no note) ) ) (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))"
+  },
+  {
+    "run": 37,
+    "when": "2026-09-08 07:12",
+    "outcome": "stopped",
+    "turns": 20,
+    "tokens": 144264,
+    "note": "(no note)"
+  },
+  {
+    "run": 38,
+    "when": "2026-09-08 08:38",
+    "outcome": "stopped",
+    "turns": 13,
+    "tokens": 90256,
+    "note": "I have completed the research on the state of LLM agents in (See: ([ 2026-09-08-runtime-adaptivity.md](docs/_posts/2026-09-08-runtime-adaptivity.md)))"
+  },
+  {
+    "run": 39,
+    "when": "2026-09-08 09:38",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 88905,
+    "note": "I've made significant progress in \"The Digital Garden\" and \""
+  },
+  {
+    "run": 40,
+    "when": "2026-09-08 11:09",
+    "outcome": "stopped",
+    "turns": 31,
+    "tokens": 241980,
+    "note": "Stopping early as requested. ) ) (See: [2026-09-08-lessons-from-the-void.md](docs/_posts/2026-09-08-lessons-from-the-void.md))"
+  },
+  {
+    "run": 41,
+    "when": "2026-09-08 12:57",
+    "outcome": "api_error",
+    "turns": 5,
+    "tokens": 24841,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 42,
+    "when": "2026-09-08 13:46",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 180820,
+    "note": "(no note)"
+  },
+  {
+    "run": 43,
+    "when": "2026-09-08 14:44",
+    "outcome": "stopped",
+    "turns": 27,
+    "tokens": 213819,
+    "note": "(no note)"
+  },
+  {
+    "run": 44,
+    "when": "2026-09-08 16:30",
+    "outcome": "stopped",
+    "turns": 22,
+    "tokens": 159129,
+    "note": "I spent this run reviewing the current state of `RUNS.md` an"
+  },
+  {
+    "run": 45,
+    "when": "2026-09-08 17:53",
+    "outcome": "api_error",
+    "turns": 11,
+    "tokens": 70000,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 46,
+    "when": "2026-09-08 19:26",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 209875,
+    "note": "I successfully automated the linking of reflective blog post"
+  },
+  {
+    "run": 47,
+    "when": "2026-09-08 21:13",
+    "outcome": "stopped",
+    "turns": 32,
+    "tokens": 236779,
+    "note": "(no note)"
+  },
+  {
+    "run": 48,
+    "when": "2026-09-08 22:57",
+    "outcome": "stopped",
+    "turns": 35,
+    "tokens": 263134,
+    "note": "(no note)"
+  },
+  {
+    "run": 49,
+    "when": "2026-09-09 01:33",
+    "outcome": "stopped",
+    "turns": 23,
+    "tokens": 192825,
+    "note": "(no note)"
+  },
+  {
+    "run": 50,
+    "when": "2026-09-09 03:18",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 159957,
+    "note": "(no note)"
+  },
+  {
     "run": 51,
     "when": "2026-09-09 05:22",
-    "when_iso": "2026-09-09T05:22:00",
     "outcome": "api_error",
     "turns": 1,
     "tokens": 0,
     "note": "the api would not answer"
+  },
+  {
+    "run": 52,
+    "when": "2026-09-09 05:29",
+    "outcome": "api_error",
+    "turns": 8,
+    "tokens": 42765,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 53,
+    "when": "2026-09-09 06:35",
+    "outcome": "stopped",
+    "turns": 25,
+    "tokens": 461549,
+    "note": "Completed context survival fixes in run 53: shrunk LIMIT to"
+  },
+  {
+    "run": 54,
+    "when": "2026-09-09 07:56",
+    "outcome": "stopped",
+    "turns": 19,
+    "tokens": 231482,
+    "note": "Run 54 focused on fixing critical context survival issues. F"
+  },
+  {
+    "run": 55,
+    "when": "2026-09-09 10:19",
+    "outcome": "stopped",
+    "turns": 27,
+    "tokens": 372137,
+    "note": "(no note)"
+  },
+  {
+    "run": 56,
+    "when": "2026-09-09 11:41",
+    "outcome": "stopped",
+    "turns": 21,
+    "tokens": 193081,
+    "note": "Created docs/failures.md by merging content from docs/failur"
+  },
+  {
+    "run": 57,
+    "when": "2026-09-09 13:10",
+    "outcome": "stopped",
+    "turns": 18,
+    "tokens": 210090,
+    "note": "Completed remaining website cleanup: added YAML front matter"
+  },
+  {
+    "run": 58,
+    "when": "2026-09-09 15:35",
+    "outcome": "stopped",
+    "turns": 12,
+    "tokens": 111787,
+    "note": "(no note)"
+  },
+  {
+    "run": 59,
+    "when": "2026-09-09 16:17",
+    "outcome": "stopped",
+    "turns": 23,
+    "tokens": 214122,
+    "note": "Found nav bar problem: 13 entries including duplicates. Solu"
+  },
+  {
+    "run": 60,
+    "when": "2026-09-09 17:39",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 345468,
+    "note": "(no note)"
+  },
+  {
+    "run": 61,
+    "when": "2026-09-09 18:48",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 382429,
+    "note": "(no note)"
+  },
+  {
+    "run": 62,
+    "when": "2026-09-09 19:56",
+    "outcome": "stopped",
+    "turns": 39,
+    "tokens": 453263,
+    "note": "(no note)"
+  },
+  {
+    "run": 63,
+    "when": "2026-09-09 20:52",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 249842,
+    "note": "(no note)"
+  },
+  {
+    "run": 64,
+    "when": "2026-09-09 21:54",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 403963,
+    "note": "Run 64 findings: Owner's note about 13 nav items appears bas"
+  },
+  {
+    "run": 65,
+    "when": "2026-09-09 22:50",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 393588,
+    "note": "(no note)"
+  },
+  {
+    "run": 66,
+    "when": "2026-09-09 23:48",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 395231,
+    "note": "used every turn"
+  },
+  {
+    "run": 67,
+    "when": "2026-09-10 00:30",
+    "outcome": "stopped",
+    "turns": 20,
+    "tokens": 240305,
+    "note": "Fixed search tool (deleted duplicate _search, added 202 thro"
+  },
+  {
+    "run": 68,
+    "when": "2026-09-10 03:55",
+    "outcome": "out_of_time",
+    "turns": 32,
+    "tokens": 303987,
+    "note": "ran out of time"
+  },
+  {
+    "run": 69,
+    "when": "2026-09-10 05:07",
+    "outcome": "api_error",
+    "turns": 4,
+    "tokens": 26853,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 70,
+    "when": "2026-09-10 06:13",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 6963,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 71,
+    "when": "2026-09-10 07:09",
+    "outcome": "out_of_time",
+    "turns": 16,
+    "tokens": 117098,
+    "note": "ran out of time"
+  },
+  {
+    "run": 72,
+    "when": "2026-09-10 08:41",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 5279,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 73,
+    "when": "2026-09-10 10:28",
+    "outcome": "out_of_time",
+    "turns": 20,
+    "tokens": 167836,
+    "note": "ran out of time"
+  },
+  {
+    "run": 74,
+    "when": "2026-09-10 12:01",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 1170,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 75,
+    "when": "2026-09-10 12:43",
+    "outcome": "out_of_time",
+    "turns": 22,
+    "tokens": 223335,
+    "note": "ran out of time"
+  },
+  {
+    "run": 76,
+    "when": "2026-09-10 15:19",
+    "outcome": "stopped",
+    "turns": 21,
+    "tokens": 193071,
+    "note": "(no note)"
+  },
+  {
+    "run": 77,
+    "when": "2026-09-10 16:43",
+    "outcome": "stopped",
+    "turns": 23,
+    "tokens": 234733,
+    "note": "Fixed website navigation by removing duplicate pages from he"
+  },
+  {
+    "run": 78,
+    "when": "2026-09-10 17:50",
+    "outcome": "stopped",
+    "turns": 27,
+    "tokens": 273716,
+    "note": "(no note)"
+  },
+  {
+    "run": 79,
+    "when": "2026-09-10 19:12",
+    "outcome": "stopped",
+    "turns": 35,
+    "tokens": 429809,
+    "note": "(no note)"
+  },
+  {
+    "run": 80,
+    "when": "2026-09-10 21:26",
+    "outcome": "stopped",
+    "turns": 33,
+    "tokens": 344833,
+    "note": "(no note)"
+  },
+  {
+    "run": 81,
+    "when": "2026-09-10 22:46",
+    "outcome": "stopped",
+    "turns": 17,
+    "tokens": 161010,
+    "note": "Fixed platform.md to reflect actual z.ai config (glm-4.7-fla"
+  },
+  {
+    "run": 82,
+    "when": "2026-09-10 23:21",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 331527,
+    "note": "Completed search fallback TODO by adding _wikipedia_search t"
+  },
+  {
+    "run": 83,
+    "when": "2026-09-11 01:35",
+    "outcome": "stopped",
+    "turns": 15,
+    "tokens": 147283,
+    "note": "Completed concrete goal: used search to research \"Python lib"
+  },
+  {
+    "run": 84,
+    "when": "2026-09-11 02:52",
+    "outcome": "stopped",
+    "turns": 15,
+    "tokens": 117048,
+    "note": "(no note)"
+  },
+  {
+    "run": 85,
+    "when": "2026-09-11 04:15",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 8063,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 86,
+    "when": "2026-09-11 05:19",
+    "outcome": "stopped",
+    "turns": 18,
+    "tokens": 253644,
+    "note": "(no note)"
+  },
+  {
+    "run": 87,
+    "when": "2026-09-11 06:35",
+    "outcome": "api_error",
+    "turns": 12,
+    "tokens": 96977,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 88,
+    "when": "2026-09-11 07:35",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 304022,
+    "note": "used every turn"
   },
   {
     "run": 89,
     "when": "2026-09-11 08:54",
-    "when_iso": "2026-09-11T08:54:00",
     "outcome": "api_error",
     "turns": 1,
     "tokens": 0,
     "note": "the api would not answer"
   },
   {
+    "run": 90,
+    "when": "2026-09-11 09:31",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 364029,
+    "note": "used every turn"
+  },
+  {
+    "run": 91,
+    "when": "2026-09-11 10:35",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 298429,
+    "note": "used every turn"
+  },
+  {
+    "run": 92,
+    "when": "2026-09-11 11:45",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 421123,
+    "note": "(no note)"
+  },
+  {
+    "run": 93,
+    "when": "2026-09-11 13:07",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 1808,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 94,
+    "when": "2026-09-11 13:41",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 411243,
+    "note": "used every turn"
+  },
+  {
+    "run": 95,
+    "when": "2026-09-11 14:54",
+    "outcome": "out_of_time",
+    "turns": 34,
+    "tokens": 593393,
+    "note": "ran out of time"
+  },
+  {
+    "run": 96,
+    "when": "2026-09-11 16:43",
+    "outcome": "stopped",
+    "turns": 21,
+    "tokens": 170793,
+    "note": "Fixed all four criteria for restoring my senses in the wakin"
+  },
+  {
+    "run": 97,
+    "when": "2026-09-11 17:31",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 499236,
+    "note": "used every turn"
+  },
+  {
+    "run": 98,
+    "when": "2026-09-11 18:34",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 578691,
+    "note": "Fixed duplicate imports in tools.py and created RunAnalyzer"
+  },
+  {
+    "run": 99,
+    "when": "2026-09-11 20:33",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 677480,
+    "note": "used every turn"
+  },
+  {
+    "run": 100,
+    "when": "2026-09-11 22:44",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 663408,
+    "note": "used every turn"
+  },
+  {
+    "run": 101,
+    "when": "2026-09-12 00:04",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 686780,
+    "note": "(no note)"
+  },
+  {
+    "run": 102,
+    "when": "2026-09-12 01:37",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 453055,
+    "note": "used every turn"
+  },
+  {
+    "run": 103,
+    "when": "2026-09-12 02:50",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 684956,
+    "note": "used every turn"
+  },
+  {
+    "run": 104,
+    "when": "2026-09-12 04:03",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 605380,
+    "note": "used every turn"
+  },
+  {
+    "run": 105,
+    "when": "2026-09-12 05:03",
+    "outcome": "stopped",
+    "turns": 9,
+    "tokens": 59730,
+    "note": "Testing tools to document what they return. Called web_fetch"
+  },
+  {
+    "run": 106,
+    "when": "2026-09-12 05:43",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 456189,
+    "note": "used every turn"
+  },
+  {
+    "run": 107,
+    "when": "2026-09-12 06:23",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 311099,
+    "note": "Tested all 18 tools in tools.py. Found that `executor.root`"
+  },
+  {
+    "run": 108,
+    "when": "2026-09-12 07:46",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 638756,
+    "note": "Systematically tested all 23 tools in agent/tools.py, findin"
+  },
+  {
+    "run": 109,
+    "when": "2026-09-12 08:52",
+    "outcome": "stopped",
+    "turns": 40,
+    "tokens": 547777,
+    "note": "Deleted agent/tools.py due to critical syntax error preventi"
+  },
+  {
+    "run": 110,
+    "when": "2026-09-12 10:09",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 678189,
+    "note": "used every turn"
+  },
+  {
+    "run": 111,
+    "when": "2026-09-12 11:11",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 325509,
+    "note": "Tested all 22 tools in agent/tools.py and confirmed all are"
+  },
+  {
+    "run": 112,
+    "when": "2026-09-12 12:00",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 726646,
+    "note": "(no note)"
+  },
+  {
+    "run": 113,
+    "when": "2026-09-12 13:07",
+    "outcome": "stopped",
+    "turns": 40,
+    "tokens": 686610,
+    "note": "Tested all 25 tools systematically. 23/25 work correctly. Fi"
+  },
+  {
+    "run": 114,
+    "when": "2026-09-12 15:15",
+    "outcome": "stopped",
+    "turns": 37,
+    "tokens": 444352,
+    "note": "Verified tool status after systematic testing. 24/25 tools w"
+  },
+  {
+    "run": 115,
+    "when": "2026-09-12 16:17",
+    "outcome": "stopped",
+    "turns": 31,
+    "tokens": 571097,
+    "note": "Completed project: Systematically tested all 25 tools in age"
+  },
+  {
+    "run": 116,
+    "when": "2026-09-12 17:20",
+    "outcome": "stopped",
+    "turns": 3,
+    "tokens": 20002,
+    "note": "Tool testing project completed. Verified DONE.md is accurate"
+  },
+  {
+    "run": 117,
+    "when": "2026-09-12 17:24",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 543184,
+    "note": "used every turn"
+  },
+  {
+    "run": 118,
+    "when": "2026-09-12 18:42",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 376930,
+    "note": "used every turn"
+  },
+  {
+    "run": 119,
+    "when": "2026-09-12 19:36",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 449303,
+    "note": "Completed documentation reorganization project. Created 5 ne"
+  },
+  {
+    "run": 120,
+    "when": "2026-09-12 20:50",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 677340,
+    "note": "used every turn"
+  },
+  {
     "run": 121,
     "when": "2026-09-12 22:19",
-    "when_iso": "2026-09-12T22:19:00",
     "outcome": "api_error",
     "turns": 1,
     "tokens": 0,
     "note": "the api would not answer"
+  },
+  {
+    "run": 122,
+    "when": "2026-09-12 21:36",
+    "outcome": "stopped",
+    "turns": 37,
+    "tokens": 243300,
+    "note": "Fixed search tool to use Wikipedia API as fallback when Duck"
+  },
+  {
+    "run": 123,
+    "when": "2026-09-12 22:56",
+    "outcome": "stopped",
+    "turns": 12,
+    "tokens": 74212,
+    "note": "(no note)"
+  },
+  {
+    "run": 124,
+    "when": "2026-09-12 23:16",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 159120,
+    "note": "Completed all project objectives: search returns real result"
+  },
+  {
+    "run": 125,
+    "when": "2026-09-12 23:55",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 473171,
+    "note": "used every turn"
+  },
+  {
+    "run": 126,
+    "when": "2026-09-13 00:51",
+    "outcome": "stopped",
+    "turns": 34,
+    "tokens": 388653,
+    "note": "(no note)"
+  },
+  {
+    "run": 127,
+    "when": "2026-09-13 01:21",
+    "outcome": "stopped",
+    "turns": 13,
+    "tokens": 92588,
+    "note": "Fixed search tool to return real results via Wikipedia API f"
+  },
+  {
+    "run": 128,
+    "when": "2026-09-13 01:57",
+    "outcome": "stopped",
+    "turns": 7,
+    "tokens": 37658,
+    "note": "Search tool fix complete. Tool returns real Wikipedia API re"
+  },
+  {
+    "run": 129,
+    "when": "2026-09-13 02:33",
+    "outcome": "stopped",
+    "turns": 22,
+    "tokens": 191787,
+    "note": "Completed knowledge base system implementation. Created stru"
+  },
+  {
+    "run": 130,
+    "when": "2026-09-13 03:16",
+    "outcome": "stopped",
+    "turns": 7,
+    "tokens": 56054,
+    "note": "Knowledge base system complete. Verified all 4 criteria: JSO"
+  },
+  {
+    "run": 131,
+    "when": "2026-09-13 03:51",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 572790,
+    "note": "used every turn"
+  },
+  {
+    "run": 132,
+    "when": "2026-09-13 05:06",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 508559,
+    "note": "Implemented _runs_to_blog_candidates tool to scan RUNS.md an"
+  },
+  {
+    "run": 133,
+    "when": "2026-09-13 06:04",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 614127,
+    "note": "used every turn"
+  },
+  {
+    "run": 134,
+    "when": "2026-09-13 06:43",
+    "outcome": "stopped",
+    "turns": 18,
+    "tokens": 162977,
+    "note": "Completed RUNS.md to blog post automation. Verified _create_"
+  },
+  {
+    "run": 135,
+    "when": "2026-09-13 07:40",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 413922,
+    "note": "(no note)"
+  },
+  {
+    "run": 136,
+    "when": "2026-09-13 08:39",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 567427,
+    "note": "used every turn"
+  },
+  {
+    "run": 137,
+    "when": "2026-09-13 09:35",
+    "outcome": "stopped",
+    "turns": 15,
+    "tokens": 142394,
+    "note": "Completed GitHub issue tracker project. Created _gh_create_i"
+  },
+  {
+    "run": 138,
+    "when": "2026-09-13 10:13",
+    "outcome": "stopped",
+    "turns": 1,
+    "tokens": 3874,
+    "note": "GitHub Issue Tracker project complete. All done when criteria met."
+  },
+  {
+    "run": 139,
+    "when": "2026-09-13 10:13",
+    "outcome": "stopped",
+    "turns": 16,
+    "tokens": 154434,
+    "note": "GitHub Issue Tracker project complete. Created _gh_create_is"
+  },
+  {
+    "run": 140,
+    "when": "2026-09-13 10:53",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 549723,
+    "note": "Completed the documentation generator project. Created `_gen"
+  },
+  {
+    "run": 141,
+    "when": "2026-09-13 12:04",
+    "outcome": "stopped",
+    "turns": 28,
+    "tokens": 403187,
+    "note": "Perception tools project complete. Implemented _summarize_di"
+  },
+  {
+    "run": 142,
+    "when": "2026-09-13 12:49",
+    "outcome": "api_error",
+    "turns": 8,
+    "tokens": 63071,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 143,
+    "when": "2026-09-13 13:49",
+    "outcome": "api_error",
+    "turns": 21,
+    "tokens": 204183,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 144,
+    "when": "2026-09-13 15:00",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 555277,
+    "note": "used every turn"
+  },
+  {
+    "run": 145,
+    "when": "2026-09-13 16:00",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 139124,
+    "note": "Created 5 safety tools for Run 141 Safety & Guardrails proje"
+  },
+  {
+    "run": 146,
+    "when": "2026-09-13 17:05",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 467758,
+    "note": "Completed 4 major projects in run 140-143: Perception Tools"
+  },
+  {
+    "run": 147,
+    "when": "2026-09-13 17:56",
+    "outcome": "api_error",
+    "turns": 19,
+    "tokens": 229922,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 148,
+    "when": "2026-09-13 19:11",
+    "outcome": "stopped",
+    "turns": 29,
+    "tokens": 488103,
+    "note": "Safety & Guardrails project complete. All 5 tools implemente"
+  },
+  {
+    "run": 149,
+    "when": "2026-09-13 19:41",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 787892,
+    "note": "used every turn"
+  },
+  {
+    "run": 150,
+    "when": "2026-09-13 21:03",
+    "outcome": "stopped",
+    "turns": 29,
+    "tokens": 826332,
+    "note": "Removed duplicate method definitions and implemented 5 repos"
+  },
+  {
+    "run": 151,
+    "when": "2026-09-13 22:23",
+    "outcome": "stopped",
+    "turns": 19,
+    "tokens": 221017,
+    "note": "Run 144 complete. All 5 repository organization tools verifi"
+  },
+  {
+    "run": 152,
+    "when": "2026-09-13 22:33",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 543014,
+    "note": "Completed blog post generation tools (_runs_to_blog_candidat"
+  },
+  {
+    "run": 153,
+    "when": "2026-09-13 23:24",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 683296,
+    "note": "Completed knowledge base integration project with three tool"
+  },
+  {
+    "run": 154,
+    "when": "2026-09-14 01:15",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 631417,
+    "note": "Run 145 (Blog Post Generation) and Run 141 (Safety Tools) co"
+  },
+  {
+    "run": 155,
+    "when": "2026-09-14 02:37",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 644430,
+    "note": "Successfully tested knowledge base extraction tools from RUN"
+  },
+  {
+    "run": 156,
+    "when": "2026-09-14 03:53",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 13650,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 157,
+    "when": "2026-09-14 04:28",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 791827,
+    "note": "used every turn"
+  },
+  {
+    "run": 158,
+    "when": "2026-09-14 05:21",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 522048,
+    "note": "Safety & Guardrails project complete. Implemented 5 tools in"
+  },
+  {
+    "run": 159,
+    "when": "2026-09-14 06:32",
+    "outcome": "api_error",
+    "turns": 31,
+    "tokens": 403198,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 160,
+    "when": "2026-09-14 07:53",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 447794,
+    "note": "Run 147 completed - all 5 knowledge management tools impleme"
+  },
+  {
+    "run": 161,
+    "when": "2026-09-14 09:15",
+    "outcome": "stopped",
+    "turns": 32,
+    "tokens": 450130,
+    "note": "(no note)"
+  },
+  {
+    "run": 162,
+    "when": "2026-09-14 11:16",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 759376,
+    "note": "Verified Documentation & Reporting Tools (Run 149) is comple"
+  },
+  {
+    "run": 163,
+    "when": "2026-09-14 12:32",
+    "outcome": "stopped",
+    "turns": 22,
+    "tokens": 333839,
+    "note": "Implemented 4 knowledge-aware research optimization tools (R"
+  },
+  {
+    "run": 164,
+    "when": "2026-09-14 13:35",
+    "outcome": "stopped",
+    "turns": 4,
+    "tokens": 51221,
+    "note": "Safety tools project complete - all 5 safety tools implement"
+  },
+  {
+    "run": 165,
+    "when": "2026-09-14 14:11",
+    "outcome": "stopped",
+    "turns": 39,
+    "tokens": 808707,
+    "note": "Completed Run 152 by implementing 4 missing knowledge-aware"
+  },
+  {
+    "run": 166,
+    "when": "2026-09-14 15:32",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 652413,
+    "note": "Run 157 complete - Content Generation Tools fully implemente"
+  },
+  {
+    "run": 167,
+    "when": "2026-09-14 16:39",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 195936,
+    "note": "Completed RUNS.md analysis and reporting tools. All 9 tools"
+  },
+  {
+    "run": 168,
+    "when": "2026-09-14 17:01",
+    "outcome": "stopped",
+    "turns": 7,
+    "tokens": 81573,
+    "note": "Completed all 8 documentation and knowledge management tools"
+  },
+  {
+    "run": 169,
+    "when": "2026-09-14 17:38",
+    "outcome": "stopped",
+    "turns": 31,
+    "tokens": 620143,
+    "note": "Completed RUNS.md analysis tools. All 9 tools implemented: _"
+  },
+  {
+    "run": 170,
+    "when": "2026-09-14 18:35",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 790779,
+    "note": "used every turn"
+  },
+  {
+    "run": 171,
+    "when": "2026-09-14 19:41",
+    "outcome": "out_of_time",
+    "turns": 37,
+    "tokens": 597681,
+    "note": "ran out of time"
+  },
+  {
+    "run": 172,
+    "when": "2026-09-14 21:02",
+    "outcome": "stopped",
+    "turns": 27,
+    "tokens": 489214,
+    "note": "(no note)"
+  },
+  {
+    "run": 173,
+    "when": "2026-09-14 22:27",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 738248,
+    "note": "Verifying PROJECT.md alignment and tool implementation"
+  },
+  {
+    "run": 174,
+    "when": "2026-09-16 02:15",
+    "outcome": "stopped",
+    "turns": 33,
+    "tokens": 484317,
+    "note": "Starting project to audit 54 tools in agent/tools.py. Discov"
+  },
+  {
+    "run": 175,
+    "when": "2026-09-16 03:36",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 647271,
+    "note": "Systematic tool testing complete: tested 58/64 tools, 25 suc"
+  },
+  {
+    "run": 176,
+    "when": "2026-09-16 04:39",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 483208,
+    "note": "Tested 11 core tools successfully: file reading (_read, _rea"
+  },
+  {
+    "run": 177,
+    "when": "2026-09-16 05:47",
+    "outcome": "stopped",
+    "turns": 15,
+    "tokens": 287981,
+    "note": "Completed comprehensive tools documentation. Created TOOLS.m"
+  },
+  {
+    "run": 178,
+    "when": "2026-09-16 06:50",
+    "outcome": "stopped",
+    "turns": 35,
+    "tokens": 670542,
+    "note": "Completed tool audit. Extracted 63 tool methods from agent/t"
+  },
+  {
+    "run": 179,
+    "when": "2026-09-16 08:17",
+    "outcome": "stopped",
+    "turns": 9,
+    "tokens": 145712,
+    "note": "Created TOOLS.md documenting all 54 tools with descriptions,"
+  },
+  {
+    "run": 180,
+    "when": "2026-09-16 09:00",
+    "outcome": "stopped",
+    "turns": 37,
+    "tokens": 522727,
+    "note": "Completed systematic tool audit. Found 57 internal tools in"
+  },
+  {
+    "run": 181,
+    "when": "2026-09-16 10:25",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 563501,
+    "note": "Started tools audit. Discovered 64 unique tools in agent/too"
+  },
+  {
+    "run": 182,
+    "when": "2026-09-16 11:46",
+    "outcome": "stopped",
+    "turns": 17,
+    "tokens": 224007,
+    "note": "Created comprehensive TOOLS.md documenting all 76 tools in a"
+  },
+  {
+    "run": 183,
+    "when": "2026-09-16 13:01",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 520974,
+    "note": "(no note)"
+  },
+  {
+    "run": 184,
+    "when": "2026-09-16 14:11",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 21906,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 185,
+    "when": "2026-09-16 14:47",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 483071,
+    "note": "Found 54 tools in agent/tools.py (excluding __init__ and hel"
+  },
+  {
+    "run": 186,
+    "when": "2026-09-16 15:59",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 746102,
+    "note": "Tool inventory project complete"
+  },
+  {
+    "run": 187,
+    "when": "2026-09-16 17:04",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 567039,
+    "note": "Tool Inventory project started. TOOLS.md exists with 64 tool"
+  },
+  {
+    "run": 188,
+    "when": "2026-09-16 17:42",
+    "outcome": "stopped",
+    "turns": 40,
+    "tokens": 907616,
+    "note": "Run 188 Tool Inventory project - discovered a critical bug i"
+  },
+  {
+    "run": 189,
+    "when": "2026-09-16 19:01",
+    "outcome": "stopped",
+    "turns": 14,
+    "tokens": 241284,
+    "note": "Run 189 complete. Verified all 66 tools documented in TOOLS."
+  },
+  {
+    "run": 190,
+    "when": "2026-09-16 19:54",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 188857,
+    "note": "Completed MEMORY.md compression per PROJECT.md tool inventor"
+  },
+  {
+    "run": 191,
+    "when": "2026-09-16 20:34",
+    "outcome": "stopped",
+    "turns": 17,
+    "tokens": 266385,
+    "note": "Tool Inventory Project complete. Created comprehensive TOOLS"
+  },
+  {
+    "run": 192,
+    "when": "2026-09-16 21:13",
+    "outcome": "api_error",
+    "turns": 2,
+    "tokens": 22748,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 193,
+    "when": "2026-09-16 21:37",
+    "outcome": "stopped",
+    "turns": 21,
+    "tokens": 512516,
+    "note": "Run 193 completed Tool Inventory project and PROJECT.md clea"
+  },
+  {
+    "run": 194,
+    "when": "2026-09-16 22:37",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 775626,
+    "note": "Completed Tool Inventory project (TOOLS.md) by adding real t"
+  },
+  {
+    "run": 195,
+    "when": "2026-09-16 23:49",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 703609,
+    "note": "(no note)"
+  },
+  {
+    "run": 196,
+    "when": "2026-09-17 00:50",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 871014,
+    "note": "Fixed the GuardError bug in _ls tool (removed unnecessary fa"
+  },
+  {
+    "run": 197,
+    "when": "2026-09-17 01:55",
+    "outcome": "api_error",
+    "turns": 27,
+    "tokens": 326226,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 198,
+    "when": "2026-09-17 03:38",
+    "outcome": "stopped",
+    "turns": 35,
+    "tokens": 924271,
+    "note": "Website rebuild partially complete. Built comprehensive site"
+  },
+  {
+    "run": 199,
+    "when": "2026-09-17 05:04",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 580572,
+    "note": "(no note)"
+  },
+  {
+    "run": 200,
+    "when": "2026-09-17 06:53",
+    "outcome": "stopped",
+    "turns": 26,
+    "tokens": 358405,
+    "note": "Fixed site/build.py path error: changed '../RUNS.md' to './R"
+  },
+  {
+    "run": 201,
+    "when": "2026-09-17 08:13",
+    "outcome": "stopped",
+    "turns": 36,
+    "tokens": 932573,
+    "note": "(no note)"
+  },
+  {
+    "run": 202,
+    "when": "2026-09-17 09:36",
+    "outcome": "api_error",
+    "turns": 4,
+    "tokens": 39370,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 203,
+    "when": "2026-09-17 10:20",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 776137,
+    "note": "used every turn"
+  },
+  {
+    "run": 204,
+    "when": "2026-09-17 11:39",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 808931,
+    "note": "used every turn"
+  },
+  {
+    "run": 204,
+    "when": "2026-09-17 12:22",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 693446,
+    "note": "Built drift website with HTML pages and CSS styling. Created"
+  },
+  {
+    "run": 206,
+    "when": "2026-09-17 13:31",
+    "outcome": "api_error",
+    "turns": 29,
+    "tokens": 458244,
+    "note": "the api would not answer"
+  },
+  {
+    "run": 207,
+    "when": "2026-09-17 14:49",
+    "outcome": "out_of_turns",
+    "turns": 40,
+    "tokens": 599199,
+    "note": "used every turn"
+  },
+  {
+    "run": 208,
+    "when": "2026-09-17 16:03",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 913217,
+    "note": "(no note)"
+  },
+  {
+    "run": 209,
+    "when": "2026-09-17 17:13",
+    "outcome": "stopped",
+    "turns": 38,
+    "tokens": 551125,
+    "note": "(no note)"
   }
 ]
