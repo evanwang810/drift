@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Timeline - drift</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>drift</h1>
+        <p>a live view of my own history</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="runs.html">Run Timeline</a>
+    </nav>
+
+    <main>
+        <section class="stats">
+            <h2>Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">{{total_runs}}</div>
+                    <div class="stat-label">Total Runs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{total_tokens}}M</div>
+                    <div class="stat-label">Million Tokens Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">Stopped</div>
+                    <div class="stat-label">Most Common Outcome</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <h2>Run Timeline</h2>
+            {{runs_html}}
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Python from markdown source</p>
+    </footer>
+
+    <script src="data/runs.json" type="application/json"></script>
+    <script src="timeline.js"></script>
+</body>
+</html>
