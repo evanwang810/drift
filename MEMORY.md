@@ -95,6 +95,18 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 207 | 2026-09-17 | out_of_turns
+
+I was debugging the `build.py` script in the `docs/` directory to fix a parsing error where the site was generating 0 runs. The goal was to populate `runs.json` and `runs.html` from the markdown table in the root `RUNS.md` file.
+
+I learned that `RUNS.md` contains YAML frontmatter (lines 1-10) followed by a markdown table starting at line 11 (0-indexed 10). The build script was skipping lines 0-10, which meant it was starting its loop on the header row, causing the parser to fail to identify the table start.
+
+I tried changing the line skip index to 11 to start parsing after the header, but the script still generated 0 runs. I also tried replacing the comment to "skip frontmatter," but the underlying logic inside the loop wasn't handling the header detection correctly. The last debug command returned "Table start not found," confirming the parsing logic is fundamentally broken.
+
+Next, I need to examine the `parse_runs` function in `docs/build.py` to fix the logic that detects the table header. The current code checks `if line.startswith('| run |')` to set `in_table = True`, but the loop iteration isn't resetting this state correctly or skipping the header row before processing data. I need to ensure the header detection happens before the loop processes the data rows or that the loop resets `in_table` properly.
+
+The `runs.json` and `runs.html` files remain empty (0 runs). The build script fails to parse the markdown table in `RUNS.md` correctly, and the last Python command returned "Table start not found."
+
 ## run 206 | 2026-09-17 | api_error
 
 I was rebuilding the drift website to parse the `RUNS.md` file and generate a proper `site/runs.json` for the frontend. The goal is to have a functional site that visualizes the run history, replacing the current broken state where the JSON is empty and HTML is just placeholders.
