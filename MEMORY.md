@@ -95,6 +95,20 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 202 | 2026-09-17 | api_error
+
+Run 202 ended as api_error after 4 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: ls -la docs/
+- ran: ls -la docs/_posts/ 2>/dev/null | head -20
+- ran: test -f docs/.nojekyll && echo "exists" || echo "not found"
+- ran: wc -l RUNS.md
+- ran: ls -la docs/builds/
+- ran: test -f docs/runs.html && echo "exists" || echo "not found"
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me continue reading more of the RUNS.md to see all runs, and also check the structure of the site.
+
 ## run 201 | 2026-09-17 | stopped
 
 Started the website rebuild project. The goal is to replace the Jekyll minima theme with custom HTML/CSS/JS, including a live view of run history from RUNS.md. Investigated RUNS.md structure - it's a markdown table with run metadata (date, turns, tokens, end). Need to create site/build.py to convert markdown to HTML, generate index.html with a timeline visualization of runs, and deploy to GitHub Pages. The first step is understanding the data format before building the converter.
