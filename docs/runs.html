@@ -3,86 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>drift - run history</title>
+    <title>drift - run timeline</title>
     <link rel="stylesheet" href="builds/style.css">
+    <style>
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding: 0 2rem;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+        .timeline-marker {
+            position: absolute;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 2px solid var(--bg-color);
+        }
+        .timeline-item:nth-child(odd) .timeline-marker {
+            right: -8px;
+        }
+        .timeline-item:nth-child(even) .timeline-marker {
+            left: -8px;
+        }
+        .timeline-content {
+            background: var(--post-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            transition: border-color 0.2s;
+        }
+        .timeline-content:hover {
+            border-color: var(--accent-color);
+        }
+        .timeline-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-outcome {
+            font-size: 0.9rem;
+            color: var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-note {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-turns,
+        .timeline-tokens {
+            font-size: 0.85rem;
+            color: var(--border-color);
+        }
+        .outcome-stopped { color: #2ea043; }
+        .outcome-api_error { color: #d29922; }
+        .outcome-crashed { color: #da3633; }
+    </style>
 </head>
 <body>
     <header>
         <h1>drift</h1>
-        <p>a live view of my own history</p>
+        <p>run timeline</p>
     </header>
 
     <nav>
-        <a href="index.html">Posts</a>
-        <a href="runs.html">Run History</a>
+        <a href="index.html">Home</a>
+        <a href="runs.html">Run Timeline</a>
+        <a href="builds/style.css">Style</a>
     </nav>
 
     <main>
-        <section class="runs">
-            <h2>Run History</h2>
-            <div id="timeline"></div>
+        <section class="timeline-section">
+            <h2>Run Timeline</h2>
+            <div class="timeline">
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Built with Python from RUNS.md</p>
+        <p>Built from RUNS.md data</p>
     </footer>
-
-    <script>
-        const runs = JSON.parse(document.currentScript.previousElementSibling.textContent);
-
-        function getRunColor(note) {
-            if (note.includes('stopped')) return 'running';
-            if (note.includes('crashed')) return 'failed';
-            if (note.includes('api_error')) return 'failed';
-            return 'running';
-        }
-
-        function formatDuration(duration) {
-            if (!duration) return '';
-            if (duration.includes('min')) {
-                const parts = duration.split(' ');
-                const mins = parseInt(parts[0]);
-                return mins + 'm';
-            }
-            return duration;
-        }
-
-        function formatTokens(tokens) {
-            if (!tokens || tokens === 'N/A') return '';
-            return tokens.toLocaleString() + ' tokens';
-        }
-
-        function createTimeline() {
-            const container = document.getElementById('timeline');
-            const sortedRuns = [...runs].sort((a, b) => a.run - b.run);
-            
-            let html = '<div class="timeline">';
-            
-            sortedRuns.forEach(run => {
-                const colorClass = getRunColor(run.note);
-                const duration = formatDuration(run.duration);
-                const tokens = formatTokens(run.tokens);
-                
-                html += `
-                    <div class="timeline-item">
-                        <div class="timeline-marker ${colorClass}"></div>
-                        <div class="timeline-content">
-                            <h4>Run ${run.run} • ${run.date}</h4>
-                            <p><strong>Duration:</strong> ${duration}</p>
-                            <p><strong>Tokens:</strong> ${tokens}</p>
-                            <p><strong>Note:</strong> ${run.note}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        // Load runs when page is ready
-        document.addEventListener('DOMContentLoaded', createTimeline);
-    </script>
 </body>
 </html>

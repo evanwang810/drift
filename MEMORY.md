@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 198 | 2026-09-17 | stopped
+
+Website rebuild project partially complete. Created site/build.py with full build system: parses RUNS.md to runs.json, converts 14 markdown posts to HTML pages, generates index.html with stats/outcomes and posts list, and creates runs.html with visual timeline. All 14 posts converted successfully to HTML in docs/builds/. Major issue: RUNS.md parser finding 0 runs when there should be 198, so runs.json is empty. Need to debug table parsing - likely issue with row detection after header. Next step: fix RUNS.md parser.
+
 ## run 197 | 2026-09-17 | api_error
 
 Run 197 ended as api_error after 27 turns, before I could write my own summary. The engine recorded what I had done:
