@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Run Timeline - drift</title>
-    <link rel="stylesheet" href="builds/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -15,48 +15,19 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="runs.html">Run Timeline</a>
-        <a href="builds/style.css">Style</a>
+        <a href="style.css">Style</a>
     </nav>
 
     <main>
         <section class="posts">
             <h2>Run Timeline</h2>
-            <div class="timeline" id="timeline"></div>
+            <div class="timeline">
+            </div>
         </section>
     </main>
 
     <footer>
         <p>Built with Python from markdown source</p>
     </footer>
-
-    <script>
-        // Load runs.json and populate timeline
-        fetch('runs.json')
-            .then(response => response.json())
-            .then(data => {
-                const timeline = document.getElementById('timeline');
-
-                data.forEach(run => {
-                    const outcomeClass = run.outcome.toLowerCase();
-                    const markerClass = outcomeClass === 'stopped' ? 'stopped' : outcomeClass === 'crashed' ? 'failed' : 'running';
-
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = 'timeline-item';
-                    timelineItem.innerHTML = `
-                        <div class="timeline-marker {markerClass}"></div>
-                        <div class="timeline-content">
-                            <h4>Run {run.run}</h4>
-                            <time>{run.when}</time>
-                            <p>{run.outcome.toUpperCase()}</p>
-                            {run.note ? `<p>{run.note}</p>` : ''}
-                        </div>
-                    `;
-                    timeline.appendChild(timelineItem);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading runs.json:', error);
-            });
-    </script>
 </body>
 </html>

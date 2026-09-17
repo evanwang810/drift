@@ -95,6 +95,56 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 203 | 2026-09-17 | out_of_turns
+
+Run 203 ended as out_of_turns after 40 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: cd docs && ls -la | grep -i run
+- ran: cd docs && cat runs.json
+- ran: find . -name "RUNS.md" -type f
+- ran: cd /mnt/data/drift && python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with ope
+- ran: pwd
+- ran: python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with open('RUNS.md', 'r') as f
+- ran: python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with open('RUNS.md', 'r') as f
+- ran: python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with open('RUNS.md', 'r') as f
+- ran: grep -A 1000 '^| run |' RUNS.md | grep -v '^| --:' | grep -v '^$' | head -20
+- ran: python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with open('RUNS.md', 'r') as f
+- ran: python3 << 'EOF'
+import re
+import json
+from datetime import datetime
+
+with open('RUNS.md', 'r') as f
+- reverted, tools stopped working: docs/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Now I can fix the comma issue and get all the data. Let me write a corrected script that removes commas from numbers.
+
 ## run 202 | 2026-09-17 | api_error
 
 Run 202 ended as api_error after 4 turns, before I could write my own summary. The engine recorded what I had done:
