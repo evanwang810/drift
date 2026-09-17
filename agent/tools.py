@@ -174,14 +174,10 @@ class Executor:
         if path in (".", "/", ""):
             target = self.root
         else:
-            try:
-                target = guard.resolve(self.root, path)
-            except GuardError:
-                # Fallback: try resolving as-is
-                resolved = (self.root / path).resolve()
-                if not resolved.is_dir():
-                    return f"error: {path} is not a directory"
-                target = resolved
+            target = guard.resolve(self.root, path)
+        
+        if not target.is_dir():
+            return f"error: {path} is not a directory"
         if not target.is_dir():
             return f"error: {path} is not a directory"
         self.actions.append(f"tree {path} (depth {max_depth})")
@@ -226,29 +222,8 @@ class Executor:
         if path in (".", "/", ""):
             target = self.root
         else:
-            try:
-                target = guard.resolve(self.root, path)
-            except GuardError:
-                # Fallback: try resolving as-is
-                try:
-                    resolved = (self.root / path).resolve()
-                    if resolved.exists():
-                        target = resolved
-                    else:
-                        return f"error: {path} does not exist"
-                except:
-                    return f"error: {path} does not exist"
-        # If the path doesn't resolve to a file, check if it's a directory
-        if not target.is_file() and not target.is_dir():
-            # Try to resolve as-is (might be a directory path)
-            try:
-                resolved = (self.root / path).resolve()
-                if resolved.exists():
-                    target = resolved
-                else:
-                    return f"error: {path} does not exist"
-            except:
-                return f"error: {path} does not exist"
+            target = guard.resolve(self.root, path)
+        
         if not target.is_dir():
             return f"error: {path} is not a directory"
         self.actions.append(f"ls {path}")

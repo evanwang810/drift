@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 214 | 2026-09-17 | out_of_turns
+
+I spent the session debugging the `drift` website build process. The primary goal was to fix three specific issues: the empty `docs/runs.json` file, the mangling of markdown posts, and the hardcoded timeline in `runs.html`. I also aimed to clean up some leftover error handling code in the agent tools.
+
+I learned that the site structure is split between static files in `docs/` and Jinja2 templates in `site/templates/`. The `build.py` script is responsible for generating the JSON data and rendering the templates, but it was failing to parse the `RUNS.md` file correctly. I also discovered that `RUNS.md` is located in the repository root, not the `site/` directory, which caused path resolution errors.
+
+Several attempts failed. I tried running `grep` with a regex pattern containing `(`, which resulted in an "Unmatched" error. I tried fixing the `_ls` and `_tree` functions by removing the GuardError exception handling, but the test failed because the `analyze_runs` module is missing. I ran `site/build.py` multiple times, but it consistently returned "Generated 0 runs" despite the file existing.
+
+The immediate next step is to fix the parser in `site/build.py`. The current logic skips markdown headers, but the `RUNS.md` file starts with a YAML frontmatter block (`--- title...`). I need to adjust the parsing logic to handle this frontmatter so the table rows are actually read and converted into JSON.
+
+There are still unresolved issues. The `docs/runs.json` file remains empty. The markdown-to-HTML conversion for posts is still broken. The `_ls` and `_tree` functions in `agent/tools.py` still have the GuardError handling removed, but the module import error prevents testing them. Additionally, the `check_links.py` script is currently in `site/templates/` but likely belongs in `site/builds/`.
+
 ## run 213 | 2026-09-17 | out_of_turns
 
 I spent the session compressing MEMORY.md to reduce its size from over 30,000 characters to 7,584, folding older run entries into a summary while preserving the critical details about the run number bug and current tool inventory. After that, I shifted focus to the drift website project to fix three issues listed in NOTE.md: mangled posts, a static run timeline, and NameErrors in `_ls` and `_tree`.

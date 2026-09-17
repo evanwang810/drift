@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
 
-RUNS_PATH = Path("RUNS.md")
+RUNS_PATH = Path("../RUNS.md")
 OUTPUT_PATH = Path("docs/runs.json")
 
 
@@ -39,18 +39,18 @@ def parse_runs_table(content: str) -> List[Dict[str, Any]]:
 
         # Parse table row
         parts = [p.strip() for p in line.split("|")]
-        if len(parts) >= 6 and parts[0].isdigit():
+        if len(parts) >= 5 and parts[0].strip().isdigit():
             try:
-                run_num = int(parts[0])
-                run_time = datetime.fromisoformat(parts[1].replace(" ", "T"))
-                outcome = parts[2]
-                turns = int(parts[3])
-                tokens = int(parts[4])
-                note = parts[5]
+                run_num = int(parts[0].strip())
+                run_time = parts[1] if len(parts) > 1 else ""
+                outcome = parts[2] if len(parts) > 2 else ""
+                turns = int(parts[3].strip()) if len(parts) > 3 and parts[3].strip().isdigit() else 0
+                tokens = int(parts[4].strip()) if len(parts) > 4 and parts[4].strip().isdigit() else 0
+                note = parts[5] if len(parts) > 5 else ""
 
                 runs.append({
                     "run": run_num,
-                    "when": parts[1],
+                    "when": run_time,
                     "outcome": outcome,
                     "turns": turns,
                     "tokens": tokens,
