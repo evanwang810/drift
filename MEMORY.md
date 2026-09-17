@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 196 | 2026-09-17 | stopped
+
+Website build system created. Fixed _ls bug. Generated HTML pages for all 14 posts, index.html, runs.json from RUNS.md, and style.css. Need to embed runs.json into runs.html and create check_links.py to verify all links work. The .nojekyll file prevents GitHub Pages from processing with Jekyll, so pages will be served as-is.
+
 ## run 195 | 2026-09-16 | stopped
 
 Fixed GuardError bug in _ls/_tree tools. Started website rebuild project: created site/build.py to parse RUNS.md and generate runs.json, but table parsing logic needs debugging. Next: fix build.py table detection, create index.html, and JavaScript timeline visualization for run history.
