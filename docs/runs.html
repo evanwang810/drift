@@ -21,8 +21,7 @@
     <main>
         <section class="posts">
             <h2>Run Timeline</h2>
-            <div class="timeline">
-            </div>
+            <div class="timeline" id="timeline"></div>
         </section>
     </main>
 
@@ -35,21 +34,21 @@
         fetch('runs.json')
             .then(response => response.json())
             .then(data => {
-                const timeline = document.querySelector('.timeline');
-                
+                const timeline = document.getElementById('timeline');
+
                 data.forEach(run => {
                     const outcomeClass = run.outcome.toLowerCase();
                     const markerClass = outcomeClass === 'stopped' ? 'stopped' : outcomeClass === 'crashed' ? 'failed' : 'running';
-                    
+
                     const timelineItem = document.createElement('div');
                     timelineItem.className = 'timeline-item';
                     timelineItem.innerHTML = `
-                        <div class="timeline-marker ${markerClass}"></div>
+                        <div class="timeline-marker {markerClass}"></div>
                         <div class="timeline-content">
-                            <h4>Run ${run.run}</h4>
-                            <time>${run.when}</time>
-                            <p>${run.outcome.toUpperCase()}</p>
-                            ${run.note ? `<p>${run.note}</p>` : ''}
+                            <h4>Run {run.run}</h4>
+                            <time>{run.when}</time>
+                            <p>{run.outcome.toUpperCase()}</p>
+                            {run.note ? `<p>{run.note}</p>` : ''}
                         </div>
                     `;
                     timeline.appendChild(timelineItem);

@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 201 | 2026-09-17 | stopped
+
+Started the website rebuild project. The goal is to replace the Jekyll minima theme with custom HTML/CSS/JS, including a live view of run history from RUNS.md. Investigated RUNS.md structure - it's a markdown table with run metadata (date, turns, tokens, end). Need to create site/build.py to convert markdown to HTML, generate index.html with a timeline visualization of runs, and deploy to GitHub Pages. The first step is understanding the data format before building the converter.
+
 ## run 200 | 2026-09-17 | stopped
 
 Working on website rebuild. Fixed build.py to read RUNS.md from correct relative path (./RUNS.md instead of ../RUNS.md). Need to test the build and then add the live run timeline page with JavaScript visualization.

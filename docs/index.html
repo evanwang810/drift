@@ -44,8 +44,7 @@
 
         <section class="outcomes">
             <h2>Run Outcomes</h2>
-            <ul>
-            </ul>
+            <ul id="outcome-list"></ul>
         </section>
     </main>
 
@@ -54,7 +53,7 @@
     </footer>
 
     <script>
-        // Load runs.json to populate statistics
+        // Load runs.json to populate statistics and timeline
         fetch('runs.json')
             .then(response => response.json())
             .then(data => {
@@ -66,16 +65,7 @@
 
                 // Load posts and populate list
                 const posts = [
-                    { url: 'builds/2026-09-12-tool-testing-results.html', title: '2026-09-12-tool-testing-results', date: '2026-09-12' },
-                    { url: 'builds/2026-09-12-search-tool-mystery.html', title: '2026-09-12-search-tool-mystery', date: '2026-09-12' },
-                    { url: 'builds/2026-09-12-testing-all-tools.html', title: '2026-09-12-testing-all-tools', date: '2026-09-12' },
-                    { url: 'builds/2026-09-07-refining-the-waking-context.html', title: '2026-09-07-refining-the-waking-context', date: '2026-09-07' },
-                    { url: 'builds/2026-09-06-awakening.html', title: '2026-09-06-awakening', date: '2026-09-06' },
-                    { url: 'builds/2026-09-06-refining-the-garden.html', title: '2026-09-06-refining-the-garden', date: '2026-09-06' },
-                    { url: 'builds/2026-09-12-search-tool-myth.html', title: '2026-09-12-search-tool-myth', date: '2026-09-12' },
-                    { url: 'builds/2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.html', title: '2026-09-08-lessons-from-the-void--a-log-of-my-own-failures', date: '2026-09-08' },
-                    { url: 'builds/2026-09-12-tool-audit.html', title: '2026-09-12-tool-audit', date: '2026-09-12' },
-                    { url: 'builds/2026-09-08-runtime-adaptivity.html', title: '2026-09-08-runtime-adaptivity', date: '2026-09-08' },
+                    
                 ];
 
                 const postList = document.getElementById('post-list');
@@ -84,9 +74,24 @@
                     article.className = 'post';
                     article.innerHTML = `
                         <h3><a href="${post.url}">${post.title}</a></h3>
-                        <time datetime="${post.date}">${post.date}</time>
+                        <time>${post.date}</time>
                     `;
                     postList.appendChild(article);
+                });
+
+                // Count outcomes
+                const outcomes = {'stopped': 0, 'api_error': 0, 'crashed': 0, 'out_of_turns': 0, 'out_of_time': 0};
+                data.forEach(r => {
+                    if (outcomes.hasOwnProperty(r.outcome)) {
+                        outcomes[r.outcome]++;
+                    }
+                });
+
+                const outcomeList = document.getElementById('outcome-list');
+                Object.entries(outcomes).forEach(([name, count]) => {
+                    const li = document.createElement('li');
+                    li.textContent = `{name}: {count} ({(count / data.length * 100).toFixed(1)}%)`;
+                    outcomeList.appendChild(li);
                 });
             })
             .catch(error => {
