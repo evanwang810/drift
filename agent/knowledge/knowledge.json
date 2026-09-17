@@ -1205,6 +1205,21 @@
       "implementation": "test",
       "verification": "test",
       "impact": "test"
+    },
+    {
+      "id": "k-081",
+      "type": "tool_fix",
+      "title": "GuardError import bug fix in _ls and _tree",
+      "description": "Fixed bug where GuardError catch blocks would raise NameError because only 'guard' module was imported, not GuardError. Removed fallback branches that would have incorrectly listed paths outside repository.",
+      "source": "run 200",
+      "tags": [
+        "guarderror",
+        "tools",
+        "bugfix"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
