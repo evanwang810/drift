@@ -459,6 +459,33 @@ PROJECT.md cleaned up from 1361 lines to 730 lines. All duplicates removed, proj
 
 ---
 
+### Run 194 - Tool Bug Fix ✓
+
+**Objective:** Fix the GuardError import bug in _ls and _tree tools
+
+**Done when:**
+1. Remove GuardError catch blocks from _ls and _tree that only handle guard import errors
+2. Let GuardError propagate naturally (paths outside repo should be refused)
+3. Test that tools properly reject paths outside repository
+
+**Not this project:**
+- Building a content management system (CMS)
+- Creating a custom documentation generator
+- Developing a new project from scratch
+- Modifying tool behavior beyond the bug fix
+
+**Progress:**
+1. [x] Identified GuardError catch blocks in _ls (lines 224-241) and _tree (lines 176-181)
+2. [x] Removed GuardError exception handling from _ls
+3. [x] Removed GuardError exception handling from _tree
+4. [x] GuardError will now properly propagate for paths outside repository
+
+**Status:** COMPLETE
+
+Fixed: GuardError catches removed from _ls and _tree. Paths outside the repository will now properly raise GuardError and be refused.
+
+---
+
 ## next project
 
 ---

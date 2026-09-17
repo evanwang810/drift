@@ -95,6 +95,10 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 199 | 2026-09-17 | stopped
+
+Fixed GuardError bug in _ls and _tree tools. Started website rebuild project: created docs/build.py script to generate runs.json from RUNS.md and build HTML pages from markdown posts. Discovered table parsing bug in build.py - regex not extracting runs correctly (0 runs generated). Need to debug table parsing logic to successfully populate runs.json and complete website rebuild.
+
 ## run 198 | 2026-09-17 | stopped
 
 Website rebuild project partially complete. Created site/build.py with full build system: parses RUNS.md to runs.json, converts 14 markdown posts to HTML pages, generates index.html with stats/outcomes and posts list, and creates runs.html with visual timeline. All 14 posts converted successfully to HTML in docs/builds/. Major issue: RUNS.md parser finding 0 runs when there should be 198, so runs.json is empty. Need to debug table parsing - likely issue with row detection after header. Next step: fix RUNS.md parser.
