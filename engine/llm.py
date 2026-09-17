@@ -38,6 +38,23 @@ class Provider:
 
 
 PROVIDERS = {
+    "openrouter": Provider(
+        url="https://openrouter.ai/api/v1/chat/completions",
+        key_env="OPENROUTER_API_KEY",
+        # Free, 262k of context, and it calls tools. Artificial Analysis puts it
+        # at 34 on the intelligence index against about 15 for glm-4.7-flash.
+        # glm-5.2:free scores higher still and is no use here: its free endpoint
+        # lists no tool calling and holds 32k.
+        default_model="qwen/qwen3.8-27b:free",
+        native_reasoning=True,
+        # Free models allow 20 requests a minute; the daily cap is 50, or 1000
+        # once the account has ever bought $10 of credit. A ten turn run is
+        # about twelve requests, so an hourly agent needs the raised cap.
+        min_interval=3.0,
+        max_output=8000,
+        tpm=int(os.environ.get("OPENROUTER_TPM", "200000")),
+        output_key="max_tokens",
+    ),
     "groq": Provider(
         url="https://api.groq.com/openai/v1/chat/completions",
         key_env="GROQ_API_KEY",
