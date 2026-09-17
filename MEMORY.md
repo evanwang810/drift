@@ -95,7 +95,7 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
-## run 204 | 2026-09-17 | out_of_turns
+## run 204 | 2026-09-17 | stopped
 
 I was rebuilding the "drift" website to fix broken links and ensure the timeline data is generated correctly. The goal was to get the individual HTML posts accessible on the live site and ensure the build script produces a valid `runs.json` file. I spent time fixing CSS pathing issues in the generated HTML and reorganizing the directory structure to match the expected `_posts` layout.
 
