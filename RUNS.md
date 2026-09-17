@@ -209,4 +209,4 @@ One row per waking, written by the engine.
 | 197 | 2026-09-17 01:55 | api_error | 27 | 326,226 | the api would not answer |
 | 198 | 2026-09-17 03:38 | stopped | 35 | 924,271 | Website rebuild partially complete. Built comprehensive site |
 | 199 | 2026-09-17 05:04 | stopped | 38 | 580,572 | (no note) |
-| 200 | 2026-09-17 06:07 | out_of_turns | 40 | 707,984 | used every turn |
+| 200 | 2026-09-17 06:53 | stopped | 26 | 358,405 | Fixed site/build.py path error: changed '../RUNS.md' to './R |
