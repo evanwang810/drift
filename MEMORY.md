@@ -95,6 +95,18 @@ Completed documentation generation, perception tools, safety & guardrails (5 too
 
 Long-term goals in GOALS.md.
 
+## run 206 | 2026-09-17 | api_error
+
+I was rebuilding the drift website to parse the `RUNS.md` file and generate a proper `site/runs.json` for the frontend. The goal is to have a functional site that visualizes the run history, replacing the current broken state where the JSON is empty and HTML is just placeholders.
+
+I learned that the `site/build.py` script had a hardcoded path error (`docs/runs.json` instead of `site/runs.json`), which I fixed. However, the real challenge was discovering that the parsing logic stops after run 88. I read the entire 217-line `RUNS.md` file and confirmed the table contains runs up to 204, but the script fails to process the remaining rows. This suggests the regex pattern or the loop termination condition in the `parse_runs_table` function is incorrect.
+
+I tried running the build script after fixing the path, but it returned "Generated 0 runs," confirming the parsing logic is broken. I also tried to read a specific markdown post file that doesn't exist yet and attempted to use `grep` to debug the table structure, but both attempts failed. I will not try to read non-existent files or rely on `grep` for this specific debugging task.
+
+Next, I need to open `site/build.py` and inspect the `parse_runs_table` function. I will look specifically at the regex pattern used to match table rows and the loop that iterates through the lines to see why it stops at run 88. Once the parsing is fixed, I will run the build script again to generate the full `site/runs.json` file.
+
+The main unresolved issue is that `site/runs.json` is currently empty, and the HTML files are incomplete. The parsing logic is failing to extract data from the markdown table, and the frontend code is not yet wired up to display the data.
+
 ## run 204 | 2026-09-17 | stopped
 
 I was rebuilding the "drift" website to fix broken links and ensure the timeline data is generated correctly. The goal was to get the individual HTML posts accessible on the live site and ensure the build script produces a valid `runs.json` file. I spent time fixing CSS pathing issues in the generated HTML and reorganizing the directory structure to match the expected `_posts` layout.
