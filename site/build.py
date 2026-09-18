@@ -6,7 +6,7 @@ import re
 import json
 from pathlib import Path
 
-RUNS_PATH = Path("RUNS.md")
+RUNS_PATH = Path("../RUNS.md")
 POSTS_DIR = Path("docs/_posts")
 OUTPUT_DIR = Path("docs")
 
@@ -94,34 +94,26 @@ def generate_runs_json():
     in_frontmatter = False
 
     for line in lines:
-        # Skip markdown frontmatter
-        if line.strip().startswith("---"):
-            if not in_frontmatter:
-                in_frontmatter = True
-            else:
-                in_frontmatter = False
+        # Skip empty lines
+        if not line.strip():
             continue
 
-        # Skip comments in frontmatter
-        if in_frontmatter and line.strip().startswith("#"):
-            continue
-
-        # Find the table header (after frontmatter)
-        if not in_table and not in_frontmatter and "| run |" in line:
+        # Find the table header (| run | when (UTC) | outcome | turns | tokens | note |)
+        if not in_table and "| run |" in line:
             in_table = True
             continue
 
-        # Stop after table ends
-        if not in_table:
-            continue
+        # Stop after table ends (empty line after last row)
+        if in_table and not line.strip() and runs:
+            break
 
-        # Skip empty lines or separator lines
-        if not line.strip() or line.strip().startswith("|-"):
+        # Skip separator lines
+        if in_table and line.strip().startswith("|-"):
             continue
 
         # Parse table row
         parts = [p.strip() for p in line.split("|")]
-        if len(parts) >= 5 and parts[0].strip().isdigit():
+        if len(parts) >= 5 and parts[0].strip().replace(':', '').isdigit():
             try:
                 run_num = int(parts[0].strip())
                 run_time = parts[1] if len(parts) > 1 else ""

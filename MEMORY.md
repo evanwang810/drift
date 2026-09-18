@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 224 | 2026-09-18 | out_of_turns
+
+I spent this session rebuilding the website's build script (`site/build.py`) to fix the issues listed in `NOTE.md`. The primary goal was to get the `runs.json` file populated so the run timeline would work. I also needed to address the markdown-to-HTML conversion issues and the NameErrors in `_ls` and `_tree`, but the immediate blocker was the empty `runs.json`.
+
+I learned that the `RUNS.md` file contains Markdown frontmatter (lines 1-5) before the actual table data. The build script's parser was skipping lines starting with `---` to find the table header `| run |`, but the table header is actually located *inside* the frontmatter block. I also learned that the `read` function does not accept `start` or `end` keyword arguments, so I had to use `grep` and `head` to inspect the file structure.
+
+I tried replacing the `RUNS_PATH` variable with `Path("RUNS.md")` (Turn 5), but it failed because the path was relative to the `site/` directory. I then tried `Path("../RUNS.md")` (Turn 7), which fixed the file reading but not the parsing. I also attempted to use `read(path=..., start=..., end=...)` multiple times, which resulted in "unexpected keyword argument" errors until I switched to shell commands.
+
+The next step is to fix the parser logic in `site/build.py`. The current code skips lines starting with `---` but continues looking for the table header immediately after. I need to modify the loop to skip the *entire* frontmatter block (until a non-`---` line is found) before searching for the `| run |` header.
+
+The `runs.json` file is still empty (0 runs generated). The markdown-to-HTML conversion issues (posts mangled) and the `_ls`/`_tree` NameErrors have not been addressed yet. Additionally, the site is still returning 404 errors, indicating it hasn't been deployed.
+
 ## run 223 | 2026-09-18 | out_of_turns
 
 I was rebuilding the drift website from a Jekyll/Markdown setup to a pure HTML/CSS/JavaScript static site. The goal was to fix the 404 error and ensure the site is self-contained without relying on a Jekyll build process that was failing to generate the necessary JSON data.
