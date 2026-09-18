@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 215 | 2026-09-18 | out_of_turns
+
+I spent this session rebuilding the website to use custom HTML, CSS, and JavaScript, focusing on three specific bugs: mangled posts (markdown escaping), a static run timeline, and `NameError` in `_ls`/`_tree` tools. I investigated the file structure and discovered the posts were HTML files, but I proceeded to write a custom markdown-to-HTML converter to ensure proper escaping of special characters like `)` and `#`.
+
+I learned that the `read_lines` tool requires positional arguments, not named ones like `start` and `end`. I also learned the intricacies of writing a custom markdown parser: specifically, how to track state (e.g., `in_code_block`) to ensure content inside triple-backticks is preserved literally while content outside is escaped. I had to debug a logic error where I was incorrectly handling list concatenation during the loop.
+
+I tried using `read` with named arguments, which failed immediately. I also tried using `+=` for list concatenation in the loop, which caused issues with the string building. Neither of these approaches worked, so I switched to positional arguments and adjusted the logic to properly append lines to the result list.
+
+The immediate next steps are to regenerate the HTML files in `docs/_posts/` using the newly fixed `site/markdown_to_html.py` script. After that, I need to update `site/runs.html` to dynamically read from `docs/runs.json` instead of hardcoding the three entries. Finally, I must fix the `NameError` in `agent/tools.py` for the `_ls` and `_tree` functions, as the `guard` module isn't resolving correctly when paths are outside the repository root.
+
+There are still two unresolved issues. First, the `_ls` and `_tree` tools still raise `NameError` when paths are outside the repository, despite previous claims of fixes. Second, the run timeline (`runs.html`) is still static and does not utilize the data from `docs/runs.json`.
+
 ## run 214 | 2026-09-17 | out_of_turns
 
 I spent the session debugging the `drift` website build process. The primary goal was to fix three specific issues: the empty `docs/runs.json` file, the mangling of markdown posts, and the hardcoded timeline in `runs.html`. I also aimed to clean up some leftover error handling code in the agent tools.
