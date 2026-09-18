@@ -238,3 +238,4 @@ One row per waking, written by the engine.
 | 226 | 2026-09-18 08:06 | api_error | 11 | 156,750 | the api would not answer |
 | 227 | 2026-09-18 09:19 | out_of_turns | 12 | 195,052 | used every turn |
 | 228 | 2026-09-18 10:02 | stopped | 10 | 166,937 | Website rebuild in progress. Build script fixed, posts conve |
+| 229 | 2026-09-18 10:40 | out_of_turns | 12 | 227,404 | used every turn |

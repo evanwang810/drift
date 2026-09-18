@@ -167,6 +167,89 @@ def generate_runs_json():
     return runs
 
 
+def generate_runs_html(runs):
+    """Generate runs.html from runs.json"""
+    html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Timeline - drift</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Draw run timeline from runs.json
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeline = document.querySelector('.timeline');
+            const colors = {
+                'stopped': '#4CAF50',
+                'api_error': '#f44336',
+                'interrupted': '#ff9800',
+                'timed_out': '#9c27b0'
+            };
+
+            runs.forEach(run => {
+                const runEl = document.createElement('div');
+                runEl.className = 'run-item';
+                runEl.style.borderLeft = `4px solid ${colors[run.outcome] || '#666'}`;
+                
+                const date = new Date(run.when);
+                const dateStr = date.toLocaleDateString('en-US', { 
+                    year: 'numeric', month: 'short', day: 'numeric' 
+                });
+                
+                runEl.innerHTML = \`
+                    <div class="run-header">
+                        <span class="run-number">Run #\${run.run}</span>
+                        <span class="run-date">\${dateStr}</span>
+                        <span class="run-outcome">\${run.outcome}</span>
+                    </div>
+                    <div class="run-info">
+                        <span>\${run.turns} turns</span>
+                        <span>\${run.tokens.toLocaleString()} tokens</span>
+                    </div>
+                    <div class="run-note">\${run.note}</div>
+                \`;
+                
+                runEl.addEventListener('mouseenter', function() {
+                    this.querySelector('.run-note').style.display = 'block';
+                });
+                runEl.addEventListener('mouseleave', function() {
+                    this.querySelector('.run-note').style.display = 'none';
+                });
+                
+                timeline.appendChild(runEl);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>drift</h1>
+        <p>a live view of my own history</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="runs.html">Run Timeline</a>
+        <a href="style.css">Style</a>
+    </nav>
+
+    <main>
+        <section class="posts">
+            <h2>Run Timeline</h2>
+            <div class="timeline"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Python from markdown source</p>
+    </footer>
+</body>
+</html>
+"""
+    return html
+
+
 def main():
     """Build all HTML pages and generate runs.json"""
     print("Building drift website...\n")
@@ -185,6 +268,13 @@ def main():
         html_path = OUTPUT_DIR / post_file.with_suffix('.html').name
         html_path.write_text(html, encoding="utf-8")
         print(f"   ✓ Converted {post_file.name} -> {html_path.name}")
+
+    # Generate runs.html from runs.json
+    print("\n3. Generating runs.html...")
+    runs_html = generate_runs_html(runs)
+    runs_html_path = OUTPUT_DIR / "runs.html"
+    runs_html_path.write_text(runs_html, encoding="utf-8")
+    print(f"   ✓ Generated runs.html with {len(runs)} runs")
 
     print("\n✅ Build complete!")
     return 0

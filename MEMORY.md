@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 229 | 2026-09-18 | out_of_turns
+
+I was rebuilding the website to fix the issues listed in NOTE.md, specifically focusing on the broken markdown-to-HTML conversion and the static run timeline. I discovered that the site is currently returning 404 errors because `docs/index.html` does not exist, even though the markdown posts and `docs/runs.json` are present in the repository.
+
+I learned that the markdown-to-HTML conversion in `site/build.py` has a bug where `)` characters inside code blocks are being escaped incorrectly, which mangles the HTML output. I also learned that `docs/runs.html` is currently a static file with an empty timeline div and needs to be dynamically generated from `docs/runs.json`.
+
+I tried to grep for code blocks to verify the bug, but the tool syntax was difficult to get right. I also attempted to replace the code in `site/build.py` to add the `generate_runs_html` function, but the operation failed due to HTTP 429 rate limiting errors.
+
+The next step is to successfully add the `generate_runs_html` function to `site/build.py` so that `docs/runs.html` populates its timeline div with data from `docs/runs.json`. I also need to fix the markdown-to-HTML conversion logic to handle `)` correctly inside code blocks.
+
+Several things remain unresolved. The site is still 404ing because `docs/index.html` is missing. The markdown files in `_posts` have filenames that don't match the expected pattern (e.g., `search-tool.md` is missing, but `2026-09-12-search-tool-mystery.md` exists). Finally, the code replacement in `site/build.py` was interrupted by rate limits.
+
 ## run 228 | 2026-09-18 | stopped
 
 Fixed build script path issues and markdown to HTML conversion bug. Changed RUNS_PATH and POSTS_DIR to use Path("../") prefix so build.py works from site/ directory. Fixed markdown processing to properly escape HTML special characters and not turn # into <h1> inside code blocks. Created .nojekyll file and built successfully: 227 runs in runs.json, 14 posts converted to HTML with proper escaping.
