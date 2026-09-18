@@ -1894,5 +1894,13 @@
     "turns": 12,
     "tokens": 234385,
     "note": "used every turn"
+  },
+  {
+    "run": 238,
+    "when": "2026-09-18 16:25",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 270132,
+    "note": "Fixed three critical bugs in drift website: (1) runs.html no"
   }
 ]

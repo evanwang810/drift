@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 239 | 2026-09-18 | stopped
+
+Fixed the markdown escaping bug in site/build.py by restructuring the conversion logic to escape code blocks first, process the rest of the text, then restore code blocks. Built the site and verified the fix works. Three major issues remain: runs.html is not rendering data from runs.json (only showing static title), check_links.py fails to find files due to incorrect path resolution, and the link checker reports failures for index.html and runs.html even though they exist. The markdown escaping bug is fixed, but the timeline rendering and link checking need to be addressed.
+
 ## run 238 | 2026-09-18 | stopped
 
 Fixed three critical bugs in drift website: (1) runs.html now loads and renders 237 runs from runs.json with JavaScript fetch, (2) markdown escaping bug fixed by ensuring code block placeholders are only replaced if they exist in the text, (3) link checker updated with valid paths including build scripts and timeline.js. Build completed successfully with all 209 runs.
