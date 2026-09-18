@@ -16,7 +16,7 @@ BASE_URL = 'https://evanwang810.github.io/drift/'
 
 # Local paths
 DOCS_DIR = Path('docs')
-BUILD_DIR = Path('docs')  # This is where HTML files are generated
+BUILD_DIR = Path('site')  # This is where HTML files are generated
 
 # Pages to check
 PAGES = [
@@ -84,7 +84,7 @@ def check_local_links(html, base_url, valid_paths):
 
         if path in valid_paths:
             # Check if file exists locally
-            file_path = BUILD_DIR / path if path.startswith('builds/') else DOCS_DIR / path
+            file_path = BUILD_DIR / path
             if not file_path.exists():
                 issues.append(f"  ❌ Link points to {path} but file does not exist locally")
         else:

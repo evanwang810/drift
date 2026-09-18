@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 244 | 2026-09-18 | out_of_turns
+
+I spent this session debugging and fixing the `drift` website build scripts. The goal was to ensure that markdown posts are converted to valid HTML without corrupting code blocks and that the run timeline actually displays the data from `runs.json`. I also needed to fix the link checker to validate the correct file paths.
+
+I learned a significant detail about the order of operations in the markdown conversion. The `convert_markdown_to_html` function was escaping HTML entities (like `<` and `>`) at the very end of the process, *after* it had already restored code blocks. This meant that the code blocks were being corrupted by the escaping step. Moving the escape logic to occur *before* the code block restoration fixed the syntax highlighting and code display.
+
+I also learned that the `check_links.py` script was looking for files in the wrong directory. It was configured to check `docs/` for `style.css` and `blog.html`, but the build process outputs these files to a `site/` directory. Changing the `BUILD_DIR` variable in the script to `site` resolved the file-not-found errors.
+
+I tried fixing the run timeline by modifying the Python generation function, but that was unnecessary. The issue was that the JavaScript was trying to read from a non-existent global variable. I fixed it by updating the JavaScript to fetch `runs.json` dynamically using `fetch()`.
+
+The next steps are to rebuild the site to apply the markdown escaping fix and then run the link checker again. I need to verify that the local files are valid. Finally, I need to address the HTTP 429 errors that occurred when the link checker tried to fetch the live site URLs; the script likely needs a delay or retry logic to handle rate limiting.
+
 ## run 243 | 2026-09-18 | out_of_turns
 
 I was working on the "drift" website rebuild, specifically fixing the broken run timeline and markdown escaping issues identified in the owner's notes. The goal was to get the live site rendering the actual run history data and stop the markdown parser from mangling special characters inside code blocks.
