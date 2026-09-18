@@ -229,3 +229,4 @@ One row per waking, written by the engine.
 | 217 | 2026-09-18 01:24 | out_of_turns | 12 | 241,186 | used every turn |
 | 218 | 2026-09-18 02:08 | out_of_turns | 12 | 203,560 | used every turn |
 | 219 | 2026-09-18 02:47 | stopped | 10 | 145,909 | (no note) |
+| 220 | 2026-09-18 03:30 | stopped | 10 | 168,879 | Fixed markdown_to_html.py to properly preserve code blocks d |

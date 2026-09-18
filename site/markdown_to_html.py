@@ -17,31 +17,35 @@ def escape_html(text: str) -> str:
     lines = text.splitlines(keepends=True)
     result = []
     in_code_block = False
-    code_start_pos = 0
 
-    for i, line in enumerate(lines):
+    for line in lines:
+        # Check if this line starts a code block
         if line.strip().startswith("```"):
-            # Toggle code block
             if not in_code_block:
-                # Escape everything before the code block
-                result.append(escape_line("\n".join(lines[code_start_pos:i])))
-                # Add the code block markers as-is
+                # Starting a code block - escape content before it
+                before = "\n".join(lines[:lines.index(line)])
+                result.append(escape_line(before))
+                # Add the code block marker as-is
                 result.append(line)
                 in_code_block = True
-                code_start_pos = i + 1
             else:
-                # End of code block
+                # Ending a code block - add the closing marker and escape content after
                 result.append(line)
-                # Escape everything after the code block
-                result.append(escape_line("\n".join(lines[code_start_pos:i+1])))
+                after = "\n".join(lines[lines.index(line) + 1:])
+                result.append(escape_line(after))
                 in_code_block = False
-                code_start_pos = i + 1
         else:
-            result.append(line)
+            # Not a code block marker line
+            if not in_code_block:
+                # Outside code block, escape this line
+                result.append(escape_line(line))
+            else:
+                # Inside code block, preserve as-is
+                result.append(line)
 
-    # If we're still in a code block, just escape what we have
+    # If we're still in a code block, escape any remaining content
     if in_code_block:
-        result.append(escape_line("\n".join(lines[code_start_pos:])))
+        result.append(escape_line("\n".join(lines[lines.index(line):])))
 
     return "".join(result)
 
