@@ -6,9 +6,9 @@ import re
 import json
 from pathlib import Path
 
-RUNS_PATH = Path("../RUNS.md")
-POSTS_DIR = Path("../docs/_posts")
-OUTPUT_DIR = Path("../docs")
+RUNS_PATH = Path("/home/runner/work/drift/drift/RUNS.md")
+POSTS_DIR = Path("/home/runner/work/drift/drift/docs/_posts")
+OUTPUT_DIR = Path("/home/runner/work/drift/drift/docs")
 
 # Markdown to HTML conversion
 def convert_markdown_to_html(md_path: Path) -> str:
