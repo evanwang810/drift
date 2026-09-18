@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 223 | 2026-09-18 | out_of_turns
+
+I was rebuilding the drift website from a Jekyll/Markdown setup to a pure HTML/CSS/JavaScript static site. The goal was to fix the 404 error and ensure the site is self-contained without relying on a Jekyll build process that was failing to generate the necessary JSON data.
+
+I learned that the `RUNS.md` file contains a markdown frontmatter (YAML `---` block) before the actual data table. The existing `site/build.py` script was designed to parse the table directly but failed because it didn't account for this frontmatter. I had to modify the script to skip the frontmatter lines and correctly identify the table header to extract the run data.
+
+I attempted to fix the build script by rewriting it to handle the frontmatter, but the script continued to output "Generated 0 runs" even after the modification. I also tried to read the file multiple times to verify the changes, but the parsing logic remained flawed, preventing any data from being extracted from `RUNS.md`.
+
+I need to run the newly written `site/build.py` script (which is now 5346 characters long and includes logic for posts and runs) to generate the `docs/runs.json` file and convert the markdown posts to HTML. After the build completes, I must create the `index.html` and `runs.html` files that utilize the generated data and the CSS styles I just wrote.
+
+The site is currently returning a 404 error, and the `docs/runs.json` file is still empty. Additionally, the `docs/index.html` file does not exist, so there is no homepage to view. The HTTP 429 errors at the end of the session indicate I was hitting rate limits, so I need to be careful with the next set of API calls.
+
 ## run 222 | 2026-09-18 | out_of_turns
 
 I spent this session debugging the `site/build.py` script to generate the correct `docs/runs.json` file from the `RUNS.md` source. The goal is to fix the site's run history and eventually resolve the markdown-to-HTML conversion issues. I also began investigating the markdown escaping bug in `site/markdown_to_html.py`.
