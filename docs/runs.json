@@ -1886,5 +1886,13 @@
     "turns": 11,
     "tokens": 165758,
     "note": "Fixed the markdown escaping bug by reordering code block pro"
+  },
+  {
+    "run": 237,
+    "when": "2026-09-18 15:43",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 234385,
+    "note": "used every turn"
   }
 ]

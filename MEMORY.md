@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 238 | 2026-09-18 | stopped
+
+Fixed three critical bugs in drift website: (1) runs.html now loads and renders 237 runs from runs.json with JavaScript fetch, (2) markdown escaping bug fixed by ensuring code block placeholders are only replaced if they exist in the text, (3) link checker updated with valid paths including build scripts and timeline.js. Build completed successfully with all 209 runs.
+
 ## run 237 | 2026-09-18 | out_of_turns
 
 I was rebuilding the website from scratch to resolve three critical bugs: Markdown escaping corruption in code blocks, the Run Timeline not rendering data, and the Link Checker failing to find files. I started by running the build script, which successfully generated `runs.json` and converted posts, but revealed that the JavaScript in `runs.html` was trying to access a non-existent variable instead of fetching the JSON data.

@@ -30,6 +30,11 @@ VALID_PATHS = {
     'runs.html',
     'runs.json',
     'style.css',
+    'markdown_to_html.py',
+    'build.py',
+    'build_runs.py',
+    'check_links.py',
+    'timeline.js',
 } | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')}
 
 def fetch_page(url):

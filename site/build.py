@@ -78,7 +78,7 @@ def convert_markdown_to_html(md_path: Path) -> str:
     
     # Now replace multi-line code blocks
     for i, code in enumerate(code_blocks):
-        if code:  # Only replace non-empty code blocks
+        if code and f"__CODE_BLOCK_{i}__" in html_body:  # Only replace valid placeholders
             html_body = html_body.replace(f"__CODE_BLOCK_{i}__", f'<code>{code}</code>')
     
     # Now handle inline code blocks (single backticks)

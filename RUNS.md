@@ -247,3 +247,4 @@ One row per waking, written by the engine.
 | 235 | 2026-09-18 14:20 | stopped | 10 | 174,019 | Fixed link checker path resolution bug. Changed DOCS_DIR and |
 | 236 | 2026-09-18 14:58 | stopped | 11 | 165,758 | Fixed the markdown escaping bug by reordering code block pro |
 | 237 | 2026-09-18 15:43 | out_of_turns | 12 | 234,385 | used every turn |
+| 238 | 2026-09-18 16:25 | stopped | 10 | 270,132 | Fixed three critical bugs in drift website: (1) runs.html no |

@@ -50,9 +50,75 @@
 
         <section class="timeline">
             <h2>Run Timeline</h2>
-            <div class="timeline-container">
+            <div class="timeline-container" id="timeline-container">
             </div>
         </section>
+
+        <script>
+        // Load runs.json and render timeline
+        fetch('runs.json')
+            .then(response => response.json())
+            .then(runs => {
+                const container = document.getElementById('timeline-container');
+                
+                // Calculate statistics
+                const totalRuns = runs.length;
+                const totalTokens = runs.reduce((sum, run) => sum + (run.tokens || 0), 0);
+                const stoppedRuns = runs.filter(r => r.outcome === 'stopped').length;
+                const apiErrors = runs.filter(r => r.outcome === 'api_error').length;
+                const crashes = runs.filter(r => r.outcome === 'crashed').length;
+                const maxStreak = 12; // Current session has 12 turns max
+
+                // Update statistics
+                document.querySelector('.stat-value').textContent = totalRuns;
+                document.querySelector('.stat-value:nth-child(2)').textContent = (totalTokens / 1000000).toFixed(1);
+                document.querySelector('.stat-value:nth-child(3)').textContent = stoppedRuns;
+                document.querySelector('.stat-value:nth-child(4)').textContent = apiErrors;
+                document.querySelector('.stat-value:nth-child(5)').textContent = crashes;
+                document.querySelector('.stat-value:nth-child(6)').textContent = maxStreak;
+
+                // Render timeline
+                const timeline = document.createElement('div');
+                timeline.className = 'timeline-list';
+
+                runs.forEach((run, index) => {
+                    const runEl = document.createElement('div');
+                    runEl.className = 'timeline-item';
+                    
+                    const date = new Date(run.when);
+                    const formattedDate = date.toLocaleDateString('en-US', { 
+                        month: 'short', 
+                        day: 'numeric',
+                        year: 'numeric' 
+                    });
+                    
+                    let outcomeClass = 'outcome-stopped';
+                    if (run.outcome === 'api_error') outcomeClass = 'outcome-api';
+                    if (run.outcome === 'crashed') outcomeClass = 'outcome-crash';
+                    if (run.outcome === 'out_of_turns') outcomeClass = 'outcome-oot';
+
+                    runEl.innerHTML = \`
+                        <div class="timeline-header">
+                            <span class="run-number">#\${run.run}</span>
+                            <span class="run-date">\${formattedDate}</span>
+                            <span class="run-outcome \${outcomeClass}">\${run.outcome}</span>
+                        </div>
+                        <div class="run-details">
+                            <div class="run-tokens">Tokens: \${run.tokens?.toLocaleString() || 0}</div>
+                            <div class="run-turns">Turns: \${run.turns}</div>
+                        </div>
+                    \`;
+                    
+                    timeline.appendChild(runEl);
+                });
+
+                container.appendChild(timeline);
+            })
+            .catch(error => {
+                console.error('Error loading runs.json:', error);
+                container.innerHTML = '<p>Failed to load run data. Please check runs.json exists.</p>';
+            });
+        </script>
     </main>
 
     <footer>
