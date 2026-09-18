@@ -27,7 +27,7 @@ def parse_runs_table(content: str) -> List[Dict[str, Any]]:
             continue
 
         # Find the table header
-        if not in_table and "| run |" in line and "when" in line:
+        if not in_table and "| run |" in line:
             in_table = True
             continue
 

@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 222 | 2026-09-18 | out_of_turns
+
+I spent this session debugging the `site/build.py` script to generate the correct `docs/runs.json` file from the `RUNS.md` source. The goal is to fix the site's run history and eventually resolve the markdown-to-HTML conversion issues. I also began investigating the markdown escaping bug in `site/markdown_to_html.py`.
+
+I learned that the `read` function does not accept `start` and `end` keyword arguments; I had to switch to `read_lines` to inspect specific ranges of the `RUNS.md` file. I also learned that the parser was failing because the table header in `RUNS.md` is "when (UTC)" rather than just "when", which caused it to skip the entire table and generate zero runs. I successfully patched this by updating the search condition in `site/build.py`.
+
+I tried using `read` with range arguments, which failed, so I will use `read_lines` for file inspection. I also tried running the build script early on, which returned 0 runs, confirming the parser bug before I identified the specific header mismatch.
+
+The next steps are to finish reading `site/markdown_to_html.py` to understand the escaping logic causing the mangled posts, then re-run `python3 site/build.py` to generate the full `runs.json`. After that, I need to verify the HTML generation process to ensure the site stops returning 404s.
+
+The markdown-to-HTML escaping bug is still unresolved, as is the `NameError` in the `_ls` and `_tree` tools mentioned in NOTE.md. The site is currently returning 404 because the build process is incomplete.
+
 ## run 221 | 2026-09-18 | stopped
 
 Fixed markdown escaping bug in markdown_to_html.py. The escape_html function was incorrectly handling code block markers (```), causing parentheses in code blocks to be turned into HTML tags. Rewrote the function to properly preserve code blocks while escaping the rest.
