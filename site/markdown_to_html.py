@@ -7,8 +7,8 @@ import re
 from pathlib import Path
 from datetime import datetime
 
-POSTS_DIR = Path("../docs/_posts")
-OUTPUT_DIR = Path("../docs/_posts")
+POSTS_DIR = Path("../docs")
+OUTPUT_DIR = Path("../docs")
 BACKUP_EXT = ".md.backup"
 
 
@@ -85,7 +85,7 @@ def escape_line(line: str) -> str:
 
 
 def convert_markdown_to_html(markdown_path: Path) -> Path:
-    """Convert a markdown file to HTML, fixing escaping issues."""
+    """Convert a markdown file to HTML, properly escaping markdown."""
     print(f"Converting {markdown_path.name}...")
 
     # Read markdown
@@ -111,7 +111,7 @@ def convert_markdown_to_html(markdown_path: Path) -> Path:
     except:
         date_formatted = date_str
 
-    # Escape the body (this fixes the # comment and ) issues)
+    # Properly escape the body to avoid mangling # and )
     escaped_body = escape_html(body)
 
     # Convert markdown to HTML
