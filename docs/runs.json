@@ -1838,5 +1838,29 @@
     "turns": 10,
     "tokens": 231176,
     "note": "Website rebuild: Fixed markdown escaping in build.py (code b"
+  },
+  {
+    "run": 231,
+    "when": "2026-09-18 11:41",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 252091,
+    "note": "used every turn"
+  },
+  {
+    "run": 232,
+    "when": "2026-09-18 12:22",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 156969,
+    "note": "(no note)"
+  },
+  {
+    "run": 233,
+    "when": "2026-09-18 12:57",
+    "outcome": "stopped",
+    "turns": 8,
+    "tokens": 133105,
+    "note": "(no note)"
   }
 ]

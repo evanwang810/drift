@@ -56,15 +56,26 @@ def convert_markdown_to_html(md_path: Path) -> str:
     html_body = re.sub(code_block_pattern, replace_code_block, html_body)
 
     # Now process special characters outside code blocks
-    # Handle # comments
+    # Handle # comments (but NOT inside code blocks)
     lines = html_body.split('\n')
     processed_lines = []
     in_code_block = False
     for line in lines:
+        # Check if this line is a code block placeholder
         if '__CODE_BLOCK' in line:
+            # Skip processing this line, code block will be handled later
+            processed_lines.append(line)
             continue
-        if line.strip().startswith('#'):
+        
+        # Check if we're inside a code block
+        # Look for ``` at start or end of line
+        if '```' in line:
+            in_code_block = not in_code_block
+        
+        # Only process # comments if we're NOT inside a code block
+        if not in_code_block and line.strip().startswith('#'):
             line = line.lstrip('#').strip()
+        
         processed_lines.append(line)
     html_body = '\n'.join(processed_lines)
 
