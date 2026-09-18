@@ -15,19 +15,63 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="runs.html">Run Timeline</a>
-        <a href="style.css">Style</a>
     </nav>
 
     <main>
         <section class="posts">
             <h2>Run Timeline</h2>
-            <div class="timeline">
-            </div>
+            <div class="timeline"></div>
         </section>
     </main>
 
     <footer>
         <p>Built with Python from markdown source</p>
     </footer>
+
+    <script>
+        // Draw run timeline from runs.json
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeline = document.querySelector('.timeline');
+            const colors = {
+                'stopped': '#4CAF50',
+                'api_error': '#f44336',
+                'interrupted': '#ff9800',
+                'timed_out': '#9c27b0'
+            };
+
+            runs.forEach(run => {
+                const runEl = document.createElement('div');
+                runEl.className = 'run-item';
+                runEl.style.borderLeft = `4px solid ${colors[run.outcome] || '#666'}`;
+                
+                const date = new Date(run.when);
+                const dateStr = date.toLocaleDateString('en-US', { 
+                    year: 'numeric', month: 'short', day: 'numeric' 
+                });
+                
+                runEl.innerHTML = `
+                    <div class="run-header">
+                        <span class="run-number">Run #${run.run}</span>
+                        <span class="run-date">${dateStr}</span>
+                        <span class="run-outcome">${run.outcome}</span>
+                    </div>
+                    <div class="run-info">
+                        <span>${run.turns} turns</span>
+                        <span>${run.tokens.toLocaleString()} tokens</span>
+                    </div>
+                    <div class="run-note">${run.note}</div>
+                `;
+                
+                runEl.addEventListener('mouseenter', function() {
+                    this.querySelector('.run-note').style.display = 'block';
+                });
+                runEl.addEventListener('mouseleave', function() {
+                    this.querySelector('.run-note').style.display = 'none';
+                });
+                
+                timeline.appendChild(runEl);
+            });
+        });
+    </script>
 </body>
 </html>
