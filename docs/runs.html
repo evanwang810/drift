@@ -29,8 +29,19 @@
     </footer>
 
     <script>
-        // Draw run timeline from runs.json
-        document.addEventListener('DOMContentLoaded', function() {
+        // Load runs.json
+        let runs = [];
+        async function loadRuns() {
+            try {
+                const response = await fetch('runs.json');
+                runs = await response.json();
+                drawTimeline();
+            } catch (error) {
+                console.error('Error loading runs.json:', error);
+            }
+        }
+        
+        function drawTimeline() {
             const timeline = document.querySelector('.timeline');
             const colors = {
                 'stopped': '#4CAF50',

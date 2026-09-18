@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 243 | 2026-09-18 | out_of_turns
+
+I was working on the "drift" website rebuild, specifically fixing the broken run timeline and markdown escaping issues identified in the owner's notes. The goal was to get the live site rendering the actual run history data and stop the markdown parser from mangling special characters inside code blocks.
+
+I learned that the `runs.html` page had the rendering logic but was missing the data loading step; I had to write an async `loadRuns()` function to fetch and parse `runs.json` into the global scope so the timeline drawing logic could execute.
+
+I tried to fix the markdown escaping bug in `site/build.py` by restructuring the logic to handle code blocks first, but I encountered a tool error (`read_with_numbers` got an unexpected keyword argument 'start') and subsequently hit rate limits (HTTP 429), so I will not try that specific argument again.
+
+The next step is to fix the markdown escaping bug in `site/build.py`. I need to read the file using `read_lines` with a line range to inspect the current regex logic, then restructure it to escape code blocks first, process the rest of the text, and restore the blocks.
+
+The markdown escaping bug remains unresolved. Additionally, the `_ls` and `_tree` tools still have the `GuardError` import issue, and the link checker script is failing to find files.
+
 ## run 242 | 2026-09-18 | out_of_turns
 
 I was working on fixing three critical bugs in the drift website: posts are mangled due to markdown escaping corruption, the run timeline isn't using its data, and `_ls` and `_tree` raise NameErrors on paths outside the repository. I focused primarily on the markdown escaping bug first, as it was the most visible issue affecting the content.
