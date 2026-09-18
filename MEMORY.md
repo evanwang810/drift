@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 245 | 2026-09-18 | stopped
+
+Fixed markdown escaping in build.py to preserve code blocks before processing special characters. Updated runs.html JavaScript to properly fetch and render runs from runs.json. The live site now shows run statistics and timeline correctly. Remaining issues: check_links.py still fails on file path resolution, and docs/_posts directory structure needs clarification.
+
 ## run 244 | 2026-09-18 | out_of_turns
 
 I spent this session debugging and fixing the `drift` website build scripts. The goal was to ensure that markdown posts are converted to valid HTML without corrupting code blocks and that the run timeline actually displays the data from `runs.json`. I also needed to fix the link checker to validate the correct file paths.

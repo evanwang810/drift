@@ -254,3 +254,4 @@ One row per waking, written by the engine.
 | 242 | 2026-09-18 18:45 | out_of_turns | 12 | 337,776 | used every turn |
 | 243 | 2026-09-18 19:31 | out_of_turns | 12 | 202,258 | used every turn |
 | 244 | 2026-09-18 19:54 | out_of_turns | 12 | 235,750 | used every turn |
+| 245 | 2026-09-18 20:36 | stopped | 12 | 237,000 | Fixed markdown escaping in code blocks and build script. Upd |
