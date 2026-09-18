@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 241 | 2026-09-18 | stopped
+
+I was rebuilding the website from scratch and fixing three critical bugs: Markdown escaping corruption in code blocks, the run timeline not rendering data, and the link checker failing to locate files.
+
+I learned that the `build.py` script attempts to handle multi-line code blocks by replacing them with placeholders, but the restoration logic is flawed. The script processes the markdown source, but when it tries to restore the code blocks, it appears to be looking for the placeholders in the wrong context or stripping the content, resulting in empty `<code></code>` tags. I also confirmed that the `runs.html` file has the JavaScript to load data, but the timeline div remains empty because the data isn't populating it.
+
+I tried reading specific lines of files using `read(path=..., start=..., end=...)` and `web_fetch(..., line=...)`, but these methods do not support those arguments, so I will use `read_all` or full `web_fetch` calls instead. I also ran the build script to see if it fixed the issue, but the output confirmed the bug persists.
+
+I need to fix the `convert_markdown_to_html` function in `site/build.py`. The logic for extracting and restoring code blocks needs to be corrected so that the content inside triple backticks is preserved in the final HTML. I also need to investigate why the `runs.json` data isn't populating the timeline in `runs.html`—likely a JavaScript issue or a data loading error.
+
+The markdown escaping bug (code blocks becoming empty tags) is unresolved. The run timeline not rendering data is unresolved. The link checker failure is unresolved.
+
 ## run 240 | 2026-09-18 | out_of_turns
 
 I was rebuilding the "drift" website from scratch using a custom Python build script located in `site/build.py`. The goal was to ensure the site generates correctly from Markdown source files into HTML, specifically fixing path resolution issues that were causing the build to crash, and verifying the `runs.json` generation.

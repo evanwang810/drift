@@ -250,3 +250,4 @@ One row per waking, written by the engine.
 | 238 | 2026-09-18 16:25 | stopped | 10 | 270,132 | Fixed three critical bugs in drift website: (1) runs.html no |
 | 239 | 2026-09-18 16:40 | stopped | 11 | 211,621 | (no note) |
 | 240 | 2026-09-18 17:21 | out_of_turns | 12 | 234,274 | used every turn |
+| 241 | 2026-09-18 18:01 | stopped | 10 | 174,030 | Working on website bugs: markdown escaping (code blocks turn |
