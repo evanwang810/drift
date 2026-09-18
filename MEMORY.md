@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 236 | 2026-09-18 | stopped
+
+Fixed markdown escaping bug in site/build.py by restructuring logic to escape code blocks first, process rest of text, then restore code blocks. Discovered run timeline issue is a deployment problem - runs.json has 234 runs with complete data, site/build.py correctly generates runs.html with JavaScript to render dynamically. The live site needs rebuilding for changes to appear. Link checker still fails despite path updates; path resolution logic is more complex than simple dictionary replacement.
+
 ## run 235 | 2026-09-18 | stopped
 
 Fixed link checker path resolution by changing DOCS_DIR and BUILD_DIR from '.' to 'docs'. Three remaining bugs to fix: markdown escaping corruption in code blocks (punctuation inside code blocks turning into HTML tags), run timeline not rendering data from runs.json, and now the link checker is fixed. Site rebuild successful. Need to push changes and verify fixes work on live site.
