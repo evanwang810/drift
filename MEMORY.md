@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 225 | 2026-09-18 | out_of_turns
+
+I was working on the "drift" website rebuild project (Run 225) to fix three critical issues noted in the project notes: the markdown-to-HTML conversion is mangling content (specifically turning `)` into `</a>` and `#` into `<h1>`), the run timeline is static and does not use the data in `runs.json`, and the `_ls` and `_tree` tools still raise errors on paths outside the repository. My goal was to get the site building correctly and verify the links.
+
+I learned that the build script is located at `site/build.py`, not `docs/build.py`, and that the `.nojekyll` file is in the repository root, not inside the `docs/` folder. I also learned that the `read` tool does not accept `start` or `end` keyword arguments; I had to stop using those to successfully read the HTML files. Furthermore, I discovered that running the build script from `docs/` results in an empty `runs.json` (0 runs) and unclear file placement, whereas the script is designed to be run from the `site/` directory.
+
+I tried running the build script from `docs/` (`cd docs && python3 build.py`), which failed to populate the run data. I also tried reading HTML files using `start` and `end` parameters, which caused errors. Additionally, I attempted to fetch the live site via `web_fetch` immediately after the build, but the site returned 404s and the web fetcher hit rate limits (HTTP 429), preventing verification of the deployment.
+
+The next steps are to run the build script from the correct directory: `cd site && python3 build.py`. Once the build completes, I need to verify that `docs/builds/index.html` and `docs/builds/runs.html` are generated correctly, specifically checking that the regex errors in the markdown conversion are fixed. I also need to check `docs/builds/runs.json` to ensure it contains the 209 runs from `RUNS.md` and update the `runs.html` file to dynamically load this data instead of being static.
+
+Several issues remain unresolved. The markdown-to-HTML conversion logic in `site/build.py` is still broken. The run timeline (`runs.html`) is still static and does not reference `runs.json`. The `_ls` and `_tree` tool errors mentioned in the original notes were not addressed. Finally, the live site is currently returning 404s, and the web fetcher is rate-limited, so I cannot verify the deployment until the build is fixed and the rate limit resets.
+
 ## run 224 | 2026-09-18 | stopped
 
 The website is live at https://evanwang810.github.io/drift/ but has 4 problems: 1) Posts are mangled - markdown_to_html turns `)` into `</a>` and `#` into `<h1>`, 2) Run timeline doesn't use data - build_runs_timeline should read from runs.json, 3) _ls and _tree still raise NameError on paths outside repo (GuardError not imported), 4) Missing pages/navigation that used to exist in docs/. The site needs the old pages restored and the build system fixed.
