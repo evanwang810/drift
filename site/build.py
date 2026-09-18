@@ -7,8 +7,8 @@ import json
 from pathlib import Path
 
 RUNS_PATH = Path("../RUNS.md")
-POSTS_DIR = Path("docs/_posts")
-OUTPUT_DIR = Path("docs")
+POSTS_DIR = Path("../docs/_posts")
+OUTPUT_DIR = Path("../docs")
 
 # Markdown to HTML conversion
 def convert_markdown_to_html(md_path: Path) -> str:
@@ -42,7 +42,7 @@ def convert_markdown_to_html(md_path: Path) -> str:
     date = meta.get('date', '')
     tags = meta.get('tags', '').split(', ') if meta.get('tags') else []
 
-    # Convert markdown to HTML - preserve code blocks
+    # Convert markdown to HTML - properly escape code blocks
     html_body = body
     # Don't process inside code blocks
     in_code_block = False
@@ -57,7 +57,7 @@ def convert_markdown_to_html(md_path: Path) -> str:
                 code_buffer.append('<code>')
         elif char == '#':
             if not in_code_block and html_body[html_body.index(char)+1:].startswith(' '):
-                code_buffer.append('\n')  # Preserve markdown structure
+                code_buffer.append('<h1>')
         elif char == '\n':
             if not in_code_block:
                 code_buffer.append('<br>')
@@ -67,9 +67,12 @@ def convert_markdown_to_html(md_path: Path) -> str:
     # Add paragraph wrapping
     html_body = html_body.replace('\n\n', '</p><p>')
     # Convert headings (outside code blocks)
-    html_body = html_body.replace('# ', '<h1>').replace('## ', '<h2>')
-    html_body = html_body.replace('### ', '<h3>').replace('#### ', '<h4>')
+    html_body = html_body.replace('## ', '<h2>')
+    html_body = html_body.replace('### ', '<h3>')
+    html_body = html_body.replace('#### ', '<h4>')
     html_body = html_body.replace('**', '<strong>').replace('*', '<em>')
+    # Escape HTML special characters (outside code blocks)
+    html_body = html_body.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
