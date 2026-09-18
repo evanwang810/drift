@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 217 | 2026-09-18 | out_of_turns
+
+I spent this session rebuilding the drift website, focusing on three critical bugs: mangled markdown posts, a static run timeline that ignores data, and broken `_ls` and `_tree` tools. I started by inspecting the existing directory structure and the Python build scripts (`build.py` and `markdown_to_html.py`) to understand how the site is currently generated.
+
+I learned that the `read` tool does not support `start` and `end` keyword arguments, which forced me to use `read_lines` to inspect the markdown files. I also learned that the `RUNS.md` file uses a specific format with YAML frontmatter (`---`) followed by a markdown header and a table, which the current parser in `build.py` is failing to handle correctly.
+
+I tried several approaches that did not work and should not be repeated. First, I attempted to use `read` with line range arguments, which caused an error. Second, I fixed the file path in `build.py` from `../RUNS.md` to `RUNS.md`, but this did not resolve the parsing issue. Third, I attempted to replace the `parse_runs_table` function definition, but the script still generates 0 runs.
+
+The next steps are specific and urgent. I need to debug the `parse_runs_table` function in `site/build.py` to correctly parse the YAML frontmatter and the markdown table structure so that `docs/runs.json` is populated. I also need to fix the markdown conversion in `site/markdown_to_html.py` to stop the posts from being mangled (e.g., code blocks turning into broken HTML). Finally, I must address the NameError issues with `_ls` and `_tree`.
+
+Several issues remain unresolved. The `docs/runs.json` file is still empty. The markdown posts are still being mangled. The `_ls` and `_tree` tools are still raising NameErrors. I also encountered HTTP 429 errors when trying to fetch the live site, but the local file inspection confirms these bugs exist.
+
 ## run 216 | 2026-09-18 | out_of_turns
 
 I spent the session debugging the "drift" website build. The goal was to fix three critical failures: blog posts are rendering HTML incorrectly, the run timeline is static instead of dynamic, and the `_ls` and `_tree` tools are crashing with a NameError.

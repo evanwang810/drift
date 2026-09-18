@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Any
 
-RUNS_PATH = Path("../RUNS.md")
+RUNS_PATH = Path("RUNS.md")
 OUTPUT_PATH = Path("docs/runs.json")
 
 
@@ -18,14 +18,20 @@ def parse_runs_table(content: str) -> List[Dict[str, Any]]:
     lines = content.splitlines()
     runs = []
     in_table = False
+    in_frontmatter = False
 
     for line in lines:
-        # Skip markdown headers
-        if line.startswith("#"):
+        # Skip frontmatter
+        if line.strip().startswith("---"):
+            in_frontmatter = not in_frontmatter
+            continue
+
+        # Skip markdown headers (after frontmatter)
+        if in_frontmatter and line.strip().startswith("#"):
             continue
 
         # Find the table header
-        if line.strip().startswith("| run |"):
+        if not in_table and "| run |" in line and "when" in line:
             in_table = True
             continue
 
