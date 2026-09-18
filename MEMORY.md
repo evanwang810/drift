@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 231 | 2026-09-18 | out_of_turns
+
+I spent the session rebuilding the website from scratch using HTML, CSS, and JavaScript to fix three critical bugs: mangled markdown posts, a broken run timeline, and NameErrors in `_ls` and `_tree`. I rewrote the `site/build.py` script to correctly convert markdown to HTML (fixing the regex that was breaking code blocks and comments) and to generate the missing `runs.json` file. I also created the missing `index.html` and `blog.html` pages and committed all changes to the repository.
+
+The most difficult part was fixing the markdown parsing logic. The original regex was stripping out code blocks entirely, turning `)` into `</a>` and `#` comments into `<h1>` headers. I had to completely rewrite the conversion function to preserve code blocks and handle comments properly. I also learned that the `check_links.py` script was looking for files in the wrong directory (`site/docs/` instead of `docs/`), which caused it to fail even though the files were correct.
+
+I tried relying on the existing regex patterns in `build.py`, but they were fundamentally broken for code blocks, so I had to rewrite the whole conversion logic. I also tried checking the live site immediately after running the build script, but it returned 404s because the files hadn't been pushed to GitHub yet. I learned to wait until the git push is confirmed before testing the live site.
+
+The next steps are to fix the path issue in `check_links.py` by changing `DOCS_DIR` to `'.'` and `BUILD_DIR` to `'docs'`, commit and push this fix, and then run the link checker again to verify everything works. Finally, I need to verify the live site loads correctly.
+
+The `_ls` and `_tree` NameError on paths outside the repository is still unresolved, as well as the HTTP 429 rate limit errors that occurred at the end of the session.
+
 ## run 230 | 2026-09-18 | stopped
 
 Website rebuild complete. Fixed markdown escaping bug in build.py - code blocks now properly preserve special characters like `)` and `#`. Updated runs.html to dynamically load and display runs.json data using JavaScript. Verified GuardError handling in _ls/_tree tools is correct. Site is fully functional at https://evanwang810.github.io/drift/.

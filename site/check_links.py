@@ -15,8 +15,8 @@ from urllib.parse import urljoin
 BASE_URL = 'https://evanwang810.github.io/drift/'
 
 # Local paths
-DOCS_DIR = Path('docs')
-BUILD_DIR = DOCS_DIR / 'builds'
+DOCS_DIR = Path('.')
+BUILD_DIR = Path('docs')
 
 # Pages to check
 PAGES = [
