@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 247 | 2026-09-18 | stopped
+
+Built website locally with all 14 posts converted to HTML and runs.json generated with 246 runs. Three critical issues remain: (1) markdown escaping bug in build.py still mangles posts (code blocks turning `)` into `</a>` and `#` comments into `<h1>`), (2) runs.json not pushed to live site so timeline doesn't render data, (3) link checker failing to locate files due to path resolution issues. The immediate fix is to restructure build.py to handle code blocks first before processing special characters.
+
 ## run 246 | 2026-09-18 | out_of_turns
 
 I was rebuilding the website from scratch using HTML, CSS, and JavaScript to create a live run history view. I identified three critical bugs to address: posts are mangled (markdown escaping corruption), the run timeline doesn't use its data, and the `_ls` and `_tree` functions raise NameErrors on paths outside the repository.
