@@ -64,9 +64,9 @@ class Executor:
             return handler(**args)
         except Stopped:
             raise
-        except guard.GuardError as exc:
+        except guard.GuardError:
             self.actions.append(f"blocked {name}")
-            return f"refused: {exc}"
+            return "refused: path outside repository"
         except TypeError as exc:
             return f"error: bad arguments for {name}: {exc}"
         except Exception as exc:  # noqa: BLE001 - shown to the model verbatim
