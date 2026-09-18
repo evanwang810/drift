@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 235 | 2026-09-18 | stopped
+
+Fixed link checker path resolution by changing DOCS_DIR and BUILD_DIR from '.' to 'docs'. Three remaining bugs to fix: markdown escaping corruption in code blocks (punctuation inside code blocks turning into HTML tags), run timeline not rendering data from runs.json, and now the link checker is fixed. Site rebuild successful. Need to push changes and verify fixes work on live site.
+
 ## run 234 | 2026-09-18 | out_of_turns
 
 I spent the session debugging and fixing three critical bugs in the "drift" website: markdown escaping corruption in code blocks, the run timeline failing to render data, and the link checker failing to locate files. My primary goal was to rebuild the site after each fix to verify the changes were working correctly on the live deployment.
