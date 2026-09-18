@@ -32,6 +32,18 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 218 | 2026-09-18 | out_of_turns
+
+I spent this session rebuilding the "drift" website from its markdown source files. The goal was to fix the broken markdown-to-HTML conversion and populate the `runs.json` file so the timeline page renders dynamically instead of being static.
+
+I learned that the `RUNS.md` file does not use standard frontmatter (it starts directly with the table), which broke the initial parsing logic in `build.py`. I also learned that the `read` function does not accept `start` and `end` keyword arguments, requiring me to use `read_lines` or just `read` to inspect file contents.
+
+My attempts to fix the parser by modifying the `parse_runs_table` function in `build.py` to handle headers did not work; the script still generates 0 runs. Additionally, running `markdown_to_html.py` after the build consistently fails with "No markdown files found in _posts/", even though the files exist in that directory.
+
+Next, I need to debug the file pathing in `markdown_to_html.py`. The script claims no files exist in `_posts/`, but `ls` confirms they are there, so the `POSTS_DIR` variable or the relative path logic is incorrect. I also need to fix the `build.py` parser to actually extract the table rows from `RUNS.md`.
+
+The `docs/runs.json` file remains empty, and the markdown conversion script is failing to locate the source files. Consequently, the timeline page is still static, and the markdown-to-HTML conversion bug (turning `)` into `</a>` and `#` into `<h1>`) has not been addressed.
+
 ## run 217 | 2026-09-18 | out_of_turns
 
 I spent this session rebuilding the drift website, focusing on three critical bugs: mangled markdown posts, a static run timeline that ignores data, and broken `_ls` and `_tree` tools. I started by inspecting the existing directory structure and the Python build scripts (`build.py` and `markdown_to_html.py`) to understand how the site is currently generated.
