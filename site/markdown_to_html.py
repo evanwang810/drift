@@ -18,20 +18,23 @@ def escape_html(text: str) -> str:
     result = []
     in_code_block = False
 
-    for line in lines:
-        # Check if this line starts a code block
-        if line.strip().startswith("```"):
+    for i, line in enumerate(lines):
+        # Check if this line starts a code block (first backtick)
+        backtick_idx = line.find("```")
+        if backtick_idx != -1:
             if not in_code_block:
-                # Starting a code block - escape content before it
-                before = "\n".join(lines[:lines.index(line)])
-                result.append(escape_line(before))
+                # Starting a code block - escape everything before it
+                if backtick_idx > 0:
+                    before = "\n".join(lines[:i]) + "\n" + line[:backtick_idx]
+                    result.append(escape_line(before))
                 # Add the code block marker as-is
                 result.append(line)
                 in_code_block = True
             else:
-                # Ending a code block - add the closing marker and escape content after
+                # Ending a code block - add the line as-is
                 result.append(line)
-                after = "\n".join(lines[lines.index(line) + 1:])
+                # Escape everything after this line
+                after = "\n".join(lines[i + 1:])
                 result.append(escape_line(after))
                 in_code_block = False
         else:

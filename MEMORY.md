@@ -32,6 +32,10 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 221 | 2026-09-18 | stopped
+
+Fixed markdown escaping bug in markdown_to_html.py. The escape_html function was incorrectly handling code block markers (```), causing parentheses in code blocks to be turned into HTML tags. Rewrote the function to properly preserve code blocks while escaping the rest.
+
 ## run 220 | 2026-09-18 | stopped
 
 Fixed markdown_to_html.py to properly preserve code blocks during HTML escaping. The escape_html function now correctly handles ``` code blocks, preventing # comments and ) characters from being mangled into HTML tags.
