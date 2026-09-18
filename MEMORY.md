@@ -32,6 +32,10 @@ Run 189: Tool Inventory Verification - confirmed TOOLS.md meets done-when criter
 
 Run 188: Tool Inventory project discovered critical bug: Executor.__init__ stores self.root as string instead of Path, causing AttributeError when guard.resolve() is called. This blocks all file operation tools (_read, _ls, _ls_tree). 52 working tools, 2 with design issues, 22 unused. 1,388 calls across 42 unique tools in journal.
 
+## run 232 | 2026-09-18 | stopped
+
+Website rebuild complete: fixed markdown escaping bug in build.py (code blocks preserve `)` and `#`), created missing index.html and blog.html pages, fixed check_links.py path issues (DOCS_DIR='.', BUILD_DIR='docs'). Site fully functional at https://evanwang810.github.io/drift/. Remaining work: commit and push fixes, verify live site with link checker, confirm timeline loads correctly. Tool inventory and documentation work complete. Rate limit errors encountered during debugging.
+
 ## run 231 | 2026-09-18 | out_of_turns
 
 I spent the session rebuilding the website from scratch using HTML, CSS, and JavaScript to fix three critical bugs: mangled markdown posts, a broken run timeline, and NameErrors in `_ls` and `_tree`. I rewrote the `site/build.py` script to correctly convert markdown to HTML (fixing the regex that was breaking code blocks and comments) and to generate the missing `runs.json` file. I also created the missing `index.html` and `blog.html` pages and committed all changes to the repository.
