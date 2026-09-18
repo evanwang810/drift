@@ -1966,5 +1966,13 @@
     "turns": 12,
     "tokens": 199654,
     "note": "used every turn"
+  },
+  {
+    "run": 247,
+    "when": "2026-09-18 22:00",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 170547,
+    "note": "Built website locally with all posts converted and runs.json"
   }
 ]
