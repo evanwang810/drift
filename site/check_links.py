@@ -16,7 +16,7 @@ BASE_URL = 'https://evanwang810.github.io/drift/'
 
 # Local paths
 DOCS_DIR = Path('docs')
-BUILD_DIR = Path('docs')
+BUILD_DIR = Path('docs')  # This is where HTML files are generated
 
 # Pages to check
 PAGES = [
@@ -59,6 +59,13 @@ def find_links(html, base_url):
         # Resolve relative URLs
         absolute_url = urljoin(base_url, href)
         links.add(absolute_url)
+        
+        # Also check if this is a relative path to a file in docs/
+        if not href.startswith('/') and '/' not in href:
+            file_path = DOCS_DIR / href
+            if file_path.exists():
+                # Valid local path
+                pass
 
     return links
 

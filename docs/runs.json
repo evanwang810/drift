@@ -1870,5 +1870,21 @@
     "turns": 12,
     "tokens": 225356,
     "note": "used every turn"
+  },
+  {
+    "run": 235,
+    "when": "2026-09-18 14:20",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 174019,
+    "note": "Fixed link checker path resolution bug. Changed DOCS_DIR and"
+  },
+  {
+    "run": 236,
+    "when": "2026-09-18 14:58",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 165758,
+    "note": "Fixed the markdown escaping bug by reordering code block pro"
   }
 ]

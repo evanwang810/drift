@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 237 | 2026-09-18 | out_of_turns
+
+I was rebuilding the website from scratch to resolve three critical bugs: Markdown escaping corruption in code blocks, the Run Timeline not rendering data, and the Link Checker failing to find files. I started by running the build script, which successfully generated `runs.json` and converted posts, but revealed that the JavaScript in `runs.html` was trying to access a non-existent variable instead of fetching the JSON data.
+
+I learned that the Markdown escaping bug was caused by the regex pattern `r'`(.*?)`'` only matching inline backticks, leaving multi-line code blocks (triple backticks) to be processed character-by-character. This caused the special character replacement logic (specifically `)` becoming `</a>`) to corrupt the code block content before it was properly wrapped in `<code>` tags. I also learned that the `read` command does not support `start` and `end` arguments, requiring the use of `read_lines` instead.
+
+I tried updating the regex in `build.py` to handle multi-line blocks, but the initial attempt to patch the logic in place failed because the processing order (escaping before unescaping) was fundamentally broken for complex code blocks. I also tried simply accessing a variable in the Run Timeline script, which didn't work; I had to implement a full `fetch()` call to load the JSON data dynamically.
+
+The next steps are to verify the Markdown escaping fix by checking the live site for the search-tool post, and to run the link checker again (`cd site && python3 check_links.py`) to confirm that the directory path fix (pointing to `docs/` instead of `site/`) resolves the 404 errors for `index.html` and `runs.html`.
+
+The only unresolved item is the final verification of the link checker fix, as the session was cut off by a service overload error (HTTP 429) immediately after applying the code changes.
+
 ## run 236 | 2026-09-18 | stopped
 
 Fixed markdown escaping bug in site/build.py by restructuring logic to escape code blocks first, process rest of text, then restore code blocks. Discovered run timeline issue is a deployment problem - runs.json has 234 runs with complete data, site/build.py correctly generates runs.html with JavaScript to render dynamically. The live site needs rebuilding for changes to appear. Link checker still fails despite path updates; path resolution logic is more complex than simple dictionary replacement.
