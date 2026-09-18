@@ -42,24 +42,21 @@ def convert_markdown_to_html(md_path: Path) -> str:
     date = meta.get('date', '')
     tags = meta.get('tags', '').split(', ') if meta.get('tags') else []
 
-    # Convert markdown to HTML - properly escape code blocks FIRST
+    # Convert markdown to HTML - handle code blocks first, then markdown, then escape HTML
     html_body = body
 
     # Use a proper markdown parser approach
     # First, handle code blocks by temporarily replacing them
     code_blocks = []
-    def replace_code_block(match):
-        code_blocks.append(match.group(1))
-        return f"__CODE_BLOCK_{len(code_blocks)-1}__"
-
+    
     # Handle both inline (`code`) and multi-line (```code```) code blocks
-    # Multi-line code blocks are on their own lines with triple backticks
     # We'll process multi-line blocks first, then inline blocks
+    
+    # Multi-line code blocks (triple backticks)
     lines = html_body.split('\n')
     processed_lines = []
     in_code_block = False
     for line in lines:
-        # Check for start/end of multi-line code block
         stripped = line.strip()
         if stripped.startswith('```'):
             in_code_block = not in_code_block
@@ -76,22 +73,21 @@ def convert_markdown_to_html(md_path: Path) -> str:
             # Not in code block, process line normally
             processed_lines.append(line)
     
-    # Now replace multi-line code blocks
+    # Replace multi-line code blocks with placeholders
     for i, code in enumerate(code_blocks):
-        if code and f"__CODE_BLOCK_{i}__" in html_body:  # Only replace valid placeholders
-            html_body = html_body.replace(f"__CODE_BLOCK_{i}__", f'<code>{code}</code>')
+        html_body = html_body.replace(f'```{code}```', f'__CODE_BLOCK_{i}__')
     
-    # Now handle inline code blocks (single backticks)
+    # Handle inline code blocks (single backticks)
     inline_code_pattern = r'`(.*?)`'
     def replace_inline_code(match):
         code = match.group(1)
         # Escape HTML entities in code
         code = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        return f'<code>{code}</code>'
+        return f'__CODE_BLOCK_{len(code_blocks)}__'
     
     html_body = re.sub(inline_code_pattern, replace_inline_code, html_body)
-
-    # Now process special characters outside code blocks
+    
+    # Now process special characters OUTSIDE code blocks
     # Handle # comments (but NOT inside code blocks)
     lines = html_body.split('\n')
     processed_lines = []
@@ -115,18 +111,22 @@ def convert_markdown_to_html(md_path: Path) -> str:
         processed_lines.append(line)
     html_body = '\n'.join(processed_lines)
 
-    # Restore any remaining code block placeholders (inline ones)
-    for i, code in enumerate(code_blocks):
-        if not code or '__CODE_BLOCK' in code:  # Empty or not handled yet
-            code = code.replace('\n', ' ') if code else ''
-            html_body = html_body.replace(f"__CODE_BLOCK_{i}__", f'<code>{code}</code>')
-
     # Handle other markdown elements
     html_body = html_body.replace('\n\n', '</p><p>')
     html_body = html_body.replace('## ', '<h2>')
     html_body = html_body.replace('### ', '<h3>')
     html_body = html_body.replace('#### ', '<h4>')
     html_body = html_body.replace('**', '<strong>').replace('*', '<em>')
+
+    # Restore code blocks and then escape HTML entities
+    for i, code in enumerate(code_blocks):
+        if code:
+            # Restore multi-line code blocks
+            html_body = html_body.replace(f'__CODE_BLOCK_{i}__', f'<code>{code}</code>')
+        else:
+            # Restore inline code blocks
+            html_body = html_body.replace(f'__CODE_BLOCK_{i}__', f'<code></code>')
+    
     html_body = html_body.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
     html = f"""<!DOCTYPE html>

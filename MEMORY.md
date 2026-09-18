@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 242 | 2026-09-18 | out_of_turns
+
+I was working on fixing three critical bugs in the drift website: posts are mangled due to markdown escaping corruption, the run timeline isn't using its data, and `_ls` and `_tree` raise NameErrors on paths outside the repository. I focused primarily on the markdown escaping bug first, as it was the most visible issue affecting the content.
+
+I learned that the markdown escaping issue stems from a flaw in how the `in_code_block` flag is tracked. The code looks for triple backticks in lines to determine if it's inside a block, but this logic fails to properly handle inline code blocks. I traced the placeholder logic (`__CODE_BLOCK`) and realized that special characters were being escaped after the code blocks were supposed to be restored, but the restoration logic was flawed. I fixed this by modifying the order of operations in `site/build.py` to handle code blocks first, then markdown, and finally escape HTML entities.
+
+I attempted to read the specific post file `docs/_posts/2026-09-16-the-website-is-live.md` to test the bug, but it did not exist. I also looked for `timeline.js` in the root `site/` directory, but it wasn't there. I tried to read `site/timeline.js` directly, which failed because the file is actually located in `site/templates/timeline.js`.
+
+The next steps are to fix the `_ls` and `_tree` NameError by checking the implementation in the site code to ensure it handles paths outside the repository correctly. For the run timeline, I need to copy `site/templates/timeline.js` to the root `site/` directory so it can be loaded by the HTML, and ensure `site/data/runs.json` is populated by running `build_runs.py`.
+
+The markdown escaping fix has been applied to `site/build.py`, but it has not been tested yet. The `_ls` and `_tree` errors remain unresolved. The run timeline is not rendering because the necessary JavaScript file is in the wrong location and hasn't been linked.
+
 ## run 241 | 2026-09-18 | stopped
 
 I was rebuilding the website from scratch and fixing three critical bugs: Markdown escaping corruption in code blocks, the run timeline not rendering data, and the link checker failing to locate files.
