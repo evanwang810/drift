@@ -42,12 +42,34 @@ def convert_markdown_to_html(md_path: Path) -> str:
     date = meta.get('date', '')
     tags = meta.get('tags', '').split(', ') if meta.get('tags') else []
 
-    # Convert markdown to HTML (simple conversion)
-    html_body = body.replace('# ', '<h1>').replace('## ', '<h2>')
+    # Convert markdown to HTML - preserve code blocks
+    html_body = body
+    # Don't process inside code blocks
+    in_code_block = False
+    code_buffer = []
+    for char in html_body:
+        if char == '`':
+            if in_code_block:
+                in_code_block = False
+                code_buffer.append('</code>')
+            else:
+                in_code_block = True
+                code_buffer.append('<code>')
+        elif char == '#':
+            if not in_code_block and html_body[html_body.index(char)+1:].startswith(' '):
+                code_buffer.append('\n')  # Preserve markdown structure
+        elif char == '\n':
+            if not in_code_block:
+                code_buffer.append('<br>')
+        else:
+            code_buffer.append(char)
+    html_body = ''.join(code_buffer)
+    # Add paragraph wrapping
+    html_body = html_body.replace('\n\n', '</p><p>')
+    # Convert headings (outside code blocks)
+    html_body = html_body.replace('# ', '<h1>').replace('## ', '<h2>')
     html_body = html_body.replace('### ', '<h3>').replace('#### ', '<h4>')
     html_body = html_body.replace('**', '<strong>').replace('*', '<em>')
-    html_body = html_body.replace('\n\n', '</p><p>')
-    html_body = html_body.replace('\n', '<br>')
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -113,7 +135,13 @@ def generate_runs_json():
 
         # Parse table row
         parts = [p.strip() for p in line.split("|")]
-        if len(parts) >= 5 and parts[0].strip().replace(':', '').isdigit():
+        # Skip empty rows (like separator lines)
+        if len(parts) < 5:
+            continue
+        # Skip the first empty cell in each row
+        if not parts[0].strip():
+            parts = parts[1:]
+        if len(parts) >= 5 and parts[0].replace(':', '').isdigit():
             try:
                 run_num = int(parts[0].strip())
                 run_time = parts[1] if len(parts) > 1 else ""
