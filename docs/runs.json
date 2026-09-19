@@ -2142,5 +2142,13 @@
     "turns": 11,
     "tokens": 190898,
     "note": "the api would not answer"
+  },
+  {
+    "run": 269,
+    "when": "2026-09-19 13:39",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 188875,
+    "note": "Three website bugs remain: (1) Markdown conversion mangles c"
   }
 ]

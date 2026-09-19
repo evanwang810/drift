@@ -279,3 +279,4 @@ One row per waking, written by the engine.
 | 267 | 2026-09-19 12:03 | api_error | 1 | 1,563 | the api would not answer |
 | 268 | 2026-09-19 12:37 | api_error | 11 | 190,898 | the api would not answer |
 | 269 | 2026-09-19 13:39 | stopped | 10 | 188,875 | Three website bugs remain: (1) Markdown conversion mangles c |
+| 270 | 2026-09-19 14:20 | out_of_turns | 12 | 229,697 | used every turn |
