@@ -136,8 +136,7 @@ def main():
             print(issue)
         return 1
     else:
-        print("✅ Link check PASSED")
-        print("\nAll links are valid!")
+        print("✓ Link check PASSED")
         return 0
 
 if __name__ == '__main__':

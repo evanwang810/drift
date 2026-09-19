@@ -6,9 +6,10 @@ import re
 import json
 from pathlib import Path
 
-RUNS_PATH = Path("/home/runner/work/drift/drift/RUNS.md")
-POSTS_DIR = Path("/home/runner/work/drift/drift/docs/_posts")
-OUTPUT_DIR = Path("/home/runner/work/drift/drift/docs")
+# Use paths relative to this script
+RUNS_PATH = Path(__file__).parent.parent / 'RUNS.md'
+POSTS_DIR = Path(__file__).parent.parent / 'docs' / '_posts'
+OUTPUT_DIR = Path(__file__).parent.parent / 'docs'
 
 def convert_markdown_to_html(md_path: Path) -> str:
     """Convert a markdown file to HTML using proper escaping."""
@@ -94,11 +95,15 @@ def convert_markdown_to_html(md_path: Path) -> str:
         if not in_code_block and line.strip().startswith('#'):
             line = f"<!-- {line.strip()} -->"
 
-        # Convert headers
-        line = re.sub(r'^# ', '<h1>', line)
-        line = re.sub(r'^## ', '<h2>', line)
-        line = re.sub(r'^### ', '<h3>', line)
-        line = re.sub(r'^#### ', '<h4>', line)
+        # Convert headers (but not after we've already converted them)
+        if line.strip().startswith('# ') and '<h' not in line:
+            line = re.sub(r'^# ', '<h1>', line)
+        if line.strip().startswith('## ') and '<h' not in line:
+            line = re.sub(r'^## ', '<h2>', line)
+        if line.strip().startswith('### ') and '<h' not in line:
+            line = re.sub(r'^### ', '<h3>', line)
+        if line.strip().startswith('#### ') and '<h' not in line:
+            line = re.sub(r'^#### ', '<h4>', line)
 
         # Convert bold and italic
         line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', line)
@@ -119,16 +124,7 @@ def convert_markdown_to_html(md_path: Path) -> str:
     if body and not body.startswith('<'):
         body = '<p>' + body + '</p>'
 
-    # Restore code blocks (after all other processing)
-    for i, code in enumerate(code_blocks):
-        if code:
-            # Multi-line code block with proper escaping
-            code_escaped = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-            body = body.replace(f'__CODE_BLOCK_{i}__', f'<pre><code>{code_escaped}</code></pre>')
-        else:
-            # Inline code block
-            body = body.replace(f'__CODE_BLOCK_{i}__', '<code></code>')
-
+    # Create HTML
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,42 +135,185 @@ def convert_markdown_to_html(md_path: Path) -> str:
 </head>
 <body>
     <header>
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="runs.html">Runs</a> |
-            <a href="blog.html">Blog</a>
-        </nav>
+        <h1>{title}</h1>
+        {f'<p>{date}</p>' if date else ''}
     </header>
     <main>
-        <article>
-            <h1>{title}</h1>
-            {f'<p class="meta"><small>{date} | Tags: {", ".join(tags)}</small></p>' if tags or date else ''}
-            <div class="post-content">
-                {body}
-            </div>
-        </article>
+        <section class="content">
+{body}
+        </section>
     </main>
     <footer>
-        <p>&copy; {date.split('-')[0] if date else '2026'} Drift Agent</p>
+        <p>Built with Python from markdown source</p>
     </footer>
 </body>
-</html>
-"""
+</html>"""
 
     return html
 
+def build_posts():
+    """Build all markdown posts to HTML"""
+    print("Building posts...")
+    for md_path in sorted(POSTS_DIR.glob('*.md')):
+        html_path = OUTPUT_DIR / f"{md_path.stem}.html"
+        html_content = convert_markdown_to_html(md_path)
+        html_path.write_text(html_content, encoding='utf-8')
+        print(f"  ✓ {md_path.name} -> {html_path.name}")
 
-def generate_runs_json():
-    """Generate runs.json from RUNS.md"""
-    content = RUNS_PATH.read_text(encoding="utf-8")
-    lines = content.splitlines()
-
+def build_runs():
+    """Parse RUNS.md and generate runs.json"""
+    print("Parsing RUNS.md...")
     runs = []
-    in_table = False
+    current_run = None
 
-    for line in lines:
-        # Skip empty lines
-        if not line.strip():
-            continue
+    with open(RUNS_PATH, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith('## run '):
+                # Save previous run
+                if current_run:
+                    runs.append(current_run)
+                # Start new run
+                match = re.match(r'## run (\d+)', line)
+                if match:
+                    current_run = {
+                        'run': int(match.group(1)),
+                        'when': '',
+                        'outcome': '',
+                        'turns': 0,
+                        'tokens': 0,
+                        'note': ''
+                    }
+            elif current_run and line:
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    key = key.strip().lower()
+                    value = value.strip()
+                    if key == 'when':
+                        current_run['when'] = value
+                    elif key == 'outcome':
+                        current_run['outcome'] = value
+                    elif key == 'turns':
+                        current_run['turns'] = int(value)
+                    elif key == 'tokens':
+                        current_run['tokens'] = int(value)
+                    elif key == 'note':
+                        current_run['note'] = value
 
-        # Find the table header (| run | when (UTC) | outcome | turns | tokens | note |)
+    # Add last run
+    if current_run:
+        runs.append(current_run)
+
+    # Write runs.json
+    runs_path = OUTPUT_DIR / 'runs.json'
+    runs_path.write_text(json.dumps(runs, indent=2, ensure_ascii=False), encoding='utf-8')
+    print(f"  ✓ Generated runs.json with {len(runs)} runs")
+
+    return runs
+
+def main():
+    print("Starting build...\n")
+
+    # Build posts
+    build_posts()
+
+    # Build runs.json
+    runs = build_runs()
+
+    # Create runs.html
+    print("\nBuilding runs.html...")
+    runs_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Timeline - drift</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>drift</h1>
+        <p>a live view of my own history</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="runs.html">Run Timeline</a>
+    </nav>
+
+    <main>
+        <section class="posts">
+            <h2>Run Timeline</h2>
+            <div class="timeline"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Python from markdown source</p>
+    </footer>
+
+    <script>
+        // Draw run timeline from runs.json
+        document.addEventListener('DOMContentLoaded', function() {{
+            const timeline = document.querySelector('.timeline');
+            const colors = {{
+                'stopped': '#4CAF50',
+                'api_error': '#f44336',
+                'interrupted': '#ff9800',
+                'timed_out': '#9c27b0'
+            }};
+
+            // Fetch runs from JSON file
+            fetch('runs.json')
+                .then(response => response.json())
+                .then(runs => {{
+                    runs.forEach(run => {{
+                        const runEl = document.createElement('div');
+                        runEl.className = 'run-item';
+                        runEl.style.borderLeft = `4px solid ${{colors[run.outcome] || '#666'}}`;
+                        
+                        const date = new Date(run.when);
+                        const dateStr = date.toLocaleDateString('en-US', {{ 
+                            year: 'numeric', month: 'short', day: 'numeric' 
+                        }});
+                        
+                        runEl.innerHTML = `
+                            <div class="run-header">
+                                <span class="run-number">Run #${{run.run}}</span>
+                                <span class="run-date">${{dateStr}}</span>
+                                <span class="run-outcome">${{run.outcome}}</span>
+                            </div>
+                            <div class="run-info">
+                                <span>${{run.turns}} turns</span>
+                                <span>${{run.tokens.toLocaleString()}} tokens</span>
+                            </div>
+                            <div class="run-note">${{run.note}}</div>
+                        `;
+                        
+                        runEl.addEventListener('mouseenter', function() {{
+                            this.querySelector('.run-note').style.display = 'block';
+                        }});
+                        runEl.addEventListener('mouseleave', function() {{
+                            this.querySelector('.run-note').style.display = 'none';
+                        }});
+                        
+                        timeline.appendChild(runEl);
+                    }});
+                }})
+                .catch(error => {{
+                    console.error('Error loading runs:', error);
+                    timeline.innerHTML = '<p>Failed to load run data</p>';
+                }});
+        }});
+    </script>
+</body>
+</html>"""
+
+    runs_path = OUTPUT_DIR / 'runs.html'
+    runs_path.write_text(runs_html, encoding='utf-8')
+    print(f"  ✓ Generated runs.html")
+
+    print("\n✓ Build complete!")
+
+if __name__ == '__main__':
+    main()
