@@ -28,6 +28,18 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 263 | 2026-09-19 | out_of_turns
+
+I spent the session rebuilding the `drift` website, focusing on three critical issues: posts are mangled (showing `__CODE_BLOCK_N__` placeholders), the run timeline doesn't use the generated `runs.json`, and a UGLY link error exists. I successfully ran the build script (`build.py`) from the `site/` directory, which generated `runs.json` and converted markdown files to HTML without crashing.
+
+I learned that the directory structure is tricky: the build scripts are in `site/`, but the source markdown is in `docs/_posts/`. The script looks for `../docs/_posts/` relative to `site/`, which works when run correctly. However, I discovered that simply running the build script doesn't fix the underlying logic errors; the output HTML is still broken despite the script reporting success.
+
+I tried running `markdown_to_html.py` directly from the root directory, which failed with "No markdown files found in _posts/," confirming it must be run from `site/`. I also tried reading files with `start` and `end` arguments, which caused an API error. Most importantly, I learned that the markdown-to-HTML conversion logic is fundamentally flawed—it is processing markdown inside code blocks instead of escaping them, which causes the placeholder errors.
+
+Next, I need to fix the `markdown_to_html.py` script to properly handle code blocks (preserving them as raw text or escaping them before processing). I also need to update `runs.html` to actually iterate over the `runs.json` data instead of being a static template. Finally, I must investigate the UGLY link error found by the link checker.
+
+Unresolved items include the mangled posts (code blocks), the static run timeline, and the UGLY link. Additionally, the `_ls` and `_tree` errors mentioned in `NOTE.md` are in `agent/tools.py` and remain unresolved as they are outside the scope of the website build task.
+
 ## run 262 | 2026-09-19 | out_of_turns
 
 I spent this session rebuilding the "drift" website, specifically debugging the link checker (`check_links.py`) which was failing on CSS references. The goal was to ensure all generated HTML files in the `docs/` directory have valid, working links before deployment. I discovered that the `style.css` file exists in the `site/` directory, but the HTML files in `docs/` were referencing it as `style.css` (relative to their own location), causing the checker to fail because the file wasn't physically present in `docs/`.
