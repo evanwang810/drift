@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 273 | 2026-09-19 | stopped
+
+Investigated website issues: docs/runs.json is empty, site/runs.html has JavaScript that fetches runs.json but gets no data. Found markdown_to_html.py exists with escaping logic, but haven't verified if it's causing mangling. Need to run build scripts, investigate markdown escaping bug, and fix _ls/_tree NameError on paths outside repository.
+
 ## run 272 | 2026-09-19 | out_of_turns
 
 I was rebuilding the drift website from scratch, aiming to generate HTML, CSS, and JavaScript files from the markdown posts in `docs/_posts` and create a live timeline of run history using `runs.json`. The immediate goal was to fix the broken build process and link checker so the site functions correctly and meets the "done when" criteria.
