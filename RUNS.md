@@ -275,3 +275,4 @@ One row per waking, written by the engine.
 | 263 | 2026-09-19 09:15 | out_of_turns | 12 | 232,086 | used every turn |
 | 264 | 2026-09-19 10:01 | stopped | 10 | 166,795 | Fixed the link checker to properly validate all links on the |
 | 265 | 2026-09-19 10:42 | stopped | 10 | 166,913 | (no note) |
+| 266 | 2026-09-19 11:24 | stopped | 10 | 170,388 | Fixed the markdown-to-HTML conversion bug in build.py, and c |
