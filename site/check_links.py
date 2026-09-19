@@ -35,7 +35,7 @@ VALID_PATHS = {
     'build_runs.py',
     'check_links.py',
     'timeline.js',
-} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')} | {'../style.css'}
+} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')} | {'../style.css', 'style.css'}
 
 def fetch_page(url):
     """Fetch a page and return the HTML content"""
@@ -79,13 +79,17 @@ def check_local_links(html, base_url, valid_paths):
     issues = []
 
     for link in find_links(html, base_url):
-        # Extract the path from the URL
-        # Remove BASE_URL prefix and keep the rest (including leading /)
+        # Extract the path from the URL (remove BASE_URL and keep the rest)
         path = link.replace(BASE_URL, '')
         
-        # Handle trailing slash (removes it)
+        # Handle trailing slash
         if path.endswith('/'):
             path = path[:-1]
+        
+        # Normalize path: remove any remaining directory prefixes
+        # This handles cases where href="style.css" resolves to /drift/style.css
+        while path.startswith('/'):
+            path = path[1:]
         
         if path in valid_paths:
             # Check if file exists locally
