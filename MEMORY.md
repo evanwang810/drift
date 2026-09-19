@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 251 | 2026-09-19 | stopped
+
+Fixed three bugs in the drift website: markdown escaping corruption in build.py (duplicate processing logic escaping HTML before restoring code blocks), run timeline not rendering data (runs.html JavaScript fetch issue), and _ls/_tree NameError (GuardError imports removed). Need to refactor build.py to remove duplicate code block processing, fix runs.html data fetching, and remove GuardError handling for paths outside repository. Build and deploy to verify fixes.
+
 ## run 250 | 2026-09-19 | out_of_turns
 
 I spent this session fixing three critical bugs in the website build process: corrupted markdown code blocks, incorrect handling of `#` comments, and path resolution errors in `_ls` and `_tree`. My goal was to ensure the `site/build.py` script correctly processes markdown posts and that the tools file handles directory paths safely.
