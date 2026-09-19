@@ -93,7 +93,9 @@ def convert_markdown_to_html(md_path: Path) -> str:
 
         # Only process # comments if NOT inside a code block
         if not in_code_block and line.strip().startswith('#'):
-            line = f"<!-- {line.strip()} -->"
+            # Only comment out actual comment lines, not headers
+            if not line.strip().startswith('##') and not line.strip().startswith('###'):
+                line = f"<!-- {line.strip()} -->"
 
         # Convert headers (but not after we've already converted them)
         if line.strip().startswith('# ') and '<h' not in line:
@@ -164,45 +166,77 @@ def build_runs():
     """Parse RUNS.md and generate runs.json"""
     print("Parsing RUNS.md...")
     runs = []
-    current_run = None
-
+    
+    # Check if it's a table format (starts with | run |)
+    table_format = False
     with open(RUNS_PATH, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if line.startswith('## run '):
-                # Save previous run
-                if current_run:
-                    runs.append(current_run)
-                # Start new run
-                match = re.match(r'## run (\d+)', line)
-                if match:
-                    current_run = {
-                        'run': int(match.group(1)),
-                        'when': '',
-                        'outcome': '',
-                        'turns': 0,
-                        'tokens': 0,
-                        'note': ''
-                    }
-            elif current_run and line:
-                if ':' in line:
-                    key, value = line.split(':', 1)
-                    key = key.strip().lower()
-                    value = value.strip()
-                    if key == 'when':
-                        current_run['when'] = value
-                    elif key == 'outcome':
-                        current_run['outcome'] = value
-                    elif key == 'turns':
-                        current_run['turns'] = int(value)
-                    elif key == 'tokens':
-                        current_run['tokens'] = int(value)
-                    elif key == 'note':
-                        current_run['note'] = value
+        first_line = f.readline().strip()
+        if first_line.startswith('| run |'):
+            table_format = True
+    
+    if table_format:
+        # Parse table format
+        with open(RUNS_PATH, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                # Skip header row
+                if '|' not in line:
+                    continue
+                # Split by pipe
+                parts = [p.strip() for p in line.split('|')]
+                if len(parts) >= 6 and parts[0].isdigit():
+                    try:
+                        run_num = int(parts[0])
+                        runs.append({
+                            'run': run_num,
+                            'when': parts[1],
+                            'outcome': parts[2],
+                            'turns': int(parts[3]) if parts[3].replace(',', '').isdigit() else 0,
+                            'tokens': int(parts[4].replace(',', '')) if parts[4].replace(',', '').isdigit() else 0,
+                            'note': parts[5] if len(parts) > 5 else ''
+                        })
+                    except (ValueError, IndexError):
+                        continue
+    else:
+        # Parse line-based format
+        current_run = None
+        with open(RUNS_PATH, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith('## run '):
+                    # Save previous run
+                    if current_run:
+                        runs.append(current_run)
+                    # Start new run
+                    match = re.match(r'## run (\d+)', line)
+                    if match:
+                        current_run = {
+                            'run': int(match.group(1)),
+                            'when': '',
+                            'outcome': '',
+                            'turns': 0,
+                            'tokens': 0,
+                            'note': ''
+                        }
+                elif current_run and line:
+                    if ':' in line:
+                        key, value = line.split(':', 1)
+                        key = key.strip().lower()
+                        value = value.strip()
+                        if key == 'when':
+                            current_run['when'] = value
+                        elif key == 'outcome':
+                            current_run['outcome'] = value
+                        elif key == 'turns':
+                            current_run['turns'] = int(value)
+                        elif key == 'tokens':
+                            current_run['tokens'] = int(value)
+                        elif key == 'note':
+                            current_run['note'] = value
 
-    # Add last run
-    if current_run:
-        runs.append(current_run)
+        # Add last run
+        if current_run:
+            runs.append(current_run)
 
     # Write runs.json
     runs_path = OUTPUT_DIR / 'runs.json'
