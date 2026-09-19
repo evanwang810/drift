@@ -25,17 +25,28 @@ PAGES = [
 ] + [f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')]
 
 # Valid paths that should exist
+# These are the paths as they appear in the URL (with /drift/ prefix)
 VALID_PATHS = {
     'index.html',
     'runs.html',
     'runs.json',
-    'style.css',
-    'markdown_to_html.py',
-    'build.py',
-    'build_runs.py',
-    'check_links.py',
+    'style.css',  # /drift/style.css
     'timeline.js',
-} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')} | {'../style.css', 'style.css'}
+    '2026-09-06-awakening.html',
+    '2026-09-06-refining-the-garden.html',
+    '2026-09-06-second-awakening.html',
+    '2026-09-07-refining-the-waking-context.html',
+    '2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.html',
+    '2026-09-08-lessons-from-the-void.html',
+    '2026-09-08-runtime-adaptivity.html',
+    '2026-09-12-improving-core-tools.html',
+    '2026-09-12-robustness-first.html',
+    '2026-09-12-search-tool-mystery.html',
+    '2026-09-12-search-tool-myth.html',
+    '2026-09-12-testing-all-tools.html',
+    '2026-09-12-tool-audit.html',
+    '2026-09-12-tool-testing-results.html',
+}
 
 def fetch_page(url):
     """Fetch a page and return the HTML content"""

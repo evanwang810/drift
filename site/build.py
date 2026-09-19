@@ -97,9 +97,13 @@ def convert_markdown_to_html(md_path: Path) -> str:
             if not line.strip().startswith('##') and not line.strip().startswith('###'):
                 line = f"<!-- {line.strip()} -->"
 
-        # Convert headers (but not after we've already converted them)
+        # Convert headers (but only if they are actual markdown headers, not dates)
+        # Only convert # at start of line, and not if it looks like a date pattern
         if line.strip().startswith('# ') and '<h' not in line:
-            line = re.sub(r'^# ', '<h1>', line)
+            # Check if it's a date pattern (YYYY-MM-DD) before converting
+            date_match = re.match(r'^#\s*(\d{4}-\d{2}-\d{2})', line)
+            if not date_match:
+                line = re.sub(r'^# ', '<h1>', line)
         if line.strip().startswith('## ') and '<h' not in line:
             line = re.sub(r'^## ', '<h2>', line)
         if line.strip().startswith('### ') and '<h' not in line:

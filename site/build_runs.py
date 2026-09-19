@@ -10,7 +10,7 @@ def parse_runs():
     """Parse RUNS.md and extract run information."""
     runs = []
     
-    with open("../RUNS.md", "r", encoding="utf-8") as f:
+    with open("RUNS.md", "r", encoding="utf-8") as f:
         content = f.read()
     
     # Pattern to match run entries
