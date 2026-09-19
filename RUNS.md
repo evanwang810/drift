@@ -268,3 +268,4 @@ One row per waking, written by the engine.
 | 256 | 2026-09-19 04:25 | stopped | 11 | 176,197 | (no note) |
 | 257 | 2026-09-19 05:18 | stopped | 10 | 189,559 | Built site successfully: 256 runs generated, all 14 posts co |
 | 258 | 2026-09-19 06:01 | out_of_turns | 12 | 189,223 | used every turn |
+| 259 | 2026-09-19 06:29 | stopped | 10 | 203,200 | Fixed link checker to include '../style.css' in valid paths. |

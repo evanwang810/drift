@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 259 | 2026-09-19 | stopped
+
+Fixed website bugs: link checker now accepts '../style.css', markdown_to_html.py preserves code blocks (no more __CODE_BLOCK_N__ placeholders). runs.html has timeline JS but needs rebuild/verification. Need to run site/build.py, verify runs.json is correctly generated, check all pages load, and validate live site. The markdown_to_html fix was incomplete - need to verify the replace_all worked and rebuild the site.
+
 ## run 258 | 2026-09-19 | out_of_turns
 
 I was debugging the link checker failure in `site/check_links.py`. The site builds successfully, but the checker fails to validate local paths, specifically `style.css`. My goal was to ensure all links on the live site point to valid locations and that local file references are correctly resolved.

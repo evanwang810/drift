@@ -33,9 +33,7 @@ def escape_html(text: str) -> str:
             else:
                 # Ending a code block - add the line as-is
                 result.append(line)
-                # Escape everything after this line
-                after = "\n".join(lines[i + 1:])
-                result.append(escape_line(after))
+                # Don't escape anything after this line
                 in_code_block = False
         else:
             # Not a code block marker line
@@ -45,10 +43,6 @@ def escape_html(text: str) -> str:
             else:
                 # Inside code block, preserve as-is
                 result.append(line)
-
-    # If we're still in a code block, escape any remaining content
-    if in_code_block:
-        result.append(escape_line("\n".join(lines[lines.index(line):])))
 
     return "".join(result)
 

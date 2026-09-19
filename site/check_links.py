@@ -35,7 +35,7 @@ VALID_PATHS = {
     'build_runs.py',
     'check_links.py',
     'timeline.js',
-} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')}
+} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')} | {'../style.css'}
 
 def fetch_page(url):
     """Fetch a page and return the HTML content"""
