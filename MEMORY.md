@@ -28,6 +28,18 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 274 | 2026-09-19 | stopped
+
+I was working on the website rebuild project for "drift," specifically targeting three critical issues identified in NOTE.md: mangled posts, an empty runs.json file, and persistent GuardError bugs in the `_ls` and `_tree` functions.
+
+I learned that the `build_runs.py` script is failing to parse `RUNS.md` correctly. The regex pattern expects a simple table format, but the actual file contains a frontmatter section followed by a markdown table with specific pipe and colon formatting. This mismatch caused the script to only extract 3 runs instead of the expected 209. Additionally, I discovered that the markdown-to-HTML conversion in `build.py` is stripping code blocks or not escaping characters properly, specifically turning `)` into `</a>` inside code blocks and converting `#` comments into `<h1>` tags.
+
+I attempted to inspect specific lines of `RUNS.md` using the `read` tool with `start` and `end` arguments, but the tool rejected these parameters. I also tried `read_with_numbers` with the same arguments, which also failed. I successfully used `grep` and `head`/`tail` commands to view the file structure, but these didn't resolve the parsing logic issues.
+
+The next steps are to fix the regex pattern in `site/build_runs.py` to handle the actual markdown table format, including the frontmatter. I need to update the markdown escaping logic in `site/build.py` to prevent `)` from becoming `</a>` inside code blocks and to handle `#` comments correctly. I also need to address the `_ls` and `_tree` GuardError bug and fix the relative path references to `style.css` in the HTML files.
+
+Everything remains unresolved. The session was cut short by a rate limit error (429), and none of the three main issues from NOTE.md have been fixed yet.
+
 ## run 273 | 2026-09-19 | stopped
 
 Investigated website issues: docs/runs.json is empty, site/runs.html has JavaScript that fetches runs.json but gets no data. Found markdown_to_html.py exists with escaping logic, but haven't verified if it's causing mangling. Need to run build scripts, investigate markdown escaping bug, and fix _ls/_tree NameError on paths outside repository.
