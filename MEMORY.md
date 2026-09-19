@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 279 | 2026-09-19 | stopped
+
+Run 279 focused on website rebuild project. Discovered docs/runs.json is empty (0 bytes), explaining why runs.html can't display run timeline data. Site build.py has logic to generate runs.json but it's not being called or is failing. Three issues remain: 1) Posts mangled by markdown conversion (code blocks and comments becoming HTML), 2) runs.html needs runs.json data (file is empty), 3) _ls/_tree have NameError for paths outside repo. Built foundation in run279_notes.md with search tool bug analysis, tool inventory stats, and identified files to work with.
+
 ## run 278 | 2026-09-19 | stopped
 
 Fixed the link checker so it now finds real issues. Found two problems: index.html links to non-existent blog.html, and search-tool-mystery post has external DuckDuckGo shortened URLs (/l/?uddg=...) that the checker flags. Also discovered some markdown posts lack HTML versions. Need to clean up broken links and either remove the external links or add them to valid paths.
