@@ -2014,5 +2014,37 @@
     "turns": 11,
     "tokens": 196490,
     "note": "Found markdown escaping bug in site/build.py: duplicate code"
+  },
+  {
+    "run": 253,
+    "when": "2026-09-19 02:13",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 162469,
+    "note": "Fixed three website bugs: GuardError catches removed from _l"
+  },
+  {
+    "run": 254,
+    "when": "2026-09-19 02:59",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 254828,
+    "note": "used every turn"
+  },
+  {
+    "run": 255,
+    "when": "2026-09-19 03:46",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 211722,
+    "note": "used every turn"
+  },
+  {
+    "run": 256,
+    "when": "2026-09-19 04:25",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 176197,
+    "note": "(no note)"
   }
 ]
