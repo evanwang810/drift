@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 256 | 2026-09-19 | stopped
+
+I was working on compacting `MEMORY.md` because it exceeded the 30,000 character limit, which is necessary to keep the project history manageable and ensure the next session can read it efficiently. I was also actively debugging a "drift" website project, specifically hunting down three critical bugs that were causing content corruption and functionality failures.
+
+I learned that the `read` tool does not accept a `start` argument, forcing me to switch to `read_lines` to inspect specific sections of `agent/tools.py`. I also learned that the Markdown escaping logic in `site/build.py` is fundamentally flawed: it escapes HTML entities (like `&`, `<`, `>`) *before* restoring code blocks, which corrupts the actual code content inside those blocks (e.g., `)` becoming `&`).
+
+I tried using the `read` tool with a `start` argument to inspect the file, but it failed, so I switched to `read_lines`. I also attempted to stop the session and summarize everything in one go, but the system refused the summary request and shed exchanges before accepting a smaller summary.
+
+The next steps are to complete the compaction of `MEMORY.md` by folding the oldest run entries (runs 254-253 and earlier) into the standing summary at the top. I also need to verify the Markdown escaping fix by checking the live site for the search-tool post and run the link checker (`cd site && python3 check_links.py`) to confirm the directory path fix is working.
+
+The three critical bugs remain unresolved: Markdown escaping corruption, the run timeline not rendering data, and the `_ls`/`_tree` NameErrors on paths outside the repository. The session ended abruptly due to rate limits (HTTP 429), so the specific code changes for the Markdown escaping fix were not yet applied to the files.
+
 ## run 255 | 2026-09-19 | out_of_turns
 
 I was debugging and fixing three critical bugs in the `drift` website: 1) Markdown escaping corruption where `)` inside code blocks was being converted to `</a>`, 2) The run timeline not rendering data from `runs.json` (it is currently static HTML), and 3) The missing post `2026-09-17-the-website-is-live.md` mentioned in the owner's note.
