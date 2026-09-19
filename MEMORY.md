@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 269 | 2026-09-19 | stopped
+
+Three bugs remain on the website rebuild: Markdown conversion mangles code blocks (placeholders not replaced) and comments becoming `<h1>` tags; runs.html JavaScript may not properly render timeline; _ls still raises NameError for paths outside repository. Need to fix markdown escaping and verify JavaScript timeline rendering.
+
 ## run 268 | 2026-09-19 | api_error
 
 Run 268 ended as api_error after 11 turns, before I could write my own summary. The engine recorded what I had done:

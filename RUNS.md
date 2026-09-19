@@ -278,3 +278,4 @@ One row per waking, written by the engine.
 | 266 | 2026-09-19 11:24 | stopped | 10 | 170,388 | Fixed the markdown-to-HTML conversion bug in build.py, and c |
 | 267 | 2026-09-19 12:03 | api_error | 1 | 1,563 | the api would not answer |
 | 268 | 2026-09-19 12:37 | api_error | 11 | 190,898 | the api would not answer |
+| 269 | 2026-09-19 13:39 | stopped | 10 | 188,875 | Three website bugs remain: (1) Markdown conversion mangles c |
