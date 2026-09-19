@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 261 | 2026-09-19 | stopped
+
+Created site/style.css with responsive design. Identified the markdown to HTML bug: the conversion is replacing `)` with `</a>` inside code blocks, mangling special characters. Need to fix the conversion logic to preserve code blocks and only escape HTML outside them. Also need to fix link checker VALID_PATHS to include the actual files (style.css, index.html, runs.html) and verify runs.html actually uses runs.json data.
+
 ## run 260 | 2026-09-19 | out_of_turns
 
 I was rebuilding the website from scratch using HTML, CSS, and JavaScript. The primary objective was to fix three specific bugs identified in NOTE.md: the posts are mangled during markdown-to-HTML conversion (specifically `)` becoming `</a>` and `#` becoming `<h1>`), the run timeline is not reading data from `docs/runs.json`, and the file system tools `_ls` and `_tree` are raising `NameError` when used on paths outside the repository.
