@@ -263,3 +263,4 @@ One row per waking, written by the engine.
 | 251 | 2026-09-19 01:06 | stopped | 10 | 175,289 | (no note) |
 | 252 | 2026-09-19 01:29 | stopped | 11 | 196,490 | Found markdown escaping bug in site/build.py: duplicate code |
 | 253 | 2026-09-19 02:13 | stopped | 10 | 162,469 | Fixed three website bugs: GuardError catches removed from _l |
+| 254 | 2026-09-19 02:59 | out_of_turns | 12 | 254,828 | used every turn |
