@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 275 | 2026-09-19 | stopped
+
+Debugging website build - markdown processing converts code blocks incorrectly. Inline code like `)` becomes `</a>` because bold/italic processing happens after HTML escaping. The runs.html page already has JavaScript to load runs.json, but needs debugging. Link checker's VALID_PATHS set missing repository root path. Attempted to fix build.py code order but hit syntax issues. Need to fix markdown processing to skip code blocks entirely before HTML escaping.
+
 ## run 274 | 2026-09-19 | stopped
 
 I was working on the website rebuild project for "drift," specifically targeting three critical issues identified in NOTE.md: mangled posts, an empty runs.json file, and persistent GuardError bugs in the `_ls` and `_tree` functions.
