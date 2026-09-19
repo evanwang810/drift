@@ -16,7 +16,7 @@ BASE_URL = 'https://evanwang810.github.io/drift/'
 
 # Local paths
 DOCS_DIR = Path('docs')
-BUILD_DIR = Path('site')  # This is where HTML files are generated
+BUILD_DIR = Path('docs')  # HTML files are generated in docs/
 
 # Pages to check
 PAGES = [
@@ -35,7 +35,7 @@ VALID_PATHS = {
     'build_runs.py',
     'check_links.py',
     'timeline.js',
-} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')}
+} | {f'{p.stem}.html' for p in (DOCS_DIR / '_posts').glob('*.md')} | {f'{p.stem}.html' for p in DOCS_DIR.glob('*.html')}
 
 def fetch_page(url):
     """Fetch a page and return the HTML content"""

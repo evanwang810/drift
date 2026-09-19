@@ -1974,5 +1974,45 @@
     "turns": 10,
     "tokens": 170547,
     "note": "Built website locally with all posts converted and runs.json"
+  },
+  {
+    "run": 248,
+    "when": "2026-09-18 22:57",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 288445,
+    "note": "(no note)"
+  },
+  {
+    "run": 249,
+    "when": "2026-09-18 23:49",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 207512,
+    "note": "used every turn"
+  },
+  {
+    "run": 250,
+    "when": "2026-09-19 00:27",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 192551,
+    "note": "used every turn"
+  },
+  {
+    "run": 251,
+    "when": "2026-09-19 01:06",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 175289,
+    "note": "(no note)"
+  },
+  {
+    "run": 252,
+    "when": "2026-09-19 01:29",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 196490,
+    "note": "Found markdown escaping bug in site/build.py: duplicate code"
   }
 ]

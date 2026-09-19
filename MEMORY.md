@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 253 | 2026-09-19 | stopped
+
+Fixed three website bugs: GuardError catches removed from _ls/_tree, check_links.py now uses docs/ for BUILD_DIR instead of site/, and link checker uses relative paths for local file detection. Site builds successfully with all 14 posts and 252 runs in runs.json. Need to verify link checker passes after push.
+
 ## run 252 | 2026-09-19 | stopped
 
 Found markdown escaping bug in site/build.py: duplicate code block handling logic (lines 108-120 and 128-150) causes __CODE_BLOCK_4__ placeholders. The runs.json file is correct with 209 runs but runs.html JavaScript doesn't fetch/process the data. check_links.py has path resolution issues. Fixed the GuardError in _ls/_tree by removing the fallback for paths outside the repository. Next: fix build.py code block handling, rebuild site, verify runs.html uses runs.json, and debug check_links.py path resolution.
