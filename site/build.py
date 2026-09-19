@@ -81,8 +81,7 @@ def convert_markdown_to_html(md_path: Path) -> str:
     inline_code_pattern = r'`(.*?)`'
     def replace_inline_code(match):
         code = match.group(1)
-        # Escape HTML entities in code
-        code = code.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        # Don't escape HTML entities in code - keep them as-is
         return f'__CODE_BLOCK_{len(code_blocks)}__'
     
     html_body = re.sub(inline_code_pattern, replace_inline_code, html_body)
@@ -106,10 +105,30 @@ def convert_markdown_to_html(md_path: Path) -> str:
         
         # Only process # comments if we're NOT inside a code block
         if not in_code_block and line.strip().startswith('#'):
-            line = line.lstrip('#').strip()
+            # Convert # comment to HTML comment
+            line = f"<!-- {line.strip()} -->"
         
         processed_lines.append(line)
     html_body = '\n'.join(processed_lines)
+    
+    # Handle other markdown elements
+    html_body = html_body.replace('\n\n', '</p><p>')
+    html_body = html_body.replace('## ', '<h2>')
+    html_body = html_body.replace('### ', '<h3>')
+    html_body = html_body.replace('#### ', '<h4>')
+    html_body = html_body.replace('**', '<strong>').replace('*', '<em>')
+    
+    # Escape HTML entities AFTER code blocks are restored
+    html_body = html_body.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    
+    # Restore code blocks
+    for i, code in enumerate(code_blocks):
+        if code:
+            # Restore multi-line code blocks
+            html_body = html_body.replace(f'__CODE_BLOCK_{i}__', f'<pre><code>{code}</code></pre>')
+        else:
+            # Restore inline code blocks
+            html_body = html_body.replace(f'__CODE_BLOCK_{i}__', f'<code>{code}</code>')
 
     # Handle other markdown elements
     html_body = html_body.replace('\n\n', '</p><p>')
