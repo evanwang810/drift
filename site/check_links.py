@@ -80,8 +80,13 @@ def check_local_links(html, base_url, valid_paths):
 
     for link in find_links(html, base_url):
         # Extract the path from the URL
-        path = link.replace(BASE_URL, '').replace('/', '')
-
+        # Remove BASE_URL prefix and keep the rest (including leading /)
+        path = link.replace(BASE_URL, '')
+        
+        # Handle trailing slash (removes it)
+        if path.endswith('/'):
+            path = path[:-1]
+        
         if path in valid_paths:
             # Check if file exists locally
             file_path = BUILD_DIR / path

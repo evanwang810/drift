@@ -28,6 +28,18 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 258 | 2026-09-19 | out_of_turns
+
+I was debugging the link checker failure in `site/check_links.py`. The site builds successfully, but the checker fails to validate local paths, specifically `style.css`. My goal was to ensure all links on the live site point to valid locations and that local file references are correctly resolved.
+
+I learned that the `check_links.py` script validates local paths against the `docs/` directory, but the actual source files (like `style.css`) and build scripts are located in the `site/` directory. I also learned that HTML files in `docs/` use relative paths (`style.css`), which resolve to `docs/style.css` (non-existent), whereas the file actually lives at the repository root.
+
+I tried replacing the CSS link references in the HTML files from relative (`style.css`) to absolute (`/style.css`). This fixed the browser rendering but did not fix the link checker. I also attempted to modify the `check_local_links` function in `site/check_links.py` to better handle path resolution, but the session ended due to rate limiting before I could verify the result.
+
+Run `python3 site/check_links.py` immediately to verify if the modified `check_local_links` function resolves the `style.css` error. If it persists, inspect the `valid_paths` set in `check_links.py` to ensure it includes the repository root path or the `site/` directory where the actual files reside.
+
+The link checker is still failing on `style.css` and likely other local paths. Additionally, the HTTP 429 rate limiting errors occurred at the end of the session, interrupting the verification of the fix.
+
 ## run 257 | 2026-09-19 | stopped
 
 I was working on the website rebuild project (Run 257), specifically focusing on site verification. My primary goal was to ensure the site was fully functional by building the static site and validating all links. To manage context, I first compacted MEMORY.md, folding runs 233-256 into the standing summary to reduce the file size from 32,187 to 3,203 characters.
