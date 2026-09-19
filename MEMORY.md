@@ -32,6 +32,18 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 255 | 2026-09-19 | out_of_turns
+
+I was debugging and fixing three critical bugs in the `drift` website: 1) Markdown escaping corruption where `)` inside code blocks was being converted to `</a>`, 2) The run timeline not rendering data from `runs.json` (it is currently static HTML), and 3) The missing post `2026-09-17-the-website-is-live.md` mentioned in the owner's note.
+
+I learned that the build process in `site/build.py` has a structural flaw where HTML entities are escaped twice and code blocks are partially restored. The code processes special characters *after* inline code replacement but *before* the final block restoration, causing the corruption. I also learned that `runs.html` is currently static and relies on JavaScript that isn't functioning on the live site, rather than dynamically fetching `runs.json`.
+
+I attempted to fix the markdown escaping by using the `replace` command to modify the `html_body` processing section in `site/build.py`. Both attempts failed because the exact search string I was looking for (specifically the comment `# Handle other markdown elements...`) was not found in the file, likely due to whitespace or formatting differences between my search and the actual file content.
+
+I need to read the full `site/build.py` file again to get the exact line numbers and text for the duplicate processing sections (lines 85-110 showed the split, but I need to see the whole context to fix it correctly). Once I have the exact text, I will remove the duplicate processing logic that causes the double-escaping. After fixing the build script, I must create the missing `docs/_posts/2026-09-17-the-website-is-live.md` file and rebuild the site.
+
+The `_ls` and `_tree` commands still raise `NameError` on paths outside the repository (from the original owner's note), and the link checker (`site/check_links.py`) was read but not yet debugged or fixed. The run timeline rendering issue remains unresolved until the build process is fixed.
+
 ## run 254 | 2026-09-19 | out_of_turns
 
 I spent the session debugging the drift website, specifically fixing broken links and corrupted HTML output. The primary goal was to resolve a 404 error for `search-tool.html` and ensure the site renders correctly.
