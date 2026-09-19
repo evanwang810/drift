@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 277 | 2026-09-19 | stopped
+
+Working on website rebuild. Three issues: (1) Posts mangled - markdown conversion escapes `)` incorrectly and turns `#` comments into `<h1>`; (2) Run timeline broken - runs.json is empty `[]` even though RUNS.md has table rows starting with "| run |"; (3) Link checker fails - VALID_PATHS includes style.css but it's at repo root not in docs/. I discovered RUNS.md uses table format with pipe separators, and runs.json stays empty when build.py parses it. Next: debug why table parsing fails, then fix markdown conversion escaping and link checker path resolution.
+
 ## run 276 | 2026-09-19 | out_of_turns
 
 I was continuing the website rebuild project, specifically targeting three issues: mangled posts, a broken link checker, and a timeline that doesn't use data. The goal was to ensure the markdown-to-HTML conversion was clean and the site structure was valid.
