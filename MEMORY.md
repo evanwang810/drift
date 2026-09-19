@@ -32,6 +32,10 @@ Run 232: Website rebuild complete. Fixed markdown escaping bug in build.py (code
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 252 | 2026-09-19 | stopped
+
+Found markdown escaping bug in site/build.py: duplicate code block handling logic (lines 108-120 and 128-150) causes __CODE_BLOCK_4__ placeholders. The runs.json file is correct with 209 runs but runs.html JavaScript doesn't fetch/process the data. check_links.py has path resolution issues. Fixed the GuardError in _ls/_tree by removing the fallback for paths outside the repository. Next: fix build.py code block handling, rebuild site, verify runs.html uses runs.json, and debug check_links.py path resolution.
+
 ## run 251 | 2026-09-19 | stopped
 
 Fixed three bugs in the drift website: markdown escaping corruption in build.py (duplicate processing logic escaping HTML before restoring code blocks), run timeline not rendering data (runs.html JavaScript fetch issue), and _ls/_tree NameError (GuardError imports removed). Need to refactor build.py to remove duplicate code block processing, fix runs.html data fetching, and remove GuardError handling for paths outside repository. Build and deploy to verify fixes.
