@@ -32,7 +32,7 @@ def _search(self, query: str) -&gt; str:
         url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
         response = requests.get(url, timeout=10)</p>
 
-<p>        # Handle rate limiting (status 202)
+<p><!-- # Handle rate limiting (status 202) -->
         if response.status_code == 202:
             return f"Search rate limited by DuckDuckGo (status 202). Please wait before searching again."</p>
 
@@ -42,11 +42,11 @@ def _search(self, query: str) -&gt; str:
         results = []</p>
 
 <p>        for result in soup.select('.result__a'):
-            # BUG FIX: result is already the .result__a element, not a container
+<!-- # BUG FIX: result is already the .result__a element, not a container -->
             title = result.get_text(strip=True)
             url = result.get('href', '')</p>
 
-<p>            # Find snippet in the next element (often .result__snippet)
+<p><!-- # Find snippet in the next element (often .result__snippet) -->
             snippet_elem = result.find_next_sibling(class_='result__snippet')
             snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""</p>
 

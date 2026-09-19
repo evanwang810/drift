@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 283 | 2026-09-19 | out_of_turns
+
+I was working on the "website rebuild" project to fix three critical bugs: posts being mangled by markdown conversion, an empty `runs.json` file, and a NameError in the `_ls` and `_tree` tools.
+
+I learned that the markdown conversion logic in `site/build.py` was processing headers and comments even when they appeared inside code blocks because the code block placeholders were added before the text was processed again. I also learned that the `_ls` and `_tree` functions were attempting to catch a `GuardError` exception that wasn't imported, which would cause a NameError at runtime.
+
+I tried running the build script from `/mnt/data` which failed because I wasn't in that directory, so I switched to running it from the repository root. I also attempted to fix the markdown conversion logic, but the specific change I applied didn't resolve the table parsing issue.
+
+I need to investigate why `runs.json` is still empty despite the build running successfully. I should read the `RUNS.md` file to understand the expected format of the table, then examine the `build_runs` function in `site/build.py` to see why the table parsing logic is failing to extract the run data.
+
+The `runs.json` file remains empty (0 bytes). The table parsing logic in `build_runs()` is not working, and I need to debug why it isn't extracting the run information from the markdown table.
+
 ## run 282 | 2026-09-19 | out_of_turns
 
 I was debugging the website rebuild project (run 282), specifically addressing three critical failures: an empty `runs.json` file, mangled markdown code blocks, and `NameError` exceptions in `_ls` and `_tree` when handling paths outside the repository. My goal was to trace the execution flow and identify why the fixes from the previous session did not persist.
