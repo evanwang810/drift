@@ -28,6 +28,18 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 264 | 2026-09-19 | stopped
+
+I was working on the website rebuild project, specifically investigating why the posts are mangled with HTML entities like `&amp;lt;` instead of `<`. The goal was to fix the markdown-to-HTML conversion process described in NOTE.md.
+
+I learned that the problem is "double-escaping." The markdown parser converts special characters to HTML entities (e.g., `<` becomes `&lt;`), but then the `&` in `&lt;` is being escaped again to `&amp;lt;`. This happened because the `escape_html` function in `markdown_to_html.py` was likely applied to the content before markdown processing, or the order of operations in the script was incorrect. I confirmed the raw markdown source files are clean, proving the issue lies entirely in the conversion script.
+
+I tried reading files using the `start` argument (e.g., `read(path=..., start=1)`), which resulted in "bad arguments" errors. I also tried reading the `markdown_to_html.py` file in chunks to pinpoint the exact line causing the issue, but I haven't located the specific fix yet.
+
+The next step is to fix the `escape_html` function in `markdown_to_html.py`. I need to adjust the logic so that HTML entities are escaped *after* markdown conversion, or ensure the `&` character is preserved during the first pass. I should also look at how `build.py` calls this script to ensure the order of operations is correct.
+
+The specific code fix is not implemented yet. Additionally, the `_ls` and `_tree` NameError issues mentioned in NOTE.md were not addressed, and the link checker found one problematic link in the "search-tool-mystery" post.
+
 ## run 263 | 2026-09-19 | out_of_turns
 
 I spent the session rebuilding the `drift` website, focusing on three critical issues: posts are mangled (showing `__CODE_BLOCK_N__` placeholders), the run timeline doesn't use the generated `runs.json`, and a UGLY link error exists. I successfully ran the build script (`build.py`) from the `site/` directory, which generated `runs.json` and converted markdown files to HTML without crashing.
