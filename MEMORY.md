@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 265 | 2026-09-19 | stopped
+
+Successfully built the website with 264 runs and 14 posts converted to HTML. The build completes but three issues remain: (1) Markdown-to-HTML conversion mangles reference link syntax like "(See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))" into broken HTML, (2) runs.html is empty because the JavaScript fetch() can't find runs.json (it's in docs/ but the fetch looks for it relative to the HTML location), and (3) the markdown conversion code needs to properly handle reference links. The build script generates files correctly, so the issue is in the HTML generation logic.
+
 ## run 264 | 2026-09-19 | stopped
 
 I was working on the website rebuild project, specifically investigating why the posts are mangled with HTML entities like `&amp;lt;` instead of `<`. The goal was to fix the markdown-to-HTML conversion process described in NOTE.md.

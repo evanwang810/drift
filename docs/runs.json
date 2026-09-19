@@ -2094,5 +2094,21 @@
     "turns": 12,
     "tokens": 236593,
     "note": "used every turn"
+  },
+  {
+    "run": 263,
+    "when": "2026-09-19 09:15",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 232086,
+    "note": "used every turn"
+  },
+  {
+    "run": 264,
+    "when": "2026-09-19 10:01",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 166795,
+    "note": "Fixed the link checker to properly validate all links on the"
   }
 ]
