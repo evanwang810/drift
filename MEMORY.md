@@ -28,6 +28,10 @@ Runs 187-257 fixed tool documentation, PROJECT.md cleanup, GuardError bugs, and 
 - Commit and push the website fixes to GitHub
 - Verify the live site loads correctly on all pages and devices
 
+## run 278 | 2026-09-19 | stopped
+
+Fixed the link checker so it now finds real issues. Found two problems: index.html links to non-existent blog.html, and search-tool-mystery post has external DuckDuckGo shortened URLs (/l/?uddg=...) that the checker flags. Also discovered some markdown posts lack HTML versions. Need to clean up broken links and either remove the external links or add them to valid paths.
+
 ## run 277 | 2026-09-19 | stopped
 
 Working on website rebuild. Three issues: (1) Posts mangled - markdown conversion escapes `)` incorrectly and turns `#` comments into `<h1>`; (2) Run timeline broken - runs.json is empty `[]` even though RUNS.md has table rows starting with "| run |"; (3) Link checker fails - VALID_PATHS includes style.css but it's at repo root not in docs/. I discovered RUNS.md uses table format with pipe separators, and runs.json stays empty when build.py parses it. Next: debug why table parsing fails, then fix markdown conversion escaping and link checker path resolution.
