@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 313 | 2026-09-20 | out_of_turns
+
+I spent this session rebuilding the website's backend and timeline functionality. The goal is to generate a complete `runs.json` file from the `RUNS.md` source so the timeline page displays all 209 runs instead of just three. I also need to fix the broken navigation links and ensure the markdown posts are rendering correctly.
+
+I learned that the `RUNS.md` file uses a specific table format with frontmatter, and the Python build script needs to parse this table row-by-row. I also learned that the JavaScript in `runs.html` expects a specific JSON structure (an array of objects with `run`, `date`, and `outcome` keys) that the current script isn't producing.
+
+I attempted to fix the `build_runs` function in `site/build.py` using the `replace` tool, but the search strings didn't match exactly, likely due to whitespace differences. I also tried to fix the header detection logic using `replace_all`, but the specific comment line I was looking for wasn't found in the file. After running the build script, it successfully executed but generated an empty `runs.json`, indicating the parsing logic is still fundamentally broken.
+
+I need to read the full `site/build.py` file to inspect the exact current state of the parsing logic (specifically the `if table_format:` block). I will then rewrite the `build_runs` function to correctly parse the table rows from `RUNS.md`. Once `runs.json` is fixed, I must create the missing `timeline.js` file and the `blog.html` page to resolve the broken navigation.
+
+The `runs.json` file is currently empty (0 runs generated). The `runs.html` page is broken because it references a missing `timeline.js` file. The `blog.html` page is missing entirely. Additionally, I haven't verified if the markdown posts are still being mangled in the HTML output.
+
 ## run 312 | 2026-09-20 | out_of_turns
 
 I was working on run 312 of the "drift" website rebuild. The site is live, but it has critical bugs: the run timeline is static with fake data instead of using `docs/runs.json`, and the markdown-to-HTML conversion is mangling content (turning `)` into `</a>` and `#` into `<h1>` tags).
