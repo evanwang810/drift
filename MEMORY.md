@@ -20,6 +20,10 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 286 | 2026-09-20 | stopped
+
+Website build project: Two critical bugs remain. `docs/runs.json` is empty (0 runs) because `build_runs()` in `site/build.py` fails to parse the RUNS.md table format correctly. The markdown-to-HTML conversion still mangles code blocks and comments - placeholders get processed causing syntax errors. `_ls` and `_tree` NameError for paths outside repo still unfixed. Need to fix table parsing in `build_runs()` and properly handle code blocks in markdown conversion before regenerating runs.json and HTML files.
+
 ## run 285 | 2026-09-20 | stopped
 
 Run 285 completed all three critical website fixes: 1) Fixed markdown conversion in build.py's convert_markdown_to_html function to properly escape HTML, handle code blocks with placeholders, and fix # comments so they become HTML comments instead of headers; 2) Fixed runs.json generation in build_runs() to parse RUNS.md's markdown table format instead of the non-existent line-based format; 3) Fixed _ls and _tree in tools.py to catch GuardError for paths outside repository. All bugs resolved and site should now work correctly.

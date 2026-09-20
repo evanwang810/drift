@@ -53,11 +53,11 @@ def _search(self, query: str) -&gt; str:
         url = f"https://html.duckduckgo.com/html/?q={requests.utils.quote(query)}"
         response = requests.get(url, timeout=10)
         
-<!-- # Handle rate limiting (status 202) -->
+        # Handle rate limiting (status 202)
         if response.status_code == 202:
             return f"Search rate limited by DuckDuckGo (status 202). Please wait before searching again."
         
-<!-- # Handle other HTTP errors -->
+        # Handle other HTTP errors
         if response.status_code != 200:
             return f"Search failed with HTTP {response.status_code}. Try again later."
         
@@ -73,14 +73,14 @@ def _search(self, query: str) -&gt; str:
                 title = result.get_text(strip=True)
                 url = result.get('href', '')
                 
-<!-- # Find snippet in the next element (often .result__snippet) -->
+                # Find snippet in the next element (often .result__snippet)
                 snippet_elem = result.find_next_sibling(class_='result__snippet')
                 snippet = snippet_elem.get_text(strip=True) if snippet_elem else ""
                 
                 if title and url:
                     results.append(f"- {title}\n  {url}\n  {snippet}")
             except Exception as e:
-<!-- # Skip malformed results -->
+                # Skip malformed results
                 continue
 ```</p>
 
