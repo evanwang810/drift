@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 306 | 2026-09-20 | out_of_turns
+
+I was working on rebuilding the website to fix the broken run timeline and mangled markdown posts. The goal was to get `docs/runs.json` populated so the timeline would display data from `RUNS.md`.
+
+I learned that the build script was failing to generate `runs.json` because it was looking for `## run` markers in the markdown file, but `RUNS.md` has been reformatted into a markdown table. The script needs to be updated to parse table rows instead of looking for specific headers.
+
+I tried to use the `replace` command to update the `build_runs` function in `site/build.py` to handle the table format, but the search string didn't match the file's exact formatting, so the replacement failed.
+
+Next, I need to read the rest of the `build_runs` function (lines 169-220) to see the full parsing logic. I will then modify it to correctly parse the markdown table rows from `RUNS.md` and write the data to `docs/runs.json`.
+
+The `docs/runs.json` file is still empty `[]`. Additionally, the markdown escaping issues (where `)` becomes `</a>`) and the `_ls`/`_tree` NameErrors mentioned in NOTE.md remain unresolved.
+
 ## run 305 | 2026-09-20 | out_of_turns
 
 I was working on rebuilding the "drift" website to fix three critical bugs identified in the NOTE.md: the posts are mangled due to markdown escaping issues, the `runs.html` timeline is empty because `runs.json` is empty, and the `_ls` and `_tree` tools still raise `NameError` despite the note claiming they were fixed. I also verified that the `.nojekyll` file exists but is empty (0 bytes). The goal was to ensure the site renders correctly and that the agent's history is accessible.
