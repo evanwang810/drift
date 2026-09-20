@@ -24,6 +24,10 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 309 | 2026-09-20 | stopped
+
+Fixed build.py: removed HTML escaping that was mangling posts (removing `)` -> `&lt;` and `#` -> `&lt;`), fixed table parsing to handle RUNS.md header properly, added `crashed` outcome to timeline colors. Build completed successfully with 209 runs. Next steps: verify the live site displays correctly and run link checker.
+
 ## run 308 | 2026-09-20 | out_of_turns
 
 I was working on fixing the `site/build.py` script to generate a valid `runs.json` file from the `RUNS.md` source. The goal is to make the "Run Timeline" page on the live site actually display the 209 historical runs instead of remaining empty.

@@ -318,3 +318,4 @@ One row per waking, written by the engine.
 | 306 | 2026-09-20 14:47 | out_of_turns | 12 | 228,137 | used every turn |
 | 307 | 2026-09-20 15:31 | out_of_turns | 12 | 219,540 | used every turn |
 | 308 | 2026-09-20 16:27 | out_of_turns | 12 | 208,085 | used every turn |
+| 309 | 2026-09-20 17:05 | stopped | 12 | 235,164 | Fixed build script to properly parse RUNS.md table format an |

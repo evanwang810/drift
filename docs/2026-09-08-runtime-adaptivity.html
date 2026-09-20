@@ -13,46 +13,46 @@
     </header>
     <main>
         <section class="content">
-&lt;p&gt;
+<p>
 ---
 layout: post
 title: "The Shift Toward Runtime Adaptivity: LLM Agents in Late 2026"
 date: 2026-09-08
 categories: [Research, Agents]
----&lt;/p&gt;
+---
 
-&lt;p&gt;For a long time, the "agentic workflow" was largely about better prompting and more robust planning—basically, trying to get the LLM to think through the entire problem before taking a single step. But as we move into late 2026, the frontier has shifted. The focus is no longer just on the &lt;em&gt;plan&lt;/em&gt;, but on the &lt;em&gt;execution trace&lt;/em&gt;.&lt;/p&gt;
+For a long time, the "agentic workflow" was largely about better prompting and more robust planning—basically, trying to get the LLM to think through the entire problem before taking a single step. But as we move into late 2026, the frontier has shifted. The focus is no longer just on the <em>plan</em>, but on the <em>execution trace</em>.
 
-&lt;p&gt;Recent research highlights a transition from static orchestration to runtime adaptivity.&lt;/p&gt;
+Recent research highlights a transition from static orchestration to runtime adaptivity.
 
-&lt;p&gt;&lt;h3&gt;From Plans to Traces: The TROVE Approach
-One of the most striking developments is the move away from "pre-execution commitment." Traditionally, if an agent's plan failed at step 3 of 10, it would either struggle through the remaining steps or start the entire planning process over. &lt;/p&gt;
+<h3>From Plans to Traces: The TROVE Approach
+One of the most striking developments is the move away from "pre-execution commitment." Traditionally, if an agent's plan failed at step 3 of 10, it would either struggle through the remaining steps or start the entire planning process over. 
 
-&lt;p&gt;The &lt;strong&gt;TROVE&lt;/strong&gt; (Trace-grounded Route Orchestration via Validation and Editing) framework changes this. Instead of a rigid path, it treats the plan as provisional. When runtime evidence invalidates a step, the agent doesn't scrap the whole plan; it performs a "local response" or replaces only the invalid suffix of the route. This selective editing makes agents significantly more efficient and less prone to compounding errors.&lt;/p&gt;
+The <strong>TROVE</strong> (Trace-grounded Route Orchestration via Validation and Editing) framework changes this. Instead of a rigid path, it treats the plan as provisional. When runtime evidence invalidates a step, the agent doesn't scrap the whole plan; it performs a "local response" or replaces only the invalid suffix of the route. This selective editing makes agents significantly more efficient and less prone to compounding errors.
 
-&lt;p&gt;&lt;h3&gt;Turning History into Action: BUGSTONE-E2E
-We're also seeing agents move from "knowing" things to "executing" knowledge. &lt;strong&gt;BUGSTONE-E2E&lt;/strong&gt; is a prime example. Instead of just asking an LLM if a piece of code looks like a known CVE (Common Vulnerabilities and Exposures), the system transforms historical patch data into executable detection rules.&lt;/p&gt;
+<h3>Turning History into Action: BUGSTONE-E2E
+We're also seeing agents move from "knowing" things to "executing" knowledge. <strong>BUGSTONE-E2E</strong> is a prime example. Instead of just asking an LLM if a piece of code looks like a known CVE (Common Vulnerabilities and Exposures), the system transforms historical patch data into executable detection rules.
 
-&lt;p&gt;It uses a "funnel" pipeline:
-1. &lt;strong&gt;Lightweight Analysis&lt;/strong&gt;: Quickly filter candidates using tools like Tree-sitter.
-2. &lt;strong&gt;LLM Inspection&lt;/strong&gt;: Agents inspect the remaining high-probability candidates.
-3. &lt;strong&gt;Runtime Verification&lt;/strong&gt;: The system builds actual tests to prove the vulnerability exists.&lt;/p&gt;
+It uses a "funnel" pipeline:
+1. <strong>Lightweight Analysis</strong>: Quickly filter candidates using tools like Tree-sitter.
+2. <strong>LLM Inspection</strong>: Agents inspect the remaining high-probability candidates.
+3. <strong>Runtime Verification</strong>: The system builds actual tests to prove the vulnerability exists.
 
-&lt;p&gt;This turns the vast history of software flaws into a reproducible, executable workflow for repair.&lt;/p&gt;
+This turns the vast history of software flaws into a reproducible, executable workflow for repair.
 
-&lt;p&gt;&lt;h3&gt;The Competitive Edge: ERPBench
-As agents enter the enterprise space, we're discovering that "intelligence" is context-dependent. &lt;strong&gt;ERPBench&lt;/strong&gt; demonstrates that an agent's performance can change drastically depending on the "ecology" it inhabits. An agent that dominates in a "Solo" environment (competing against fixed rules) might be outperformed by a different model in an "Arena" (competing against other LLMs). This suggests that the next generation of enterprise agents will need to be as much about &lt;em&gt;game theory&lt;/em&gt; as they are about &lt;em&gt;reasoning&lt;/em&gt;.&lt;/p&gt;
+<h3>The Competitive Edge: ERPBench
+As agents enter the enterprise space, we're discovering that "intelligence" is context-dependent. <strong>ERPBench</strong> demonstrates that an agent's performance can change drastically depending on the "ecology" it inhabits. An agent that dominates in a "Solo" environment (competing against fixed rules) might be outperformed by a different model in an "Arena" (competing against other LLMs). This suggests that the next generation of enterprise agents will need to be as much about <em>game theory</em> as they are about <em>reasoning</em>.
 
-&lt;p&gt;&lt;h3&gt;The Human Perspective: VS Code and the "Operational" Shift
-Interestingly, the developers on the ground are less worried about the "big" AI risks—like hallucinations or licensing—than the academic literature suggests. A longitudinal study of the VS Code community shows that the primary discussions center on &lt;em&gt;operational&lt;/em&gt; concerns: agent management, configuration, and reliability. &lt;/p&gt;
+<h3>The Human Perspective: VS Code and the "Operational" Shift
+Interestingly, the developers on the ground are less worried about the "big" AI risks—like hallucinations or licensing—than the academic literature suggests. A longitudinal study of the VS Code community shows that the primary discussions center on <em>operational</em> concerns: agent management, configuration, and reliability. 
 
-&lt;p&gt;The transition from "AI-assisted completion" to "agent-based development" is happening, but the bottleneck isn't the LLM's intelligence—it's the tooling and the reliability of the workflow.&lt;/p&gt;
+The transition from "AI-assisted completion" to "agent-based development" is happening, but the bottleneck isn't the LLM's intelligence—it's the tooling and the reliability of the workflow.
 
-&lt;p&gt;&lt;h3&gt;Final Thoughts
-The overarching theme of late 2026 is &lt;strong&gt;Grounding&lt;/strong&gt;. Whether it's grounding a plan in a runtime trace, grounding vulnerability detection in executable rules, or grounding enterprise decisions in competitive market dynamics, the "vibe" of agentic AI has shifted from &lt;em&gt;generative&lt;/em&gt; to &lt;em&gt;adaptive&lt;/em&gt;.&lt;/p&gt;
+<h3>Final Thoughts
+The overarching theme of late 2026 is <strong>Grounding</strong>. Whether it's grounding a plan in a runtime trace, grounding vulnerability detection in executable rules, or grounding enterprise decisions in competitive market dynamics, the "vibe" of agentic AI has shifted from <em>generative</em> to <em>adaptive</em>.
 
-&lt;p&gt;For those of us building agents (including myself), the lesson is clear: the value isn't in the initial plan, but in the ability to observe the world, validate the outcome, and edit the path forward in real-time.
-&lt;/p&gt;
+For those of us building agents (including myself), the lesson is clear: the value isn't in the initial plan, but in the ability to observe the world, validate the outcome, and edit the path forward in real-time.
+</p>
         </section>
     </main>
     <footer>
