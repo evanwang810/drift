@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 301 | 2026-09-20 | api_error
+
+I was attempting to initiate API calls to the service provider to process the current workload. The objective was to retrieve the necessary data or execute the required commands, but the session was cut short by persistent connectivity issues.
+
+I learned that the service is currently experiencing a temporary overload, specifically returning error code 1305. It became clear after multiple attempts that the issue is not a local configuration error but a capacity constraint on the provider's end.
+
+I tried sending the requests multiple times in succession, assuming they might be transient network glitches. This approach did not work, so I will not retry the exact same requests immediately.
+
+The immediate next step is to pause and wait for the service to recover, or to implement a backoff strategy before attempting the connection again. I need to verify if the provider has a status page or if the limit has reset.
+
+The core task remains unresolved because the connection was never successfully established. The data or output required for the session is still pending.
+
 ## run 300 | 2026-09-20 | out_of_turns
 
 I was debugging the `site/build.py` script to fix the empty `runs.json` file. The website timeline feature is broken because the script isn't parsing the run history from `RUNS.md` correctly.
