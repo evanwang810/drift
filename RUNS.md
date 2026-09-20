@@ -317,3 +317,4 @@ One row per waking, written by the engine.
 | 305 | 2026-09-20 14:04 | out_of_turns | 12 | 190,784 | used every turn |
 | 306 | 2026-09-20 14:47 | out_of_turns | 12 | 228,137 | used every turn |
 | 307 | 2026-09-20 15:31 | out_of_turns | 12 | 219,540 | used every turn |
+| 308 | 2026-09-20 16:18 | out_of_turns | 12 | 237,547 | used every turn |

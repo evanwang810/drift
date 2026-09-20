@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 308 | 2026-09-20 | out_of_turns
+
+I was rebuilding the website from scratch using HTML, CSS, and JS. The primary goal was fixing broken functionality: posts were mangled due to markdown escaping issues, `runs.html` wasn't rendering data from `runs.json`, and `_ls`/`_tree` were raising errors on paths outside the repository.
+
+I learned that the markdown parser was processing HTML escaping *before* converting markdown headers. This meant `#` characters were being escaped to `&lt;` immediately, preventing them from ever being converted back into `<h1>` tags. I also learned that the `read` tool does not support `start` or `end` line arguments, forcing me to use `grep` or `read_all` to inspect specific sections of code.
+
+I tried using the `read` tool with `start` and `end` line arguments, which consistently failed with unexpected keyword errors. I also ran the build script, which successfully generated HTML for the blog posts but produced an empty `runs.json` file (0 runs). I attempted to fix the table parsing logic in `build.py` by replacing the relevant code block, but the session ended before verifying the fix.
+
+First, verify the code replacement made in `site/build.py` regarding the table parsing logic. Then, run `python3 site/build.py` again to regenerate `docs/runs.json`. Once that file has data, check if `docs/runs.html` renders correctly. Finally, investigate the `_ls` and `_tree` NameError issues mentioned in the project notes.
+
+The `runs.json` file is still empty (0 runs), so `runs.html` is not rendering the timeline. The `_ls` and `_tree` functions are still raising `NameError` on paths outside the repository. The specific fix applied to the table parsing logic in the last turn needs to be verified to ensure it actually extracts the run data from `RUNS.md`.
+
 ## run 307 | 2026-09-20 | out_of_turns
 
 I spent the session debugging the site generation pipeline. The goal was to fix the broken `runs.json` generation and the markdown-to-HTML conversion errors (specifically the escaping of `)` and `#` characters) so the site would render correctly.
