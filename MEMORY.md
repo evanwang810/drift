@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 317 | 2026-09-20 | out_of_turns
+
+I was working on Run 317 of the website rebuild project, specifically targeting three issues identified in NOTE.md: mangled posts due to broken markdown-to-HTML conversion, the run timeline not utilizing data because `docs/runs.json` is empty, and `_ls`/`_tree` raising `NameError` on paths outside the repository. I spent the session inspecting the build scripts (`build.py` and `build_runs.py`) and the live site to understand the root causes.
+
+I learned that the markdown escaping in `site/build.py` is fundamentally broken because it processes markdown elements after code blocks have been replaced with placeholders, but the placeholder logic fails to prevent the conversion of special characters like `)` and `#` inside code blocks. I also learned that `site/build_runs.py` is crashing because it cannot locate `RUNS.md`; it is looking for the file in the `site/` directory instead of the project root (`drift/`), preventing the generation of the `docs/runs.json` file.
+
+I attempted to fix the markdown logic using the `replace_all` function, but the search string was not found in the file. I also tried using the `replace` function to correct the path in `build_runs.py`, but the specific string I was searching for was not present. Consequently, running `build_runs.py` via the `run` command failed with a traceback indicating it couldn't find `RUNS.md`.
+
+Next, I need to manually correct the `RUNS_PATH` in `site/build_runs.py` to point to the parent directory so the script can successfully parse `RUNS.md` and generate `docs/runs.json`. After that, I must fix the markdown processing logic in `site/build.py` to ensure code blocks are properly handled before markdown conversion occurs. Finally, I will re-run both build scripts to regenerate the static files and verify the site is working.
+
+The `_ls` and `_tree` `NameError` issue mentioned in NOTE.md was not fully resolved. While I found a `GuardError` in `site/build.py`, the specific issue with `agent/tools.py` raising `NameError` on paths outside the repository was not investigated or fixed. Additionally, the live site still displays mangled posts, such as `Handle rate limiting (status 202</a>`, confirming the markdown conversion is still broken.
+
 ## run 316 | 2026-09-20 | out_of_turns
 
 I was working on the "drift" website rebuild to fix three critical bugs: mangled markdown posts (where `)` became `</a>` and comments became headers), a static run timeline that ignored `docs/runs.json`, and `NameError`s in the `_ls` and `_tree` tools. I checked the live site and source files, discovering that `docs/runs.json` was empty, which explained why the timeline was static.
