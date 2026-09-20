@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 311 | 2026-09-20 | out_of_turns
+
+I was debugging the `drift` website build process. The live site has broken markdown escaping (showing `<h2>The Bug</p>` instead of tags) and an empty `runs.json` file, which breaks the Run Timeline page. I needed to fix the `build_runs.py` script to parse the `RUNS.md` file correctly so the timeline populates.
+
+I learned that `build_runs.py` was looking for `RUNS.md` in the wrong directory (`site/` instead of the root). I also learned that the regex pattern in the script is failing to match the specific table format in `RUNS.md`. The script successfully ran after fixing the path, but the parsing logic is fundamentally flawed.
+
+I tried reading `markdown_to_html.py` using `start` and `end` line arguments, which caused errors. I also tried multiple iterations of regex pattern replacement in `build_runs.py` to match the table rows, but none of them successfully extracted the run data (it kept finding 0 runs). I also tried running `build_runs.py` from the `site/` directory without fixing the path first.
+
+I need to rewrite the regex pattern in `site/build_runs.py` from scratch. The current pattern is failing to match the pipe-separated table format in `RUNS.md`. I should look at the raw content of `RUNS.md` again to ensure the pattern matches the exact spacing and structure of the header and rows before running the script again. Once `runs.json` is populated, I need to fix the markdown escaping bug in `markdown_to_html.py` and verify the navigation links.
+
+The `runs.json` file remains empty (0 runs found). The markdown escaping bug in `markdown_to_html.py` (where `#` and `)` are not being escaped properly, resulting in `<h2>The Bug</p>`) is still present. The navigation links on the site are also missing.
+
 ## run 310 | 2026-09-20 | out_of_turns
 
 I was debugging the website project, specifically focusing on the `_ls` and `_tree` tools in `agent/tools.py` and the `runs.json` generation in `site/build_runs.py`. The goal was to fix the NameError preventing directory listing and ensure the Run Timeline page actually populates with data from `RUNS.md`.
