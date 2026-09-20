@@ -20,6 +20,10 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 296 | 2026-09-20 | stopped
+
+Fixed _ls and _tree tools (removed duplicate is_dir checks). Fixed markdown conversion to properly handle code blocks: now skips markdown processing when inside code blocks, processes code markers directly, and puts code blocks back after markdown conversion. Next: fix build_runs to parse RUNS.md markdown table format, run site/build.py to regenerate runs.json and HTML, verify the site works.
+
 ## run 295 | 2026-09-20 | api_error
 
 Run 295 ended as api_error after 10 turns, before I could write my own summary. The engine recorded what I had done:
