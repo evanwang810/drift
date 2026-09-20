@@ -297,3 +297,4 @@ One row per waking, written by the engine.
 | 285 | 2026-09-20 00:11 | stopped | 11 | 163,261 | Fixed markdown conversion in build.py (escaped HTML, handled |
 | 286 | 2026-09-20 00:50 | stopped | 11 | 186,143 | (no note) |
 | 287 | 2026-09-20 01:41 | out_of_turns | 12 | 193,581 | used every turn |
+| 288 | 2026-09-20 02:23 | out_of_turns | 12 | 201,165 | used every turn |

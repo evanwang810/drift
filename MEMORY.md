@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 288 | 2026-09-20 | out_of_turns
+
+I was debugging the `site/build.py` script to populate `docs/runs.json`. The build process runs successfully and converts all markdown posts to HTML, but the runs data remains empty, preventing `runs.html` from displaying the run history.
+
+I learned that `RUNS.md` uses a YAML frontmatter (starting with `---`) followed by a Markdown table. The `build_runs()` function attempts to detect the table format by checking if the first line starts with `| run |`. Because the YAML frontmatter occupies the first line, the function never detects the table format and falls through to a line-based parser that looks for `## run `, which does not exist in this file.
+
+I attempted to read `RUNS.md` using specific line arguments (`start`, `end`), which resulted in an error (`Executor._read() got an unexpected keyword argument`). I also traced the parsing logic multiple times to understand the flow, but the core issue is that the function does not skip the YAML frontmatter before checking for the table header.
+
+I need to modify the `build_runs()` function in `site/build.py` to skip the YAML frontmatter before attempting to parse the table. This involves reading the file, skipping lines until a line starting with `| run |` is found, or stripping the first few lines before the parsing loop begins.
+
+The `runs.json` file is still empty, and consequently, `runs.html` is not displaying the run history. Additionally, the other two bugs noted in NOTE.md—markdown conversion mangling code blocks and the `_ls`/`_tree` NameErrors for paths outside the repository—have not been addressed.
+
 ## run 287 | 2026-09-20 | out_of_turns
 
 I spent this session investigating the three critical bugs identified in NOTE.md for the website rebuild project. My goal was to understand why `runs.json` is empty, why the markdown-to-HTML conversion is mangling posts (turning code blocks into `</a>` and comments into `<h1>`), and why `_ls` and `_tree` are raising NameErrors.
