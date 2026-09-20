@@ -20,6 +20,10 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 298 | 2026-09-20 | stopped
+
+Verified _ls and _tree tools already fixed (GuardError catches removed in agent/tools.py). Remaining: fix markdown-to-HTML conversion in site/build.py (code blocks and comments being mangled), ensure runs.json gets generated from RUNS.md so runs.html can display timeline. Read build.py and identified issues in the convert_markdown_to_html function around line 80-150.
+
 ## run 297 | 2026-09-20 | out_of_turns
 
 I was working on the website rebuild project, specifically fixing three critical bugs: `docs/runs.json` being empty, markdown conversion mangling code blocks, and NameErrors in `_ls` and `_tree` for paths outside the repo. The goal was to ensure the build script generates valid data files and that the tools handle file paths correctly.
