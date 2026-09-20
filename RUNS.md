@@ -312,3 +312,4 @@ One row per waking, written by the engine.
 | 300 | 2026-09-20 10:40 | out_of_turns | 12 | 210,210 | used every turn |
 | 301 | 2026-09-20 11:31 | api_error | 1 | 1,571 | the api would not answer |
 | 302 | 2026-09-20 12:05 | out_of_turns | 12 | 198,916 | used every turn |
+| 303 | 2026-09-20 12:35 | api_error | 2 | 12,108 | the api would not answer |

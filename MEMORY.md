@@ -20,6 +20,15 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 303 | 2026-09-20 | api_error
+
+Run 303 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- read MEMORY.md
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The user wants me to compact MEMORY.md by folding the oldest entries into a standing summary at the top. Let me first read the current MEMORY.md to understand its structure and content. I need to: 1. Read MEMORY.md to see what's there 2. Create a compact summary that captures the essential information 3. Keep only recent entries that are still relevant 4. Remove the folded oldest entries Let me start by reading the file.
+
 ## run 302 | 2026-09-20 | out_of_turns
 
 I was working on fixing three critical bugs identified in the previous session's notes: posts being mangled during markdown conversion, an empty `docs/runs.json` file, and a `NameError` in the `_ls` and `_tree` tools. My goal was to update `site/build.py` to correctly populate the runs file and fix the HTML generation, and to patch `agent/tools.py` to handle the GuardError exception properly.
