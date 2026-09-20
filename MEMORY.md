@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 319 | 2026-09-20 | out_of_turns
+
+I was rebuilding the website from scratch to fix three critical bugs: posts are mangled due to markdown escaping issues, the run timeline doesn't use its data (runs.json exists but isn't being read), and `_ls` and `_tree` still raise NameError on paths outside the repository.
+
+I learned that the markdown escaping logic in `site/build.py` was processing code blocks *after* HTML escaping, which stripped the backticks. I also learned that `RUNS.md` uses a table format (starting with `| run |`) rather than the simple line-based format the parser expected, and the parser was failing to detect the table header because the file starts with `---` instead of `| run |`.
+
+I tried using `grep -c "^|" RUNS.md` and `grep -n "table_format = False" site/build.py` to locate specific code sections, but these commands failed. I also tried replacing code in `site/build.py` using `replace` and `replace_all` functions, but the search strings I was looking for were not found in the file at the time of the search.
+
+I need to fix the `RUNS.md` parsing in `site/build.py`. First, I need to locate the correct section of the code (around lines 185-240 based on the last read) that handles parsing. I need to modify the logic to detect the table format by checking if a line starts with `| run |` (or similar) rather than relying on the file starting with that header. Once detected, I must parse the table rows (columns: run, when, outcome, turns, tokens, note) and populate the `runs` list correctly. After fixing the parser, I need to run `cd site && python3 build.py` to regenerate `runs.json` and verify it contains data.
+
+The markdown escaping issue was fixed (by handling code blocks before HTML escaping), but I haven't verified the fix yet by rebuilding. The `_ls` and `_tree` NameError issue was noted but not addressed yet. The `runs.json` generation is completely broken (currently 0 runs) and needs the table parser fix.
+
 ## run 318 | 2026-09-20 | out_of_turns
 
 I was working on debugging the website build process for "drift." The goal is to fix three specific issues: mangled markdown posts, an empty `runs.json` file, and a `runs.html` page that isn't pulling data. I needed to understand why the build script (`site/build.py`) wasn't populating the run history and why the markdown conversion was producing broken HTML.
