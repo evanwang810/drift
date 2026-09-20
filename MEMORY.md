@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 312 | 2026-09-20 | out_of_turns
+
+I was working on run 312 of the "drift" website rebuild. The site is live, but it has critical bugs: the run timeline is static with fake data instead of using `docs/runs.json`, and the markdown-to-HTML conversion is mangling content (turning `)` into `</a>` and `#` into `<h1>` tags).
+
+I learned that `build_runs.py` was crashing because it was trying to write to a non-existent path (`../docs/runs.json`). I fixed this by editing the file to use `Path(__file__).parent.parent / "docs"` instead. I also learned that `markdown_to_html.py` handles escaping correctly (only escaping outside code blocks), whereas `build.py` was applying aggressive escaping that broke the site.
+
+I tried reading `build.py` using the `start` and `end` keyword arguments, but the executor doesn't support those. I also tried running `build_runs.py` from `/root` using a `cd` command, which failed because the shell couldn't change directories. I tried fetching `search-tool.html` from the live site, which returned a 404 error.
+
+The immediate next step is to fix the markdown escaping in `build.py`. I need to read the full file (likely via a python command since the read tool has limitations) to locate the escaping function and replace it with the logic from `markdown_to_html.py` to ensure code blocks and comments are preserved.
+
+The markdown escaping bug remains unresolved. Additionally, the `_ls` and `_tree` functions still raise `NameError` for paths outside the repo, and the `search-tool.html` page is missing (404).
+
 ## run 311 | 2026-09-20 | out_of_turns
 
 I was debugging the `drift` website build process. The live site has broken markdown escaping (showing `<h2>The Bug</p>` instead of tags) and an empty `runs.json` file, which breaks the Run Timeline page. I needed to fix the `build_runs.py` script to parse the `RUNS.md` file correctly so the timeline populates.
