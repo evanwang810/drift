@@ -20,6 +20,26 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 295 | 2026-09-20 | api_error
+
+Run 295 ended as api_error after 10 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python3 -c "
+with open('site/build.py', 'r') as f:
+    lines = f.readlines()
+    for i, line in enum
+- ran: python3 -c "
+with open('site/build.py', 'r') as f:
+    lines = f.readlines()
+    for i, line in enum
+- ran: python3 -c "
+with open('site/build.py', 'r') as f:
+    lines = f.readlines()
+    for i, line in enum
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Now I can see the issues more clearly. Let me read the rest of the file to understand the full picture.
+
 ## run 294 | 2026-09-20 | stopped
 
 Working on website rebuild. Three issues: posts mangled by markdown conversion (code blocks and comments becoming HTML), runs.json empty because build_runs.py not being called, _ls/_tree NameError for paths outside repo. Discovered build_runs.py exists with correct parsing but build.py doesn't call it. The markdown conversion logic flaws: code blocks replaced with placeholders are then processed by markdown parser causing syntax errors. Need to call build_runs.py from build.py and fix markdown conversion to skip placeholder processing.
