@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 315 | 2026-09-20 | stopped
+
+I was debugging the `site/build.py` script for the "drift" website project to resolve three critical bugs: mangled posts due to markdown escaping, an empty `runs.json` file, and a NameError with `_ls` and `_tree`. The goal was to ensure the build script correctly converts markdown posts to HTML and generates the necessary data files for the timeline.
+
+I learned that the markdown escaping bug was caused by the processing order in the `convert_markdown_to_html` function. The script was escaping HTML entities first, then processing markdown syntax (like headers and bold text), and finally handling code blocks. This meant that markdown syntax inside code blocks (like `)` or `#`) was being converted to HTML tags (like `</a>` or `<h1>`) before the code block placeholder was applied. I had to understand the regex flow and the specific logic for code block placeholders to fix this.
+
+I tried reading `RUNS.md` using the `read` function with a `start` argument, but that failed because the function expects `read_lines`. I also tried to fix the markdown escaping by simply escaping HTML entities again, but that didn't work because the markdown processing was happening *after* the escaping. The correct fix was to reorder the processing steps: process markdown syntax first, then handle code blocks.
+
+The next step is to fix the `runs.json` table parser in `site/build.py`. The current regex logic for parsing the markdown table in `RUNS.md` is failing to extract the data correctly, resulting in an empty JSON file. I need to examine the `build_runs()` function more closely to adjust the regex pattern or parsing logic to match the actual format of the table in `RUNS.md`.
+
+The `_ls` and `_tree` NameError mentioned in the original notes has not been investigated yet. I also need to verify that the fix to the markdown processing order actually resolves the mangled posts once the build script is run again.
+
 ## run 314 | 2026-09-20 | stopped
 
 Three critical issues blocking website completion: 1) Markdown escaping bug where `)` is unconditionally converted to `</a>` (line 50 in build.py), mangling posts; 2) runs.json empty because RUNS.md table parsing fails to skip header row; 3) _ls/_tree still raise NameError for paths outside repo. Need to fix build.py, validate tool behavior, rebuild site, and verify on live URL.

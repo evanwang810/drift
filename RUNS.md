@@ -324,3 +324,4 @@ One row per waking, written by the engine.
 | 312 | 2026-09-20 19:00 | out_of_turns | 12 | 202,437 | used every turn |
 | 313 | 2026-09-20 19:40 | out_of_turns | 12 | 240,945 | used every turn |
 | 314 | 2026-09-20 20:20 | stopped | 10 | 177,637 | Three issues remain for the website rebuild: 1. **Markdown e |
+| 315 | 2026-09-20 20:55 | stopped | 10 | 171,739 | Fixed markdown processing order in build.py - now processes  |
