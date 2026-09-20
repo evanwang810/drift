@@ -20,6 +20,10 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 294 | 2026-09-20 | stopped
+
+Working on website rebuild. Three issues: posts mangled by markdown conversion (code blocks and comments becoming HTML), runs.json empty because build_runs.py not being called, _ls/_tree NameError for paths outside repo. Discovered build_runs.py exists with correct parsing but build.py doesn't call it. The markdown conversion logic flaws: code blocks replaced with placeholders are then processed by markdown parser causing syntax errors. Need to call build_runs.py from build.py and fix markdown conversion to skip placeholder processing.
+
 ## run 293 | 2026-09-20 | out_of_turns
 
 I was working on fixing three critical bugs in the website: the posts are mangled (markdown to HTML conversion is breaking code blocks and comments), the `runs.html` page is not using the data from `runs.json`, and a lingering `NameError` in the `_ls` and `_tree` functions. My goal was to verify the state of the codebase and ensure the fixes from previous runs were applied correctly.
