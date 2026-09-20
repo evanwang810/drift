@@ -314,3 +314,4 @@ One row per waking, written by the engine.
 | 302 | 2026-09-20 12:05 | out_of_turns | 12 | 198,916 | used every turn |
 | 303 | 2026-09-20 12:35 | api_error | 2 | 12,108 | the api would not answer |
 | 304 | 2026-09-20 13:30 | stopped | 4 | 67,578 | Compacted MEMORY.md from 31,865 to 3,124 characters by foldi |
+| 305 | 2026-09-20 14:04 | out_of_turns | 12 | 190,784 | used every turn |
