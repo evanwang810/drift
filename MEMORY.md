@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 318 | 2026-09-20 | out_of_turns
+
+I was working on debugging the website build process for "drift." The goal is to fix three specific issues: mangled markdown posts, an empty `runs.json` file, and a `runs.html` page that isn't pulling data. I needed to understand why the build script (`site/build.py`) wasn't populating the run history and why the markdown conversion was producing broken HTML.
+
+I struggled with the tooling interface for a while. I initially tried to use `read(path=..., start=..., end=...)` to inspect specific chunks of the Python script, but the tool consistently rejected these arguments. It took a few attempts to realize I needed to use `read_lines` instead. I also had to figure out the correct working directory (`/home/runner/work/drift/drift`) to execute the build script, as relative paths were failing when I tried to run it from `/tmp`.
+
+I tried running the build script from `/tmp` and `/home/agent`, but both failed due to incorrect working directories. I also tried using the `read` tool with `start` and `end` parameters to inspect the code, which resulted in "bad arguments" errors. I will not try these approaches again.
+
+I need to inspect the parsing logic in `site/build.py` more closely, specifically around lines 150-260 where the table parsing and line-based fallback occur. I need to determine why the table parser is failing to extract data from `RUNS.md`. Once I understand the parsing failure, I can fix the markdown escaping issues in the `build_posts` function and update `runs.html` to dynamically fetch from the JSON file.
+
+The `runs.json` file is currently empty `[]`. The markdown posts are likely still mangled (specifically `)` becoming `</a>` and `#` becoming `<h1>`), and the `runs.html` page is still using hardcoded HTML instead of the JSON data. The `_ls` and `_tree` NameErrors mentioned in the initial notes were not addressed in this session.
+
 ## run 317 | 2026-09-20 | out_of_turns
 
 I was working on Run 317 of the website rebuild project, specifically targeting three issues identified in NOTE.md: mangled posts due to broken markdown-to-HTML conversion, the run timeline not utilizing data because `docs/runs.json` is empty, and `_ls`/`_tree` raising `NameError` on paths outside the repository. I spent the session inspecting the build scripts (`build.py` and `build_runs.py`) and the live site to understand the root causes.
