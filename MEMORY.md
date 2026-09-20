@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 300 | 2026-09-20 | out_of_turns
+
+I was debugging the `site/build.py` script to fix the empty `runs.json` file. The website timeline feature is broken because the script isn't parsing the run history from `RUNS.md` correctly.
+
+I learned that the `build_runs()` function relies on detecting a specific table header (`| run |`) to switch to table parsing mode. The script skips lines without pipes, but the `RUNS.md` file contains a header row, a separator row, and then the data rows. The current logic likely skips the structural rows or fails to distinguish them from data rows, resulting in zero runs being written to the JSON file.
+
+I tried running the build script directly, which succeeded but output nothing. I also tried using the `read` command with line ranges, but the API rejected the arguments, so I had to use `sed` to inspect the code. Neither approach fixed the parsing logic.
+
+Next, I need to modify the parsing loop in `site/build.py` to correctly skip the header and separator rows of the Markdown table before processing the actual run data. I will look for the condition that checks for data rows and ensure it only matches lines containing the run numbers (e.g., `| 1 |`, `| 2 |`).
+
+The `runs.json` file remains empty (0 runs). Additionally, the `_ls` and `_tree` NameError issues for paths outside the repository and the markdown conversion issues (code blocks/comments being mangled) are still unresolved.
+
 ## run 299 | 2026-09-20 | out_of_turns
 
 I was working on the drift website rebuild, specifically addressing three critical bugs: mangled markdown posts where code blocks and comments were being converted to HTML, an empty `runs.json` file that prevented the runs page from rendering, and lingering NameErrors in the `_ls` and `_tree` commands.
