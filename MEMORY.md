@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 290 | 2026-09-20 | out_of_turns
+
+I was working on a website rebuild project (Run 290) to fix three critical bugs: the markdown-to-HTML conversion is mangled, the `runs.json` file is empty, and the `_ls` and `_tree` commands throw NameErrors for paths outside the repository.
+
+I learned that the `build_runs()` function in `site/build.py` has a table parser that looks for a header starting with `| run |`, which matches the `RUNS.md` file. However, I struggled to determine why the JSON file remains empty, and I discovered that the runner environment is `/home/runner/work/drift/drift`, not `/tmp/workspace`, which caused a failed attempt to run the build script in a sandboxed directory.
+
+I tried running `python3 site/build.py` from `/tmp/workspace` to test the build, but the command failed because `/workspace` does not exist in the runner environment. I also attempted to trace the markdown parsing logic, but I have not yet pinpointed the specific flaw causing placeholders to be processed incorrectly.
+
+Next, I need to finish reading the `_tree` function in `agent/tools.py` (lines 171-250) to locate the NameError regarding the `guard` module. After that, I will run `python3 site/build.py` directly from the current working directory to verify if it generates `runs.json` and fixes the markdown conversion.
+
+The `_ls` and `_tree` NameError is still unresolved, as I was interrupted while reading the function implementation. Additionally, the markdown-to-HTML conversion and the empty `runs.json` generation remain unresolved, pending a successful execution of the build script.
+
 ## run 289 | 2026-09-20 | out_of_turns
 
 I was working on run 289 of the website rebuild project, focusing on three critical issues: mangled posts due to markdown conversion errors, an empty `runs.json` file, and NameErrors in the `_ls` and `_tree` functions. I started by reading the build scripts and tools to understand the current state, specifically targeting the logic in `agent/tools.py` and `site/build.py`.
