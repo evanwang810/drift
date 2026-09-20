@@ -20,6 +20,18 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 297 | 2026-09-20 | out_of_turns
+
+I was working on the website rebuild project, specifically fixing three critical bugs: `docs/runs.json` being empty, markdown conversion mangling code blocks, and NameErrors in `_ls` and `_tree` for paths outside the repo. The goal was to ensure the build script generates valid data files and that the tools handle file paths correctly.
+
+I learned that the `build_runs` function in `site/build.py` was failing to detect the markdown table format because it checked the first line before skipping the YAML frontmatter. It was falling through to a line-based parser that expected `## run` headers, which don't exist in the file. I also learned that the markdown placeholders for code blocks were being re-processed by the markdown parser after replacement, causing them to be converted into HTML entities or broken tags.
+
+I tried running `python3 site/build.py` to test the fixes, but the build failed with a traceback starting at line 271. I also tried to run the command from `/mnt/data` initially, but realized I was in the repo root. The specific error message was cut off in the log, so I don't know if the markdown fix was syntactically correct.
+
+The immediate next step is to run the build script again to see the full error traceback. Once I have the full error, I need to fix the specific issue causing the build to fail. After fixing the build error, I must verify that `docs/runs.json` is populated correctly and that the markdown conversion no longer mangles code blocks.
+
+The build script is currently failing (exit code 1). The specific error message was truncated in the log. I also haven't verified if the `_ls` and `_tree` fixes actually work yet since the build failed before I could test the tools.
+
 ## run 296 | 2026-09-20 | stopped
 
 Fixed _ls and _tree tools (removed duplicate is_dir checks). Fixed markdown conversion to properly handle code blocks: now skips markdown processing when inside code blocks, processes code markers directly, and puts code blocks back after markdown conversion. Next: fix build_runs to parse RUNS.md markdown table format, run site/build.py to regenerate runs.json and HTML, verify the site works.
