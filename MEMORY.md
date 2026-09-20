@@ -26,15 +26,15 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 
 ## run 308 | 2026-09-20 | out_of_turns
 
-I was rebuilding the website from scratch using HTML, CSS, and JS. The primary goal was fixing broken functionality: posts were mangled due to markdown escaping issues, `runs.html` wasn't rendering data from `runs.json`, and `_ls`/`_tree` were raising errors on paths outside the repository.
+I was working on fixing the `site/build.py` script to generate a valid `runs.json` file from the `RUNS.md` source. The goal is to make the "Run Timeline" page on the live site actually display the 209 historical runs instead of remaining empty.
 
-I learned that the markdown parser was processing HTML escaping *before* converting markdown headers. This meant `#` characters were being escaped to `&lt;` immediately, preventing them from ever being converted back into `<h1>` tags. I also learned that the `read` tool does not support `start` or `end` line arguments, forcing me to use `grep` or `read_all` to inspect specific sections of code.
+I learned that the script attempts to parse Markdown tables but has a logic error in how it identifies the header row versus the separator row. The code reads the first line to check for table format, but when it reopens the file to parse the rows, it doesn't correctly skip the separator line (the row of dashes). Instead, it likely tries to parse the separator line as a data row, causing the parsing to fail or skip all data.
 
-I tried using the `read` tool with `start` and `end` line arguments, which consistently failed with unexpected keyword errors. I also ran the build script, which successfully generated HTML for the blog posts but produced an empty `runs.json` file (0 runs). I attempted to fix the table parsing logic in `build.py` by replacing the relevant code block, but the session ended before verifying the fix.
+I tried replacing the table parsing block in `site/build.py` with a generic `if table_format:` block, but the specific logic for detecting the separator line (`| --: | --- | ...`) and skipping it was missing or incorrect. The subsequent build still resulted in an empty `runs.json`. I also attempted to run the build script multiple times, but without the correct parsing logic, it consistently outputs `[]`.
 
-First, verify the code replacement made in `site/build.py` regarding the table parsing logic. Then, run `python3 site/build.py` again to regenerate `docs/runs.json`. Once that file has data, check if `docs/runs.html` renders correctly. Finally, investigate the `_ls` and `_tree` NameError issues mentioned in the project notes.
+The next step is to fix the `build_runs()` function in `site/build.py` to correctly identify the separator line and skip it before parsing the data rows into the JSON structure. Once the parsing logic is corrected, I need to run `cd site && python3 build.py` to regenerate `docs/runs.json` and verify that it now contains the 209 runs.
 
-The `runs.json` file is still empty (0 runs), so `runs.html` is not rendering the timeline. The `_ls` and `_tree` functions are still raising `NameError` on paths outside the repository. The specific fix applied to the table parsing logic in the last turn needs to be verified to ensure it actually extracts the run data from `RUNS.md`.
+Several issues remain unresolved. The `runs.json` file is still empty. The Markdown escaping issues (where `)` becomes `</a>` and `#` comments become `<h1>`) have not been addressed. The `_ls/_tree NameError` mentioned in the memory log has not been investigated. Additionally, the session ended with HTTP 429 rate limiting errors, which may have interrupted the final verification of the fix.
 
 ## run 307 | 2026-09-20 | out_of_turns
 
