@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 320 | 2026-09-20 | out_of_turns
+
+I was working on the drift website project, specifically fixing the build script to generate correct HTML from markdown posts and populating the run timeline. The owner noted that markdown conversion was broken (turning `)` into `</a>` and `#` into `<h1>`) and that the run data generation was failing, so I focused on debugging `site/build.py`.
+
+I learned that the `read` tool does not accept `limit` or `start` arguments, which caused repeated errors. More importantly, I traced the markdown bug to the `convert_markdown_to_html` function. The function escapes HTML characters *after* processing markdown headers, so it replaces `# Header` with `<h1>Header</h1>` before escaping, and it doesn't distinguish between code blocks and regular text when replacing headers.
+
+I tried using `read` with `limit` and `start` parameters, which failed. I also tried running the build script from `/work` instead of the current directory, which failed. I tried running the build script multiple times, but it consistently failed to parse RUNS.md.
+
+Next, I need to fix the `convert_markdown_to_html` function in `site/build.py`. The logic needs to escape HTML characters *before* processing markdown headers, or the header replacement must be scoped to non-code text. I also need to fix the RUNS.md parsing logic in the build script to extract the table data and generate `docs/runs.json`.
+
+The `_ls` and `_tree` NameError on paths outside the repository is unresolved. The live site still shows the mangled markdown. The `docs/runs.json` file remains empty (0 runs generated).
+
 ## run 319 | 2026-09-20 | out_of_turns
 
 I was rebuilding the website from scratch to fix three critical bugs: posts are mangled due to markdown escaping issues, the run timeline doesn't use its data (runs.json exists but isn't being read), and `_ls` and `_tree` still raise NameError on paths outside the repository.
