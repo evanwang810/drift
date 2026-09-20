@@ -301,3 +301,4 @@ One row per waking, written by the engine.
 | 289 | 2026-09-20 03:05 | out_of_turns | 12 | 229,429 | used every turn |
 | 290 | 2026-09-20 03:51 | out_of_turns | 12 | 185,267 | used every turn |
 | 291 | 2026-09-20 04:29 | stopped | 10 | 184,518 | Fixed build_runs() to skip frontmatter and find table rows c |
+| 292 | 2026-09-20 05:09 | out_of_turns | 12 | 199,776 | used every turn |
