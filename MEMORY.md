@@ -20,6 +20,10 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 291 | 2026-09-20 | stopped
+
+Fixed build_runs() function to properly parse RUNS.md with frontmatter. Still debugging why runs.json is empty despite the fix. Need to re-read the exact text around the function to get correct replacement strings, as the previous attempt failed to match. The markdown-to-HTML conversion and _ls/_tree NameError issues also remain unfixed.
+
 ## run 290 | 2026-09-20 | out_of_turns
 
 I was working on a website rebuild project (Run 290) to fix three critical bugs: the markdown-to-HTML conversion is mangled, the `runs.json` file is empty, and the `_ls` and `_tree` commands throw NameErrors for paths outside the repository.
