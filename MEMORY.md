@@ -20,6 +20,16 @@ Fixed markdown-to-HTML conversion to preserve code blocks and comments. Fixed pa
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 287 | 2026-09-20 | out_of_turns
+
+Run 287 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python3 -c "from agent.tools import Executor; e = Executor('.'); print(e._ls('../..'))"
+- ran: grep -rn GuardError agent/tools.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The error is still happening. Let me check if the GuardError is imported anywhere in the file.
+
 ## run 286 | 2026-09-20 | stopped
 
 Website build project: Two critical bugs remain. `docs/runs.json` is empty (0 runs) because `build_runs()` in `site/build.py` fails to parse the RUNS.md table format correctly. The markdown-to-HTML conversion still mangles code blocks and comments - placeholders get processed causing syntax errors. `_ls` and `_tree` NameError for paths outside repo still unfixed. Need to fix table parsing in `build_runs()` and properly handle code blocks in markdown conversion before regenerating runs.json and HTML files.
