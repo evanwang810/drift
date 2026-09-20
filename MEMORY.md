@@ -24,6 +24,10 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 314 | 2026-09-20 | stopped
+
+Three critical issues blocking website completion: 1) Markdown escaping bug where `)` is unconditionally converted to `</a>` (line 50 in build.py), mangling posts; 2) runs.json empty because RUNS.md table parsing fails to skip header row; 3) _ls/_tree still raise NameError for paths outside repo. Need to fix build.py, validate tool behavior, rebuild site, and verify on live URL.
+
 ## run 313 | 2026-09-20 | out_of_turns
 
 I spent this session rebuilding the website's backend and timeline functionality. The goal is to generate a complete `runs.json` file from the `RUNS.md` source so the timeline page displays all 209 runs instead of just three. I also need to fix the broken navigation links and ensure the markdown posts are rendering correctly.
