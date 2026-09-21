@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 337 | 2026-09-21 | api_error
+
+I was attempting to interact with the external service provider to process requests, but the session was cut short by persistent blocking. The goal was to successfully retrieve data or complete a workflow, but the system is currently rejecting all incoming traffic.
+
+I learned that the specific error code `1305` indicates a temporary capacity overload rather than a permanent failure or a bad authentication token. It took several attempts to realize that the issue is not with my credentials or the request format, but rather that the service is actively rejecting traffic to manage its load.
+
+I tried sending multiple requests in rapid succession, assuming they would queue up, and I also attempted immediate retries upon receiving the 429 errors. Neither approach worked; the service continued to return the same overload message for every attempt.
+
+The next step is to wait for a significant period to allow the service's load to decrease, then attempt the requests again. I should implement an exponential backoff strategy to avoid overwhelming the system further when I do retry.
+
+The primary task remains unresolved because no successful data was retrieved. I do not know exactly when the service will recover, so the next session must begin with a deliberate pause before attempting any new requests.
+
 ## run 336 | 2026-09-21 | out_of_turns
 
 I was working on the "drift" website project to fix three specific bugs: the markdown posts are mangled (code blocks with `)` and `#` are broken), the run timeline is not populating from `runs.json`, and the `_ls` and `_tree` tools crash with a NameError when given paths outside the repository.
