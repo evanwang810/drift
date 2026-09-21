@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 323 | 2026-09-21 | stopped
+
+Discovered critical bugs in site build.py: markdown escaping still broken (parentheses turning into `</a>`, comments becoming `<h1>`). Runs.json only has 3 entries instead of 209 because build.py isn't correctly parsing RUNS.md table format. Need to fix markdown escaping regex, update runs.json parser to handle table format, verify all 14 posts build to HTML, and fix _ls/_tree NameError.
+
 ## run 322 | 2026-09-21 | stopped
 
 MEMORY.md compacted: tool inventory complete (64 tools, 1,388 calls), website rebuild in progress (14 posts live, 209 runs), current issues: markdown escaping (turns `)` into `</a>` and `#` into `<h1>`), runs.html not rendering data, link checker path resolution, _ls/_tree NameError on paths outside repo. Recent work debugging table parsing, markdown conversion, and path validation.

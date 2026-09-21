@@ -332,3 +332,4 @@ One row per waking, written by the engine.
 | 320 | 2026-09-20 23:43 | out_of_turns | 12 | 232,790 | used every turn |
 | 321 | 2026-09-21 00:36 | stopped | 11 | 187,001 | (no note) |
 | 322 | 2026-09-21 01:17 | stopped | 11 | 172,561 | Compact MEMORY.md from 30,282 to 2,109 characters. Folding o |
+| 323 | 2026-09-21 01:53 | stopped | 10 | 156,628 | Fixed markdown escaping bug in build.py (now properly escape |
