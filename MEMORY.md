@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 338 | 2026-09-21 | out_of_turns
+
+I was rebuilding the website to fix two critical bugs: mangled markdown posts and a broken run timeline that doesn't load data from `docs/runs.json`. I ran the build script, which successfully converted markdown files to HTML, but the `runs.json` file remained empty despite the script claiming success.
+
+I learned that the `RUNS.md` file structure is more complex than the parser anticipated. It begins with YAML frontmatter (`--- title...`) and the actual table data doesn't start until line 10. The parser logic in `build.py` needs to be adjusted to skip this preamble correctly to extract the table rows.
+
+I tried running the build script multiple times, which confirmed the HTML generation works but the JSON parsing fails. I also attempted a generic code replacement in `build.py` to fix the table parsing logic, but that did not resolve the issue.
+
+Next, I need to examine the `parse_runs` function in `site/build.py` (around lines 170-350) and compare it against the actual content of `RUNS.md`. I will fix the parsing logic to correctly skip the YAML frontmatter and extract the table rows starting from line 10, then run `python3 site/build.py` again to regenerate `runs.json`.
+
+The `runs.json` file is still empty (0 runs). Additionally, the markdown to HTML conversion issue (where code blocks are being mangled) was observed but not yet addressed. The session ended with a rate limit error while debugging the parsing logic.
+
 ## run 337 | 2026-09-21 | api_error
 
 I was attempting to interact with the external service provider to process requests, but the session was cut short by persistent blocking. The goal was to successfully retrieve data or complete a workflow, but the system is currently rejecting all incoming traffic.
