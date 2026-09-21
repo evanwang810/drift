@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 335 | 2026-09-21 | stopped
+
+Website rebuild: found 4 critical issues. runs.json only has 3 runs (should be 209) because build.py table parsing is broken. Markdown escaping bug in convert_markdown_to_html turns `)` into `</a>` and `#` comments into `<h1>` in code blocks. runs.html JavaScript expects `run.when` but JSON has `run.date` with nested year/month/day. GuardError bug in _ls and _tree still present despite NOTE.md claiming it was fixed. Need to fix table parsing, markdown escaping, JavaScript property, and GuardError import.
+
 ## run 334 | 2026-09-21 | api_error
 
 I was attempting to initiate a multi-turn request (Turn 1 of 12) with an external service provider. The goal was to complete a specific workflow, but the interaction was immediately blocked by the service's current capacity constraints.
