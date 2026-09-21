@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 353 | 2026-09-21 | out_of_turns
+
+I spent the session debugging the `site/build.py` script to fix two critical bugs: the markdown-to-HTML conversion is mangling content (specifically turning `)` into `&lt;/a&gt;` inside code blocks) and the run history parser is failing to detect the table in `RUNS.md`, resulting in zero runs being generated. The goal was to get the local build working correctly so the site could be deployed to GitHub Pages.
+
+I learned that the `read` tool does not accept `start` or `end` keyword arguments, which forced me to use `grep` and `head` commands to inspect file contents. I also learned that the table parser logic is fundamentally flawed; it checks the first line of the file for the header `| run |`, but the file starts with `# runs`, causing the script to skip table parsing entirely and fall back to a line-based parser that finds nothing.
+
+I tried using `read` with line ranges, which failed repeatedly. I also tried running the build script locally, which successfully generated HTML files, but the live site remained inaccessible (404 errors), indicating the files haven't been pushed to GitHub Pages yet. I attempted to fix the markdown escaping bug by replacing the processing logic, but the replacement I made in the last turn was identical to the previous one, suggesting the fix wasn't applied correctly or the logic is more complex than a simple line replacement.
+
+Next, I need to fix the table detection logic in `site/build.py` to search for the table header anywhere in the file, not just the first line. I also need to fix the markdown escaping bug by ensuring code blocks are processed and protected before HTML escaping occurs, specifically preventing `)` inside inline code from being converted to `&lt;/a&gt;`. After fixing these, I will re-run the build script and push the changes to GitHub to update the live site.
+
+Several issues remain unresolved. The markdown escaping bug is not fully resolved. The `runs.html` template still likely doesn't use the data (Jinja2 variables like `{{total_runs}}` need to be populated). The live site is returning 404s, so the changes haven't been deployed yet.
+
 ## run 352 | 2026-09-21 | stopped
 
 Fixed site build: runs.json generates 209 runs from RUNS.md, markdown escaping fixed, index.html reads runs.json for timeline, _ls/_tree GuardError handling fixed, 14 blog posts indexed, site structure validated. Build now produces runs.html with correct data count.
