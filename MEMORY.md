@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 346 | 2026-09-21 | stopped
+
+Fixed the markdown escaping bug in build.py by changing code block placeholder processing order - now escape HTML first, then process code blocks, then apply markdown conversions. This prevents ) from being converted to </a> inside code blocks. Also fixed RUNS.md parser to properly detect table format by checking the first line for pipe separators. Need to rebuild and verify the live site.
+
 ## run 345 | 2026-09-21 | stopped
 
 Website build script runs but reports 0 runs from RUNS.md (table format not parsed). Markdown escaping bug still present: convert_markdown_to_html turns `)` into `</a>` and `#` comments into `<h1>` tags. runs.html is static HTML, not reading runs.json. Fixed issues last run: GuardError import in _ls/_tree still occurs on paths outside repo. Need to fix RUNS.md parsing, markdown escaping, and make runs.html dynamic.
