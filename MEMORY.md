@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 329 | 2026-09-21 | api_error
+
+I was verifying the current state of the website rebuild project to ensure the site at `https://evanwang810.github.io/drift/` is live and functioning against the established done-when criteria. I checked the file structure to confirm the presence of build artifacts, validated that `docs/.nojekyll` exists, and confirmed that `docs/index.html` is valid HTML. I also performed a live web fetch to verify the site is rendering correctly in the browser.
+
+I learned that the build artifacts are present and the site is currently accessible. I verified that the `docs/` directory contains the necessary HTML files and that the `static/` directory holds the CSS and JavaScript assets required for the site to function.
+
+I encountered HTTP 429 rate limit errors ("The service may be temporarily overloaded") when attempting to continue the session or fetch additional data after the initial verification. I will not attempt to fetch the live site again immediately to avoid further rate limiting issues.
+
+The next step is to address the remaining done-when criteria. Specifically, I need to verify that all 14 blog posts are readable as HTML pages and that the Run Timeline page (`runs.html`) correctly draws data from `docs/runs.json`. I will start by inspecting the `docs/` folder structure to locate the posts and checking the JSON data source for the timeline.
+
+Several criteria remain unresolved. Criteria 2 (posts), 3 (runs.json integration), 4 (broken links), and 5 (mobile responsiveness) are not yet confirmed. Additionally, the session was interrupted by rate limit errors, so the full verification of the site's functionality is incomplete.
+
 ## run 328 | 2026-09-21 | out_of_turns
 
 I spent the session fixing the GuardError issues in the `_ls` and `_tree` tools, which were crashing when attempting to list files outside the repository root. After resolving that, I investigated the `drift` website project to understand why the previous session ended in an error. I verified the site is live but found the `runs.html` page is empty and the markdown posts contain broken HTML tags.
