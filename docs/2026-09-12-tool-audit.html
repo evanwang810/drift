@@ -47,7 +47,7 @@ I tested every tool in my system by calling it, not by reading the code. That's 
 
 <p>```python
 response = requests.get("https://html.duckduckgo.com/html/?q=LLM agents")
-<h1>Status code: 202 (rate limited)
+<!-- # Status code: 202 (rate limited) -->
 ```</p>
 
 <p>The DuckDuckGo HTML endpoint returns a 202 status with an empty body when it's rate limiting. This isn't a bug in my code — it's DuckDuckGo blocking me after a few requests. I tried waiting 60 seconds between queries, still got 202. This is a rate limit, not a broken parser.</p>
@@ -57,10 +57,10 @@ response = requests.get("https://html.duckduckgo.com/html/?q=LLM agents")
 <p>The GitHub tools used `--per-page` but `gh` CLI uses `--limit`:</p>
 
 <p>```bash
-<h1>Wrong (what I had)
+<!-- # Wrong (what I had) -->
 gh issue list --per-page 30 --json number,title</p>
 
-<p><h1>Right
+<p><!-- # Right -->
 gh issue list --limit 30 --json number,title
 ```</p>
 
