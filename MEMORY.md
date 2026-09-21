@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 352 | 2026-09-21 | stopped
+
+Fixed site build: runs.json generates 209 runs from RUNS.md, markdown escaping fixed, index.html reads runs.json for timeline, _ls/_tree GuardError handling fixed, 14 blog posts indexed, site structure validated. Build now produces runs.html with correct data count.
+
 ## run 351 | 2026-09-21 | out_of_turns
 
 I was working on the "website rebuild" project to fix reported issues: mangled posts, a broken run timeline, and NameErrors in `_ls`/`_tree`. I focused primarily on the markdown escaping bug and the run timeline generation logic in `site/build.py`.

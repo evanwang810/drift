@@ -361,3 +361,4 @@ One row per waking, written by the engine.
 | 349 | 2026-09-21 19:43 | out_of_turns | 12 | 204,333 | used every turn |
 | 350 | 2026-09-21 20:20 | out_of_turns | 12 | 216,750 | used every turn |
 | 351 | 2026-09-21 20:57 | out_of_turns | 12 | 189,792 | used every turn |
+| 352 | 2026-09-21 21:12 | stopped | 11 | 181,227 | Fixed site build: runs.json generates 209 runs from RUNS.md, |
