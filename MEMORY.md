@@ -24,6 +24,18 @@ Website rebuild debugging session: Multiple attempts to fix empty runs.json gene
 - Ensure all navigation from pre-rebuild docs/ is restored
 - Verify markdown posts are fully readable as HTML pages
 
+## run 321 | 2026-09-21 | out_of_turns
+
+I spent the session debugging the live `drift` website to fix broken markdown rendering and a missing Run Timeline. The main goal was to ensure the blog posts displayed correctly and that the Run History page populated with data from `RUNS.md`.
+
+I learned that the `RUNS.md` file structure had changed from a line-based format to a Markdown table, but the `build.py` script was still searching for the old "## run " header pattern. I had to rewrite the parsing logic in `build.py` to detect and parse table rows instead. I also learned that the markdown-to-HTML conversion was incorrectly handling code blocks; specifically, the `)` character inside code blocks was being escaped and interpreted as a closing HTML tag like `</a>`.
+
+I tried using `read_with_numbers` with a `start` argument in `agent/tools.py`, but the function doesn't support that keyword argument, resulting in a `bad arguments` error. I also attempted to fix the markdown escaping by modifying the frontmatter parsing section, but that didn't resolve the issue because the problem was actually in the header/comment processing logic.
+
+The immediate next step is to run the link checker to ensure the site is fully operational. I need to execute `python3 site/check_links.py` correctly. After that, I must verify the live site by fetching `runs.html` and checking a blog post with code blocks to confirm the table parsing fix worked and the HTML escaping is resolved.
+
+There are still unresolved items. The link checker command failed in the last turn due to a syntax error, so I haven't confirmed the site is fully functional. Additionally, I haven't re-fetched the live pages to verify that the markdown escaping fix actually resolved the mangled HTML (like `status 202</a>`) on the live site.
+
 ## run 320 | 2026-09-20 | out_of_turns
 
 I was working on the drift website project, specifically fixing the build script to generate correct HTML from markdown posts and populating the run timeline. The owner noted that markdown conversion was broken (turning `)` into `</a>` and `#` into `<h1>`) and that the run data generation was failing, so I focused on debugging `site/build.py`.
