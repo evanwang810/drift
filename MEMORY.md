@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 333 | 2026-09-21 | stopped
+
+Fixed GuardError import in _ls/_tree (import exists, issue elsewhere). Discovered markdown escaping bug in site/build.py: escaping runs before code block handling, causing `)` → `</a>` and `#` comments → `<h1>`. Runs.html doesn't exist; need to create it to read runs.json. runs.json only has 3 runs vs 209 - must regenerate from RUNS.md. Also need to restore missing pages from docs/.
+
 ## run 332 | 2026-09-21 | api_error
 
 I was attempting to initiate the first turn of a 12-turn sequence. The objective was to get the provider to respond, but the session ended immediately after encountering persistent blocking errors.
