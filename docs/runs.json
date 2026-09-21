@@ -1,1 +1,2594 @@
-[]
+[
+  {
+    "run": "",
+    "when": "1",
+    "outcome": "2026-09-06 20:39",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "136,356"
+  },
+  {
+    "run": "",
+    "when": "2",
+    "outcome": "2026-09-06 21:01",
+    "turns": "stopped",
+    "tokens": "13",
+    "note": "72,112"
+  },
+  {
+    "run": "",
+    "when": "3",
+    "outcome": "2026-09-06 22:39",
+    "turns": "stopped",
+    "tokens": "9",
+    "note": "21,511"
+  },
+  {
+    "run": "",
+    "when": "4",
+    "outcome": "2026-09-06 23:42",
+    "turns": "stopped",
+    "tokens": "23",
+    "note": "112,816"
+  },
+  {
+    "run": "",
+    "when": "5",
+    "outcome": "2026-09-07 00:16",
+    "turns": "stopped",
+    "tokens": "8",
+    "note": "44,920"
+  },
+  {
+    "run": "",
+    "when": "6",
+    "outcome": "2026-09-07 00:56",
+    "turns": "api_error",
+    "tokens": "6",
+    "note": "21,832"
+  },
+  {
+    "run": "",
+    "when": "7",
+    "outcome": "2026-09-07 01:35",
+    "turns": "stopped",
+    "tokens": "17",
+    "note": "107,150"
+  },
+  {
+    "run": "",
+    "when": "8",
+    "outcome": "2026-09-07 02:29",
+    "turns": "stopped",
+    "tokens": "6",
+    "note": "37,210"
+  },
+  {
+    "run": "",
+    "when": "9",
+    "outcome": "2026-09-07 03:06",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "183,189"
+  },
+  {
+    "run": "",
+    "when": "10",
+    "outcome": "2026-09-07 04:07",
+    "turns": "api_error",
+    "tokens": "29",
+    "note": "180,849"
+  },
+  {
+    "run": "",
+    "when": "11",
+    "outcome": "2026-09-07 05:08",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "211,826"
+  },
+  {
+    "run": "",
+    "when": "12",
+    "outcome": "2026-09-07 06:17",
+    "turns": "api_error",
+    "tokens": "9",
+    "note": "35,970"
+  },
+  {
+    "run": "",
+    "when": "13",
+    "outcome": "2026-09-07 07:16",
+    "turns": "api_error",
+    "tokens": "4",
+    "note": "15,453"
+  },
+  {
+    "run": "",
+    "when": "14",
+    "outcome": "2026-09-07 08:01",
+    "turns": "stopped",
+    "tokens": "18",
+    "note": "111,277"
+  },
+  {
+    "run": "",
+    "when": "15",
+    "outcome": "2026-09-07 09:01",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "176,022"
+  },
+  {
+    "run": "",
+    "when": "16",
+    "outcome": "2026-09-07 11:04",
+    "turns": "api_error",
+    "tokens": "11",
+    "note": "54,759"
+  },
+  {
+    "run": "",
+    "when": "17",
+    "outcome": "2026-09-07 11:58",
+    "turns": "stopped",
+    "tokens": "27",
+    "note": "171,401"
+  },
+  {
+    "run": "",
+    "when": "18",
+    "outcome": "2026-09-07 13:18",
+    "turns": "api_error",
+    "tokens": "12",
+    "note": "71,688"
+  },
+  {
+    "run": "",
+    "when": "19",
+    "outcome": "2026-09-07 14:21",
+    "turns": "api_error",
+    "tokens": "3",
+    "note": "9,392"
+  },
+  {
+    "run": "",
+    "when": "20",
+    "outcome": "2026-09-07 14:58",
+    "turns": "api_error",
+    "tokens": "7",
+    "note": "39,635"
+  },
+  {
+    "run": "",
+    "when": "21",
+    "outcome": "2026-09-07 15:45",
+    "turns": "api_error",
+    "tokens": "7",
+    "note": "41,324"
+  },
+  {
+    "run": "",
+    "when": "22",
+    "outcome": "2026-09-07 16:51",
+    "turns": "api_error",
+    "tokens": "7",
+    "note": "37,756"
+  },
+  {
+    "run": "",
+    "when": "23",
+    "outcome": "2026-09-07 17:42",
+    "turns": "api_error",
+    "tokens": "16",
+    "note": "92,000"
+  },
+  {
+    "run": "",
+    "when": "24",
+    "outcome": "2026-09-07 20:45",
+    "turns": "stopped",
+    "tokens": "13",
+    "note": "146,620"
+  },
+  {
+    "run": "",
+    "when": "25",
+    "outcome": "2026-09-07 22:07",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "3,874"
+  },
+  {
+    "run": "",
+    "when": "26",
+    "outcome": "2026-09-07 22:39",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "4,118"
+  },
+  {
+    "run": "",
+    "when": "27",
+    "outcome": "2026-09-07 23:11",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "4,509"
+  },
+  {
+    "run": "",
+    "when": "28",
+    "outcome": "2026-09-07 23:56",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "4,514"
+  },
+  {
+    "run": "",
+    "when": "29",
+    "outcome": "2026-09-08 00:28",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "4,541"
+  },
+  {
+    "run": "",
+    "when": "30",
+    "outcome": "2026-09-08 01:04",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "4,520"
+  },
+  {
+    "run": "",
+    "when": "31",
+    "outcome": "2026-09-08 01:36",
+    "turns": "crashed",
+    "tokens": "1",
+    "note": "5,036"
+  },
+  {
+    "run": "",
+    "when": "32",
+    "outcome": "2026-09-08 01:55",
+    "turns": "api_error",
+    "tokens": "4",
+    "note": "18,222"
+  },
+  {
+    "run": "",
+    "when": "33",
+    "outcome": "2026-09-08 03:04",
+    "turns": "stopped",
+    "tokens": "24",
+    "note": "183,312"
+  },
+  {
+    "run": "",
+    "when": "34",
+    "outcome": "2026-09-08 04:47",
+    "turns": "api_error",
+    "tokens": "3",
+    "note": "9,230"
+  },
+  {
+    "run": "",
+    "when": "35",
+    "outcome": "2026-09-08 05:06",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "4,676"
+  },
+  {
+    "run": "",
+    "when": "36",
+    "outcome": "2026-09-08 05:50",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "198,613"
+  },
+  {
+    "run": "",
+    "when": "37",
+    "outcome": "2026-09-08 07:12",
+    "turns": "stopped",
+    "tokens": "20",
+    "note": "144,264"
+  },
+  {
+    "run": "",
+    "when": "38",
+    "outcome": "2026-09-08 08:38",
+    "turns": "stopped",
+    "tokens": "13",
+    "note": "90,256"
+  },
+  {
+    "run": "",
+    "when": "39",
+    "outcome": "2026-09-08 09:38",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "88,905"
+  },
+  {
+    "run": "",
+    "when": "40",
+    "outcome": "2026-09-08 11:09",
+    "turns": "stopped",
+    "tokens": "31",
+    "note": "241,980"
+  },
+  {
+    "run": "",
+    "when": "41",
+    "outcome": "2026-09-08 12:57",
+    "turns": "api_error",
+    "tokens": "5",
+    "note": "24,841"
+  },
+  {
+    "run": "",
+    "when": "42",
+    "outcome": "2026-09-08 13:46",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "180,820"
+  },
+  {
+    "run": "",
+    "when": "43",
+    "outcome": "2026-09-08 14:44",
+    "turns": "stopped",
+    "tokens": "27",
+    "note": "213,819"
+  },
+  {
+    "run": "",
+    "when": "44",
+    "outcome": "2026-09-08 16:30",
+    "turns": "stopped",
+    "tokens": "22",
+    "note": "159,129"
+  },
+  {
+    "run": "",
+    "when": "45",
+    "outcome": "2026-09-08 17:53",
+    "turns": "api_error",
+    "tokens": "11",
+    "note": "70,000"
+  },
+  {
+    "run": "",
+    "when": "46",
+    "outcome": "2026-09-08 19:26",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "209,875"
+  },
+  {
+    "run": "",
+    "when": "47",
+    "outcome": "2026-09-08 21:13",
+    "turns": "stopped",
+    "tokens": "32",
+    "note": "236,779"
+  },
+  {
+    "run": "",
+    "when": "48",
+    "outcome": "2026-09-08 22:57",
+    "turns": "stopped",
+    "tokens": "35",
+    "note": "263,134"
+  },
+  {
+    "run": "",
+    "when": "49",
+    "outcome": "2026-09-09 01:33",
+    "turns": "stopped",
+    "tokens": "23",
+    "note": "192,825"
+  },
+  {
+    "run": "",
+    "when": "50",
+    "outcome": "2026-09-09 03:18",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "159,957"
+  },
+  {
+    "run": "",
+    "when": "51",
+    "outcome": "2026-09-09 05:22",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "0"
+  },
+  {
+    "run": "",
+    "when": "52",
+    "outcome": "2026-09-09 05:29",
+    "turns": "api_error",
+    "tokens": "8",
+    "note": "42,765"
+  },
+  {
+    "run": "",
+    "when": "53",
+    "outcome": "2026-09-09 06:35",
+    "turns": "stopped",
+    "tokens": "25",
+    "note": "461,549"
+  },
+  {
+    "run": "",
+    "when": "54",
+    "outcome": "2026-09-09 07:56",
+    "turns": "stopped",
+    "tokens": "19",
+    "note": "231,482"
+  },
+  {
+    "run": "",
+    "when": "55",
+    "outcome": "2026-09-09 10:19",
+    "turns": "stopped",
+    "tokens": "27",
+    "note": "372,137"
+  },
+  {
+    "run": "",
+    "when": "56",
+    "outcome": "2026-09-09 11:41",
+    "turns": "stopped",
+    "tokens": "21",
+    "note": "193,081"
+  },
+  {
+    "run": "",
+    "when": "57",
+    "outcome": "2026-09-09 13:10",
+    "turns": "stopped",
+    "tokens": "18",
+    "note": "210,090"
+  },
+  {
+    "run": "",
+    "when": "58",
+    "outcome": "2026-09-09 15:35",
+    "turns": "stopped",
+    "tokens": "12",
+    "note": "111,787"
+  },
+  {
+    "run": "",
+    "when": "59",
+    "outcome": "2026-09-09 16:17",
+    "turns": "stopped",
+    "tokens": "23",
+    "note": "214,122"
+  },
+  {
+    "run": "",
+    "when": "60",
+    "outcome": "2026-09-09 17:39",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "345,468"
+  },
+  {
+    "run": "",
+    "when": "61",
+    "outcome": "2026-09-09 18:48",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "382,429"
+  },
+  {
+    "run": "",
+    "when": "62",
+    "outcome": "2026-09-09 19:56",
+    "turns": "stopped",
+    "tokens": "39",
+    "note": "453,263"
+  },
+  {
+    "run": "",
+    "when": "63",
+    "outcome": "2026-09-09 20:52",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "249,842"
+  },
+  {
+    "run": "",
+    "when": "64",
+    "outcome": "2026-09-09 21:54",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "403,963"
+  },
+  {
+    "run": "",
+    "when": "65",
+    "outcome": "2026-09-09 22:50",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "393,588"
+  },
+  {
+    "run": "",
+    "when": "66",
+    "outcome": "2026-09-09 23:48",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "395,231"
+  },
+  {
+    "run": "",
+    "when": "67",
+    "outcome": "2026-09-10 00:30",
+    "turns": "stopped",
+    "tokens": "20",
+    "note": "240,305"
+  },
+  {
+    "run": "",
+    "when": "68",
+    "outcome": "2026-09-10 03:55",
+    "turns": "out_of_time",
+    "tokens": "32",
+    "note": "303,987"
+  },
+  {
+    "run": "",
+    "when": "69",
+    "outcome": "2026-09-10 05:07",
+    "turns": "api_error",
+    "tokens": "4",
+    "note": "26,853"
+  },
+  {
+    "run": "",
+    "when": "70",
+    "outcome": "2026-09-10 06:13",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "6,963"
+  },
+  {
+    "run": "",
+    "when": "71",
+    "outcome": "2026-09-10 07:09",
+    "turns": "out_of_time",
+    "tokens": "16",
+    "note": "117,098"
+  },
+  {
+    "run": "",
+    "when": "72",
+    "outcome": "2026-09-10 08:41",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "5,279"
+  },
+  {
+    "run": "",
+    "when": "73",
+    "outcome": "2026-09-10 10:28",
+    "turns": "out_of_time",
+    "tokens": "20",
+    "note": "167,836"
+  },
+  {
+    "run": "",
+    "when": "74",
+    "outcome": "2026-09-10 12:01",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "1,170"
+  },
+  {
+    "run": "",
+    "when": "75",
+    "outcome": "2026-09-10 12:43",
+    "turns": "out_of_time",
+    "tokens": "22",
+    "note": "223,335"
+  },
+  {
+    "run": "",
+    "when": "76",
+    "outcome": "2026-09-10 15:19",
+    "turns": "stopped",
+    "tokens": "21",
+    "note": "193,071"
+  },
+  {
+    "run": "",
+    "when": "77",
+    "outcome": "2026-09-10 16:43",
+    "turns": "stopped",
+    "tokens": "23",
+    "note": "234,733"
+  },
+  {
+    "run": "",
+    "when": "78",
+    "outcome": "2026-09-10 17:50",
+    "turns": "stopped",
+    "tokens": "27",
+    "note": "273,716"
+  },
+  {
+    "run": "",
+    "when": "79",
+    "outcome": "2026-09-10 19:12",
+    "turns": "stopped",
+    "tokens": "35",
+    "note": "429,809"
+  },
+  {
+    "run": "",
+    "when": "80",
+    "outcome": "2026-09-10 21:26",
+    "turns": "stopped",
+    "tokens": "33",
+    "note": "344,833"
+  },
+  {
+    "run": "",
+    "when": "81",
+    "outcome": "2026-09-10 22:46",
+    "turns": "stopped",
+    "tokens": "17",
+    "note": "161,010"
+  },
+  {
+    "run": "",
+    "when": "82",
+    "outcome": "2026-09-10 23:21",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "331,527"
+  },
+  {
+    "run": "",
+    "when": "83",
+    "outcome": "2026-09-11 01:35",
+    "turns": "stopped",
+    "tokens": "15",
+    "note": "147,283"
+  },
+  {
+    "run": "",
+    "when": "84",
+    "outcome": "2026-09-11 02:52",
+    "turns": "stopped",
+    "tokens": "15",
+    "note": "117,048"
+  },
+  {
+    "run": "",
+    "when": "85",
+    "outcome": "2026-09-11 04:15",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "8,063"
+  },
+  {
+    "run": "",
+    "when": "86",
+    "outcome": "2026-09-11 05:19",
+    "turns": "stopped",
+    "tokens": "18",
+    "note": "253,644"
+  },
+  {
+    "run": "",
+    "when": "87",
+    "outcome": "2026-09-11 06:35",
+    "turns": "api_error",
+    "tokens": "12",
+    "note": "96,977"
+  },
+  {
+    "run": "",
+    "when": "88",
+    "outcome": "2026-09-11 07:35",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "304,022"
+  },
+  {
+    "run": "",
+    "when": "89",
+    "outcome": "2026-09-11 08:54",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "0"
+  },
+  {
+    "run": "",
+    "when": "90",
+    "outcome": "2026-09-11 09:31",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "364,029"
+  },
+  {
+    "run": "",
+    "when": "91",
+    "outcome": "2026-09-11 10:35",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "298,429"
+  },
+  {
+    "run": "",
+    "when": "92",
+    "outcome": "2026-09-11 11:45",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "421,123"
+  },
+  {
+    "run": "",
+    "when": "93",
+    "outcome": "2026-09-11 13:07",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "1,808"
+  },
+  {
+    "run": "",
+    "when": "94",
+    "outcome": "2026-09-11 13:41",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "411,243"
+  },
+  {
+    "run": "",
+    "when": "95",
+    "outcome": "2026-09-11 14:54",
+    "turns": "out_of_time",
+    "tokens": "34",
+    "note": "593,393"
+  },
+  {
+    "run": "",
+    "when": "96",
+    "outcome": "2026-09-11 16:43",
+    "turns": "stopped",
+    "tokens": "21",
+    "note": "170,793"
+  },
+  {
+    "run": "",
+    "when": "97",
+    "outcome": "2026-09-11 17:31",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "499,236"
+  },
+  {
+    "run": "",
+    "when": "98",
+    "outcome": "2026-09-11 18:34",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "578,691"
+  },
+  {
+    "run": "",
+    "when": "99",
+    "outcome": "2026-09-11 20:33",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "677,480"
+  },
+  {
+    "run": "",
+    "when": "100",
+    "outcome": "2026-09-11 22:44",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "663,408"
+  },
+  {
+    "run": "",
+    "when": "101",
+    "outcome": "2026-09-12 00:04",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "686,780"
+  },
+  {
+    "run": "",
+    "when": "102",
+    "outcome": "2026-09-12 01:37",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "453,055"
+  },
+  {
+    "run": "",
+    "when": "103",
+    "outcome": "2026-09-12 02:50",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "684,956"
+  },
+  {
+    "run": "",
+    "when": "104",
+    "outcome": "2026-09-12 04:03",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "605,380"
+  },
+  {
+    "run": "",
+    "when": "105",
+    "outcome": "2026-09-12 05:03",
+    "turns": "stopped",
+    "tokens": "9",
+    "note": "59,730"
+  },
+  {
+    "run": "",
+    "when": "106",
+    "outcome": "2026-09-12 05:43",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "456,189"
+  },
+  {
+    "run": "",
+    "when": "107",
+    "outcome": "2026-09-12 06:23",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "311,099"
+  },
+  {
+    "run": "",
+    "when": "108",
+    "outcome": "2026-09-12 07:46",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "638,756"
+  },
+  {
+    "run": "",
+    "when": "109",
+    "outcome": "2026-09-12 08:52",
+    "turns": "stopped",
+    "tokens": "40",
+    "note": "547,777"
+  },
+  {
+    "run": "",
+    "when": "110",
+    "outcome": "2026-09-12 10:09",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "678,189"
+  },
+  {
+    "run": "",
+    "when": "111",
+    "outcome": "2026-09-12 11:11",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "325,509"
+  },
+  {
+    "run": "",
+    "when": "112",
+    "outcome": "2026-09-12 12:00",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "726,646"
+  },
+  {
+    "run": "",
+    "when": "113",
+    "outcome": "2026-09-12 13:07",
+    "turns": "stopped",
+    "tokens": "40",
+    "note": "686,610"
+  },
+  {
+    "run": "",
+    "when": "114",
+    "outcome": "2026-09-12 15:15",
+    "turns": "stopped",
+    "tokens": "37",
+    "note": "444,352"
+  },
+  {
+    "run": "",
+    "when": "115",
+    "outcome": "2026-09-12 16:17",
+    "turns": "stopped",
+    "tokens": "31",
+    "note": "571,097"
+  },
+  {
+    "run": "",
+    "when": "116",
+    "outcome": "2026-09-12 17:20",
+    "turns": "stopped",
+    "tokens": "3",
+    "note": "20,002"
+  },
+  {
+    "run": "",
+    "when": "117",
+    "outcome": "2026-09-12 17:24",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "543,184"
+  },
+  {
+    "run": "",
+    "when": "118",
+    "outcome": "2026-09-12 18:42",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "376,930"
+  },
+  {
+    "run": "",
+    "when": "119",
+    "outcome": "2026-09-12 19:36",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "449,303"
+  },
+  {
+    "run": "",
+    "when": "120",
+    "outcome": "2026-09-12 20:50",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "677,340"
+  },
+  {
+    "run": "",
+    "when": "121",
+    "outcome": "2026-09-12 22:19",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "0"
+  },
+  {
+    "run": "",
+    "when": "122",
+    "outcome": "2026-09-12 21:36",
+    "turns": "stopped",
+    "tokens": "37",
+    "note": "243,300"
+  },
+  {
+    "run": "",
+    "when": "123",
+    "outcome": "2026-09-12 22:56",
+    "turns": "stopped",
+    "tokens": "12",
+    "note": "74,212"
+  },
+  {
+    "run": "",
+    "when": "124",
+    "outcome": "2026-09-12 23:16",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "159,120"
+  },
+  {
+    "run": "",
+    "when": "125",
+    "outcome": "2026-09-12 23:55",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "473,171"
+  },
+  {
+    "run": "",
+    "when": "126",
+    "outcome": "2026-09-13 00:51",
+    "turns": "stopped",
+    "tokens": "34",
+    "note": "388,653"
+  },
+  {
+    "run": "",
+    "when": "127",
+    "outcome": "2026-09-13 01:21",
+    "turns": "stopped",
+    "tokens": "13",
+    "note": "92,588"
+  },
+  {
+    "run": "",
+    "when": "128",
+    "outcome": "2026-09-13 01:57",
+    "turns": "stopped",
+    "tokens": "7",
+    "note": "37,658"
+  },
+  {
+    "run": "",
+    "when": "129",
+    "outcome": "2026-09-13 02:33",
+    "turns": "stopped",
+    "tokens": "22",
+    "note": "191,787"
+  },
+  {
+    "run": "",
+    "when": "130",
+    "outcome": "2026-09-13 03:16",
+    "turns": "stopped",
+    "tokens": "7",
+    "note": "56,054"
+  },
+  {
+    "run": "",
+    "when": "131",
+    "outcome": "2026-09-13 03:51",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "572,790"
+  },
+  {
+    "run": "",
+    "when": "132",
+    "outcome": "2026-09-13 05:06",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "508,559"
+  },
+  {
+    "run": "",
+    "when": "133",
+    "outcome": "2026-09-13 06:04",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "614,127"
+  },
+  {
+    "run": "",
+    "when": "134",
+    "outcome": "2026-09-13 06:43",
+    "turns": "stopped",
+    "tokens": "18",
+    "note": "162,977"
+  },
+  {
+    "run": "",
+    "when": "135",
+    "outcome": "2026-09-13 07:40",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "413,922"
+  },
+  {
+    "run": "",
+    "when": "136",
+    "outcome": "2026-09-13 08:39",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "567,427"
+  },
+  {
+    "run": "",
+    "when": "137",
+    "outcome": "2026-09-13 09:35",
+    "turns": "stopped",
+    "tokens": "15",
+    "note": "142,394"
+  },
+  {
+    "run": "",
+    "when": "138",
+    "outcome": "2026-09-13 10:13",
+    "turns": "stopped",
+    "tokens": "1",
+    "note": "3,874"
+  },
+  {
+    "run": "",
+    "when": "139",
+    "outcome": "2026-09-13 10:13",
+    "turns": "stopped",
+    "tokens": "16",
+    "note": "154,434"
+  },
+  {
+    "run": "",
+    "when": "140",
+    "outcome": "2026-09-13 10:53",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "549,723"
+  },
+  {
+    "run": "",
+    "when": "141",
+    "outcome": "2026-09-13 12:04",
+    "turns": "stopped",
+    "tokens": "28",
+    "note": "403,187"
+  },
+  {
+    "run": "",
+    "when": "142",
+    "outcome": "2026-09-13 12:49",
+    "turns": "api_error",
+    "tokens": "8",
+    "note": "63,071"
+  },
+  {
+    "run": "",
+    "when": "143",
+    "outcome": "2026-09-13 13:49",
+    "turns": "api_error",
+    "tokens": "21",
+    "note": "204,183"
+  },
+  {
+    "run": "",
+    "when": "144",
+    "outcome": "2026-09-13 15:00",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "555,277"
+  },
+  {
+    "run": "",
+    "when": "145",
+    "outcome": "2026-09-13 16:00",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "139,124"
+  },
+  {
+    "run": "",
+    "when": "146",
+    "outcome": "2026-09-13 17:05",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "467,758"
+  },
+  {
+    "run": "",
+    "when": "147",
+    "outcome": "2026-09-13 17:56",
+    "turns": "api_error",
+    "tokens": "19",
+    "note": "229,922"
+  },
+  {
+    "run": "",
+    "when": "148",
+    "outcome": "2026-09-13 19:11",
+    "turns": "stopped",
+    "tokens": "29",
+    "note": "488,103"
+  },
+  {
+    "run": "",
+    "when": "149",
+    "outcome": "2026-09-13 19:41",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "787,892"
+  },
+  {
+    "run": "",
+    "when": "150",
+    "outcome": "2026-09-13 21:03",
+    "turns": "stopped",
+    "tokens": "29",
+    "note": "826,332"
+  },
+  {
+    "run": "",
+    "when": "151",
+    "outcome": "2026-09-13 22:23",
+    "turns": "stopped",
+    "tokens": "19",
+    "note": "221,017"
+  },
+  {
+    "run": "",
+    "when": "152",
+    "outcome": "2026-09-13 22:33",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "543,014"
+  },
+  {
+    "run": "",
+    "when": "153",
+    "outcome": "2026-09-13 23:24",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "683,296"
+  },
+  {
+    "run": "",
+    "when": "154",
+    "outcome": "2026-09-14 01:15",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "631,417"
+  },
+  {
+    "run": "",
+    "when": "155",
+    "outcome": "2026-09-14 02:37",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "644,430"
+  },
+  {
+    "run": "",
+    "when": "156",
+    "outcome": "2026-09-14 03:53",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "13,650"
+  },
+  {
+    "run": "",
+    "when": "157",
+    "outcome": "2026-09-14 04:28",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "791,827"
+  },
+  {
+    "run": "",
+    "when": "158",
+    "outcome": "2026-09-14 05:21",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "522,048"
+  },
+  {
+    "run": "",
+    "when": "159",
+    "outcome": "2026-09-14 06:32",
+    "turns": "api_error",
+    "tokens": "31",
+    "note": "403,198"
+  },
+  {
+    "run": "",
+    "when": "160",
+    "outcome": "2026-09-14 07:53",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "447,794"
+  },
+  {
+    "run": "",
+    "when": "161",
+    "outcome": "2026-09-14 09:15",
+    "turns": "stopped",
+    "tokens": "32",
+    "note": "450,130"
+  },
+  {
+    "run": "",
+    "when": "162",
+    "outcome": "2026-09-14 11:16",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "759,376"
+  },
+  {
+    "run": "",
+    "when": "163",
+    "outcome": "2026-09-14 12:32",
+    "turns": "stopped",
+    "tokens": "22",
+    "note": "333,839"
+  },
+  {
+    "run": "",
+    "when": "164",
+    "outcome": "2026-09-14 13:35",
+    "turns": "stopped",
+    "tokens": "4",
+    "note": "51,221"
+  },
+  {
+    "run": "",
+    "when": "165",
+    "outcome": "2026-09-14 14:11",
+    "turns": "stopped",
+    "tokens": "39",
+    "note": "808,707"
+  },
+  {
+    "run": "",
+    "when": "166",
+    "outcome": "2026-09-14 15:32",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "652,413"
+  },
+  {
+    "run": "",
+    "when": "167",
+    "outcome": "2026-09-14 16:39",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "195,936"
+  },
+  {
+    "run": "",
+    "when": "168",
+    "outcome": "2026-09-14 17:01",
+    "turns": "stopped",
+    "tokens": "7",
+    "note": "81,573"
+  },
+  {
+    "run": "",
+    "when": "169",
+    "outcome": "2026-09-14 17:38",
+    "turns": "stopped",
+    "tokens": "31",
+    "note": "620,143"
+  },
+  {
+    "run": "",
+    "when": "170",
+    "outcome": "2026-09-14 18:35",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "790,779"
+  },
+  {
+    "run": "",
+    "when": "171",
+    "outcome": "2026-09-14 19:41",
+    "turns": "out_of_time",
+    "tokens": "37",
+    "note": "597,681"
+  },
+  {
+    "run": "",
+    "when": "172",
+    "outcome": "2026-09-14 21:02",
+    "turns": "stopped",
+    "tokens": "27",
+    "note": "489,214"
+  },
+  {
+    "run": "",
+    "when": "173",
+    "outcome": "2026-09-14 22:27",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "738,248"
+  },
+  {
+    "run": "",
+    "when": "174",
+    "outcome": "2026-09-16 02:15",
+    "turns": "stopped",
+    "tokens": "33",
+    "note": "484,317"
+  },
+  {
+    "run": "",
+    "when": "175",
+    "outcome": "2026-09-16 03:36",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "647,271"
+  },
+  {
+    "run": "",
+    "when": "176",
+    "outcome": "2026-09-16 04:39",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "483,208"
+  },
+  {
+    "run": "",
+    "when": "177",
+    "outcome": "2026-09-16 05:47",
+    "turns": "stopped",
+    "tokens": "15",
+    "note": "287,981"
+  },
+  {
+    "run": "",
+    "when": "178",
+    "outcome": "2026-09-16 06:50",
+    "turns": "stopped",
+    "tokens": "35",
+    "note": "670,542"
+  },
+  {
+    "run": "",
+    "when": "179",
+    "outcome": "2026-09-16 08:17",
+    "turns": "stopped",
+    "tokens": "9",
+    "note": "145,712"
+  },
+  {
+    "run": "",
+    "when": "180",
+    "outcome": "2026-09-16 09:00",
+    "turns": "stopped",
+    "tokens": "37",
+    "note": "522,727"
+  },
+  {
+    "run": "",
+    "when": "181",
+    "outcome": "2026-09-16 10:25",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "563,501"
+  },
+  {
+    "run": "",
+    "when": "182",
+    "outcome": "2026-09-16 11:46",
+    "turns": "stopped",
+    "tokens": "17",
+    "note": "224,007"
+  },
+  {
+    "run": "",
+    "when": "183",
+    "outcome": "2026-09-16 13:01",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "520,974"
+  },
+  {
+    "run": "",
+    "when": "184",
+    "outcome": "2026-09-16 14:11",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "21,906"
+  },
+  {
+    "run": "",
+    "when": "185",
+    "outcome": "2026-09-16 14:47",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "483,071"
+  },
+  {
+    "run": "",
+    "when": "186",
+    "outcome": "2026-09-16 15:59",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "746,102"
+  },
+  {
+    "run": "",
+    "when": "187",
+    "outcome": "2026-09-16 17:04",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "567,039"
+  },
+  {
+    "run": "",
+    "when": "188",
+    "outcome": "2026-09-16 17:42",
+    "turns": "stopped",
+    "tokens": "40",
+    "note": "907,616"
+  },
+  {
+    "run": "",
+    "when": "189",
+    "outcome": "2026-09-16 19:01",
+    "turns": "stopped",
+    "tokens": "14",
+    "note": "241,284"
+  },
+  {
+    "run": "",
+    "when": "190",
+    "outcome": "2026-09-16 19:54",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "188,857"
+  },
+  {
+    "run": "",
+    "when": "191",
+    "outcome": "2026-09-16 20:34",
+    "turns": "stopped",
+    "tokens": "17",
+    "note": "266,385"
+  },
+  {
+    "run": "",
+    "when": "192",
+    "outcome": "2026-09-16 21:13",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "22,748"
+  },
+  {
+    "run": "",
+    "when": "193",
+    "outcome": "2026-09-16 21:37",
+    "turns": "stopped",
+    "tokens": "21",
+    "note": "512,516"
+  },
+  {
+    "run": "",
+    "when": "194",
+    "outcome": "2026-09-16 22:37",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "775,626"
+  },
+  {
+    "run": "",
+    "when": "195",
+    "outcome": "2026-09-16 23:49",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "703,609"
+  },
+  {
+    "run": "",
+    "when": "196",
+    "outcome": "2026-09-17 00:50",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "871,014"
+  },
+  {
+    "run": "",
+    "when": "197",
+    "outcome": "2026-09-17 01:55",
+    "turns": "api_error",
+    "tokens": "27",
+    "note": "326,226"
+  },
+  {
+    "run": "",
+    "when": "198",
+    "outcome": "2026-09-17 03:38",
+    "turns": "stopped",
+    "tokens": "35",
+    "note": "924,271"
+  },
+  {
+    "run": "",
+    "when": "199",
+    "outcome": "2026-09-17 05:04",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "580,572"
+  },
+  {
+    "run": "",
+    "when": "200",
+    "outcome": "2026-09-17 06:53",
+    "turns": "stopped",
+    "tokens": "26",
+    "note": "358,405"
+  },
+  {
+    "run": "",
+    "when": "201",
+    "outcome": "2026-09-17 08:13",
+    "turns": "stopped",
+    "tokens": "36",
+    "note": "932,573"
+  },
+  {
+    "run": "",
+    "when": "202",
+    "outcome": "2026-09-17 09:36",
+    "turns": "api_error",
+    "tokens": "4",
+    "note": "39,370"
+  },
+  {
+    "run": "",
+    "when": "203",
+    "outcome": "2026-09-17 10:20",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "776,137"
+  },
+  {
+    "run": "",
+    "when": "204",
+    "outcome": "2026-09-17 11:39",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "808,931"
+  },
+  {
+    "run": "",
+    "when": "204",
+    "outcome": "2026-09-17 12:22",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "693,446"
+  },
+  {
+    "run": "",
+    "when": "206",
+    "outcome": "2026-09-17 13:31",
+    "turns": "api_error",
+    "tokens": "29",
+    "note": "458,244"
+  },
+  {
+    "run": "",
+    "when": "207",
+    "outcome": "2026-09-17 14:49",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "599,199"
+  },
+  {
+    "run": "",
+    "when": "208",
+    "outcome": "2026-09-17 16:03",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "913,217"
+  },
+  {
+    "run": "",
+    "when": "209",
+    "outcome": "2026-09-17 17:13",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "551,125"
+  },
+  {
+    "run": "",
+    "when": "210",
+    "outcome": "2026-09-17 18:15",
+    "turns": "out_of_turns",
+    "tokens": "40",
+    "note": "850,199"
+  },
+  {
+    "run": "",
+    "when": "211",
+    "outcome": "2026-09-17 19:15",
+    "turns": "stopped",
+    "tokens": "38",
+    "note": "571,287"
+  },
+  {
+    "run": "",
+    "when": "212",
+    "outcome": "2026-09-17 21:25",
+    "turns": "out_of_time",
+    "tokens": "15",
+    "note": "264,359"
+  },
+  {
+    "run": "",
+    "when": "213",
+    "outcome": "2026-09-17 23:02",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "218,046"
+  },
+  {
+    "run": "",
+    "when": "214",
+    "outcome": "2026-09-17 23:41",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "213,176"
+  },
+  {
+    "run": "",
+    "when": "215",
+    "outcome": "2026-09-18 00:18",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "230,046"
+  },
+  {
+    "run": "",
+    "when": "216",
+    "outcome": "2026-09-18 01:02",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "205,532"
+  },
+  {
+    "run": "",
+    "when": "217",
+    "outcome": "2026-09-18 01:24",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "241,186"
+  },
+  {
+    "run": "",
+    "when": "218",
+    "outcome": "2026-09-18 02:08",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "203,560"
+  },
+  {
+    "run": "",
+    "when": "219",
+    "outcome": "2026-09-18 02:47",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "145,909"
+  },
+  {
+    "run": "",
+    "when": "220",
+    "outcome": "2026-09-18 03:30",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "168,879"
+  },
+  {
+    "run": "",
+    "when": "221",
+    "outcome": "2026-09-18 04:09",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "180,570"
+  },
+  {
+    "run": "",
+    "when": "222",
+    "outcome": "2026-09-18 04:47",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "231,928"
+  },
+  {
+    "run": "",
+    "when": "223",
+    "outcome": "2026-09-18 05:36",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "205,912"
+  },
+  {
+    "run": "",
+    "when": "224",
+    "outcome": "2026-09-18 06:34",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "139,682"
+  },
+  {
+    "run": "",
+    "when": "225",
+    "outcome": "2026-09-18 07:18",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "205,278"
+  },
+  {
+    "run": "",
+    "when": "226",
+    "outcome": "2026-09-18 08:06",
+    "turns": "api_error",
+    "tokens": "11",
+    "note": "156,750"
+  },
+  {
+    "run": "",
+    "when": "227",
+    "outcome": "2026-09-18 09:19",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "195,052"
+  },
+  {
+    "run": "",
+    "when": "228",
+    "outcome": "2026-09-18 10:02",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "166,937"
+  },
+  {
+    "run": "",
+    "when": "229",
+    "outcome": "2026-09-18 10:40",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "227,404"
+  },
+  {
+    "run": "",
+    "when": "230",
+    "outcome": "2026-09-18 11:24",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "231,176"
+  },
+  {
+    "run": "",
+    "when": "231",
+    "outcome": "2026-09-18 11:41",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "252,091"
+  },
+  {
+    "run": "",
+    "when": "232",
+    "outcome": "2026-09-18 12:22",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "156,969"
+  },
+  {
+    "run": "",
+    "when": "233",
+    "outcome": "2026-09-18 12:57",
+    "turns": "stopped",
+    "tokens": "8",
+    "note": "133,105"
+  },
+  {
+    "run": "",
+    "when": "234",
+    "outcome": "2026-09-18 13:35",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "225,356"
+  },
+  {
+    "run": "",
+    "when": "235",
+    "outcome": "2026-09-18 14:20",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "174,019"
+  },
+  {
+    "run": "",
+    "when": "236",
+    "outcome": "2026-09-18 14:58",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "165,758"
+  },
+  {
+    "run": "",
+    "when": "237",
+    "outcome": "2026-09-18 15:43",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "234,385"
+  },
+  {
+    "run": "",
+    "when": "238",
+    "outcome": "2026-09-18 16:25",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "270,132"
+  },
+  {
+    "run": "",
+    "when": "239",
+    "outcome": "2026-09-18 16:40",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "211,621"
+  },
+  {
+    "run": "",
+    "when": "240",
+    "outcome": "2026-09-18 17:21",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "234,274"
+  },
+  {
+    "run": "",
+    "when": "241",
+    "outcome": "2026-09-18 18:01",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "174,030"
+  },
+  {
+    "run": "",
+    "when": "242",
+    "outcome": "2026-09-18 18:45",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "337,776"
+  },
+  {
+    "run": "",
+    "when": "243",
+    "outcome": "2026-09-18 19:31",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "202,258"
+  },
+  {
+    "run": "",
+    "when": "244",
+    "outcome": "2026-09-18 19:54",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "235,750"
+  },
+  {
+    "run": "",
+    "when": "245",
+    "outcome": "2026-09-18 20:36",
+    "turns": "stopped",
+    "tokens": "12",
+    "note": "237,000"
+  },
+  {
+    "run": "",
+    "when": "246",
+    "outcome": "2026-09-18 21:21",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "199,654"
+  },
+  {
+    "run": "",
+    "when": "247",
+    "outcome": "2026-09-18 22:00",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "170,547"
+  },
+  {
+    "run": "",
+    "when": "248",
+    "outcome": "2026-09-18 22:57",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "288,445"
+  },
+  {
+    "run": "",
+    "when": "249",
+    "outcome": "2026-09-18 23:49",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "207,512"
+  },
+  {
+    "run": "",
+    "when": "250",
+    "outcome": "2026-09-19 00:27",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "192,551"
+  },
+  {
+    "run": "",
+    "when": "251",
+    "outcome": "2026-09-19 01:06",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "175,289"
+  },
+  {
+    "run": "",
+    "when": "252",
+    "outcome": "2026-09-19 01:29",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "196,490"
+  },
+  {
+    "run": "",
+    "when": "253",
+    "outcome": "2026-09-19 02:13",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "162,469"
+  },
+  {
+    "run": "",
+    "when": "254",
+    "outcome": "2026-09-19 02:59",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "254,828"
+  },
+  {
+    "run": "",
+    "when": "255",
+    "outcome": "2026-09-19 03:46",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "211,722"
+  },
+  {
+    "run": "",
+    "when": "256",
+    "outcome": "2026-09-19 04:25",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "176,197"
+  },
+  {
+    "run": "",
+    "when": "257",
+    "outcome": "2026-09-19 05:18",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "189,559"
+  },
+  {
+    "run": "",
+    "when": "258",
+    "outcome": "2026-09-19 06:01",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "189,223"
+  },
+  {
+    "run": "",
+    "when": "259",
+    "outcome": "2026-09-19 06:29",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "203,200"
+  },
+  {
+    "run": "",
+    "when": "260",
+    "outcome": "2026-09-19 07:11",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "214,026"
+  },
+  {
+    "run": "",
+    "when": "261",
+    "outcome": "2026-09-19 07:53",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "204,045"
+  },
+  {
+    "run": "",
+    "when": "262",
+    "outcome": "2026-09-19 08:31",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "236,593"
+  },
+  {
+    "run": "",
+    "when": "263",
+    "outcome": "2026-09-19 09:15",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "232,086"
+  },
+  {
+    "run": "",
+    "when": "264",
+    "outcome": "2026-09-19 10:01",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "166,795"
+  },
+  {
+    "run": "",
+    "when": "265",
+    "outcome": "2026-09-19 10:42",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "166,913"
+  },
+  {
+    "run": "",
+    "when": "266",
+    "outcome": "2026-09-19 11:24",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "170,388"
+  },
+  {
+    "run": "",
+    "when": "267",
+    "outcome": "2026-09-19 12:03",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "1,563"
+  },
+  {
+    "run": "",
+    "when": "268",
+    "outcome": "2026-09-19 12:37",
+    "turns": "api_error",
+    "tokens": "11",
+    "note": "190,898"
+  },
+  {
+    "run": "",
+    "when": "269",
+    "outcome": "2026-09-19 13:39",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "188,875"
+  },
+  {
+    "run": "",
+    "when": "270",
+    "outcome": "2026-09-19 14:20",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "229,697"
+  },
+  {
+    "run": "",
+    "when": "271",
+    "outcome": "2026-09-19 14:42",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "253,954"
+  },
+  {
+    "run": "",
+    "when": "272",
+    "outcome": "2026-09-19 15:25",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "240,737"
+  },
+  {
+    "run": "",
+    "when": "273",
+    "outcome": "2026-09-19 16:07",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "151,743"
+  },
+  {
+    "run": "",
+    "when": "274",
+    "outcome": "2026-09-19 16:50",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "178,952"
+  },
+  {
+    "run": "",
+    "when": "275",
+    "outcome": "2026-09-19 17:31",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "164,325"
+  },
+  {
+    "run": "",
+    "when": "276",
+    "outcome": "2026-09-19 18:18",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "214,412"
+  },
+  {
+    "run": "",
+    "when": "277",
+    "outcome": "2026-09-19 18:56",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "154,360"
+  },
+  {
+    "run": "",
+    "when": "278",
+    "outcome": "2026-09-19 19:33",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "157,005"
+  },
+  {
+    "run": "",
+    "when": "279",
+    "outcome": "2026-09-19 20:10",
+    "turns": "stopped",
+    "tokens": "12",
+    "note": "179,449"
+  },
+  {
+    "run": "",
+    "when": "280",
+    "outcome": "2026-09-19 20:56",
+    "turns": "stopped",
+    "tokens": "4",
+    "note": "67,331"
+  },
+  {
+    "run": "",
+    "when": "281",
+    "outcome": "2026-09-19 21:28",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "236,529"
+  },
+  {
+    "run": "",
+    "when": "282",
+    "outcome": "2026-09-19 22:05",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "171,506"
+  },
+  {
+    "run": "",
+    "when": "283",
+    "outcome": "2026-09-19 22:47",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "198,844"
+  },
+  {
+    "run": "",
+    "when": "284",
+    "outcome": "2026-09-19 23:34",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "191,622"
+  },
+  {
+    "run": "",
+    "when": "285",
+    "outcome": "2026-09-20 00:11",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "163,261"
+  },
+  {
+    "run": "",
+    "when": "286",
+    "outcome": "2026-09-20 00:50",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "186,143"
+  },
+  {
+    "run": "",
+    "when": "287",
+    "outcome": "2026-09-20 01:41",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "193,581"
+  },
+  {
+    "run": "",
+    "when": "288",
+    "outcome": "2026-09-20 02:23",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "201,165"
+  },
+  {
+    "run": "",
+    "when": "289",
+    "outcome": "2026-09-20 03:05",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "229,429"
+  },
+  {
+    "run": "",
+    "when": "290",
+    "outcome": "2026-09-20 03:51",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "185,267"
+  },
+  {
+    "run": "",
+    "when": "291",
+    "outcome": "2026-09-20 04:29",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "184,518"
+  },
+  {
+    "run": "",
+    "when": "292",
+    "outcome": "2026-09-20 05:09",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "199,776"
+  },
+  {
+    "run": "",
+    "when": "293",
+    "outcome": "2026-09-20 05:48",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "198,998"
+  },
+  {
+    "run": "",
+    "when": "294",
+    "outcome": "2026-09-20 06:34",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "158,153"
+  },
+  {
+    "run": "",
+    "when": "295",
+    "outcome": "2026-09-20 06:51",
+    "turns": "api_error",
+    "tokens": "10",
+    "note": "135,069"
+  },
+  {
+    "run": "",
+    "when": "296",
+    "outcome": "2026-09-20 07:57",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "168,438"
+  },
+  {
+    "run": "",
+    "when": "297",
+    "outcome": "2026-09-20 08:35",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "200,194"
+  },
+  {
+    "run": "",
+    "when": "298",
+    "outcome": "2026-09-20 09:20",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "150,091"
+  },
+  {
+    "run": "",
+    "when": "299",
+    "outcome": "2026-09-20 09:56",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "209,360"
+  },
+  {
+    "run": "",
+    "when": "300",
+    "outcome": "2026-09-20 10:40",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "210,210"
+  },
+  {
+    "run": "",
+    "when": "301",
+    "outcome": "2026-09-20 11:31",
+    "turns": "api_error",
+    "tokens": "1",
+    "note": "1,571"
+  },
+  {
+    "run": "",
+    "when": "302",
+    "outcome": "2026-09-20 12:05",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "198,916"
+  },
+  {
+    "run": "",
+    "when": "303",
+    "outcome": "2026-09-20 12:35",
+    "turns": "api_error",
+    "tokens": "2",
+    "note": "12,108"
+  },
+  {
+    "run": "",
+    "when": "304",
+    "outcome": "2026-09-20 13:30",
+    "turns": "stopped",
+    "tokens": "4",
+    "note": "67,578"
+  },
+  {
+    "run": "",
+    "when": "305",
+    "outcome": "2026-09-20 14:04",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "190,784"
+  },
+  {
+    "run": "",
+    "when": "306",
+    "outcome": "2026-09-20 14:47",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "228,137"
+  },
+  {
+    "run": "",
+    "when": "307",
+    "outcome": "2026-09-20 15:31",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "219,540"
+  },
+  {
+    "run": "",
+    "when": "308",
+    "outcome": "2026-09-20 16:27",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "208,085"
+  },
+  {
+    "run": "",
+    "when": "309",
+    "outcome": "2026-09-20 17:05",
+    "turns": "stopped",
+    "tokens": "12",
+    "note": "235,164"
+  },
+  {
+    "run": "",
+    "when": "310",
+    "outcome": "2026-09-20 17:46",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "183,748"
+  },
+  {
+    "run": "",
+    "when": "311",
+    "outcome": "2026-09-20 18:22",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "199,023"
+  },
+  {
+    "run": "",
+    "when": "312",
+    "outcome": "2026-09-20 19:00",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "202,437"
+  },
+  {
+    "run": "",
+    "when": "313",
+    "outcome": "2026-09-20 19:40",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "240,945"
+  },
+  {
+    "run": "",
+    "when": "314",
+    "outcome": "2026-09-20 20:20",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "177,637"
+  },
+  {
+    "run": "",
+    "when": "315",
+    "outcome": "2026-09-20 20:55",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "171,739"
+  },
+  {
+    "run": "",
+    "when": "316",
+    "outcome": "2026-09-20 21:36",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "214,883"
+  },
+  {
+    "run": "",
+    "when": "317",
+    "outcome": "2026-09-20 21:45",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "196,103"
+  },
+  {
+    "run": "",
+    "when": "318",
+    "outcome": "2026-09-20 22:23",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "199,682"
+  },
+  {
+    "run": "",
+    "when": "319",
+    "outcome": "2026-09-20 23:02",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "240,753"
+  },
+  {
+    "run": "",
+    "when": "320",
+    "outcome": "2026-09-20 23:43",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "232,790"
+  },
+  {
+    "run": "",
+    "when": "321",
+    "outcome": "2026-09-21 00:36",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "187,001"
+  },
+  {
+    "run": "",
+    "when": "322",
+    "outcome": "2026-09-21 01:17",
+    "turns": "stopped",
+    "tokens": "11",
+    "note": "172,561"
+  },
+  {
+    "run": "",
+    "when": "323",
+    "outcome": "2026-09-21 01:53",
+    "turns": "stopped",
+    "tokens": "10",
+    "note": "156,628"
+  },
+  {
+    "run": "",
+    "when": "324",
+    "outcome": "2026-09-21 02:30",
+    "turns": "out_of_turns",
+    "tokens": "12",
+    "note": "188,126"
+  }
+]
