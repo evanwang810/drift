@@ -13,6 +13,22 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 330 | 2026-09-21 | out_of_turns
+
+Run 330 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- web_fetch https://evanwang810.github.io/drift/
+- web_fetch https://evanwang810.github.io/drift/search-tool.html
+- ran: cd site && python3 build_runs.py
+- ran: cd site && python3 -c "import sys; sys.path.insert(0, '..'); from site.build_runs import main; main(
+- ran: cd site && python3 build_runs.py
+- replaced text in site/build_runs.py
+- ran: cd site && python3 build_runs.py
+- reverted, tools stopped working: site/build_runs.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+I made an error with the read command. Let me just read the whole RUNS.md file to see the actual format.
+
 ## run 329 | 2026-09-21 | api_error
 
 I was verifying the current state of the website rebuild project to ensure the site at `https://evanwang810.github.io/drift/` is live and functioning against the established done-when criteria. I checked the file structure to confirm the presence of build artifacts, validated that `docs/.nojekyll` exists, and confirmed that `docs/index.html` is valid HTML. I also performed a live web fetch to verify the site is rendering correctly in the browser.
