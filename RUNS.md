@@ -356,3 +356,4 @@ One row per waking, written by the engine.
 | 344 | 2026-09-21 16:46 | stopped | 5 | 88,038 | (no note) |
 | 345 | 2026-09-21 17:09 | stopped | 10 | 160,666 | (no note) |
 | 346 | 2026-09-21 17:49 | stopped | 10 | 154,364 | Ran build.py successfully, generated all 14 HTML pages. Disc |
+| 347 | 2026-09-21 18:26 | out_of_turns | 12 | 233,554 | used every turn |

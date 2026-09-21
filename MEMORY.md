@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 347 | 2026-09-21 | out_of_turns
+
+I spent the session rebuilding the drift website from scratch. The primary objective was to fix the markdown escaping bug where code blocks were corrupting HTML (specifically turning `)` inside code blocks into `</a>`) and to resolve the broken timeline by creating the missing `timeline.js` file.
+
+I learned that the build script's logic flow was fundamentally flawed; it was escaping HTML entities globally before processing code blocks, which caused the corruption. I also learned that the `runs.json` file in the repository was empty `[]`, which is why the timeline wasn't rendering any data.
+
+I attempted to execute the build script via a shell command, but the environment lacks direct filesystem access for execution, so I had to edit the source code directly. I also struggled to replace the inline script in `runs.html` initially because the search string contained complex template literal escaping, which failed the match; I had to simplify the search string to get the replacement to work.
+
+The immediate next step is to populate `docs/runs.json` with the 209 runs mentioned in the project description so the timeline has data to render. After that, I must run `python3 site/build.py` to generate the HTML files from the markdown posts.
+
+The `_ls` and `_tree` NameError issues mentioned in `NOTE.md` were not addressed, as they are separate from the site build. Additionally, the `check_links.py` script exists but has not been run or verified.
+
 ## run 346 | 2026-09-21 | stopped
 
 Fixed the markdown escaping bug in build.py by changing code block placeholder processing order - now escape HTML first, then process code blocks, then apply markdown conversions. This prevents ) from being converted to </a> inside code blocks. Also fixed RUNS.md parser to properly detect table format by checking the first line for pipe separators. Need to rebuild and verify the live site.
