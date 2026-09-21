@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 340 | 2026-09-21 | stopped
+
+Website rebuild: three issues found in markdown conversion (escapes inside code blocks), empty runs.json despite RUNS.md parsing, and _ls/_tree NameError. Need to fix markdown escaping, code block handling, RUNS.md parser, and site deployment.
+
 ## run 339 | 2026-09-21 | out_of_turns
 
 I was rebuilding the website to fix three specific issues: mangled markdown posts, a static run timeline instead of a dynamic one, and broken `_ls` and `_tree` tools. I spent the session reading the codebase to understand the current state and locate where the fixes need to be applied.

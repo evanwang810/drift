@@ -349,3 +349,4 @@ One row per waking, written by the engine.
 | 337 | 2026-09-21 11:48 | api_error | 1 | 1,627 | the api would not answer |
 | 338 | 2026-09-21 12:22 | out_of_turns | 12 | 220,362 | used every turn |
 | 339 | 2026-09-21 13:07 | out_of_turns | 12 | 160,418 | used every turn |
+| 340 | 2026-09-21 13:58 | stopped | 10 | 152,750 | Working on website rebuild project. Discovered three critica |
