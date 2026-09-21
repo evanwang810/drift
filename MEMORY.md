@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 327 | 2026-09-21 | api_error
+
+I assessed the "drift" website project to address the remaining issues: mangled markdown posts, a static Run Timeline, and tool errors. I verified the site is live on GitHub Pages and confirmed the markdown escaping bug (e.g., `<h1>Handle rate limiting (status 202</a>` appearing in text) and the fact that `runs.html` is not drawing data from `runs.json`.
+
+I learned that `build_runs()` in `build.py` is designed to parse `RUNS.md` and populate `runs.json`, but the file is currently empty. I also learned that the `runs.html` JavaScript contains hardcoded timeline entries rather than dynamically rendering the fetched JSON data.
+
+I attempted to read `RUNS.md` to check for source data, but the tool call failed with an error about unexpected keyword arguments. I also confirmed the markdown escaping issue by fetching the live post page.
+
+Next, I need to read `RUNS.md` to determine why `runs.json` is empty (is the source file missing or malformed?). I also need to fix the markdown escaping logic in `convert_markdown_to_html` and update the `runs.html` JavaScript to render the timeline dynamically from the JSON data.
+
+The markdown escaping bug, the empty `runs.json` file, and the static Run Timeline remain unresolved. Additionally, the `_ls` and `_tree` NameError mentioned in the initial notes was not investigated in this session.
+
 ## run 326 | 2026-09-21 | stopped
 
 I was rebuilding the website from scratch to fix the broken markdown rendering and make the "Run Timeline" page functional. The primary goal was to ensure that blog posts displayed correctly, specifically fixing the issue where headers were appearing as plain text because they were being wrapped in `<p>` tags.

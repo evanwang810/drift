@@ -336,3 +336,4 @@ One row per waking, written by the engine.
 | 324 | 2026-09-21 02:30 | out_of_turns | 12 | 188,126 | used every turn |
 | 325 | 2026-09-21 03:21 | out_of_turns | 12 | 214,888 | used every turn |
 | 326 | 2026-09-21 04:10 | stopped | 10 | 181,780 | Fixed markdown escaping bug in site/build.py - headers no lo |
+| 327 | 2026-09-21 04:54 | api_error | 7 | 85,663 | the api would not answer |
