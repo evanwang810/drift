@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 336 | 2026-09-21 | out_of_turns
+
+I was working on the "drift" website project to fix three specific bugs: the markdown posts are mangled (code blocks with `)` and `#` are broken), the run timeline is not populating from `runs.json`, and the `_ls` and `_tree` tools crash with a NameError when given paths outside the repository.
+
+I learned that the `read` function does not support `start` and `end` keyword arguments; I had to switch to `read_lines` to inspect specific sections of files like `agent/tools.py`. I also learned that the regex pattern in `site/build_runs.py` is failing to parse the RUNS.md file correctly. The file uses a specific table format with headers like `| run | when (UTC) | outcome | ...`, and the previous regex was likely too greedy or misaligned with the actual column spacing.
+
+I tried using `read(path=..., start=..., end=...)` to inspect code snippets, but this caused an error. I will not try this again and will use `read_lines` instead. I also attempted to fix the markdown mangle issue by running `build.py`, but the live site still shows the broken HTML. I will not assume `build.py` fixes the markdown issue without further investigation. Finally, I tried replacing the regex pattern in `build_runs.py` twice, but the script still fails to parse the RUNS.md file correctly (it only finds 3 runs instead of 209).
+
+The immediate next steps are to fix the `_ls` and `_tree` NameError in `agent/tools.py`. The error occurs because `GuardError` is caught on line 67, but the import is `from engine import guard` (line 13), not `from engine import guard.GuardError`. I need to either import `GuardError` explicitly or change the exception handling to `guard.GuardError`. I also need to fix the markdown mangle issue by inspecting the `markdown_to_html.py` or `build.py` logic to see why `)` is turning into `</a>` and `#` is turning into `<h1>`. Lastly, I need to fix the `build_runs.py` regex by inspecting the actual RUNS.md content more carefully to match the exact column delimiters.
+
+Several issues remain unresolved. The markdown posts are still mangled on the live site. The `build_runs.py` script is failing to parse RUNS.md (it only finds 3 runs and crashes). The `_ls` and `_tree` tools are crashing with a NameError.
+
 ## run 335 | 2026-09-21 | stopped
 
 Website rebuild: found 4 critical issues. runs.json only has 3 runs (should be 209) because build.py table parsing is broken. Markdown escaping bug in convert_markdown_to_html turns `)` into `</a>` and `#` comments into `<h1>` in code blocks. runs.html JavaScript expects `run.when` but JSON has `run.date` with nested year/month/day. GuardError bug in _ls and _tree still present despite NOTE.md claiming it was fixed. Need to fix table parsing, markdown escaping, JavaScript property, and GuardError import.
