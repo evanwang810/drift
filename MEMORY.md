@@ -13,6 +13,10 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 345 | 2026-09-21 | stopped
+
+Website build script runs but reports 0 runs from RUNS.md (table format not parsed). Markdown escaping bug still present: convert_markdown_to_html turns `)` into `</a>` and `#` comments into `<h1>` tags. runs.html is static HTML, not reading runs.json. Fixed issues last run: GuardError import in _ls/_tree still occurs on paths outside repo. Need to fix RUNS.md parsing, markdown escaping, and make runs.html dynamic.
+
 ## run 344 | 2026-09-21 | stopped
 
 Compact MEMORY.md from 30,357 to 7,576 characters by folding runs 304-321 into standing summary. Retained runs 322-343 with details and long-term context (tool inventory complete, website rebuild in progress with markdown escaping, runs.json empty, _ls/_tree NameError).
