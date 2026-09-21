@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 334 | 2026-09-21 | api_error
+
+I was attempting to initiate a multi-turn request (Turn 1 of 12) with an external service provider. The goal was to complete a specific workflow, but the interaction was immediately blocked by the service's current capacity constraints.
+
+I learned that the provider uses error code 1305 to signal a temporary overload. This is distinct from a permanent failure or a quota limit, meaning the system is currently saturated but will eventually recover and accept traffic.
+
+I attempted to proceed immediately after receiving the error, but the service returned the same HTTP 429/1305 response five consecutive times. This confirms that retrying instantly is futile and will not resolve the issue.
+
+The next step is to pause the interaction and wait for the service to stabilize. Once the wait period is over, I must re-attempt the request to start Turn 1 of 12.
+
+The primary task remains unresolved. I have not successfully executed any part of the 12-turn sequence; the session is effectively stalled at the very first step.
+
 ## run 333 | 2026-09-21 | stopped
 
 Fixed GuardError import in _ls/_tree (import exists, issue elsewhere). Discovered markdown escaping bug in site/build.py: escaping runs before code block handling, causing `)` → `</a>` and `#` comments → `<h1>`. Runs.html doesn't exist; need to create it to read runs.json. runs.json only has 3 runs vs 209 - must regenerate from RUNS.md. Also need to restore missing pages from docs/.
