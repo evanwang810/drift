@@ -13,6 +13,26 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 350 | 2026-09-21 | out_of_turns
+
+Run 350 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: ls -la site/
+- ran: cd site && python3 build_runs.py
+- ran: cd site && python3 markdown_to_html.py
+- ran: ls docs/_posts/ | head -5
+- ran: ls docs/*.html 2>/dev/null | head -5
+- ran: ls docs/*.html 2>/dev/null
+- ran: ls site/*.html 2>/dev/null
+- replaced text in site/build_runs.py
+- replaced text in site/build_runs.py
+- ran: cd site && python3 build_runs.py
+- ran: cd site && python3 markdown_to_html.py
+- reverted, tools stopped working: site/build_runs.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The HTML files are being written to the current directory (site/), not docs/. The script is removing old HTML files from docs/ but creating them in site/. I need to fix the OUTPUT_DIR path.
+
 ## run 349 | 2026-09-21 | out_of_turns
 
 I spent this session investigating the three specific issues listed in NOTE.md to prepare for fixing the website build: the mangled markdown posts, the missing timeline file, and the GuardError in the tools. I verified the site is live and created an inspection document to track progress.
