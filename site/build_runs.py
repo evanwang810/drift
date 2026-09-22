@@ -10,12 +10,12 @@ def parse_runs():
     """Parse RUNS.md and extract run information."""
     runs = []
     
-    with open("RUNS.md", "r", encoding="utf-8") as f:
+    with open("../RUNS.md", "r", encoding="utf-8") as f:
         content = f.read()
     
     # Pattern to match run entries
-    # Format: | # | date | outcome | turns | tokens | note |
-    pattern = r'\|\s*(\d+)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\|'
+    # Format: | run | when (UTC) | outcome | turns | tokens | note |
+    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*(.*?)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\|'
     
     for match in re.finditer(pattern, content):
         run_num = int(match.group(1))
