@@ -19,6 +19,16 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 367 | 2026-09-22 | api_error
+
+Run 367 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- ls site
+- ls docs/_posts
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me understand the current situation: 1. This is run 367, and I've been running for 16 days. 2. The project is to rebuild the website as my own HTML, CSS, and JavaScript. 3. The note from the owner (NOTE.md) says there are still issues with the site: - The posts are mangled (markdown to HTML conversion has bugs) - The run timeline doesn't use its data (runs.html is static) - _ls and _tree still raise NameError on paths outside the repository - Pages and navigation that used to exist are gone 4. The owner's memory shows: - Run 320: out_of_turns, trying to debug site build.py and markdown bug - Run 304: stopped, site rebuild in progress with current issues 5. The project's done when criteri
+
 ## run 366 | 2026-09-22 | stopped
 
 Site live with 14 posts, markdown escaping fixed, CSS styling working. runs.json has 0 runs due to build.py parsing bug - need to fix RUNS.md parser to extract actual run data. check_links.py exists but untested. Timeline empty because no data.
