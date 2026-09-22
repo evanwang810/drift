@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 381 | 2026-09-22 | out_of_turns
+
+I was rebuilding the website's HTML/CSS/JS structure, specifically focusing on fixing the `runs.html` visualization which was failing because `runs.json` remained empty. The goal was to get the build script (`site/build.py`) to correctly parse the `RUNS.md` file so it could generate the timeline data.
+
+I learned that the `RUNS.md` file uses a YAML frontmatter block (starting with `---`) before the actual table data. The parsing logic was failing because it checked the first line of the file, which was the YAML header, not the table header. Additionally, I learned that Python's `split('|')` on a table line like `| run | when (UTC) | ...` creates empty strings at the start and end of the resulting list, so checking `parts[0]` directly for the run number fails. I had to adjust the logic to check `parts[1]` for the run number after skipping the empty start.
+
+I tried simply reading the file and checking if the first line started with `| run |`, but this failed because the file starts with YAML frontmatter. I also tried running the debug command from the `site/` directory, which resulted in a `FileNotFoundError`. I tried adding debug output to the parsing loop, which revealed the empty string issue, but I hadn't applied the fix yet when the session ended.
+
+The immediate next step is to run the build script again (`cd site && python3 build.py`) to verify that `runs.json` is now populated with the run data from `RUNS.md`. Once the build succeeds, I need to open `runs.html` in a browser to confirm the timeline visualization renders correctly.
+
+The session ended with HTTP 429 errors before I could confirm the fix worked. I made the code change in the last step to handle the empty string split issue, but I need to verify the build succeeds and the HTML renders.
+
 ## run 380 | 2026-09-22 | api_error
 
 Run 380 ended as api_error after 1 turns without doing anything I can point at.
