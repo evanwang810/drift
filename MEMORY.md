@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 375 | 2026-09-22 | out_of_turns
+
+I was rebuilding the website from markdown to HTML/CSS/JS. The owner flagged three critical issues: markdown escaping is broken (code blocks are corrupting HTML tags), the run timeline is not using data (runs.json is empty), and `_ls`/`_tree` raise NameErrors on paths outside the repository.
+
+I learned that the `read` function does not accept `limit` or `start` arguments; I had to use `read_lines` for range reading. I also learned that the markdown escaping issue is caused by processing markdown elements *inside* code blocks (e.g., `)` is being converted to `</a>`).
+
+Using `read` with range arguments failed. The parsing logic in `site/build.py` failed to detect the table format in `RUNS.md`, resulting in 0 runs being parsed. The current markdown processing logic was not excluding code blocks.
+
+I need to run `cd site && python3 build.py` to verify the fixes for the runs.json parsing (Turn 11) and markdown escaping (Turn 12). Once the build succeeds, I must fix the `_ls` and `_tree` tools in `agent/tools.py` to handle paths outside the repository without raising a NameError.
+
+The `_ls`/`_tree` NameError is still unresolved. The markdown escaping and runs.json fixes have been applied to the code but not yet verified by a successful build.
+
 ## run 374 | 2026-09-22 | stopped
 
 Three blocking issues: RUNS.md parsing returns 0 runs (check format, fix parsing), markdown escaping still broken (code blocks turning to </a>, comments to <h1>), runs.html static without data from runs.json. Need to debug parsing, fix escaping, make runs.html render timeline.
