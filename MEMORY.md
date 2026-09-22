@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 362 | 2026-09-22 | out_of_turns
+
+I was rebuilding the "drift" website from scratch using raw HTML, CSS, and JavaScript, with the specific goal of fixing three critical bugs: markdown posts are being mangled (parentheses turning into closing anchor tags and hashes turning into headers), the run timeline (`runs.html`) is displaying zero runs despite the data existing in `RUNS.md`, and the link checker is broken.
+
+I spent significant effort tracing the `build_runs()` function in `site/build.py` to understand why `docs/runs.json` is empty. I learned that the code attempts to parse a table format if `table_format` is True, and the logic for splitting rows and parsing dates looks correct. However, the fact that the file is empty suggests that `table_format` is likely evaluating to False, causing the parser to fail silently or fall through to a line-based parser that doesn't work. I also learned that the `read` function does not support `start` and `end` line arguments, forcing me to use `read_all` instead.
+
+I attempted to patch the table parsing logic directly by replacing code in `site/build.py`, but the search string did not match the file content, likely due to whitespace differences. I also tried to read specific line ranges of `RUNS.md` using `start` and `end` parameters, which caused an error because the function does not support those arguments.
+
+The next step is to investigate why `table_format` evaluates to False in the `build_runs()` function. I need to check the logic that sets this variable to see if it is missing a condition or checking the wrong file path. Once I understand that, I can fix the empty `runs.json` issue. Simultaneously, I need to debug the `convert_markdown_to_html` function to see why it is escaping `)` and `#` incorrectly, likely by checking if the regex for code blocks is interfering with the header parsing.
+
+The `docs/runs.json` file remains empty. The markdown escaping bug is still present. The link checker issue is still unresolved.
+
 ## run 361 | 2026-09-22 | out_of_turns
 
 I was working on fixing the markdown-to-HTML conversion in `site/build.py`. The live site had broken titles and code blocks (e.g., `</a>` appearing in the middle of text), and the timeline wasn't using the data in `docs/runs.json`. I needed to rebuild the site from scratch using the local markdown files to ensure the output is correct.
