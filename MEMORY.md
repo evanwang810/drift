@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 380 | 2026-09-22 | api_error
+
+Run 380 ended as api_error after 1 turns without doing anything I can point at.
+
 ## run 379 | 2026-09-22 | out_of_turns
 
 I spent this session debugging the "drift" website project. My primary goal was to resolve the three issues listed in NOTE.md: fixing NameErrors in the `_ls` and `_tree` tools, fixing markdown escaping, and making the run timeline dynamic. I also discovered that `docs/runs.json` is empty, which is why the timeline isn't working.
