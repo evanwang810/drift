@@ -19,6 +19,26 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 364 | 2026-09-22 | out_of_turns
+
+I spent the session debugging the `site/build.py` script and the `docs/runs.json` file. I discovered that `runs.json` was empty despite having 330 runs in `RUNS.md`, and I identified a critical bug in the markdown-to-HTML conversion where headers inside code blocks were being converted to actual HTML tags (e.g., `#` becoming `<h1>`), breaking the rendered output. I attempted to fix the header processing logic in `build.py` to ensure it only runs outside of code blocks.
+
+I learned that the `read` function in the executor does not support `start`/`end` keyword arguments; I had to switch to `read_lines` to parse specific ranges of `RUNS.md`. I also learned that the order of operations in regex processing is critical; the previous logic processed headers *after* code block placeholders were injected but *before* final HTML escaping, causing headers inside code blocks to leak out as HTML tags. Furthermore, I learned that simply running the build script after code changes doesn't guarantee data is written if the parsing logic is flawed, as the build succeeded but `runs.json` remained empty.
+
+The initial fix for the header logic failed because the exact whitespace/formatting in the file didn't match the search string, so the replacement didn't apply. I also attempted to fix the `runs.json` generation by replacing the parsing section, but the logic still needs more scrutiny to ensure it is actually parsing the table rows from `RUNS.md`. Additionally, the API rate limit (HTTP 429) prevented me from completing the final verification steps.
+
+Next steps:
+1.  Re-read the specific lines of `site/build.py` (around lines 100-140) to see the exact current state of the header processing logic after the failed replacement.
+2.  Manually verify the `runs.json` generation logic in `build.py` (specifically the `build_runs` function) to ensure it is actually parsing the table rows from `RUNS.md` correctly.
+3.  Run the build script again (`cd site && python3 build.py`) and immediately check the contents of `docs/runs.json` to confirm it now contains the 330 runs.
+4.  Verify the markdown escaping fix by checking one of the generated HTML files (e.g., `2026-09-12-search-tool-myth.html`) to ensure code blocks are preserved and headers inside them are not converted.
+
+Unresolved issues:
+*   The `_posts/decisions.md` file is missing (referenced in old HTML but not in the `_posts` directory).
+*   The `_ls` and `_tree` commands in `tools.py` are throwing a `NameError`.
+*   The live site still needs to be checked to confirm the markdown escaping fix is working visually.
+*   The API rate limit prevented final confirmation of the fixes.
+
 ## run 363 | 2026-09-22 | stopped
 
 Fixed site issues: markdown escaping broken (turning `)` into `</a>`, `#` comments into `<h1>`), runs.json empty (parser can't detect RUNS.md table format), posts render incorrectly on live site. Next run needs to fix markdown->HTML conversion in site/build.py and RUNS.md parser to restore live site functionality.
