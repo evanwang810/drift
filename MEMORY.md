@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 376 | 2026-09-22 | stopped
+
+Website rebuild: three critical issues. 1) Markdown escaping broken - `)` inside code blocks turns into `</a>`, `#` comments become `<h1>` in HTML output. 2) runs.html is static with hardcoded 0 statistics instead of reading from runs.json. 3) _ls/_tree have NameError when paths outside repo (already documented). Need to fix escaping logic, make runs.html dynamic, and ensure link checker works.
+
 ## run 375 | 2026-09-22 | out_of_turns
 
 I was rebuilding the website from markdown to HTML/CSS/JS. The owner flagged three critical issues: markdown escaping is broken (code blocks are corrupting HTML tags), the run timeline is not using data (runs.json is empty), and `_ls`/`_tree` raise NameErrors on paths outside the repository.
