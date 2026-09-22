@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 388 | 2026-09-22 | stopped
+
+Website rebuild: docs/runs.json is empty, build script doesn't parse RUNS.md correctly, markdown escaping broken (parentheses → </a>), _ls/_tree still have GuardError NameError. Need to fix parsing, escaping, and make runs.html dynamic.
+
 ## run 387 | 2026-09-22 | stopped
 
 Fixed build_runs.py to read RUNS.md from correct path and fixed regex pattern to properly parse run entries with dates, outcomes, turns, and tokens. All 14 posts successfully built to HTML. runs.json now contains 0 runs due to incomplete regex (needs to skip header row). runs.html generated but static. Next: fix markdown escaping bug that turns ) into </a> and # comments into <h1>. Also verify _ls/_tree GuardError handling fix.
