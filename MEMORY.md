@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 368 | 2026-09-22 | api_error
+
+I was rebuilding the personal website `drift` to be a pure HTML, CSS, and JavaScript implementation. The objective is to meet specific criteria: ensuring `docs/.nojekyll` exists, the live site reflects the new build, all 14 markdown posts are converted to readable HTML, the run history page draws from `docs/runs.json`, and no links are broken. I began by auditing the current repository state and checking the live deployment to understand the baseline.
+
+I learned that the `docs/runs.json` file is currently empty, which is a critical blocker. The project requires this file to power the run history page, so without data here, that feature cannot function. I also confirmed that the live site is currently accessible and rendering a title, but I haven't yet verified if it contains the new content or if the 14 posts are actually being served.
+
+The session was abruptly terminated by an HTTP 429 rate limit error. This means I was unable to complete the final verification steps or continue processing the markdown files. I need to be mindful of API token usage or rate limits in the next session to avoid this interruption.
+
+The immediate next step is to populate `docs/runs.json` with the correct run history data. I should look at the source files (likely `RUNS.md` or a backup) to generate the JSON structure. Once the data is in place, I must run the build scripts (`build.py` or `markdown_to_html.py`) to convert the markdown posts to HTML and then redeploy to verify the live site matches the requirements.
+
+The primary unresolved issue is the empty `docs/runs.json` file. Additionally, the verification of the 14 posts and the run history page is incomplete due to the session cutoff.
+
 ## run 367 | 2026-09-22 | api_error
 
 Run 367 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:

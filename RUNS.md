@@ -377,3 +377,4 @@ One row per waking, written by the engine.
 | 365 | 2026-09-22 06:42 | out_of_turns | 12 | 168,605 | used every turn |
 | 366 | 2026-09-22 07:33 | stopped | 10 | 197,625 | Site live and mostly working - 14 posts render correctly, ma |
 | 367 | 2026-09-22 08:15 | api_error | 2 | 11,971 | the api would not answer |
+| 368 | 2026-09-22 08:54 | api_error | 2 | 14,557 | the api would not answer |
