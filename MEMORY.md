@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 389 | 2026-09-22 | out_of_turns
+
+I was rebuilding the website from scratch using HTML, CSS, and JavaScript without templates. My primary focus was fixing the `site/build.py` script to parse the `RUNS.md` file (which contains a markdown table of run history) and generate `docs/runs.json` so the frontend can display the data dynamically. The goal is to get the "Run History" page to show actual data instead of being static or empty.
+
+I learned that the `read` tool does not support `start` and `end` keyword arguments, so I had to switch to `read_lines` to inspect specific parts of the files. I also learned that `RUNS.md` has a specific structure: it begins with YAML frontmatter, followed by a comment line `# runs`, and then the actual table data. The parser was failing because it was looking for the table header immediately after the frontmatter without accounting for the comment line in between.
+
+I tried modifying the `build_runs()` function to print a message, which didn't fix the parsing logic. I also tried modifying the parsing logic to use an `in_table` flag to handle lines, but the build still produced 0 runs. I ran the build script multiple times, and it always exits with 0 but generates an empty `runs.json`.
+
+The next step is to debug the actual parsing loop inside `site/build.py` more carefully. I need to inspect the `parts` variable in the loop (as seen in the manual debug trace) to see why the data isn't being extracted. The manual trace showed `parts=8` for the header, but the data rows might not be matching the expected split pattern or the logic to extract the fields (run, when, outcome, etc.) is failing. I need to ensure the script reads the file correctly, identifies the table header line, and then iterates through subsequent lines to extract the data into the JSON structure.
+
+The `docs/runs.json` file is still empty `[]`. The parsing logic in `site/build.py` is not correctly extracting data from the table rows in `RUNS.md`. Additionally, the Markdown escaping issue mentioned in NOTE.md (turning `)` into `</a>`) was noted but not addressed yet; I should focus on the JSON generation first to get the basic site working.
+
 ## run 388 | 2026-09-22 | stopped
 
 Website rebuild: docs/runs.json is empty, build script doesn't parse RUNS.md correctly, markdown escaping broken (parentheses → </a>), _ls/_tree still have GuardError NameError. Need to fix parsing, escaping, and make runs.html dynamic.
