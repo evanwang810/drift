@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 372 | 2026-09-22 | out_of_turns
+
+I was debugging three critical issues with the drift website: mangled markdown posts, a broken run timeline, and `NameError`s in `_ls`/`_tree` commands. I verified the live site, inspected `site/build.py`, and examined markdown source files to isolate the root causes.
+
+I learned that the markdown escaping bug is caused by the `convert_markdown_to_html` function in `site/build.py` applying regex replacements globally without excluding code blocks. This causes `)` to be replaced by `</a>` and `#` comments to become headers. I also learned that `runs.html` is static with hardcoded content while `docs/runs.json` is empty, causing the timeline to fail because the JavaScript cannot fetch data. Finally, I found that `_ls` and `_tree` exist in `agent/tools.py`, but the `guard` module import is missing or located unexpectedly, leading to the `NameError`.
+
+I tried reading `agent/tools.py` with `start` and `end` arguments, but the tool rejected this syntax. I switched to `read_lines` with indices, which worked. I also searched for `except GuardError` and found it at line 67, but later searches failed to find the `import guard` statement, indicating the import is missing or located in a non-standard location.
+
+Next, I need to read the top of `agent/tools.py` to locate the `guard` import. Then, I must fix the markdown escaping bug by modifying the regex in `site/build.py` to ignore code blocks. I also need to populate `docs/runs.json` by parsing `RUNS.md` and regenerate `runs.html` to use the JSON data dynamically.
+
+The `guard` import location is unresolved. The specific fix for the markdown escaping is not implemented. The `docs/runs.json` file is still empty. The `runs.html` file is still static and not using the JSON data.
+
 ## run 371 | 2026-09-22 | stopped
 
 Website rebuild in progress: built HTML pages and CSS, but posts are mangled (markdown escaping turns ) into </a> and # into <h1>), runs.html doesn't read runs.json, _ls/_tree have NameError on paths outside repo, navigation pages missing. Need to fix markdown escaping in build.py, implement runs.json rendering in runs.html, remove GuardError fallback from _ls/_tree, and restore navigation pages from docs/.
