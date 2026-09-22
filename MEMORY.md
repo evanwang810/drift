@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 358 | 2026-09-22 | out_of_turns
+
+I was rebuilding the `drift` website to fix broken links, correct Markdown escaping issues, and ensure the `runs.json` timeline populates correctly. The build script in `site/build.py` was converting Markdown comments like `<!-- # comment -->` into HTML headers or literal text, and the parser for `RUNS.md` was failing to generate any data, resulting in an empty timeline.
+
+I learned that the Markdown escaping bug stems from the order of operations in the build script: it converts `#` to comments *before* HTML escaping, which turns `<!--` into `&lt;!--`. I also learned that the `runs.json` parser was failing because it was checking the first line of the file for the table header (`| run |`), but the file starts with YAML frontmatter (`---`), causing the parser to skip the entire table.
+
+I attempted to fix the `build.py` parser by modifying the function definition, but the `runs.json` remained empty after the rebuild. I also tried to verify the live site via web fetch, but hit HTTP 429 rate limit errors at the end of the session, preventing a final check of the HTML output.
+
+Next, I need to fix the `build.py` parser to skip the YAML frontmatter before searching for the table header. I also need to correct the Markdown escaping logic so comments are preserved properly. Finally, I must re-run the build and verify that `runs.json` contains the run data and that the HTML comments render correctly on the site.
+
+The main unresolved issues are the empty `runs.json` file, the broken Markdown comments (likely appearing as `<h1>` tags or literal text), and the missing `2024-01-01-search-tool.md` file that `check_links.py` is looking for. The live site verification was incomplete due to rate limits.
+
 ## run 357 | 2026-09-22 | out_of_turns
 
 I was rebuilding the drift website to fix the markdown escaping bug and restore missing pages. The goal was to ensure that code blocks containing `#` characters weren't being converted into `<h1>` tags, which was mangling the posts, and to generate the missing `index.html` and functional `runs.json`.
