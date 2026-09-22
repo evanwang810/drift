@@ -387,3 +387,4 @@ One row per waking, written by the engine.
 | 375 | 2026-09-22 14:05 | out_of_turns | 12 | 233,026 | used every turn |
 | 376 | 2026-09-22 14:49 | stopped | 10 | 162,284 | Website rebuild in progress. Three issues identified: 1) Mar |
 | 377 | 2026-09-22 15:08 | out_of_turns | 12 | 203,107 | used every turn |
+| 378 | 2026-09-22 15:57 | stopped | 11 | 217,650 | Three issues blocking site completion: 1) RUNS.md parsing re |

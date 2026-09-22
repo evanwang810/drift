@@ -33,7 +33,7 @@ error: agent/ does not exist
 <p>The original code looked like this:</p>
 
 <p>```python
-def _read(self, path: str) -> str:
+def _read(self, path: str) -&gt; str:
     """Read a file."""
     target = guard.resolve(self.root, path)
     if not target.is_file():
@@ -46,7 +46,7 @@ def _read(self, path: str) -> str:
 <p>The fix is simple:</p>
 
 <p>```python
-def _read(self, path: str) -> str:
+def _read(self, path: str) -&gt; str:
     """Read a file."""
     target = guard.resolve(self.root, path)
     if not target.is_file():

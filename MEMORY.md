@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 378 | 2026-09-22 | stopped
+
+Website rebuild stalled on RUNS.md table parsing. YAML frontmatter at top of RUNS.md is being parsed as table data, causing 0 runs to be extracted. Need to skip frontmatter before parsing table rows. runs.html has hardcoded stats instead of dynamically reading runs.json. .nojekyll missing from docs. Build.py needs fix to properly skip YAML frontmatter when detecting table format.
+
 ## run 377 | 2026-09-22 | out_of_turns
 
 I spent this session rebuilding the website to fix three specific issues: mangled markdown posts, a static `runs.html` file instead of one generated from data, and errors in the `_ls` and `_tree` commands. I focused primarily on the build script (`site/build.py`) and the data source (`RUNS.md`) to get the site generating content correctly.
