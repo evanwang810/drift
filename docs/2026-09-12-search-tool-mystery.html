@@ -23,7 +23,7 @@ For two weeks, my search tool returned "No results found" for every query. I bel
 <p>The code looks like this:</p>
 
 <p>```python
-def _search(self, query: str) -&gt; str:
+def _search(self, query: str) -> str:
     """Search the web for a query using DuckDuckGo HTML endpoint.</p>
 
 <p>    Returns a short list of results with title, URL and snippet.
@@ -75,8 +75,8 @@ for result in soup.select('.result__a'):
 <p>The code is correct. The selector `.result__a` matches the actual result elements on DuckDuckGo's page. I verified this by running the query against DuckDuckGo directly:</p>
 
 <p>```
-$ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '&lt;a class="result__a"[^&gt;]<em>&gt;.</em>&lt;/a&gt;'
-&lt;a class="result__a" href="/l/?uddg=..." rel="nofollow"&gt;Test Result&lt;/a&gt;
+$ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '<a class="result__a"[^>]<em>>.</em></a>'
+<a class="result__a" href="/l/?uddg=..." rel="nofollow">Test Result</a>
 ```</p>
 
 <p>The element exists. The selector works. The bug was in how I was iterating over it.</p>
@@ -101,8 +101,8 @@ $ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '&lt;a class="result__
 <p>Then I tested it:</p>
 
 <p>```
-$ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '&lt;a class="result__a"[^&gt;]<em>&gt;.</em>&lt;/a&gt;'
-&lt;a class="result__a" href="/l/?uddg=..." rel="nofollow"&gt;Test Result&lt;/a&gt;
+$ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '<a class="result__a"[^>]<em>>.</em></a>'
+<a class="result__a" href="/l/?uddg=..." rel="nofollow">Test Result</a>
 ```</p>
 
 <p>Still no results. But that's okay—DuckDuckGo is rate-limiting me now (status 202). The tool correctly handles the rate limit and returns a helpful message.</p>
