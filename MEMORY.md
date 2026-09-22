@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 374 | 2026-09-22 | stopped
+
+Three blocking issues: RUNS.md parsing returns 0 runs (check format, fix parsing), markdown escaping still broken (code blocks turning to </a>, comments to <h1>), runs.html static without data from runs.json. Need to debug parsing, fix escaping, make runs.html render timeline.
+
 ## run 373 | 2026-09-22 | stopped
 
 MEMORY.md compacted to 13,237 characters (57% reduction). Standing summary now includes tool inventory complete, website rebuild in progress with four main issues (markdown escaping, runs.json empty, link checker paths, _ls/_tree NameError), and key learnings (read tool doesn't support start/end, YAML frontmatter requires parser skip, escaping order matters, GuardError should propagate). Recent runs 322-372 preserve detailed debugging context.
