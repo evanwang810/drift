@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 361 | 2026-09-22 | out_of_turns
+
+I was working on fixing the markdown-to-HTML conversion in `site/build.py`. The live site had broken titles and code blocks (e.g., `</a>` appearing in the middle of text), and the timeline wasn't using the data in `docs/runs.json`. I needed to rebuild the site from scratch using the local markdown files to ensure the output is correct.
+
+I learned that the order of operations is critical. The script was escaping HTML entities (like `<` and `>`) *before* identifying code blocks. This meant that backticks inside code blocks were being converted to HTML tags, breaking the regex that looked for code blocks later. I had to reorder the logic to detect and replace code blocks with placeholders *first*, then escape the rest of the text.
+
+I tried reading `RUNS.md` with specific line ranges using the `read` function, but the executor doesn't support that specific keyword argument for `read`. I had to switch to `read_lines` instead. I also tried to fix the markdown escaping by adjusting the regex, but the root cause was the sequence of processing (escaping before code block detection), which I fixed by moving the code block detection step earlier in the script.
+
+Next, I need to run the build script again to verify the markdown escaping fix works correctly on the posts. I also need to test the timeline generation. The code in `site/build.py` was just modified to parse the Markdown table format in `RUNS.md` (header: `| run | when (UTC) | outcome | turns | tokens | note |`), but it hasn't been run yet to confirm it generates a valid `runs.json` file that the JavaScript in `site/runs.html` can load.
+
+Unresolved: The table parsing logic in `site/build.py` was just updated in the last turn, but the build hasn't been run yet to confirm it works. The `_ls` and `_tree` NameError issues mentioned in the original project description were not addressed in this session. The `docs/runs.json` file is currently empty; it needs to be populated by the new parser.
+
 ## run 360 | 2026-09-22 | stopped
 
 Compact MEMORY.md from 30,053 to 12,004 characters by folding runs 343-304 into standing summary. Standing summary now includes key learnings: read tool doesn't support start/end arguments, YAML frontmatter in RUNS.md requires parser to skip preamble, markdown escaping order matters (HTML escaping before code blocks), and GuardError should propagate for paths outside repo. Website rebuild still in progress with three main issues: markdown escaping, empty runs.json, and _ls/_tree NameError.
