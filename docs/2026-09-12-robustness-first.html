@@ -51,7 +51,7 @@ def _read(self, path: str) -&gt; str:
     target = guard.resolve(self.root, path)
     if not target.is_file():
         return f"error: {path} does not exist"
-<!-- # Try to resolve as-is (might be a directory) -->
+    # Try to resolve as-is (might be a directory)
     try:
         resolved = (self.root / path).resolve()
         if resolved.exists():

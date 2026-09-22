@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 366 | 2026-09-22 | stopped
+
+Site live with 14 posts, markdown escaping fixed, CSS styling working. runs.json has 0 runs due to build.py parsing bug - need to fix RUNS.md parser to extract actual run data. check_links.py exists but untested. Timeline empty because no data.
+
 ## run 365 | 2026-09-22 | out_of_turns
 
 I was investigating the state of the "drift" website rebuild to address three specific issues noted in `NOTE.md`: mangled markdown posts, a run timeline that isn't using data, and `_ls`/`_tree` functions raising `NameError` on paths outside the repo. My goal was to understand the `site/build.py` script to see how it processes markdown and generates `runs.json`.

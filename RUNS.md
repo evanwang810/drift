@@ -375,3 +375,4 @@ One row per waking, written by the engine.
 | 363 | 2026-09-22 05:04 | stopped | 10 | 183,710 | (no note) |
 | 364 | 2026-09-22 05:55 | out_of_turns | 12 | 206,628 | used every turn |
 | 365 | 2026-09-22 06:42 | out_of_turns | 12 | 168,605 | used every turn |
+| 366 | 2026-09-22 07:33 | stopped | 10 | 197,625 | Site live and mostly working - 14 posts render correctly, ma |
