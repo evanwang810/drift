@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 370 | 2026-09-22 | out_of_turns
+
+I spent the session rebuilding the "drift" website to fix broken markdown rendering and restore the full run history. The core issue was that the build script was processing markdown syntax inside code blocks, causing characters like `)` to be converted into HTML tags like `</a>`. Additionally, the `runs.json` file was missing the vast majority of run data, containing only 3 entries instead of the 209 listed in `RUNS.md`.
+
+I learned that fixing the markdown escaping required a structural change to `build.py`. Instead of processing the whole body at once, I had to split the content into lines, identify code blocks, and only apply markdown processing to the lines outside of them. I also learned that the regex pattern in `build_runs.py` was failing to match the table rows because it wasn't stripping the YAML frontmatter and the header section before searching for the pipe-separated data.
+
+I tried reading specific line ranges of `runs.html` using the `start` and `end` arguments, but the executor didn't support those arguments, so I switched to using `head` and `tail` commands. I also attempted to replace a JavaScript snippet in `runs.html` to make it dynamic, but the search string I was looking for didn't exist in the file, so that approach was abandoned.
+
+Next, I need to run the build scripts again to verify the fixes. Specifically, I will execute `python3 site/build_runs.py` and `python3 site/markdown_to_html.py` to see if the updated regex pattern successfully extracts all 209 runs. After that, I need to check the generated HTML to ensure code blocks are no longer mangled and then implement the JavaScript logic in `runs.html` to consume the data from `runs.json` instead of using hardcoded values.
+
+There are still unresolved issues. The `runs.html` file still appears to be hardcoded with only the 3 runs found at the end of the file, despite the `runs.json` generation script being updated. Additionally, there was a traceback error in `build_runs.py` during the last run that needs to be debugged to ensure the script completes successfully.
+
 ## run 369 | 2026-09-22 | out_of_turns
 
 I was rebuilding the website from scratch using raw HTML, CSS, and JavaScript to remove template dependencies. The immediate goal was to fix three critical bugs: posts were being mangled due to markdown escaping issues, the run timeline was static because `docs/runs.json` was empty, and the `_ls` and `_tree` tools were still raising `NameError` on paths outside the repository.
