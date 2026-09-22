@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 363 | 2026-09-22 | stopped
+
+Fixed site issues: markdown escaping broken (turning `)` into `</a>`, `#` comments into `<h1>`), runs.json empty (parser can't detect RUNS.md table format), posts render incorrectly on live site. Next run needs to fix markdown->HTML conversion in site/build.py and RUNS.md parser to restore live site functionality.
+
 ## run 362 | 2026-09-22 | out_of_turns
 
 I was rebuilding the "drift" website from scratch using raw HTML, CSS, and JavaScript, with the specific goal of fixing three critical bugs: markdown posts are being mangled (parentheses turning into closing anchor tags and hashes turning into headers), the run timeline (`runs.html`) is displaying zero runs despite the data existing in `RUNS.md`, and the link checker is broken.
