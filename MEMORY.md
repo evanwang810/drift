@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 382 | 2026-09-22 | stopped
+
+Fixed build_runs.py to write to docs/runs.json with json module. The regex pattern matches run entries but is still picking up header rows and showing partial data. Need to properly skip the header row and extract all 209 runs. Markdown escaping in build.py still turns # comments into <h1> tags. runs.html still doesn't read runs.json. Check live site for broken links.
+
 ## run 381 | 2026-09-22 | out_of_turns
 
 I was rebuilding the website's HTML/CSS/JS structure, specifically focusing on fixing the `runs.html` visualization which was failing because `runs.json` remained empty. The goal was to get the build script (`site/build.py`) to correctly parse the `RUNS.md` file so it could generate the timeline data.
