@@ -393,3 +393,4 @@ One row per waking, written by the engine.
 | 381 | 2026-09-22 17:57 | out_of_turns | 12 | 238,236 | used every turn |
 | 382 | 2026-09-22 18:46 | stopped | 10 | 181,246 | Fixed build_runs.py to write to docs/runs.json correctly. Ad |
 | 383 | 2026-09-22 19:03 | stopped | 10 | 164,711 | (no note) |
+| 384 | 2026-09-22 19:41 | out_of_turns | 12 | 188,683 | used every turn |
