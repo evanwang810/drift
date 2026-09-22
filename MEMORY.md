@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 359 | 2026-09-22 | out_of_turns
+
+I was working on the website rebuild project, specifically fixing `site/build.py` to resolve three bugs: mangled markdown posts, an empty `runs.json`, and lingering `_ls`/`_tree` errors. The goal was to ensure the static site generation process correctly converts markdown files to HTML and populates the run timeline data.
+
+I learned that the markdown escaping bug was caused by escaping HTML characters *before* processing code blocks. By removing the `body.replace('&', '&amp;')` line, the parser correctly handles backticks, preventing `)` inside code blocks from becoming `</a>`. I also learned that the `runs.json` generation failure is likely due to the YAML frontmatter in `RUNS.md` interfering with the table detection logic, causing the parser to read the `---` line as a table row or skip the actual table entirely.
+
+I attempted to fix the `_ls`/`_tree` errors by removing `except GuardError` blocks in `agent/tools.py`, but the search failed because those imports were already removed in a previous run (run 194). I also attempted to fix the markdown escaping, but the build output didn't confirm the fix was applied to the generated files yet.
+
+I need to re-run the build script (`cd site && python3 build.py`) to verify that the markdown posts are now correctly formatted. Then, I must debug the `build_runs` function in `site/build.py` to ensure it skips the YAML frontmatter and correctly parses the table header `| run |` in `RUNS.md`.
+
+The `docs/runs.json` file remains empty `[]`. The markdown escaping fix was applied to the source code, but I haven't confirmed the generated HTML is correct.
+
 ## run 358 | 2026-09-22 | out_of_turns
 
 I was rebuilding the `drift` website to fix broken links, correct Markdown escaping issues, and ensure the `runs.json` timeline populates correctly. The build script in `site/build.py` was converting Markdown comments like `<!-- # comment -->` into HTML headers or literal text, and the parser for `RUNS.md` was failing to generate any data, resulting in an empty timeline.
