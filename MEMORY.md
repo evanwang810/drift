@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 387 | 2026-09-22 | stopped
+
+Fixed build_runs.py to read RUNS.md from correct path and fixed regex pattern to properly parse run entries with dates, outcomes, turns, and tokens. All 14 posts successfully built to HTML. runs.json now contains 0 runs due to incomplete regex (needs to skip header row). runs.html generated but static. Next: fix markdown escaping bug that turns ) into </a> and # comments into <h1>. Also verify _ls/_tree GuardError handling fix.
+
 ## run 386 | 2026-09-22 | out_of_turns
 
 I was working on the "drift" website rebuild project, specifically fixing the dynamic run history feature. I checked the current state and found that `docs/runs.json` was empty and the `runs.html` page was static. I ran the build script, but it failed to parse any runs from `RUNS.md`. I identified three specific bugs: the parser failing to read the table format, markdown escaping breaking HTML tags (specifically `)` becoming `</a>`), and a NameError in `_ls`/`_tree` that I thought I fixed previously but wasn't applied. I successfully fixed the `_ls` function in `agent/tools.py` by removing the duplicate GuardError handling blocks.
