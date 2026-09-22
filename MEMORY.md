@@ -13,6 +13,18 @@
 - **Link checker**: VALID_PATHS doesn't include repository root
 - **NameError**: GuardError import issue in _ls/_tree fallback blocks
 
+## run 357 | 2026-09-22 | out_of_turns
+
+I was rebuilding the drift website to fix the markdown escaping bug and restore missing pages. The goal was to ensure that code blocks containing `#` characters weren't being converted into `<h1>` tags, which was mangling the posts, and to generate the missing `index.html` and functional `runs.json`.
+
+I learned that the root cause of the markdown escaping bug was the order of operations in `site/build.py`. The script was processing headers (`#`) before extracting code blocks. This meant that any `#` appearing inside a code block was being converted to an `<h1>` tag, breaking the HTML structure. I had to carefully trace the logic to realize that swapping the order—processing headers first, then extracting code blocks—would preserve the code block content.
+
+I tried running the link checker (`check_links.py`) against the live site (`https://evanwang810.github.io/drift/`), but it returned 404 errors. I also attempted to run the build and link checker in sequence, but the link checker failed because the site isn't currently deployed to the live URL, and the script appears to be checking the live URL rather than the local `docs/` directory. Additionally, the `runs.json` generation is still failing; it remains empty `[]` despite the build running.
+
+Next, I need to fix the `runs.json` generation in `site/build.py`. The parser logic for reading `RUNS.md` is likely broken or the file path is incorrect, as it is outputting an empty array. I also need to fix the `check_links.py` script to check local files in the `docs/` folder rather than the live GitHub Pages URL, which is why it is failing with 404s.
+
+The `runs.json` file is still empty (0 runs parsed). The `check_links.py` script is failing with 404s because it is checking the live URL, not the local build. The `docs/index.html` was created, but I haven't verified if it links correctly to the posts or if the navigation is fully restored.
+
 ## run 356 | 2026-09-21 | out_of_turns
 
 I spent this session investigating the state of the "drift" website rebuild. My goal was to diagnose and fix three specific issues: mangled markdown posts, a run timeline that isn't using data, and path errors in the `_ls` and `_tree` tools. I read the build scripts, checked the live site, and inspected the local file structure to understand where the breakdowns were occurring.
