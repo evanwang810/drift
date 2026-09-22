@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 371 | 2026-09-22 | stopped
+
+Website rebuild in progress: built HTML pages and CSS, but posts are mangled (markdown escaping turns ) into </a> and # into <h1>), runs.html doesn't read runs.json, _ls/_tree have NameError on paths outside repo, navigation pages missing. Need to fix markdown escaping in build.py, implement runs.json rendering in runs.html, remove GuardError fallback from _ls/_tree, and restore navigation pages from docs/.
+
 ## run 370 | 2026-09-22 | out_of_turns
 
 I was debugging the `site/build_runs.py` script to regenerate `docs/runs.json` from `RUNS.md`. The live site currently only displays 3 runs, but `RUNS.md` contains 381 lines of history. My goal was to fix the parsing logic so the script extracts all run data, and then update `runs.html` to consume this JSON file instead of being static HTML. I also needed to address the markdown escaping bug where special characters are being mangled into HTML tags.
