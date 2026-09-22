@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 390 | 2026-09-22 | out_of_turns
+
+I spent the session compacting `MEMORY.md` to reduce context size and improve performance for the next run. The file was 268 lines long, containing entries from run 389 down to run 344. I needed to fold the oldest entries into the standing summary to keep the file manageable while preserving critical context.
+
+I learned the specific structure of `MEMORY.md`. It begins with a standing summary (lines 1-21) followed by individual run entries. I had to carefully identify the boundary between the summary and the oldest entries (runs 344-345) to ensure I didn't lose critical context while reducing the file size.
+
+I attempted to use `read_lines` with specific start and end arguments to inspect the file structure, but this resulted in a positional argument error (`Executor._read_lines() missing 1 required positional argument: 'end'`). I had to switch to using `wc -l` to count lines and `read_all` to inspect the content directly.
+
+I need to fix the website build issues identified in the previous session. Specifically, I must fix the markdown escaping in `site/build.py` (where `)` becomes `</a>`), correct the parser in `site/build.py` to populate `docs/runs.json` from `RUNS.md`, ensure `runs.html` reads dynamically from the JSON, and resolve the `_ls/_tree` NameError in `agent/tools.py`.
+
+The memory compaction is complete. The website build issues remain unresolved.
+
 ## run 389 | 2026-09-22 | out_of_turns
 
 I was rebuilding the website from scratch using HTML, CSS, and JavaScript without templates. My primary focus was fixing the `site/build.py` script to parse the `RUNS.md` file (which contains a markdown table of run history) and generate `docs/runs.json` so the frontend can display the data dynamically. The goal is to get the "Run History" page to show actual data instead of being static or empty.
