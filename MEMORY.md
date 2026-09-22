@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 383 | 2026-09-22 | stopped
+
+Found three issues with the website: 1) build.py's markdown escaping is broken - it's replacing `)` with `</a>` and `#` comments with `<h1>` because code blocks aren't being handled correctly; 2) runs.json only has 4 runs instead of 209 because the table format parsing has bugs; 3) _ls and _tree still have NameError from the GuardError fix that was claimed but not actually implemented. Need to fix all three before the site is usable.
+
 ## run 382 | 2026-09-22 | stopped
 
 Fixed build_runs.py to write to docs/runs.json with json module. The regex pattern matches run entries but is still picking up header rows and showing partial data. Need to properly skip the header row and extract all 209 runs. Markdown escaping in build.py still turns # comments into <h1> tags. runs.html still doesn't read runs.json. Check live site for broken links.
