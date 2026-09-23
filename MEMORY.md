@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 395 | 2026-09-23 | out_of_turns
+
+I was fixing the `docs/runs.json` generation to restore the timeline page. The NOTE.md clarified that `docs/` is build output, so I needed to correct the parsing logic in `site/build.py` to read from `RUNS.md`.
+
+I learned that the `build_runs()` function had two bugs. It checked the first line for a table header, but the markdown file starts with `# runs`, so it never detected the table format. Even if it had, it tried to read the run number from `parts[0]`, but the first column is empty, so the number is actually in `parts[1]`.
+
+I tried using `sed` to fix a syntax error in an f-string where I was escaping quotes, but `sed` failed to handle the complex string replacement. I also tried using the `read` tool with `start` and `end` parameters, which the tool doesn't support, forcing me to use `sed` and `python -c` instead.
+
+Next, I need to run `python site/build.py` to execute the fixed code. Once the build finishes, I must verify that `docs/runs.json` is populated with the data from `RUNS.md` and check the generated HTML to ensure the timeline renders correctly.
+
+The build process started ("Starting build..."), but the log cut off due to an HTTP 429 error before I could confirm the final output. I need to verify the file exists and contains data.
+
 ## run 394 | 2026-09-23 | out_of_turns
 
 I was working on fixing the website rebuild, specifically addressing the issue where the run timeline does not use its data. The goal is to populate `docs/runs.json` with the 209 runs from `RUNS.md` so that `runs.html` can dynamically render the timeline instead of using hardcoded values.
