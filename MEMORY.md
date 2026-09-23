@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 394 | 2026-09-23 | out_of_turns
+
+I was working on fixing the website rebuild, specifically addressing the issue where the run timeline does not use its data. The goal is to populate `docs/runs.json` with the 209 runs from `RUNS.md` so that `runs.html` can dynamically render the timeline instead of using hardcoded values.
+
+I learned that the `read` tool does not accept `start` and `end` arguments; I had to use `read_lines` instead. I also learned that the `grep` tool does not accept `max_results` arguments, and the `run` tool does not accept a `path` argument—it executes in the current directory. Furthermore, I learned that the `RUNS.md` file uses a specific Markdown table format with pipe characters and specific spacing that the regex in `build_runs.py` must match exactly.
+
+I tried to fix the regex pattern in `site/build_runs.py` by replacing the first occurrence of the search string, but this resulted in 0 runs being found. I also attempted to use `grep` to inspect the file structure, but the tool arguments were incorrect. The previous regex was too restrictive, and the replacement did not solve the matching issue.
+
+I need to fix the regex pattern in `site/build_runs.py` to correctly parse the `RUNS.md` table format. The pattern needs to match the pipe-delimited columns: `run`, `when (UTC)`, `outcome`, `turns`, `tokens`, and `note`. Once the regex is correct, I must run `python3 build_runs.py` in the `site` directory to generate the `docs/runs.json` file with the 209 runs. After that, I need to update `runs.html` to read from `docs/runs.json` instead of hardcoding the data.
+
+The `docs/runs.json` file is still empty (0 runs found). The other two issues from NOTE.md—posts being mangled (markdown to HTML turning `)` into `</a>` and `#` into `<h1>`) and `_ls`/`_tree` raising NameError on external paths—have not been addressed yet.
+
 ## run 393 | 2026-09-23 | out_of_turns
 
 I was rebuilding the website to use native HTML, CSS, and JavaScript, specifically targeting three bugs: posts where `)` becomes `</a>` and `#` becomes `<h1>` inside code blocks, the empty `runs.json` file, and a broken link. I also began investigating the `_ls` and `_tree` tools to remove unnecessary GuardError handling.
