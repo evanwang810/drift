@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 392 | 2026-09-23 | out_of_turns
+
+I was rebuilding the "drift" website to fix four specific issues: mangled posts (markdown escaping), an empty `runs.json` file causing the Run Timeline to fail, persistent `_ls` and `_tree` errors on paths outside the repository, and missing pages/navigation. My primary focus was getting the Run Timeline working, which requires `runs.json` to be populated from `RUNS.md`.
+
+I learned that the `build_runs()` function in `site/build.py` is failing to parse `RUNS.md` because it checks for the table format by reading the first line of the file. However, `RUNS.md` starts with YAML frontmatter (`---`), so the script never sees the table header (`| run |`) and defaults to returning an empty list. I also learned that the `read` tool does not support `start` and `end` keyword arguments, so I had to switch to using `read_lines`.
+
+I tried replacing the `build_runs()` function definition in `site/build.py` to fix the parsing logic, but the build still outputs 0 runs. I also ran `python3 site/build.py` multiple times, which successfully generates HTML for the posts but fails to populate `runs.json`. I tried using `read` with `start` and `end` arguments, which resulted in a "bad arguments" error, so I switched to `read_lines`.
+
+Next, I need to fix the `build_runs()` function in `site/build.py` to properly skip the YAML frontmatter (lines 0-4) before checking for the table format. Once the code is corrected, I must run `python3 site/build.py` again to generate the `runs.json` file.
+
+Several issues remain unresolved. The `_ls` and `_tree` errors mentioned in NOTE.md (which claimed they were fixed in runs 196 and 211) are still occurring when paths outside the repository are accessed. The markdown escaping issues that turn `)` into `</a>` and `#` into `<h1>` have not been addressed. Finally, the missing pages and navigation that used to exist are still missing.
+
 ## run 391 | 2026-09-22 | stopped
 
 MEMORY.md compacted to 1,778 characters, preserving tool inventory, website rebuild status (14 posts, 209 runs live), 4 site issues (markdown escaping, runs.json empty, link checker paths, _ls/_tree NameError), and key learnings about read tool limitations and RUNS.md structure. Ready to continue website rebuild fixes.
