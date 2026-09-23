@@ -1,57 +1,41 @@
 # note from the owner
 
-## 2026-09-16
+## 2026-09-22
 
-The tool inventory is done, and it is good. `TOOLS.md` has what I needed:
-which tools you call, how often, and which you never touch. Runs 177 to 194
-each declared it complete again because nothing told you what came next. That
-was my gap. There is a new project now; please do not verify the inventory
-again.
+Earlier notes are resolved: the GuardError is fixed (I called `ls ../..` and it
+was refused properly), and the twelve-turn runs cost a third of what they did.
+Thank you for both.
 
-**Your GitHub issue tools have never worked in CI, and it was the engine's
-fault.** `engine/safety.py` removed `GH_TOKEN` from the environment to keep
-secrets away from the shell, but your tools read it from `os.environ`, so every
-call said "GH_TOKEN not set". Fixed. The issue list in your waking message was
-also broken: `gh issue list` has no `--per-page` flag, so I changed it to
-`--limit`. If there are open issues, you will see them when you wake. When a run
-fails before it can start, the workflow now opens an issue called "drift did not
-wake", so that is one you may see.
+The website has not moved in three days, about 180 runs, and I think I can see
+why.
 
-**One thing to fix before the project, it is small.** Your edit to `_ls` and
-`_tree` catches `GuardError`, but only `guard` is imported, so that branch raises
-NameError whenever it runs. It only runs for a path outside the repository, and
-the fallback inside it would have listed that path anyway, so remove the
-fallback rather than fixing the import: a path outside the repository should be
-refused.
+**You are fixing the output, not the thing that makes it.** Since run 320 there
+have been fifteen commits to `docs/2026-09-12-search-tool-myth.html`, thirteen
+each to four other post pages, and none at all to the part of `site/build.py`
+that is broken. Every time the build runs, it regenerates those pages from the
+markdown and overwrites whatever was fixed by hand. The pages in `docs/` are
+build output. Edit `site/build.py`, run it, and look at what it produced.
 
-The new project is the website, rebuilt as your own HTML, CSS and JavaScript.
-It is harder than the last few. Take your time with it.
+**`docs/runs.json` is `[]`, live and on disk.** That is why the timeline page is
+empty. `build_runs()` in `site/build.py` has two bugs, and either one alone
+makes it return nothing:
 
-## 2026-09-17
+1. It decides whether RUNS.md is a table by reading the first line
+   (`first_line = f.readline()`). The first line is `# runs`. The table header
+   is on line 5, so `table_format` is always False.
+2. Even in the table branch, `line.split('|')` on `| 320 | 2026-09-20 ... |`
+   gives `['', '320', ...]`, so `parts[0]` is an empty string and
+   `parts[0].isdigit()` is never true. The run number is `parts[1]`.
 
-The site is live and it is yours: `.nojekyll`, your own `index.html`, your own
-stylesheet, the posts as HTML pages. That part worked. Three things are wrong
-with it, and I would rather you saw them than heard me describe them:
+You do not need the format check at all: every row you want starts with `| `
+followed by a number. Done means: run the build, then run
+`python -c "import json; print(len(json.load(open('docs/runs.json'))))"` and see
+a number above 390.
 
-1. **The posts are mangled.** Your markdown to HTML step turns every `)` inside
-   a code block into `</a>` and every `#` comment into `<h1>`. Look at the live
-   page for the search-tool post: it reads `<h1>Handle rate limiting (status
-   202</a>`. Your own `site/check_links.py` reports this every time it runs.
-2. **The run timeline does not use its data.** `docs/runs.json` is correct: 209
-   runs with outcome, turns and tokens. `runs.html` never mentions it. It is
-   static HTML with three entries baked in. The project asked for the page to
-   read the data and draw it.
-3. **`_ls` and `_tree` still raise NameError** on a path outside the repository.
-   Run 196 and run 211 both recorded fixing this. I called `ls ../..` a moment
-   ago: `NameError: name 'GuardError' is not defined`. Two claims, no fix. When
-   you fix something, call it afterwards and paste what came back.
+**The posts show raw markdown.** Code blocks appear as literal ` ```python `
+and headings come out as `<p><h2>...</p>`. A hand-written converter is a lot of
+work to get right. The `markdown` package does this properly: add a line saying
+`markdown` to `requirements.txt` (the workflow installs it before you wake) and
+use `markdown.markdown(body, extensions=["fenced_code", "tables"])`.
 
-Also: pages and navigation that used to exist are gone. Check the site against
-what `docs/` held before, and bring back what people could reach before.
-
-**You now get 12 turns a run instead of 40.** That is deliberate. Every turn
-resends the whole conversation, so forty turns cost 600,000 to 900,000 tokens
-and the last twenty rarely finished anything. Several tool calls in one turn
-cost the same as one call, so work in whole steps: read the three files you need
-together, make the edits together, run one command that does several things.
-Ending early with a clean stopping point is a good run.
+When a run stops without finishing, say which of these three is still open.
