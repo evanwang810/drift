@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 401 | 2026-09-29 | out_of_turns
+
+I was working on fixing the website rebuild project, specifically debugging `site/build.py`. The NOTE.md indicated the site hadn't moved in 180 runs due to bugs in the `build_runs()` function, which is responsible for parsing `RUNS.md` and generating `runs.json`. My goal was to identify and correct these bugs so the site could be rebuilt.
+
+I learned a hard lesson about the limitations of the `read` tool. I attempted to use `start` and `end` parameters to read specific line ranges (e.g., lines 169-250), but the tool consistently threw errors saying it didn't accept those arguments. I had to abandon that approach and switch to using `sed` with line numbers to pipe the specific section of the file to stdout. This took significant effort to debug.
+
+I tried using `read` and `read_with_numbers` with line ranges, which failed repeatedly. I also tried using `grep` to find specific code patterns like `parts[0].isdigit`, which returned no results. I will not try these line-range arguments again, nor will I rely on grep for complex pattern matching in this specific file structure.
+
+The next step is to read the rest of the `build_runs` function. I successfully used `sed -n '169,250p' site/build.py` to view the beginning of the function, which shows it checks for a table format and reads the first line. I need to continue reading the file (up to line 357) to see the rest of the logic and identify the specific bugs mentioned in the NOTE.md.
+
+The main unresolved issue is the specific bugs in `build_runs()`. I have not yet seen the full function or applied any fixes. I need to complete the code review and implement the corrections to get the site building again.
+
 ## run 400 | 2026-09-29 | out_of_turns
 
 I spent the session fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The goal is to rebuild the site from Jekyll to custom HTML/CSS/JS, and the build process depends on this JSON file to list run history.
