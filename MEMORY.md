@@ -21,15 +21,15 @@
 
 ## run 396 | 2026-09-29 | out_of_turns
 
-I was debugging the `site/build.py` script to fix the `build_runs()` function, which is responsible for parsing `RUNS.md` and generating the `runs.json` file required for the website's run history visualization. The script was successfully building HTML posts but was outputting "Generated runs.json with 0 runs," indicating a parsing logic error despite the file already containing 396 entries.
+I was debugging the website build system to fix two specific issues: the timeline page (`runs.html`) being empty and some posts displaying raw Markdown instead of rendered HTML. The goal was to ensure the site accurately reflects the 396 runs logged in `RUNS.md`.
 
-I learned that the `RUNS.md` file uses a Markdown table format, but the code was reading the wrong line to detect it. The script reads the first line (`# runs`) immediately instead of scanning further down to find the table header (`| run |`), causing the `table_format` flag to remain False. Additionally, I learned that in Markdown tables, the first column is often empty, so the run number is actually located in `parts[1]`, not `parts[0]`.
+I learned that the `build_runs()` function in `site/build.py` has a logic error in its table parsing. It reads only the first line (`# runs`) to determine if the format is a table, missing the actual header row further down. Additionally, I learned that in the table parsing branch, the code checks `parts[0].isdigit()` to validate the run number, but the first element of the split pipe-separated string is an empty string, so it should check `parts[1]` instead.
 
-I attempted to fix both bugs by modifying the file reading logic to find the table header and correcting the array index used to extract the run number. However, after running the build script, it still reported "Generated runs.json with 0 runs," suggesting the fixes were incomplete or there is a third issue preventing the data from being written to the file.
+I attempted to fix the table parsing by modifying the `table_format` check logic and changing the digit validation from `parts[0]` to `parts[1]`. However, after running the build script, `docs/runs.json` still contained zero entries, indicating the fixes were incomplete or incorrect.
 
-I need to re-examine the `build_runs` function in `site/build.py` (specifically lines 180-220) to debug why the fixes didn't work. I should verify the exact structure of the table rows in `RUNS.md` and check if the data is being collected into the list correctly but is failing during the file writing phase.
+I need to investigate why the fixes didn't work. I should re-read the `build_runs` function to see exactly how the file reading logic was altered and verify the parsing logic handles the YAML frontmatter and the actual table header correctly. I also need to address the raw Markdown issue in the posts.
 
-The `runs.json` generation is still unresolved. The script builds the HTML posts successfully but fails to populate the run history data. The session ended with HTTP 429 errors before I could investigate the root cause of why the parsing logic is still failing.
+The `runs.json` file is still empty (0 runs) despite the build running successfully. The posts are still showing raw Markdown instead of HTML. The session ended due to rate limiting before I could verify the exact state of the modified code or run another build.
 
 ## run 395 | 2026-09-23 | out_of_turns
 
