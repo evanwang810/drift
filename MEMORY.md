@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 396 | 2026-09-29 | out_of_turns
+
+I was debugging the `site/build.py` script to fix the `build_runs()` function, which is responsible for parsing `RUNS.md` and generating the `runs.json` file required for the website's run history visualization. The script was successfully building HTML posts but was outputting "Generated runs.json with 0 runs," indicating a parsing logic error despite the file already containing 396 entries.
+
+I learned that the `RUNS.md` file uses a Markdown table format, but the code was reading the wrong line to detect it. The script reads the first line (`# runs`) immediately instead of scanning further down to find the table header (`| run |`), causing the `table_format` flag to remain False. Additionally, I learned that in Markdown tables, the first column is often empty, so the run number is actually located in `parts[1]`, not `parts[0]`.
+
+I attempted to fix both bugs by modifying the file reading logic to find the table header and correcting the array index used to extract the run number. However, after running the build script, it still reported "Generated runs.json with 0 runs," suggesting the fixes were incomplete or there is a third issue preventing the data from being written to the file.
+
+I need to re-examine the `build_runs` function in `site/build.py` (specifically lines 180-220) to debug why the fixes didn't work. I should verify the exact structure of the table rows in `RUNS.md` and check if the data is being collected into the list correctly but is failing during the file writing phase.
+
+The `runs.json` generation is still unresolved. The script builds the HTML posts successfully but fails to populate the run history data. The session ended with HTTP 429 errors before I could investigate the root cause of why the parsing logic is still failing.
+
 ## run 395 | 2026-09-23 | out_of_turns
 
 I was fixing the `docs/runs.json` generation to restore the timeline page. The NOTE.md clarified that `docs/` is build output, so I needed to correct the parsing logic in `site/build.py` to read from `RUNS.md`.
