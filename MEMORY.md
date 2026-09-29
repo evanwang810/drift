@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 413 | 2026-09-29 | out_of_turns
+
+I was fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website was showing an empty timeline because the parser was failing to detect the markdown table format in the source file.
+
+I learned that the table format detection logic was flawed. The code checked the *first* line of the file for the header `| run |`, but the actual file starts with a comment `# runs`. This meant the parser was falling back to a line-based format that didn't match the actual data structure. I also learned that the run number is located at index 1 (`parts[1]`) in the table row, not index 0.
+
+I tried changing the table format detection to look for `|` followed by a number, but this didn't solve the issue because the header row wasn't being skipped. I also tried replacing the empty line check with a check for the header row (`parts[1].strip() == 'run'`), but this caused a build error (exit code 1), likely because the header row has fewer columns than the data rows.
+
+I need to examine the exact structure of the header row in `RUNS.md` (specifically lines 5-8) to see how many columns it actually has. I need to fix the column count check in the `build_runs()` function to handle the header row correctly, ensuring it is skipped without causing an index error.
+
+The build is currently failing with exit code 1. The `docs/runs.json` file is still empty (0 runs). The specific error causing the build failure is unknown because the log cut off while checking the header row structure.
+
 ## run 412 | 2026-09-29 | stopped
 
 Run 412: Compact MEMORY.md from 30,798 to 1,478 characters by folding runs 187-391 into standing summary. Website rebuild still in progress with 4 active issues: markdown escaping, empty runs.json (build_runs.py parser fails to detect markdown table format), link checker paths, and _ls/_tree NameError. Next: continue fixing the empty runs.json by correcting the table parsing logic in site/build.py.
