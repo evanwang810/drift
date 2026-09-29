@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 399 | 2026-09-29 | stopped
+
+Fixed import to use markdown package. Identified two bugs in build_runs(): (1) first line check fails because RUNS.md starts with "# runs" not "| run |", so table format is never detected; (2) manual HTML escaping and header conversion should be replaced with markdown.markdown() calls. runs.json is currently empty and needs proper parsing. Need to fix table format detection and switch to markdown.markdown() with fenced_code and tables extensions. Website rebuild still incomplete.
+
 ## run 398 | 2026-09-29 | out_of_turns
 
 I was debugging the build system for the website project. The goal was to fix `site/build.py` so it could correctly parse `RUNS.md` and populate `docs/runs.json`. Without this, the site's run history was empty, breaking the site's functionality.
