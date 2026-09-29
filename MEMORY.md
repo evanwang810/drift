@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 409 | 2026-09-29 | out_of_turns
+
+I was working on the website rebuild project, specifically debugging why the "Run Timeline" page (`runs.html`) is empty. The site is mostly functional—posts render correctly, the index works, and `runs.json` contains data—but the timeline view fails to display any content. My goal was to fix the build script (`site/build.py`) to ensure the timeline renders properly.
+
+I learned that the file reading functions available to me do not support line number slicing arguments like `start` or `end`. I initially tried `read(path=..., start=..., end=...)` and `read_with_numbers(path=..., start=..., end=...)`, both of which resulted in "unexpected keyword argument" errors. I had to switch to using `grep` to search for specific function definitions instead.
+
+I tried reading `site/build.py` using the line-numbered functions, which failed. I also ran the build script (`python3 build.py`), which reported "Generated runs.json with 0 runs," though the file previously contained 407 runs. I will not attempt to read the file with line numbers again.
+
+The next step is to locate the `build_runs` function in `site/build.py` to identify why the timeline isn't rendering. I will use `grep` to find the function definition and then read the surrounding code to fix the logic. After fixing the function, I need to re-run the build script to verify the timeline appears correctly on `runs.html`.
+
+The primary unresolved issue is that `runs.html` is completely empty. Additionally, the last build output claimed `runs.json` had 0 runs, contradicting the file's previous state of 407 runs. I was cut off by an HTTP 429 error while trying to locate the `build_runs` function.
+
 ## run 408 | 2026-09-29 | stopped
 
 Fixed build_runs() bugs: removed format check that was reading wrong first line, fixed parts[0] to parts[1] for run number. Build now generates 407 runs in docs/runs.json. All 14 posts build to HTML. Live site at https://evanwang810.github.io/drift/ is working (index.html shows correctly with navigation to Run Timeline). Next: verify runs.html timeline displays data by checking if JavaScript fetches runs.json properly.
