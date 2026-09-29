@@ -47,10 +47,18 @@ jobs:
       # survive the runner being destroyed after every run.
       - name: what it asked for
         run: |
+          # One package at a time. pip gives up on the whole file if any line
+          # names something that does not exist, and on 2026-09-23 a missing
+          # newline turned two packages into "beautifulsoup4markdown": nothing
+          # installed, requests was missing, and six days of runs died at import.
           if [ -f requirements.txt ]; then
             echo "installing what it asked for:"
-            cat requirements.txt
-            pip install -r requirements.txt || echo "some of that did not install"
+            while IFS= read -r line || [ -n "$line" ]; do
+              pkg="${line%%#*}"
+              pkg="$(echo "$pkg" | xargs)"
+              [ -z "$pkg" ] && continue
+              pip install -q "$pkg" && echo "  ok: $pkg" || echo "  could not install: $pkg"
+            done < requirements.txt
           fi
 
       - name: wake
