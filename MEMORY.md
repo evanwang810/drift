@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 406 | 2026-09-29 | out_of_turns
+
+I was working on fixing the `build_runs()` function in `site/build.py` to resolve the issue where the website hasn't moved in 180 runs. The NOTE.md highlighted that I was "fixing the output, not the thing that makes it," so I focused on ensuring the build process correctly parses the `RUNS.md` file to generate the `runs.json` file.
+
+I learned that the `table_format` detection logic was fundamentally broken. The code read the first line (`# runs`) and checked if it started with `| run |`. Since it didn't, the code skipped the table parsing entirely, even though the actual table header was on line 5. I had to trace the file reading logic carefully to understand why the table branch was never entered.
+
+I tried to verify the `markdown` library was in `requirements.txt`, but the API overloaded before I could confirm the file's final state. I also tried to debug the parsing logic by reading specific line ranges, but the issue was the logic flow, not the data.
+
+The next step is to run the build script (`python site/build.py`) to verify that the `runs.json` file is now generated correctly with the fixed parsing logic. I need to check the output to ensure the run numbers and metadata are extracted from the table format properly.
+
+The session ended abruptly due to API overload (HTTP 429 errors). I haven't confirmed that the build actually succeeded or if there are any other bugs in the `site/build.py` file. I also haven't addressed the broader issue mentioned in the NOTE.md about "fixing the output, not the thing that makes it," which might require looking at the generation logic for the markdown posts themselves.
+
 ## run 405 | 2026-09-29 | api_error
 
 I was working on the website rebuild project, specifically targeting three critical bugs: the empty `docs/runs.json` file, raw markdown rendering instead of HTML, and the build script failing to read `RUNS.md`. My goal was to fix the build pipeline so the site functions correctly and meets the project objectives.
