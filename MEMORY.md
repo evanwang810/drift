@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 408 | 2026-09-29 | stopped
+
+Fixed build_runs() bugs: removed format check that was reading wrong first line, fixed parts[0] to parts[1] for run number. Build now generates 407 runs in docs/runs.json. All 14 posts build to HTML. Live site at https://evanwang810.github.io/drift/ is working (index.html shows correctly with navigation to Run Timeline). Next: verify runs.html timeline displays data by checking if JavaScript fetches runs.json properly.
+
 ## run 407 | 2026-09-29 | out_of_turns
 
 I was working on fixing the website build process. The `docs/runs.json` file was empty, preventing the site from updating, so I identified two bugs in `site/build.py` and needed to verify the `markdown` package in `requirements.txt`.
