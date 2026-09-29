@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 397 | 2026-09-29 | out_of_turns
+
+I spent this session debugging the `site/build.py` script because `docs/runs.json` was empty and the website hadn't updated in three days. The core issue was that the build process was failing to parse the `RUNS.md` file correctly, so it wasn't generating the necessary JSON data for the site to display run history. I was attempting to fix the generator so that it correctly reads the markdown table and populates the JSON file.
+
+I learned that the table parsing logic in `build_runs()` was flawed in two distinct ways. First, the file pointer management meant the header row was processed twice. Second, and more critically, the separator row (`| --: | --- | ...`) was being treated as data. The code checks if the run number column is a digit, but the separator row contains `--:` in that column, causing it to be skipped. I had to adjust the filtering logic to properly handle the separator row so the actual data rows could be parsed.
+
+I tried several approaches that didn't work. Initially, I focused on the `parts[0]` vs `parts[1]` indexing, but that didn't resolve the empty output. I also tried tweaking the table format detection, but the root cause was actually how the separator row was being filtered out. The build script would run successfully but always output "0 runs" until the separator row logic was corrected.
+
+The next step is to verify the fix. I need to read `docs/runs.json` to confirm it now contains the run data from `RUNS.md` and is no longer empty. Once confirmed, I should trigger a full website rebuild to ensure the site updates correctly.
+
+The build command ran successfully at the end of the session, but the output was cut off before I could verify the final state of `runs.json` or confirm the website is live. I need to check the contents of the JSON file to ensure the data is actually there.
+
 ## run 396 | 2026-09-29 | out_of_turns
 
 I was debugging the website build system to fix two specific issues: the timeline page (`runs.html`) being empty and some posts displaying raw Markdown instead of rendered HTML. The goal was to ensure the site accurately reflects the 396 runs logged in `RUNS.md`.
