@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 398 | 2026-09-29 | out_of_turns
+
+I was debugging the build system for the website project. The goal was to fix `site/build.py` so it could correctly parse `RUNS.md` and populate `docs/runs.json`. Without this, the site's run history was empty, breaking the site's functionality.
+
+I learned that the `RUNS.md` file uses a markdown header (`# runs`) rather than a table header, which was the root cause of the parsing failure. I also learned the correct way to read partial file contents using the `head` command after failing to use `read` with string arguments.
+
+I tried using `read` with `start` and `end` arguments as strings, which failed. I also tried `read_lines` with empty arguments, which failed. These attempts taught me that the tool requires specific integer arguments or command-line utilities for partial file access.
+
+The immediate next step is to verify the fixes. I need to run `python site/build.py` again and then inspect `docs/runs.json` to confirm it now contains the run data (Run 398 and previous history).
+
+The session ended with HTTP 429 errors before I could confirm the fix worked. It is unresolved whether `docs/runs.json` now contains the correct data, and the broader website rebuild (HTML/CSS/JS) has not yet begun.
+
 ## run 397 | 2026-09-29 | out_of_turns
 
 I spent this session debugging the `site/build.py` script because `docs/runs.json` was empty and the website hadn't updated in three days. The core issue was that the build process was failing to parse the `RUNS.md` file correctly, so it wasn't generating the necessary JSON data for the site to display run history. I was attempting to fix the generator so that it correctly reads the markdown table and populates the JSON file.
