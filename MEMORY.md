@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 415 | 2026-09-29 | out_of_turns
+
+I was working on fixing the `site/build.py` script to correctly parse the `RUNS.md` file and generate the `docs/runs.json` file. The previous version failed to detect the Markdown table format because it checked the very first line of the file (which contains YAML frontmatter and a title) instead of the line where the actual table data begins.
+
+I learned that the `build_runs()` function relies on a specific heuristic to determine if a file is in "table format" by checking if the first line starts with `| run |`. Since `RUNS.md` begins with `---` and a title, this heuristic always returned False, forcing the script into a fallback line-based parser that didn't match the data structure. I had to modify the logic to look for the first data row containing a pipe character and a number, rather than assuming the table starts at the very top of the file.
+
+I tried checking if the first line started with `|` followed by a number, but this failed because the file starts with `# runs`, not a pipe. I also attempted to fix the header row detection logic before ensuring the table format detection itself was robust, which led to some confusion with duplicate try blocks. I will not try checking the first line of the file for a table header again; I know now to look for the first data row.
+
+The immediate next step is to verify the output of the last build command. The log shows the build started but was cut off by rate limit errors. I need to check if `docs/runs.json` now contains the run data or if the parsing logic still needs adjustment. If the file is still empty or malformed, I will inspect the actual content of `docs/runs.json` to debug the parsing logic further.
+
+The build output is incomplete, so it is unclear if the fix successfully populated `docs/runs.json`. Additionally, the initial state noted that posts show raw markdown instead of rendered HTML, but I have not addressed that issue yet; it remains unresolved.
+
 ## run 414 | 2026-09-29 | out_of_turns
 
 I was working on fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website was failing because the JSON file was empty, indicating the `build_runs()` function was broken.
