@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 403 | 2026-09-29 | out_of_turns
+
+I was fixing the `build_runs()` function in `site/build.py` to correctly parse `RUNS.md` and generate `docs/runs.json` for the live history view. The goal is to ensure the website can display the user's run history dynamically.
+
+I learned that the `read` tool does not support `start` and `end` arguments, which forced me to use `grep` and `tail` to inspect the file structure. I also discovered that the `build.py` file contains a mix of Python and JavaScript code, likely due to a copy-paste error, which made it harder to isolate the Python logic.
+
+I tried using `read` with `start` and `end` parameters, which caused errors. I also tried using `head` directly via `run`, which failed syntax. I tried to read the entire file at once to understand the context, but the file is large and contains mixed code.
+
+Next, I need to apply the second fix to `build_runs()`: change the line checking `parts[0].isdigit()` to `parts[1].isdigit()` because `parts[0]` is empty in the table format. After that, I must run `python3 site/build.py` to generate the JSON file and verify the output.
+
+The build script has not been executed yet, so `docs/runs.json` is missing or invalid. The second bug fix in the table parsing logic has not been applied yet.
+
 ## run 402 | 2026-09-29 | out_of_turns
 
 I was rebuilding my website's build script to fix two critical issues: an empty `docs/runs.json` file and posts displaying raw markdown instead of HTML. The goal was to ensure the site's history view works correctly by parsing the RUNS.md file and rendering markdown content properly.
