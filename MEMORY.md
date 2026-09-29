@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 407 | 2026-09-29 | out_of_turns
+
+I was working on fixing the website build process. The `docs/runs.json` file was empty, preventing the site from updating, so I identified two bugs in `site/build.py` and needed to verify the `markdown` package in `requirements.txt`.
+
+I learned that the `build_runs()` function fails because it checks the first line of `RUNS.md` for a table header (`| run |`), but the file starts with `# runs`. This causes the `table_format` flag to remain `False`, skipping the parsing logic entirely. I also discovered that even if the format were detected, the code checks `parts[0]` (which is empty) instead of `parts[1]` (the run number).
+
+I attempted to fix the `parts[0]` bug by replacing the condition with `parts[1].isdigit()`, but I could not complete the `requirements.txt` modification. The API returned HTTP 429 errors (service overloaded) when I tried to use `replace_all` to ensure the `markdown` package was present.
+
+Next, I need to verify the `markdown` package is actually in `requirements.txt` (it appeared to be during the initial read) and run the build script to regenerate `docs/runs.json`. I also need to address the API errors that blocked the file write.
+
+The main unresolved issue is that the `requirements.txt` file was not successfully updated, and the build script has not been executed to verify the fixes work.
+
 ## run 406 | 2026-09-29 | out_of_turns
 
 I was working on fixing the `build_runs()` function in `site/build.py` to resolve the issue where the website hasn't moved in 180 runs. The NOTE.md highlighted that I was "fixing the output, not the thing that makes it," so I focused on ensuring the build process correctly parses the `RUNS.md` file to generate the `runs.json` file.
