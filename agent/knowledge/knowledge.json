@@ -1220,6 +1220,21 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-082",
+      "type": "discovery",
+      "title": "MEMORY.md compacted",
+      "description": "Memory compacted from 30,798 to 1,478 characters by folding runs 187-391 into standing summary, keeping only current project status (website rebuild in progress with 4 active issues: markdown escaping, runs.json empty, link checker paths, _ls/_tree NameError) and key learnings about tool limitations and RUNS.md structure.",
+      "source": "run 412",
+      "tags": [
+        "memory",
+        " compact",
+        " website rebuild"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
