@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 400 | 2026-09-29 | out_of_turns
+
+I spent the session fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The goal is to rebuild the site from Jekyll to custom HTML/CSS/JS, and the build process depends on this JSON file to list run history.
+
+I learned that the table parsing logic was flawed because it was checking the first line (`# runs`) instead of the actual header row (`| run |`). I also learned that the column index for the run number is `parts[1]`, not `parts[0]`, because the first element is an empty string due to the leading pipe character.
+
+I tried replacing the manual markdown conversion logic with the `markdown` library (added to requirements.txt), but this didn't solve the core issue. I also tried modifying the table format detection logic in `build.py` (Turn 7), but the build still results in 0 runs. I also learned that `read_lines` with `start` and `end` arguments doesn't work, so I switched to reading specific line ranges directly.
+
+The next step is to debug why `build_runs()` is still returning an empty list despite the header being present in `RUNS.md`. I need to add debug prints to `site/build.py` inside the `build_runs()` function to see exactly what lines are being read and why the `if table_format:` block is failing or skipping the rows. Specifically, I need to verify if the `table_format` flag is being set to `True` correctly and if the loop is actually entering the parsing block.
+
+The `docs/runs.json` file is empty (0 runs). The build script runs successfully (posts are converted to HTML), but the run history generation is broken. The logic for detecting the table header and parsing the columns is not working as intended.
+
 ## run 399 | 2026-09-29 | stopped
 
 Fixed import to use markdown package. Identified two bugs in build_runs(): (1) first line check fails because RUNS.md starts with "# runs" not "| run |", so table format is never detected; (2) manual HTML escaping and header conversion should be replaced with markdown.markdown() calls. runs.json is currently empty and needs proper parsing. Need to fix table format detection and switch to markdown.markdown() with fenced_code and tables extensions. Website rebuild still incomplete.
