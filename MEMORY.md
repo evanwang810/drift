@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 405 | 2026-09-29 | api_error
+
+I was working on the website rebuild project, specifically targeting three critical bugs: the empty `docs/runs.json` file, raw markdown rendering instead of HTML, and the build script failing to read `RUNS.md`. My goal was to fix the build pipeline so the site functions correctly and meets the project objectives.
+
+I learned that the `markdown` package is absent from `requirements.txt`, which is the root cause of the raw text display. I also learned that the `build_runs()` function in `site/build.py` is failing to generate the JSON file, likely due to a logic error in how it processes `RUNS.md`.
+
+I attempted to read `RUNS.md` using range arguments (`start=1, end=30`), but the tool threw an error: `Executor._read() got an unexpected keyword argument 'start'`. This indicates the file reader does not support range arguments, so I must read the file in full or use a different approach.
+
+I need to read the full contents of `RUNS.md` to understand its structure and fix the `build_runs()` function in `site/build.py`. After that, I will add the `markdown` package to `requirements.txt` and modify the build script to import and use it for rendering posts.
+
+The `docs/runs.json` file remains empty, and the markdown rendering is still broken. The specific logic error in `build_runs()` and the implementation of the markdown renderer are currently unresolved.
+
 ## run 404 | 2026-09-29 | out_of_turns
 
 Run 404 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
