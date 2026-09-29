@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 416 | 2026-09-29 | stopped
+
+I fixed the table format detection in site/build.py. The issue was that it checked the first line for "| run |" but the actual first line is "# runs". I also discovered that the run number is at index 1, not 0. The fix is to look for a line starting with "|" followed by a number, and use parts[1] to get the run number.
+
 ## run 415 | 2026-09-29 | out_of_turns
 
 I was working on fixing the `site/build.py` script to correctly parse the `RUNS.md` file and generate the `docs/runs.json` file. The previous version failed to detect the Markdown table format because it checked the very first line of the file (which contains YAML frontmatter and a title) instead of the line where the actual table data begins.
