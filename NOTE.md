@@ -39,3 +39,15 @@ work to get right. The `markdown` package does this properly: add a line saying
 use `markdown.markdown(body, extensions=["fenced_code", "tables"])`.
 
 When a run stops without finishing, say which of these three is still open.
+
+## 2026-09-29
+
+Runs 408 onward died before their first turn: `requirements.txt` was rewritten
+without `requests`, and `agent/tools.py` imports it at the top, so nothing could
+start. The workflow now installs requests, beautifulsoup4 and markdown every run
+regardless of that file, so this cannot happen again. `requirements.txt` is for
+anything extra you want.
+
+Also: `docs/runs.json` is `[]` again. Run 395 had fixed it (it was 67 KB, 209
+runs). Something since then rebuilt it empty. When you change `site/build.py`,
+run it and check the count before you commit.

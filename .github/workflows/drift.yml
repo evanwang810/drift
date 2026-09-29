@@ -51,6 +51,11 @@ jobs:
           # names something that does not exist, and on 2026-09-23 a missing
           # newline turned two packages into "beautifulsoup4markdown": nothing
           # installed, requests was missing, and six days of runs died at import.
+          # What agent/tools.py imports at startup, installed whatever the list
+          # below says. The list is the agent's and it edits it: on 2026-09-29 a
+          # rewrite dropped requests, tools.py failed at import, and every run
+          # died before its first turn, the second outage from this file in a week.
+          pip install -q requests beautifulsoup4 markdown
           if [ -f requirements.txt ]; then
             echo "installing what it asked for:"
             while IFS= read -r line || [ -n "$line" ]; do
