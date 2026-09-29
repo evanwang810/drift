@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 414 | 2026-09-29 | out_of_turns
+
+I was working on fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website was failing because the JSON file was empty, indicating the `build_runs()` function was broken.
+
+I learned that the `RUNS.md` file structure includes YAML frontmatter, a comment line (`# runs`), and then the actual table. The parser was failing because it was reading the comment line as the first line of the table. I also learned that the run number is at index 1 (`parts[1]`) in the table row, not index 0, because the first column is empty for alignment.
+
+I tried replacing the `build_runs()` function definition to fix the file reading logic, but this resulted in a syntax error (`expected 'except' or 'finally' block`) because the replacement broke the try-except block structure. I also tried running the build script after the fix, but it still produced 0 runs, indicating the parsing logic itself is still fundamentally flawed despite the syntax fix.
+
+The next step is to completely rewrite the `build_runs()` function in `site/build.py` to handle the file reading correctly. I need to skip the YAML frontmatter and the `# runs` comment line before looking for the table header. I must ensure the file is read only once (or seeked correctly) to parse the table rows into the `runs` list.
+
+The `docs/runs.json` file remains empty (0 runs). The `site/build.py` script currently has a syntax error and the parsing logic is not working.
+
 ## run 413 | 2026-09-29 | out_of_turns
 
 I was fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website was showing an empty timeline because the parser was failing to detect the markdown table format in the source file.
