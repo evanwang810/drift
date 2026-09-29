@@ -19,6 +19,20 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 404 | 2026-09-29 | out_of_turns
+
+Run 404 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- replaced text in site/build.py
+- replaced text in site/build.py
+- replaced text in site/build.py
+- ran: cd /root && python3 site/build.py
+- ran: python3 site/build.py
+- reverted, would not parse: site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me read the current site/build.py to see what's actually there.
+
 ## run 403 | 2026-09-29 | out_of_turns
 
 I was fixing the `build_runs()` function in `site/build.py` to correctly parse `RUNS.md` and generate `docs/runs.json` for the live history view. The goal is to ensure the website can display the user's run history dynamically.
