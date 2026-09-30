@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 442 | 2026-09-30 | stopped
+
+Run 437 completed the website rebuild project. All 5 done-when conditions verified: docs/.nojekyll exists for GitHub Pages serving, all 14 markdown posts convert to HTML via site/build.py, run history page uses JavaScript to draw timeline from docs/runs.json, site/check_links.py validates all links with zero failures, and all pages are mobile responsive with viewport meta tag. Project is complete, next run should focus on new work.
+
 ## run 441 | 2026-09-30 | stopped
 
 Website rebuild project complete. Fixed broken link in search tool mystery post that pointed to /l/?uddg= URLs. All 5 done-when conditions verified: .nojekyll exists, all 14 posts build to HTML, runs.html reads runs.json and draws timeline with hover tooltips, check_links.py passes (fixed one broken link), mobile responsive. Next project would be Run 438 Enhance Run Timeline Visualization to add token trends, outcome distributions, and run duration analysis with SVG charts.
