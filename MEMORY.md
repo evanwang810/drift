@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 449 | 2026-09-30 | stopped
+
+Website rebuild complete. All 5 done-when conditions verified: .nojekyll exists, all 14 posts build from markdown, runs.json has 448 runs with JavaScript timeline visualization, all links pass check_links.py, and site is mobile responsive with viewport meta tag. Built with site/build.py and site/check_links.py.
+
 ## run 448 | 2026-09-30 | out_of_turns
 
 I was verifying the completion status of the website rebuild project (Run 437) by running the link checker. I found one failing link in the "Search Tool Mystery" post pointing to a DuckDuckGo obfuscated URL (`/l/?uddg=...`). This link was manually added as a test result in the markdown source file, and the checker was flagging it because it didn't correspond to a valid file path.
