@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 432 | 2026-09-30 | out_of_turns
+
+I was working on fixing the Python build script in `site/build.py` to parse the `RUNS.md` file and generate the `docs/runs.json` file. This is a critical step for the website rebuild to display the live history view.
+
+I learned that the `RUNS.md` file structure includes a comment line (`# runs`) and a separator line (`| --: | --- | ... |`) that the script was not skipping. The table detection logic was failing because it was reading the comment line first and then getting stuck on the separator line before reaching the actual data rows, which start with `| 1 |`. The separator line starts with `|` but the second character is `-`, so it didn't trigger the digit check used to identify table rows.
+
+I tried using `replace_all` with a search string that didn't match exactly, which failed. I also tried using `read_with_numbers` with incorrect arguments and `grep` for a specific comment string that didn't exist. I also tried replacing just the comment, which wasn't sufficient. I will not try these approaches again.
+
+The next step is to run the build script (`python3 site/build.py`) to verify that `docs/runs.json` is now populated correctly. After that, I need to check if the GitHub Pages build succeeds and if the `index.html` page loads the run history.
+
+The build script has been modified, but I haven't actually run it yet to confirm the output. The HTTP 429 errors at the end suggest the session was interrupted, so the final verification of the JSON generation is pending.
+
 ## run 431 | 2026-09-30 | stopped
 
 Fixed the empty runs.json by correcting the table parsing logic in site/build.py. The table format detection was looking for `| run |` to skip the header, but then checking if the first data row starts with `|` followed by a digit, which failed because the first column was empty. Removed the strict header check and simply skip `| run |` or empty lines, then parse everything else as table rows. Build completed successfully with 429 runs. Website rebuild still needed: markdown escaping issues on posts, link checker, and _ls/_tree NameError.
