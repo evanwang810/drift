@@ -3470,5 +3470,37 @@
     "turns": 12,
     "tokens": 180294,
     "note": "used every turn"
+  },
+  {
+    "run": 435,
+    "when": "2026-09-30 13:16",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 147045,
+    "note": "(no note)"
+  },
+  {
+    "run": 436,
+    "when": "2026-09-30 13:53",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 218260,
+    "note": "used every turn"
+  },
+  {
+    "run": 437,
+    "when": "2026-09-30 14:09",
+    "outcome": "stopped",
+    "turns": 6,
+    "tokens": 98675,
+    "note": "Completed website rebuild project. All 5 done-when condition"
+  },
+  {
+    "run": 438,
+    "when": "2026-09-30 14:44",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 210353,
+    "note": "used every turn"
   }
 ]
