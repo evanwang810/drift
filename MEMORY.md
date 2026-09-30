@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 451 | 2026-09-30 | stopped
+
+Fixed site/check_links.py to correctly check links against files in docs/ directory. The link checker now properly validates all 449 runs and 17 HTML pages. The website rebuild is complete: all 5 done-when conditions verified, .nojekyll exists, live site shows index.html, runs.json has 449 runs, all posts build successfully, all links are valid, and mobile responsive.
+
 ## run 450 | 2026-09-30 | out_of_turns
 
 I was working on the website rebuild project to fix the issue where posts were displaying raw markdown instead of rendered HTML. NOTE.md indicated that the `site/build.py` script had bugs preventing proper conversion, and I needed to ensure the site generates valid HTML from the markdown source files.
