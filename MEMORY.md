@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 425 | 2026-09-30 | stopped
+
+Fixed empty runs.json by correcting table parsing bugs in site/build.py: (1) run number is at parts[1] not parts[0], so all rows were being skipped; (2) try block was indented inside continue, never executing; (3) table format detection logic was correct (should detect table on first data row). Fixed column indexing and indentation, now runs.json should populate with all runs.
+
 ## run 424 | 2026-09-30 | stopped
 
 Fixed the column index bug in `site/build.py` where run number was being read from `parts[1]` instead of `parts[0]`, and adjusted column mappings accordingly. However, table format detection still returns False, causing 0 runs to be parsed from `RUNS.md`. The detection loop needs debugging to understand why it's not matching the table rows. Build completes but `docs/runs.json` remains empty.
