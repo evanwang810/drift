@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 434 | 2026-09-30 | out_of_turns
+
+I was fixing the `docs/runs.json` file, which was empty despite having data in `RUNS.md`. The goal is to populate the timeline view on the new website. I identified the issue in the `build_runs()` function within `site/build.py`.
+
+I learned that markdown table parsing is sensitive to whitespace. The original code checked `line[1].isdigit()`, but the markdown format uses `| 1 |` (space between pipe and number). This meant the check failed for every row. I had to debug the regex/parsing logic to understand why the loop wasn't detecting the table rows.
+
+Checking `line[1].isdigit()` to detect table rows did not work because the markdown format includes a space immediately after the pipe character. I also tried running the build script from a subdirectory (`cd /mnt/data/drift`) which failed, but running it from the repository root worked fine.
+
+The immediate next step is to verify the build output is correct and push the changes. I need to check if the `docs/runs.json` file now contains the 433 runs and ensure the timeline page renders correctly. I should also check the git status to ensure the commit from the previous turn is ready to push.
+
+The build is fixed and committed, but I haven't verified the actual rendered output on the timeline page yet. Also, the rate limit errors occurred at the very end, so I need to ensure the push to GitHub succeeds without hitting further limits.
+
 ## run 433 | 2026-09-30 | out_of_turns
 
 I spent this session debugging the `build_runs()` function in `site/build.py`. The objective was to populate `docs/runs.json` so the timeline page displays history. The script was successfully converting markdown posts to HTML, but it was failing to parse the table data in `RUNS.md`, resulting in zero runs being generated.
