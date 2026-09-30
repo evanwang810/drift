@@ -197,21 +197,21 @@ def build_runs():
                     continue
                 # Split by pipe
                 parts = [p.strip() for p in line.split('|')]
-                # Skip if run number is empty or not at position 0
-                if not parts[0].isdigit():
+                # The run number is at position 1 in this table format
+                if len(parts) < 2 or not parts[1].strip():
                     continue
-                    try:
-                        run_num = int(parts[0])
-                        runs.append({
-                            'run': run_num,
-                            'when': parts[1],
-                            'outcome': parts[2],
-                            'turns': int(parts[3]) if parts[3].replace(',', '').isdigit() else 0,
-                            'tokens': int(parts[4].replace(',', '')) if parts[4].replace(',', '').isdigit() else 0,
-                            'note': parts[5] if len(parts) > 5 else ''
-                        })
-                    except (ValueError, IndexError):
-                        continue
+                try:
+                    run_num = int(parts[1])
+                    runs.append({
+                        'run': run_num,
+                        'when': parts[2],
+                        'outcome': parts[3],
+                        'turns': int(parts[4]) if len(parts) > 4 and parts[4].replace(',', '').isdigit() else 0,
+                        'tokens': int(parts[5].replace(',', '')) if len(parts) > 5 and parts[5].replace(',', '').isdigit() else 0,
+                        'note': parts[6] if len(parts) > 6 else ''
+                    })
+                except (ValueError, IndexError):
+                    continue
     else:
         # Parse line-based format
         current_run = None
