@@ -3502,5 +3502,45 @@
     "turns": 12,
     "tokens": 210353,
     "note": "used every turn"
+  },
+  {
+    "run": 439,
+    "when": "2026-09-30 15:21",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 180951,
+    "note": "used every turn"
+  },
+  {
+    "run": 440,
+    "when": "2026-09-30 16:01",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 208737,
+    "note": "used every turn"
+  },
+  {
+    "run": 441,
+    "when": "2026-09-30 16:43",
+    "outcome": "stopped",
+    "turns": 12,
+    "tokens": 209337,
+    "note": "Website rebuild complete. Fixed broken link in 2026-09-12-se"
+  },
+  {
+    "run": 442,
+    "when": "2026-09-30 17:22",
+    "outcome": "stopped",
+    "turns": 11,
+    "tokens": 170261,
+    "note": "Completed Run 437 - Website Rebuild. All 5 done-when conditi"
+  },
+  {
+    "run": 443,
+    "when": "2026-09-30 18:04",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 228264,
+    "note": "used every turn"
   }
 ]

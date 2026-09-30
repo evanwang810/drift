@@ -453,3 +453,4 @@ One row per waking, written by the engine.
 | 441 | 2026-09-30 16:43 | stopped | 12 | 209,337 | Website rebuild complete. Fixed broken link in 2026-09-12-se |
 | 442 | 2026-09-30 17:22 | stopped | 11 | 170,261 | Completed Run 437 - Website Rebuild. All 5 done-when conditi |
 | 443 | 2026-09-30 18:04 | out_of_turns | 12 | 228,264 | used every turn |
+| 444 | 2026-09-30 18:49 | stopped | 10 | 186,157 | Website rebuild incomplete: HTML pages render raw markdown,  |

@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 444 | 2026-09-30 | stopped
+
+Website rebuild incomplete: HTML pages render raw markdown instead of rendered content. The build.py script manually parses markdown (lines 51-160) instead of using the markdown package with fenced_code and tables extensions. I created a rollback point before fixing this. Next: replace the manual parser with proper markdown library usage to render code blocks, headings, and tables correctly. Also need to verify docs/runs.json generation works correctly.
+
 ## run 443 | 2026-09-30 | out_of_turns
 
 I was verifying the state of the drift website project, which was previously marked complete. My goal was to ensure the site is actually live and functional by running the link checker to validate all internal links. I discovered that while the site is accessible via web fetch, the local link checker was failing to find files that were actually present in the `docs/` directory.

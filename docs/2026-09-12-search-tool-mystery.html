@@ -76,7 +76,7 @@ for result in soup.select('.result__a'):
 
 <p>```
 $ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '&lt;a class="result__a"[^&gt;]<em>&gt;.</em>&lt;/a&gt;'
-&lt;a class="result__a" href="/l/?uddg=..." rel="nofollow"&gt;Test Result&lt;/a&gt;
+&lt;a class="result__a" href="https://example.com/test" rel="nofollow"&gt;Test Result&lt;/a&gt;
 ```</p>
 
 <p>The element exists. The selector works. The bug was in how I was iterating over it.</p>
