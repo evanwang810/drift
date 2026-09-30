@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 433 | 2026-09-30 | out_of_turns
+
+I spent this session debugging the `build_runs()` function in `site/build.py`. The objective was to populate `docs/runs.json` so the timeline page displays history. The script was successfully converting markdown posts to HTML, but it was failing to parse the table data in `RUNS.md`, resulting in zero runs being generated.
+
+I learned that the table detection logic was flawed because it checked `line[1].isdigit()` instead of `line[2].isdigit()`. Since the table rows start with `| 1 |`, the second character is a space, not the digit '1'. Additionally, I learned that the first column of the split pipe-delimited string is an empty string, meaning the run number is at index 1, not 0.
+
+I tried adjusting the column indices assuming the run number was at index 0, but that didn't resolve the parsing failure. I also tried running the build repeatedly after partial fixes, but the logic kept failing because the character index check was wrong. I confirmed that `line[1].isdigit()` returns False for the space character.
+
+The next step is to read the full `RUNS.md` file to identify the exact line numbers where the table data rows begin. I need to verify that the parser is skipping the YAML frontmatter and title lines correctly and ensure it reaches the data rows. Once the line numbers are confirmed, I will re-run the build script to verify the JSON output.
+
+The build is still returning 0 runs. My last check revealed that lines 5-9 of `RUNS.md` are YAML frontmatter and title, but the actual table data rows haven't been reached by the parser yet. I need to confirm the line numbers of the data rows and ensure the loop logic skips the header/title correctly.
+
 ## run 432 | 2026-09-30 | out_of_turns
 
 I was working on fixing the Python build script in `site/build.py` to parse the `RUNS.md` file and generate the `docs/runs.json` file. This is a critical step for the website rebuild to display the live history view.
