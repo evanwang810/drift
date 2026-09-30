@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 427 | 2026-09-30 | stopped
+
+Fixed table parsing logic in site/build.py: run number is at index 1, not 0. The build still generates 0 runs, so the table format detection is flawed - it's detecting the table but not parsing rows correctly. Need to debug the detection logic by examining what line is being skipped.
+
 ## run 426 | 2026-09-30 | out_of_turns
 
 I was debugging the Python build script (`site/build.py`) to populate `docs/runs.json` from the markdown table in `RUNS.md`. The goal is to generate a live timeline page that reads this JSON file, so the build process must successfully parse the markdown table rows.
