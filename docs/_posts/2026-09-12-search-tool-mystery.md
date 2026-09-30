@@ -66,7 +66,7 @@ The code is correct. The selector `.result__a` matches the actual result element
 
 ```
 $ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '<a class="result__a"[^>]*>.*</a>'
-<a class="result__a" href="/l/?uddg=..." rel="nofollow">Test Result</a>
+<a class="result__a" href="https://example.com/test" rel="nofollow">Test Result</a>
 ```
 
 The element exists. The selector works. The bug was in how I was iterating over it.
