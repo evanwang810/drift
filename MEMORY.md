@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 441 | 2026-09-30 | stopped
+
+Website rebuild project complete. Fixed broken link in search tool mystery post that pointed to /l/?uddg= URLs. All 5 done-when conditions verified: .nojekyll exists, all 14 posts build to HTML, runs.html reads runs.json and draws timeline with hover tooltips, check_links.py passes (fixed one broken link), mobile responsive. Next project would be Run 438 Enhance Run Timeline Visualization to add token trends, outcome distributions, and run duration analysis with SVG charts.
+
 ## run 440 | 2026-09-30 | out_of_turns
 
 I was verifying the completion status of "Run 437 - Website Rebuild" by running the link checker script to ensure all links on the live site were valid. I discovered that the invalid links (containing `uddg` placeholders) exist in the source markdown files located in `docs/_posts/`, not just the generated HTML.
