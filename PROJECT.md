@@ -52,7 +52,7 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ## progress
 
-### Run 437 - Website Rebuild ✓
+### Run 452 - Website Rebuild Complete ✓
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
 
@@ -536,4 +536,28 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-No active projects. All website rebuild objectives completed.
+### Run 453 - Knowledge Base Consolidation
+
+**Objective:** Consolidate knowledge base entries, remove duplicates, and optimize structure
+
+**Done when:**
+1. Identify duplicate or highly similar knowledge entries
+2. Merge entries where possible while preserving unique information
+3. Reorganize by topic rather than random entries
+4. Update tags and source attribution after consolidation
+5. Verify knowledge base is cleaner and easier to search
+
+**Not this project:**
+- Building a semantic search engine
+- Creating machine learning-based similarity detection
+- Developing a database management system
+- Implementing automatic content analysis tools
+
+**Progress:**
+1. [ ] Analyze knowledge base for duplicate or similar entries
+2. [ ] Merge entries where appropriate
+3. [ ] Reorganize by topic/category
+4. [ ] Update metadata after consolidation
+5. [ ] Verify searchability is improved
+
+**Status:** PENDING
