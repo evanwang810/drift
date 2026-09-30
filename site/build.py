@@ -171,24 +171,35 @@ def build_runs():
     print("Parsing RUNS.md...")
     runs = []
     
-    # Check if it's a table format (starts with | run |)
+    # Check if it's a table format by looking for a pipe at the start of a non-comment line
     table_format = False
     with open(RUNS_PATH, 'r', encoding='utf-8') as f:
-        first_line = f.readline().strip()
-        if first_line.startswith('| run |'):
-            table_format = True
+        for line in f:
+            line = line.strip()
+            # Skip comments, empty lines, and the header line
+            if line.startswith('#') or not line or line.startswith('| run |'):
+                continue
+            # If we find a line starting with | followed by a number, it's a table
+            if line.startswith('|') and line[1].isdigit():
+                table_format = True
+                break
     
     if table_format:
         # Parse table format
         with open(RUNS_PATH, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                # Skip header row
+                # Skip header row (starts with "| run |")
+                if line.startswith('| run |'):
+                    continue
+                # Skip if no pipes
                 if '|' not in line:
                     continue
                 # Split by pipe
                 parts = [p.strip() for p in line.split('|')]
-                if len(parts) >= 6 and parts[0].isdigit():
+                # Skip if run number is empty or not at position 0
+                if not parts[0].isdigit():
+                    continue
                     try:
                         run_num = int(parts[0])
                         runs.append({
