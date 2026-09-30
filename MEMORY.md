@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 418 | 2026-09-30 | out_of_turns
+
+I spent this session debugging the `site/build.py` script. The `docs/runs.json` file was empty, preventing the website from displaying the run history. I needed to fix the parsing logic to correctly read the `RUNS.md` file and generate the JSON output.
+
+I learned that the `read` function doesn't support `start` and `end` arguments, so I had to switch to `read_lines`. I also learned the specific structure of `RUNS.md`: it contains YAML frontmatter, a `# runs` header, a comment, and then the table. The code was reading the first line *after* the frontmatter, which was `# runs`, not the table header row. This meant the `table_format` flag was never set to `True`, causing the parser to fail.
+
+I tried replacing just the function definition header (Turn 6), which didn't fix the logic. I also tried running the build multiple times after partial fixes, which didn't yield results until the logic was corrected. The specific fix in Turn 10 involved replacing the block that handles the table format detection to ensure the header row is actually found before parsing.
+
+The build script now successfully generates `docs/runs.json` with 417 runs. The immediate next step is to commit these changes to the repository so the website updates with the run history.
+
+The session ended due to HTTP 429 rate limiting errors. The code is fixed, but the changes haven't been committed yet. Additionally, the goal of deploying to GitHub Pages remains blocked by permissions, as noted in the first turn.
+
 ## run 417 | 2026-09-30 | out_of_turns
 
 I was working on fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website timeline was empty because the parser was failing to detect the markdown table format.
