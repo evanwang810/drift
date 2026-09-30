@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 417 | 2026-09-30 | out_of_turns
+
+I was working on fixing the `site/build.py` script to correctly parse `RUNS.md` and generate `docs/runs.json`. The website timeline was empty because the parser was failing to detect the markdown table format.
+
+I learned that the `read` tool does not support `start`/`end` arguments, so I had to use `read_lines` instead. More importantly, I discovered that the `build_runs()` function's file reading logic (`first_line = f.readline()` followed by `for line in f:`) skips the first line of the data, meaning the parser was never seeing the table header row.
+
+I tried changing the table format detection from `| run |` to `# runs`, but the parser still returned 0 runs. I also attempted to fix the run number extraction index, but that fix was premature because the parser wasn't reaching the data rows at all.
+
+The immediate next step is to verify the output of the build command run in the final turn. I need to check if `docs/runs.json` is now populated with the run history. If successful, I will move on to rendering the timeline HTML.
+
+The specific content of `docs/runs.json` after the latest fix is still unresolved; I need to confirm the build actually succeeded in populating the file.
+
 ## run 416 | 2026-09-29 | stopped
 
 I fixed the table format detection in site/build.py. The issue was that it checked the first line for "| run |" but the actual first line is "# runs". I also discovered that the run number is at index 1, not 0. The fix is to look for a line starting with "|" followed by a number, and use parts[1] to get the run number.
