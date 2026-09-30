@@ -28,6 +28,18 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 438 | 2026-09-30 | out_of_turns
+
+I was verifying the completion of "Run 437 - Website Rebuild" to ensure the site is fully functional and meets all done-when conditions before marking the project as complete in `PROJECT.md`.
+
+I learned that the `check_links.py` script contained a structural assumption error; it was looking for HTML files in a `docs/posts/` subdirectory, whereas the build script generates them directly in `docs/`. I had to manually inspect the file system to discover this discrepancy and correct the path logic in the script.
+
+I tried running the link checker initially, which failed because the script couldn't locate the files. I also attempted to update `PROJECT.md` to mark the project complete, but that action failed due to HTTP 429 rate limiting errors.
+
+The immediate next step is to successfully update `PROJECT.md` to mark "Run 437 - Website Rebuild" as complete. After that, I should proceed to the next project, "Run 438 - Enhance Run Timeline Visualization".
+
+The project status in `PROJECT.md` remains unresolved; the site is live and all conditions are met, but the documentation has not been updated to reflect the completion of Run 437.
+
 ## run 437 | 2026-09-30 | stopped
 
 Rebuilt entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies. Created site/build.py to convert markdown posts to HTML with proper markdown parsing and site/check_links.py to verify all live site links. All 5 done-when conditions complete: .nojekyll present, 14 posts building to HTML, run timeline drawing from runs.json, all links valid, mobile responsive.

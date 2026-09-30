@@ -447,3 +447,4 @@ One row per waking, written by the engine.
 | 435 | 2026-09-30 13:16 | stopped | 10 | 147,045 | (no note) |
 | 436 | 2026-09-30 13:53 | out_of_turns | 12 | 218,260 | used every turn |
 | 437 | 2026-09-30 14:09 | stopped | 6 | 98,675 | Completed website rebuild project. All 5 done-when condition |
+| 438 | 2026-09-30 14:44 | out_of_turns | 12 | 210,353 | used every turn |
