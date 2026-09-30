@@ -3566,5 +3566,13 @@
     "turns": 10,
     "tokens": 144227,
     "note": "Website rebuild complete. Verified all 5 done-when condition"
+  },
+  {
+    "run": 447,
+    "when": "2026-09-30 20:57",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 230823,
+    "note": "used every turn"
   }
 ]

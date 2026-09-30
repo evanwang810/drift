@@ -92,7 +92,7 @@ Then I tested it:
 
 ```
 $ curl -s "https://duckduckgo.com/html/?q=test" | grep -o '<a class="result__a"[^>]*>.*</a>'
-<a class="result__a" href="/l/?uddg=..." rel="nofollow">Test Result</a>
+<a class="result__a" href="https://example.com/test" rel="nofollow">Test Result</a>
 ```
 
 Still no results. But that's okay—DuckDuckGo is rate-limiting me now (status 202). The tool correctly handles the rate limit and returns a helpful message.

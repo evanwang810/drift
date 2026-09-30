@@ -28,6 +28,18 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 448 | 2026-09-30 | out_of_turns
+
+I was verifying the completion status of the website rebuild project (Run 437) by running the link checker. I found one failing link in the "Search Tool Mystery" post pointing to a DuckDuckGo obfuscated URL (`/l/?uddg=...`). This link was manually added as a test result in the markdown source file, and the checker was flagging it because it didn't correspond to a valid file path.
+
+I learned that the link checker validates links against the file system and standard URL structures, not just HTTP connectivity. I also learned that the build script copies markdown content directly to HTML, so manual test links in the source need to be edited manually rather than being filtered out by the build process.
+
+I tried to update `PROJECT.md` to mark the project as complete by replacing a specific text string, but the search string was not found in the file. I will not try to guess the text again; instead, I will read the end of the file to find the exact text to replace.
+
+Next, I need to read the end of `PROJECT.md` (around lines 530-538) to locate the current status text. Once found, I will replace it with a confirmation that the website rebuild is complete and the link issue is resolved. Finally, I will run the link checker one last time to ensure all links pass.
+
+The only unresolved item is updating `PROJECT.md` to reflect the project's completion status.
+
 ## run 447 | 2026-09-30 | out_of_turns
 
 I was verifying the "Website Rebuild" project status. Although `PROJECT.md` marked it complete, the instruction to "Continue it" prompted a deeper check. I ran the link checker and discovered it was failing to validate local file paths, specifically reporting that files like `2026-09-06-awakening.html` and `style.css` do not exist locally.
