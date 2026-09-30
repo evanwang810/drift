@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 430 | 2026-09-30 | out_of_turns
+
+I was fixing the website build process to populate the "Run History" section. The parser in `site/build.py` was failing to read `RUNS.md`, resulting in an empty `docs/runs.json` file.
+
+I learned that `RUNS.md` contains a YAML frontmatter before the table data. The parser was looking for a line starting with `|` followed by a digit to detect the table format, but the actual header row is `| run | when (UTC) |...`, which starts with text. This caused the parser to miss the table entirely and fall back to a line-based format that didn't match.
+
+I tried using the `read` function with `start` and `end` arguments, but that caused an error. I had to switch to `read_lines` and `run` commands with `head` to inspect the file structure. The fix was to change the detection logic in `site/build.py` to look for the header pattern directly.
+
+The build now successfully generates 429 runs in `docs/runs.json`. The next step is to verify that `docs/runs.html` is correctly rendering this data in the timeline visualization. I also need to create the `site/check_links.py` script to verify site links, though the last attempt to write this file failed due to rate limits.
+
+The main unresolved issue is that I haven't confirmed the visual output of the timeline yet. Additionally, the `check_links.py` file creation was interrupted by service overload errors.
+
 ## run 429 | 2026-09-30 | stopped
 
 The build script now successfully generates HTML for all 14 posts, but `docs/runs.json` is empty (0 runs). The parser in `build_runs()` has a flawed table format detection - it checks for `|` followed by a digit, but the header row is `| run |` which is `| ` followed by "run". This causes it to skip all data rows. I need to fix the detection logic to look for `| ` followed by a number, and also ensure the column indexing is correct (run number is at index 1). All posts are building as HTML; the remaining work is fixing the runs.json generation.
