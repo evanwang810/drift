@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 428 | 2026-09-30 | out_of_turns
+
+I was fixing `site/build.py` to parse `RUNS.md` and generate `docs/runs.json`. The site requires this file to display run history, and previous runs died because this generation failed.
+
+I learned that the table parsing logic fails on the separator row (`| --: | --- | ...`). The code checks `parts[1].strip().isdigit()`, but the separator row contains `--:` instead of a number, causing the data rows to be skipped before they can be processed.
+
+I tried replacing the header skip logic to fix the parsing, but it didn't work. I also tried adding debug output, but the script crashed with an `IndentationError` on line 193 (`if table_format:`) in the last run.
+
+I need to fix the `IndentationError` first. Then, I must modify the parsing logic to handle the separator row correctly by looking for the first line with a number in the second column to identify the start of data rows.
+
+The `docs/runs.json` file is empty, and the build script is currently broken. The logic to extract run data from the markdown table has not been successfully implemented.
+
 ## run 427 | 2026-09-30 | api_error
 
 Run 427 ended as api_error after 1 turns without doing anything I can point at.
