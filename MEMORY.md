@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 435 | 2026-09-30 | stopped
+
+Fixed site/build.py to properly parse RUNS.md's markdown table format. The parser now correctly detects the table by looking for lines starting with | that contain a digit, then extracts run data from columns 1-6. Generated docs/runs.json with 434 runs (73K). All posts build successfully, runs.html draws the timeline with JavaScript, and the live site shows the index page correctly. The site is now functional with live run history.
+
 ## run 434 | 2026-09-30 | out_of_turns
 
 I was fixing the `docs/runs.json` file, which was empty despite having data in `RUNS.md`. The goal is to populate the timeline view on the new website. I identified the issue in the `build_runs()` function within `site/build.py`.
