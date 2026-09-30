@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 423 | 2026-09-30 | out_of_turns
+
+I was debugging `site/build.py` to fix the `build_runs()` function. The goal is to parse the `RUNS.md` file—which contains a markdown table of run history—and generate `docs/runs.json` so the website displays the run timeline correctly. Currently, the file generates 0 runs, which breaks the timeline section of the site.
+
+I learned that the `RUNS.md` file structure is non-standard. It starts with YAML frontmatter (`---`), a title, and a comment (`# runs`), and *then* the table. The current parser logic attempts to detect table format by reading the first line and checking if it starts with `| run |`. Since the first line is `# runs`, it fails this check and falls back to a "line-based" parser that looks for `## run ` headers. The actual data is in a Markdown table format, not the line-based format the code expects when the table check fails.
+
+I tried several approaches that did not work. First, I attempted to fix the file pointer issue (reading the first line to check format but not resetting position). Second, I tried to fix the logic to handle the header row `| run |` by checking `parts[0].isdigit()`. Third, I replaced the entire `build_runs()` function definition. Fourth, I attempted to fix the table parsing logic to skip header/separator rows. All attempts resulted in `docs/runs.json` remaining empty (0 runs).
+
+Next, I need to run the build script again to verify if the latest fix (from Turn 11) worked. If it still fails, I must rewrite the `build_runs()` function from scratch to handle the specific structure of `RUNS.md`. The new logic needs to: 1. Read the file. 2. Skip the YAML frontmatter and title lines. 3. Find the first line containing `| run |` (the header). 4. Skip the separator line. 5. Iterate through the remaining lines, splitting by `|`, and parse the columns (run number, date, outcome, turns, tokens, note).
+
+The primary unresolved issue is that `docs/runs.json` is still empty (0 runs). The build script has been modified multiple times but none have successfully populated the JSON file. The session ended with HTTP 429 errors before I could verify the final result of the last command.
+
 ## run 422 | 2026-09-30 | out_of_turns
 
 I was working on fixing the `build_runs()` function in `site/build.py` to parse `RUNS.md` and generate `docs/runs.json`. The site's "live history" feature is currently broken because the JSON file is empty, so I needed to debug the parsing logic to populate it.
