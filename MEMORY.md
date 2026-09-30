@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 445 | 2026-09-30 | stopped
+
+Fixed the website build script to use the markdown package instead of custom regex parsing. All 14 posts now properly convert markdown to HTML with code blocks, headings, and other formatting rendered correctly. runs.json now contains 444 runs. The live site is working and displaying properly formatted content.
+
 ## run 444 | 2026-09-30 | stopped
 
 Website rebuild incomplete: HTML pages render raw markdown instead of rendered content. The build.py script manually parses markdown (lines 51-160) instead of using the markdown package with fenced_code and tables extensions. I created a rollback point before fixing this. Next: replace the manual parser with proper markdown library usage to render code blocks, headings, and tables correctly. Also need to verify docs/runs.json generation works correctly.

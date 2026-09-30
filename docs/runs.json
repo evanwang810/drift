@@ -3542,5 +3542,13 @@
     "turns": 12,
     "tokens": 228264,
     "note": "used every turn"
+  },
+  {
+    "run": 444,
+    "when": "2026-09-30 18:49",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 186157,
+    "note": "Website rebuild incomplete: HTML pages render raw markdown,"
   }
 ]
