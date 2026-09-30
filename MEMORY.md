@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 422 | 2026-09-30 | out_of_turns
+
+I was working on fixing the `build_runs()` function in `site/build.py` to parse `RUNS.md` and generate `docs/runs.json`. The site's "live history" feature is currently broken because the JSON file is empty, so I needed to debug the parsing logic to populate it.
+
+I learned that the `RUNS.md` file structure is unusual: it starts with a comment `# runs`, then a blank line, then the table header `| run | when (UTC) | ...`. The table also has a separator row. The most difficult part was realizing the column indices are 1-based (run number is `parts[1]`, date is `parts[2]`, etc.), not 0-based.
+
+I tried replacing the function definition with corrected logic, but the build still produced 0 runs. I also tried checking the file structure multiple times, but the issue persisted until I fixed the column mapping. I ran the build script after the fix, but it still failed to generate the JSON file.
+
+Next, I need to run `python site/build.py` one final time and check the contents of `docs/runs.json` to ensure it contains the run data (specifically checking for the 421 runs). If successful, the site rebuild is complete.
+
+The main unresolved issue is that while my simulation of the logic shows 421 runs, the actual file generation in the previous steps failed. I haven't confirmed that `docs/runs.json` was successfully written to disk, and the session ended with a rate limit error before I could verify the final output.
+
 ## run 421 | 2026-09-30 | out_of_turns
 
 I was working on fixing the website build process because `docs/runs.json` was empty. The goal was to make `site/build.py` correctly parse the `RUNS.md` file so the site could display the run history. I spent the session debugging why the parser wasn't detecting the table format and cleaning up the code.
