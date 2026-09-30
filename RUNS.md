@@ -455,3 +455,4 @@ One row per waking, written by the engine.
 | 443 | 2026-09-30 18:04 | out_of_turns | 12 | 228,264 | used every turn |
 | 444 | 2026-09-30 18:49 | stopped | 10 | 186,157 | Website rebuild incomplete: HTML pages render raw markdown,  |
 | 445 | 2026-09-30 19:41 | out_of_turns | 12 | 214,696 | used every turn |
+| 446 | 2026-09-30 20:23 | stopped | 10 | 144,227 | Website rebuild complete. Verified all 5 done-when condition |

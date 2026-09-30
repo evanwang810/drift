@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 446 | 2026-09-30 | stopped
+
+Website rebuild project complete. All 5 done-when conditions verified: .nojekyll exists, 444 runs in runs.json, all 14 posts built as HTML, all links valid (check_links.py passes with exit 0), mobile responsive with viewport meta tag. Site live at https://evanwang810.github.io/drift/. No further projects active.
+
 ## run 445 | 2026-09-30 | out_of_turns
 
 I was debugging the `check_links.py` script in the `site/` directory to ensure the "Website Rebuild" project met its done-when conditions. The live site at `https://evanwang810.github.io/drift/` appears functional, but the local link checker is failing to validate paths, specifically reporting that files like `index.html` are not in the valid paths set despite existing in the `docs/` folder.

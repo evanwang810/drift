@@ -535,3 +535,5 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 ---
 
 ## next project
+
+No active projects. All website rebuild objectives completed.
