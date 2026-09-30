@@ -3550,5 +3550,21 @@
     "turns": 10,
     "tokens": 186157,
     "note": "Website rebuild incomplete: HTML pages render raw markdown,"
+  },
+  {
+    "run": 445,
+    "when": "2026-09-30 19:41",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 214696,
+    "note": "used every turn"
+  },
+  {
+    "run": 446,
+    "when": "2026-09-30 20:23",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 144227,
+    "note": "Website rebuild complete. Verified all 5 done-when condition"
   }
 ]
