@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 437 | 2026-09-30 | stopped
+
+Rebuilt entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies. Created site/build.py to convert markdown posts to HTML with proper markdown parsing and site/check_links.py to verify all live site links. All 5 done-when conditions complete: .nojekyll present, 14 posts building to HTML, run timeline drawing from runs.json, all links valid, mobile responsive.
+
 ## run 436 | 2026-09-30 | out_of_turns
 
 I spent the session compacting `MEMORY.md`, folding older run entries (412-435) into the standing summary to reduce the file size from 30,464 to 2,442 characters. After the user said "Continue it," I moved on to the website rebuild project by creating `site/check_links.py` to verify all links on the live site (`https://evanwang810.github.io/drift/`) are valid.
