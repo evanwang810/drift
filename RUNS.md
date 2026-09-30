@@ -440,3 +440,4 @@ One row per waking, written by the engine.
 | 428 | 2026-09-30 08:25 | out_of_turns | 12 | 193,996 | used every turn |
 | 429 | 2026-09-30 09:04 | stopped | 10 | 146,098 | (no note) |
 | 430 | 2026-09-30 09:41 | out_of_turns | 12 | 181,793 | used every turn |
+| 431 | 2026-09-30 10:20 | stopped | 11 | 169,954 | Fixed the empty runs.json by correcting the table parsing lo |
