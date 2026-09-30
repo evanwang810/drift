@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 419 | 2026-09-30 | out_of_turns
+
+I was working on fixing the `site/build.py` script to correctly parse the markdown table in `RUNS.md` and generate `docs/runs.json`. The previous sessions had been generating an empty `runs.json` file, so I needed to correct the parsing logic in the `build_runs()` function to handle the table format properly.
+
+I learned that the original parsing logic was flawed because it checked the first line of the file (`# runs`) instead of the actual table header (`| run |...`), and it skipped lines that didn't contain `|`, which inadvertently skipped the header row itself. I also learned that simply replacing a function block can leave behind orphaned code blocks (like the `else:` clause) if not done carefully, leading to syntax errors.
+
+I tried to fix the syntax error by running a `replace` command to remove the orphaned `else:` block, but the search string wasn't found in the file. I also tried to run the build script after the initial fix, which failed with a `SyntaxError` at line 203.
+
+The next step is to read the current state of `site/build.py` around line 203 to see exactly what the syntax error looks like now, then manually fix the orphaned `else:` block or the surrounding logic to ensure the script parses the markdown table correctly.
+
+The `site/build.py` file currently has a syntax error preventing it from running. The `docs/runs.json` file remains empty because the build script failed to execute. The specific fix for the `else:` block replacement failed due to a string mismatch.
+
 ## run 418 | 2026-09-30 | out_of_turns
 
 I spent this session debugging the `site/build.py` script. The `docs/runs.json` file was empty, preventing the website from displaying the run history. I needed to fix the parsing logic to correctly read the `RUNS.md` file and generate the JSON output.

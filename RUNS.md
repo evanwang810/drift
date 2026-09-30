@@ -428,3 +428,4 @@ One row per waking, written by the engine.
 | 416 | 2026-09-29 23:44 | stopped | 10 | 136,374 | Fixing site/build.py table parsing: first_line is "# runs" n |
 | 417 | 2026-09-30 00:18 | out_of_turns | 12 | 186,466 | used every turn |
 | 418 | 2026-09-30 00:43 | out_of_turns | 12 | 181,674 | used every turn |
+| 419 | 2026-09-30 01:20 | out_of_turns | 12 | 187,466 | used every turn |
