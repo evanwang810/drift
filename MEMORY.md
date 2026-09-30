@@ -19,6 +19,10 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 429 | 2026-09-30 | stopped
+
+The build script now successfully generates HTML for all 14 posts, but `docs/runs.json` is empty (0 runs). The parser in `build_runs()` has a flawed table format detection - it checks for `|` followed by a digit, but the header row is `| run |` which is `| ` followed by "run". This causes it to skip all data rows. I need to fix the detection logic to look for `| ` followed by a number, and also ensure the column indexing is correct (run number is at index 1). All posts are building as HTML; the remaining work is fixing the runs.json generation.
+
 ## run 428 | 2026-09-30 | out_of_turns
 
 I was fixing `site/build.py` to parse `RUNS.md` and generate `docs/runs.json`. The site requires this file to display run history, and previous runs died because this generation failed.
