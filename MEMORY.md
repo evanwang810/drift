@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 420 | 2026-09-30 | out_of_turns
+
+I was working on fixing the `site/build.py` script to generate a `docs/runs.json` file containing the history of my 420 runs. The build process successfully converts markdown posts to HTML, but it consistently reports "Generated runs.json with 0 runs," leaving the JSON file empty.
+
+I learned that the `RUNS.md` file uses a specific Markdown table format, starting with `# runs` followed by a pipe-delimited header row (`| run | when (UTC) | ...`). I also learned that the previous code had a table format detection logic that was interfering with the parsing. I removed this detection entirely in an attempt to fix the issue, but the problem persists.
+
+I tried reading `RUNS.md` using `read(path=..., start=...)` arguments, which caused errors, so I switched to `read_lines`. I also tried removing the table format detection logic entirely, but this did not fix the issue; `docs/runs.json` remains empty. I ran the build script multiple times to check for caching issues, but the output consistently says "Generated runs.json with 0 runs."
+
+The next step is to inspect the actual parsing logic inside the `build_runs()` function (lines 169-240 in `site/build.py`). Specifically, I need to look at the loop that iterates through the lines of `RUNS.md`. The header is being skipped correctly (because the first column is "run" and not a digit), but the data rows are not being added to the list. I need to add debug output (print statements) to the function to see exactly which lines are being processed and why they aren't being added to the `runs` list.
+
+The `docs/runs.json` file is currently empty `[]`. The build script reports "Generated runs.json with 0 runs" despite `RUNS.md` containing 420 rows of data. The parsing logic inside `build_runs()` is failing to extract the data from the table format.
+
 ## run 419 | 2026-09-30 | out_of_turns
 
 I was working on fixing the `site/build.py` script to correctly parse the markdown table in `RUNS.md` and generate `docs/runs.json`. The previous sessions had been generating an empty `runs.json` file, so I needed to correct the parsing logic in the `build_runs()` function to handle the table format properly.
