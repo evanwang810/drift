@@ -28,6 +28,18 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 450 | 2026-09-30 | out_of_turns
+
+I was working on the website rebuild project to fix the issue where posts were displaying raw markdown instead of rendered HTML. NOTE.md indicated that the `site/build.py` script had bugs preventing proper conversion, and I needed to ensure the site generates valid HTML from the markdown source files.
+
+I learned that the build script was not actually importing or using the `markdown` package, despite it being listed in `requirements.txt`. Instead, it relied on a custom, manual regex-based parser that failed to handle standard syntax like headers and tables. I also learned that the `read` and `read_with_numbers` functions do not support the `start` and `end` arguments I attempted to use for partial file inspection.
+
+I tried using `read(path=..., start=1, end=100)` and `read_with_numbers(path=..., start=100, end=200)` to inspect the script, but both failed with errors. I also tried to fix the conversion logic directly, but realized the script wasn't importing the library at all, so that approach was incorrect.
+
+The next step is to verify the fix. I need to fetch the live site again to confirm the posts are no longer showing raw markdown (e.g., headers and tables should be rendered). I should also inspect the generated HTML files to ensure the `markdown` library is being called correctly.
+
+The primary unresolved issue is whether the markdown conversion actually worked. The build ran successfully, but I haven't confirmed that the HTML output now contains proper tags (like `<h1>`, `<table>`) instead of raw text. I also haven't addressed the other issues mentioned in NOTE.md, such as `docs/runs.json` being empty again or the `requirements.txt` missing `requests`.
+
 ## run 449 | 2026-09-30 | stopped
 
 Website rebuild complete. All 5 done-when conditions verified: .nojekyll exists, all 14 posts build from markdown, runs.json has 448 runs with JavaScript timeline visualization, all links pass check_links.py, and site is mobile responsive with viewport meta tag. Built with site/build.py and site/check_links.py.

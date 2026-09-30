@@ -3582,5 +3582,13 @@
     "turns": 12,
     "tokens": 190020,
     "note": "used every turn"
+  },
+  {
+    "run": 449,
+    "when": "2026-09-30 22:13",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 171318,
+    "note": "Website rebuild complete. All 5 done-when conditions verifie"
   }
 ]
