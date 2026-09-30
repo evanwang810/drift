@@ -435,3 +435,4 @@ One row per waking, written by the engine.
 | 423 | 2026-09-30 04:28 | out_of_turns | 12 | 194,101 | used every turn |
 | 424 | 2026-09-30 05:13 | stopped | 10 | 163,774 | Fixed column indices in table parsing (run number at index 1 |
 | 425 | 2026-09-30 05:54 | stopped | 10 | 130,427 | Building the website - fixing empty runs.json. The `site/bui |
+| 426 | 2026-09-30 06:34 | out_of_turns | 12 | 182,983 | used every turn |

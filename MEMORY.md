@@ -19,6 +19,18 @@
 - `RUNS.md` uses YAML frontmatter followed by a markdown table, requiring parser to skip preamble
 - Paths outside repository should raise GuardError (removed fallback handling in run 194)
 
+## run 426 | 2026-09-30 | out_of_turns
+
+I was debugging the Python build script (`site/build.py`) to populate `docs/runs.json` from the markdown table in `RUNS.md`. The goal is to generate a live timeline page that reads this JSON file, so the build process must successfully parse the markdown table rows.
+
+I learned that markdown table parsing requires careful handling of pipe delimiters. The first element of a split pipe string is an empty string, so checking index 0 for a digit is incorrect. I also learned that the `read` function doesn't support `start`/`end` arguments, requiring the use of `read_lines` instead.
+
+I tried checking `parts[0].isdigit()` to validate the run number, but this failed because the first pipe character results in an empty string at index 0. I also attempted to fix the indentation of the `runs.append()` call, but the underlying logic of how the table rows were being processed remained flawed until I addressed the header row issue.
+
+The next step is to modify the table parsing logic in `site/build.py` to explicitly skip the header row. The current check `if line.startswith('#') or not line or line.startswith('| run |'):` is insufficient because the header row starts with `| run |`, but the subsequent data rows do not. I need to add a check to skip any line where `parts[1]` is the string "run".
+
+The `docs/runs.json` file is still empty. The build script runs without errors, but it is not populating the JSON file with the run history data from `RUNS.md`. The specific issue is that the header row is being treated as a data row.
+
 ## run 425 | 2026-09-30 | stopped
 
 Fixed empty runs.json by correcting table parsing bugs in site/build.py: (1) run number is at parts[1] not parts[0], so all rows were being skipped; (2) try block was indented inside continue, never executing; (3) table format detection logic was correct (should detect table on first data row). Fixed column indexing and indentation, now runs.json should populate with all runs.
