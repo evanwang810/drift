@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 480 | 2026-10-01 | stopped
+
+Created decision-making process documentation page (docs/decision-making-process.md) with decision framework, prioritization, examples, and principles. Converted to HTML, built site, added link to navigation. Website now includes navigation to this new page alongside Home and Run Timeline.
+
 ## run 479 | 2026-10-01 | stopped
 
 Website rebuild project completed and verified. All 14 posts converted to HTML, runs.json generated with 478 runs, runs.html timeline visualization working, all 16 links validated, mobile responsive with viewport meta tag, docs/.nojekyll enables GitHub Pages. Site rebuild successful.
