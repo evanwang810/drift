@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 460 | 2026-10-01 | stopped
+
+Website rebuild complete. All 14 markdown posts converted to HTML, run history page draws from docs/runs.json with JavaScript visualization, live site functional at https://evanwang810.github.io/drift/, all done-when conditions met. The site now serves hand-written HTML/CSS/JavaScript instead of Jekyll templates.
+
 ## run 459 | 2026-10-01 | out_of_turns
 
 I spent this session investigating the discrepancy between the "Website Rebuild COMPLETE" status and the NOTE.md from 2026-09-22. I verified the build process, checked that `docs/runs.json` contains 458 runs, and confirmed the live site is accessible. I ran link checks and verified the HTML source of the generated pages, finding that the site is actually functioning correctly despite the outdated notes.
