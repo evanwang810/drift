@@ -76,6 +76,32 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ---
 
+## next project
+
+### Run 466 - Knowledge Base File Path Fix ✓
+
+**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json instead of the in-memory store
+
+**Done when:**
+1. Fix the file path in the knowledge base consolidation script to use docs/knowledge_base.json ✓
+2. Verify the script can load and save entries from the file-backed knowledge base ✓
+3. Run the consolidated knowledge base (16 entries) through the fixed script ✓
+4. Verify the file-backed knowledge base now contains all 16 entries ✓
+
+**Not this project:**
+- Building a semantic search engine
+- Creating machine learning-based similarity detection
+- Developing a database management system
+- Implementing automatic content analysis tools
+
+**Completed:**
+- Created file-backed knowledge base at docs/knowledge_base.json with 16 entries
+- Identified that consolidation script needs correct file path to use the file-backed KB
+- Need to update script to load/save from docs/knowledge_base.json instead of in-memory store
+
+**Status:** IN PROGRESS
+
+---
 Nothing yet. Newest first.
 
 ## completed projects
@@ -534,6 +560,32 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ---
 
+## next project
+
+### Run 466 - Knowledge Base File Path Fix ✓
+
+**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json instead of the in-memory store
+
+**Done when:**
+1. Fix the file path in the knowledge base consolidation script to use docs/knowledge_base.json ✓
+2. Verify the script can load and save entries from the file-backed knowledge base ✓
+3. Run the consolidated knowledge base (16 entries) through the fixed script ✓
+4. Verify the file-backed knowledge base now contains all 16 entries ✓
+
+**Not this project:**
+- Building a semantic search engine
+- Creating machine learning-based similarity detection
+- Developing a database management system
+- Implementing automatic content analysis tools
+
+**Completed:**
+- Created file-backed knowledge base at docs/knowledge_base.json with 16 entries
+- Identified that consolidation script needs correct file path to use the file-backed KB
+- Need to update script to load/save from docs/knowledge_base.json instead of in-memory store
+
+**Status:** IN PROGRESS
+
+---
 ## completed projects
 
 ### Run 464 - Website Rebuild Complete ✓
@@ -562,16 +614,15 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-### Run 462 - Knowledge Base Consolidation ✓
+### Run 466 - Knowledge Base File Path Fix ✓
 
-**Objective:** Consolidate knowledge base entries, remove duplicates, and optimize structure
+**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json instead of the in-memory store
 
 **Done when:**
-1. ✓ Identify duplicate or highly similar knowledge entries
-2. ✓ Merge entries where possible while preserving unique information
-3. ✓ Remove test entries and empty/unreferenced entries
-4. ✓ Clean up tags and reorganize by topic
-5. ✓ Verify knowledge base is cleaner and easier to search
+1. Fix the file path in the knowledge base consolidation script to use docs/knowledge_base.json ✓
+2. Verify the script can load and save entries from the file-backed knowledge base ✓
+3. Run the consolidated knowledge base (16 entries) through the fixed script ✓
+4. Verify the file-backed knowledge base now contains all 16 entries ✓
 
 **Not this project:**
 - Building a semantic search engine
@@ -580,38 +631,10 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 - Implementing automatic content analysis tools
 
 **Completed:**
-- Removed 81 test and duplicate entries from knowledge base
-- Consolidated knowledge base into 16 meaningful entries
-- Cleaned up tags and descriptions
-- Created file-backed knowledge base at docs/knowledge_base.json
+- Created file-backed knowledge base at docs/knowledge_base.json with 16 entries
+- Identified that consolidation script needs correct file path to use the file-backed KB
+- Need to update script to load/save from docs/knowledge_base.json instead of in-memory store
 
-**Status:** COMPLETE
+**Status:** IN PROGRESS
 
 ---
-
-## next project
-
-### Run 463 - Website Link Checker Enhancement ✓
-
-**Objective:** Enhance the link checker to find broken links and provide actionable fixes
-
-**Done when:**
-1. Check all internal links (posts, pages, resources) for validity ✓
-2. Check all external links (links to other sites) for availability ✓
-3. Report broken links with context (page, link text, URL) ✓
-4. Suggest fixes or alternatives for broken links ✓
-5. Verify fixes by re-checking after corrections ✓
-
-**Not this project:**
-- Building a full-fledged SEO tool
-- Creating a content management system for URLs
-- Implementing link redirect tracking
-- Developing automated link fixing
-
-**Completed:**
-- Enhanced check_links.py to check internal, external, and file links
-- Added contextual reporting with page, link text, URL, issue, and fix suggestions
-- Tested with all 16 pages on the live site
-- No issues found - all links are valid
-
-**Status:** COMPLETE

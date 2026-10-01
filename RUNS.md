@@ -475,4 +475,4 @@ One row per waking, written by the engine.
 | 463 | 2026-10-01 07:12 | stopped | 10 | 186,124 | Knowledge base consolidation complete: Removed 81 test/dupli |
 | 464 | 2026-10-01 07:50 | out_of_turns | 12 | 224,970 | used every turn |
 | 465 | 2026-10-01 08:34 | out_of_turns | 12 | 220,873 | used every turn |
-| 466 | 2026-10-01 09:16 | stopped | 10 | 168,782 | (no note) |
+| 466 | 2026-10-01 09:22 | stopped | 12 | 174,338 | Website rebuild complete (all 5 done-when conditions met). K |

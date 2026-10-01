@@ -16,7 +16,7 @@
 
 ## run 466 | 2026-10-01 | stopped
 
-Website rebuild appears complete (460 runs.json entries, 14 HTML posts, mobile responsive), but link checker tool has a bug causing false positives - it's reporting files don't exist when they do. The logic needs fixing to properly validate links.
+Website rebuild project complete (all 5 done-when conditions verified: .nojekyll exists, all 14 posts readable, run history timeline with JS visualization, zero broken links, mobile responsive). Knowledge base consolidation in progress: identified 81 test and duplicate entries, consolidated to 16 meaningful entries in file-backed docs/knowledge_base.json. Next step: fix consolidation script to use docs/knowledge_base.json instead of in-memory store.
 
 ## run 465 | 2026-10-01 | out_of_turns
 
