@@ -105,7 +105,7 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 6. [ ] Fix _gh_create_issue_from_project CLI flags
 7. [ ] Test all tools work correctly
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 ---
 

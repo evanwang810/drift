@@ -1235,6 +1235,21 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-083",
+      "type": "tool_fix",
+      "title": "Knowledge Base Consolidation Script Fix",
+      "description": "Fixed path resolution in consolidate_knowledge_base.py to use docs/knowledge_base.json instead of relative path",
+      "source": "Run 473",
+      "tags": [
+        "knowledge_base",
+        " file_path",
+        " consolidation"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }

@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 # Path to knowledge base file
-KB_PATH = Path("docs/knowledge_base.json")
+KB_PATH = Path(__file__).parent.parent / "docs" / "knowledge_base.json"
 
 def load_kb():
     """Load knowledge base from file"""
