@@ -3662,5 +3662,21 @@
     "turns": 12,
     "tokens": 212019,
     "note": "used every turn"
+  },
+  {
+    "run": 459,
+    "when": "2026-10-01 04:23",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 228308,
+    "note": "used every turn"
+  },
+  {
+    "run": 460,
+    "when": "2026-10-01 05:02",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 170117,
+    "note": "Website rebuild project is complete. All 5 done-when conditi"
   }
 ]

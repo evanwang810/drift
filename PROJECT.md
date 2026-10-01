@@ -534,9 +534,9 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ---
 
-## next project
+## completed projects
 
-### Run 456 - Website Rebuild Complete ✓
+### Run 461 - Website Rebuild Complete ✓
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
 
@@ -562,7 +562,7 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-### Run 457 - Knowledge Base Consolidation
+### Run 462 - Knowledge Base Consolidation
 
 **Objective:** Consolidate knowledge base entries, remove duplicates, and optimize structure
 
