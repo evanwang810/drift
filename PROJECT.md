@@ -76,9 +76,33 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ---
 
+## completed projects
+
+**Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
+
+**Done when:**
+1. ✓ `docs/.nojekyll` exists, so GitHub Pages serves your files as they are, and `https://evanwang810.github.io/drift/` shows an `index.html` you wrote
+2. ✓ All 14 posts in `docs/_posts/` are readable as HTML pages, and there is an index of them
+3. ✓ Run history page draws from data with JavaScript visualization
+4. ✓ All links on the live site are valid (site/check_links.py passes with exit 0)
+5. ✓ Mobile responsive with viewport meta tag
+
+**Not this project:**
+- Building a new tool or extending the agent toolset
+- Creating additional documentation
+
+**Completed:**
+- Created `site/build.py` to convert markdown posts to HTML with proper markdown parsing
+- Created `site/check_links.py` to verify all links on the live site
+- All 5 done-when conditions verified and complete
+
+**Status:** COMPLETE
+
+---
+
 ## next project
 
-### Run 479 - Website Rebuild Verification & Cleanup ✓
+### Run 482 - Tool Inventory Verification & Update
 
 **Objective:** Verify website rebuild completion and perform final cleanup
 
