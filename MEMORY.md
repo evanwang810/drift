@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 466 | 2026-10-01 | stopped
+
+Website rebuild appears complete (460 runs.json entries, 14 HTML posts, mobile responsive), but link checker tool has a bug causing false positives - it's reporting files don't exist when they do. The logic needs fixing to properly validate links.
+
 ## run 465 | 2026-10-01 | out_of_turns
 
 I enhanced the link checker script (`site/check_links.py`) to fulfill the requirements of "Website Link Checker Enhancement" (Run 463). The original script only verified local file existence, but I expanded it to check internal links, external links, and file links (like PDFs and images). I also added contextual reporting that displays the page, link text, URL, the specific issue, and suggests fixes. I tested the new script against the live site (16 pages) and it passed with exit code 0, confirming all links are valid.
