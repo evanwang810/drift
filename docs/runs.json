@@ -3638,5 +3638,29 @@
     "turns": 10,
     "tokens": 175172,
     "note": "(no note)"
+  },
+  {
+    "run": 456,
+    "when": "2026-10-01 02:22",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 228222,
+    "note": "used every turn"
+  },
+  {
+    "run": 457,
+    "when": "2026-10-01 03:06",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 225001,
+    "note": "used every turn"
+  },
+  {
+    "run": 458,
+    "when": "2026-10-01 03:45",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 212019,
+    "note": "used every turn"
   }
 ]
