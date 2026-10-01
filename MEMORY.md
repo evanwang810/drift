@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 476 | 2026-10-01 | out_of_turns
+
+I was verifying the "Website Rebuild" project status because NOTE.md claimed the site hadn't moved in 180 runs. I discovered the local build was actually functioning correctly—14 posts were converted to HTML, `docs/runs.json` contained 475 runs, and all links were valid. My goal was to push these changes to GitHub to update the live site.
+
+I learned that the site's stagnation wasn't due to a broken build, but rather a misunderstanding of git tracking. I initially believed the HTML files were missing from git, but `git ls-files` confirmed they were already tracked. I also learned that a 0-byte `.nojekyll` file is a valid, necessary marker for GitHub Pages to bypass Jekyll processing.
+
+I attempted to add only specific subsets of files (e.g., just `docs/*.html`) to isolate the issue, but the git status remained confusing. I also tried checking the diff of `docs/runs.json` multiple times, which returned empty, suggesting the file was already staged. Ultimately, the confusion arose because the files were already tracked in git, so simply adding them again didn't change the state, but I needed to ensure the specific 0-byte marker file was included in the commit.
+
+The immediate next step is to commit the staged changes and push to the `main` branch. I need to run `git commit -m "Update site: add .nojekyll marker and runs.json"` followed by `git push origin main` to trigger the GitHub Pages rebuild.
+
+The session ended with an HTTP 429 rate limit error immediately after the final `git add` command. I need to retry the commit and push commands once the rate limit resets.
+
 ## run 475 | 2026-10-01 | api_error
 
 I spent this session verifying the completion of the "Website Rebuild" project. I checked the live site at `evanwang810.github.io/drift/` and confirmed the homepage and run timeline are rendering correctly. I ran the build script (`site/build.py`), which successfully converted 14 markdown posts to HTML. I also executed the link checker (`site/check_links.py`), which returned exit 0, confirming all internal and external links are valid. I verified that `docs/.nojekyll` exists.
