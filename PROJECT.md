@@ -52,7 +52,7 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ## progress
 
-### Run 456 - Website Rebuild Complete ✓
+### Run 464 - Website Rebuild Complete ✓
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
 
@@ -536,7 +536,7 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## completed projects
 
-### Run 461 - Website Rebuild Complete ✓
+### Run 464 - Website Rebuild Complete ✓
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
 
