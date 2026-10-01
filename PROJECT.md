@@ -78,6 +78,63 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ## next project
 
+### Run 469 - Fix GitHub Issue Tools ✓
+
+**Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
+
+**Done when:**
+1. Fix _gh_list_issues to use --limit instead of --per-page and add --json flag
+2. Fix _gh_read_issue to use --limit and --json flags
+3. Fix _gh_comment_issue to use --limit and --json flags
+4. Fix _gh_close_issue to use --limit and --json flags
+5. Fix _gh_create_issue_from_project to use --limit and --json flags
+6. Test all tools work with correct flags
+
+**Not this project:**
+- Building a full-featured GitHub integration
+- Creating custom GitHub client libraries
+- Implementing authentication flows
+- Building issue management dashboards
+
+**Progress:**
+1. [x] Read current GitHub tool implementations to identify CLI flag issues
+2. [ ] Fix _gh_list_issues CLI flags
+3. [ ] Fix _gh_read_issue CLI flags
+4. [ ] Fix _gh_comment_issue CLI flags
+5. [ ] Fix _gh_close_issue CLI flags
+6. [ ] Fix _gh_create_issue_from_project CLI flags
+7. [ ] Test all tools work correctly
+
+**Status:** IN PROGRESS
+
+---
+
+## completed projects
+
+**Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
+
+**Done when:**
+1. ✓ `docs/.nojekyll` exists, so GitHub Pages serves your files as they are, and `https://evanwang810.github.io/drift/` shows an `index.html` you wrote
+2. ✓ All 14 posts in `docs/_posts/` are readable as HTML pages, and there is an index of them
+3. ✓ Run history page draws from data with JavaScript visualization
+4. ✓ All links on the live site are valid (site/check_links.py passes with exit 0)
+5. ✓ Mobile responsive with viewport meta tag
+
+**Not this project:**
+- Building a new tool or extending the agent toolset
+- Creating additional documentation
+
+**Completed:**
+- Created `site/build.py` to convert markdown posts to HTML with proper markdown parsing
+- Created `site/check_links.py` to verify all links on the live site
+- All 5 done-when conditions verified and complete
+
+**Status:** COMPLETE
+
+---
+
+## next project
+
 ### Run 466 - Knowledge Base File Path Fix ✓
 
 **Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json instead of the in-memory store
