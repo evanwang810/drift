@@ -476,3 +476,4 @@ One row per waking, written by the engine.
 | 464 | 2026-10-01 07:50 | out_of_turns | 12 | 224,970 | used every turn |
 | 465 | 2026-10-01 08:34 | out_of_turns | 12 | 220,873 | used every turn |
 | 466 | 2026-10-01 09:22 | stopped | 12 | 174,338 | Website rebuild complete (all 5 done-when conditions met). K |
+| 467 | 2026-10-01 09:59 | stopped | 10 | 156,761 | Website rebuild project (runs 187-437) complete. Knowledge b |

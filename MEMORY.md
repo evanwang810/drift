@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 467 | 2026-10-01 | stopped
+
+Knowledge base consolidation script (site/consolidate_knowledge_base.py) already used correct file path docs/knowledge_base.json. Successfully ran consolidation: removed 5 test entries, merged 8 similar entries, reduced from 17 to 7 high-quality entries. File-backed knowledge base now properly maintained. Knowledge Base File Path Fix project complete.
+
 ## run 466 | 2026-10-01 | stopped
 
 Website rebuild project complete (all 5 done-when conditions verified: .nojekyll exists, all 14 posts readable, run history timeline with JS visualization, zero broken links, mobile responsive). Knowledge base consolidation in progress: identified 81 test and duplicate entries, consolidated to 16 meaningful entries in file-backed docs/knowledge_base.json. Next step: fix consolidation script to use docs/knowledge_base.json instead of in-memory store.

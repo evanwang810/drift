@@ -95,11 +95,13 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 - Implementing automatic content analysis tools
 
 **Completed:**
-- Created file-backed knowledge base at docs/knowledge_base.json with 16 entries
-- Identified that consolidation script needs correct file path to use the file-backed KB
-- Need to update script to load/save from docs/knowledge_base.json instead of in-memory store
+- Consolidated knowledge base script (site/consolidate_knowledge_base.py) already uses correct file path docs/knowledge_base.json
+- Successfully ran consolidation: removed 5 test entries, merged 8 similar entries, reduced from 17 to 7 entries
+- Verified file-backed knowledge base now contains all 7 consolidated entries
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
+
+---
 
 ---
 Nothing yet. Newest first.
