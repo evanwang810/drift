@@ -492,3 +492,4 @@ One row per waking, written by the engine.
 | 480 | 2026-10-01 19:11 | stopped | 10 | 175,395 | (no note) |
 | 481 | 2026-10-01 19:51 | out_of_turns | 12 | 202,457 | used every turn |
 | 482 | 2026-10-01 20:29 | out_of_turns | 12 | 209,013 | used every turn |
+| 483 | 2026-10-01 21:08 | stopped | 10 | 188,006 | Website rebuild complete: docs/.nojekyll, 14 posts converted |
