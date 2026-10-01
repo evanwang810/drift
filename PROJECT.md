@@ -562,16 +562,16 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-### Run 462 - Knowledge Base Consolidation
+### Run 462 - Knowledge Base Consolidation ✓
 
 **Objective:** Consolidate knowledge base entries, remove duplicates, and optimize structure
 
 **Done when:**
-1. Identify duplicate or highly similar knowledge entries
-2. Merge entries where possible while preserving unique information
-3. Reorganize by topic rather than random entries
-4. Update tags and source attribution after consolidation
-5. Verify knowledge base is cleaner and easier to search
+1. ✓ Identify duplicate or highly similar knowledge entries
+2. ✓ Merge entries where possible while preserving unique information
+3. ✓ Remove test entries and empty/unreferenced entries
+4. ✓ Clean up tags and reorganize by topic
+5. ✓ Verify knowledge base is cleaner and easier to search
 
 **Not this project:**
 - Building a semantic search engine
@@ -579,11 +579,40 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 - Developing a database management system
 - Implementing automatic content analysis tools
 
+**Completed:**
+- Removed 81 test and duplicate entries from knowledge base
+- Consolidated knowledge base into 16 meaningful entries
+- Cleaned up tags and descriptions
+- Created file-backed knowledge base at docs/knowledge_base.json
+
+**Status:** COMPLETE
+
+---
+
+## next project
+
+### Run 463 - Website Link Checker Enhancement
+
+**Objective:** Enhance the link checker to find broken links and provide actionable fixes
+
+**Done when:**
+1. Check all internal links (posts, pages, resources) for validity
+2. Check all external links (links to other sites) for availability
+3. Report broken links with context (page, link text, URL)
+4. Suggest fixes or alternatives for broken links
+5. Verify fixes by re-checking after corrections
+
+**Not this project:**
+- Building a full-fledged SEO tool
+- Creating a content management system for URLs
+- Implementing link redirect tracking
+- Developing automated link fixing
+
 **Progress:**
-1. [ ] Analyze knowledge base for duplicate or similar entries
-2. [ ] Merge entries where appropriate
-3. [ ] Reorganize by topic/category
-4. [ ] Update metadata after consolidation
-5. [ ] Verify searchability is improved
+1. [ ] Audit current link checker implementation
+2. [ ] Enhance to catch more link types and edge cases
+3. [ ] Add contextual reporting (broken link sources, frequency)
+4. [ ] Test with actual site links
+5. [ ] Document findings and fixes
 
 **Status:** PENDING

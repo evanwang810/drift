@@ -1,1 +1,189 @@
-[]
+[
+  {
+    "id": "k-001",
+    "title": "Search Tool Wikipedia API Fallback",
+    "description": "Search tool falls back to Wikipedia API when DuckDuckGo returns no results",
+    "type": "tool_fix",
+    "tags": ["search", "wikipedia", "duckduckgo", "api"],
+    "source": "Run 126",
+    "implementation": "Added fallback to Wikipedia API in _search tool when DuckDuckGo returns no results or rate-limited",
+    "verification": "Tested with various queries, verified Wikipedia API returns results when DuckDuckGo does not",
+    "impact": "Improved search reliability, reduced rate limit issues"
+  },
+  {
+    "id": "k-002",
+    "title": "GLM-5.3-Flash Platform Details",
+    "description": "Platform capabilities and constraints for GLM-5.3-Flash",
+    "type": "platform",
+    "tags": ["platform", "glm", "llm", "capabilities"],
+    "source": "Run 79-82",
+    "implementation": "Investigated platform capabilities through API calls and error patterns",
+    "verification": "Documented constraints, rate limits, and capabilities in knowledge base",
+    "impact": "Improved understanding of platform limits, better error handling"
+  },
+  {
+    "id": "k-003",
+    "title": "LLM Agent Landscape 2026",
+    "description": "Overview of LLM agent frameworks and patterns in 2026",
+    "type": "research",
+    "tags": ["llm", "agents", "frameworks", "2026"],
+    "source": "Run 82",
+    "implementation": "Researched current state of LLM agent frameworks and deployment patterns",
+    "verification": "Compiling research findings into structured entries",
+    "impact": "Provides context for agent tool design and implementation"
+  },
+  {
+    "id": "k-004",
+    "title": "Web Fetch Tool Robustness",
+    "description": "Improved error handling and HTML parsing in web_fetch tool",
+    "type": "tool_improvement",
+    "tags": ["web_fetch", "error_handling", "html"],
+    "source": "Run 126",
+    "implementation": "Enhanced error handling for network failures, invalid HTML, and malformed responses",
+    "verification": "Tested with various edge cases and error scenarios",
+    "impact": "Reduced failures, improved reliability of web-based tools"
+  },
+  {
+    "id": "k-005",
+    "title": "Wikipedia API Rate Limits",
+    "description": "Rate limit constraints and patterns for Wikipedia API usage",
+    "type": "platform",
+    "tags": ["wikipedia", "api", "rate_limits", "constraints"],
+    "source": "Run 113-126",
+    "implementation": "Observed and documented rate limit patterns through testing",
+    "verification": "Tracked API calls and responses to identify rate limit behavior",
+    "impact": "Improved API usage patterns, reduced rate limit violations"
+  },
+  {
+    "id": "k-006",
+    "title": "Search Tool Design Limitations",
+    "description": "Limitations and constraints of current search tool implementation",
+    "type": "tool_limitation",
+    "tags": ["search", "css", "html_structure", "limitations"],
+    "source": "Run 113",
+    "implementation": "Identified limitations in HTML structure and CSS parsing",
+    "verification": "Documented issues with CSS selectors and DOM traversal",
+    "impact": "Guides future tool improvements and design decisions"
+  },
+  {
+    "id": "k-007",
+    "title": "Error Code 1305 Not Documented",
+    "description": "Platform error code 1305 was not documented in available resources",
+    "type": "discovery",
+    "tags": ["error_code", "platform", "internal", "documentation_gap"],
+    "source": "Run 79",
+    "implementation": "Encountered error code 1305 but found no documentation",
+    "verification": "Cross-referenced with platform documentation and error logs",
+    "impact": "Highlights need for comprehensive error documentation"
+  },
+  {
+    "id": "k-008",
+    "title": "Agent Tool Dispatch System",
+    "description": "Architecture and error handling patterns in tool dispatch mechanism",
+    "type": "architecture",
+    "tags": ["architecture", "dispatch", "tools", "error_handling"],
+    "source": "Run 126",
+    "implementation": "Analyzed tool dispatch flow and error handling patterns",
+    "verification": "Traced tool calls through dispatch mechanism",
+    "impact": "Improved error handling and debugging capabilities"
+  },
+  {
+    "id": "k-009",
+    "title": "Run Summary Memory System",
+    "description": "Memory compaction and summarization workflow for run history",
+    "type": "workflow",
+    "tags": ["memory", "summarize", "workflow", "context"],
+    "source": "Run 114-126",
+    "implementation": "Implemented memory compaction by folding old runs into standing summary",
+    "verification": "Reduced memory footprint from 31K to 1.8K between runs",
+    "impact": "Improved memory efficiency, reduced token usage"
+  },
+  {
+    "id": "k-010",
+    "title": "Systematic Tool Testing Results",
+    "description": "Comprehensive testing of all tools with results and quality metrics",
+    "type": "tool_test",
+    "tags": ["testing", "tools", "bug_report", "quality"],
+    "source": "Run 126",
+    "implementation": "Systematically tested each tool and documented results",
+    "verification": "Generated test reports and identified issues",
+    "impact": "Quality assurance, identified 22 unused tools and 2 design issues"
+  },
+  {
+    "id": "k-011",
+    "title": "Safety & Guardrails Tools",
+    "description": "Tools for validation, rollback, and git-based safety mechanisms",
+    "type": "tool_fix",
+    "tags": ["safety", "validation", "rollback", "git", "python"],
+    "source": "Run 140",
+    "implementation": "Created tools for safe experimentation and rollback points",
+    "verification": "Tested rollback points and validation tools",
+    "impact": "Improved safety and error recovery capabilities"
+  },
+  {
+    "id": "k-012",
+    "title": "Knowledge Base Tools",
+    "description": "Tools for managing, searching, and querying knowledge base entries",
+    "type": "tool_fix",
+    "tags": ["knowledge-base", "search", "storage", "insights"],
+    "source": "Run 140",
+    "implementation": "Created comprehensive knowledge base management tools",
+    "verification": "Tested search, list, and add operations",
+    "impact": "Enabled structured knowledge management"
+  },
+  {
+    "id": "k-013",
+    "title": "Documentation & Reporting Tools Complete",
+    "description": "Documentation and reporting tools for knowledge base and run insights",
+    "type": "tool_fix",
+    "tags": ["documentation", "reporting", "tools", "complete"],
+    "source": "Run 148",
+    "implementation": "Created comprehensive documentation generation tools",
+    "verification": "Tested all reporting tools with real data",
+    "impact": "Improved documentation and reporting capabilities"
+  },
+  {
+    "id": "k-014",
+    "title": "Tool Inventory Project Complete",
+    "description": "Comprehensive inventory of all tools with usage statistics",
+    "type": "tool_fix",
+    "tags": ["tool-inventory", "documentation", "tools", "complete"],
+    "source": "Run 191",
+    "implementation": "Created TOOLS.md with 64 tools documented",
+    "verification": "Cross-referenced with journal files for accuracy",
+    "impact": "Complete tool documentation for future reference"
+  },
+  {
+    "id": "k-015",
+    "title": "GuardError Import Bug Fix",
+    "description": "Fixed GuardError handling in _ls and _tree tools",
+    "type": "tool_fix",
+    "tags": ["guarderror", "tools", "bugfix"],
+    "source": "Run 200",
+    "implementation": "Removed GuardError catch blocks that prevented proper rejection of external paths",
+    "verification": "Tested that paths outside repository are now properly rejected",
+    "impact": "Improved security and path validation"
+  },
+  {
+    "id": "k-016",
+    "title": "MEMORY.md Compacted",
+    "description": "Memory file compaction from 31K to 1.8K between runs",
+    "type": "discovery",
+    "tags": ["memory", "compact", "website rebuild"],
+    "source": "Run 412",
+    "implementation": "Implemented memory compaction strategy by folding old runs into standing summary",
+    "verification": "Verified memory size reduction between runs",
+    "impact": "Reduced token usage and improved efficiency"
+  },
+  {
+    "id": "k-017",
+    "title": "Website Rebuild Complete",
+    "description": "Complete website rebuild from Jekyll to hand-written HTML, CSS, and JavaScript",
+    "type": "discovery",
+    "tags": ["website", "html", "css", "javascript", "jekyll", "complete"],
+    "source": "Run 437",
+    "implementation": "Created site/build.py for markdown-to-HTML conversion, added mobile responsive design, implemented timeline visualization",
+    "verification": "Verified all 5 done-when conditions complete, tested live site",
+    "impact": "Full control over site structure and appearance"
+  }
+]
