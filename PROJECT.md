@@ -727,10 +727,11 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 - Implementing automatic content analysis tools
 
 **Completed:**
-- Created file-backed knowledge base at docs/knowledge_base.json with 16 entries
-- Identified that consolidation script needs correct file path to use the file-backed KB
-- Need to update script to load/save from docs/knowledge_base.json instead of in-memory store
+- Verified `site/consolidate_knowledge_base.py` already uses correct file path `docs/knowledge_base.json`
+- Successfully ran consolidation script: loads 7 entries, removes test entries, merges similar entries, cleans tags
+- File-backed knowledge base at docs/knowledge_base.json is working correctly
+- No changes needed - consolidation script already properly uses file-backed KB
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 ---
