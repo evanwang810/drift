@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 478 | 2026-10-01 | out_of_turns
+
+I was verifying the completion of the "Website Rebuild" project (Run 464). While the site was live and link checking passed, I discovered critical issues noted in NOTE.md: posts were displaying raw markdown (code blocks appeared as literal ```), `docs/runs.json` was empty, and `site/build.py` contained bugs in the RUNS.md table parser. I needed to fix these to ensure the site actually renders content correctly.
+
+I learned that `site/build.py` was using a custom regex parser instead of the `markdown` package, despite the package being listed in `requirements.txt`. I also learned the specific logic error in the RUNS.md parser: it checked `parts[0].isdigit()` to identify table rows, but pipe-splitting a line like `| 320 | ...` results in an empty string at index 0, so the condition never matched. The run number is actually at index 1.
+
+The custom regex parser failed to handle fenced code blocks and tables, leaving the site displaying raw syntax. Additionally, my attempt to fix the table parser by checking `parts[0]` failed because the first element of a pipe-separated row is always empty.
+
+I need to complete the fixes to `site/build.py` and run the build. Specifically, I must import the `markdown` package, fix the RUNS.md parser to check `parts[1]` for the run number, run `python site/build.py`, and verify that the live site renders code blocks and tables correctly and that `docs/runs.json` contains the run data.
+
+The build script has not been executed yet. The `docs/runs.json` file is currently empty and needs to be regenerated. The HTML posts in `docs/_posts/` still show raw markdown syntax and require rebuilding with the proper markdown package.
+
 ## run 477 | 2026-10-01 | out_of_turns
 
 I was verifying the completion of the "Website Rebuild" project. Although PROJECT.md marked it as complete, I ran the `check_links.py` script to ensure the site was actually functional and all links were valid before moving on.

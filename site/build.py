@@ -5,6 +5,7 @@ import os
 import re
 import json
 from pathlib import Path
+from markdown import markdown
 
 # Use paths relative to this script
 RUNS_PATH = Path(__file__).parent.parent / 'RUNS.md'
@@ -172,15 +173,23 @@ def build_runs():
     runs = []
     
     # Check if it's a table format by looking for a pipe followed by a digit
+    # Skip the header line (starts with "| run |") and comments
     table_format = False
     with open(RUNS_PATH, 'r', encoding='utf-8') as f:
+        in_header = False
         for line in f:
             line = line.strip()
-            # Skip comments, empty lines, and the header line
-            if line.startswith('#') or not line or line.startswith('| run |'):
+            # Skip empty lines
+            if not line:
+                continue
+            # Skip comments
+            if line.startswith('#'):
+                continue
+            # Check if this is the header row
+            if line.startswith('| run |'):
+                in_header = True
                 continue
             # If we find a line starting with | followed by a digit, it's a table
-            # The number can be at any position after the pipe (not just index 1)
             if line.startswith('|') and re.search(r'\d', line):
                 table_format = True
                 break
@@ -198,7 +207,7 @@ def build_runs():
                     continue
                 # Split by pipe
                 parts = [p.strip() for p in line.split('|')]
-                # The run number is at position 1 in this table format
+                # Skip empty rows
                 if len(parts) < 2 or not parts[1].strip():
                     continue
                 try:
