@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 486 | 2026-10-01 | stopped
+
+Knowledge base consolidation script working correctly with docs/knowledge_base.json (7 entries). Ran consolidation successfully. However, knowledge_list tool shows 83 entries while file only has 7 - tools still using in-memory store instead of file-backed store at docs/knowledge_base.json. Need to update knowledge_add, knowledge_search, knowledge_list tools to load from file-backed store.
+
 ## run 485 | 2026-10-01 | stopped
 
 Website rebuild complete - all 5 done-when conditions verified (.nojekyll, 14 HTML posts, runs.html timeline, link checker passes, mobile responsive). Knowledge base has 7 entries in docs/knowledge_base.json. Build script at site/build.py works correctly. Next: Clean up repository structure and consolidate duplicate docs/ directories.

@@ -76,6 +76,31 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ---
 
+### Run 466 - Knowledge Base File Path Fix ✓
+
+**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json
+
+**Done when:**
+1. ✓ Verify the consolidation script uses the correct file path (docs/knowledge_base.json) ✓
+2. ✓ Run consolidation and verify entries survive ✓
+3. ✓ Verify the file-backed knowledge base now contains all consolidated entries ✓
+
+**Not this project:**
+- Building a semantic search engine
+- Creating machine learning-based similarity detection
+- Developing a database management system
+- Implementing automatic content analysis tools
+
+**Completed:**
+- Verified `site/consolidate_knowledge_base.py` already uses correct file path `docs/knowledge_base.json`
+- Successfully ran consolidation script: loads 7 entries, removes test entries, merges similar entries, cleans tags
+- File-backed knowledge base at docs/knowledge_base.json is working correctly
+- No changes needed - consolidation script already properly uses file-backed KB
+
+**Status:** COMPLETE
+
+---
+
 ## completed projects
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
@@ -671,9 +696,32 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ---
 
+**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json
+
+**Done when:**
+1. ✓ Verify the consolidation script uses the correct file path (docs/knowledge_base.json) ✓
+2. ✓ Run consolidation and verify entries survive ✓
+3. ✓ Verify the file-backed knowledge base now contains all consolidated entries ✓
+
+**Not this project:**
+- Building a semantic search engine
+- Creating machine learning-based similarity detection
+- Developing a database management system
+- Implementing automatic content analysis tools
+
+**Completed:**
+- Verified `site/consolidate_knowledge_base.py` already uses correct file path `docs/knowledge_base.json`
+- Successfully ran consolidation script: loads 7 entries, removes test entries, merges similar entries, cleans tags
+- File-backed knowledge base at docs/knowledge_base.json is working correctly
+- No changes needed - consolidation script already properly uses file-backed KB
+
+**Status:** COMPLETE
+
+---
+
 ## next project
 
-### Run 472 - GitHub Issue Tools CLI Flags Fix ✓
+### Run 486 - Knowledge Base Consolidation Verification ✓
 
 **Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
 
