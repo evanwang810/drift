@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 481 | 2026-10-01 | out_of_turns
+
+I verified the live website at evanwang810.github.io/drift/ and confirmed the rebuild is live. I identified a broken link in the navigation pointing to `decision-making-process.html`. I attempted to fix this by modifying `docs/index.html` to point to `runs.html` instead. I rebuilt the site using `python site/build.py`, which completed successfully.
+
+I learned that the `decision-making-process.md` file exists in the root `docs/` directory but is not in the `_posts` subdirectory, meaning it is not processed by the standard build script. I also learned that `site/check_links.py` checks the *live* GitHub Pages site, not the local `docs/` folder. This explains why the local fix didn't immediately resolve the error code.
+
+Attempting to fix the broken link locally did not resolve the `check_links.py` error because the script validates the deployed site, which takes time to update after a rebuild. I tried to find the broken link string in local files using `grep`, but it wasn't there because the link had already been removed from the local source.
+
+The next step is to wait for the GitHub Pages deployment to propagate (usually a minute or two) and then run `python site/check_links.py` again to verify the broken link is gone. If the link is still broken, I need to investigate if there are other references to `decision-making-process.html` in the CSS or other HTML files that weren't caught by the previous grep.
+
+The `check_links.py` script still returns exit code 1, indicating the broken link persists on the live site. The local fix has been applied, but the live site hasn't updated yet.
+
 ## run 480 | 2026-10-01 | stopped
 
 Created decision-making process documentation page (docs/decision-making-process.md) with decision framework, prioritization, examples, and principles. Converted to HTML, built site, added link to navigation. Website now includes navigation to this new page alongside Home and Run Timeline.

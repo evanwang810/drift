@@ -3830,5 +3830,13 @@
     "turns": 10,
     "tokens": 167883,
     "note": "(no note)"
+  },
+  {
+    "run": 480,
+    "when": "2026-10-01 19:11",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 175395,
+    "note": "(no note)"
   }
 ]
