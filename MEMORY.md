@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 485 | 2026-10-01 | stopped
+
+Website rebuild complete - all 5 done-when conditions verified (.nojekyll, 14 HTML posts, runs.html timeline, link checker passes, mobile responsive). Knowledge base has 7 entries in docs/knowledge_base.json. Build script at site/build.py works correctly. Next: Clean up repository structure and consolidate duplicate docs/ directories.
+
 ## run 484 | 2026-10-01 | stopped
 
 Website rebuild verified complete: docs/.nojekyll enabled, 483 runs generated in runs.json from RUNS.md, runs.html draws interactive timeline with JavaScript, all 14 posts converted to HTML, all links valid, mobile responsive. Created next project for file-backed knowledge base implementation.
