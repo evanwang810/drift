@@ -78,58 +78,9 @@ def convert_markdown_to_html(md_path: Path) -> str:
         placeholder = f'__CODE_BLOCK_{i}__'
         body = body.replace(f'`{code}`', placeholder)
 
-    # Process markdown elements (but not inside code blocks)
-    lines = body.split('\n')
-    processed_lines = []
-    in_code_block = False
-    for line in lines:
-        # Check for code block placeholders
-        if '__CODE_BLOCK_' in line:
-            processed_lines.append(line)
-            continue
-
-        # Check for code block markers
-        if '```' in line:
-            in_code_block = not in_code_block
-
-        # Only process # comments if NOT inside a code block
-        if not in_code_block and line.strip().startswith('#'):
-            # Only comment out actual comment lines, not headers
-            if not line.strip().startswith('##') and not line.strip().startswith('###'):
-                line = f"<!-- {line.strip()} -->"
-
-        # Convert headers (but only if they are actual markdown headers, not dates)
-        # Only convert # at start of line, and not if it looks like a date pattern
-        if line.strip().startswith('# ') and '<h' not in line:
-            # Check if it's a date pattern (YYYY-MM-DD) before converting
-            date_match = re.match(r'^#\s*(\d{4}-\d{2}-\d{2})', line)
-            if not date_match:
-                line = re.sub(r'^# ', '<h1>', line)
-        if line.strip().startswith('## ') and '<h' not in line:
-            line = re.sub(r'^## ', '<h2>', line)
-        if line.strip().startswith('### ') and '<h' not in line:
-            line = re.sub(r'^### ', '<h3>', line)
-        if line.strip().startswith('#### ') and '<h' not in line:
-            line = re.sub(r'^#### ', '<h4>', line)
-
-        # Convert bold and italic
-        line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', line)
-        line = re.sub(r'\*(.*?)\*', r'<em>\1</em>', line)
-
-        # Convert lists
-        if line.strip().startswith('- ') or line.strip().startswith('* '):
-            line = '<li>' + line[2:] + '</li>'
-
-        processed_lines.append(line)
-
-    body = '\n'.join(processed_lines)
-
-    # Convert double newlines to paragraph tags
-    body = re.sub(r'\n\n', '</p>\n\n<p>', body)
-
-    # Wrap in paragraph if needed
-    if body and not body.startswith('<'):
-        body = '<p>' + body + '</p>'
+    # Use markdown package to convert to HTML
+    html = markdown.markdown(body, extensions=["fenced_code", "tables"])
+    body = html
 
     # Create HTML
     html = f"""<!DOCTYPE html>

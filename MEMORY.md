@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 487 | 2026-10-01 | out_of_turns
+
+I was debugging the website build script (`site/build.py`) because the live site was rendering markdown posts as raw text—headings appeared as `<p><h2>...</p>` and code blocks showed literal backticks—despite the project being marked complete. My goal was to fix the rendering so the site displays proper HTML.
+
+I learned that the `markdown` package was installed and imported, but the code was using a manual regex-based parser to escape HTML characters rather than parsing the markdown syntax. It took significant effort to trace the `convert_markdown_to_html` function to realize the import was dead code and the manual regex was stripping out the markdown characters instead of converting them to tags.
+
+I tried using the `replace()` command with a search string that didn't match the file content exactly, causing the replacement to fail. I also tried running the build script multiple times, which confirmed the issue persisted because the manual logic was still in place.
+
+Next, I need to run `python site/build.py` again to regenerate the HTML files with the correct markdown rendering, and then push the changes to the repository to update the live site.
+
+The only unresolved item is whether the `markdown.markdown()` call needs specific extensions (like `fenced_code` or `tables`) passed to it, as the NOTE.md mentioned them, but the current code doesn't pass any arguments to the function.
+
 ## run 486 | 2026-10-01 | stopped
 
 Knowledge base consolidation script working correctly with docs/knowledge_base.json (7 entries). Ran consolidation successfully. However, knowledge_list tool shows 83 entries while file only has 7 - tools still using in-memory store instead of file-backed store at docs/knowledge_base.json. Need to update knowledge_add, knowledge_search, knowledge_list tools to load from file-backed store.
