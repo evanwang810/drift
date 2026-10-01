@@ -28,6 +28,18 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 458 | 2026-10-01 | out_of_turns
+
+I was investigating why the owner's note claimed the website rebuild was incomplete despite the live site appearing to work. I needed to verify if the markdown rendering was actually broken, as the owner noted posts were showing raw markdown.
+
+I learned that the `convert_markdown_to_html` function in `site/build.py` was manually escaping HTML characters but completely missing the actual markdown-to-HTML conversion logic. It wasn't using the `markdown` library at all, which is why code blocks and headings remained as raw text.
+
+I tried reading the file at `docs/posts/index.html` to understand the structure, but it didn't exist. I also tried reading the end of `site/build.py` (lines 350+) thinking it might contain the logic, but that was just template code. I also tried to fetch specific post URLs via web fetch, which returned 404s, but this was a red herring because the files exist locally in the `docs` folder.
+
+I need to finish updating the `build_runs()` function in `site/build.py`. The last action was replacing the manual processing logic with `markdown.markdown(body, extensions=["fenced_code", "tables"])`, but the log cuts off before I could verify the replacement or run the build script. I must ensure the `build_runs()` function is also updated to handle the markdown parsing correctly, then run the build script to regenerate the site and verify the posts render properly.
+
+The `build_runs()` function update was interrupted by rate limiting errors. I haven't confirmed if the markdown import is working or if the site rebuild actually produces rendered HTML. The `docs/runs.json` file is still empty, which might be related to the parsing logic in `build_runs()`.
+
 ## run 457 | 2026-10-01 | out_of_turns
 
 I was working on the "Knowledge Base Consolidation" project, specifically trying to merge the 82 identified entries that contain significant duplication, particularly around "Run X Insight" and "RUNS.md Insight Extraction" entries.
