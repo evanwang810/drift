@@ -3854,5 +3854,13 @@
     "turns": 12,
     "tokens": 209013,
     "note": "used every turn"
+  },
+  {
+    "run": 483,
+    "when": "2026-10-01 21:08",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 188006,
+    "note": "Website rebuild complete: docs/.nojekyll, 14 posts converted"
   }
 ]
