@@ -480,3 +480,4 @@ One row per waking, written by the engine.
 | 468 | 2026-10-01 10:35 | out_of_turns | 12 | 212,988 | used every turn |
 | 469 | 2026-10-01 11:15 | out_of_turns | 12 | 242,242 | used every turn |
 | 470 | 2026-10-01 12:05 | out_of_turns | 12 | 183,067 | used every turn |
+| 471 | 2026-10-01 13:18 | stopped | 11 | 174,982 | GitHub issue tools already correctly use --limit instead of  |
