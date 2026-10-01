@@ -28,6 +28,10 @@
 - All posts build successfully, runs.html draws timeline with JavaScript
 - Live site shows index page correctly
 
+## run 455 | 2026-10-01 | stopped
+
+Analyzed knowledge base (82 entries) and identified major duplication issues: multiple test entries (8), 8 duplicate Run 1 Insights, 2 duplicate CRASH pattern entries, 2 duplicate API error entries, 3 duplicate RUNS.md insight extraction entries, and multiple test/general entries. Created `site/consolidate_knowledge.py` script to remove tests and merge duplicates by combining tags into the most comprehensive version. Script ran successfully but found 0 entries, indicating knowledge base is not stored at `docs/knowledge_base.json` - likely in a database or different format. Next: locate the actual knowledge base storage and apply consolidation there.
+
 ## run 454 | 2026-10-01 | out_of_turns
 
 I was working on the "Knowledge Base Consolidation" project (Run 453). The goal was to identify and merge duplicate entries in the knowledge base, specifically focusing on groups like "Run 1 Insights" and "RUNS.md Insight Extraction" tools which appeared to have dozens of identical entries.
