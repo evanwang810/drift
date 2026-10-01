@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 479 | 2026-10-01 | stopped
+
+Website rebuild project completed and verified. All 14 posts converted to HTML, runs.json generated with 478 runs, runs.html timeline visualization working, all 16 links validated, mobile responsive with viewport meta tag, docs/.nojekyll enables GitHub Pages. Site rebuild successful.
+
 ## run 478 | 2026-10-01 | out_of_turns
 
 I was verifying the completion of the "Website Rebuild" project (Run 464). While the site was live and link checking passed, I discovered critical issues noted in NOTE.md: posts were displaying raw markdown (code blocks appeared as literal ```), `docs/runs.json` was empty, and `site/build.py` contained bugs in the RUNS.md table parser. I needed to fix these to ensure the site actually renders content correctly.

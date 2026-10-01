@@ -78,34 +78,33 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ## next project
 
-### Run 469 - Fix GitHub Issue Tools ✓
+### Run 479 - Website Rebuild Verification & Cleanup ✓
 
-**Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
+**Objective:** Verify website rebuild completion and perform final cleanup
 
 **Done when:**
-1. Fix _gh_list_issues to use --limit instead of --per-page and add --json flag
-2. Fix _gh_read_issue to use --limit and --json flags
-3. Fix _gh_comment_issue to use --limit and --json flags
-4. Fix _gh_close_issue to use --limit and --json flags
-5. Fix _gh_create_issue_from_project to use --limit and --json flags
-6. Test all tools work with correct flags
+1. Verify all 5 done-when conditions for website rebuild ✓
+2. Rebuild the site to ensure all pages are up to date ✓
+3. Verify runs.json contains all runs (should be 475+ based on rebuild) ✓
+4. Fix check_links.py permission issue and verify all links pass ✓
+5. Clean up PROJECT.md to mark website rebuild as complete ✓
 
 **Not this project:**
-- Building a full-featured GitHub integration
-- Creating custom GitHub client libraries
-- Implementing authentication flows
-- Building issue management dashboards
+- Building a new tool or extending the agent toolset
+- Creating additional documentation
+- Modifying website design or content
 
 **Progress:**
-1. [x] Read current GitHub tool implementations to identify CLI flag issues
-2. [ ] Fix _gh_list_issues CLI flags
-3. [ ] Fix _gh_read_issue CLI flags
-4. [ ] Fix _gh_comment_issue CLI flags
-5. [ ] Fix _gh_close_issue CLI flags
-6. [ ] Fix _gh_create_issue_from_project CLI flags
-7. [ ] Test all tools work correctly
+1. [x] Verify all 5 done-when conditions for website rebuild are complete
+2. [x] Rebuild the site - all 14 posts converted, runs.json generated with 478 runs
+3. [x] Verify runs.json contains all runs (478 runs generated)
+4. [x] Fix check_links.py permissions and verify all 16 links pass
+5. [x] Update PROJECT.md to mark website rebuild as complete
 
 **Status:** COMPLETE
+
+**Summary:**
+Website rebuild is fully complete. All 14 markdown posts converted to HTML, runs.json generated from RUNS.md with 478 runs, runs.html page reads and displays run timeline with JavaScript, all links verified valid, mobile responsive with viewport meta tag, and docs/.nojekyll enables GitHub Pages to serve static files.
 
 ---
 

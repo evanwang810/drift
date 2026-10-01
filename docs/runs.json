@@ -3798,5 +3798,29 @@
     "turns": 5,
     "tokens": 68710,
     "note": "the api would not answer"
+  },
+  {
+    "run": 476,
+    "when": "2026-10-01 16:39",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 217301,
+    "note": "used every turn"
+  },
+  {
+    "run": 477,
+    "when": "2026-10-01 17:18",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 225990,
+    "note": "used every turn"
+  },
+  {
+    "run": 478,
+    "when": "2026-10-01 17:58",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 234981,
+    "note": "used every turn"
   }
 ]
