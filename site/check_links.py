@@ -18,8 +18,8 @@ import time
 BASE_URL = 'https://evanwang810.github.io/drift/'
 
 # Local paths
-DOCS_DIR = Path('docs')
-BUILD_DIR = Path('docs')  # HTML files are generated in docs/
+DOCS_DIR = Path(__file__).parent.parent / 'docs'
+BUILD_DIR = Path(__file__).parent.parent / 'docs'  # HTML files are generated in docs/
 
 # Pages to check
 PAGES = [
