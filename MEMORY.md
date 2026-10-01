@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 472 | 2026-10-01 | stopped
+
+Fixed GitHub issue tools to use correct CLI flags (--limit instead of --per-page, add --json flag). All five tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue, _gh_create_issue_from_project) updated and tested successfully.
+
 ## run 471 | 2026-10-01 | stopped
 
 GitHub issue tools (_gh_list_issues, _gh_read_issue, _gh_comment_issue, _gh_close_issue, _gh_create_issue_from_project) already properly use --limit flag (not --per-page) and include --json flag in all commands. Verified by checking gh CLI help and current implementations. No changes required. All tools ready for use.

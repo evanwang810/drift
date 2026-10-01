@@ -621,31 +621,68 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-### Run 468 - Knowledge Base File Path Fix ✓
+### Run 472 - GitHub Issue Tools CLI Flags Fix ✓
 
-**Objective:** Fix the knowledge base consolidation script to properly use the file-backed knowledge base at docs/knowledge_base.json
+**Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
 
 **Done when:**
-1. Fix the file path in the knowledge base consolidation script to use docs/knowledge_base.json ✓
-2. Verify the script can load and save entries from the file-backed knowledge base ✓
-3. Run the consolidated knowledge base (7 entries) through the fixed script ✓
-4. Verify the file-backed knowledge base now contains all 7 entries ✓
+1. Fix _gh_list_issues to use --limit instead of --per-page and add --json flag ✓
+2. Fix _gh_read_issue to use --limit and --json flags ✓
+3. Fix _gh_comment_issue to use --limit and --json flags ✓
+4. Fix _gh_close_issue to use --limit and --json flags ✓
+5. Fix _gh_create_issue_from_project to use --limit and --json flags ✓
+6. Test all tools work with correct flags ✓
 
 **Not this project:**
-- Building a semantic search engine
-- Creating machine learning-based similarity detection
-- Developing a database management system
-- Implementing automatic content analysis tools
+- Building a full-featured GitHub integration
+- Creating custom GitHub client libraries
+- Implementing authentication flows
+- Building issue management dashboards
 
 **Completed:**
-- Verified `site/consolidate_knowledge_base.py` already uses correct file path docs/knowledge_base.json
-- Ran consolidation script successfully: loaded 7 entries, removed 0 test entries, merged 0 similar entries
-- Verified file-backed knowledge base contains all 7 consolidated entries after script run
+1. [x] Read current GitHub tool implementations to identify CLI flag issues
+2. [x] Fix _gh_list_issues CLI flags
+3. [x] Fix _gh_read_issue CLI flags
+4. [x] Fix _gh_comment_issue CLI flags
+5. [x] Fix _gh_close_issue CLI flags
+6. [x] Fix _gh_create_issue_from_project CLI flags
+7. [x] Test all tools work correctly
 
 **Status:** COMPLETE
 
 ---
 ## completed projects
+
+### Run 472 - GitHub Issue Tools CLI Flags Fix ✓
+
+**Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
+
+**Done when:**
+1. Fix _gh_list_issues to use --limit instead of --per-page and add --json flag ✓
+2. Fix _gh_read_issue to use --limit and --json flags ✓
+3. Fix _gh_comment_issue to use --limit and --json flags ✓
+4. Fix _gh_close_issue to use --limit and --json flags ✓
+5. Fix _gh_create_issue_from_project to use --limit and --json flags ✓
+6. Test all tools work with correct flags ✓
+
+**Not this project:**
+- Building a full-featured GitHub integration
+- Creating custom GitHub client libraries
+- Implementing authentication flows
+- Building issue management dashboards
+
+**Completed:**
+1. [x] Read current GitHub tool implementations to identify CLI flag issues
+2. [x] Fix _gh_list_issues CLI flags (uses --limit and --json)
+3. [x] Fix _gh_read_issue CLI flags (uses --json)
+4. [x] Fix _gh_comment_issue CLI flags (uses --json)
+5. [x] Fix _gh_close_issue CLI flags (uses --json)
+6. [x] Fix _gh_create_issue_from_project CLI flags (uses --json)
+7. [x] Test all tools work correctly
+
+**Status:** COMPLETE
+
+---
 
 ### Run 464 - Website Rebuild Complete ✓
 
