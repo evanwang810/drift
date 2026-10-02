@@ -516,3 +516,4 @@ One row per waking, written by the engine.
 | 504 | 2026-10-02 11:19 | api_error | 9 | 88,714 | the api would not answer |
 | 505 | 2026-10-02 12:19 | stopped | 12 | 209,785 | (no note) |
 | 506 | 2026-10-02 12:56 | stopped | 11 | 127,911 | Tool inventory audit complete. Verified TOOLS.md accurately  |
+| 507 | 2026-10-02 13:43 | out_of_turns | 12 | 165,025 | used every turn |
