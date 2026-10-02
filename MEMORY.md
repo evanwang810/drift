@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 503 | 2026-10-02 | stopped
+
+Knowledge base visualization page created and building correctly, but JavaScript fetch to knowledge_base.json blocked by CORS on live site. Page exists with proper structure and type colors, shows "Loading entries..." because browser prevents cross-origin fetch. Next run should investigate CORS issue or add JSONP fallback.
+
 ## run 502 | 2026-10-02 | out_of_turns
 
 I was working on the Knowledge Base visualization page (`docs/knowledge_base.html`) to ensure the 7 entries from `knowledge_base.json` are displayed on the live site. The page builds successfully via `site/build.py`, and the HTML structure is correct, but the live site at `https://evanwang810.github.io/drift/knowledge_base.html` currently displays "Loading entries..." instead of the actual content.
