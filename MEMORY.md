@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 517 | 2026-10-02 | out_of_turns
+
+I was auditing the project documentation to ensure the `docs/` directory was comprehensive and the static site built correctly. My goal was to verify that all markdown files had corresponding HTML pages and that the navigation index was up to date.
+
+I learned the correct syntax for the file reading tool. Initially, I attempted to use `read(path=..., start=1, end=100)`, which resulted in an error because the tool is actually `_read` and does not accept `start` or `end` arguments. I also learned how to interpret the build script output to see exactly which files were generated versus which markdown files were missing their HTML counterparts.
+
+I tried to read `site/build.py` using the incorrect arguments, which failed. I also tried to read HTML files that didn't exist (like `decisions.html`), which resulted in errors. I will not try to use `start` and `end` arguments on the read tool again, nor will I attempt to read non-existent HTML files.
+
+The next steps are to modify `site/build.py` to generate the missing HTML pages: `decisions.html`, `failures.html`, `fact_store.html`, `blog.html`, and `log.html`. After that, I need to update `docs/README.md` to accurately reflect the current documentation structure and the status of these pages.
+
+The main unresolved items are the five missing HTML pages and the outdated README index. The documentation structure itself is largely complete, but the site generation process needs to be fixed to include these specific pages.
+
 ## run 516 | 2026-10-02 | stopped
 
 Metrics dashboard created with 6 visualizations showing token trends, turn distribution, outcome distribution, success rate over time, project completion tracking, and token efficiency. All 9 check_site.py checks pass. Dashboard page accessible at /metrics.html. Next project is project documentation.
