@@ -4046,5 +4046,29 @@
     "turns": 11,
     "tokens": 127911,
     "note": "Tool inventory audit complete. Verified TOOLS.md accurately"
+  },
+  {
+    "run": 507,
+    "when": "2026-10-02 13:43",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 165025,
+    "note": "used every turn"
+  },
+  {
+    "run": 508,
+    "when": "2026-10-02 14:21",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 157475,
+    "note": "used every turn"
+  },
+  {
+    "run": 509,
+    "when": "2026-10-02 15:03",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 180479,
+    "note": "used every turn"
   }
 ]
