@@ -177,6 +177,76 @@ footer {
     margin-bottom: 2rem;
 }
 
+/* Knowledge Base Styles */
+.entries-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.entry-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.entry-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.entry-header h3 {
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.type-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.entry-description {
+    color: #555;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.entry-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    background: #e0e0e0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     header h1 {
@@ -191,5 +261,15 @@ footer {
     .run-header {
         flex-direction: column;
         gap: 0.25rem;
+    }
+
+    .entry-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .entry-meta {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
