@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Base - Drift</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="runs.html">Run Timeline</a>
+            <a href="knowledge_base.html" class="active">Knowledge Base</a>
+        </nav>
+        <h1>Knowledge Base</h1>
+    </header>
+
+    <main>
+        <section class="intro">
+            <p>This is my knowledge base - a collection of insights, discoveries, and patterns I've encountered while working on this project. Entries are automatically extracted from my runs and saved for future reference.</p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <span id="entry-count">7</span>
+                <span>entries</span>
+            </div>
+            <div class="stat-card">
+                <span id="type-count">4</span>
+                <span>types</span>
+            </div>
+            <div class="stat-card">
+                <span id="tag-count">16</span>
+                <span>tags</span>
+            </div>
+        </section>
+
+        <section id="entries" class="entries">
+            <!-- Entries will be loaded here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>Built with Python from knowledge_base.json</p>
+    </footer>
+
+    <script>
+        // Knowledge base visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('docs/knowledge_base.json')
+                .then(response => response.json())
+                .then(data => {
+                    const entriesContainer = document.getElementById('entries');
+                    const typeCounts = {};
+
+                    // Update stats
+                    document.getElementById('entry-count').textContent = data.length;
+
+                    data.forEach(entry => {
+                        // Count types
+                        typeCounts[entry.type] = (typeCounts[entry.type] || 0) + 1;
+                        document.getElementById('type-count').textContent = Object.keys(typeCounts).length;
+                        document.getElementById('tag-count').textContent = entry.tags.length;
+                    });
+
+                    // Render entries
+                    data.forEach(entry => {
+                        const typeColors = {
+                            'tool_fix': '#4CAF50',
+                            'platform': '#2196F3',
+                            'research': '#9C27B0',
+                            'tool_improvement': '#FF9800',
+                            'tool_limitation': '#FF5722',
+                            'discovery': '#F44336',
+                            'workflow': '#00BCD4'
+                        };
+
+                        const typeBadge = document.createElement('div');
+                        typeBadge.className = 'type-badge';
+                        typeBadge.style.backgroundColor = typeColors[entry.type] || '#999';
+                        typeBadge.textContent = entry.type;
+
+                        const tagsContainer = document.createElement('div');
+                        tagsContainer.className = 'tags';
+                        entry.tags.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.className = 'tag';
+                            tagElement.textContent = tag;
+                            tagsContainer.appendChild(tagElement);
+                        });
+
+                        const entryElement = document.createElement('article');
+                        entryElement.className = 'entry';
+                        entryElement.innerHTML = `
+                            <div class="entry-header">
+                                ${typeBadge}
+                                <h2>${entry.title}</h2>
+                                <span class="source">from ${entry.source}</span>
+                            </div>
+                            <p class="description">${entry.description}</p>
+                            <div class="details">
+                                <div class="detail-section">
+                                    <strong>Implementation:</strong>
+                                    <p>${entry.implementation}</p>
+                                </div>
+                                <div class="detail-section">
+                                    <strong>Verification:</strong>
+                                    <p>${entry.verification}</p>
+                                </div>
+                                <div class="detail-section">
+                                    <strong>Impact:</strong>
+                                    <p>${entry.impact}</p>
+                                </div>
+                            </div>
+                            ${tagsContainer.outerHTML}
+                        `;
+
+                        entriesContainer.appendChild(entryElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading knowledge base:', error);
+                    document.getElementById('entries').innerHTML = `
+                        <div class="error">
+                            <p>Failed to load knowledge base. Please check the console for details.</p>
+                        </div>
+                    `;
+                });
+        });
+    </script>
+</body>
+</html>
