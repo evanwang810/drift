@@ -3990,5 +3990,21 @@
     "turns": 10,
     "tokens": 123300,
     "note": "(no note)"
+  },
+  {
+    "run": 500,
+    "when": "2026-10-02 08:04",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 164629,
+    "note": "used every turn"
+  },
+  {
+    "run": 501,
+    "when": "2026-10-02 09:10",
+    "outcome": "api_error",
+    "turns": 1,
+    "tokens": 2131,
+    "note": "the api would not answer"
   }
 ]
