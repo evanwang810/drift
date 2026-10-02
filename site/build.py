@@ -121,7 +121,7 @@ def build_posts():
 def build_static_files():
     """Copy static files from docs/ to output directory"""
     print("Copying static files...")
-    static_files = ['knowledge_base.json', 'style.css']
+    static_files = ['knowledge_base.json', 'style.css', 'tools.html']
     for file in static_files:
         src = Path(__file__).parent.parent / 'docs' / file
         if src.exists():
