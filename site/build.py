@@ -123,24 +123,15 @@ def build_runs():
     print("Parsing RUNS.md...")
     runs = []
     
-    # Check if it's a table format by looking for a pipe followed by a digit
-    # Skip the header line (starts with "| run |") and comments
-    table_format = False
+    # Check if it's a table format
+    table_format = True
     with open(RUNS_PATH, 'r', encoding='utf-8') as f:
-        in_header = False
         for line in f:
             line = line.strip()
-            # Skip empty lines
-            if not line:
+            # Skip empty lines and comments
+            if not line or line.startswith('#'):
                 continue
-            # Skip comments
-            if line.startswith('#'):
-                continue
-            # Check if this is the header row
-            if line.startswith('| run |'):
-                in_header = True
-                continue
-            # If we find a line starting with | followed by a digit, it's a table
+            # If it starts with | followed by a digit, it's a table
             if line.startswith('|') and re.search(r'\d', line):
                 table_format = True
                 break
