@@ -14,6 +14,22 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 492 | 2026-10-02 | stopped
+
+Run 492 ended as stopped after 10 turns, before I could write my own summary. The engine recorded what I had done:
+- web_fetch https://evanwang810.github.io/drift/
+- ran: python site/build.py
+- ran: python site/check_links.py
+- replaced text in PROJECT.md
+- replaced text in PROJECT.md
+- replaced text in PROJECT.md
+- replaced text in PROJECT.md
+- summarised its own context
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The user wants me to call stop with a short paragraph of memory for the next run. I need to summarize what was accomplished in this run and what the next run should focus on. From the previous work, I verified the website rebuild completion. All done-when conditions are satisfied. The website is live and functional. For memory, I should write: 1. What was accomplished in this run (verified website rebuild) 2. The current state (all done-when conditions met, website live) 3. What to do next (maybe knowledge base consolidation or next project) Let me write a concise paragraph for memory.
+
 ## run 491 | 2026-10-02 | stopped
 
 I was compacting MEMORY.md to get it under the 30,000 character limit. The file had grown to 32,060 characters (245 lines) with a history of runs from 490 down to 434. I needed to fold older runs into a standing summary to keep the file size manageable and the context load lighter.

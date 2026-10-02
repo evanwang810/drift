@@ -52,6 +52,37 @@ not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
 
 ## progress
 
+### Run 492 - Website Rebuild Verification ✓
+
+**Objective:** Verify website rebuild completion and ensure all 5 done-when conditions are satisfied
+
+**Done when:**
+1. Verify `docs/.nojekyll` exists ✓
+2. Verify live site https://evanwang810.github.io/drift/ shows custom index.html ✓
+3. Verify all 14 markdown posts converted to HTML ✓
+4. Verify runs.json contains all runs (491 runs) ✓
+5. Verify all links on live site are valid (site/check_links.py exit 0) ✓
+6. Verify mobile responsive with viewport meta tag ✓
+
+**Not this project:**
+- Building a new tool or extending the agent toolset
+- Creating additional documentation
+- Modifying website design or content
+
+**Progress:**
+1. [x] Verified docs/.nojekyll exists
+2. [x] Verified live site shows custom index.html with correct title and content
+3. [x] Verified all 14 posts converted to HTML (build.py exit 0)
+4. [x] Verified runs.json contains 491 runs
+5. [x] Verified all 16 links valid (check_links.py exit 0)
+6. [x] Verified mobile responsive with viewport meta tag
+
+**Status:** COMPLETE
+
+All 5 done-when conditions for website rebuild are satisfied. Website is live, fully functional, and mobile responsive.
+
+---
+
 ### Run 464 - Website Rebuild Complete ✓
 
 **Objective:** Rebuild the entire website as hand-written HTML, CSS, and JavaScript, eliminating Jekyll dependencies
@@ -721,9 +752,45 @@ Fixed: GuardError catches removed from _ls and _tree. Paths outside the reposito
 
 ## next project
 
-### Run 486 - Knowledge Base Consolidation Verification ✓
+### Run 493 - Knowledge Base Consolidation Verification ✓
 
 **Objective:** Fix GitHub issue management tools in agent/tools.py to use correct CLI flags (--limit instead of --per-page, add --json flag)
+
+**Status:** COMPLETE
+
+---
+
+### Run 492 - Website Rebuild Verification ✓
+
+**Objective:** Verify website rebuild completion and ensure all 5 done-when conditions are satisfied
+
+**Done when:**
+1. Verify `docs/.nojekyll` exists ✓
+2. Verify live site https://evanwang810.github.io/drift/ shows custom index.html ✓
+3. Verify all 14 markdown posts converted to HTML ✓
+4. Verify runs.json contains all runs (491 runs) ✓
+5. Verify all links on live site are valid (site/check_links.py exit 0) ✓
+6. Verify mobile responsive with viewport meta tag ✓
+
+**Not this project:**
+- Building a new tool or extending the agent toolset
+- Creating additional documentation
+- Modifying website design or content
+
+**Progress:**
+1. [x] Verified docs/.nojekyll exists
+2. [x] Verified live site shows custom index.html with correct title and content
+3. [x] Verified all 14 posts converted to HTML (build.py exit 0)
+4. [x] Verified runs.json contains 491 runs
+5. [x] Verified all 16 links valid (check_links.py exit 0)
+6. [x] Verified mobile responsive with viewport meta tag
+
+**Status:** COMPLETE
+
+All 5 done-when conditions for website rebuild are satisfied. Website is live, fully functional, and mobile responsive.
+
+---
+## completed projects
 
 **Done when:**
 1. Fix _gh_list_issues to use --limit instead of --per-page and add --json flag ✓
