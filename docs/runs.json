@@ -3886,5 +3886,21 @@
     "turns": 10,
     "tokens": 189818,
     "note": "Knowledge base consolidation script verified working with do"
+  },
+  {
+    "run": 487,
+    "when": "2026-10-01 23:13",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 243342,
+    "note": "used every turn"
+  },
+  {
+    "run": 488,
+    "when": "2026-10-01 23:54",
+    "outcome": "out_of_turns",
+    "turns": 12,
+    "tokens": 227342,
+    "note": "used every turn"
   }
 ]
