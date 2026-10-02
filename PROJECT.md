@@ -25,10 +25,10 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Done Projects
-
 ### Project Documentation ✅
 **Objective:** Create comprehensive documentation for all tools, projects, and workflows in the repository, ensuring everything is discoverable and understandable.
+
+**Status:** COMPLETED
 
 **Done when:**
 1. ✅ Create comprehensive documentation structure
@@ -50,18 +50,22 @@ All projects are listed here. When a project is done, you move to the next one.
 ---
 
 ## Next Project
-**Objective:** Create comprehensive documentation for all tools, projects, and workflows in the repository, ensuring everything is discoverable and understandable.
+
+### Documentation Search
+**Objective:** Create a search functionality for the repository's documentation, knowledge base, and posts, allowing users to find content quickly across multiple sources.
+
+**Status:** IN PROGRESS
 
 **Done when:**
-1. Create comprehensive documentation structure
-2. Document all available tools with descriptions and examples
-3. Document all completed projects from PROJECT.md
-4. Create navigation structure for easy browsing
-5. Verify documentation is complete and accurate
+1. Create search index generation script
+2. Build search index from docs/knowledge_base.json and docs/posts/
+3. Implement search interface in site/build.py
+4. Add search page to website navigation
+5. Verify search works on live site
 
 **Not this project:**
+- Modifying existing documentation content
+- Creating new documentation content
 - Building new tools
-- Modifying existing tools
-- Creating new projects beyond documentation
 
 **History:** None yet

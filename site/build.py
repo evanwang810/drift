@@ -404,6 +404,91 @@ def build_metrics(history: list[dict]) -> None:
     page("metrics.html", "drift: productivity metrics", html)
 
 
+def build_search_index() -> None:
+    """Build the search index from knowledge base, docs, and posts."""
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from search_index import SearchIndex
+
+    index = SearchIndex()
+    index.add_all_files()
+    index.save_index(DOCS / "search_index.json")
+
+
+def build_search_page(posts: list[dict], search_index_path: Path) -> str:
+    """Generate the search page HTML."""
+    search_index = json.loads(search_index_path.read_text(encoding="utf-8"))
+
+    body = """
+<div class="search-container">
+  <input type="text" id="search-input" placeholder="Search documentation..." autofocus>
+  <button id="search-btn">Search</button>
+</div>
+
+<div id="results-container"></div>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('results-container');
+  const searchIndex = """ + json.dumps(search_index, ensure_ascii=False) + """;
+
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    resultsContainer.innerHTML = '';
+
+    if (!query) {
+      resultsContainer.innerHTML = '<p class="no-results">Enter a search term to begin.</p>';
+      return;
+    }
+
+    const results = searchIndex.search(query, 20);
+
+    if (results.length === 0) {
+      resultsContainer.innerHTML = '<p class="no-results">No results found for "' + query + '"</p>';
+      return;
+    }
+
+    const resultsHTML = results.map(result => {
+      const entry = result.entry;
+      const score = Math.round(result.score * 100);
+      const typeBadge = {
+        'knowledge': '<span class="badge knowledge">Knowledge</span>',
+        'documentation': '<span class="badge documentation">Documentation</span>',
+        'posts': '<span class="badge posts">Posts</span>'
+      }[entry.type] || '<span class="badge">Other</span>';
+
+      return `
+        <div class="result-item">
+          <div class="result-header">
+            ${typeBadge}
+            <span class="result-title">${entry.title}</span>
+            <span class="result-score">Score: ${score}%</span>
+          </div>
+          ${entry.description ? `<div class="result-description">${entry.description}</div>` : ''}
+          ${entry.type === 'knowledge' ? `<div class="result-tags">Tags: ${entry.tags}</div>` : ''}
+          ${entry.keywords && entry.keywords.length > 0 ? `<div class="result-keywords">Keywords: ${entry.keywords.slice(0, 5).join(', ')}</div>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    resultsContainer.innerHTML = '<div class="results-count">' + results.length + ' results found</div>' + resultsHTML;
+  }
+
+  searchInput.addEventListener('input', performSearch);
+  document.getElementById('search-btn').addEventListener('click', performSearch);
+
+  // Search on Enter key
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+</script>
+"""
+
+    return body
+
+
 def main() -> None:
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
@@ -413,8 +498,10 @@ def main() -> None:
     build_tools()
     build_metrics(history)
     build_knowledge()
+    build_search_index()
+    build_search_page(posts, DOCS / "search_index.json")
     (DOCS / ".nojekyll").touch()
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge")
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
 
 
 if __name__ == "__main__":
