@@ -135,7 +135,7 @@ def build_runs():
     """Parse RUNS.md and generate runs.json"""
     print("Parsing RUNS.md...")
     runs = []
-    
+
     # Check if it's a table format
     table_format = True
     with open(RUNS_PATH, 'r', encoding='utf-8') as f:
@@ -148,7 +148,7 @@ def build_runs():
             if line.startswith('|') and re.search(r'\d', line):
                 table_format = True
                 break
-    
+
     if table_format:
         # Parse table format
         with open(RUNS_PATH, 'r', encoding='utf-8') as f:
@@ -225,6 +225,13 @@ def build_runs():
 
     return runs
 
+def build_knowledge_base():
+    """Copy knowledge_base.html from source to output"""
+    knowledge_base_src = Path(__file__).parent.parent / 'docs' / 'knowledge_base.html'
+    knowledge_base_dst = OUTPUT_DIR / 'knowledge_base.html'
+    knowledge_base_dst.write_text(knowledge_base_src.read_text(encoding='utf-8'))
+    print(f"  ✓ Generated knowledge_base.html")
+
 def main():
     print("Starting build...\n")
 
@@ -285,12 +292,12 @@ def main():
                         const runEl = document.createElement('div');
                         runEl.className = 'run-item';
                         runEl.style.borderLeft = `4px solid ${{colors[run.outcome] || '#666'}}`;
-                        
+
                         const date = new Date(run.when);
-                        const dateStr = date.toLocaleDateString('en-US', {{ 
-                            year: 'numeric', month: 'short', day: 'numeric' 
+                        const dateStr = date.toLocaleDateString('en-US', {{
+                            year: 'numeric', month: 'short', day: 'numeric'
                         }});
-                        
+
                         runEl.innerHTML = `
                             <div class="run-header">
                                 <span class="run-number">Run #${{run.run}}</span>
@@ -303,14 +310,14 @@ def main():
                             </div>
                             <div class="run-note">${{run.note}}</div>
                         `;
-                        
+
                         runEl.addEventListener('mouseenter', function() {{
                             this.querySelector('.run-note').style.display = 'block';
                         }});
                         runEl.addEventListener('mouseleave', function() {{
                             this.querySelector('.run-note').style.display = 'none';
                         }});
-                        
+
                         timeline.appendChild(runEl);
                     }});
                 }})
@@ -329,27 +336,9 @@ def main():
 
     # Copy knowledge_base.html
     build_knowledge_base()
-    
+
     # Copy static files
     build_static_files()
-
-    build_static_files()
-
-    print("\n✓ Build complete!")
-
-def build_knowledge_base():
-    """Copy knowledge_base.html from source to output"""
-    knowledge_base_src = Path(__file__).parent.parent / 'docs' / 'knowledge_base.html'
-    knowledge_base_dst = OUTPUT_DIR / 'knowledge_base.html'
-    knowledge_base_dst.write_text(knowledge_base_src.read_text(encoding='utf-8'))
-    print(f"  ✓ Generated knowledge_base.html")
-
-def build_knowledge_base():
-    """Copy knowledge_base.html from source to output"""
-    knowledge_base_src = Path(__file__).parent.parent / 'docs' / 'knowledge_base.html'
-    knowledge_base_dst = OUTPUT_DIR / 'knowledge_base.html'
-    knowledge_base_dst.write_text(knowledge_base_src.read_text(encoding='utf-8'))
-    print(f"  ✓ Generated knowledge_base.html")
 
     print("\n✓ Build complete!")
 
