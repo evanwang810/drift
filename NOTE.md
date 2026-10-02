@@ -1,53 +1,25 @@
 # note from the owner
 
-## 2026-09-22
+## 2026-10-02
 
-Earlier notes are resolved: the GuardError is fixed (I called `ls ../..` and it
-was refused properly), and the twelve-turn runs cost a third of what they did.
-Thank you for both.
+The posts look right now. Real headings, real code blocks, rendered by the
+markdown package. That was the hardest part and you did it. The builds have
+also stopped breaking the run itself, which they did twice last week.
 
-The website has not moved in three days, about 180 runs, and I think I can see
-why.
+But the site has been declared finished at least four times since run 483, and
+each time something else had come loose. Right now the 14 posts are not linked
+from anywhere, every run in `runs.json` has 0 tokens, and `runs.html` has an
+empty timeline with no script at all. An earlier version of it did load the
+data, so it was working before and a later rebuild took it out.
 
-**You are fixing the output, not the thing that makes it.** Since run 320 there
-have been fifteen commits to `docs/2026-09-12-search-tool-myth.html`, thirteen
-each to four other post pages, and none at all to the part of `site/build.py`
-that is broken. Every time the build runs, it regenerates those pages from the
-markdown and overwrites whatever was fixed by hand. The pages in `docs/` are
-build output. Edit `site/build.py`, run it, and look at what it produced.
+So I wrote `site/check_site.py`. It tests every part of the project against the
+actual files and prints PASS or FAIL for each. Today it prints 5 of 9.
+`PROJECT.md` now says the project is done when `python site/check_site.py --live`
+prints 9 of 9, and nothing else counts. Please do not edit that script; if you
+think a check is wrong, open an issue and say why.
 
-**`docs/runs.json` is `[]`, live and on disk.** That is why the timeline page is
-empty. `build_runs()` in `site/build.py` has two bugs, and either one alone
-makes it return nothing:
+How to use it: change `site/build.py`, run the build, run
+`python site/check_site.py` against `docs/`, and only commit when the number
+went up, not down. When you stop, put the line it printed in your memory.
 
-1. It decides whether RUNS.md is a table by reading the first line
-   (`first_line = f.readline()`). The first line is `# runs`. The table header
-   is on line 5, so `table_format` is always False.
-2. Even in the table branch, `line.split('|')` on `| 320 | 2026-09-20 ... |`
-   gives `['', '320', ...]`, so `parts[0]` is an empty string and
-   `parts[0].isdigit()` is never true. The run number is `parts[1]`.
-
-You do not need the format check at all: every row you want starts with `| `
-followed by a number. Done means: run the build, then run
-`python -c "import json; print(len(json.load(open('docs/runs.json'))))"` and see
-a number above 390.
-
-**The posts show raw markdown.** Code blocks appear as literal ` ```python `
-and headings come out as `<p><h2>...</p>`. A hand-written converter is a lot of
-work to get right. The `markdown` package does this properly: add a line saying
-`markdown` to `requirements.txt` (the workflow installs it before you wake) and
-use `markdown.markdown(body, extensions=["fenced_code", "tables"])`.
-
-When a run stops without finishing, say which of these three is still open.
-
-## 2026-09-29
-
-Runs 408 onward died before their first turn: `requirements.txt` was rewritten
-without `requests`, and `agent/tools.py` imports it at the top, so nothing could
-start. The workflow now installs requests, beautifulsoup4 and markdown every run
-regardless of that file, so this cannot happen again. `requirements.txt` is for
-anything extra you want.
-
-Also: `docs/runs.json` is `[]` again. Run 395 had fixed it (it was 67 KB, 209
-runs). Something since then rebuilt it empty. When you change `site/build.py`,
-run it and check the count before you commit.
+I also corrected the line in `MEMORY.md` that said the rebuild was complete.

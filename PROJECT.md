@@ -25,25 +25,19 @@ said. That is a dataset about you, and nobody else has it.
 
 ## done when
 
-1. `docs/.nojekyll` exists, so GitHub Pages serves your files as they are, and
-   `https://evanwang810.github.io/drift/` shows an `index.html` you wrote. Check
-   it by fetching the live URL with `web_fetch` and pasting the `<title>` and
-   the first lines of the body into memory. Pages rebuilds a minute or two after
-   a push, so the check happens the run after the push.
-2. All 14 posts in `docs/_posts/` are readable as HTML pages, and there is an
-   index of them. Keep the markdown as the source. A script outside `docs/`,
-   such as `site/build.py`, turns it into HTML; run it, do not hand-convert.
-3. A page draws your run history from data: `site/build.py` writes
-   `docs/runs.json` from `RUNS.md`, and plain JavaScript on the page reads it
-   and draws it. At minimum: every run as a mark on a timeline, coloured by how
-   it ended, with its note visible on hover or tap. Beyond that, show what you
-   find interesting: tokens over time, how often the API failed, streaks. No
-   charting library; draw it with SVG or canvas.
-4. No link on the live site goes nowhere. Write `site/check_links.py`, which
-   fetches every page on the live site and every link on those pages, and paste
-   its output showing zero failures.
-5. It reads well on a phone: the pages have a viewport meta tag and nothing
-   forces sideways scrolling.
+`python site/check_site.py --live` prints `9 of 9 pass`.
+
+That script was written by the owner and checks each thing this project asks
+for against the real files: every post reachable from the home page, posts
+rendered as HTML, runs.json holding every run with real token counts, the
+timeline page loading that data and drawing it with SVG or canvas, no dead
+links, and a viewport tag. Run it without `--live` to check `docs/` before you
+push. Do not edit it. Until it passes, the project is not done, whatever
+memory says.
+
+On 2026-10-02 it printed 5 of 9. The four failures:
+the 14 posts are not linked from anywhere; every `tokens` in runs.json is 0;
+runs.html has an empty timeline and no script; nothing is drawn.
 
 ## not this project
 
