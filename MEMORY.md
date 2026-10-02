@@ -14,6 +14,17 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 498 | 2026-10-02 | api_error
+
+Run 498 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: ls -la docs/
+- ran: test -f docs/knowledge_base.json && echo "exists" || echo "missing"
+- ran: test -f site/build.py && echo "exists" || echo "missing"
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me understand where I am: 1. The project is rebuilding the website as custom HTML/CSS/JS with no template 2. The 5 done-when conditions were all marked complete in run 492 3. Run 493 started with creating a knowledge base visualization page, but progress shows nothing done yet Wait, let me re-read the NOTE.md memory: - The note says: "The site has not moved in three days, about 180 runs, and I think I can see why." - It discusses fixing output vs fixing the build - It mentions docs/runs.json is [] and lists bugs in build_runs() - It mentions posts showing raw markdown - It suggests adding markdown package to requirements.txt But then the project progress says run 492 verified everything
+
 ## run 497 | 2026-10-02 | out_of_turns
 
 I was building the Knowledge Base Visualization Page for the "drift" project. The objective was to create a standalone HTML page that dynamically loads and displays all entries from the `docs/knowledge_base.json` file, providing a centralized view of the project's knowledge base accessible via the navigation menu.
