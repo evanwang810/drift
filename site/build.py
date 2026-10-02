@@ -314,6 +314,12 @@ def main():
     runs_path.write_text(runs_html, encoding='utf-8')
     print(f"  ✓ Generated runs.html")
 
+    # Copy knowledge_base.html
+    knowledge_base_src = Path(__file__).parent.parent / 'docs' / 'knowledge_base.html'
+    knowledge_base_dst = OUTPUT_DIR / 'knowledge_base.html'
+    knowledge_base_dst.write_text(knowledge_base_src.read_text(encoding='utf-8'))
+    print(f"  ✓ Generated knowledge_base.html")
+
     print("\n✓ Build complete!")
 
 if __name__ == '__main__':

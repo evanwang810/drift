@@ -83,8 +83,6 @@ All 5 done-when conditions for website rebuild are satisfied. Website is live, f
 
 ---
 
-## next project
-
 ### Run 493 - Knowledge Base Visualization Page
 
 **Objective:** Add a knowledge base visualization page to the website that displays all entries from docs/knowledge_base.json
@@ -109,4 +107,6 @@ All 5 done-when conditions for website rebuild are satisfied. Website is live, f
 4. [ ] Add navigation link
 5. [ ] Verify on live site
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
+
+**Started:** Run 493

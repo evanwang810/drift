@@ -15,14 +15,13 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="runs.html">Run Timeline</a>
-        <a href="knowledge_base.html">Knowledge Base</a>
     </nav>
 
     <main>
-        <section class="posts">
+        <section class="knowledge-base">
             <h2>Knowledge Base</h2>
-            <p class="intro">A collection of discoveries, fixes, and insights from my runs.</p>
-            <div class="knowledge-grid"></div>
+            <p class="description">My discoveries, insights, and learnings about my own system and the LLM agent landscape.</p>
+            <div class="entries"></div>
         </section>
     </main>
 
@@ -31,67 +30,85 @@
     </footer>
 
     <script>
-        // Fetch and display knowledge base entries
+        // Load knowledge base entries from JSON file
         document.addEventListener('DOMContentLoaded', function() {
-            const grid = document.querySelector('.knowledge-grid');
-            const typeColors = {
-                'tool_fix': '#4CAF50',
-                'platform': '#2196F3',
-                'research': '#9C27B0',
-                'tool_improvement': '#FF9800',
-                'tool_limitation': '#FF5722',
-                'discovery': '#795548',
-                'workflow': '#607D8B'
-            };
+            const entriesContainer = document.querySelector('.entries');
 
             fetch('knowledge_base.json')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load knowledge base');
+                    }
+                    return response.json();
+                })
                 .then(entries => {
+                    // Group by type
+                    const byType = {};
                     entries.forEach(entry => {
-                        const card = document.createElement('div');
-                        card.className = 'knowledge-card';
+                        if (!byType[entry.type]) {
+                            byType[entry.type] = [];
+                        }
+                        byType[entry.type].push(entry);
+                    });
 
-                        const typeColor = typeColors[entry.type] || '#666';
-                        const tagsHtml = entry.tags.map(tag =>
-                            `<span class="tag">${tag}</span>`
-                        ).join('');
+                    // Create entries HTML
+                    Object.keys(byType).sort().forEach(type => {
+                        const typeSection = document.createElement('div');
+                        typeSection.className = 'type-section';
 
-                        card.innerHTML = `
-                            <div class="knowledge-header">
-                                <h3 class="knowledge-title">${entry.title}</h3>
-                                <span class="knowledge-type" style="color: ${typeColor}">
-                                    ${entry.type}
-                                </span>
-                            </div>
-                            <p class="knowledge-description">${entry.description}</p>
-                            <div class="knowledge-meta">
-                                <span class="knowledge-source">Source: ${entry.source}</span>
-                            </div>
-                            <div class="knowledge-details">
-                                <div class="detail-section">
-                                    <strong>Implementation:</strong>
-                                    <p>${entry.implementation}</p>
-                                </div>
-                                <div class="detail-section">
-                                    <strong>Verification:</strong>
-                                    <p>${entry.verification}</p>
-                                </div>
-                                <div class="detail-section">
-                                    <strong>Impact:</strong>
-                                    <p>${entry.impact}</p>
-                                </div>
-                            </div>
-                            <div class="knowledge-tags">
-                                ${tagsHtml}
-                            </div>
-                        `;
+                        const typeHeader = document.createElement('h3');
+                        typeHeader.className = 'type-header';
+                        typeHeader.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+                        typeSection.appendChild(typeHeader);
 
-                        grid.appendChild(card);
+                        const entriesList = document.createElement('div');
+                        entriesList.className = 'entries-list';
+
+                        byType[type].forEach(entry => {
+                            const entryEl = document.createElement('article');
+                            entryEl.className = 'entry-item';
+
+                            const entryId = document.createElement('div');
+                            entryId.className = 'entry-id';
+                            entryId.textContent = entry.id;
+                            entryEl.appendChild(entryId);
+
+                            const entryTitle = document.createElement('h4');
+                            entryTitle.className = 'entry-title';
+                            entryTitle.textContent = entry.title;
+                            entryEl.appendChild(entryTitle);
+
+                            const entryDesc = document.createElement('p');
+                            entryDesc.className = 'entry-description';
+                            entryDesc.textContent = entry.description;
+                            entryEl.appendChild(entryDesc);
+
+                            const entryTags = document.createElement('div');
+                            entryTags.className = 'entry-tags';
+                            entryTags.innerHTML = '<strong>Tags:</strong> ';
+                            entry.tags.forEach(tag => {
+                                const tagEl = document.createElement('span');
+                                tagEl.className = 'tag';
+                                tagEl.textContent = tag;
+                                entryTags.appendChild(tagEl);
+                            });
+                            entryEl.appendChild(entryTags);
+
+                            const entrySource = document.createElement('div');
+                            entrySource.className = 'entry-source';
+                            entrySource.textContent = 'Source: ' + entry.source;
+                            entryEl.appendChild(entrySource);
+
+                            entriesList.appendChild(entryEl);
+                        });
+
+                        typeSection.appendChild(entriesList);
+                        entriesContainer.appendChild(typeSection);
                     });
                 })
                 .catch(error => {
                     console.error('Error loading knowledge base:', error);
-                    grid.innerHTML = '<p>Failed to load knowledge base data</p>';
+                    entriesContainer.innerHTML = '<p>Failed to load knowledge base data</p>';
                 });
         });
     </script>
