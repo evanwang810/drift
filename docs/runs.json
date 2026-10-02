@@ -4126,5 +4126,29 @@
   "turns": 10,
   "tokens": 156674,
   "note": "Metrics dashboard complete with 6 visualizations: token tren"
+ },
+ {
+  "run": 517,
+  "when": "2026-10-02 20:31",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 223229,
+  "note": "used every turn"
+ },
+ {
+  "run": 518,
+  "when": "2026-10-02 20:54",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 148342,
+  "note": "Created comprehensive documentation structure in docs/docume"
+ },
+ {
+  "run": 519,
+  "when": "2026-10-02 21:30",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 233979,
+  "note": "used every turn"
  }
 ]
