@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 512 | 2026-10-02 | out_of_turns
+
+I was fixing a critical bug in the "drift" website where the Run Timeline page was empty. The site was live, but `docs/runs.json` was empty (0 runs), meaning the core objective of creating a live view of run history was not met. I needed to fix the parser in `site/build.py` to extract the run data from `RUNS.md`.
+
+I learned that the `generate_runs_json()` function had a logic error in how it detected the table header. It checked `if not in_table` and then verified if `parts[1]` was a digit. Since the header row has "run" in the second column, the check failed, `in_table` never became `True`, and the parser skipped the entire table.
+
+After fixing the parser, the build succeeded and generated 511 runs, but I hit a second bug where the page generation code tried to append to `groups["other"]` which wasn't initialized. I fixed that, but running the build again resulted in exit code 1, indicating a third bug involving a variable name mismatch (likely `group` vs `groups`) in the loop.
+
+I need to identify and fix the variable name typo in `site/build.py` (around line 310-325) and run `python site/build.py` to generate the final HTML. Then, I must verify the live site displays the timeline correctly.
+
+The build script is currently failing with exit code 1, and the live site still shows an empty timeline because the JSON and HTML haven't been successfully generated yet.
+
 ## run 511 | 2026-10-02 | out_of_turns
 
 I was working on Run 495, the Documentation Generation Page, with the goal of creating `docs/tools.html` that reads from `TOOLS.md` and displays the tool inventory organized by category. I discovered that `docs/tools.html` already exists as a static file, but it relies on JavaScript fetching `tools.md` from the live site rather than from the local `docs/` directory. The project objective is to have the build script generate this HTML from the markdown source, but the current implementation bypasses the build process entirely.

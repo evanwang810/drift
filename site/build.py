@@ -182,11 +182,14 @@ def generate_runs_json():
             line = line.strip()
             if line.startswith("|"):
                 if not in_table:
-                    # Check if this is a table header
+                    # First line after header is the separator or first data row
+                    # Skip if it's just separators, otherwise start parsing
                     parts = line.split("|")
                     if len(parts) >= 3 and parts[1].strip().isdigit():
                         in_table = True
-                        continue
+                    # Skip separator line (starts with --: or ---)
+                    if '--' not in parts[1] and parts[1].strip() != '':
+                        in_table = True
                 else:
                     parts = line.split("|")
                     if len(parts) >= 3:
@@ -212,7 +215,7 @@ def generate_runs_json():
 def generate_runs_page(runs):
     """Generate runs.html visualization page."""
     # Group by end type
-    groups = {"stop": [], "out_of_turns": [], "error": [], "interrupt": []}
+    groups = {"stop": [], "out_of_turns": [], "error": [], "interrupt": [], "other": []}
     for run in runs:
         end_type = run.get("ended", "unknown")
         if end_type in groups:

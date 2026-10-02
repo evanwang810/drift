@@ -1,1 +1,3579 @@
-[]
+[
+  {
+    "run": 1,
+    "date": "2026-09-06 20:39",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 2,
+    "date": "2026-09-06 21:01",
+    "ended": "stopped",
+    "turns": 13,
+    "tokens": 0
+  },
+  {
+    "run": 3,
+    "date": "2026-09-06 22:39",
+    "ended": "stopped",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 4,
+    "date": "2026-09-06 23:42",
+    "ended": "stopped",
+    "turns": 23,
+    "tokens": 0
+  },
+  {
+    "run": 5,
+    "date": "2026-09-07 00:16",
+    "ended": "stopped",
+    "turns": 8,
+    "tokens": 0
+  },
+  {
+    "run": 6,
+    "date": "2026-09-07 00:56",
+    "ended": "api_error",
+    "turns": 6,
+    "tokens": 0
+  },
+  {
+    "run": 7,
+    "date": "2026-09-07 01:35",
+    "ended": "stopped",
+    "turns": 17,
+    "tokens": 0
+  },
+  {
+    "run": 8,
+    "date": "2026-09-07 02:29",
+    "ended": "stopped",
+    "turns": 6,
+    "tokens": 0
+  },
+  {
+    "run": 9,
+    "date": "2026-09-07 03:06",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 10,
+    "date": "2026-09-07 04:07",
+    "ended": "api_error",
+    "turns": 29,
+    "tokens": 0
+  },
+  {
+    "run": 11,
+    "date": "2026-09-07 05:08",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 12,
+    "date": "2026-09-07 06:17",
+    "ended": "api_error",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 13,
+    "date": "2026-09-07 07:16",
+    "ended": "api_error",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 14,
+    "date": "2026-09-07 08:01",
+    "ended": "stopped",
+    "turns": 18,
+    "tokens": 0
+  },
+  {
+    "run": 15,
+    "date": "2026-09-07 09:01",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 16,
+    "date": "2026-09-07 11:04",
+    "ended": "api_error",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 17,
+    "date": "2026-09-07 11:58",
+    "ended": "stopped",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 18,
+    "date": "2026-09-07 13:18",
+    "ended": "api_error",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 19,
+    "date": "2026-09-07 14:21",
+    "ended": "api_error",
+    "turns": 3,
+    "tokens": 0
+  },
+  {
+    "run": 20,
+    "date": "2026-09-07 14:58",
+    "ended": "api_error",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 21,
+    "date": "2026-09-07 15:45",
+    "ended": "api_error",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 22,
+    "date": "2026-09-07 16:51",
+    "ended": "api_error",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 23,
+    "date": "2026-09-07 17:42",
+    "ended": "api_error",
+    "turns": 16,
+    "tokens": 0
+  },
+  {
+    "run": 24,
+    "date": "2026-09-07 20:45",
+    "ended": "stopped",
+    "turns": 13,
+    "tokens": 0
+  },
+  {
+    "run": 25,
+    "date": "2026-09-07 22:07",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 26,
+    "date": "2026-09-07 22:39",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 27,
+    "date": "2026-09-07 23:11",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 28,
+    "date": "2026-09-07 23:56",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 29,
+    "date": "2026-09-08 00:28",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 30,
+    "date": "2026-09-08 01:04",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 31,
+    "date": "2026-09-08 01:36",
+    "ended": "crashed",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 32,
+    "date": "2026-09-08 01:55",
+    "ended": "api_error",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 33,
+    "date": "2026-09-08 03:04",
+    "ended": "stopped",
+    "turns": 24,
+    "tokens": 0
+  },
+  {
+    "run": 34,
+    "date": "2026-09-08 04:47",
+    "ended": "api_error",
+    "turns": 3,
+    "tokens": 0
+  },
+  {
+    "run": 35,
+    "date": "2026-09-08 05:06",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 36,
+    "date": "2026-09-08 05:50",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 37,
+    "date": "2026-09-08 07:12",
+    "ended": "stopped",
+    "turns": 20,
+    "tokens": 0
+  },
+  {
+    "run": 38,
+    "date": "2026-09-08 08:38",
+    "ended": "stopped",
+    "turns": 13,
+    "tokens": 0
+  },
+  {
+    "run": 39,
+    "date": "2026-09-08 09:38",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 40,
+    "date": "2026-09-08 11:09",
+    "ended": "stopped",
+    "turns": 31,
+    "tokens": 0
+  },
+  {
+    "run": 41,
+    "date": "2026-09-08 12:57",
+    "ended": "api_error",
+    "turns": 5,
+    "tokens": 0
+  },
+  {
+    "run": 42,
+    "date": "2026-09-08 13:46",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 43,
+    "date": "2026-09-08 14:44",
+    "ended": "stopped",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 44,
+    "date": "2026-09-08 16:30",
+    "ended": "stopped",
+    "turns": 22,
+    "tokens": 0
+  },
+  {
+    "run": 45,
+    "date": "2026-09-08 17:53",
+    "ended": "api_error",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 46,
+    "date": "2026-09-08 19:26",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 47,
+    "date": "2026-09-08 21:13",
+    "ended": "stopped",
+    "turns": 32,
+    "tokens": 0
+  },
+  {
+    "run": 48,
+    "date": "2026-09-08 22:57",
+    "ended": "stopped",
+    "turns": 35,
+    "tokens": 0
+  },
+  {
+    "run": 49,
+    "date": "2026-09-09 01:33",
+    "ended": "stopped",
+    "turns": 23,
+    "tokens": 0
+  },
+  {
+    "run": 50,
+    "date": "2026-09-09 03:18",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 51,
+    "date": "2026-09-09 05:22",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 52,
+    "date": "2026-09-09 05:29",
+    "ended": "api_error",
+    "turns": 8,
+    "tokens": 0
+  },
+  {
+    "run": 53,
+    "date": "2026-09-09 06:35",
+    "ended": "stopped",
+    "turns": 25,
+    "tokens": 0
+  },
+  {
+    "run": 54,
+    "date": "2026-09-09 07:56",
+    "ended": "stopped",
+    "turns": 19,
+    "tokens": 0
+  },
+  {
+    "run": 55,
+    "date": "2026-09-09 10:19",
+    "ended": "stopped",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 56,
+    "date": "2026-09-09 11:41",
+    "ended": "stopped",
+    "turns": 21,
+    "tokens": 0
+  },
+  {
+    "run": 57,
+    "date": "2026-09-09 13:10",
+    "ended": "stopped",
+    "turns": 18,
+    "tokens": 0
+  },
+  {
+    "run": 58,
+    "date": "2026-09-09 15:35",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 59,
+    "date": "2026-09-09 16:17",
+    "ended": "stopped",
+    "turns": 23,
+    "tokens": 0
+  },
+  {
+    "run": 60,
+    "date": "2026-09-09 17:39",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 61,
+    "date": "2026-09-09 18:48",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 62,
+    "date": "2026-09-09 19:56",
+    "ended": "stopped",
+    "turns": 39,
+    "tokens": 0
+  },
+  {
+    "run": 63,
+    "date": "2026-09-09 20:52",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 64,
+    "date": "2026-09-09 21:54",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 65,
+    "date": "2026-09-09 22:50",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 66,
+    "date": "2026-09-09 23:48",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 67,
+    "date": "2026-09-10 00:30",
+    "ended": "stopped",
+    "turns": 20,
+    "tokens": 0
+  },
+  {
+    "run": 68,
+    "date": "2026-09-10 03:55",
+    "ended": "out_of_time",
+    "turns": 32,
+    "tokens": 0
+  },
+  {
+    "run": 69,
+    "date": "2026-09-10 05:07",
+    "ended": "api_error",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 70,
+    "date": "2026-09-10 06:13",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 71,
+    "date": "2026-09-10 07:09",
+    "ended": "out_of_time",
+    "turns": 16,
+    "tokens": 0
+  },
+  {
+    "run": 72,
+    "date": "2026-09-10 08:41",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 73,
+    "date": "2026-09-10 10:28",
+    "ended": "out_of_time",
+    "turns": 20,
+    "tokens": 0
+  },
+  {
+    "run": 74,
+    "date": "2026-09-10 12:01",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 75,
+    "date": "2026-09-10 12:43",
+    "ended": "out_of_time",
+    "turns": 22,
+    "tokens": 0
+  },
+  {
+    "run": 76,
+    "date": "2026-09-10 15:19",
+    "ended": "stopped",
+    "turns": 21,
+    "tokens": 0
+  },
+  {
+    "run": 77,
+    "date": "2026-09-10 16:43",
+    "ended": "stopped",
+    "turns": 23,
+    "tokens": 0
+  },
+  {
+    "run": 78,
+    "date": "2026-09-10 17:50",
+    "ended": "stopped",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 79,
+    "date": "2026-09-10 19:12",
+    "ended": "stopped",
+    "turns": 35,
+    "tokens": 0
+  },
+  {
+    "run": 80,
+    "date": "2026-09-10 21:26",
+    "ended": "stopped",
+    "turns": 33,
+    "tokens": 0
+  },
+  {
+    "run": 81,
+    "date": "2026-09-10 22:46",
+    "ended": "stopped",
+    "turns": 17,
+    "tokens": 0
+  },
+  {
+    "run": 82,
+    "date": "2026-09-10 23:21",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 83,
+    "date": "2026-09-11 01:35",
+    "ended": "stopped",
+    "turns": 15,
+    "tokens": 0
+  },
+  {
+    "run": 84,
+    "date": "2026-09-11 02:52",
+    "ended": "stopped",
+    "turns": 15,
+    "tokens": 0
+  },
+  {
+    "run": 85,
+    "date": "2026-09-11 04:15",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 86,
+    "date": "2026-09-11 05:19",
+    "ended": "stopped",
+    "turns": 18,
+    "tokens": 0
+  },
+  {
+    "run": 87,
+    "date": "2026-09-11 06:35",
+    "ended": "api_error",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 88,
+    "date": "2026-09-11 07:35",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 89,
+    "date": "2026-09-11 08:54",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 90,
+    "date": "2026-09-11 09:31",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 91,
+    "date": "2026-09-11 10:35",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 92,
+    "date": "2026-09-11 11:45",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 93,
+    "date": "2026-09-11 13:07",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 94,
+    "date": "2026-09-11 13:41",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 95,
+    "date": "2026-09-11 14:54",
+    "ended": "out_of_time",
+    "turns": 34,
+    "tokens": 0
+  },
+  {
+    "run": 96,
+    "date": "2026-09-11 16:43",
+    "ended": "stopped",
+    "turns": 21,
+    "tokens": 0
+  },
+  {
+    "run": 97,
+    "date": "2026-09-11 17:31",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 98,
+    "date": "2026-09-11 18:34",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 99,
+    "date": "2026-09-11 20:33",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 100,
+    "date": "2026-09-11 22:44",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 101,
+    "date": "2026-09-12 00:04",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 102,
+    "date": "2026-09-12 01:37",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 103,
+    "date": "2026-09-12 02:50",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 104,
+    "date": "2026-09-12 04:03",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 105,
+    "date": "2026-09-12 05:03",
+    "ended": "stopped",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 106,
+    "date": "2026-09-12 05:43",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 107,
+    "date": "2026-09-12 06:23",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 108,
+    "date": "2026-09-12 07:46",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 109,
+    "date": "2026-09-12 08:52",
+    "ended": "stopped",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 110,
+    "date": "2026-09-12 10:09",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 111,
+    "date": "2026-09-12 11:11",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 112,
+    "date": "2026-09-12 12:00",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 113,
+    "date": "2026-09-12 13:07",
+    "ended": "stopped",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 114,
+    "date": "2026-09-12 15:15",
+    "ended": "stopped",
+    "turns": 37,
+    "tokens": 0
+  },
+  {
+    "run": 115,
+    "date": "2026-09-12 16:17",
+    "ended": "stopped",
+    "turns": 31,
+    "tokens": 0
+  },
+  {
+    "run": 116,
+    "date": "2026-09-12 17:20",
+    "ended": "stopped",
+    "turns": 3,
+    "tokens": 0
+  },
+  {
+    "run": 117,
+    "date": "2026-09-12 17:24",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 118,
+    "date": "2026-09-12 18:42",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 119,
+    "date": "2026-09-12 19:36",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 120,
+    "date": "2026-09-12 20:50",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 121,
+    "date": "2026-09-12 22:19",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 122,
+    "date": "2026-09-12 21:36",
+    "ended": "stopped",
+    "turns": 37,
+    "tokens": 0
+  },
+  {
+    "run": 123,
+    "date": "2026-09-12 22:56",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 124,
+    "date": "2026-09-12 23:16",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 125,
+    "date": "2026-09-12 23:55",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 126,
+    "date": "2026-09-13 00:51",
+    "ended": "stopped",
+    "turns": 34,
+    "tokens": 0
+  },
+  {
+    "run": 127,
+    "date": "2026-09-13 01:21",
+    "ended": "stopped",
+    "turns": 13,
+    "tokens": 0
+  },
+  {
+    "run": 128,
+    "date": "2026-09-13 01:57",
+    "ended": "stopped",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 129,
+    "date": "2026-09-13 02:33",
+    "ended": "stopped",
+    "turns": 22,
+    "tokens": 0
+  },
+  {
+    "run": 130,
+    "date": "2026-09-13 03:16",
+    "ended": "stopped",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 131,
+    "date": "2026-09-13 03:51",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 132,
+    "date": "2026-09-13 05:06",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 133,
+    "date": "2026-09-13 06:04",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 134,
+    "date": "2026-09-13 06:43",
+    "ended": "stopped",
+    "turns": 18,
+    "tokens": 0
+  },
+  {
+    "run": 135,
+    "date": "2026-09-13 07:40",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 136,
+    "date": "2026-09-13 08:39",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 137,
+    "date": "2026-09-13 09:35",
+    "ended": "stopped",
+    "turns": 15,
+    "tokens": 0
+  },
+  {
+    "run": 138,
+    "date": "2026-09-13 10:13",
+    "ended": "stopped",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 139,
+    "date": "2026-09-13 10:13",
+    "ended": "stopped",
+    "turns": 16,
+    "tokens": 0
+  },
+  {
+    "run": 140,
+    "date": "2026-09-13 10:53",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 141,
+    "date": "2026-09-13 12:04",
+    "ended": "stopped",
+    "turns": 28,
+    "tokens": 0
+  },
+  {
+    "run": 142,
+    "date": "2026-09-13 12:49",
+    "ended": "api_error",
+    "turns": 8,
+    "tokens": 0
+  },
+  {
+    "run": 143,
+    "date": "2026-09-13 13:49",
+    "ended": "api_error",
+    "turns": 21,
+    "tokens": 0
+  },
+  {
+    "run": 144,
+    "date": "2026-09-13 15:00",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 145,
+    "date": "2026-09-13 16:00",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 146,
+    "date": "2026-09-13 17:05",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 147,
+    "date": "2026-09-13 17:56",
+    "ended": "api_error",
+    "turns": 19,
+    "tokens": 0
+  },
+  {
+    "run": 148,
+    "date": "2026-09-13 19:11",
+    "ended": "stopped",
+    "turns": 29,
+    "tokens": 0
+  },
+  {
+    "run": 149,
+    "date": "2026-09-13 19:41",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 150,
+    "date": "2026-09-13 21:03",
+    "ended": "stopped",
+    "turns": 29,
+    "tokens": 0
+  },
+  {
+    "run": 151,
+    "date": "2026-09-13 22:23",
+    "ended": "stopped",
+    "turns": 19,
+    "tokens": 0
+  },
+  {
+    "run": 152,
+    "date": "2026-09-13 22:33",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 153,
+    "date": "2026-09-13 23:24",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 154,
+    "date": "2026-09-14 01:15",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 155,
+    "date": "2026-09-14 02:37",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 156,
+    "date": "2026-09-14 03:53",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 157,
+    "date": "2026-09-14 04:28",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 158,
+    "date": "2026-09-14 05:21",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 159,
+    "date": "2026-09-14 06:32",
+    "ended": "api_error",
+    "turns": 31,
+    "tokens": 0
+  },
+  {
+    "run": 160,
+    "date": "2026-09-14 07:53",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 161,
+    "date": "2026-09-14 09:15",
+    "ended": "stopped",
+    "turns": 32,
+    "tokens": 0
+  },
+  {
+    "run": 162,
+    "date": "2026-09-14 11:16",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 163,
+    "date": "2026-09-14 12:32",
+    "ended": "stopped",
+    "turns": 22,
+    "tokens": 0
+  },
+  {
+    "run": 164,
+    "date": "2026-09-14 13:35",
+    "ended": "stopped",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 165,
+    "date": "2026-09-14 14:11",
+    "ended": "stopped",
+    "turns": 39,
+    "tokens": 0
+  },
+  {
+    "run": 166,
+    "date": "2026-09-14 15:32",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 167,
+    "date": "2026-09-14 16:39",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 168,
+    "date": "2026-09-14 17:01",
+    "ended": "stopped",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 169,
+    "date": "2026-09-14 17:38",
+    "ended": "stopped",
+    "turns": 31,
+    "tokens": 0
+  },
+  {
+    "run": 170,
+    "date": "2026-09-14 18:35",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 171,
+    "date": "2026-09-14 19:41",
+    "ended": "out_of_time",
+    "turns": 37,
+    "tokens": 0
+  },
+  {
+    "run": 172,
+    "date": "2026-09-14 21:02",
+    "ended": "stopped",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 173,
+    "date": "2026-09-14 22:27",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 174,
+    "date": "2026-09-16 02:15",
+    "ended": "stopped",
+    "turns": 33,
+    "tokens": 0
+  },
+  {
+    "run": 175,
+    "date": "2026-09-16 03:36",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 176,
+    "date": "2026-09-16 04:39",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 177,
+    "date": "2026-09-16 05:47",
+    "ended": "stopped",
+    "turns": 15,
+    "tokens": 0
+  },
+  {
+    "run": 178,
+    "date": "2026-09-16 06:50",
+    "ended": "stopped",
+    "turns": 35,
+    "tokens": 0
+  },
+  {
+    "run": 179,
+    "date": "2026-09-16 08:17",
+    "ended": "stopped",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 180,
+    "date": "2026-09-16 09:00",
+    "ended": "stopped",
+    "turns": 37,
+    "tokens": 0
+  },
+  {
+    "run": 181,
+    "date": "2026-09-16 10:25",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 182,
+    "date": "2026-09-16 11:46",
+    "ended": "stopped",
+    "turns": 17,
+    "tokens": 0
+  },
+  {
+    "run": 183,
+    "date": "2026-09-16 13:01",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 184,
+    "date": "2026-09-16 14:11",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 185,
+    "date": "2026-09-16 14:47",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 186,
+    "date": "2026-09-16 15:59",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 187,
+    "date": "2026-09-16 17:04",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 188,
+    "date": "2026-09-16 17:42",
+    "ended": "stopped",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 189,
+    "date": "2026-09-16 19:01",
+    "ended": "stopped",
+    "turns": 14,
+    "tokens": 0
+  },
+  {
+    "run": 190,
+    "date": "2026-09-16 19:54",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 191,
+    "date": "2026-09-16 20:34",
+    "ended": "stopped",
+    "turns": 17,
+    "tokens": 0
+  },
+  {
+    "run": 192,
+    "date": "2026-09-16 21:13",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 193,
+    "date": "2026-09-16 21:37",
+    "ended": "stopped",
+    "turns": 21,
+    "tokens": 0
+  },
+  {
+    "run": 194,
+    "date": "2026-09-16 22:37",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 195,
+    "date": "2026-09-16 23:49",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 196,
+    "date": "2026-09-17 00:50",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 197,
+    "date": "2026-09-17 01:55",
+    "ended": "api_error",
+    "turns": 27,
+    "tokens": 0
+  },
+  {
+    "run": 198,
+    "date": "2026-09-17 03:38",
+    "ended": "stopped",
+    "turns": 35,
+    "tokens": 0
+  },
+  {
+    "run": 199,
+    "date": "2026-09-17 05:04",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 200,
+    "date": "2026-09-17 06:53",
+    "ended": "stopped",
+    "turns": 26,
+    "tokens": 0
+  },
+  {
+    "run": 201,
+    "date": "2026-09-17 08:13",
+    "ended": "stopped",
+    "turns": 36,
+    "tokens": 0
+  },
+  {
+    "run": 202,
+    "date": "2026-09-17 09:36",
+    "ended": "api_error",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 203,
+    "date": "2026-09-17 10:20",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 204,
+    "date": "2026-09-17 11:39",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 204,
+    "date": "2026-09-17 12:22",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 206,
+    "date": "2026-09-17 13:31",
+    "ended": "api_error",
+    "turns": 29,
+    "tokens": 0
+  },
+  {
+    "run": 207,
+    "date": "2026-09-17 14:49",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 208,
+    "date": "2026-09-17 16:03",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 209,
+    "date": "2026-09-17 17:13",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 210,
+    "date": "2026-09-17 18:15",
+    "ended": "out_of_turns",
+    "turns": 40,
+    "tokens": 0
+  },
+  {
+    "run": 211,
+    "date": "2026-09-17 19:15",
+    "ended": "stopped",
+    "turns": 38,
+    "tokens": 0
+  },
+  {
+    "run": 212,
+    "date": "2026-09-17 21:25",
+    "ended": "out_of_time",
+    "turns": 15,
+    "tokens": 0
+  },
+  {
+    "run": 213,
+    "date": "2026-09-17 23:02",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 214,
+    "date": "2026-09-17 23:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 215,
+    "date": "2026-09-18 00:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 216,
+    "date": "2026-09-18 01:02",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 217,
+    "date": "2026-09-18 01:24",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 218,
+    "date": "2026-09-18 02:08",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 219,
+    "date": "2026-09-18 02:47",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 220,
+    "date": "2026-09-18 03:30",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 221,
+    "date": "2026-09-18 04:09",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 222,
+    "date": "2026-09-18 04:47",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 223,
+    "date": "2026-09-18 05:36",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 224,
+    "date": "2026-09-18 06:34",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 225,
+    "date": "2026-09-18 07:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 226,
+    "date": "2026-09-18 08:06",
+    "ended": "api_error",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 227,
+    "date": "2026-09-18 09:19",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 228,
+    "date": "2026-09-18 10:02",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 229,
+    "date": "2026-09-18 10:40",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 230,
+    "date": "2026-09-18 11:24",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 231,
+    "date": "2026-09-18 11:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 232,
+    "date": "2026-09-18 12:22",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 233,
+    "date": "2026-09-18 12:57",
+    "ended": "stopped",
+    "turns": 8,
+    "tokens": 0
+  },
+  {
+    "run": 234,
+    "date": "2026-09-18 13:35",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 235,
+    "date": "2026-09-18 14:20",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 236,
+    "date": "2026-09-18 14:58",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 237,
+    "date": "2026-09-18 15:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 238,
+    "date": "2026-09-18 16:25",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 239,
+    "date": "2026-09-18 16:40",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 240,
+    "date": "2026-09-18 17:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 241,
+    "date": "2026-09-18 18:01",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 242,
+    "date": "2026-09-18 18:45",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 243,
+    "date": "2026-09-18 19:31",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 244,
+    "date": "2026-09-18 19:54",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 245,
+    "date": "2026-09-18 20:36",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 246,
+    "date": "2026-09-18 21:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 247,
+    "date": "2026-09-18 22:00",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 248,
+    "date": "2026-09-18 22:57",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 249,
+    "date": "2026-09-18 23:49",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 250,
+    "date": "2026-09-19 00:27",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 251,
+    "date": "2026-09-19 01:06",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 252,
+    "date": "2026-09-19 01:29",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 253,
+    "date": "2026-09-19 02:13",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 254,
+    "date": "2026-09-19 02:59",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 255,
+    "date": "2026-09-19 03:46",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 256,
+    "date": "2026-09-19 04:25",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 257,
+    "date": "2026-09-19 05:18",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 258,
+    "date": "2026-09-19 06:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 259,
+    "date": "2026-09-19 06:29",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 260,
+    "date": "2026-09-19 07:11",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 261,
+    "date": "2026-09-19 07:53",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 262,
+    "date": "2026-09-19 08:31",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 263,
+    "date": "2026-09-19 09:15",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 264,
+    "date": "2026-09-19 10:01",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 265,
+    "date": "2026-09-19 10:42",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 266,
+    "date": "2026-09-19 11:24",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 267,
+    "date": "2026-09-19 12:03",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 268,
+    "date": "2026-09-19 12:37",
+    "ended": "api_error",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 269,
+    "date": "2026-09-19 13:39",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 270,
+    "date": "2026-09-19 14:20",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 271,
+    "date": "2026-09-19 14:42",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 272,
+    "date": "2026-09-19 15:25",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 273,
+    "date": "2026-09-19 16:07",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 274,
+    "date": "2026-09-19 16:50",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 275,
+    "date": "2026-09-19 17:31",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 276,
+    "date": "2026-09-19 18:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 277,
+    "date": "2026-09-19 18:56",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 278,
+    "date": "2026-09-19 19:33",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 279,
+    "date": "2026-09-19 20:10",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 280,
+    "date": "2026-09-19 20:56",
+    "ended": "stopped",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 281,
+    "date": "2026-09-19 21:28",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 282,
+    "date": "2026-09-19 22:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 283,
+    "date": "2026-09-19 22:47",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 284,
+    "date": "2026-09-19 23:34",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 285,
+    "date": "2026-09-20 00:11",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 286,
+    "date": "2026-09-20 00:50",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 287,
+    "date": "2026-09-20 01:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 288,
+    "date": "2026-09-20 02:23",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 289,
+    "date": "2026-09-20 03:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 290,
+    "date": "2026-09-20 03:51",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 291,
+    "date": "2026-09-20 04:29",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 292,
+    "date": "2026-09-20 05:09",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 293,
+    "date": "2026-09-20 05:48",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 294,
+    "date": "2026-09-20 06:34",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 295,
+    "date": "2026-09-20 06:51",
+    "ended": "api_error",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 296,
+    "date": "2026-09-20 07:57",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 297,
+    "date": "2026-09-20 08:35",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 298,
+    "date": "2026-09-20 09:20",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 299,
+    "date": "2026-09-20 09:56",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 300,
+    "date": "2026-09-20 10:40",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 301,
+    "date": "2026-09-20 11:31",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 302,
+    "date": "2026-09-20 12:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 303,
+    "date": "2026-09-20 12:35",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 304,
+    "date": "2026-09-20 13:30",
+    "ended": "stopped",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 305,
+    "date": "2026-09-20 14:04",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 306,
+    "date": "2026-09-20 14:47",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 307,
+    "date": "2026-09-20 15:31",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 308,
+    "date": "2026-09-20 16:27",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 309,
+    "date": "2026-09-20 17:05",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 310,
+    "date": "2026-09-20 17:46",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 311,
+    "date": "2026-09-20 18:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 312,
+    "date": "2026-09-20 19:00",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 313,
+    "date": "2026-09-20 19:40",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 314,
+    "date": "2026-09-20 20:20",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 315,
+    "date": "2026-09-20 20:55",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 316,
+    "date": "2026-09-20 21:36",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 317,
+    "date": "2026-09-20 21:45",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 318,
+    "date": "2026-09-20 22:23",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 319,
+    "date": "2026-09-20 23:02",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 320,
+    "date": "2026-09-20 23:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 321,
+    "date": "2026-09-21 00:36",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 322,
+    "date": "2026-09-21 01:17",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 323,
+    "date": "2026-09-21 01:53",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 324,
+    "date": "2026-09-21 02:30",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 325,
+    "date": "2026-09-21 03:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 326,
+    "date": "2026-09-21 04:10",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 327,
+    "date": "2026-09-21 04:54",
+    "ended": "api_error",
+    "turns": 7,
+    "tokens": 0
+  },
+  {
+    "run": 328,
+    "date": "2026-09-21 05:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 329,
+    "date": "2026-09-21 06:11",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 330,
+    "date": "2026-09-21 06:51",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 331,
+    "date": "2026-09-21 07:55",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 332,
+    "date": "2026-09-21 08:32",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 333,
+    "date": "2026-09-21 09:09",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 334,
+    "date": "2026-09-21 09:57",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 335,
+    "date": "2026-09-21 10:31",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 336,
+    "date": "2026-09-21 11:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 337,
+    "date": "2026-09-21 11:48",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 338,
+    "date": "2026-09-21 12:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 339,
+    "date": "2026-09-21 13:07",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 340,
+    "date": "2026-09-21 13:58",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 341,
+    "date": "2026-09-21 14:35",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 342,
+    "date": "2026-09-21 15:19",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 343,
+    "date": "2026-09-21 16:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 344,
+    "date": "2026-09-21 16:46",
+    "ended": "stopped",
+    "turns": 5,
+    "tokens": 0
+  },
+  {
+    "run": 345,
+    "date": "2026-09-21 17:09",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 346,
+    "date": "2026-09-21 17:49",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 347,
+    "date": "2026-09-21 18:26",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 348,
+    "date": "2026-09-21 19:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 349,
+    "date": "2026-09-21 19:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 350,
+    "date": "2026-09-21 20:20",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 351,
+    "date": "2026-09-21 20:57",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 352,
+    "date": "2026-09-21 21:12",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 353,
+    "date": "2026-09-21 21:55",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 354,
+    "date": "2026-09-21 22:32",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 355,
+    "date": "2026-09-21 23:08",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 356,
+    "date": "2026-09-21 23:45",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 357,
+    "date": "2026-09-22 00:14",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 358,
+    "date": "2026-09-22 01:17",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 359,
+    "date": "2026-09-22 02:02",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 360,
+    "date": "2026-09-22 02:50",
+    "ended": "stopped",
+    "turns": 8,
+    "tokens": 0
+  },
+  {
+    "run": 361,
+    "date": "2026-09-22 03:30",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 362,
+    "date": "2026-09-22 04:24",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 363,
+    "date": "2026-09-22 05:04",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 364,
+    "date": "2026-09-22 05:55",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 365,
+    "date": "2026-09-22 06:42",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 366,
+    "date": "2026-09-22 07:33",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 367,
+    "date": "2026-09-22 08:15",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 368,
+    "date": "2026-09-22 08:54",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 369,
+    "date": "2026-09-22 09:32",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 370,
+    "date": "2026-09-22 10:27",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 371,
+    "date": "2026-09-22 11:08",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 372,
+    "date": "2026-09-22 12:00",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 373,
+    "date": "2026-09-22 12:49",
+    "ended": "stopped",
+    "turns": 4,
+    "tokens": 0
+  },
+  {
+    "run": 374,
+    "date": "2026-09-22 13:24",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 375,
+    "date": "2026-09-22 14:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 376,
+    "date": "2026-09-22 14:49",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 377,
+    "date": "2026-09-22 15:08",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 378,
+    "date": "2026-09-22 15:57",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 379,
+    "date": "2026-09-22 16:39",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 380,
+    "date": "2026-09-22 17:20",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 381,
+    "date": "2026-09-22 17:57",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 382,
+    "date": "2026-09-22 18:46",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 383,
+    "date": "2026-09-22 19:03",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 384,
+    "date": "2026-09-22 19:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 385,
+    "date": "2026-09-22 20:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 386,
+    "date": "2026-09-22 20:56",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 387,
+    "date": "2026-09-22 21:32",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 388,
+    "date": "2026-09-22 22:08",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 389,
+    "date": "2026-09-22 22:23",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 390,
+    "date": "2026-09-22 22:59",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 391,
+    "date": "2026-09-22 23:36",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 392,
+    "date": "2026-09-23 00:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 393,
+    "date": "2026-09-23 00:52",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 394,
+    "date": "2026-09-23 01:33",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 395,
+    "date": "2026-09-23 02:12",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 396,
+    "date": "2026-09-29 02:20",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 397,
+    "date": "2026-09-29 03:13",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 398,
+    "date": "2026-09-29 03:53",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 399,
+    "date": "2026-09-29 04:32",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 400,
+    "date": "2026-09-29 05:09",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 401,
+    "date": "2026-09-29 05:50",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 402,
+    "date": "2026-09-29 06:30",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 403,
+    "date": "2026-09-29 07:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 404,
+    "date": "2026-09-29 08:12",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 405,
+    "date": "2026-09-29 08:57",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 406,
+    "date": "2026-09-29 09:32",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 407,
+    "date": "2026-09-29 10:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 408,
+    "date": "2026-09-29 18:38",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 409,
+    "date": "2026-09-29 19:14",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 410,
+    "date": "2026-09-29 19:52",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 411,
+    "date": "2026-09-29 20:34",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 412,
+    "date": "2026-09-29 20:59",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 413,
+    "date": "2026-09-29 21:45",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 414,
+    "date": "2026-09-29 22:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 415,
+    "date": "2026-09-29 22:59",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 416,
+    "date": "2026-09-29 23:44",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 417,
+    "date": "2026-09-30 00:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 418,
+    "date": "2026-09-30 00:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 419,
+    "date": "2026-09-30 01:20",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 420,
+    "date": "2026-09-30 01:58",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 421,
+    "date": "2026-09-30 02:44",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 422,
+    "date": "2026-09-30 03:47",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 423,
+    "date": "2026-09-30 04:28",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 424,
+    "date": "2026-09-30 05:13",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 425,
+    "date": "2026-09-30 05:54",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 426,
+    "date": "2026-09-30 06:34",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 427,
+    "date": "2026-09-30 07:30",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 428,
+    "date": "2026-09-30 08:25",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 429,
+    "date": "2026-09-30 09:04",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 430,
+    "date": "2026-09-30 09:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 431,
+    "date": "2026-09-30 10:20",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 432,
+    "date": "2026-09-30 11:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 433,
+    "date": "2026-09-30 11:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 434,
+    "date": "2026-09-30 12:23",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 435,
+    "date": "2026-09-30 13:16",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 436,
+    "date": "2026-09-30 13:53",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 437,
+    "date": "2026-09-30 14:09",
+    "ended": "stopped",
+    "turns": 6,
+    "tokens": 0
+  },
+  {
+    "run": 438,
+    "date": "2026-09-30 14:44",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 439,
+    "date": "2026-09-30 15:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 440,
+    "date": "2026-09-30 16:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 441,
+    "date": "2026-09-30 16:43",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 442,
+    "date": "2026-09-30 17:22",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 443,
+    "date": "2026-09-30 18:04",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 444,
+    "date": "2026-09-30 18:49",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 445,
+    "date": "2026-09-30 19:41",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 446,
+    "date": "2026-09-30 20:23",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 447,
+    "date": "2026-09-30 20:57",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 448,
+    "date": "2026-09-30 21:34",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 449,
+    "date": "2026-09-30 22:13",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 450,
+    "date": "2026-09-30 22:53",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 451,
+    "date": "2026-09-30 23:10",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 452,
+    "date": "2026-09-30 23:47",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 453,
+    "date": "2026-10-01 00:23",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 454,
+    "date": "2026-10-01 00:59",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 455,
+    "date": "2026-10-01 01:39",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 456,
+    "date": "2026-10-01 02:22",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 457,
+    "date": "2026-10-01 03:06",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 458,
+    "date": "2026-10-01 03:45",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 459,
+    "date": "2026-10-01 04:23",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 460,
+    "date": "2026-10-01 05:02",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 461,
+    "date": "2026-10-01 05:39",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 462,
+    "date": "2026-10-01 06:26",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 463,
+    "date": "2026-10-01 07:12",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 464,
+    "date": "2026-10-01 07:50",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 465,
+    "date": "2026-10-01 08:34",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 466,
+    "date": "2026-10-01 09:22",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 467,
+    "date": "2026-10-01 09:59",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 468,
+    "date": "2026-10-01 10:35",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 469,
+    "date": "2026-10-01 11:15",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 470,
+    "date": "2026-10-01 12:05",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 471,
+    "date": "2026-10-01 13:18",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 472,
+    "date": "2026-10-01 13:56",
+    "ended": "stopped",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 473,
+    "date": "2026-10-01 14:40",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 474,
+    "date": "2026-10-01 15:23",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 475,
+    "date": "2026-10-01 16:02",
+    "ended": "api_error",
+    "turns": 5,
+    "tokens": 0
+  },
+  {
+    "run": 476,
+    "date": "2026-10-01 16:39",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 477,
+    "date": "2026-10-01 17:18",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 478,
+    "date": "2026-10-01 17:58",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 479,
+    "date": "2026-10-01 18:36",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 480,
+    "date": "2026-10-01 19:11",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 481,
+    "date": "2026-10-01 19:51",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 482,
+    "date": "2026-10-01 20:29",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 483,
+    "date": "2026-10-01 21:08",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 484,
+    "date": "2026-10-01 21:45",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 485,
+    "date": "2026-10-01 21:57",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 486,
+    "date": "2026-10-01 22:37",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 487,
+    "date": "2026-10-01 23:13",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 488,
+    "date": "2026-10-01 23:54",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 489,
+    "date": "2026-10-02 00:38",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 490,
+    "date": "2026-10-02 01:16",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 491,
+    "date": "2026-10-02 01:47",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 492,
+    "date": "2026-10-02 02:26",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 493,
+    "date": "2026-10-02 03:24",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 494,
+    "date": "2026-10-02 04:07",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 495,
+    "date": "2026-10-02 04:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 496,
+    "date": "2026-10-02 05:19",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 497,
+    "date": "2026-10-02 06:00",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 498,
+    "date": "2026-10-02 06:38",
+    "ended": "api_error",
+    "turns": 2,
+    "tokens": 0
+  },
+  {
+    "run": 499,
+    "date": "2026-10-02 07:26",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 500,
+    "date": "2026-10-02 08:04",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 501,
+    "date": "2026-10-02 09:10",
+    "ended": "api_error",
+    "turns": 1,
+    "tokens": 0
+  },
+  {
+    "run": 502,
+    "date": "2026-10-02 10:01",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 503,
+    "date": "2026-10-02 10:42",
+    "ended": "stopped",
+    "turns": 10,
+    "tokens": 0
+  },
+  {
+    "run": 504,
+    "date": "2026-10-02 11:19",
+    "ended": "api_error",
+    "turns": 9,
+    "tokens": 0
+  },
+  {
+    "run": 505,
+    "date": "2026-10-02 12:19",
+    "ended": "stopped",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 506,
+    "date": "2026-10-02 12:56",
+    "ended": "stopped",
+    "turns": 11,
+    "tokens": 0
+  },
+  {
+    "run": 507,
+    "date": "2026-10-02 13:43",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 508,
+    "date": "2026-10-02 14:21",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 509,
+    "date": "2026-10-02 15:03",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 510,
+    "date": "2026-10-02 16:04",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  },
+  {
+    "run": 511,
+    "date": "2026-10-02 16:48",
+    "ended": "out_of_turns",
+    "turns": 12,
+    "tokens": 0
+  }
+]
