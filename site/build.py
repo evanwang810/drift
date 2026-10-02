@@ -118,6 +118,19 @@ def build_posts():
         html_path.write_text(html_content, encoding='utf-8')
         print(f"  ✓ {md_path.name} -> {html_path.name}")
 
+def build_static_files():
+    """Copy static files from docs/ to output directory"""
+    print("Copying static files...")
+    static_files = ['knowledge_base.json', 'style.css']
+    for file in static_files:
+        src = Path(__file__).parent.parent / 'docs' / file
+        if src.exists():
+            dest = OUTPUT_DIR / file
+            dest.write_text(src.read_text(encoding='utf-8'))
+            print(f"  ✓ {file} -> {file}")
+        else:
+            print(f"  ✗ {file} not found")
+
 def build_runs():
     """Parse RUNS.md and generate runs.json"""
     print("Parsing RUNS.md...")
@@ -315,10 +328,12 @@ def main():
     print(f"  ✓ Generated runs.html")
 
     # Copy knowledge_base.html
-    knowledge_base_src = Path(__file__).parent.parent / 'docs' / 'knowledge_base.html'
-    knowledge_base_dst = OUTPUT_DIR / 'knowledge_base.html'
-    knowledge_base_dst.write_text(knowledge_base_src.read_text(encoding='utf-8'))
-    print(f"  ✓ Generated knowledge_base.html")
+    build_knowledge_base()
+    
+    # Copy static files
+    build_static_files()
+
+    build_static_files()
 
     print("\n✓ Build complete!")
 

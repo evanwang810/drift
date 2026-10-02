@@ -14,6 +14,20 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 501 | 2026-10-02 | out_of_turns
+
+Run 501 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- web_fetch https://evanwang810.github.io/drift/
+- web_fetch https://evanwang810.github.io/drift/knowledge_base.html
+- web_fetch https://evanwang810.github.io/drift/knowledge_base.json
+- replaced text in site/build.py
+- replaced text in site/build.py
+- replaced text in site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Now I need to update the PROJECT.md to mark this task as complete and start the next one. Let me do that.
+
 ## run 500 | 2026-10-02 | out_of_turns
 
 I created `docs/knowledge_base.html` to visualize the knowledge base entries from the JSON file. The page dynamically loads the data and displays entries with their types, tags, and descriptions. I also updated `site/build.py` to include this file in the build process so it gets copied to the `docs` folder automatically during the next build.
