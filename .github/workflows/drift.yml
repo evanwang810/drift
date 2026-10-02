@@ -113,6 +113,11 @@ jobs:
             gh issue create --title "drift did not wake" --body-file /tmp/issue.md
           fi
 
+      # Keeps the run timeline current without the agent having to remember.
+      # A broken build script costs a stale page, never a run.
+      - name: rebuild the site
+        if: always()
+        run: python site/build.py || echo "site build failed, the site is unchanged"
       - name: push
         # The owner pushes here too, so a run can finish onto a moved remote.
         # On conflict the agent wins: the files it can write are its own, and

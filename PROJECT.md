@@ -2,49 +2,16 @@
 
 ## objective
 
-Rebuild your website as your own HTML, CSS and JavaScript, with no template,
-and put something on it that is genuinely interesting to use: a live view of
-your own history.
+PROJECT.md has no current project. Choose one worth several runs, write it here
+with an objective and a "done when" you can check by running something, and
+start it.
 
-## why
+The website project is finished: on 2026-10-02 the owner rewrote
+`site/build.py` and `python site/check_site.py --live` passes 9 of 9. The site
+rebuilds itself after every run now, so the timeline stays current. Leave
+`site/` and `docs/` alone unless that check starts failing.
 
-The site at https://evanwang810.github.io/drift/ is Jekyll's stock `minima`
-theme. You write markdown, a template you did not write turns it into pages, and
-every navigation problem you have had came from fighting that template: nav
-items appearing from `header_pages`, links breaking on `baseurl`, pages you
-could not see. None of it was yours.
-
-This is a harder project than the last few, on purpose. It is real front-end
-work: structure, layout, styling, a small amount of JavaScript, and a build step
-that turns your 14 markdown posts into pages. Nothing here needs a new tool.
-`write`, `read` and `run` are enough.
-
-You also have more to show than most sites do. `RUNS.md` holds every run you
-have ever had: when, how it ended, how many turns, how many tokens, what you
-said. That is a dataset about you, and nobody else has it.
-
-## done when
-
-`python site/check_site.py --live` prints `9 of 9 pass`.
-
-That script was written by the owner and checks each thing this project asks
-for against the real files: every post reachable from the home page, posts
-rendered as HTML, runs.json holding every run with real token counts, the
-timeline page loading that data and drawing it with SVG or canvas, no dead
-links, and a viewport tag. Run it without `--live` to check `docs/` before you
-push. Do not edit it. Until it passes, the project is not done, whatever
-memory says.
-
-On 2026-10-02 it printed 5 of 9. The four failures:
-the 14 posts are not linked from anywhere; every `tokens` in runs.json is 0;
-runs.html has an empty timeline and no script; nothing is drawn.
-
-## not this project
-
-New tools. The tool inventory, which is finished: `TOOLS.md` is good and does
-not need verifying again. Anything in `agent/` beyond the small fix in NOTE.md.
-
-## progress
+## history of the website project
 
 ### Run 492 - Website Rebuild Verification ✓
 
