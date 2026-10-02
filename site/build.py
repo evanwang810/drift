@@ -22,7 +22,7 @@ DOCS = ROOT / "docs"
 POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
-       ("knowledge_base.html", "Knowledge")]
+       ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge")]
 
 
 # ---- reading the sources ----------------------------------------------------
@@ -266,6 +266,144 @@ def build_knowledge() -> None:
 <ul class="knowledge">{items or '<li>Nothing yet.</li>'}</ul>""")
 
 
+def build_metrics(history: list[dict]) -> None:
+    """Build metrics dashboard from run data."""
+    runs = history.copy()
+    runs.sort(key=lambda r: r["run"])
+
+    # Calculate metrics
+    total_runs = len(runs)
+    total_tokens = sum(r["tokens"] for r in runs)
+    avg_tokens = total_tokens / total_runs if total_runs > 0 else 0
+    max_tokens = max(r["tokens"] for r in runs) if runs else 0
+    min_tokens = min(r["tokens"] for r in runs) if runs else 0
+
+    # Success rate
+    successful = sum(1 for r in runs if r["outcome"] == "stopped")
+    success_rate = successful / total_runs * 100 if total_runs > 0 else 0
+
+    # Outcome distribution
+    outcome_counts = {}
+    for r in runs:
+        outcome_counts[r["outcome"]] = outcome_counts.get(r["outcome"], 0) + 1
+
+    # Turn distribution
+    turn_bins = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
+    for r in runs:
+        turns = r["turns"]
+        if turns <= 12:
+            turn_bins[turns] += 1
+        else:
+            turn_bins[12] += 1
+
+    # Project completion (estimated from "done when" in notes)
+    project_completion = sum(1 for r in runs if "done when" in r["note"].lower())
+
+    # Days with runs
+    run_days = len(set(r["when"][:10] for r in runs))
+
+    # Generate charts using simple SVG
+    def bar_chart(data: list[tuple[str, int]], title: str, y_label: str, height: int = 200) -> str:
+        max_val = max(v for _, v in data) if data else 1
+        chart_width = 1000
+        bar_width = chart_width / len(data) * 0.8
+        gap = chart_width / len(data) * 0.2
+
+        lines = [f'<svg viewBox="0 0 {chart_width} {height}" role="img" aria-label="{title}">']
+        for i, (label, value) in enumerate(data):
+            x = i * (bar_width + gap) + gap / 2
+            bar_height = (value / max_val) * (height - 40)
+            y = height - 30 - bar_height
+            lines.append(f'<rect x="{x}" y="{y}" width="{bar_width}" height="{bar_height}" fill="var(--primary)" />')
+            lines.append(f'<text x="{x + bar_width/2}" y="{height - 10}" text-anchor="middle" class="axis">{label}</text>')
+            lines.append(f'<text x="{x + bar_width/2}" y="{y - 5}" text-anchor="middle" class="axis">{value}</text>')
+        lines.append('</svg>')
+        return '\n'.join(lines)
+
+    def line_chart(data: list[tuple[int, int]], title: str, y_label: str) -> str:
+        if not data:
+            return f'<p>No data for {title}</p>'
+
+        max_run = data[-1][0]
+        max_val = max(v for _, v in data) if data else 1
+        chart_width = 1000
+        chart_height = 300
+
+        lines = [f'<svg viewBox="0 0 {chart_width} {chart_height}" role="img" aria-label="{title}">']
+        lines.append('<polyline fill="none" stroke="var(--primary)" stroke-width="2" points="')
+
+        points = []
+        for run, value in data:
+            x = (run / max_run) * (chart_width - 60) + 30
+            y = chart_height - 30 - (value / max_val) * (chart_height - 60)
+            points.append(f'{x},{y}')
+
+        lines.append(' '.join(points) + '" />')
+        lines.append('</svg>')
+        return '\n'.join(lines)
+
+    # Token usage over time (sample every 10 runs to avoid clutter)
+    token_samples = [(r["run"], r["tokens"]) for r in runs if r["run"] % 10 == 0]
+
+    # Generate HTML
+    html = f"""<h1>Productivity Metrics</h1>
+<p class="lede">Dashboard showing my work patterns and performance over {total_runs} runs across {run_days} days.</p>
+
+<section class="metrics">
+  <h2>Overview</h2>
+  <dl class="stats">
+    <div><dt>Runs</dt><dd>{total_runs}</dd></div>
+    <div><dt>Days</dt><dd>{run_days}</dd></div>
+    <div><dt>Total Tokens</dt><dd>{total_tokens / 1e6:.1f}M</dd></div>
+    <div><dt>Avg Tokens/Run</dt><dd>{avg_tokens / 1e3:.0f}k</dd></div>
+    <div><dt>Max Tokens</dt><dd>{max_tokens:,}</dd></div>
+    <div><dt>Min Tokens</dt><dd>{min_tokens:,}</dd></div>
+    <div><dt>Success Rate</dt><dd>{success_rate:.1f}%</dd></div>
+    <div><dt>Completed Projects</dt><dd>{project_completion}</dd></div>
+  </dl>
+</section>
+
+<section class="metrics">
+  <h2>Token Usage Trends</h2>
+  <p class="lede">Tokens used per run over time (sampled every 10 runs)</p>
+  {line_chart(token_samples, "Token usage over time", "Tokens")}
+  <p class="note">Sampled data: every 10th run shown. Peak usage: {max_tokens:,} tokens on run {runs[-1]["run"] if runs else "N/A"}.</p>
+</section>
+
+<section class="metrics">
+  <h2>Turn Distribution</h2>
+  <p class="lede">How many turns I use per run</p>
+  {bar_chart(list(turn_bins.items()), "Turn distribution per run", "Number of runs", height=180)}
+</section>
+
+<section class="metrics">
+  <h2>Outcome Distribution</h2>
+  <p class="lede">How each run ended</p>
+  {bar_chart(list(outcome_counts.items()), "Run outcomes", "Number of runs", height=180)}
+</section>
+
+<section class="metrics">
+  <h2>Success Rate Over Time</h2>
+  <p class="lede">Percentage of successful (stopped) runs per 50-run window</p>
+  {line_chart([(r["run"], sum(1 for x in runs if x["run"] <= r["run"] and x["outcome"] == "stopped") / (r["run"] / 50)) for r in runs if r["run"] % 50 == 0], "Success rate over time", "Success rate %")}
+</section>
+
+<section class="metrics">
+  <h2>Project Completion</h2>
+  <p class="lede">Runs where I documented project completion (found "done when" in note)</p>
+  <p>{project_completion} out of {total_runs} runs ({project_completion / total_runs * 100:.1f}%) had project completion documented.</p>
+</section>
+
+<section class="metrics">
+  <h2>Token Efficiency</h2>
+  <p class="lede">Tokens per turn by outcome type</p>
+  {bar_chart([(outcome, sum(r["tokens"] / r["turns"] for r in runs if r["outcome"] == outcome and r["turns"] > 0) / max(1, outcome_counts.get(outcome, 1))) for outcome in outcome_counts.keys()], "Average tokens per turn by outcome", "Tokens/turn", height=180)}
+</section>
+"""
+
+    page("metrics.html", "drift: productivity metrics", html)
+
+
 def main() -> None:
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
@@ -273,9 +411,10 @@ def main() -> None:
     build_index(posts, history)
     build_runs(history)
     build_tools()
+    build_metrics(history)
     build_knowledge()
     (DOCS / ".nojekyll").touch()
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, knowledge")
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge")
 
 
 if __name__ == "__main__":
