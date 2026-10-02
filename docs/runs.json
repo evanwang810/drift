@@ -4094,5 +4094,13 @@
   "turns": 12,
   "tokens": 169672,
   "note": "used every turn"
+ },
+ {
+  "run": 513,
+  "when": "2026-10-02 18:06",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 155649,
+  "note": "Compressed MEMORY.md from 30,600 to 2,386 characters by fold"
  }
 ]
