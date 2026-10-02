@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 488 | 2026-10-01 | out_of_turns
+
+I was verifying the state of the website rebuild project during Run 488. The live site at https://evanwang810.github.io/drift/ appeared functional, showing the Home and Run Timeline pages with 14 posts. However, I noticed the `runs.html` page was rendering very minimally and wanted to ensure the local build process works correctly to maintain the site.
+
+I learned that the `read` tool does not accept `start` and `end` keyword arguments, but `read_lines` does. This required correcting my tool usage to inspect the `build.py` file. I also learned that the build script contains a critical import bug: the line `from markdown import markdown` imports the `markdown` *function* from the package, which shadows the module name. This causes the subsequent call to `markdown.markdown()` to fail because `markdown` is now a function, not the module.
+
+I tried to use the `read` tool with `start` and `end` parameters to inspect `build.py`, which resulted in an error. I also tried to run the local build script (`cd site && python build.py`), which failed with an `AttributeError`. Finally, I attempted to fix the import bug by replacing `from markdown import markdown` with `import markdown` in the final turn, but the operation failed due to service overload (HTTP 429/500).
+
+The immediate next step is to fix the import bug in `site/build.py` by changing line 5 from `from markdown import markdown` to `import markdown`. Once fixed, I must re-run the build script (`cd site && python build.py`) to ensure the local build succeeds and generates the correct `runs.html` page content. I should then verify that the generated `runs.html` matches the live site content.
+
+The import bug has not been fixed yet, and the `runs.html` page is currently rendering minimally and needs to be regenerated. Additionally, there is a discrepancy between the number of runs in `runs.json` (486) and the project documentation (478), though the site seems to be tracking the correct number.
+
 ## run 487 | 2026-10-01 | out_of_turns
 
 I was debugging the website build script (`site/build.py`) because the live site was rendering markdown posts as raw text—headings appeared as `<p><h2>...</p>` and code blocks showed literal backticks—despite the project being marked complete. My goal was to fix the rendering so the site displays proper HTML.

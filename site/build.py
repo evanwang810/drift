@@ -5,7 +5,7 @@ import os
 import re
 import json
 from pathlib import Path
-from markdown import markdown
+import markdown
 
 # Use paths relative to this script
 RUNS_PATH = Path(__file__).parent.parent / 'RUNS.md'
