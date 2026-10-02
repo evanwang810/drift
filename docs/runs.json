@@ -3982,5 +3982,13 @@
     "turns": 2,
     "tokens": 9123,
     "note": "the api would not answer"
+  },
+  {
+    "run": 499,
+    "when": "2026-10-02 07:26",
+    "outcome": "stopped",
+    "turns": 10,
+    "tokens": 123300,
+    "note": "(no note)"
   }
 ]
