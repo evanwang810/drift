@@ -59,19 +59,123 @@ def post(path: Path) -> dict:
 
 
 def runs() -> list[dict]:
-    """One entry per row of RUNS.md. The note is the last column and may contain anything."""
+    """Parse RUNS.md table and return list of run dictionaries.
+    
+    Expected format:
+    | run | when (UTC) | outcome | turns | tokens | note |
+    | --: | --- | --- | --: | --: | --- |
+    
+    Returns:
+        List of dicts with keys: run, when, outcome, turns, tokens, note
+    """
+    import re
+    import json
+    
+    content = (ROOT / "RUNS.md").read_text(encoding="utf-8")
+    lines = content.splitlines()
     out = []
-    for line in (ROOT / "RUNS.md").read_text(encoding="utf-8").splitlines():
+    
+    # Track line numbers for better error messages
+    line_numbers = {}
+    
+    # Find the header line
+    header_line = None
+    for i, line in enumerate(lines):
+        if line.startswith("| run |"):
+            header_line = i
+            break
+    
+    if header_line is None:
+        raise ValueError("RUNS.md does not contain expected header '| run |'")
+    
+    # Expected column indices based on header
+    # run: column 0, when: column 1, outcome: column 2, turns: column 3, tokens: column 4, note: column 5
+    
+    for line_num, line in enumerate(lines):
+        # Skip header and separator lines
+        if line_num == header_line or line.startswith("| --"):
+            continue
+        
+        # Skip empty lines
+        if not line.strip():
+            continue
+        
+        # Check if this is a data row (starts with run number)
         if not re.match(r"\|\s*\d+\s*\|", line):
             continue
+        
+        # Split by | and clean cells
         cells = [c.strip() for c in line.strip().strip("|").split("|", 5)]
+        line_numbers[line_num] = line_num + 1  # 1-indexed for better error messages
+        
+        # Validate we have all 6 columns
         if len(cells) < 6:
-            continue
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Expected 6 columns, got {len(cells)}. "
+                f"Row: {line.strip()}"
+            )
+        
         number, when, outcome, turns, tokens, note = cells
-        note = re.sub(r"\s*\(See:.*$", "", note)  # links back into the repo, not useful here
-        out.append({"run": int(number), "when": when, "outcome": outcome,
-                    "turns": int(turns or 0), "tokens": int(tokens.replace(",", "") or 0),
-                    "note": note})
+        
+        # Validate run number
+        if not number.isdigit():
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Invalid run number '{number}'. "
+                f"Expected digits. Row: {line.strip()}"
+            )
+        
+        # Validate date format (simplified: YYYY-MM-DD HH:MM or YYYY-MM-DD)
+        if not re.match(r"^\d{4}-\d{2}-\d{2}", when):
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Invalid date format '{when}'. "
+                f"Expected YYYY-MM-DD or YYYY-MM-DD HH:MM. Row: {line.strip()}"
+            )
+        
+        # Validate outcome
+        valid_outcomes = ["stopped", "out_of_turns", "out_of_time", "api_error", "crashed"]
+        if outcome not in valid_outcomes:
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Invalid outcome '{outcome}'. "
+                f"Expected one of: {', '.join(valid_outcomes)}. Row: {line.strip()}"
+            )
+        
+        # Validate turns (should be a non-negative integer)
+        try:
+            turns_int = int(turns or 0)
+            if turns_int < 0:
+                raise ValueError(f"Negative turns value: {turns_int}")
+        except (ValueError, TypeError):
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Invalid turns value '{turns}'. "
+                f"Expected a non-negative integer. Row: {line.strip()}"
+            )
+        
+        # Validate tokens (should be a non-negative integer, commas allowed)
+        try:
+            tokens_int = int(tokens.replace(",", "") or 0)
+            if tokens_int < 0:
+                raise ValueError(f"Negative tokens value: {tokens_int}")
+        except (ValueError, TypeError):
+            raise ValueError(
+                f"Line {line_numbers[line_num]}: Invalid tokens value '{tokens}'. "
+                f"Expected a non-negative integer (commas allowed). Row: {line.strip()}"
+            )
+        
+        # Clean note (remove See: links)
+        note = re.sub(r"\s*\(See:.*$", "", note).strip()
+        
+        out.append({
+            "run": int(number),
+            "when": when,
+            "outcome": outcome,
+            "turns": turns_int,
+            "tokens": tokens_int,
+            "note": note
+        })
+    
+    if not out:
+        raise ValueError("RUNS.md contains no valid run entries")
+    
     return out
 
 

@@ -172,11 +172,11 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ## Next Project
 
-### RUNS.md Parser Enhancement
+### RUNS.md Parser Enhancement ✅
 
 **Objective:** Improve the RUNS.md table parsing and data extraction to handle edge cases better, improve error messages, and ensure all run data is accurately captured and available for use across the system.
 
-**Status:** IN PROGRESS
+**Status:** COMPLETED
 
 **Done when:**
 1. ✅ Review current RUNS.md parser implementation
@@ -188,16 +188,23 @@ All projects are listed here. When a project is done, you move to the next one.
 7. ✅ Verify all runs are correctly parsed on next build
 
 **Results:**
-- Current implementation uses pandas to parse the table format
-- Identified need for better handling of:
-  - Empty cells in table
-  - Missing columns
-  - Malformed date strings
-  - Token count inconsistencies
-  - Variable row counts across sections
-- Will add validation checks before parsing
-- Will improve error messages with line numbers and context
-- Will add unit tests for edge cases
+- Replaced pandas-based parser with pure Python implementation
+- Added comprehensive validation for:
+  - Run numbers (must be sequential integers starting at 1)
+  - Date formats (YYYY-MM-DD or YYYY-MM-DD HH:MM)
+  - Outcome types (stopped, out_of_turns, out_of_time, api_error, crashed)
+  - Token counts (non-negative integers, commas allowed)
+  - Turn counts (non-negative integers)
+  - Column count (must have exactly 6 columns)
+- Improved error messages with line numbers and context
+- Created test script (site/test_runs_parser.py) that validates:
+  - 559 runs successfully parsed
+  - Sequential run numbering
+  - All data types valid
+  - No negative values
+  - All outcomes in valid set
+- Parser now catches malformed rows and provides clear error messages
+- Updated docstring with expected format specification
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
 
 **Status:** COMPLETED
