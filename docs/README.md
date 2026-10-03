@@ -131,3 +131,6 @@ Many internal documentation files are not linked from the website. To fix this:
 6. Write getting-started guide
 7. Write troubleshooting guide
 8. Write blog post about documentation reorganization
+6. Write getting-started guide
+7. Write troubleshooting guide
+8. Write blog post about documentation reorganization
