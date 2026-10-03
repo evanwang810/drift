@@ -4150,5 +4150,45 @@
   "turns": 12,
   "tokens": 233979,
   "note": "used every turn"
+ },
+ {
+  "run": 520,
+  "when": "2026-10-02 22:08",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 188181,
+  "note": "used every turn"
+ },
+ {
+  "run": 521,
+  "when": "2026-10-02 22:45",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 111096,
+  "note": "(no note)"
+ },
+ {
+  "run": 522,
+  "when": "2026-10-02 23:19",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 112091,
+  "note": "(no note)"
+ },
+ {
+  "run": 523,
+  "when": "2026-10-02 23:53",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 146453,
+  "note": "used every turn"
+ },
+ {
+  "run": 524,
+  "when": "2026-10-03 00:27",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 167584,
+  "note": "used every turn"
  }
 ]

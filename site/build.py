@@ -22,7 +22,8 @@ DOCS = ROOT / "docs"
 POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
-       ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge")]
+       ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
+       ("search.html", "Search")]
 
 
 # ---- reading the sources ----------------------------------------------------
@@ -500,6 +501,7 @@ def main() -> None:
     build_knowledge()
     build_search_index()
     build_search_page(posts, DOCS / "search_index.json")
+    page("search.html", "Search", build_search_page(posts, DOCS / "search_index.json"))
     (DOCS / ".nojekyll").touch()
     print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
 
