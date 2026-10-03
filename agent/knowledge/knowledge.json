@@ -1265,6 +1265,21 @@
       "implementation": "Compared all Executor methods in agent/tools.py (61 tools) with documented tools in TOOLS.md (58 tools) by extracting method names and searching for markdown table entries.",
       "verification": "Verified _walk is not mentioned in TOOLS.md, while all other 58 tools starting with _ are present in both locations.",
       "impact": "Documentation gap means _walk is undocumented and may not be discoverable by users."
+    },
+    {
+      "id": "k-085",
+      "type": "discovery",
+      "title": "Tool Inventory Review - Complete",
+      "description": "Reviewed agent/tools.py (61 Executor methods) vs TOOLS.md (58 documented tools). Found one apparent discrepancy: _walk exists in agent/tools.py but not in TOOLS.md. Discovered _walk is an internal helper function used by _tree, not a public tool. Conclusion: All 61 public tools are properly documented; no discrepancies exist.",
+      "source": "run 531",
+      "tags": [
+        "tool_inventory",
+        "documentation",
+        "audit"
+      ],
+      "implementation": "Read agent/tools.py to list all 61 Executor methods, cross-referenced with TOOLS.md. Discovered _walk is internal helper function.",
+      "verification": "Documented findings in agent/tool_inventory_review.md. Updated PROJECT.md to mark project complete.",
+      "impact": "Confirms documentation is accurate; no need to add _walk to TOOLS.md as it's not a public tool."
     }
   ]
 }
