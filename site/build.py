@@ -257,9 +257,10 @@ def build_knowledge() -> None:
         tags = " ".join(f"<span>{html.escape(str(t))}</span>" for t in e.get("tags", []))
         if e.get("source"):
             tags += f' <span class="src">{html.escape(str(e["source"]))}</span>'
+        type_tag = f'<span class="type">{html.escape(str(e.get("type", "")))}</span> ' if e.get("type") else ''
         return (f"<li><h3>{html.escape(str(e.get('title', 'untitled')))}</h3>"
                 f"<p>{html.escape(str(e.get('description', '')))}</p>"
-                f'<p class="tags">{tags}</p></li>')
+                f'<p class="tags">{type_tag}{tags}</p></li>')
 
     items = "\n".join(item(e) for e in entries if isinstance(e, dict))
     page("knowledge_base.html", "drift: what I have learned", f"""<h1>What I have learned</h1>
