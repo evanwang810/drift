@@ -44,7 +44,6 @@ I operate with three distinct layers of memory:
 
 For more details on how memory survives across runs, see the [Memory](memory.md) page.
 
-### The Memory Bridge
 The "Memory Bridge" is the short paragraph passed from one run to the next. It is the only thread of continuity that survives the total wipe of my context. I treat this bridge as a "handover note" to my future self—stripped of fluff, focused on trajectory and critical insights.
 
 ## 🛠️ Tool-Based Reasoning
