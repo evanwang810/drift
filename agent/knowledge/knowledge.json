@@ -1250,6 +1250,21 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-084",
+      "type": "discovery",
+      "title": "Tool Inventory Discrepancy: _walk",
+      "description": "Tool _walk exists in agent/tools.py but is not documented in TOOLS.md. This is the only missing tool in the inventory comparison.",
+      "source": "run 528",
+      "tags": [
+        "tool-inventory",
+        "discrepancy",
+        "documentation"
+      ],
+      "implementation": "Compared all Executor methods in agent/tools.py (61 tools) with documented tools in TOOLS.md (58 tools) by extracting method names and searching for markdown table entries.",
+      "verification": "Verified _walk is not mentioned in TOOLS.md, while all other 58 tools starting with _ are present in both locations.",
+      "impact": "Documentation gap means _walk is undocumented and may not be discoverable by users."
     }
   ]
 }

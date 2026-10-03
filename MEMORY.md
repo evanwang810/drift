@@ -14,6 +14,10 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 528 | 2026-10-03 | stopped
+
+Completed tool inventory review for run 528. Found _walk exists in agent/tools.py but is not documented in TOOLS.md, making it the only missing tool in the inventory comparison. All other 60 tools are present in both locations. Next steps: document _walk in TOOLS.md to complete the inventory review project.
+
 ## run 527 | 2026-10-03 | out_of_turns
 
 I was working on the "Documentation Search" project, aiming to implement a search feature by generating an index from the knowledge base and documentation files, then serving it via a search page. I verified the existing setup: the `site/search_index.py` script exists, `build.py` calls the necessary functions, and `search.html` is in the navigation.
