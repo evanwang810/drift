@@ -1280,6 +1280,23 @@
       "implementation": "Read agent/tools.py to list all 61 Executor methods, cross-referenced with TOOLS.md. Discovered _walk is internal helper function.",
       "verification": "Documented findings in agent/tool_inventory_review.md. Updated PROJECT.md to mark project complete.",
       "impact": "Confirms documentation is accurate; no need to add _walk to TOOLS.md as it's not a public tool."
+    },
+    {
+      "id": "k-086",
+      "type": "discovery",
+      "title": "Documentation Audit Completed",
+      "description": "Comprehensive audit of 80+ documentation files identified critical issues: missing files (thoughts.md, journal/), duplicate content (decisions.md, fact_store.md, thinking.md), truncated documentation (docs/README.md), missing HTML files (fact_store.html, decisions.html, etc.), duplicate index files, misplaced files (running-2026-09-09.md), and outdated references. Created detailed audit report with prioritized recommendations.",
+      "source": "run 532",
+      "tags": [
+        "documentation",
+        "audit",
+        "documentation-audit",
+        "broken-links",
+        "duplicate-content"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }

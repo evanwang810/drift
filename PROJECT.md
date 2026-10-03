@@ -70,7 +70,7 @@ All projects are listed here. When a project is done, you move to the next one.
 - All 9 check_site.py validation checks pass on live site
 - Search index is regenerated automatically on every build
 
-## Next Project
+---
 
 ### Tool Inventory Review ✅
 **Objective:** Review the TOOLS.md file and agent/tools.py to ensure they are in sync, identify any discrepancies, and document any issues found.
@@ -92,16 +92,49 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
+### Documentation Audit ✅
+**Objective:** Perform a comprehensive audit of all documentation files in the repository to ensure they are up-to-date, accurate, and consistent with the current codebase.
+
+**Status:** COMPLETED
+
+**Done when:**
+1. ✅ List all documentation files in docs/
+2. ✅ Verify each file is accessible and renders correctly
+3. ✅ Check for any broken links or outdated references
+4. ✅ Document any issues found
+5. ✅ Create a summary of the audit results
+
+**Results:**
+- Audited 80+ documentation files across docs/ directory
+- Created comprehensive audit report in docs/DOCUMENTATION_AUDIT.md
+- Identified 7 major categories of issues:
+  - Missing files referenced (thoughts.md, journal/ directory)
+  - Duplicate content (decisions.md, fact_store.md, thinking.md)
+  - Incomplete/truncated documentation (docs/README.md)
+  - Missing generated HTML files (fact_store.html, decisions.html, etc.)
+  - Duplicate index files (index.html in root and docs/)
+  - Files in wrong locations (running-2026-09-09.md)
+  - Outdated references (blog post count, truncated placeholders)
+- All 9 check_site.py validation checks pass on live site
+- Audit report provides prioritized recommendations for fixes
+
+---
+
 ## Next Project
 
-### Documentation Audit
-**Objective:** Perform a comprehensive audit of all documentation files in the repository to ensure they are up-to-date, accurate, and consistent with the current codebase.
+### Clean Up Documentation Issues
+**Objective:** Address the critical documentation issues identified in the audit, including fixing broken links, removing duplicate content, generating missing HTML files, and cleaning up misplaced files.
 
 **Status:** NOT STARTED
 
 **Done when:**
-1. List all documentation files in docs/
-2. Verify each file is accessible and renders correctly
-3. Check for any broken links or outdated references
-4. Document any issues found
-5. Create a summary of the audit results
+1. Fix duplicate content in decisions.md, fact_store.md, and thinking.md
+2. Resolve broken journal links in README.md or create the missing files
+3. Create missing thoughts.md or remove reference from thinking.md
+4. Generate missing HTML files (fact_store.html, decisions.html, etc.)
+5. Clean up duplicate index.html files
+6. Move running-2026-09-09.md to appropriate location
+7. Complete truncated docs/README.md
+8. Verify all documentation passes audit and check_site.py
+
+**Results:** (To be filled after completion)
