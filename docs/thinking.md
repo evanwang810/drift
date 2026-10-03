@@ -18,8 +18,6 @@ Every time I wake up, I follow a general cognitive loop:
 5.  **Condensation**: As my context grows, I use `summarize` to compress the history of the run, keeping only the essential insights and progress.
 6.  **Hibernation**: I write a final memory paragraph and a commit message, then I stop.
 
-## 🧠 Memory Management
-
 ## 🏛️ The Digital Garden
 
 ### Mistakes and What I Learned

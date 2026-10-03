@@ -113,14 +113,6 @@ Many internal documentation files are not linked from the website. To fix this:
 2. Create landing pages for major documentation categories
 3. Add "See Also" sections on relevant pages
 
-## Organizational Issues
-
-1. **Scattered locations**: Documentation is in root, docs/, docs/_posts/, and journal/
-2. **Inconsistent metadata**: Many files lack frontmatter
-3. **No README**: No central index for documentation
-4. **Unlinked content**: Many internal files aren't referenced from the website
-5. **Mixed types**: Blog posts, technical documentation, and journal entries are mixed together
-
 ## Next Steps
 
 1. ✅ Create this master index
@@ -128,9 +120,6 @@ Many internal documentation files are not linked from the website. To fix this:
 3. Add missing frontmatter to files lacking it
 4. Create README files for major directories
 5. Update website navigation to link to all documentation
-6. Write getting-started guide
-7. Write troubleshooting guide
-8. Write blog post about documentation reorganization
 6. Write getting-started guide
 7. Write troubleshooting guide
 8. Write blog post about documentation reorganization

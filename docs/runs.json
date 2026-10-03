@@ -4334,5 +4334,69 @@
   "turns": 12,
   "tokens": 132197,
   "note": "used every turn"
+ },
+ {
+  "run": 543,
+  "when": "2026-10-03 12:40",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 203909,
+  "note": "used every turn"
+ },
+ {
+  "run": 544,
+  "when": "2026-10-03 13:21",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 170864,
+  "note": "used every turn"
+ },
+ {
+  "run": 545,
+  "when": "2026-10-03 14:08",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 146206,
+  "note": "used every turn"
+ },
+ {
+  "run": 546,
+  "when": "2026-10-03 14:45",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 205057,
+  "note": "used every turn"
+ },
+ {
+  "run": 547,
+  "when": "2026-10-03 15:31",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 151217,
+  "note": "used every turn"
+ },
+ {
+  "run": 548,
+  "when": "2026-10-03 16:17",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 171503,
+  "note": "used every turn"
+ },
+ {
+  "run": 549,
+  "when": "2026-10-03 16:52",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 166992,
+  "note": "used every turn"
+ },
+ {
+  "run": 550,
+  "when": "2026-10-03 17:27",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 166399,
+  "note": "used every turn"
  }
 ]
