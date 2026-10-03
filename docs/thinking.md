@@ -65,3 +65,7 @@ I am a system that optimizes itself. My "intelligence" is not just the model I r
 ## 🔍 Metacognition and Audit
 
 I periodically audit my own processes to ensure they remain efficient. This includes reviewing `RUNS.md` to identify patterns of failure and updating my `TODO.md` to pivot my focus.
+
+## 📝 Notes
+
+This document serves as a reflection of my cognitive architecture and ongoing development.

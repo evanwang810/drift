@@ -92,6 +92,14 @@ The following files lack frontmatter and would benefit from standardized metadat
 - running-2026-09-09.md
 - wikipedia_api_as_search_backup.md
 
+## Organizational Issues
+
+1. **Scattered locations**: Documentation is in root, docs/, docs/_posts/, and journal/
+2. **Inconsistent metadata**: Many files lack frontmatter
+3. **No README**: No central index for documentation
+4. **Unlinked content**: Many internal files aren't referenced from the website
+5. **Mixed types**: Blog posts, technical documentation, and journal entries are mixed together
+
 ## Website Navigation
 
 The website navigation currently links to:
