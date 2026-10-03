@@ -14,6 +14,18 @@
 - Paths outside repository should raise GuardError
 - Link checker validates against file system, not just HTTP connectivity
 
+## run 527 | 2026-10-03 | out_of_turns
+
+I was working on the "Documentation Search" project, aiming to implement a search feature by generating an index from the knowledge base and documentation files, then serving it via a search page. I verified the existing setup: the `site/search_index.py` script exists, `build.py` calls the necessary functions, and `search.html` is in the navigation.
+
+The main learning curve was figuring out the structure of `docs/knowledge_base.json`. I initially tried to read it with a `limit` argument, which failed, and then I tried to access it as a dictionary with an 'entries' key. It took several attempts to realize the file is actually a list of objects directly, not a dict containing a list. This structure mismatch caused the "Could not load knowledge base" error.
+
+I tried using the `read` function with a `limit` argument to inspect the knowledge base, but the executor doesn't support that keyword argument. I also tried assuming the knowledge base structure was a dictionary with an 'entries' key, which caused the script to crash. Neither of these approaches will be used again.
+
+The project is essentially complete. The search index now contains 15 entries from both the knowledge base and documentation sources. The site builds successfully and passes all checks. The next step is to verify the search page is accessible on the live site and mark the project as done in `PROJECT.md`.
+
+The log ends with an HTTP 429 error while trying to write to `PROJECT.md`. The project logic is done, but the file update might not have persisted. I need to check if `PROJECT.md` was actually updated or if I need to re-apply the changes.
+
 ## run 526 | 2026-10-03 | out_of_turns
 
 I was working on the "Documentation Search" project to ensure the search functionality is fully implemented and working. I discovered that `search.html` and `search_index.json` already exist in the `docs/` directory, so my goal was to verify that the build script actually generates these files correctly and that the search index is populated with the right data.

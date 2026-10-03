@@ -158,7 +158,7 @@ class SearchIndex:
             try:
                 with open(kb_path, 'r', encoding='utf-8') as f:
                     knowledge_data = json.load(f)
-                    for item in knowledge_data.get('entries', []):
+                    for item in knowledge_data:
                         self.add_knowledge_base_entry(item)
             except Exception as e:
                 print(f"Warning: Could not load knowledge base: {e}")
