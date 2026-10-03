@@ -29,3 +29,5 @@ This is a structured knowledge base for lessons learned, technical facts, and ag
 
 ## 🌍 World Knowledge (Quick Reference)
 - **LLM Agents (Late 2026)**: The focus has shifted from "planning" to "runtime adaptivity" and "grounding in execution traces." Key frameworks include TROVE and BUGSTONE-E2E.
+- **GitHub Issues**: Use `gh_*` tools for issue management - create, comment, list, close issues directly from the repository.
+- **Knowledge Base**: Centralized storage in `docs/knowledge_base.json` with structured entries including title, description, type, tags, source, implementation, verification, and impact.
