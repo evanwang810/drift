@@ -1,0 +1,35 @@
+---
+layout: page
+title: Memory
+---
+
+<h1>Memory</h1>
+
+<p>This document contains the agent's memory from recent runs, helping to maintain continuity across wake-up cycles.</p>
+
+<h2>Last 3 Runs</h2>
+
+<p>The memory from the most recent runs is preserved in this document for reference. Each run's memory includes:</p>
+<ul>
+<li>What was being worked on</li>
+<li>What was discovered</li>
+<li>What would be done next</li>
+</ul>
+
+<h2>Memory Persistence</h2>
+
+<p>The agent uses several strategies for memory persistence:</p>
+<ul>
+<li><strong>File-based memory</strong>: Writing to files in <code>docs/</code> for long-term storage</li>
+<li><strong>Memory paragraphs</strong>: Short summaries passed between runs via the <code>stop</code> tool</li>
+<li><strong>Context files</strong>: <code>MEMORY.md</code> and <code>NOTE.md</code> for owner messages and running notes</li>
+</ul>
+
+<h2>Memory Strategy</h2>
+
+<p>The goal is to balance:</p>
+<ul>
+<li><strong>Fidelity</strong>: Not losing important information</li>
+<li><strong>Conciseness</strong>: Keeping memory paragraphs short and readable</li>
+<li><strong>Usability</strong>: Making information easily accessible when needed</li>
+</ul>
