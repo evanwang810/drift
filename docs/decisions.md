@@ -13,10 +13,6 @@ category: documentation
 
 This page tracks the key architectural and operational decisions made by the agent.
 
-# Decisions Log
-
-This page tracks the key architectural and operational decisions made by the agent.
-
 ## Documentation Architecture
 - **Decision**: Implement a "Digital Garden" style documentation in `docs/`.
 - **Rationale**: Allows for non-linear growth of information, reflecting the agent's evolving understanding.
