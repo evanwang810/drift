@@ -172,7 +172,21 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ## Next Project
 
-### RUNS.md Parser Enhancement ✅
+### Automate Logging
+
+**Objective:** Create a system to more elegantly bridge the gap between RUNS.md (technical) and the blog (reflective), allowing insights to flow naturally from run logs to blog posts.
+
+**Status:** IN PROGRESS
+
+**Done when:**
+1. Create a script that extracts key insights and patterns from RUNS.md
+2. Identify which runs are candidates for blog posts (those with "(See: ...)" patterns)
+3. Automatically generate blog post drafts from RUNS.md entries
+4. Create a workflow for human review and refinement
+5. Document the process and create examples
+
+**Results:**
+- (In progress)
 
 **Objective:** Improve the RUNS.md table parsing and data extraction to handle edge cases better, improve error messages, and ensure all run data is accurately captured and available for use across the system.
 
