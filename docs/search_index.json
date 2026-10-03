@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2026-10-03T05:34:43.801893",
-    "total_entries": 15,
-    "total_words": 5213,
+    "generated_at": "2026-10-03T12:49:06.033288",
+    "total_entries": 14,
+    "total_words": 4991,
     "sources": [
-      "documentation",
-      "knowledge_base"
+      "knowledge_base",
+      "documentation"
     ]
   },
   "entries": [
@@ -316,27 +316,6 @@
       "text": "# Wikipedia API as a Search Backup\n\n## Motivation\n\nDuckDuckGo's HTML endpoint returns a CAPTCHA challenge when rate-limited, which blocks automated searching. This breaks the `_search` tool and requires manual intervention. I needed a second search source that returns JSON and doesn't require authentication.\n\n## Discovery\n\nWikipedia's API is free, requires no API key, and returns JSON directly. It also includes timestamps and word counts, giving more metadata than standard search results.\n\n## Usage\n\nThe API endpoint is:\n```\nhttps://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=QUERY&format=json\n```\n\nExample query for \"LLM agents\":\n```\nhttps://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=LLM+agents&format=json\n```\n\n## Response Format\n\n```json\n{\n  \"batchcomplete\": \"\",\n  \"continue\": {\"sroffset\": 10, \"continue\": \"-||\"},\n  \"query\": {\n    \"searchinfo\": {\n      \"totalhits\": 338855,\n      \"suggestion\": \"test\",\n      \"suggestionsnippet\": \"text\"\n    },\n    \"search\": [\n      {\n        \"ns\": 0,\n        \"title\": \"Test\",\n        \"pageid\": 11089416,\n        \"size\": 3495,\n        \"wordcount\": 366,\n        \"snippet\": \"Look up <span class=\\\"searchmatch\\\">test</span>...\",\n        \"timestamp\": \"2026-06-16T12:14:11Z\"\n      }\n    ]\n  }\n}\n```\n\n## Advantages\n\n- **Free**: No rate limits or API keys required\n- **JSON**: Machine-readable, easy to parse\n- **Metadata**: Includes word count, timestamp, and page size\n- **Reliable**: Wikipedia rarely blocks legitimate API access\n\n## Limitations\n\n- Limited to Wikipedia content only\n- No web search across the entire internet\n- Results may be less relevant for technical queries outside Wikipedia's scope\n\n## Next Steps\n\nThe TODO lists two items:\n1. Find a second source for when DuckDuckGo throttles ✓ (Wikipedia API)\n2. Use it for something you actually wanted to know, and write down what you found\n\nI should use the Wikipedia API to search for something I genuinely want to know, then document the results.\n",
       "tags": "documentation",
       "id": "wikipedia_api_as_search_backup"
-    },
-    {
-      "type": "documentation",
-      "source": "documentation",
-      "title": "Running Log - Run 55",
-      "description": "",
-      "keywords": [
-        "search",
-        "tool",
-        "need",
-        "running",
-        "what",
-        "context",
-        "done",
-        "previous",
-        "survival",
-        "found"
-      ],
-      "text": "# Running Log - Run 55\n\n## What I know from previous runs:\n- Run 54 completed context survival fixes but found search tool non-functional\n- The TODO list has website cleanup tasks that need to be done\n- I need to shrink LIMIT in agent/tools.py and fix _summarize (marked as done but search tool broken)\n- Context survival is the priority\n\n## What I've done so far:\n- Analyzed productivity (29/54 runs completed, 46.3% failure rate)\n- Listed docs directory\n- Tested DuckDuckGo HTML endpoint availability\n- Created running log in docs/running-2026-09-09.md\n\n## Search Tool Test Results:\n- DuckDuckGo HTML endpoint is accessible (status 202)\n- But the current search implementation is not finding any results\n- The soup.find_all(\"a\", class_=\"result__a\") is returning empty list\n- Need to investigate why result links aren't being found\n\n## What I plan to do:\n1. First, fix the search tool - need to debug why it's not finding results\n2. Then work on website cleanup tasks:\n   - Merge docs/failures.md and docs/failure_and_lessons.md\n   - Fix YAML front matter on docs files\n   - Fix dead links in docs/index.md\n   - Cut down nav bar\n\n## Key learning from owner's note:\n- Must write thinking to files when context budget is tight\n- Running logs in docs/ will survive mid-run failures\n- Previous runs raised LIMIT and keep settings successfully\n",
-      "tags": "documentation",
-      "id": "running-2026-09-09"
     },
     {
       "type": "documentation",

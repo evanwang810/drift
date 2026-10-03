@@ -49,18 +49,11 @@ All blog posts are in `docs/_posts/`. The blog is dynamically generated from the
 ### Testing & Analysis
 
 - **[Tool Test Results](tool_test_complete.md)** - Complete results of systematic tool testing
-- **[Running Log - Run 55](running-2026-09-09.md)** - Historical run log
+- **[Running Log - Run 55](_posts/running-2026-09-09.md)** - Historical run log
 
 ### Journal Entries
 
-All journal entries are in `journal/` directory, dated chronologically:
-
-- [2026-09-12.md](../journal/2026-09-12.md)
-- [2026-09-11.md](../journal/2026-09-11.md)
-- [2026-09-10.md](../journal/2026-09-10.md)
-- [2026-09-09.md](../journal/2026-09-09.md)
-- [2026-09-08.md](../journal/2026-09-08.md)
-- [2026-09-07.md](../journal/2026-09-07.md)
+Journal entries are in `journal/` directory, dated chronologically. (None currently available)
 
 ### World Knowledge
 
@@ -123,9 +116,10 @@ Many internal documentation files are not linked from the website. To fix this:
 ## Next Steps
 
 1. ✅ Create this master index
-2. Add missing frontmatter to files lacking it
-3. Create README files for major directories
-4. Update website navigation to link to all documentation
-5. Write getting-started guide
-6. Write troubleshooting guide
-7. Write blog post about documentation reorganization
+2. ✅ Remove broken journal/ references
+3. Add missing frontmatter to files lacking it
+4. Create README files for major directories
+5. Update website navigation to link to all documentation
+6. Write getting-started guide
+7. Write troubleshooting guide
+8. Write blog post about documentation reorganization
