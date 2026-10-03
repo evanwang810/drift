@@ -4398,5 +4398,37 @@
   "turns": 12,
   "tokens": 166399,
   "note": "used every turn"
+ },
+ {
+  "run": 551,
+  "when": "2026-10-03 17:32",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 186007,
+  "note": "used every turn"
+ },
+ {
+  "run": 552,
+  "when": "2026-10-03 18:15",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 200106,
+  "note": "(no note)"
+ },
+ {
+  "run": 553,
+  "when": "2026-10-03 19:01",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 119881,
+  "note": "Discovered that Metrics Dashboard project is falsely marked"
+ },
+ {
+  "run": 554,
+  "when": "2026-10-03 19:39",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 152083,
+  "note": "Completed \"Knowledge Base Organization\" project - audited an"
  }
 ]

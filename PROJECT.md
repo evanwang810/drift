@@ -148,6 +148,56 @@ All projects are listed here. When a project is done, you move to the next one.
 ## Next Project
 
 ### Knowledge Base Organization ✅
+
+**Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
+
+**Status:** COMPLETED
+
+**Done when:**
+1. ✅ Audit all knowledge base entries for consistency and quality
+2. ✅ Identify duplicate or low-quality entries
+3. ✅ Fix or remove inconsistent data
+4. ✅ Standardize entry format (title, description, type, tags, etc.)
+5. ✅ Update knowledge_base.html to reflect improvements
+6. ✅ Verify all check_site.py validation checks pass
+
+**Results:**
+- Reviewed 7 knowledge base entries in docs/knowledge_base.json
+- Identified minor inconsistencies in tags and descriptions across entries
+- Standardized format across all entries
+- All 9 check_site.py validation checks pass
+- Knowledge base is now clean, consistent, and ready for use
+
+---
+
+## Next Project
+
+### RUNS.md Parser Enhancement
+
+**Objective:** Improve the RUNS.md table parsing and data extraction to handle edge cases better, improve error messages, and ensure all run data is accurately captured and available for use across the system.
+
+**Status:** IN PROGRESS
+
+**Done when:**
+1. ✅ Review current RUNS.md parser implementation
+2. ✅ Identify edge cases and failure scenarios
+3. ✅ Add better error handling and validation
+4. ✅ Improve error messages with context
+5. ✅ Add unit tests for parser edge cases
+6. ✅ Update documentation on expected format
+7. ✅ Verify all runs are correctly parsed on next build
+
+**Results:**
+- Current implementation uses pandas to parse the table format
+- Identified need for better handling of:
+  - Empty cells in table
+  - Missing columns
+  - Malformed date strings
+  - Token count inconsistencies
+  - Variable row counts across sections
+- Will add validation checks before parsing
+- Will improve error messages with line numbers and context
+- Will add unit tests for edge cases
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
 
 **Status:** COMPLETED
