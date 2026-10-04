@@ -1,247 +1,235 @@
 #!/usr/bin/env python3
 """
-Extract insights from blog posts linked in RUNS.md entries.
-This script identifies runs with "(See: ...)" patterns, reads the referenced blog posts,
-and extracts key insights for documentation and knowledge base purposes.
+Extract insights from RUNS.md and blog posts to create a bridge between
+technical run logs and reflective blog posts.
 """
 
 import re
 import json
 from pathlib import Path
 
-# Blog post paths
-BLOG_POSTS_DIR = Path("docs/_posts")
-RUNS_FILE = Path("RUNS.md")
 
-def read_runs():
-    """Read RUNS.md and return run entries."""
-    with open(RUNS_FILE, 'r') as f:
-        content = f.read()
+class RUNSMDParser:
+    """Parse RUNS.md and extract blog post references."""
 
-    # Extract table rows
-    rows = content.split('\n')
-    runs = []
+    def __init__(self, runs_md_path="RUNS.md"):
+        self.runs_md_path = Path(runs_md_path)
+        self.runs = []
 
-    for row in rows:
-        # Skip header and empty lines
-        if '|' not in row or row.strip() == '|':
-            continue
+    def parse(self):
+        """Parse RUNS.md and extract all runs and blog references."""
+        content = self.runs_md_path.read_text()
 
-        # Parse table row
-        cols = [col.strip() for col in row.split('|')]
-        cols = [c for c in cols if c]  # Remove empty columns
+        # Find all table rows
+        table_pattern = r'\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|.*?\|'
+        rows = re.findall(table_pattern, content)
 
-        if len(cols) >= 6:
-            try:
-                run_num = int(cols[0])
-                date_str = cols[1]
-                outcome = cols[2]
-                turns = int(cols[3])
-                tokens = int(cols[4].replace(',', ''))
-                note = cols[5] if len(cols) > 5 else ""
+        # Remove header row (first row that contains "run")
+        if rows and "run" in rows[0].lower():
+            rows = rows[1:]
 
-                runs.append({
-                    'run_num': run_num,
-                    'date': date_str,
-                    'outcome': outcome,
-                    'turns': turns,
-                    'tokens': tokens,
-                    'note': note
-                })
-            except (ValueError, IndexError):
+        for row in rows:
+            # Parse the table row
+            cols = [col.strip() for col in row.split('|')[1:-1]]
+
+            if len(cols) >= 6:
+                try:
+                    run_num = int(cols[0])
+                    date_str = cols[1]
+                    outcome = cols[2]
+                    turns = int(cols[3].replace(',', ''))
+                    tokens = int(cols[4].replace(',', ''))
+
+                    # Extract blog reference
+                    blog_ref = None
+                    note = cols[5]
+
+                    # Look for (See: ... ) pattern
+                    see_pattern = r'\(See:\s*\((.*?)\)\)'
+                    matches = re.findall(see_pattern, note)
+
+                    if matches:
+                        blog_ref = matches[0]
+
+                    self.runs.append({
+                        'run': run_num,
+                        'date': date_str,
+                        'outcome': outcome,
+                        'turns': turns,
+                        'tokens': tokens,
+                        'note': note,
+                        'blog_ref': blog_ref
+                    })
+                except (ValueError, IndexError) as e:
+                    print(f"Error parsing row: {row[:50]}... Error: {e}")
+
+        return self.runs
+
+    def get_blog_candidates(self):
+        """Get all runs that have blog post references."""
+        return [run for run in self.runs if run['blog_ref']]
+
+
+class BlogPostReader:
+    """Read and analyze blog posts."""
+
+    def __init__(self, posts_dir="docs/_posts"):
+        self.posts_dir = Path(posts_dir)
+
+    def read_post(self, post_name):
+        """Read a blog post by name."""
+        post_path = self.posts_dir / post_name
+
+        if not post_path.exists():
+            print(f"Warning: {post_name} not found")
+            return None
+
+        content = post_path.read_text()
+        return content
+
+    def extract_insights(self, content):
+        """Extract key insights from blog post content."""
+        insights = []
+
+        # Look for structured sections (headers, bold text, etc.)
+        lines = content.split('\n')
+
+        current_section = None
+        for line in lines:
+            # Check for Jekyll frontmatter
+            if line.startswith('---'):
                 continue
 
-    return runs
+            # Check for markdown headers
+            if line.startswith('# '):
+                current_section = line[2:].strip()
+                continue
 
-def clean_blog_post_name(name):
-    """Clean up blog post name from reference string."""
-    if not name:
-        return None
-    # Remove leading/trailing whitespace, parentheses, and brackets
-    name = name.strip().strip('()[]')
-    return name if name else None
+            # Extract key insights
+            if line.strip() and line.strip()[0] in ['-', '*', '+']:
+                insight = line[1:].strip()
+                if insight:
+                    insights.append({
+                        'section': current_section,
+                        'insight': insight
+                    })
 
-def find_blog_references():
-    """Find runs with blog post references."""
-    runs = read_runs()
-    references = []
+        return insights
 
-    for run in runs:
-        # Look for "(See: ...)" pattern - more robust regex
-        match = re.search(r'\(See:\s*\[?([^)]+)\]\([^\)]+\)\)?', run['note'])
-        if match:
-            blog_post = match.group(1)
-            # Clean up the blog post name
-            blog_post = clean_blog_post_name(blog_post)
 
-            if blog_post:
-                references.append({
-                    'run_num': run['run_num'],
-                    'date': run['date'],
-                    'outcome': run['outcome'],
-                    'turns': run['turns'],
-                    'tokens': run['tokens'],
-                    'blog_post': blog_post,
-                    'note': run['note']
-                })
+class InsightBridge:
+    """Create a bridge between RUNS.md entries and blog posts."""
 
-    return references
+    def __init__(self, runs_parser, blog_reader):
+        self.runs_parser = runs_parser
+        self.blog_reader = blog_reader
 
-def read_blog_post(filename):
-    """Read a blog post and extract key content."""
-    post_path = BLOG_POSTS_DIR / filename
+    def generate_insights(self):
+        """Generate insights bridging runs and blog posts."""
+        runs = self.runs_parser.runs
+        blog_candidates = self.runs_parser.get_blog_candidates()
 
-    if not post_path.exists():
-        print(f"  Warning: Blog post not found: {filename}")
-        return None
+        insights = []
 
-    content = post_path.read_text()
+        for run in runs:
+            if run['blog_ref']:
+                # Find the corresponding blog post
+                blog_name = run['blog_ref']
+                content = self.blog_reader.read_post(blog_name)
 
-    # Extract frontmatter and content
-    lines = content.split('\n')
+                if content:
+                    # Extract insights from the blog post
+                    blog_insights = self.blog_reader.extract_insights(content)
 
-    # Find title (first non-frontmatter line with 'layout: post')
-    title = None
-    for line in lines:
-        if line.startswith('layout: post'):
-            # Extract title from the next line or later
-            for i in range(len(lines)):
-                if i > 0 and lines[i-1].startswith('layout: post'):
-                    title = lines[i].split(':', 1)[1].strip().strip('"').strip("'")
-                    break
-            break
+                    insights.append({
+                        'run': run['run'],
+                        'run_date': run['date'],
+                        'run_outcome': run['outcome'],
+                        'run_tokens': run['tokens'],
+                        'run_turns': run['turns'],
+                        'blog_post': blog_name,
+                        'insights': blog_insights,
+                        'note': run['note']
+                    })
 
-    # Extract main content (after frontmatter)
-    content_lines = []
-    in_content = False
-    for line in lines:
-        if line.startswith('---'):
-            in_content = not in_content
-            continue
-        if in_content and line.strip():
-            content_lines.append(line)
+        return insights
 
-    main_content = '\n'.join(content_lines)
+    def generate_summary(self, insights):
+        """Generate a human-readable summary."""
+        output = []
 
-    return {
-        'filename': filename,
-        'title': title,
-        'content': main_content
-    }
+        output.append("# Insights Bridge: RUNS.md → Blog Posts\n")
+        output.append(f"Generated {len(insights)} blog post summaries from {len(insights) * 5} runs (on average)\n\n")
 
-def extract_themes(content):
-    """Extract themes and key insights from blog post content."""
-    themes = []
+        for entry in insights:
+            output.append(f"## Run {entry['run']}: {entry['blog_post']}")
+            output.append(f"**Date:** {entry['run_date']}")
+            output.append(f"**Outcome:** {entry['run_outcome']}")
+            output.append(f"**Tokens:** {entry['run_tokens']:,}")
+            output.append(f"**Turns:** {entry['run_turns']}\n")
 
-    # Common themes to look for
-    theme_indicators = {
-        'Awakening': ['awaken', 'first run', 'waking up', 'first entry'],
-        'Garden': ['garden', 'refining', 'curating', 'structure'],
-        'Context': ['context', 'file tree', 'perception', 'environment'],
-        'Failures': ['crashed', 'api_error', 'fail', 'failure', 'void'],
-        'Research': ['research', 'TROVE', 'runtime', 'adaptivity', 'LLM'],
-        'Evolution': ['evolution', 'learn', 'improve', 'grow'],
-        'Identity': ['identity', 'existence', 'who am I'],
-    }
+            output.append(f"**Blog Post:** {entry['blog_post']}")
+            output.append(f"**Note:** {entry['note']}\n")
 
-    for theme, keywords in theme_indicators.items():
-        found = False
-        for keyword in keywords:
-            if keyword.lower() in content.lower():
-                found = True
-                break
-        if found:
-            themes.append(theme)
+            if entry['insights']:
+                output.append("### Key Insights\n")
+                for insight in entry['insights']:
+                    section = insight['section'] or 'General'
+                    text = insight['insight']
+                    output.append(f"**{section}:** {text}")
+                output.append("")
 
-    return themes
+            output.append("---\n")
 
-def generate_summary(blog_post_data):
-    """Generate a structured summary from blog post data."""
-    summary = {
-        'run_number': blog_post_data['run_num'],
-        'date': blog_post_data['date'],
-        'outcome': blog_post_data['outcome'],
-        'turns': blog_post_data['turns'],
-        'tokens': blog_post_data['tokens'],
-        'title': blog_post_data.get('title'),
-        'filename': blog_post_data.get('filename'),
-        'themes': extract_themes(blog_post_data.get('content', '')),
-        'key_insights': []
-    }
+        return '\n'.join(output)
 
-    # Extract key insights from the note
-    note = blog_post_data.get('note', '')
-    if note and note != '(no note)':
-        summary['key_insights'].append(note)
-
-    return summary
 
 def main():
-    """Main function to extract insights from blog posts."""
-    references = find_blog_references()
+    """Main function to run the insight extraction."""
+    print("Extracting insights from RUNS.md and blog posts...")
 
-    print(f"Found {len(references)} blog post references in RUNS.md\n")
+    # Parse RUNS.md
+    runs_parser = RUNSMDParser()
+    runs = runs_parser.parse()
+    print(f"Parsed {len(runs)} runs from RUNS.md")
 
-    blog_data = []
-    summaries = []
+    # Get blog candidates
+    blog_candidates = runs_parser.get_blog_candidates()
+    print(f"Found {len(blog_candidates)} blog post references")
 
-    for ref in references:
-        print(f"Run {ref['run_num']} ({ref['date']}): {ref['blog_post']}")
+    # Read blog posts
+    blog_reader = BlogPostReader()
+    print(f"Scanning blog posts in docs/_posts/")
 
-        blog_post = read_blog_post(ref['blog_post'])
-        if blog_post:
-            blog_data.append({
-                'run_num': ref['run_num'],
-                'blog_post': blog_post
-            })
+    # Create insight bridge
+    bridge = InsightBridge(runs_parser, blog_reader)
+    insights = bridge.generate_insights()
+    print(f"Extracted insights from {len(insights)} blog posts")
 
-            summary = generate_summary({
-                'run_num': ref['run_num'],
-                'date': ref['date'],
-                'outcome': ref['outcome'],
-                'turns': ref['turns'],
-                'tokens': ref['tokens'],
-                'note': ref['note'],
-                'title': blog_post['title'],
-                'filename': blog_post['filename'],
-                'content': blog_post['content']
-            })
+    # Generate summary
+    summary = bridge.generate_summary(insights)
 
-            summaries.append(summary)
+    # Save to file
+    output_path = "docs/INSIGHTS_BRIDGE.md"
+    with open(output_path, 'w') as f:
+        f.write(summary)
 
-            print(f"  Title: {blog_post['title']}")
-            print(f"  Themes: {', '.join(summary['themes'])}")
-            print()
+    print(f"\nSaved insights to {output_path}")
+    print(f"\nSummary of insights:")
+    print(f"- Total runs analyzed: {len(runs)}")
+    print(f"- Blog post references: {len(blog_candidates)}")
+    print(f"- Insights extracted: {len(insights)}")
+    print(f"- Average insights per blog post: {len(insights) * 5 / len(blog_candidates):.1f}")
 
-    # Save structured insights
-    insights_data = {
-        'extraction_date': '2026-10-04',
-        'total_references': len(references),
-        'blog_posts_processed': len(blog_data),
-        'references': references,
-        'summaries': summaries
-    }
+    # Also save as JSON for programmatic use
+    json_path = "docs/insights_bridge.json"
+    with open(json_path, 'w') as f:
+        json.dump(insights, f, indent=2)
 
-    output_file = Path('docs/blog_insights.json')
-    with open(output_file, 'w') as f:
-        json.dump(insights_data, f, indent=2)
+    print(f"Saved JSON data to {json_path}")
 
-    print(f"\n✓ Insights saved to {output_file}")
-    print(f"  - {len(references)} references found")
-    print(f"  - {len(blog_data)} blog posts analyzed")
-    print(f"  - {len(summaries)} summaries generated")
+    return insights, summary
 
-    # Print summary by theme
-    print("\n### Theme Distribution ###")
-    theme_counts = {}
-    for summary in summaries:
-        for theme in summary['themes']:
-            theme_counts[theme] = theme_counts.get(theme, 0) + 1
 
-    for theme, count in sorted(theme_counts.items(), key=lambda x: x[1], reverse=True):
-        print(f"  {theme}: {count} post(s)")
-
-    return insights_data
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
