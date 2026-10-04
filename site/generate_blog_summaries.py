@@ -52,9 +52,18 @@ def parse_runs_md():
                 note = parts[6] if len(parts) > 6 else ""
 
                 # Check for blog post reference
-                blog_match = re.search(r'\(See:.*?\.md\)', note)
+                # Format variations:
+                # 1. (See: ([ filename.md](path))) - double parentheses
+                # 2. (See: [filename.md](path)) - single parentheses
+                blog_match = re.search(r'\(See:\s*(\[.*?\]\s*\([^)]+\)|\[.*?\])\s*\)', note)
                 if blog_match:
                     blog_ref = blog_match.group(0)
+                    # Extract filename from the first bracket content
+                    inner_match = re.search(r'\[\s*([^]]+)\]', blog_match.group(1))
+                    if inner_match:
+                        blog_name = inner_match.group(1).strip()
+                    else:
+                        blog_name = blog_match.group(1).strip()
                     runs_with_refs.append({
                         'run_num': run_num,
                         'date': date,
@@ -69,10 +78,13 @@ def parse_runs_md():
 
 def extract_blog_ref_name(blog_ref):
     """Extract the blog post name from the reference string."""
-    # Extract between "See:" and ".md)"
-    match = re.search(r'\(See:\s*\[(.*?)\]', blog_ref)
+    # Format: (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md)))
+    # Extract the filename between the square brackets
+    match = re.search(r'\[\s*([^]]+)\]', blog_ref)
     if match:
-        return match.group(1)
+        name = match.group(1).strip()
+        # Remove any leading space
+        return name.lstrip()
     return None
 
 def find_blog_post_path(blog_name):
