@@ -1,200 +1,193 @@
 #!/usr/bin/env python3
 """
-Automate Blog Generation from RUNS.md
-
-This script extracts blog post candidates from RUNS.md entries with "(See: ...)" patterns,
-reads the referenced blog posts, and generates summaries or drafts for human review.
+Automate Blog Post Generation from RUNS.md
+Extracts insights from RUNS.md entries and blog posts to create summaries.
 """
 
-import re
 import json
-import os
+import re
 from pathlib import Path
 
 
-def extract_blog_candidates(runs_md_path):
-    """Extract blog post candidates from RUNS.md."""
-    candidates = []
+def parse_runs_md():
+    """Parse RUNS.md and extract run entries with blog references."""
+    runs_path = Path("RUNS.md")
+    runs = []
 
-    with open(runs_md_path, 'r') as f:
+    with open(runs_path, 'r') as f:
         content = f.read()
 
-    # Pattern to find runs with blog post references
-    pattern = r'\| (\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\w+)\s*\|\s*\|\s*(.*?)\s*\|\s*\(See:\s*(.*?)\)\s*\|'
+    # Parse the table
+    lines = content.split('\n')
+    in_table = False
+    for line in lines:
+        if '|' in line and '---' not in line:
+            in_table = True
+            # Extract columns
+            columns = [col.strip() for col in line.split('|')]
+            # Skip header row
+            if len(columns) >= 7 and columns[0].strip() == 'Run':
+                continue
 
-    matches = re.findall(pattern, content, re.DOTALL)
+            if len(columns) >= 7:
+                try:
+                    run_num = int(columns[0])
+                    date = columns[1]
+                    outcome = columns[2]
+                    turns = int(columns[3])
+                    tokens = int(columns[4].replace(',', ''))
+                    note = columns[5]
 
-    for match in matches:
-        run_num, date, tokens, turns, outcome, _, blog_ref = match
-        candidates.append({
-            'run_num': int(run_num),
-            'date': date,
-            'tokens': int(tokens),
-            'turns': int(turns),
-            'outcome': outcome,
-            'blog_ref': blog_ref.strip()
-        })
+                    # Check for blog post reference
+                    blog_match = re.search(r'\(See:\s*\[([^\]]+)\]\([^)]+\)\)', note)
+                    if blog_match:
+                        blog_title = blog_match.group(1).strip()
+                        runs.append({
+                            'run_num': run_num,
+                            'date': date,
+                            'outcome': outcome,
+                            'turns': turns,
+                            'tokens': tokens,
+                            'note': note,
+                            'blog_title': blog_title
+                        })
+                except (ValueError, IndexError):
+                    continue
+        elif in_table and not line.strip():
+            break
 
-    return candidates
-
-
-def find_blog_posts():
-    """Find all blog posts in the docs/_posts directory."""
-    posts_dir = Path('docs/_posts')
-
-    if not posts_dir.exists():
-        print(f"Blog posts directory not found: {posts_dir}")
-        return {}
-
-    posts = {}
-    for md_file in posts_dir.glob('*.md'):
-        try:
-            with open(md_file, 'r') as f:
-                content = f.read()
-
-            # Extract title from frontmatter
-            title_match = re.search(r'title:\s*"([^"]+)"', content)
-            if title_match:
-                title = title_match.group(1)
-                posts[title] = md_file
-        except Exception as e:
-            print(f"Error reading {md_file}: {e}")
-
-    return posts
+    return runs
 
 
-def extract_insights_from_post(post_path):
-    """Extract key insights from a blog post."""
-    with open(post_path, 'r') as f:
-        content = f.read()
+def read_blog_post(blog_title):
+    """Read a blog post file by title."""
+    blog_path = Path(f"docs/_posts/{blog_title}")
+    if not blog_path.exists():
+        # Try without _posts prefix
+        blog_path = Path(f"docs/{blog_title}")
+    if not blog_path.exists():
+        return None
 
-    # Extract main sections and their content
-    sections = {}
-
-    # Split by markdown headers
-    section_pattern = r'^(#{1,3})\s+(.+)$'
-    current_section = None
-
-    for line in content.split('\n'):
-        section_match = re.match(section_pattern, line)
-        if section_match:
-            current_section = {
-                'level': len(section_match.group(1)),
-                'title': section_match.group(2),
-                'content': []
-            }
-            sections[current_section['title']] = current_section
-        elif current_section and line.strip():
-            current_section['content'].append(line.strip())
-
-    return sections
+    with open(blog_path, 'r') as f:
+        return f.read()
 
 
-def generate_blog_summary(candidates):
-    """Generate a summary of blog post candidates for review."""
-    summary = []
+def extract_insights(blog_content):
+    """Extract key insights from blog post content."""
+    insights = []
 
-    for candidate in candidates:
-        summary.append({
-            'run': candidate['run_num'],
-            'date': candidate['date'],
-            'tokens': candidate['tokens'],
-            'turns': candidate['turns'],
-            'outcome': candidate['outcome'],
-            'blog_ref': candidate['blog_ref'],
-            'type': 'blog_post_candidate'
-        })
+    # Extract title from frontmatter
+    title_match = re.search(r'title:\s*"([^"]+)"', blog_content)
+    if title_match:
+        title = title_match.group(1)
+        insights.append(f"Title: {title}")
+
+    # Extract categories if present
+    category_match = re.search(r'categories:\s*\[([^\]]+)\]', blog_content)
+    if category_match:
+        categories = category_match.group(1).replace("'", '"')
+        insights.append(f"Categories: {categories}")
+
+    # Extract first paragraph (usually the introduction)
+    first_para_match = re.search(r'^\n?(.+?)(?:\n\n|\n---|\n$)', blog_content, re.DOTALL)
+    if first_para_match:
+        intro = first_para_match.group(1).strip()
+        insights.append(f"Introduction: {intro[:200]}...")
+
+    # Extract key sections
+    sections = re.findall(r'^###?\s+(.+)$', blog_content, re.MULTILINE)
+    if sections:
+        insights.append(f"Key sections: {', '.join(sections[:3])}")
+
+    return insights
+
+
+def generate_blog_summary(run_entry, blog_content):
+    """Generate a summary for a blog post from a run entry."""
+    blog_title = run_entry['blog_title']
+    summary = {
+        'run_num': run_entry['run_num'],
+        'date': run_entry['date'],
+        'outcome': run_entry['outcome'],
+        'turns': run_entry['turns'],
+        'tokens': run_entry['tokens'],
+        'blog_title': blog_title,
+        'insights': extract_insights(blog_content)
+    }
 
     return summary
 
 
 def main():
-    """Main execution."""
-    print("=" * 70)
-    print("Automated Blog Generation from RUNS.md")
-    print("=" * 70)
+    """Main execution function."""
+    print("Automating Blog Post Generation from RUNS.md")
+    print("=" * 60)
 
-    # Step 1: Extract candidates from RUNS.md
-    print("\n[1] Extracting blog post candidates from RUNS.md...")
-    candidates = extract_blog_candidates('RUNS.md')
+    # Parse RUNS.md
+    print("\n1. Parsing RUNS.md...")
+    runs = parse_runs_md()
+    print(f"   Found {len(runs)} blog post candidates")
 
-    if not candidates:
-        print("No blog post candidates found in RUNS.md")
-        return
+    # Collect blog content
+    blog_contents = {}
+    for run in runs:
+        blog_content = read_blog_post(run['blog_title'])
+        if blog_content:
+            blog_contents[run['blog_title']] = blog_content
+            print(f"   ✓ Read {run['blog_title']}")
+        else:
+            print(f"   ✗ Could not find {run['blog_title']}")
 
-    print(f"Found {len(candidates)} blog post candidates")
+    # Generate summaries
+    print("\n2. Generating blog post summaries...")
+    summaries = []
+    for run in runs:
+        blog_title = run['blog_title']
+        if blog_title in blog_contents:
+            summary = generate_blog_summary(run, blog_contents[blog_title])
+            summaries.append(summary)
+            print(f"   ✓ Generated summary for {blog_title}")
 
-    # Step 2: Find existing blog posts
-    print("\n[2] Finding existing blog posts...")
-    posts = find_blog_posts()
-    print(f"Found {len(posts)} existing blog posts")
+    # Save to JSON
+    print("\n3. Saving summaries...")
+    output_path = Path("site/blog_summaries.json")
+    with open(output_path, 'w') as f:
+        json.dump(summaries, f, indent=2, default=str)
 
-    # Step 3: Analyze candidates
-    print("\n[3] Analyzing candidates...")
+    print(f"   ✓ Saved {len(summaries)} summaries to {output_path}")
 
-    # Group by blog reference title
-    by_reference = {}
-    for candidate in candidates:
-        ref = candidate['blog_ref']
-        if ref not in by_reference:
-            by_reference[ref] = []
-        by_reference[ref].append(candidate)
+    # Generate report
+    print("\n4. Generating report...")
+    report_path = Path("site/blog_summary_report.txt")
+    with open(report_path, 'w') as f:
+        f.write("BLOG POST SUMMARY REPORT\n")
+        f.write("=" * 60 + "\n\n")
 
-    print(f"\nCandidates grouped by blog reference: {len(by_reference)}")
+        f.write(f"Total blog posts with run references: {len(summaries)}\n\n")
 
-    for ref, refs in by_reference.items():
-        print(f"\n  {ref}: {len(refs)} runs")
+        if summaries:
+            f.write("SUMMARY DETAILS\n")
+            f.write("-" * 60 + "\n\n")
 
-    # Step 4: Generate summary for review
-    print("\n[4] Generating review summary...")
+            for summary in summaries:
+                f.write(f"Run {summary['run_num']} ({summary['date']})\n")
+                f.write(f"Outcome: {summary['outcome']}\n")
+                f.write(f"Turns: {summary['turns']}, Tokens: {summary['tokens']}\n")
+                f.write(f"Blog: {summary['blog_title']}\n")
 
-    summary_file = Path('docs/blog_generation_summary.json')
-    summary = {
-        'total_candidates': len(candidates),
-        'by_reference': by_reference,
-        'existing_posts': list(posts.keys())
-    }
+                if summary['insights']:
+                    f.write("\nInsights:\n")
+                    for insight in summary['insights']:
+                        f.write(f"  - {insight}\n")
 
-    with open(summary_file, 'w') as f:
-        json.dump(summary, f, indent=2)
+                f.write("\n" + "-" * 60 + "\n\n")
 
-    print(f"Review summary saved to: {summary_file}")
+    print(f"   ✓ Report saved to {report_path}")
 
-    # Step 5: Print summary for human review
-    print("\n" + "=" * 70)
-    print("REVIEW SUMMARY")
-    print("=" * 70)
-
-    for ref, refs in by_reference.items():
-        print(f"\n{ref} ({len(refs)} runs):")
-        for ref_candidate in refs:
-            print(f"  - Run {ref_candidate['run_num']} ({ref_candidate['date']}) "
-                  f"- {ref_candidate['tokens']} tokens - {ref_candidate['outcome']}")
-
-    # Check if blog posts exist
-    print("\n" + "=" * 70)
-    print("EXISTING BLOG POSTS")
-    print("=" * 70)
-
-    missing_posts = []
-    for ref, refs in by_reference.items():
-        if ref not in posts:
-            missing_posts.append(ref)
-            print(f"  ❌ Missing: {ref}")
-
-    if missing_posts:
-        print(f"\n{len(missing_posts)} blog posts are missing!")
-
-    print("\n" + "=" * 70)
-    print("NEXT STEPS")
-    print("=" * 70)
-    print("1. Review the candidates above")
-    print("2. Check if blog posts exist")
-    print("3. Decide which candidates should have blog posts generated")
-    print("4. Run the blog post generation workflow")
-    print("\nReview summary saved to: docs/blog_generation_summary.json")
-    print("=" * 70)
+    print("\n" + "=" * 60)
+    print("Automation complete!")
+    print(f"\nGenerated {len(summaries)} blog post summaries from {len(runs)} RUNS.md entries")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
