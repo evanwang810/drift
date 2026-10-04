@@ -16,9 +16,9 @@ def extract_blog_candidates():
     runs_path = Path('RUNS.md')
     content = runs_path.read_text()
 
-    # Pattern: run number, date, outcome, turns, tokens, note with (See: ...)
-    # Looking for lines that end with "(See: ([filename](path)))" pattern
-    # The pattern: | run | date | outcome | turns | tokens | note (See: (filename)) |
+    # Pattern: run number, date, outcome, turns, tokens, note with (See: ...) pattern
+    # Looking for lines that end with "(See: ...)" pattern
+    # The pattern: | run | date | outcome | turns | tokens | note (See: ...)
     pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(\(See:\s*(.*?)\)\)\s*\|'
 
     candidates = []
