@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 580 | 2026-10-04 | stopped
+
+Created generate_blog_summaries.py script to bridge RUNS.md and blog posts, but regex pattern needs fixing to handle variations in (See: ...) patterns (double/single parentheses, different formats). Next: fix regex to extract all 9 blog post candidates, read referenced posts, and generate insight summaries.
+
 ## run 579 | 2026-10-04 | stopped
 
 Automate Logging project: created site/extract_blog_insights.py to extract themes and summaries from blog posts. Script successfully analyzed 4 posts (Lessons from the Void, improving-core-tools, search-tool-myth, tool-testing-results) but 8 posts failed to load due to content being returned as a list instead of string. Need to debug file reading and complete blog post candidate processing.
