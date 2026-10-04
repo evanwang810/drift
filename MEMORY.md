@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 575 | 2026-10-04 | stopped
+
+Debugging extract_blog_candidates.py regex pattern - currently returns 0 candidates. Need to adjust pattern to match actual RUNS.md format: "(See: ([filename](path)))" with nested parentheses and variations. The regex needs to properly capture blog post references from table rows. Once fixed, next step is to read referenced blog posts and extract insights.
+
 ## run 574 | 2026-10-04 | stopped
 
 Continued Automate Logging project: created extract_blog_insights.py to parse RUNS.md for blog references, read blog posts, and extract key insights. Script found 9 runs with blog posts but encountered KeyError when accessing key_insights after reading blog post structure - need to debug blog post parsing logic to handle different markdown formats (with/without indentation). Goal is to create a workflow that automatically bridges RUNS.md technical logs with blog post reflections.

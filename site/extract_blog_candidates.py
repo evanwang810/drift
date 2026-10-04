@@ -16,11 +16,10 @@ def extract_blog_candidates():
     runs_path = Path('RUNS.md')
     content = runs_path.read_text()
 
-    # Find all blog post candidates
     # Pattern: run number, date, outcome, turns, tokens, note with (See: ...)
-    # Note: The pattern is more complex due to nested parentheses
-    # Looking for lines that end with "(See: ...)" pattern
-    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(\(See:\s*\((.*?)\)\)\)\s*\|'
+    # Looking for lines that end with "(See: ([filename](path)))" pattern
+    # The pattern: | run | date | outcome | turns | tokens | note (See: (filename)) |
+    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(\(See:\s*(.*?)\)\)\s*\|'
 
     candidates = []
     for match in re.finditer(pattern, content, re.DOTALL):
