@@ -1,355 +1,124 @@
 #!/usr/bin/env python3
 """
-Extract insights from blog posts and bridge the gap between RUNS.md entries
-and reflective blog posts, creating a natural flow of insights from technical
-logs to blog content.
+Extract insights from blog posts that are linked in RUNS.md.
+This creates a bridge between technical run logs and reflective blog posts.
 """
 
 import re
 import json
-import os
 from pathlib import Path
-from datetime import datetime
 
+def extract_insights_from_html(html_path):
+    """Extract insights and key themes from an HTML blog post."""
+    with open(html_path, 'r', encoding='utf-8') as f:
+        content = f.read()
 
-class BlogInsightExtractor:
-    """Extract insights from blog posts and create summaries."""
+    # Extract title
+    title_match = re.search(r'<h1>(.*?)</h1>', content, re.DOTALL)
+    title = title_match.group(1).strip() if title_match else "Unknown"
 
-    def __init__(self):
-        self.blog_posts = {}
-        self.runs_with_blog_refs = []
+    # Extract body text
+    body_match = re.search(r'<main>\s*<article>(.*?)</article>\s*</main>', content, re.DOTALL)
+    if body_match:
+        body_html = body_match.group(1)
+    else:
+        body_html = content
 
-    def find_blog_posts(self, posts_dir="docs/_posts"):
-        """Find all blog posts in the posts directory."""
-        posts_path = Path(posts_dir)
-        if not posts_path.exists():
-            print(f"Warning: Posts directory not found: {posts_path}")
-            return
+    # Remove HTML tags and clean text
+    text = re.sub(r'<[^>]+>', '\n', body_html)
+    text = re.sub(r'\n\s*\n', '\n\n', text)
+    text = text.strip()
 
-        for md_file in posts_path.glob("*.md"):
-            self.blog_posts[md_file.name] = md_file
+    # Extract key sections (h2, h3 headings)
+    sections = re.findall(r'<h[23]>(.*?)</h[23]>', body_html, re.DOTALL)
+    section_titles = [s.strip() for s in sections]
 
-        print(f"Found {len(self.blog_posts)} blog posts")
+    # Count paragraphs
+    paragraphs = re.findall(r'<p>(.*?)</p>', body_html, re.DOTALL)
+    paragraphs = [p.strip() for p in paragraphs if p.strip()]
 
-    def extract_blog_metadata(self, md_file):
-        """Extract metadata from a blog post markdown file."""
-        with open(md_file, 'r', encoding='utf-8') as f:
-            content = f.read()
+    # Extract date
+    date_match = re.search(r'<time>(.*?)</time>', content)
+    date = date_match.group(1).strip() if date_match else "Unknown"
 
-        # Extract title (first H1)
-        title_match = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
-        title = title_match.group(1).strip() if title_match else "Untitled"
+    return {
+        'title': title,
+        'date': date,
+        'text': text,
+        'paragraphs': paragraphs,
+        'section_titles': section_titles,
+        'word_count': len(text.split())
+    }
 
-        # Extract date
-        date_match = re.search(r'(\d{4}-\d{2}-\d{2})', content)
-        date_str = date_match.group(1) if date_match else "Unknown"
+def extract_run_blog_connections(runs_path, blog_posts):
+    """Extract connections between runs and blog posts from RUNS.md."""
+    with open(runs_path, 'r', encoding='utf-8') as f:
+        content = f.read()
 
-        # Extract tags
-        tags = []
-        tags_match = re.search(r'tags:\s*\[(.+)\]', content)
-        if tags_match:
-            tags = [t.strip().strip('"\'') for t in tags_match.group(1).split(',')]
+    # Find all (See: ...) patterns
+    patterns = re.findall(r'\(See: \((.*?)\)\)', content)
 
-        # Extract categories
-        categories = []
-        cats_match = re.search(r'categories:\s*\[(.+)\]', content)
-        if cats_match:
-            categories = [c.strip().strip('"\'') for c in cats_match.group(1).split(',')]
+    connections = []
+    for pattern in patterns:
+        # Extract run number and blog post link
+        run_match = re.search(r'(\d+)\s*\|', content, re.DOTALL)
+        if run_match:
+            run_num = run_match.group(1)
 
-        # Extract the main content (after frontmatter)
-        frontmatter_end = content.find('---\n\n')
-        if frontmatter_end != -1:
-            main_content = content[frontmatter_end + 4:].strip()
-        else:
-            main_content = content.strip()
+            # Find the blog post in our list
+            for post in blog_posts:
+                if post['filename'] in pattern:
+                    connections.append({
+                        'run': run_num,
+                        'blog_post': post
+                    })
+                    break
 
-        return {
-            'filename': md_file.name,
-            'title': title,
-            'date': date_str,
-            'tags': tags,
-            'categories': categories,
-            'content': main_content,
-            'full_content': content
-        }
-
-    def find_runs_with_blog_refs(self, runs_md_path="RUNS.md"):
-        """Find all runs in RUNS.md that reference blog posts."""
-        runs_path = Path(runs_md_path)
-        if not runs_path.exists():
-            print(f"Warning: RUNS.md not found: {runs_path}")
-            return []
-
-        run_entries = []
-
-        with open(runs_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
-
-        # Parse the table
-        in_table = False
-        for i, line in enumerate(lines):
-            if line.startswith('| run |'):
-                in_table = True
-                continue
-
-            if in_table and line.startswith('| --:'):
-                in_table = False
-                continue
-
-            if in_table and line.strip():
-                # Parse table row
-                columns = [col.strip() for col in line.split('|')[1:-1]]
-
-                if len(columns) >= 6:
-                    run_num = int(columns[0])
-                    when = columns[1]
-                    outcome = columns[2]
-                    turns = int(columns[3])
-                    tokens = int(columns[4].replace(',', ''))
-                    note = columns[5]
-
-                    # Check for blog reference
-                    blog_refs = self._extract_blog_refs(note)
-                    if blog_refs:
-                        run_entries.append({
-                            'run': run_num,
-                            'when': when,
-                            'outcome': outcome,
-                            'turns': turns,
-                            'tokens': tokens,
-                            'note': note,
-                            'blog_refs': blog_refs
-                        })
-
-        self.runs_with_blog_refs = run_entries
-        print(f"Found {len(run_entries)} runs with blog references")
-        return run_entries
-
-    def _extract_blog_refs(self, note):
-        """Extract blog post references from a note."""
-        # Try multiple formats for blog references
-        patterns = [
-            r'See:\s*\[([^\]]+)\]\(([^)]+)\)',  # See: ([ 2026-09-06-awakening.md](...))
-            r'See:\s*\[([^\]]+)\]\(([^)]+)\)',  # See: ([2026-09-06-awakening.md](...))
-            r'\((See:\s*\[([^\]]+)\]\([^)]+\))\)',  # (See: ([ 2026-09-06-awakening.md](...)))
-            r'See:\s*\[([^\]]+)\]\(([^)]+)\)',  # See: ([2026-09-06-awakening.md](...))
-        ]
-        
-        for pattern in patterns:
-            refs = re.findall(pattern, note)
-            if refs:
-                break
-        
-        blog_refs = []
-        for title, link in refs:
-            # Extract filename from link
-            filename = link.split('/')[-1] if '/' in link else link
-            if filename.endswith('.md'):
-                filename = filename[:-3]  # Remove .md extension
-            blog_refs.append({
-                'title': title,
-                'link': link,
-                'filename': filename
-            })
-
-        return blog_refs
-
-    def extract_insights_from_blog(self, blog_data):
-        """Extract key insights from a blog post."""
-        insights = []
-
-        content = blog_data['content'].lower()
-
-        # Extract key themes based on content patterns
-        if 'awakening' in content:
-            insights.append('Theme: Awakening and initial setup')
-            insights.append('Key: Understanding the environment and available tools')
-
-        if 'refining' in content or 'improving' in content:
-            insights.append('Theme: Refinement and improvement')
-            insights.append('Key: Iterative process of building and optimizing')
-
-        if 'lessons' in content or 'failure' in content:
-            insights.append('Theme: Learning from failure')
-            insights.append('Key: Treat crashes and errors as data, not interruptions')
-
-        if 'runtime' in content or 'adaptivity' in content:
-            insights.append('Theme: Runtime adaptivity')
-            insights.append('Key: Plans are hypotheses; validate against traces')
-
-        if 'research' in content or 'TROVE' in content or 'BUGSTONE' in content:
-            insights.append('Theme: Research and investigation')
-            insights.append('Key: Exploring the broader landscape of agent capabilities')
-
-        # Extract key takeaways
-        paragraphs = blog_data['content'].split('\n\n')
-        key_takeaways = []
-
-        for para in paragraphs:
-            if len(para) > 100 and len(para) < 500:
-                # Look for bullet points or numbered lists
-                if re.search(r'^[\d\-\*\+]\s+', para):
-                    key_takeaways.append(para.strip())
-
-        return {
-            'title': blog_data['title'],
-            'date': blog_data['date'],
-            'tags': blog_data['tags'],
-            'categories': blog_data['categories'],
-            'insights': insights,
-            'key_takeaways': key_takeaways[:3],  # Limit to top 3
-            'content_preview': blog_data['content'][:300] + '...'
-        }
-
-    def generate_blog_run_summary(self, run_entry, blog_data):
-        """Generate a summary that bridges the run log and blog post."""
-        summary = {
-            'run': run_entry['run'],
-            'when': run_entry['when'],
-            'outcome': run_entry['outcome'],
-            'turns': run_entry['turns'],
-            'tokens': run_entry['tokens'],
-            'blog_post': {
-                'title': blog_data['title'],
-                'filename': blog_data['filename'],
-                'date': blog_data['date'],
-                'tags': blog_data['tags'],
-                'categories': blog_data['categories']
-            },
-            'connection': {
-                'theme': self._extract_theme(blog_data['content']),
-                'insights': blog_data['insights'],
-                'run_context': self._extract_run_context(run_entry['note'])
-            },
-            'summary_text': self._generate_summary_text(run_entry, blog_data)
-        }
-
-        return summary
-
-    def _extract_theme(self, content):
-        """Extract the main theme from blog content."""
-        content_lower = content.lower()
-
-        themes = {
-            'awakening': 'awakening',
-            'digital garden': 'garden',
-            'refining': 'refinement',
-            'waking context': 'context',
-            'lessons': 'lessons',
-            'void': 'lessons',
-            'runtime': 'runtime',
-            'adaptivity': 'adaptivity',
-            'research': 'research',
-            'architecture': 'architecture'
-        }
-
-        for theme, keyword in themes.items():
-            if keyword in content_lower:
-                return theme
-
-        return 'general'
-
-    def _extract_run_context(self, note):
-        """Extract key context from the run note."""
-        if 'blocked' in note.lower():
-            return 'permission issue, could not enable GitHub Pages'
-        elif 'expanded' in note.lower() or 'refined' in note.lower():
-            return 'expanding or refining the website'
-        elif 'crashed' in note.lower():
-            return 'run crashed, likely due to system issue'
-        elif 'research' in note.lower():
-            return 'conducting research on LLM agents'
-        else:
-            return 'general work on the project'
-
-    def _generate_summary_text(self, run_entry, blog_data):
-        """Generate a human-readable summary text."""
-        theme = self._extract_theme(blog_data['content'])
-        run_context = self._extract_run_context(run_entry['note'])
-
-        texts = {
-            'awakening': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Initial awakening phase focused on understanding the environment and setting up foundational tools.",
-            'garden': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Building the digital garden, establishing identity through documentation and structure.",
-            'refinement': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Iterative refinement of the digital garden, fixing issues and improving structure.",
-            'context': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Refining the waking context and file tree structure for better orientation.",
-            'lessons': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Learning from failures and crashes, understanding system dependencies.",
-            'runtime': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Research on runtime adaptivity and LLM agent architecture.",
-            'research': f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. Research into the state of LLM agents in late 2026."
-        }
-
-        return texts.get(theme, f"Run {run_entry['run']} ({run_entry['when']}) - {blog_data['title']}. {run_context}")
-
-    def generate_all_summaries(self):
-        """Generate summaries for all blog-run connections."""
-        summaries = []
-
-        for run_entry in self.runs_with_blog_refs:
-            blog_file = self.blog_posts.get(run_entry['blog_refs'][0]['filename'] + '.md')
-
-            if not blog_file:
-                print(f"Warning: Blog file not found for {run_entry['blog_refs'][0]['filename']}")
-                continue
-
-            blog_data = self.extract_blog_metadata(blog_file)
-            summary = self.generate_blog_run_summary(run_entry, blog_data)
-            summaries.append(summary)
-
-        return summaries
-
-    def save_summaries(self, summaries, output_path="docs/blog_run_summaries.json"):
-        """Save summaries to a JSON file."""
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-        with open(output_path, 'w', encoding='utf-8') as f:
-            json.dump({
-                'generated_at': datetime.utcnow().isoformat(),
-                'total_summaries': len(summaries),
-                'summaries': summaries
-            }, f, indent=2, ensure_ascii=False)
-
-        print(f"Saved {len(summaries)} summaries to {output_path}")
-        return output_path
-
+    return connections
 
 def main():
-    """Main entry point."""
-    extractor = BlogInsightExtractor()
+    runs_path = Path('RUNS.md')
+    blog_dir = Path('docs')
 
-    # Find blog posts
-    extractor.find_blog_posts()
+    # Find blog post HTML files
+    blog_files = list(blog_dir.glob('2026-09-*.html'))
 
-    # Find runs with blog references
-    extractor.find_runs_with_blog_refs()
+    blog_posts = []
+    for html_file in blog_files:
+        try:
+            insights = extract_insights_from_html(html_file)
+            blog_posts.append({
+                'filename': html_file.name,
+                'html_path': str(html_file),
+                'insights': insights
+            })
+        except Exception as e:
+            print(f"Error reading {html_file.name}: {e}")
 
-    # Generate all summaries
-    summaries = extractor.generate_all_summaries()
+    print(f"Found {len(blog_posts)} blog posts")
+    for post in blog_posts:
+        print(f"  - {post['filename']}: {post['insights']['title']}")
 
-    # Save summaries
-    if summaries:
-        extractor.save_summaries(summaries)
+    # Extract connections from RUNS.md
+    connections = extract_run_blog_connections(runs_path, blog_posts)
 
-        # Print summary statistics
-        print("\n" + "="*60)
-        print("BLOG-RUN CONNECTIONS SUMMARY")
-        print("="*60)
-        print(f"Total connections: {len(summaries)}")
-        print(f"Blog posts analyzed: {len(extractor.blog_posts)}")
-        print(f"Runs with blog references: {len(extractor.runs_with_blog_refs)}")
+    print(f"\nFound {len(connections)} run-blog connections:")
+    for conn in connections:
+        print(f"  Run {conn['run']} -> {conn['blog_post']['filename']}")
 
-        # Count by theme
-        themes = {}
-        for summary in summaries:
-            theme = summary['connection']['theme']
-            themes[theme] = themes.get(theme, 0) + 1
+    # Save insights
+    output = {
+        'blog_posts': [dict(post) for post in blog_posts],
+        'connections': connections
+    }
 
-        print("\nThemes:")
-        for theme, count in sorted(themes.items(), key=lambda x: x[1], reverse=True):
-            print(f"  - {theme}: {count}")
+    output_path = Path('docs/blog_insights.json')
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
-        print("\nSample connections:")
-        for summary in summaries[:3]:
-            print(f"  Run {summary['run']}: {summary['blog_post']['title']} ({summary['summary_text'][:60]}...)")
+    print(f"\nSaved insights to {output_path}")
+    print(f"Total blog posts: {len(blog_posts)}")
+    print(f"Total connections: {len(connections)}")
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
