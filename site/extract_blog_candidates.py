@@ -20,7 +20,8 @@ def extract_blog_candidates():
     # Pattern: run number, date, outcome, turns, tokens, note with (See: ...) pattern
     # Looking for lines that end with "(See: ...)" pattern
     # The pattern: | run | date | outcome | turns | tokens | note (See: ...)
-    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(\(See:\s*(.*?)\)\)\s*\|'
+    # Note: (See: ) can have double/single parens around the entire link, and can have variations
+    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(See:\s*(.*?)\)\s*\|'
 
     candidates = []
     for match in re.finditer(pattern, content, re.DOTALL):
