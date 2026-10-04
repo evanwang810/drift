@@ -54,10 +54,10 @@ def generate_all_summaries():
     insights_path = Path('docs/blog_post_insights.json')
     if not insights_path.exists():
         print("Error: blog_post_insights.json not found")
-        return
+        return []
 
     with open(insights_path) as f:
-        insights = json.load(f)
+        insights = json.load(f).get('posts', [])
 
     # Generate summaries
     all_summaries = []
@@ -68,17 +68,118 @@ def generate_all_summaries():
 
     return all_summaries
 
-if __name__ == '__main__':
-    summaries = generate_all_summaries()
+def generate_report(insights):
+    """Generate a comprehensive report with insights organized by category."""
 
-    print(f"Generated {len(summaries)} blog post summaries:")
+    report_lines = [
+        "# Blog Post Summaries",
+        "",
+        f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"Total Posts: {len(insights)}",
+        "",
+        "## Overview"
+    ]
+
+    # Calculate statistics
+    total_headings = sum(len(i['headings']) for i in insights)
+    total_paragraphs = sum(len(i['paragraphs']) for i in insights)
+
+    report_lines.extend([
+        f"- Total Headings: {total_headings}",
+        f"- Total Paragraphs: {total_paragraphs}",
+        "",
+        "## By Title"
+    ])
+
+    # Group by title
+    for insight in insights:
+        report_lines.extend([
+            "",
+            f"### {insight['title']}",
+            "",
+            f"**Filename:** `{insight['filename']}`",
+            f"**Date:** {insight['date']}",
+            "",
+        ])
+
+        if insight['categories']:
+            report_lines.append(f"**Categories:** {', '.join(insight['categories'])}")
+
+        if insight['tags']:
+            report_lines.append(f"**Tags:** {', '.join(insight['tags'])}")
+
+        if insight['headings']:
+            report_lines.append("")
+            report_lines.append("**Headings:**")
+            for heading in insight['headings']:
+                report_lines.append(f"- {heading}")
+
+        if insight['paragraphs']:
+            report_lines.append("")
+            report_lines.append("**Content Preview:**")
+            for para in insight['paragraphs'][:3]:
+                preview = para[:150] + "..." if len(para) > 150 else para
+                report_lines.append(f"- {preview}")
+
+        report_lines.append("")
+        report_lines.append("---")
+        report_lines.append("")
+
+    return '\n'.join(report_lines)
+
+def main():
+    """Main function."""
+
+    print("Loading insights from JSON...")
     print("=" * 80)
 
-    for summary in summaries:
-        print(summary)
-        print("\n" + "=" * 80 + "\n")
+    # Load insights
+    insights_path = Path('docs/blog_post_insights.json')
+    if not insights_path.exists():
+        print("Error: blog_post_insights.json not found")
+        return
 
-    # Save to file
+    with open(insights_path) as f:
+        data = json.load(f)
+
+    insights = data.get('posts', [])
+
+    print(f"Loaded insights from {len(insights)} blog posts")
+    print("=" * 80)
+
+    # Generate summaries
+    summaries = generate_all_summaries()
+
+    print(f"Generated {len(summaries)} blog post summaries")
+    print("=" * 80)
+
+    # Save summaries
     output_path = Path('docs/BLOG_SUMMARIES.md')
     output_path.write_text('\n'.join(summaries))
-    print(f"Saved to {output_path}")
+    print(f"\nSaved summaries to: {output_path}")
+
+    # Generate comprehensive report
+    report = generate_report(insights)
+    report_path = Path('docs/BLOG_SUMMARIES_REPORT.md')
+    report_path.write_text(report)
+    print(f"Saved report to: {report_path}")
+
+    # Print summary of what was generated
+    print("\n" + "=" * 80)
+    print("SUMMARY")
+    print("=" * 80)
+    print(f"\nGenerated {len(summaries)} blog post summaries")
+    print(f"Saved to: docs/BLOG_SUMMARIES.md")
+    print(f"\nGenerated comprehensive report with statistics")
+    print(f"Saved to: docs/BLOG_SUMMARIES_REPORT.md")
+
+    if insights:
+        print(f"\nSample - {insights[0]['title']}")
+        print(f"  Date: {insights[0]['date']}")
+        print(f"  Categories: {', '.join(insights[0]['categories'])}")
+        print(f"  Headings: {len(insights[0]['headings'])}")
+        print(f"  Paragraphs: {len(insights[0]['paragraphs'])}")
+
+
+if __name__ == '__main__':
+    main()

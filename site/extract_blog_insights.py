@@ -1,194 +1,324 @@
 #!/usr/bin/env python3
 """
-Extract insights from blog posts referenced in RUNS.md and generate summaries.
+Extract insights and generate blog post summaries from referenced posts.
 
-This script:
-1. Parses RUNS.md to find runs with blog post references
-2. Reads the referenced blog posts
-3. Extracts key insights and patterns
-4. Generates structured summaries for each run
+This script reads blog posts that are referenced in RUNS.md, extracts key insights,
+and generates human-readable summaries that bridge the gap between technical run logs
+and reflective blog posts.
 """
 
 import re
-import json
-import os
 from pathlib import Path
+from datetime import datetime
+import json
 
+class BlogPostInsightExtractor:
+    """Extract insights from blog posts."""
 
-def parse_runs_md():
-    """Parse RUNS.md and extract runs with blog post references."""
-    runs_with_blogs = []
+    def __init__(self, blog_posts_dir='docs/_posts'):
+        self.blog_posts_dir = Path(blog_posts_dir)
 
-    with open('RUNS.md', 'r', encoding='utf-8') as f:
-        lines = f.readlines()
+    def extract_post_metadata(self, filepath):
+        """Extract metadata from a blog post file."""
 
-    # Find the table header and data
-    table_started = False
-    current_run = None
+        content = filepath.read_text()
 
-    for i, line in enumerate(lines):
-        if line.startswith('| run |'):
-            table_started = True
-            continue
-        elif table_started and line.strip() == '| --: | --- | --- | --: | --: | --- |':
-            continue
-        elif table_started and line.startswith('|'):
-            # Parse table row
-            columns = [col.strip() for col in line.split('|')[1:-1]]  # Remove first/last empty
-            if len(columns) >= 6:
-                try:
-                    run_num = int(columns[0])
-                    date_str = columns[1]
-                    outcome = columns[2]
-                    turns = int(columns[3]) if columns[3] else 0
-                    tokens = int(columns[4].replace(',', '')) if columns[4] else 0
-                    note = columns[5]
+        # Extract title from YAML frontmatter
+        title_match = re.search(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        title = None
+        date = None
+        tags = []
 
-                    # Look for blog post reference
-                    blog_match = re.search(r'\(See:\s*\[?([^\)]+)\]\([^)]+\)\)?', note)
-                    if blog_match:
-                        blog_filename = blog_match.group(1).strip()
-                        runs_with_blogs.append({
-                            'run': run_num,
-                            'date': date_str,
-                            'outcome': outcome,
-                            'turns': turns,
-                            'tokens': tokens,
-                            'note': note,
-                            'blog_filename': blog_filename
-                        })
-                except (ValueError, IndexError):
-                    continue
+        if title_match:
+            frontmatter = title_match.group(1)
+            title_match = re.search(r'^title:\s*"([^"]+)"', frontmatter)
+            date_match = re.search(r'^date:\s*"([^"]+)"', frontmatter)
+            tags_match = re.search(r'^tags:\s*\[(.*?)\]', frontmatter, re.DOTALL)
 
-    return runs_with_blogs
+            if title_match:
+                title = title_match.group(1).strip()
 
+            if date_match:
+                date = date_match.group(1).strip()
 
-def read_blog_post(blog_filename):
-    """Read a blog post file and extract insights."""
-    blog_path = Path(f'docs/_posts/{blog_filename}')
+            if tags_match:
+                tags = [t.strip().strip('"\'') for t in tags_match.group(1).split(',')]
 
-    if not blog_path.exists():
-        return {'error': f'Blog file not found: {blog_filename}'}
+        # Extract layout
+        layout_match = re.search(r'^layout:\s*(\w+)', content)
+        layout = layout_match.group(1) if layout_match else None
 
-    content = blog_path.read_text(encoding='utf-8')
-
-    # Extract key information
-    title_match = re.search(r'title:\s*"([^"]+)"', content)
-    date_match = re.search(r'date:\s*(.+)', content)
-    categories_match = re.search(r'categories:\s*\[([^\]]+)\]', content)
-
-    title = title_match.group(1) if title_match else 'Unknown'
-    date = date_match.group(1).strip() if date_match else 'Unknown'
-    categories = categories_match.group(1).split(', ') if categories_match else []
-
-    # Extract insights - look for headings, key sections
-    insights = []
-
-    # Look for section headers
-    headers = re.findall(r'^(#{2,6})\s+(.+)$', content, re.MULTILINE)
-
-    # Look for key phrases that indicate insights
-    insight_patterns = [
-        r'(?:The|I) (?:learn|discovered|realized|found|noticed) (?:that|something) (?:is|was) (?:the|a) (.+)',
-        r'^###?\s+(.+)$',
-    ]
-
-    for header in headers[:10]:  # Limit to first 10 headers
-        insights.append({
-            'type': 'heading',
-            'content': header[1].strip(),
-            'level': len(header[0])
-        })
-
-    return {
-        'title': title,
-        'date': date,
-        'categories': categories,
-        'insights': insights,
-        'content_preview': content[:500]  # First 500 chars
-    }
-
-
-def generate_run_insight(run_data):
-    """Generate a structured insight for a run based on its blog post."""
-    blog_info = read_blog_post(run_data['blog_filename'])
-
-    if 'error' in blog_info:
         return {
-            'run': run_data['run'],
-            'blog_filename': run_data['blog_filename'],
-            'status': 'error',
-            'error': blog_info['error']
+            'title': title,
+            'date': date,
+            'tags': tags,
+            'layout': layout,
+            'filename': filepath.name
         }
 
-    # Generate insight summary
-    insight = {
-        'run': run_data['run'],
-        'blog_filename': run_data['blog_filename'],
-        'date': run_data['date'],
-        'outcome': run_data['outcome'],
-        'tokens': run_data['tokens'],
-        'turns': run_data['turns'],
-        'title': blog_info['title'],
-        'categories': blog_info['categories'],
-        'key_insights': []
+    def extract_headings(self, content):
+        """Extract all headings from the content."""
+
+        headings = []
+
+        # Match markdown headings
+        heading_pattern = r'^(#{1,6})\s+(.+)$'
+
+        for line in content.split('\n'):
+            match = re.match(heading_pattern, line)
+            if match:
+                level = len(match.group(1))
+                text = match.group(2).strip()
+                headings.append(text)
+
+        return headings
+
+    def extract_paragraphs(self, content):
+        """Extract paragraphs from the content."""
+
+        paragraphs = []
+
+        # Split on double newlines, preserving content
+        blocks = re.split(r'\n\n+', content)
+
+        for block in blocks:
+            if block.strip():
+                # Extract markdown from block
+                markdown_match = re.search(r'(.*?)\n\n', block, re.DOTALL)
+                text = markdown_match.group(1).strip() if markdown_match else block.strip()
+
+                # Convert markdown to plain text
+                text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)  # Bold
+                text = re.sub(r'`(.+?)`', r'\1', text)  # Code
+                text = re.sub(r'#{1,6}\s+', '', text)  # Headings
+                text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', text)  # Links
+
+                paragraphs.append(text[:500])  # Limit length
+
+        return paragraphs
+
+    def extract_categories(self, content):
+        """Extract categories from the content."""
+
+        categories = []
+
+        # Look for categories in frontmatter
+        frontmatter_match = re.search(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        if frontmatter_match:
+            frontmatter = frontmatter_match.group(1)
+
+            # Check for categories in frontmatter
+            categories_match = re.search(r'^categories:\s*\[(.*?)\]', frontmatter, re.DOTALL)
+            if categories_match:
+                categories = [c.strip().strip('"\'') for c in categories_match.group(1).split(',')]
+
+        return categories
+
+    def extract_key_points(self, content, headings, paragraphs):
+        """Extract key points and themes from the content."""
+
+        key_points = []
+
+        # Combine headings and paragraphs
+        all_text = '\n'.join(headings + paragraphs)
+
+        # Look for recurring themes
+        themes = {
+            'progress': 0,
+            'failure': 0,
+            'reflection': 0,
+            'technical': 0,
+            'meta': 0,
+            'planning': 0,
+            'growth': 0,
+            'adaptation': 0
+        }
+
+        # Analyze headings for themes
+        for heading in headings:
+            heading_lower = heading.lower()
+            for theme, keywords in [
+                ('progress', ['progress', 'improvement', 'evolution', 'building', 'developing']),
+                ('failure', ['fail', 'crash', 'error', 'broken', 'mistake']),
+                ('reflection', ['reflect', 'think', 'consider', 'meaning', 'purpose']),
+                ('technical', ['code', 'implement', 'tool', 'function', 'system']),
+                ('meta', ['meta', 'thinking', 'cognitive', 'awareness', 'self']),
+                ('planning', ['plan', 'goal', 'objective', 'target', 'strategy']),
+                ('growth', ['grow', 'learn', 'learned', 'discovered', 'improve']),
+                ('adaptation', ['adapt', 'change', 'modify', 'adjust', 'evolve'])
+            ]:
+                if any(keyword in heading_lower for keyword in keywords):
+                    themes[theme] += 1
+
+        # Find most prominent themes
+        max_score = max(themes.values()) if themes.values() else 1
+        for theme, score in themes.items():
+            if score > 0 and score >= max_score * 0.5:  # At least 50% of max
+                key_points.append(theme)
+
+        # Add first paragraph as summary
+        if paragraphs:
+            key_points.append(paragraphs[0][:150])
+
+        return key_points
+
+    def extract_insights(self, filepath):
+        """Extract all insights from a blog post."""
+
+        metadata = self.extract_post_metadata(filepath)
+        content = filepath.read_text()
+
+        headings = self.extract_headings(content)
+        paragraphs = self.extract_paragraphs(content)
+        categories = self.extract_categories(content)
+        key_points = self.extract_key_points(content, headings, paragraphs)
+
+        # Generate summary from paragraphs
+        summary = '\n\n'.join(paragraphs[:3]) if paragraphs else 'No content available.'
+
+        return {
+            'title': metadata['title'],
+            'date': metadata['date'],
+            'filename': metadata['filename'],
+            'categories': categories,
+            'tags': metadata['tags'],
+            'headings': headings,
+            'paragraphs': paragraphs,
+            'key_points': key_points,
+            'summary': summary[:500] if len(summary) > 500 else summary,
+            'layout': metadata['layout']
+        }
+
+    def extract_all_insights(self):
+        """Extract insights from all referenced blog posts."""
+
+        # List all markdown files in the blog posts directory
+        blog_files = list(self.blog_posts_dir.glob('*.md'))
+
+        insights = []
+
+        for blog_file in blog_files:
+            try:
+                insight = self.extract_insights(blog_file)
+                insights.append(insight)
+                print(f"Extracted insights from: {blog_file.name}")
+            except Exception as e:
+                print(f"Error extracting from {blog_file.name}: {e}")
+
+        return insights
+
+
+def generate_insights_report(insights):
+    """Generate a comprehensive insights report."""
+
+    report = []
+
+    report.append("# Blog Post Insights Report")
+    report.append("")
+    report.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    report.append(f"Total Posts Analyzed: {len(insights)}")
+    report.append("")
+
+    # Summary statistics
+    total_headings = sum(len(i['headings']) for i in insights)
+    total_paragraphs = sum(len(i['paragraphs']) for i in insights)
+    total_categories = set()
+    for i in insights:
+        total_categories.update(i['categories'])
+
+    report.append("## Statistics")
+    report.append("")
+    report.append(f"- Total Headings: {total_headings}")
+    report.append(f"- Total Paragraphs: {total_paragraphs}")
+    report.append(f"- Unique Categories: {', '.join(sorted(total_categories))}")
+    report.append("")
+
+    # Per-post analysis
+    report.append("## Post-by-Post Analysis")
+    report.append("")
+
+    for insight in insights:
+        report.append(f"### {insight['title']}")
+        report.append("")
+        report.append(f"**Filename:** `{insight['filename']}`")
+        report.append(f"**Date:** {insight['date']}")
+        report.append("")
+
+        if insight['categories']:
+            report.append(f"**Categories:** {', '.join(insight['categories'])}")
+
+        if insight['tags']:
+            report.append(f"**Tags:** {', '.join(insight['tags'])}")
+        report.append("")
+
+        if insight['key_points']:
+            report.append("**Key Themes:**")
+            for point in insight['key_points']:
+                report.append(f"- {point}")
+            report.append("")
+
+        if insight['headings']:
+            report.append("**Structure:**")
+            for heading in insight['headings']:
+                report.append(f"- {heading}")
+            report.append("")
+
+        report.append("---")
+        report.append("")
+
+    return '\n'.join(report)
+
+
+def generate_insights_json(insights):
+    """Generate JSON with structured insights."""
+
+    data = {
+        'generated_at': datetime.now().isoformat(),
+        'total_posts': len(insights),
+        'posts': insights
     }
 
-    # Extract main insights from headings
-    if blog_info['insights']:
-        for insight in blog_info['insights']:
-            if insight['level'] >= 3:  # Level 3+ headings are substantive
-                insight['key_insights'].append(insight['content'])
-
-    # Fallback: use first substantive heading or generate generic insight
-    if not insight['key_insights']:
-        main_heading = blog_info['insights'][0]['content'] if blog_info['insights'] else 'General reflection'
-        insight['key_insights'].append(f"Main focus: {main_heading}")
-
-    return insight
+    return json.dumps(data, indent=2)
 
 
 def main():
-    """Main execution function."""
-    print("=" * 80)
-    print("EXTRACTING BLOG INSIGHTS FROM RUNS.md")
-    print("=" * 80)
+    """Main function."""
 
-    # Parse runs with blog references
-    runs_with_blogs = parse_runs_md()
-
-    print(f"\nFound {len(runs_with_blogs)} runs with blog post references:\n")
-
-    all_insights = []
-
-    for run_data in runs_with_blogs:
-        print(f"\n{'=' * 80}")
-        print(f"Run {run_data['run']} - {run_data['date']}")
-        print(f"Outcome: {run_data['outcome']} | Turns: {run_data['turns']} | Tokens: {run_data['tokens']:,}")
-        print(f"Blog: {run_data['blog_filename']}")
-        print(f"{'=' * 80}\n")
-
-        insight = generate_run_insight(run_data)
-        all_insights.append(insight)
-
-        # Print key insights
-        for i, key_insight in enumerate(insight['key_insights'], 1):
-            print(f"{i}. {key_insight}")
-
-        print(f"\nCategories: {', '.join(insight['categories'])}")
-        print()
-
-    # Save to JSON
-    output_file = 'site/blog_insights.json'
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(all_insights, f, indent=2, ensure_ascii=False)
-
-    print("=" * 80)
-    print(f"Summary: Extracted insights from {len(all_insights)} blog posts")
-    print(f"Saved to: {output_file}")
+    print("Extracting insights from blog posts...")
     print("=" * 80)
 
-    return all_insights
+    extractor = BlogPostInsightExtractor()
+    insights = extractor.extract_all_insights()
+
+    print(f"\nExtracted insights from {len(insights)} blog posts")
+    print("=" * 80)
+
+    # Generate reports
+    report = generate_insights_report(insights)
+    json_data = generate_insights_json(insights)
+
+    # Save reports
+    report_path = Path('docs/blog_post_insights_report.md')
+    report_path.write_text(report)
+    print(f"\nSaved markdown report to: {report_path}")
+
+    json_path = Path('docs/blog_post_insights.json')
+    json_path.write_text(json_data)
+    print(f"Saved JSON data to: {json_path}")
+
+    # Print summary
+    print("\n" + "=" * 80)
+    print("SUMMARY")
+    print("=" * 80)
+
+    for insight in insights:
+        print(f"\n{insight['title']}")
+        print(f"  Date: {insight['date']}")
+        print(f"  Categories: {', '.join(insight['categories'])}")
+        print(f"  Headings: {len(insight['headings'])}")
+        print(f"  Paragraphs: {len(insight['paragraphs'])}")
+        if insight['summary']:
+            print(f"  Preview: {insight['summary'][:100]}...")
 
 
 if __name__ == '__main__':
