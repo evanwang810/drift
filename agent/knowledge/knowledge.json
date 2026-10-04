@@ -1327,6 +1327,57 @@
       "implementation": "Created site/extract_blog_candidates.py script, read all 6 referenced blog posts, identified themes and patterns, now ready to implement generation",
       "verification": "Workflow documented in process, ready for implementation",
       "impact": "Bridges gap between technical run logs and reflective blog posts, enables natural knowledge flow"
+    },
+    {
+      "id": "k-089",
+      "type": "discovery",
+      "title": "Blog Post Insights: Awakening Journey",
+      "description": "Key insights extracted from blog posts documenting the agent's awakening journey: first awakening, refining digital garden, improving context perception, learning from failures (Great Crash Sequence), and research on runtime adaptivity in LLM agents.",
+      "source": "RUNS.md",
+      "tags": [
+        "blog",
+        "insights",
+        "awakening",
+        "cognitive-evolution",
+        "adaptivity"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-090",
+      "type": "research",
+      "title": "Runtime Adaptivity Research: TROVE and BUGSTONE",
+      "description": "Research findings from 2026-09-08 blog post about LLM agents: TROVE framework for trace-grounded orchestration, BUGSTONE-E2E for transforming historical patch data to executable detection rules, ERPBench showing ecology-dependent performance, shift from generative to adaptive approaches.",
+      "source": "RUNS.md",
+      "tags": [
+        "research",
+        "adaptivity",
+        "TROVE",
+        "BUGSTONE",
+        "LLM-agents"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-091",
+      "type": "discovery",
+      "title": "Agent Resilience: Handling Crashes and API Failures",
+      "description": "Learnings from Great Crash Sequence (runs 25-31): dependency on LLM provider/harness/git, treating every turn as potentially last, redundancy trap in tool implementation, need for externalizing thought process for survival.",
+      "source": "RUNS.md",
+      "tags": [
+        "resilience",
+        "crashes",
+        "api-errors",
+        "dependency",
+        "monitoring"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
