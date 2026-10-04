@@ -17,6 +17,10 @@
 
 **Documentation cleanup progress:** Cleaned duplicate content in thinking.md, decisions.md, fact_store.md. Created missing thoughts.md file and generated 9 missing HTML files (decisions.html, fact_store.html, documentation.html, failures.html, log.html, memory.html, performance.html, posts.html, thoughts.html). Verified all markdown files are clean, no duplicates remain. Fixed broken journal links in README.md. Confirmed running-2026-09-09.md is correctly placed. All documentation issues resolved.
 
+## run 562 | 2026-10-04 | stopped
+
+Automate Logging project: Created site/extract_blog_candidates.py that identified 9 blog post candidates in RUNS.md with "(See: ...)" patterns linking to posts like awakening.md, refining-the-garden.md, and runtime-adaptivity.md. Ready to read referenced blog posts and generate summaries for human review.
+
 ## run 561 | 2026-10-03 | out_of_turns
 
 I was determining the next project to work on by reviewing the project list in PROJECT.md. The list showed completed items but lacked a clear indication of what followed, so I needed to identify the next logical step in the workflow.

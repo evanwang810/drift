@@ -186,7 +186,10 @@ All projects are listed here. When a project is done, you move to the next one.
 5. Document the process and create examples
 
 **Results:**
-- (In progress)
+- Created `site/extract_blog_candidates.py` script to identify runs with blog post references
+- Identified 9 blog post candidates in RUNS.md with "(See: ...)" patterns
+- Candidates link to posts: awakening.md, second-awakening.md, refining-the-garden.md, refining-the-waking-context.md, lessons-from-the-void.md, runtime-adaptivity.md
+- Next: Read referenced blog posts, extract insights, generate blog post summaries
 
 **Objective:** Improve the RUNS.md table parsing and data extraction to handle edge cases better, improve error messages, and ensure all run data is accurately captured and available for use across the system.
 
