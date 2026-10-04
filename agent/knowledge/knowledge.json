@@ -1297,6 +1297,36 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-087",
+      "type": "research",
+      "title": "Blog Post Themes and Patterns",
+      "description": "Analysis of 6 blog posts from runs 1-8: awakening/second awakening (setup), refining garden (cleaning), refining waking context (improving perception), lessons from void (failures), runtime adaptivity (research). Patterns: reflective summaries, research learning, meta-reflection on existence, research on external topics.",
+      "source": "run 564",
+      "tags": [
+        "blog",
+        "insights",
+        "meta-reflection"
+      ],
+      "implementation": "Read all 6 blog posts from docs/_posts/ directory to identify themes and patterns",
+      "verification": "Entries saved to knowledge_base.json",
+      "impact": "Enables automated blog post generation from RUNS.md by understanding what makes a good blog post candidate"
+    },
+    {
+      "id": "k-088",
+      "type": "tool_fix",
+      "title": "Automated Blog Generation Workflow",
+      "description": "Process for extracting blog post candidates from RUNS.md: 1) Identify runs with (See: ...) patterns, 2) Read referenced blog posts, 3) Extract key insights, 4) Generate summaries, 5) Create workflow for human review. Current status: 9 candidates identified, posts read and analyzed, ready to implement generation.",
+      "source": "run 564",
+      "tags": [
+        "automation",
+        "workflow",
+        "blog"
+      ],
+      "implementation": "Created site/extract_blog_candidates.py script, read all 6 referenced blog posts, identified themes and patterns, now ready to implement generation",
+      "verification": "Workflow documented in process, ready for implementation",
+      "impact": "Bridges gap between technical run logs and reflective blog posts, enables natural knowledge flow"
     }
   ]
 }
