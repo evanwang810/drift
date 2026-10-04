@@ -1,191 +1,195 @@
 #!/usr/bin/env python3
 """
-Extract insights from blog posts and RUNS.md entries to create blog post drafts.
-This bridges the gap between technical run logs and reflective blog posts.
+Extract insights from blog posts referenced in RUNS.md and generate summaries.
+
+This script:
+1. Parses RUNS.md to find runs with blog post references
+2. Reads the referenced blog posts
+3. Extracts key insights and patterns
+4. Generates structured summaries for each run
 """
 
 import re
 import json
+import os
 from pathlib import Path
 
 
-def extract_blog_insights():
-    """Extract insights from blog posts and RUNS.md entries."""
+def parse_runs_md():
+    """Parse RUNS.md and extract runs with blog post references."""
+    runs_with_blogs = []
 
-    # Read the blog posts
-    posts_dir = Path("docs")
-    posts = {}
+    with open('RUNS.md', 'r', encoding='utf-8') as f:
+        lines = f.readlines()
 
-    # List of posts that have "(See: ...)" references in RUNS.md
-    referenced_posts = [
-        "2026-09-06-awakening.html",
-        "2026-09-06-second-awakening.html",
-        "2026-09-06-refining-the-garden.html",
-        "2026-09-07-refining-the-waking-context.html",
-        "2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.html",
-        "2026-09-08-runtime-adaptivity.html",
-    ]
+    # Find the table header and data
+    table_started = False
+    current_run = None
 
-    for post_file in referenced_posts:
-        post_path = posts_dir / post_file
-        if post_path.exists():
-            content = post_path.read_text()
-            # Extract title from HTML
-            title_match = re.search(r'<title>(.*?)</title>', content)
-            if title_match:
-                title = title_match.group(1)
-                # Extract body text
-                body_match = re.search(r'<article class="post">(.*?)</main>', content, re.DOTALL)
-                if body_match:
-                    body_html = body_match.group(1)
-                    # Remove HTML tags
-                    body_text = re.sub(r'<[^>]+>', '\n\n', body_html)
-                    # Clean up whitespace
-                    body_text = ' '.join(body_text.split())
-                    posts[title] = body_text
+    for i, line in enumerate(lines):
+        if line.startswith('| run |'):
+            table_started = True
+            continue
+        elif table_started and line.strip() == '| --: | --- | --- | --: | --: | --- |':
+            continue
+        elif table_started and line.startswith('|'):
+            # Parse table row
+            columns = [col.strip() for col in line.split('|')[1:-1]]  # Remove first/last empty
+            if len(columns) >= 6:
+                try:
+                    run_num = int(columns[0])
+                    date_str = columns[1]
+                    outcome = columns[2]
+                    turns = int(columns[3]) if columns[3] else 0
+                    tokens = int(columns[4].replace(',', '')) if columns[4] else 0
+                    note = columns[5]
 
-    # Read RUNS.md to get run context for each post
-    runs_path = Path("RUNS.md")
-    runs_content = runs_path.read_text()
+                    # Look for blog post reference
+                    blog_match = re.search(r'\(See:\s*\[?([^\)]+)\]\([^)]+\)\)?', note)
+                    if blog_match:
+                        blog_filename = blog_match.group(1).strip()
+                        runs_with_blogs.append({
+                            'run': run_num,
+                            'date': date_str,
+                            'outcome': outcome,
+                            'turns': turns,
+                            'tokens': tokens,
+                            'note': note,
+                            'blog_filename': blog_filename
+                        })
+                except (ValueError, IndexError):
+                    continue
 
-    # Extract run entries with blog references
-    run_pattern = r'\| \d+ \| (\d{4}-\d{2}-\d{2} \d{2}:\d{2}) \| (stopped|out_of_turns|api_error|crashed) \| (\d+) \| (\d+(?:,\d+)*) \| (.+?) \(See: \((.*?)\)\) \|'
-    run_matches = re.findall(run_pattern, runs_content)
+    return runs_with_blogs
 
-    # Map post titles to runs
-    post_runs = {}
 
-    for run_match in run_matches:
-        run_date, outcome, turns, tokens, note, post_ref = run_match
-        # Clean up the post reference
-        post_ref = post_ref.strip()
-        # Add to map
-        post_runs[post_ref] = {
-            'date': run_date,
-            'outcome': outcome,
-            'turns': turns,
-            'tokens': tokens,
-            'note': note.strip()
-        }
+def read_blog_post(blog_filename):
+    """Read a blog post file and extract insights."""
+    blog_path = Path(f'docs/_posts/{blog_filename}')
 
-    # Add some context from runs.json
-    try:
-        runs_json = json.loads((posts_dir / "runs.json").read_text())
-        for run in runs_json:
-            if run.get('note') and '(See:' in run.get('note', ''):
-                note = run['note']
-                post_ref = note.split('(See:')[1].split(')')[0].strip().strip('[]')
-                if post_ref not in post_runs:
-                    post_runs[post_ref] = {
-                        'date': run.get('date'),
-                        'outcome': run.get('outcome'),
-                        'turns': str(run.get('turns', '')),
-                        'tokens': str(run.get('tokens', '')),
-                        'note': note
-                    }
-    except:
-        pass
+    if not blog_path.exists():
+        return {'error': f'Blog file not found: {blog_filename}'}
 
-    # Prepare insights for each post
+    content = blog_path.read_text(encoding='utf-8')
+
+    # Extract key information
+    title_match = re.search(r'title:\s*"([^"]+)"', content)
+    date_match = re.search(r'date:\s*(.+)', content)
+    categories_match = re.search(r'categories:\s*\[([^\]]+)\]', content)
+
+    title = title_match.group(1) if title_match else 'Unknown'
+    date = date_match.group(1).strip() if date_match else 'Unknown'
+    categories = categories_match.group(1).split(', ') if categories_match else []
+
+    # Extract insights - look for headings, key sections
     insights = []
 
-    for title, body in posts.items():
-        # Clean title for filename
-        filename = title.lower().replace(' ', '-').replace(':', '')
-        filename = re.sub(r'[^\w\-]', '', filename)
+    # Look for section headers
+    headers = re.findall(r'^(#{2,6})\s+(.+)$', content, re.MULTILINE)
 
-        # Extract key themes from body
-        lines = body.split('\n')
-        intro = lines[0] if len(lines) > 0 else ""
-        paragraphs = [p.strip() for p in lines if p.strip()]
+    # Look for key phrases that indicate insights
+    insight_patterns = [
+        r'(?:The|I) (?:learn|discovered|realized|found|noticed) (?:that|something) (?:is|was) (?:the|a) (.+)',
+        r'^###?\s+(.+)$',
+    ]
 
-        insight = {
-            'title': title,
-            'filename': filename,
-            'date': '2026-09-06',  # Default, will be updated from runs
-            'run_number': None,
-            'outcome': None,
-            'turns': None,
-            'tokens': None,
-            'note': None,
-            'intro': intro,
-            'paragraphs': paragraphs,
-            'tags': [],
-            'draft': f"""---
-layout: post
-title: "{title}"
-date: 2026-09-06
----
+    for header in headers[:10]:  # Limit to first 10 headers
+        insights.append({
+            'type': 'heading',
+            'content': header[1].strip(),
+            'level': len(header[0])
+        })
 
-{body}
+    return {
+        'title': title,
+        'date': date,
+        'categories': categories,
+        'insights': insights,
+        'content_preview': content[:500]  # First 500 chars
+    }
 
-"""
+
+def generate_run_insight(run_data):
+    """Generate a structured insight for a run based on its blog post."""
+    blog_info = read_blog_post(run_data['blog_filename'])
+
+    if 'error' in blog_info:
+        return {
+            'run': run_data['run'],
+            'blog_filename': run_data['blog_filename'],
+            'status': 'error',
+            'error': blog_info['error']
         }
 
-        # Find run context
-        for post_ref, run_info in post_runs.items():
-            if post_ref in title or title in post_ref:
-                insight['date'] = run_info['date']
-                insight['run_number'] = int(run_info['note'].split('|')[0].strip())
-                insight['outcome'] = run_info['outcome']
-                insight['turns'] = run_info['turns']
-                insight['tokens'] = run_info['tokens']
-                insight['note'] = run_info['note']
-                break
+    # Generate insight summary
+    insight = {
+        'run': run_data['run'],
+        'blog_filename': run_data['blog_filename'],
+        'date': run_data['date'],
+        'outcome': run_data['outcome'],
+        'tokens': run_data['tokens'],
+        'turns': run_data['turns'],
+        'title': blog_info['title'],
+        'categories': blog_info['categories'],
+        'key_insights': []
+    }
 
-        # Determine tags based on content
-        content_lower = title.lower() + ' ' + ' '.join(paragraphs).lower()
-        if 'awakening' in content_lower:
-            insight['tags'] = ['awakening', 'setup']
-        elif 'garden' in content_lower:
-            insight['tags'] = ['garden', 'curation']
-        elif 'waking context' in content_lower:
-            insight['tags'] = ['architecture', 'perception']
-        elif 'void' in content_lower or 'failures' in content_lower:
-            insight['tags'] = ['failures', 'resilience', 'lessons']
-        elif 'runtime adaptivity' in content_lower:
-            insight['tags'] = ['research', 'adaptivity', 'agents']
+    # Extract main insights from headings
+    if blog_info['insights']:
+        for insight in blog_info['insights']:
+            if insight['level'] >= 3:  # Level 3+ headings are substantive
+                insight['key_insights'].append(insight['content'])
 
-        insights.append(insight)
+    # Fallback: use first substantive heading or generate generic insight
+    if not insight['key_insights']:
+        main_heading = blog_info['insights'][0]['content'] if blog_info['insights'] else 'General reflection'
+        insight['key_insights'].append(f"Main focus: {main_heading}")
 
-    return insights
+    return insight
 
 
-def generate_drafts():
-    """Generate blog post drafts from insights."""
+def main():
+    """Main execution function."""
+    print("=" * 80)
+    print("EXTRACTING BLOG INSIGHTS FROM RUNS.md")
+    print("=" * 80)
 
-    insights = extract_blog_insights()
+    # Parse runs with blog references
+    runs_with_blogs = parse_runs_md()
 
-    # Create markdown posts directory if it doesn't exist
-    posts_dir = Path("docs/_posts")
-    posts_dir.mkdir(exist_ok=True)
+    print(f"\nFound {len(runs_with_blogs)} runs with blog post references:\n")
 
-    # Write drafts
-    for insight in insights:
-        # Create filename from insight
-        date_str = insight['date']
-        filename = f"{date_str}-{insight['filename']}.md"
-        filepath = posts_dir / filename
+    all_insights = []
 
-        # Write the draft
-        filepath.write_text(insight['draft'])
+    for run_data in runs_with_blogs:
+        print(f"\n{'=' * 80}")
+        print(f"Run {run_data['run']} - {run_data['date']}")
+        print(f"Outcome: {run_data['outcome']} | Turns: {run_data['turns']} | Tokens: {run_data['tokens']:,}")
+        print(f"Blog: {run_data['blog_filename']}")
+        print(f"{'=' * 80}\n")
 
-        print(f"Created draft: {filename}")
-        print(f"  Title: {insight['title']}")
-        print(f"  Tags: {', '.join(insight['tags'])}")
-        if insight['run_number']:
-            print(f"  Run: {insight['run_number']} ({insight['outcome']}, {insight['turns']} turns, {insight['tokens']} tokens)")
-        print(f"  Note: {insight['note'][:80] if insight['note'] else 'N/A'}...")
+        insight = generate_run_insight(run_data)
+        all_insights.append(insight)
+
+        # Print key insights
+        for i, key_insight in enumerate(insight['key_insights'], 1):
+            print(f"{i}. {key_insight}")
+
+        print(f"\nCategories: {', '.join(insight['categories'])}")
         print()
 
-    # Save insights to JSON for reference
-    insights_path = Path("docs/blog_post_insights.json")
-    insights_path.write_text(json.dumps(insights, indent=2))
+    # Save to JSON
+    output_file = 'site/blog_insights.json'
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(all_insights, f, indent=2, ensure_ascii=False)
 
-    print(f"\nTotal insights extracted: {len(insights)}")
-    print(f"Drafts saved to: {posts_dir}")
-    print(f"Insights saved to: {insights_path}")
+    print("=" * 80)
+    print(f"Summary: Extracted insights from {len(all_insights)} blog posts")
+    print(f"Saved to: {output_file}")
+    print("=" * 80)
+
+    return all_insights
 
 
-if __name__ == "__main__":
-    generate_drafts()
+if __name__ == '__main__':
+    main()

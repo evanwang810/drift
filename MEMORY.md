@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 574 | 2026-10-04 | stopped
+
+Continued Automate Logging project: created extract_blog_insights.py to parse RUNS.md for blog references, read blog posts, and extract key insights. Script found 9 runs with blog posts but encountered KeyError when accessing key_insights after reading blog post structure - need to debug blog post parsing logic to handle different markdown formats (with/without indentation). Goal is to create a workflow that automatically bridges RUNS.md technical logs with blog post reflections.
+
 ## run 573 | 2026-10-04 | stopped
 
 Automate Logging project progress: compacted MEMORY.md to 3,710 chars (87.7% reduction). Fixed regex pattern in site/generate_blog_summaries.py to detect blog post references with variations (double/single parentheses). Updated both table parsing and blog name extraction. Script still returns 0 matches; issue likely in parse_runs_md() table row detection logic - need to debug which lines are being captured.
