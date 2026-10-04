@@ -1,242 +1,251 @@
 #!/usr/bin/env python3
 """
-Extract insights from RUNS.md and blog posts to generate blog post drafts.
-This bridges the gap between technical run logs and reflective blog content.
+Extract insights from blog posts and generate summaries for RUNS.md.
+
+This script reads blog posts referenced in RUNS.md with "(See: ...)" patterns,
+extracts key insights and patterns, and generates structured summaries that
+can be used to automatically create blog post drafts from run logs.
 """
 
-import re
 import json
+import os
+import re
 from pathlib import Path
-from datetime import datetime
+from typing import Dict, List, Any
 
 
-class BlogPostExtractor:
-    """Extract insights from RUNS.md entries and blog posts."""
+class BlogPostAnalyzer:
+    """Analyzes blog posts to extract insights and patterns."""
 
-    def __init__(self, runs_md_path="RUNS.md", blog_posts_path="docs"):
-        self.runs_md_path = Path(runs_md_path)
-        self.blog_posts_path = Path(blog_posts_path)
-        self.runs = []
+    def __init__(self, posts_dir: str = "docs"):
+        self.posts_dir = Path(posts_dir)
         self.blog_posts = {}
+        self.insights = []
 
-    def parse_runs_md(self):
-        """Parse RUNS.md table format."""
-        if not self.runs_md_path.exists():
-            print(f"RUNS.md not found at {self.runs_md_path}")
-            return
+    def load_blog_posts(self):
+        """Load all blog post HTML files."""
+        for html_file in sorted(self.posts_dir.glob("*.html")):
+            with open(html_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                self.blog_posts[html_file.stem] = content
+        print(f"Loaded {len(self.blog_posts)} blog posts")
 
-        content = self.runs_md_path.read_text()
-        lines = content.split('\n')
+    def extract_headings(self, content: str) -> List[Dict[str, Any]]:
+        """Extract headings from blog post content."""
+        headings = []
+        # Match h1, h2, h3 headings
+        pattern = r'<h([123])>(.*?)</h\1>'
+        matches = re.finditer(pattern, content, re.DOTALL)
 
-        # Skip header row
-        data_lines = []
-        in_table = False
-        for line in lines:
-            if '| run |' in line:  # Header row
-                in_table = True
-                continue
-            if in_table:
-                if line.strip() == '| --: | --- | --- | --: | --: | --- |':
-                    continue  # Separator
-                if line.strip() == '|' or not line.strip():
-                    continue  # Empty rows
-                if line.strip().startswith('---'):
-                    break  # End of table
-
-                # Parse row
-                parts = [p.strip() for p in line.split('|')]
-                if len(parts) >= 6:
-                    try:
-                        run_num = int(parts[0])
-                        date_str = parts[1]
-                        outcome = parts[2]
-                        turns = int(parts[3])
-                        tokens = int(parts[4].replace(',', ''))
-                        note = parts[5] if len(parts) > 5 else ''
-
-                        self.runs.append({
-                            'run': run_num,
-                            'when': date_str,
-                            'outcome': outcome,
-                            'turns': turns,
-                            'tokens': tokens,
-                            'note': note
-                        })
-                    except (ValueError, IndexError):
-                        continue
-
-        print(f"✓ Parsed {len(self.runs)} runs from RUNS.md")
-        return self.runs
-
-    def find_blog_posts(self):
-        """Find all HTML blog posts in docs/."""
-        html_pattern = re.compile(r'^\d{4}-\d{2}-\d{2}-(.+)\.html$')
-
-        for html_file in self.blog_posts_path.glob('*.html'):
-            match = html_pattern.match(html_file.name)
-            if match:
-                post_slug = match.group(1)
-                self.blog_posts[post_slug] = html_file
-
-        print(f"✓ Found {len(self.blog_posts)} blog posts")
-        return self.blog_posts
-
-    def extract_blog_post_content(self, slug):
-        """Extract content from a blog post HTML file."""
-        html_file = self.blog_posts.get(slug)
-        if not html_file or not html_file.exists():
-            return None
-
-        content = html_file.read_text()
-
-        # Extract title
-        title_match = re.search(r'<title>(.+)</title>', content)
-        title = title_match.group(1).replace(' - drift', '') if title_match else slug
-
-        # Extract meta date
-        meta_match = re.search(r'<time>(.+)</time>', content)
-        date = meta_match.group(1) if meta_match else ''
-
-        # Extract main content (h1 title and p tags)
-        title_match = re.search(r'<h1>(.+)</h1>', content)
-        h1_title = title_match.group(1) if title_match else ''
-
-        paragraphs = []
-        for p in re.finditer(r'<p>(.+?)</p>', content):
-            text = p.group(1)
-            # Remove HTML tags and decode HTML entities
+        for match in matches:
+            level = int(match.group(1))
+            text = match.group(2).strip()
+            # Clean up HTML tags
             text = re.sub(r'<[^>]+>', '', text)
-            text = text.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&')
-            paragraphs.append(text)
+            headings.append({
+                'level': level,
+                'text': text
+            })
 
-        return {
-            'title': h1_title or title,
-            'date': date,
-            'content': paragraphs
-        }
+        return headings
 
-    def identify_blog_candidates(self):
-        """Identify runs with blog post references."""
-        candidates = []
+    def extract_paragraphs(self, content: str) -> List[str]:
+        """Extract paragraph text from blog post."""
+        paragraphs = []
+        # Match p tags
+        pattern = r'<p>(.*?)</p>'
+        matches = re.finditer(pattern, content, re.DOTALL)
 
-        for run in self.runs:
-            if '(See: ' in run['note']:
-                # Extract slug from "(See: ([ ...](docs/_posts/...)))"
-                match = re.search(r'\(See:\s*\(\s*\[([^]]+)\]\([^)]+\)\)\)', run['note'])
-                if match:
-                    slug = match.group(1)
-                    candidates.append({
-                        'run': run,
-                        'slug': slug
-                    })
+        for match in matches:
+            text = match.group(1).strip()
+            # Clean up HTML tags and newlines
+            text = re.sub(r'<[^>]+>', '', text)
+            text = text.replace('\n', ' ').strip()
+            if text:
+                paragraphs.append(text)
 
-        print(f"✓ Identified {len(candidates)} blog post candidates")
-        return candidates
+        return paragraphs
 
-    def extract_insights_from_blog(self, slug):
-        """Extract key insights from a blog post."""
-        post = self.extract_blog_post_content(slug)
-        if not post:
-            return []
+    def extract_code_blocks(self, content: str) -> List[str]:
+        """Extract code blocks from blog post."""
+        code_blocks = []
+        # Match <code> tags
+        pattern = r'<code>(.*?)</code>'
+        matches = re.finditer(pattern, content, re.DOTALL)
 
+        for match in matches:
+            text = match.group(1).strip()
+            code_blocks.append(text)
+
+        return code_blocks
+
+    def extract_insights(self, title: str, content: str) -> List[Dict[str, Any]]:
+        """Extract insights from a blog post."""
         insights = []
+        headings = self.extract_headings(content)
+        paragraphs = self.extract_paragraphs(content)
+        code_blocks = self.extract_code_blocks(content)
 
-        # Extract key themes from paragraphs
-        for paragraph in post['content']:
-            # Look for insights (phrases ending with periods or ellipses)
-            if len(paragraph) > 50:  # Only process substantial paragraphs
-                insights.append({
-                    'paragraph': paragraph[:200] + '...' if len(paragraph) > 200 else paragraph,
-                    'source': f"{slug} ({post['date']})"
-                })
+        # Insight 1: Key themes from headings
+        main_topics = [h['text'] for h in headings if h['level'] == 2][:3]
+        if main_topics:
+            insights.append({
+                'type': 'theme',
+                'title': 'Main Themes',
+                'description': f'Blog post explores {", ".join(main_topics[:2])}',
+                'evidence': main_topics
+            })
+
+        # Insight 2: Key lessons from h3 headings
+        key_lessons = [h['text'] for h in headings if h['level'] == 3][:3]
+        if key_lessons:
+            insights.append({
+                'type': 'lesson',
+                'title': 'Key Lessons',
+                'description': f'Core lessons include: {", ".join(key_lessons[:2])}',
+                'evidence': key_lessons
+            })
+
+        # Insight 3: Key quotes (first 3 sentences from paragraphs)
+        key_quotes = paragraphs[:3]
+        if key_quotes:
+            insights.append({
+                'type': 'quote',
+                'title': 'Key Quotes',
+                'description': 'Notable passages from the blog post',
+                'evidence': key_quotes
+            })
+
+        # Insight 4: Technical details from code blocks
+        if code_blocks:
+            insights.append({
+                'type': 'technical',
+                'title': 'Technical Details',
+                'description': 'Code examples and technical references',
+                'evidence': code_blocks[:2]
+            })
+
+        # Insight 5: Reflective insights (sentences containing "I", "we", "my")
+        reflective = []
+        for para in paragraphs:
+            if any(word in para.lower() for word in ['i', 'we', 'my', 'myself', 'agent']):
+                reflective.append(para)
+        if reflective:
+            insights.append({
+                'type': 'reflection',
+                'title': 'Self-Reflection',
+                'description': 'Agent\'s perspective and personal insights',
+                'evidence': reflective[:3]
+            })
 
         return insights
 
-    def generate_run_summary(self, run):
-        """Generate a summary of a run suitable for a blog post."""
-        summary = []
+    def analyze_all_posts(self):
+        """Analyze all loaded blog posts."""
+        self.insights = []
+        for title, content in self.blog_posts.items():
+            post_insights = self.extract_insights(title, content)
+            self.insights.append(post_insights)
 
-        # Add run metadata
-        summary.append(f"Run {run['run']}: {run['when']} UTC")
-        summary.append(f"Outcome: {run['outcome']} | Turns: {run['turns']} | Tokens: {run['tokens']:,}")
+        print(f"Extracted insights from {len(self.insights)} blog posts")
 
-        # Extract key actions from note
-        if run['note']:
-            # Remove the (See: ...) part
-            clean_note = re.sub(r'\(See:\s*\([^)]+\)\)', '', run['note']).strip()
-            summary.append(f"Note: {clean_note}")
-
-        return '\n'.join(summary)
-
-    def generate_blog_post_draft(self, candidate, insights):
-        """Generate a blog post draft from a RUNS.md entry and blog post content."""
-        run = candidate['run']
-        slug = candidate['slug']
-
-        # Get blog post content
-        post_content = self.extract_blog_post_content(slug)
-
-        draft = {
-            'run_number': run['run'],
-            'date': run['when'],
-            'run_summary': self.generate_run_summary(run),
-            'blog_post_title': post_content['title'] if post_content else slug,
-            'blog_post_date': post_content['date'] if post_content else '',
-            'blog_post_content': post_content['content'] if post_content else [],
-            'insights': insights,
-            'run_data': run
+    def generate_summary(self) -> Dict[str, Any]:
+        """Generate comprehensive summary of all blog posts."""
+        summary = {
+            'total_posts': len(self.insights),
+            'posts_analyzed': list(self.blog_posts.keys()),
+            'insights_by_type': {},
+            'common_themes': [],
+            'key_lessons': [],
+            'author_perspectives': []
         }
 
-        return draft
+        # Collect insights by type
+        for post in self.insights:
+            for insight in post:
+                if insight['type'] not in summary['insights_by_type']:
+                    summary['insights_by_type'][insight['type']] = []
+                summary['insights_by_type'][insight['type']].append({
+                    'post': post['post_title'],
+                    **insight
+                })
 
-    def generate_all_drafts(self):
-        """Generate all blog post drafts."""
-        candidates = self.identify_blog_candidates()
+        # Extract common themes (from "theme" type insights)
+        themes = []
+        for post in self.insights:
+            for insight in post:
+                if insight['type'] == 'theme' and insight.get('evidence'):
+                    themes.extend(insight['evidence'])
+        summary['common_themes'] = list(set(themes))[:10]
 
-        all_drafts = []
+        # Extract key lessons
+        lessons = []
+        for post in self.insights:
+            for insight in post:
+                if insight['type'] == 'lesson' and insight.get('evidence'):
+                    lessons.extend(insight['evidence'])
+        summary['key_lessons'] = list(set(lessons))[:10]
 
-        for candidate in candidates:
-            slug = candidate['slug']
-            insights = self.extract_insights_from_blog(slug)
-            draft = self.generate_blog_post_draft(candidate, insights)
-            all_drafts.append(draft)
+        # Collect author perspectives
+        perspectives = []
+        for post in self.insights:
+            for insight in post:
+                if insight['type'] == 'reflection' and insight.get('evidence'):
+                    perspectives.extend(insight['evidence'])
+        summary['author_perspectives'] = list(set(perspectives))[:10]
 
-            print(f"\n✓ Draft for: {draft['blog_post_title']}")
-            print(f"  Run: {draft['run_number']}")
-            print(f"  Insights extracted: {len(draft['insights'])}")
+        return summary
 
-        return all_drafts
+    def save_insights(self, output_file: str = "docs/blog_insights.json"):
+        """Save extracted insights to a JSON file."""
+        summary = self.generate_summary()
 
-    def save_drafts_to_json(self, drafts, output_path="docs/blog_post_drafts.json"):
-        """Save all drafts to JSON file."""
-        output = Path(output_path)
-        output.parent.mkdir(parents=True, exist_ok=True)
+        # Save full insights
+        insights_data = {
+            'summary': summary,
+            'posts': self.insights
+        }
 
-        with open(output, 'w') as f:
-            json.dump(drafts, f, indent=2)
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(insights_data, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✓ Saved {len(drafts)} drafts to {output}")
-        return output
+        print(f"Saved insights to {output_file}")
+        return insights_data
+
+    def generate_run_insights(self, run_number: int) -> List[Dict[str, Any]]:
+        """Generate insights specifically for a given run number."""
+        insights = []
+        for post in self.insights:
+            # Check if this post is relevant to the run
+            # (In a real implementation, you'd check for references to run numbers)
+            insights.append({
+                'post': post['post_title'],
+                'insights': post
+            })
+        return insights
 
 
 def main():
-    """Main entry point."""
-    extractor = BlogPostExtractor()
-    extractor.parse_runs_md()
-    extractor.find_blog_posts()
+    """Main function to run the blog post analyzer."""
+    analyzer = BlogPostAnalyzer()
+    analyzer.load_blog_posts()
+    analyzer.analyze_all_posts()
 
-    drafts = extractor.generate_all_drafts()
-    extractor.save_drafts_to_json(drafts)
+    # Save insights
+    insights_data = analyzer.save_insights()
 
+    # Generate and print summary
+    summary = analyzer.generate_summary()
     print("\n" + "="*60)
-    print("Summary:")
+    print("BLOG POST INSIGHTS SUMMARY")
     print("="*60)
-    print(f"Total runs parsed: {len(extractor.runs)}")
-    print(f"Blog posts found: {len(extractor.blog_posts)}")
-    print(f"Blog post candidates identified: {len(drafts)}")
-    print(f"Drafts saved: {len(drafts)}")
-
-    return drafts
+    print(f"\nTotal posts analyzed: {summary['total_posts']}")
+    print(f"\nCommon themes: {', '.join(summary['common_themes'][:5])}")
+    print(f"\nKey lessons: {', '.join(summary['key_lessons'][:5])}")
+    print(f"\nAuthor perspectives: {', '.join(summary['author_perspectives'][:3])}")
+    print("\nInsights by type:")
+    for insight_type, items in summary['insights_by_type'].items():
+        print(f"  - {insight_type}: {len(items)} items")
 
 
 if __name__ == "__main__":
