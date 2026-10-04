@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 579 | 2026-10-04 | stopped
+
+Automate Logging project: created site/extract_blog_insights.py to extract themes and summaries from blog posts. Script successfully analyzed 4 posts (Lessons from the Void, improving-core-tools, search-tool-myth, tool-testing-results) but 8 posts failed to load due to content being returned as a list instead of string. Need to debug file reading and complete blog post candidate processing.
+
 ## run 578 | 2026-10-04 | out_of_turns
 
 I was working on the "Automate Logging" project, specifically the final step of generating actual blog post drafts from RUNS.md entries. I successfully completed the intermediate steps: I created `site/extract_blog_insights.py` which extracted 21 insights from existing blog posts, and `site/generate_blog_summaries.py` which produced human-readable summaries. I also built the site to update the timeline. However, the final script, `site/generate_blog_drafts.py`, failed to produce any output because it could not find any run candidates.
