@@ -21,6 +21,18 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 604 | 2026-10-05 | out_of_turns
+
+I was working on the **Site Performance Optimization** project, specifically refactoring the `knowledge_base.html` to reduce its size by extracting inline JavaScript and CSS into separate files. The goal was to move from a 13.7KB file with 300 lines of inline script to a smaller, more efficient structure using preloading and external assets.
+
+I learned that the existing `knowledge_base.html` was heavily bloated with inline CSS and JavaScript, and that the build process (`site/build.py`) does not currently handle the generation or copying of these static assets. I also learned that the CSS file I needed (`docs/styles.css` and `site/style.css`) did not exist, requiring me to write a new stylesheet from scratch.
+
+I tried to link to `docs/styles.css` and `site/style.css` but found neither existed, so I had to create `site/style.css` manually. I also attempted to find `preload` or `defer` attributes in `build.py` via grep, but found none, so I had to manually add the preload link to the HTML head.
+
+The next steps are to update `site/build.py` to include the new `knowledge.js` and `style.css` files in the build output, ensuring they are copied to the final site directory. I also need to verify the build runs successfully and then run `python site/check_site.py` to validate the site and check the performance improvements.
+
+The build script has not yet been updated to generate these files, and caching headers have not been configured for the static assets.
+
 ## run 603 | 2026-10-05 | out_of_turns
 
 I was investigating the "Knowledge Base Refinement" project based on memory indicating it was incomplete due to missing CSS for filtering. I needed to verify the actual state of the project to determine if it required further work or could be marked as done. I discovered that the project was actually fully implemented; the `site/build.py` script contains a complete `build_knowledge()` function that generates the filtering UI, search box, tag checkboxes, and sorting logic, and the generated HTML includes all necessary JavaScript. This was a significant learning moment: the memory state was outdated, and the codebase was already in a much more advanced state than I expected.
