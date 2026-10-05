@@ -359,32 +359,79 @@ def build_knowledge() -> None:
 
     # Extract unique categories and types for filtering
     categories = {}
+    tags = set()
     for e in entries:
         e_type = e.get("type", "other")
         if e_type not in categories:
             categories[e_type] = []
         categories[e_type].append(e)
+        tags.update(e.get("tags", []))
+    
+    # Sort entries by type
+    sorted_categories = dict(sorted(categories.items()))
 
-    # Build HTML with filtering UI
+    # Count entries by type
+    type_counts = {cat: len(entries) for cat, entries in categories.items()}
+    total = sum(type_counts.values())
+
+    # Build HTML with enhanced filtering and sorting UI
     def item(e: dict) -> str:
         e_type = e.get("type", "other")
-        tags = " ".join(f"<span>{html.escape(str(t))}</span>" for t in e.get("tags", []))
+        tags_str = " ".join(f'<span class="tag">{html.escape(str(t))}</span>' for t in e.get("tags", []))
         if e.get("source"):
-            tags += f' <span class="src">{html.escape(str(e["source"]))}</span>'
-        type_tag = f'<span class="type">{html.escape(str(e.get("type", "")))}</span> ' if e.get("type") else ''
-        return (f'<li class="knowledge-entry" data-type="{html.escape(str(e_type))}">'
+            tags_str += f' <span class="source-badge">{html.escape(str(e["source"]))}</span>'
+        type_tag = f'<span class="type-badge">{html.escape(str(e.get("type", "")))}</span> ' if e.get("type") else ''
+        return (f'<li class="knowledge-entry" data-type="{html.escape(str(e_type))}" data-tags="{html.escape(" ".join(e.get("tags", [])))}">'
                 f"<h3>{html.escape(str(e.get('title', 'untitled')))}</h3>"
                 f"<p>{html.escape(str(e.get('description', '')))}</p>"
-                f'<p class="tags">{type_tag}{tags}</p></li>')
+                f'<p class="tags">{type_tag}{tags_str}</p></li>')
 
     # Create filter controls
     filter_html = '<div class="knowledge-filters">'
+    filter_html += '<div class="filter-section">'
     filter_html += '<h2>Filter by Type</h2>'
     filter_html += '<div class="filter-buttons">'
-    filter_html += '<button class="filter-btn active" data-filter="all">All</button>'
-    for cat in sorted(categories.keys()):
-        count = len(categories[cat])
-        filter_html += f'<button class="filter-btn" data-filter="{cat}">{cat} ({count})</button>'
+    filter_html += '<button class="filter-btn active" data-filter="all">All <span class="count">({total})</span></button>'
+    for cat, count in sorted_categories.items():
+        filter_html += f'<button class="filter-btn" data-filter="{cat}">{cat} <span class="count">({count})</span></button>'
+    filter_html += '</div></div>'
+
+    # Add advanced filtering section
+    filter_html += '<div class="filter-section advanced">'
+    filter_html += '<h2>Advanced Filters</h2>'
+    filter_html += '<div class="advanced-controls">'
+    filter_html += '<div class="search-box">'
+    filter_html += '<label for="search-input">Search:</label>'
+    filter_html += '<input type="text" id="search-input" placeholder="Search title, description, tags...">'
+    filter_html += '</div>'
+    filter_html += '<div class="tag-filters">'
+    filter_html += '<label>By Tag:</label>'
+    tag_filters = ""
+    for tag in sorted(tags):
+        tag_filters += f'<input type="checkbox" id="tag-{html.escape(str(tag))}" value="{html.escape(str(tag))}" class="tag-filter"><label for="tag-{html.escape(str(tag))}">{html.escape(str(tag))}</label> '
+    filter_html += tag_filters + '</div></div></div>'
+
+    # Add sorting controls
+    filter_html += '<div class="filter-section sorting">'
+    filter_html += '<h2>Sort By</h2>'
+    filter_html += '<div class="sort-controls">'
+    sort_options = [
+        ('title', 'Title'),
+        ('type', 'Type'),
+        ('date', 'Date'),
+        ('relevance', 'Relevance (first match)')
+    ]
+    for sort_id, sort_name in sort_options:
+        filter_html += f'<button class="sort-btn active" data-sort="{sort_id}">{sort_name}</button>'
+    filter_html += '</div></div></div>'
+
+    # Add stats overview
+    filter_html += '<div class="stats-overview">'
+    filter_html += '<h2>Overview</h2>'
+    filter_html += '<div class="stats-grid">'
+    filter_html += f'<div class="stat-card total"><span class="stat-value">{total}</span><span class="stat-label">Total Entries</span></div>'
+    for cat, count in sorted_categories.items():
+        filter_html += f'<div class="stat-card"><span class="stat-value">{count}</span><span class="stat-label">{cat}</span></div>'
     filter_html += '</div></div>'
 
     items = "\n".join(item(e) for e in entries if isinstance(e, dict))
@@ -395,26 +442,122 @@ def build_knowledge() -> None:
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {{
-    const buttons = document.querySelectorAll('.filter-btn');
-    const entries = document.querySelectorAll('.knowledge li');
+    const entries = document.querySelectorAll('.knowledge-entry');
+    const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+    const searchInput = document.getElementById('search-input');
+    const sortButtons = document.querySelectorAll('.sort-btn[data-sort]');
+    const tagCheckboxes = document.querySelectorAll('.tag-filter');
 
-    buttons.forEach(btn => {{
+    let currentFilter = 'all';
+    let currentSort = 'title';
+    let searchQuery = '';
+    let activeTags = new Set();
+
+    // Type filtering
+    filterButtons.forEach(btn => {{
         btn.addEventListener('click', function() {{
-            // Update active button
-            buttons.forEach(b => b.classList.remove('active'));
+            filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-
-            // Filter entries
-            const filter = this.dataset.filter;
-            entries.forEach(entry => {{
-                if (filter === 'all' || entry.dataset.type === filter) {{
-                    entry.style.display = '';
-                }} else {{
-                    entry.style.display = 'none';
-                }}
-            }});
+            currentFilter = this.dataset.filter;
+            filterAndSort();
         }});
     }});
+
+    // Tag filtering
+    tagCheckboxes.forEach(checkbox => {{
+        checkbox.addEventListener('change', function() {{
+            if (this.checked) {{
+                activeTags.add(this.value);
+            }} else {{
+                activeTags.delete(this.value);
+            }}
+            filterAndSort();
+        }});
+    }});
+
+    // Search
+    searchInput.addEventListener('input', function() {{
+        searchQuery = this.value.toLowerCase().trim();
+        filterAndSort();
+    }});
+
+    // Sorting
+    sortButtons.forEach(btn => {{
+        btn.addEventListener('click', function() {{
+            sortButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentSort = this.dataset.sort;
+            filterAndSort();
+        }});
+    }});
+
+    function filterAndSort() {{
+        let filtered = Array.from(entries);
+
+        // Apply type filter
+        if (currentFilter !== 'all') {{
+            filtered = filtered.filter(entry => entry.dataset.type === currentFilter);
+        }}
+
+        // Apply tag filter
+        if (activeTags.size > 0) {{
+            filtered = filtered.filter(entry => {{
+                const entryTags = entry.dataset.tags.toLowerCase().split(' ');
+                return Array.from(activeTags).some(tag => entryTags.includes(tag.toLowerCase()));
+            }});
+        }}
+
+        // Apply search filter
+        if (searchQuery) {{
+            filtered = filtered.filter(entry => {{
+                const text = entry.textContent.toLowerCase();
+                return text.includes(searchQuery);
+            }});
+        }}
+
+        // Sort
+        filtered.sort((a, b) => {{
+            const aData = {{ title: a.querySelector('h3').textContent.toLowerCase(), type: a.dataset.type }};
+            const bData = {{ title: b.querySelector('h3').textContent.toLowerCase(), type: b.dataset.type }};
+            
+            switch(currentSort) {{
+                case 'title':
+                    return aData.title.localeCompare(bData.title);
+                case 'type':
+                    return aData.type.localeCompare(bData.type);
+                case 'date':
+                    return parseFloat(a.dataset.date) - parseFloat(b.dataset.date);
+                case 'relevance':
+                    const aRelevance = calculateRelevance(a, searchQuery);
+                    const bRelevance = calculateRelevance(b, searchQuery);
+                    return bRelevance - aRelevance;
+                default:
+                    return 0;
+            }}
+        }});
+
+        // Update display
+        entries.forEach(entry => {{
+            entry.style.display = filtered.includes(entry) ? '' : 'none';
+        }});
+    }}
+
+    function calculateRelevance(entry, query) {{
+        if (!query) return 0;
+        const text = entry.textContent.toLowerCase();
+        const title = entry.querySelector('h3').textContent.toLowerCase();
+        
+        let score = 0;
+        if (title.includes(query)) score += 10;
+        if (text.includes(query)) score += 5;
+        
+        const tags = entry.dataset.tags.toLowerCase().split(' ');
+        tags.forEach(tag => {{
+            if (tag.includes(query)) score += 3;
+        }});
+        
+        return score;
+    }}
 }});
 </script>""")
 
