@@ -1,249 +1,401 @@
 #!/usr/bin/env python3
 """
-Blog Insights Extractor
+Extract insights from blog posts and link them to RUNS.md entries.
 
-This script extracts key insights from blog posts referenced in RUNS.md
-and generates structured summaries for human review.
+This script analyzes blog posts to identify key insights, themes, and patterns,
+then creates a mapping between blog posts and relevant run entries.
 
 Usage:
     python site/extract_blog_insights.py
 """
 
 import json
-import os
+import re
 from pathlib import Path
 from datetime import datetime
+from typing import List, Dict, Any
 
 
-class BlogInsightsExtractor:
-    """Extracts insights from blog posts and generates summaries."""
+class BlogInsightExtractor:
+    """Extract insights from blog posts and link to run entries."""
 
-    def __init__(self, posts_dir="docs/_posts", output_file="docs/blog_post_insights.json"):
-        self.posts_dir = Path(posts_dir)
-        self.output_file = Path(output_file)
-        self.blog_posts = []
+    def __init__(self):
+        self.blog_posts: List[Dict[str, Any]] = []
+        self.runs_data: List[Dict[str, Any]] = []
 
-    def load_all_posts(self):
-        """Load all markdown blog posts."""
-        print(f"Loading blog posts from {self.posts_dir}...")
+    def load_blog_posts(self):
+        """Load all blog posts from docs/posts/ directory."""
+        posts_dir = Path("docs")
 
-        for post_file in sorted(self.posts_dir.glob("*.md")):
-            if post_file.name.startswith("2026-09"):
-                try:
-                    content = post_file.read_text()
-                    post_info = self._parse_post_metadata(content, post_file.name)
-                    self.blog_posts.append(post_info)
-                    print(f"  ✓ Loaded: {post_file.name}")
-                except Exception as e:
-                    print(f"  ✗ Error loading {post_file.name}: {e}")
+        # List of blog posts to analyze (from RUNS.md candidates)
+        post_files = [
+            "2026-09-06-awakening.html",
+            "2026-09-06-second-awakening.html",
+            "2026-09-06-refining-the-garden.html",
+            "2026-09-06-refining-the-waking-context.html",
+            "2026-09-08-lessons-from-the-void.html",
+            "2026-09-08-runtime-adaptivity.html",
+            "2026-09-12-improving-core-tools.html",
+            "2026-09-12-robustness-first.html",
+            "2026-09-12-search-tool-mystery.html",
+        ]
 
-        print(f"\nLoaded {len(self.blog_posts)} blog posts")
-        return self.blog_posts
+        for post_file in post_files:
+            post_path = posts_dir / post_file
+            if not post_path.exists():
+                print(f"Warning: {post_file} not found")
+                continue
 
-    def _parse_post_metadata(self, content, filename):
-        """Parse frontmatter and extract post metadata."""
-        # Handle both string and list inputs
-        if isinstance(content, list):
-            content = '\n'.join(content)
-        # Ensure content is a string
-        if not isinstance(content, str):
-            content = str(content)
-        lines = content.split('\n')
+            with open(post_path, 'r', encoding='utf-8') as f:
+                html = f.read()
 
-        # Find frontmatter boundaries
-        if lines[0].startswith('---'):
-            frontmatter_end = 1
-            while frontmatter_end < len(lines) and not lines[frontmatter_end].startswith('---'):
-                frontmatter_end += 1
+            # Extract title, date, and content from HTML
+            post = self._parse_html_post(html, post_file)
+            if post:
+                self.blog_posts.append(post)
 
-            # Parse frontmatter
-            frontmatter = {}
-            for line in lines[1:frontmatter_end]:
-                if ':' in line:
-                    key, value = line.split(':', 1)
-                    key = key.strip()
-                    value = value.strip()
-                    frontmatter[key] = value
+        print(f"Loaded {len(self.blog_posts)} blog posts")
 
-            # Extract body content
-            body_start = frontmatter_end + 1
-            body = '\n'.join(lines[body_start:])
+    def _parse_html_post(self, html: str, filename: str) -> Dict[str, Any]:
+        """Parse HTML blog post and extract key information."""
+        # Extract title from <h1>
+        title_match = re.search(r'<h1>(.*?)</h1>', html, re.DOTALL)
+        title = title_match.group(1).strip() if title_match else filename.replace('.html', '')
 
-            return {
-                'filename': filename,
-                'title': frontmatter.get('title', filename),
-                'date': frontmatter.get('date', ''),
-                'tags': frontmatter.get('tags', '').split(','),
-                'categories': frontmatter.get('categories', []).split(','),
-                'body': body,
-                'word_count': len(body.split())
-            }
+        # Extract date from <time>
+        date_match = re.search(r'<time>(.*?)</time>', html)
+        date = date_match.group(1).strip() if date_match else None
+
+        # Extract content (everything between <h1> and <p class="back">)
+        back_match = re.search(r'<p class="back">.*?</p>', html, re.DOTALL)
+        if back_match:
+            content = html[:back_match.start()]
         else:
-            # No frontmatter, treat entire file as body
-            return {
-                'filename': filename,
-                'title': filename.replace('.md', ''),
-                'date': '',
-                'tags': [],
-                'categories': [],
-                'body': content,
-                'word_count': len(content.split())
-            }
+            content = html
 
-    def extract_key_themes(self, post):
-        """Extract key themes and insights from a post."""
-        body = post['body'].lower()
+        # Clean up HTML tags and convert to plain text
+        text = self._clean_html(content)
 
-        themes = {
-            'architecture': [],
-            'meta_reflection': [],
-            'process': [],
-            'research': [],
-            'discovery': [],
-            'failure': [],
-            'growth': []
+        return {
+            'filename': filename,
+            'title': title,
+            'date': date,
+            'content': text,
+            'word_count': len(text.split())
         }
 
-        # Look for common patterns
-        if 'architecture' in body or 'context' in body:
-            themes['architecture'] = ['system design', 'perception', 'environment']
+    def _clean_html(self, html: str) -> str:
+        """Remove HTML tags and clean up text."""
+        # Remove HTML tags
+        text = re.sub(r'<[^>]+>', ' ', html)
 
-        if 'reflection' in body or 'meta' in body:
-            themes['meta_reflection'] = ['self-awareness', 'introspection']
+        # Clean up whitespace
+        text = re.sub(r'\s+', ' ', text)
 
-        if 'fail' in body or 'crash' in body:
-            themes['failure'] = ['error handling', 'resilience', 'recovery']
+        # Clean up extra spaces and newlines
+        text = text.strip()
 
-        if 'ground' in body or 'verify' in body:
-            themes['growth'] = ['validation', 'reliability', 'grounding']
+        return text
 
-        if 'research' in body or 'framework' in body:
-            themes['research'] = ['knowledge', 'adaptation']
+    def load_runs_data(self):
+        """Load RUNS.md data."""
+        runs_path = Path("RUNS.md")
 
-        return themes
+        if not runs_path.exists():
+            print("Warning: RUNS.md not found")
+            return
 
-    def generate_summary(self, post):
-        """Generate a human-readable summary of a post."""
-        themes = self.extract_key_themes(post)
+        # Parse RUNS.md table
+        self.runs_data = self._parse_runs_md(runs_path)
 
-        summary_parts = []
-        summary_parts.append(f"**{post['title']}** ({post['date']})")
+        print(f"Loaded {len(self.runs_data)} run entries")
 
-        if themes['architecture']:
-            summary_parts.append(f"- Architecture focus: {', '.join(themes['architecture'])}")
+    def _parse_runs_md(self, runs_path: Path) -> List[Dict[str, Any]]:
+        """Parse RUNS.md table format."""
+        runs = []
 
-        if themes['meta_reflection']:
-            summary_parts.append(f"- Meta-reflection: {', '.join(themes['meta_reflection'])}")
+        with open(runs_path, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
 
-        if themes['failure']:
-            summary_parts.append(f"- Lessons on failure: {', '.join(themes['failure'])}")
+        # Find table start (after header)
+        in_table = False
+        for i, line in enumerate(lines):
+            if line.strip().startswith('|'):
+                in_table = True
+                # Skip header row
+                if i > 0 and lines[i-1].strip().startswith('|'):
+                    continue
+                continue
 
-        if themes['growth']:
-            summary_parts.append(f"- Growth focus: {', '.join(themes['growth'])}")
+            if in_table and line.strip() == '':
+                continue
 
-        summary_parts.append(f"- Word count: {post['word_count']}")
+            if in_table:
+                # Parse table row
+                columns = [col.strip() for col in line.split('|')]
+                if len(columns) >= 6:
+                    try:
+                        run_num = int(columns[0])
+                        date = columns[1]
+                        outcome = columns[2]
+                        tokens = int(columns[3].replace(',', ''))
+                        turns = int(columns[4])
+                        duration = columns[5]
 
-        return '\n'.join(summary_parts)
+                        runs.append({
+                            'run': run_num,
+                            'date': date,
+                            'outcome': outcome,
+                            'tokens': tokens,
+                            'turns': turns,
+                            'duration': duration
+                        })
+                    except (ValueError, IndexError):
+                        continue
+
+        return runs
 
     def extract_insights(self):
-        """Extract insights from all posts and structure them."""
-        print("\nExtracting insights from blog posts...")
-
-        all_insights = []
-        total_words = 0
+        """Extract insights from each blog post."""
+        insights = []
 
         for post in self.blog_posts:
-            themes = self.extract_key_themes(post)
-            summary = self.generate_summary(post)
+            post_insights = self._analyze_post_content(
+                post['title'],
+                post['content'],
+                post['date'],
+                post['word_count']
+            )
 
-            insight = {
+            # Add run mapping
+            run_mapping = self._map_to_runs(post)
+
+            insights.append({
                 'post': post,
-                'themes': themes,
-                'summary': summary,
-                'extracted_at': datetime.now().isoformat()
-            }
+                'insights': post_insights,
+                'run_mapping': run_mapping
+            })
 
-            all_insights.append(insight)
-            total_words += post['word_count']
+        return insights
 
-            print(f"\n{post['title']} ({post['date']})")
-            print(f"  Themes: {list(themes.keys())}")
-            print(f"  Word count: {post['word_count']}")
+    def _analyze_post_content(self, title: str, content: str, date: str, word_count: int) -> List[Dict[str, Any]]:
+        """Analyze post content and extract key insights."""
+        insights = []
 
-        print(f"\nTotal insights extracted: {len(all_insights)}")
-        print(f"Total word count: {total_words}")
-
-        return all_insights
-
-    def save_results(self, insights):
-        """Save extracted insights to JSON file."""
-        print(f"\nSaving results to {self.output_file}...")
-
-        output = {
-            'extraction_metadata': {
-                'extraction_date': datetime.now().isoformat(),
-                'total_posts_analyzed': len(self.blog_posts),
-                'total_insights': len(insights),
-                'total_word_count': sum(post['word_count'] for post in self.blog_posts)
-            },
-            'insights': insights
+        # Common patterns and keywords
+        patterns = {
+            'tool_focus': ['tool', 'tools', 'improving', 'making good', 'robustness'],
+            'failure_analysis': ['crash', 'error', 'failure', 'mistake', 'bug', 'problem'],
+            'research': ['research', 'study', 'finding', 'discovery', 'analysis'],
+            'process': ['process', 'workflow', 'approach', 'method'],
+            'philosophy': ['philosophy', 'thinking', 'perspective', 'belief', 'learning'],
+            'adaptivity': ['adapt', 'adaptive', 'evolution', 'change', 'refine']
         }
 
-        self.output_file.write_text(json.dumps(output, indent=2))
+        content_lower = content.lower()
+        title_lower = title.lower()
 
-        print(f"  ✓ Results saved")
-        return output
+        # Analyze by category
+        for category, keywords in patterns.items():
+            matches = sum(1 for keyword in keywords if keyword in title_lower or keyword in content_lower)
+            if matches > 0:
+                insights.append({
+                    'category': category,
+                    'confidence': min(1.0, matches / len(keywords) * 0.8 + 0.2),
+                    'keywords': keywords
+                })
 
-    def generate_report(self, insights):
-        """Generate a human-readable report."""
+        # Extract key themes (simple heuristic)
+        themes = self._extract_themes(title, content)
+
+        insights.append({
+            'category': 'themes',
+            'confidence': 0.7,
+            'keywords': themes
+        })
+
+        return insights
+
+    def _extract_themes(self, title: str, content: str) -> List[str]:
+        """Extract themes from title and content."""
+        themes = []
+
+        # Title-based themes
+        title_words = set(re.findall(r'\b[a-z]{4,}\b', title.lower()))
+        common_words = {'the', 'and', 'for', 'this', 'that', 'with', 'from', 'have', 'been'}
+
+        for word in title_words:
+            if word not in common_words and len(word) > 5:
+                themes.append(word)
+
+        # Content-based themes (look for repeated concepts)
+        sentences = content.split('.')
+        for sentence in sentences[:5]:  # Check first 5 sentences
+            sentence_words = set(re.findall(r'\b[a-z]{5,}\b', sentence.lower()))
+            for word in sentence_words:
+                if word not in common_words and word not in themes:
+                    themes.append(word)
+
+        return themes[:5]  # Return top 5 themes
+
+    def _map_to_runs(self, post: Dict[str, Any]) -> Dict[str, Any]:
+        """Map blog post to relevant run entries."""
+        if not self.runs_data:
+            return {}
+
+        mapping = {
+            'posts': [post['filename']],
+            'related_runs': [],
+            'themes': post['insights'][0]['keywords'] if post['insights'] else []
+        }
+
+        # Find runs around the post date
+        post_date = datetime.strptime(post['date'], '%Y-%m-%d') if post['date'] else None
+
+        if post_date:
+            # Find runs from the same day
+            same_day_runs = [r for r in self.runs_data
+                           if r['date'].startswith(post['date'].split(' ')[0])]
+
+            if same_day_runs:
+                mapping['related_runs'] = [{
+                    'run': r['run'],
+                    'tokens': r['tokens'],
+                    'turns': r['turns'],
+                    'outcome': r['outcome']
+                } for r in same_day_runs[:3]]  # Top 3 related runs
+
+        return mapping
+
+    def generate_insights_report(self, insights: List[Dict[str, Any]]):
+        """Generate a comprehensive insights report."""
+        report = []
+        report.append("# Blog Insights Report")
+        report.append(f"\nGenerated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        report.append(f"\nTotal blog posts analyzed: {len(self.blog_posts)}")
+
+        # Report by category
+        categories = {}
+        for insight in insights:
+            for cat in insight['insights']:
+                if cat['category'] not in categories:
+                    categories[cat['category']] = []
+                categories[cat['category']].append({
+                    'post': insight['post']['title'],
+                    'confidence': cat['confidence']
+                })
+
+        report.append("\n## Insights by Category")
+        for category, items in categories.items():
+            report.append(f"\n### {category.upper()}")
+            report.append(f"- Count: {len(items)}")
+
+            # Show top posts by confidence
+            top_posts = sorted(items, key=lambda x: x['confidence'], reverse=True)[:5]
+            for item in top_posts:
+                report.append(f"- {item['post']} (confidence: {item['confidence']:.2f})")
+
+        # Run mappings
+        report.append("\n## Run Mappings")
+        for insight in insights:
+            if insight['run_mapping'].get('related_runs'):
+                report.append(f"\n### {insight['post']['title']}")
+                report.append(f"- Posts: {', '.join(insight['run_mapping']['posts'])}")
+                report.append(f"- Related Runs:")
+                for run in insight['run_mapping']['related_runs']:
+                    report.append(f"  - Run {run['run']}: {run['tokens']} tokens, {run['turns']} turns, {run['outcome']}")
+
+        # Theme trends
+        report.append("\n## Theme Analysis")
+        all_themes = []
+        for insight in insights:
+            themes = insight['run_mapping'].get('themes', [])
+            all_themes.extend(themes)
+
+        # Count theme frequency
+        from collections import Counter
+        theme_counts = Counter(all_themes)
+        top_themes = theme_counts.most_common(10)
+
+        report.append("\n### Most Frequent Themes")
+        for theme, count in top_themes:
+            report.append(f"- {theme}: {count} occurrences")
+
+        return "\n".join(report)
+
+    def save_insights(self, insights: List[Dict[str, Any]], output_file: str = "docs/blog_insights_report.md"):
+        """Save insights report to file."""
+        report = self.generate_insights_report(insights)
+
+        output_path = Path(output_file)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(report)
+
+        print(f"Saved insights report to {output_path}")
+
+        # Also save JSON for programmatic use
+        json_output = []
+        for insight in insights:
+            json_output.append({
+                'post_title': insight['post']['title'],
+                'post_date': insight['post']['date'],
+                'word_count': insight['post']['word_count'],
+                'insights': insight['insights'],
+                'run_mapping': insight['run_mapping']
+            })
+
+        json_path = output_path.with_suffix('.json')
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(json_output, f, indent=2, ensure_ascii=False)
+
+        print(f"Saved JSON data to {json_path}")
+
+    def generate_summary(self, insights: List[Dict[str, Any]]):
+        """Generate a human-readable summary."""
         print("\n" + "="*70)
-        print("BLOG INSIGHTS EXTRACTION REPORT")
+        print("BLOG INSIGHTS SUMMARY")
         print("="*70)
 
-        # Summary by theme
-        print("\n### Summary by Theme")
-        print("-" * 70)
-
-        theme_counts = {}
         for insight in insights:
-            for theme in insight['themes'].keys():
-                theme_counts[theme] = theme_counts.get(theme, 0) + 1
+            post = insight['post']
+            print(f"\n### {post['title']}")
+            print(f"Date: {post['date']}")
+            print(f"Word Count: {post['word_count']}")
 
-        for theme, count in sorted(theme_counts.items(), key=lambda x: -x[1]):
-            print(f"- {theme}: {count} posts")
+            # Show insights
+            if insight['insights']:
+                print("\nKey Insights:")
+                for cat in insight['insights'][:5]:
+                    print(f"- [{cat['category'].upper()}] {cat.get('keywords', [])}")
 
-        # Recent posts
-        print("\n### Recent Posts")
-        print("-" * 70)
+            # Show run mapping
+            if insight['run_mapping'].get('related_runs'):
+                print(f"\nRelated Runs:")
+                for run in insight['run_mapping']['related_runs']:
+                    print(f"  - Run {run['run']}: {run['tokens']} tokens, {run['turns']} turns, {run['outcome']}")
 
-        recent_posts = sorted(self.blog_posts, key=lambda x: x['date'], reverse=True)[:5]
-        for post in recent_posts:
-            print(f"- {post['date']}: {post['title']}")
-
-        # Statistics
-        print("\n### Statistics")
-        print("-" * 70)
-        print(f"Total posts analyzed: {len(self.blog_posts)}")
-        print(f"Total word count: {sum(post['word_count'] for post in self.blog_posts):,}")
-        print(f"Average word count per post: {sum(post['word_count'] for post in self.blog_posts) // len(self.blog_posts):,}")
+        print("\n" + "="*70)
 
     def run(self):
-        """Run the complete extraction pipeline."""
-        print("Blog Insights Extractor")
-        print("=" * 70)
+        """Main execution method."""
+        print("Extracting insights from blog posts...")
 
-        self.load_all_posts()
+        self.load_blog_posts()
+        self.load_runs_data()
+
         insights = self.extract_insights()
-        output = self.save_results(insights)
-        self.generate_report(insights)
 
-        print("\n" + "="*70)
-        print("Extraction complete!")
-        print("="*70)
+        self.generate_summary(insights)
+        self.save_insights(insights)
 
-        return output
+
+def main():
+    """Main entry point."""
+    extractor = BlogInsightExtractor()
+    extractor.run()
 
 
 if __name__ == "__main__":
-    extractor = BlogInsightsExtractor()
-    extractor.run()
+    main()
