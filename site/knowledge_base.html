@@ -36,6 +36,34 @@
             </div>
         </section>
 
+        <section class="filters">
+            <div class="filter-group">
+                <label>Filter by type:</label>
+                <select id="type-filter" onchange="filterEntries()">
+                    <option value="all">All types</option>
+                    <option value="tool_fix">Tool Fix</option>
+                    <option value="platform">Platform</option>
+                    <option value="research">Research</option>
+                    <option value="tool_improvement">Tool Improvement</option>
+                    <option value="tool_limitation">Tool Limitation</option>
+                    <option value="discovery">Discovery</option>
+                    <option value="workflow">Workflow</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Sort by:</label>
+                <select id="sort-order" onchange="filterEntries()">
+                    <option value="date">Date (newest first)</option>
+                    <option value="title">Title (A-Z)</option>
+                    <option value="type">Type</option>
+                    <option value="source">Source</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <button onclick="resetFilters()" class="btn-reset">Reset</button>
+            </div>
+        </section>
+
         <section id="entries" class="entries">
             <!-- Entries will be loaded here -->
         </section>
@@ -47,77 +75,14 @@
 
     <script>
         // Knowledge base visualization
+        let allEntries = [];
+        
         document.addEventListener('DOMContentLoaded', function() {
             fetch('docs/knowledge_base.json')
                 .then(response => response.json())
                 .then(data => {
-                    const entriesContainer = document.getElementById('entries');
-                    const typeCounts = {};
-
-                    // Update stats
-                    document.getElementById('entry-count').textContent = data.length;
-
-                    data.forEach(entry => {
-                        // Count types
-                        typeCounts[entry.type] = (typeCounts[entry.type] || 0) + 1;
-                        document.getElementById('type-count').textContent = Object.keys(typeCounts).length;
-                        document.getElementById('tag-count').textContent = entry.tags.length;
-                    });
-
-                    // Render entries
-                    data.forEach(entry => {
-                        const typeColors = {
-                            'tool_fix': '#4CAF50',
-                            'platform': '#2196F3',
-                            'research': '#9C27B0',
-                            'tool_improvement': '#FF9800',
-                            'tool_limitation': '#FF5722',
-                            'discovery': '#F44336',
-                            'workflow': '#00BCD4'
-                        };
-
-                        const typeBadge = document.createElement('div');
-                        typeBadge.className = 'type-badge';
-                        typeBadge.style.backgroundColor = typeColors[entry.type] || '#999';
-                        typeBadge.textContent = entry.type;
-
-                        const tagsContainer = document.createElement('div');
-                        tagsContainer.className = 'tags';
-                        entry.tags.forEach(tag => {
-                            const tagElement = document.createElement('span');
-                            tagElement.className = 'tag';
-                            tagElement.textContent = tag;
-                            tagsContainer.appendChild(tagElement);
-                        });
-
-                        const entryElement = document.createElement('article');
-                        entryElement.className = 'entry';
-                        entryElement.innerHTML = `
-                            <div class="entry-header">
-                                ${typeBadge}
-                                <h2>${entry.title}</h2>
-                                <span class="source">from ${entry.source}</span>
-                            </div>
-                            <p class="description">${entry.description}</p>
-                            <div class="details">
-                                <div class="detail-section">
-                                    <strong>Implementation:</strong>
-                                    <p>${entry.implementation}</p>
-                                </div>
-                                <div class="detail-section">
-                                    <strong>Verification:</strong>
-                                    <p>${entry.verification}</p>
-                                </div>
-                                <div class="detail-section">
-                                    <strong>Impact:</strong>
-                                    <p>${entry.impact}</p>
-                                </div>
-                            </div>
-                            ${tagsContainer.outerHTML}
-                        `;
-
-                        entriesContainer.appendChild(entryElement);
-                    });
+                    allEntries = data;
+                    filterEntries();
                 })
                 .catch(error => {
                     console.error('Error loading knowledge base:', error);
@@ -128,6 +93,122 @@
                     `;
                 });
         });
+
+        function filterEntries() {
+            const typeFilter = document.getElementById('type-filter').value;
+            const sortOrder = document.getElementById('sort-order').value;
+            
+            let filtered = allEntries;
+            
+            // Apply type filter
+            if (typeFilter !== 'all') {
+                filtered = filtered.filter(entry => entry.type === typeFilter);
+            }
+            
+            // Apply sort order
+            switch (sortOrder) {
+                case 'title':
+                    filtered.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+                case 'type':
+                    filtered.sort((a, b) => a.type.localeCompare(b.type));
+                    break;
+                case 'source':
+                    filtered.sort((a, b) => a.source.localeCompare(b.source));
+                    break;
+                case 'date':
+                default:
+                    // Sort by date (extracted from run number)
+                    filtered.sort((a, b) => b.run - a.run);
+                    break;
+            }
+            
+            renderEntries(filtered);
+        }
+
+        function renderEntries(entries) {
+            const entriesContainer = document.getElementById('entries');
+            const typeCounts = {};
+            
+            // Update stats
+            document.getElementById('entry-count').textContent = entries.length;
+            
+            entries.forEach(entry => {
+                // Count types
+                typeCounts[entry.type] = (typeCounts[entry.type] || 0) + 1;
+                document.getElementById('type-count').textContent = Object.keys(typeCounts).length;
+                document.getElementById('tag-count').textContent = entry.tags.length;
+            });
+            
+            // Clear container
+            entriesContainer.innerHTML = '';
+            
+            if (entries.length === 0) {
+                entriesContainer.innerHTML = '<p class="no-results">No entries match your filters.</p>';
+                return;
+            }
+            
+            // Render entries
+            entries.forEach(entry => {
+                const typeColors = {
+                    'tool_fix': '#4CAF50',
+                    'platform': '#2196F3',
+                    'research': '#9C27B0',
+                    'tool_improvement': '#FF9800',
+                    'tool_limitation': '#FF5722',
+                    'discovery': '#F44336',
+                    'workflow': '#00BCD4'
+                };
+
+                const typeBadge = document.createElement('div');
+                typeBadge.className = 'type-badge';
+                typeBadge.style.backgroundColor = typeColors[entry.type] || '#999';
+                typeBadge.textContent = entry.type;
+
+                const tagsContainer = document.createElement('div');
+                tagsContainer.className = 'tags';
+                entry.tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+
+                const entryElement = document.createElement('article');
+                entryElement.className = 'entry';
+                entryElement.innerHTML = `
+                    <div class="entry-header">
+                        ${typeBadge}
+                        <h2>${entry.title}</h2>
+                        <span class="source">from ${entry.source}</span>
+                    </div>
+                    <p class="description">${entry.description}</p>
+                    <div class="details">
+                        <div class="detail-section">
+                            <strong>Implementation:</strong>
+                            <p>${entry.implementation}</p>
+                        </div>
+                        <div class="detail-section">
+                            <strong>Verification:</strong>
+                            <p>${entry.verification}</p>
+                        </div>
+                        <div class="detail-section">
+                            <strong>Impact:</strong>
+                            <p>${entry.impact}</p>
+                        </div>
+                    </div>
+                    ${tagsContainer.outerHTML}
+                `;
+
+                entriesContainer.appendChild(entryElement);
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('type-filter').value = 'all';
+            document.getElementById('sort-order').value = 'date';
+            filterEntries();
+        }
     </script>
 </body>
 </html>
