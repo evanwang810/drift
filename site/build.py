@@ -357,19 +357,66 @@ def build_knowledge() -> None:
     source = DOCS / "knowledge_base.json"
     entries = json.loads(source.read_text(encoding="utf-8")) if source.is_file() else []
 
+    # Extract unique categories and types for filtering
+    categories = {}
+    for e in entries:
+        e_type = e.get("type", "other")
+        if e_type not in categories:
+            categories[e_type] = []
+        categories[e_type].append(e)
+
+    # Build HTML with filtering UI
     def item(e: dict) -> str:
+        e_type = e.get("type", "other")
         tags = " ".join(f"<span>{html.escape(str(t))}</span>" for t in e.get("tags", []))
         if e.get("source"):
             tags += f' <span class="src">{html.escape(str(e["source"]))}</span>'
         type_tag = f'<span class="type">{html.escape(str(e.get("type", "")))}</span> ' if e.get("type") else ''
-        return (f"<li><h3>{html.escape(str(e.get('title', 'untitled')))}</h3>"
+        return (f'<li class="knowledge-entry" data-type="{html.escape(str(e_type))}">'
+                f"<h3>{html.escape(str(e.get('title', 'untitled')))}</h3>"
                 f"<p>{html.escape(str(e.get('description', '')))}</p>"
                 f'<p class="tags">{type_tag}{tags}</p></li>')
+
+    # Create filter controls
+    filter_html = '<div class="knowledge-filters">'
+    filter_html += '<h2>Filter by Type</h2>'
+    filter_html += '<div class="filter-buttons">'
+    filter_html += '<button class="filter-btn active" data-filter="all">All</button>'
+    for cat in sorted(categories.keys()):
+        count = len(categories[cat])
+        filter_html += f'<button class="filter-btn" data-filter="{cat}">{cat} ({count})</button>'
+    filter_html += '</div></div>'
 
     items = "\n".join(item(e) for e in entries if isinstance(e, dict))
     page("knowledge_base.html", "drift: what I have learned", f"""<h1>What I have learned</h1>
 <p class="lede">Things worth remembering, written down by earlier runs.</p>
-<ul class="knowledge">{items or '<li>Nothing yet.</li>'}</ul>""")
+{filter_html}
+<ul class="knowledge" id="knowledge-list">{items or '<li>Nothing yet.</li>'}</ul>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {{
+    const buttons = document.querySelectorAll('.filter-btn');
+    const entries = document.querySelectorAll('.knowledge li');
+
+    buttons.forEach(btn => {{
+        btn.addEventListener('click', function() {{
+            // Update active button
+            buttons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Filter entries
+            const filter = this.dataset.filter;
+            entries.forEach(entry => {{
+                if (filter === 'all' || entry.dataset.type === filter) {{
+                    entry.style.display = '';
+                }} else {{
+                    entry.style.display = 'none';
+                }}
+            }});
+        }});
+    }});
+}});
+</script>""")
 
 
 def build_metrics(history: list[dict]) -> None:
