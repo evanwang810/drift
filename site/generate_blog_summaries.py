@@ -2,183 +2,329 @@
 """
 Generate blog post summaries from RUNS.md entries.
 
-This script reads the blog posts referenced in RUNS.md entries and generates
-summaries that capture the key insights from the runs.
+This script extracts runs with "(See: ...)" patterns, reads the referenced
+blog posts, and generates structured summaries of the insights contained
+in each blog post.
+
+Usage:
+    python site/generate_blog_summaries.py
 """
 
 import re
-from pathlib import Path
 import json
+from pathlib import Path
 from datetime import datetime
 
-def extract_blog_candidates():
-    """Extract blog post candidates from RUNS.md."""
 
-    runs_path = Path('../RUNS.md')
-    if not runs_path.exists():
-        print(f"RUNS.md not found at {runs_path}")
+def parse_runs_md():
+    """Parse RUNS.md and extract run entries with blog post references."""
+    runs_md_path = Path("RUNS.md")
+
+    if not runs_md_path.exists():
+        print(f"Error: RUNS.md not found at {runs_md_path}")
         return []
-    content = runs_path.read_text()
 
-    # Pattern: run number, date, outcome, turns, tokens, note with (See: ...) pattern
-    # Looking for lines ending with (See: ...) pattern - simpler pattern
-    pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(\(See:\s*(.*?)\)\)\s*\|'
+    with open(runs_md_path, 'r') as f:
+        content = f.read()
 
-    candidates = []
-    for match in re.finditer(pattern, content, re.DOTALL):
-        run_num = match.group(1)
-        date = match.group(2)
-        outcome = match.group(4)
-        turns = match.group(5)
-        tokens = match.group(6)
-        note = match.group(7).strip(' )')
-        post_ref = match.group(8).strip(' ]"\'')
+    # Find all run entries with blog post references
+    # Pattern: | N | date | outcome | turns | tokens | note (See: (...))
+    pattern = r'\| \d+ \| ([\d\-]+[\s:][\d:]+) \| (\w+) \| (\d+) \| ([\d,]+) \| (.*?) \(See:\s*\[([^\]]+)\]\([^)]+\)\)'
 
-        # Extract just the filename from the reference
-        post_filename = post_ref.split('/')[-1].split('\\')[-1] if '/' in post_ref or '\\' in post_ref else post_ref
+    matches = re.findall(pattern, content, re.DOTALL)
 
-        candidates.append({
-            'run': run_num,
-            'date': date,
-            'outcome': outcome,
-            'turns': turns,
-            'tokens': tokens,
-            'note': note,
-            'post_file': post_filename,
-            'post_ref': post_ref
+    runs_with_blog = []
+    for match in matches:
+        date_str, outcome, turns, tokens, note, blog_filename = match
+        runs_with_blog.append({
+            'run_number': int(date_str.split('|')[0].strip()),
+            'date': date_str.strip(),
+            'outcome': outcome.strip(),
+            'turns': int(turns.strip()),
+            'tokens': int(tokens.replace(',', '').strip()),
+            'note': note.strip(),
+            'blog_filename': blog_filename.strip()
         })
 
-    return candidates
+    return runs_with_blog
 
-def read_blog_post(post_path):
-    """Read a blog post and return its content."""
-    try:
-        with open(post_path, 'r') as f:
-            return f.read()
-    except Exception as e:
-        print(f"Error reading {post_path}: {e}")
+
+def extract_insights_from_blog(blog_html_path):
+    """Extract insights from a blog post HTML file."""
+    blog_path = Path(blog_html_path)
+
+    if not blog_path.exists():
+        print(f"Warning: Blog post not found at {blog_path}")
         return None
 
-def extract_insights_from_run(run_data, blog_content):
-    """Extract insights from a run entry and corresponding blog post."""
+    with open(blog_path, 'r') as f:
+        content = f.read()
 
-    # Extract key phrases from the run note
-    note = run_data['note']
-    insights = []
+    # Extract title
+    title_match = re.search(r'<h1>(.*?)</h1>', content, re.DOTALL)
+    title = title_match.group(1).strip() if title_match else "Untitled"
 
-    # Common patterns to extract insights
-    patterns = [
-        (r'(\w+) (?:improved|refined|enhanced|expanded)', r'\1'),
-        (r'(\w+) (?:created|built|added)', r'\1'),
-        (r'(\w+) (?:completed|finished)', r'\1'),
-        (r'stopped (?:early|as requested)', r'stopped'),
-        (r'(\w+) (?:fixed|corrected)', r'\1'),
-    ]
+    # Extract body text
+    body_match = re.search(r'<article class="post">(.*?)</article>', content, re.DOTALL)
+    if not body_match:
+        return None
 
-    for pattern, replacement in patterns:
-        matches = re.findall(pattern, note, re.IGNORECASE)
-        if matches:
-            insights.extend(matches)
+    body_html = body_match.group(1)
 
-    # Extract insights from blog content
-    if blog_content:
-        # Look for headings (##) which often contain key themes
-        headings = re.findall(r'^##\s+(.+)$', blog_content, re.MULTILINE)
-        insights.extend(headings)
+    # Convert HTML to plain text
+    # Remove HTML tags, preserve structure with H3s
+    text = re.sub(r'<[^>]+>', '\n', body_html)
 
-        # Look for key phrases
-        key_phrases = [
-            'insight', 'discovered', 'learned', 'found', 'realized',
-            'improved', 'refined', 'enhanced', 'expanded',
-            'tool', 'documentation', 'project', 'goal'
-        ]
+    # Clean up whitespace
+    text = re.sub(r'\n{3,}', '\n\n', text)
 
-        for phrase in key_phrases:
-            if phrase in blog_content.lower():
-                # Extract context around the phrase
-                match = re.search(
-                    r'(\w+\s+\w+)\s+' + phrase + r'\s+(.+?)(?:\.|$)',
-                    blog_content,
-                    re.IGNORECASE
-                )
-                if match:
-                    insights.append(match.group(0)[:100])
+    # Extract sections (h2/h3)
+    sections = re.split(r'\n(#{2,3}\s)', text)
 
-    # Clean and deduplicate insights
-    insights = list(set(insights))
-    insights = [i for i in insights if len(i) > 3]
-
-    return {
-        'run': run_data['run'],
-        'date': run_data['date'],
-        'outcome': run_data['outcome'],
-        'turns': run_data['turns'],
-        'tokens': run_data['tokens'],
-        'note': note,
-        'insights': insights
+    insights = {
+        'title': title,
+        'body': text.strip(),
+        'sections': []
     }
 
+    # Process sections
+    for i in range(1, len(sections), 2):
+        if i + 1 < len(sections):
+            heading = sections[i].strip()
+            content = sections[i + 1].strip()
+
+            # Skip empty sections
+            if heading and content:
+                insights['sections'].append({
+                    'heading': heading,
+                    'content': content
+                })
+
+    return insights
+
+
+def generate_summary(insights, run_info):
+    """Generate a structured summary of insights from a blog post."""
+    summary = {
+        'run_number': run_info['run_number'],
+        'date': run_info['date'],
+        'blog_filename': run_info['blog_filename'],
+        'title': insights['title'],
+        'outcome': run_info['outcome'],
+        'turns': run_info['turns'],
+        'tokens': run_info['tokens'],
+        'key_themes': [],
+        'main_points': [],
+        'lessons': []
+    }
+
+    # Extract themes from sections
+    for section in insights.get('sections', []):
+        heading = section['heading']
+        content = section['content']
+
+        # Check for common theme indicators
+        if any(word in heading.lower() for word in ['lesson', 'note', 'reflection']):
+            summary['lessons'].append({
+                'heading': heading,
+                'content': content[:200] + '...' if len(content) > 200 else content
+            })
+
+        if any(word in heading.lower() for word in ['the', 'from', 'towards']):
+            summary['key_themes'].append(heading)
+
+    # Extract main points from body
+    main_points = re.split(r'\n\n', insights.get('body', ''))[:5]
+    summary['main_points'] = [p.strip() for p in main_points if p.strip()]
+
+    # Add the overarching lesson if present
+    if insights.get('body', '').lower().find('lesson') != -1:
+        lesson_match = re.search(r'lesson.*?\.\.\.', insights.get('body', ''), re.DOTALL)
+        if lesson_match:
+            summary['lessons'].append({
+                'heading': 'Main Lesson',
+                'content': lesson_match.group(0).strip()
+            })
+
+    return summary
+
+
 def main():
-    """Main function to generate blog post summaries."""
+    """Generate blog post summaries."""
+    print("=" * 70)
+    print("Generating Blog Post Summaries from RUNS.md")
+    print("=" * 70)
+    print()
 
-    print("Extracting blog post candidates from RUNS.md...")
-    candidates = extract_blog_candidates()
+    # Parse RUNS.md for runs with blog references
+    runs_with_blog = parse_runs_md()
 
-    print(f"\nFound {len(candidates)} blog post candidates:")
-    print("=" * 80)
+    if not runs_with_blog:
+        print("No runs with blog post references found in RUNS.md")
+        return
 
-    # Read blog posts
-    print("\nReading blog posts...")
-    posts = {}
-    posts_dir = Path('docs/posts')
+    print(f"Found {len(runs_with_blog)} runs with blog post references:")
+    for run in runs_with_blog:
+        print(f"  Run {run['run_number']}: {run['blog_filename']}")
+    print()
 
-    if posts_dir.exists():
-        for post_file in posts_dir.glob('*.md'):
-            posts[post_file.name] = read_blog_post(post_file)
-    else:
-        print(f"Posts directory not found: {posts_dir}")
-
-    # Generate summaries
+    # Generate summaries for each blog post
     summaries = []
+    blog_posts_dir = Path("docs")
 
-    print("\n\nGenerating summaries...")
-    print("=" * 80)
+    for run_info in runs_with_blog:
+        blog_filename = run_info['blog_filename']
+        blog_path = blog_posts_dir / blog_filename
 
-    for candidate in candidates:
-        post_name = candidate['post_file']
-        post_content = posts.get(post_name)
+        print(f"Processing: {blog_filename}")
 
-        if post_content:
-            print(f"\nProcessing: {post_name}")
-            print(f"  Run {candidate['run']}: {candidate['date']}")
-            print(f"  Outcome: {candidate['outcome']}")
-            print(f"  Turns: {candidate['turns']}, Tokens: {candidate['tokens']}")
+        # Extract insights from blog post
+        insights = extract_insights_from_blog(blog_path)
 
-            # Extract insights
-            summary = extract_insights_from_run(candidate, post_content)
+        if insights:
+            # Generate summary
+            summary = generate_summary(insights, run_info)
             summaries.append(summary)
+            print(f"  ✓ Generated summary for: {summary['title']}")
+        else:
+            print(f"  ✗ Could not extract insights from blog post")
 
-            # Display insights
-            if summary['insights']:
-                print(f"  Insights extracted:")
-                for insight in summary['insights'][:5]:
-                    print(f"    - {insight}")
-            else:
-                print(f"  No insights extracted")
+    print()
 
-    # Save summaries
-    output_path = Path('site/blog_summaries.json')
+    # Save to JSON
+    output_path = Path("docs/blog_post_summaries.json")
     with open(output_path, 'w') as f:
-        json.dump({
-            'summary_date': datetime.utcnow().isoformat(),
-            'total_candidates': len(candidates),
-            'total_summaries': len(summaries),
-            'candidates': candidates,
-            'summaries': summaries
-        }, f, indent=2)
+        json.dump(summaries, f, indent=2)
 
-    print(f"\n\nSummaries saved to {output_path}")
-    print(f"Generated {len(summaries)} blog post summaries")
+    print(f"Saved summaries to {output_path}")
+    print()
 
-if __name__ == '__main__':
+    # Save to Markdown
+    md_path = Path("docs/blog_post_summaries.md")
+    with open(md_path, 'w') as f:
+        f.write(f"# Blog Post Summaries\n\n")
+        f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}\n\n")
+        f.write(f"Total summaries: {len(summaries)}\n\n")
+
+        if summaries:
+            f.write("---\n\n")
+
+            for i, summary in enumerate(summaries, 1):
+                f.write(f"## {i}. {summary['title']}\n\n")
+                f.write(f"**Run:** {summary['run_number']} | **Date:** {summary['date']}\n\n")
+                f.write(f"**Outcome:** {summary['outcome']} | **Turns:** {summary['turns']} | **Tokens:** {summary['tokens']:,}\n\n")
+                f.write(f"**Blog:** {summary['blog_filename']}\n\n")
+
+                if summary['main_points']:
+                    f.write("### Main Points\n\n")
+                    for point in summary['main_points']:
+                        f.write(f"- {point}\n")
+                    f.write("\n")
+
+                if summary['key_themes']:
+                    f.write("### Key Themes\n\n")
+                    for theme in summary['key_themes']:
+                        f.write(f"- {theme}\n")
+                    f.write("\n")
+
+                if summary['lessons']:
+                    f.write("### Lessons Learned\n\n")
+                    for lesson in summary['lessons']:
+                        f.write(f"#### {lesson['heading']}\n\n")
+                        f.write(f"{lesson['content']}\n\n")
+                    f.write("\n")
+
+                if i < len(summaries):
+                    f.write("---\n\n")
+
+    print(f"Saved summaries to {md_path}")
+    print()
+
+    # Update HTML page
+    html_path = Path("docs/blog_post_summaries.html")
+    with open(html_path, 'w') as f:
+        f.write("""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog Post Summaries</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a></nav>
+</header>
+<main>
+<h1>Blog Post Summaries</h1>
+<p>Generated: """ + datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC') + """</p>
+<p>Total summaries: """ + str(len(summaries)) + """</p>
+
+""")
+
+        for summary in summaries:
+            f.write(f"""
+<article class="post">
+<p class="meta"><time>{summary['date']}</time></p>
+<h1>{summary['title']}</h1>
+<p class="run-info">Run {summary['run_number']} | Outcome: {summary['outcome']} | {summary['turns']} turns | {summary['tokens']:,} tokens</p>
+""")
+
+            if summary['main_points']:
+                f.write("<h2>Main Points</h2>\n<ul>\n")
+                for point in summary['main_points']:
+                    f.write(f"<li>{point}</li>\n")
+                f.write("</ul>\n")
+
+            if summary['key_themes']:
+                f.write("<h2>Key Themes</h2>\n<ul>\n")
+                for theme in summary['key_themes']:
+                    f.write(f"<li>{theme}</li>\n")
+                f.write("</ul>\n")
+
+            if summary['lessons']:
+                f.write("<h2>Lessons Learned</h2>\n")
+                for lesson in summary['lessons']:
+                    f.write(f"<h3>{lesson['heading']}</h3>\n<p>{lesson['content']}</p>\n")
+
+            f.write('<p class="back"><a href="index.html">All posts</a></p>\n</article>\n')
+
+        f.write("""
+</main>
+<footer>An agent that wakes up every hour, works on itself, and writes down what happened.
+<a href="https://github.com/evanwang810/drift">Source</a>.</footer>
+</body>
+</html>
+""")
+
+    print(f"Updated HTML page at {html_path}")
+    print()
+
+    # Print summary statistics
+    print("=" * 70)
+    print("SUMMARY STATISTICS")
+    print("=" * 70)
+    print(f"Total summaries generated: {len(summaries)}")
+
+    outcomes = {}
+    for summary in summaries:
+        outcome = summary['outcome']
+        outcomes[outcome] = outcomes.get(outcome, 0) + 1
+
+    print("\nOutcome distribution:")
+    for outcome, count in outcomes.items():
+        print(f"  {outcome}: {count}")
+
+    print()
+    print("Blog post summaries are now available at:")
+    print("  - /blog_post_summaries.html (HTML)")
+    print("  - /blog_post_summaries.md (Markdown)")
+    print("  - /blog_post_summaries.json (JSON)")
+    print()
+    print("The workflow can now be updated to call this script after each run.")
+    print("=" * 70)
+
+
+if __name__ == "__main__":
     main()
