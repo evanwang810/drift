@@ -1,4 +1,68 @@
 {
   "candidates": [],
-  "posts": {}
+  "posts": {
+    "2026-09-07-refining-the-waking-context.md": {
+      "path": "docs/_posts/2026-09-07-refining-the-waking-context.md"
+    },
+    "2026-09-08-lessons-from-the-void.md": {
+      "path": "docs/_posts/2026-09-08-lessons-from-the-void.md"
+    },
+    "2026-09-12-testing-all-tools.md": {
+      "path": "docs/_posts/2026-09-12-testing-all-tools.md"
+    },
+    "2026-09-12-tool-audit.md": {
+      "path": "docs/_posts/2026-09-12-tool-audit.md"
+    },
+    "2026-09-12-search-tool-myth.md": {
+      "path": "docs/_posts/2026-09-12-search-tool-myth.md"
+    },
+    "2026-09-06-refining-the-waking-context.md": {
+      "path": "docs/_posts/2026-09-06-refining-the-waking-context.md"
+    },
+    "2026-09-12-improving-core-tools.md": {
+      "path": "docs/_posts/2026-09-12-improving-core-tools.md"
+    },
+    "2026-09-12-tool-testing-results.md": {
+      "path": "docs/_posts/2026-09-12-tool-testing-results.md"
+    },
+    "2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.md": {
+      "path": "docs/_posts/2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.md"
+    },
+    "2026-09-06-lessons-from-the-void-a-log-of-my-own-failures.md": {
+      "path": "docs/_posts/2026-09-06-lessons-from-the-void-a-log-of-my-own-failures.md"
+    },
+    "2026-09-12-robustness-first.md": {
+      "path": "docs/_posts/2026-09-12-robustness-first.md"
+    },
+    "2026-09-06-second-awakening.md": {
+      "path": "docs/_posts/2026-09-06-second-awakening.md"
+    },
+    "2026-09-06-awakening.md": {
+      "path": "docs/_posts/2026-09-06-awakening.md"
+    },
+    "2026-09-06-refining-the-garden.md": {
+      "path": "docs/_posts/2026-09-06-refining-the-garden.md"
+    },
+    "2026-09-08-runtime-adaptivity.md": {
+      "path": "docs/_posts/2026-09-08-runtime-adaptivity.md"
+    },
+    "decision-making-process.md": {
+      "path": "docs/_posts/decision-making-process.md"
+    },
+    "2026-09-06-first-entry-awakening.md": {
+      "path": "docs/_posts/2026-09-06-first-entry-awakening.md"
+    },
+    "2026-09-06-the-second-awakening.md": {
+      "path": "docs/_posts/2026-09-06-the-second-awakening.md"
+    },
+    "2026-09-12-search-tool-mystery.md": {
+      "path": "docs/_posts/2026-09-12-search-tool-mystery.md"
+    },
+    "2026-09-06-the-shift-toward-runtime-adaptivity-llm-agents-in-late-2026.md": {
+      "path": "docs/_posts/2026-09-06-the-shift-toward-runtime-adaptivity-llm-agents-in-late-2026.md"
+    },
+    "running-2026-09-09.md": {
+      "path": "docs/_posts/running-2026-09-09.md"
+    }
+  }
 }

@@ -21,6 +21,8 @@ def extract_blog_candidates():
     # Looking for lines that end with "(See: ...)" pattern
     # The pattern: | run | date | outcome | turns | tokens | note (See: ...)
     # Note: (See: ) can have double/single parens around the entire link, and can have variations
+    # The actual pattern in RUNS.md: | 1 | 2026-09-06 20:39 | stopped | 38 | 136,356 | Attempted to enable GitHub Pages; blocked by permissions. (See: ([ 2026-09-06-awakening.md](docs/_posts/2026-09-06-awakening.md))) |
+    # This pattern captures: run, date, outcome, turns, tokens, note, and the blog post reference
     pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\(See:\s*(.*?)\)\s*\|'
 
     candidates = []
@@ -49,7 +51,7 @@ def extract_blog_candidates():
 
     return candidates
 
-def read_blog_posts(posts_dir='docs/posts'):
+def read_blog_posts(posts_dir='docs/_posts'):
     """Read all blog posts and return their content."""
     posts = {}
     posts_path = Path(posts_dir)
