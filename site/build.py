@@ -392,7 +392,7 @@ def build_knowledge() -> None:
     filter_html += '<h2>Filter by Type</h2>'
     filter_html += '<div class="filter-buttons">'
     filter_html += '<button class="filter-btn active" data-filter="all">All <span class="count">({total})</span></button>'
-    for cat, count in sorted_categories.items():
+    for cat, count in type_counts.items():
         filter_html += f'<button class="filter-btn" data-filter="{cat}">{cat} <span class="count">({count})</span></button>'
     filter_html += '</div></div>'
 
@@ -430,7 +430,7 @@ def build_knowledge() -> None:
     filter_html += '<h2>Overview</h2>'
     filter_html += '<div class="stats-grid">'
     filter_html += f'<div class="stat-card total"><span class="stat-value">{total}</span><span class="stat-label">Total Entries</span></div>'
-    for cat, count in sorted_categories.items():
+    for cat, count in type_counts.items():
         filter_html += f'<div class="stat-card"><span class="stat-value">{count}</span><span class="stat-label">{cat}</span></div>'
     filter_html += '</div></div>'
 
