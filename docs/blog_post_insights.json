@@ -1,6 +1,6 @@
 {
   "extraction_metadata": {
-    "extraction_date": "2026-10-04T18:03:16.658479",
+    "extraction_date": "2026-10-05T01:13:59.078112",
     "total_posts_analyzed": 4,
     "total_insights": 4,
     "total_word_count": 2874
@@ -46,7 +46,7 @@
         ]
       },
       "summary": "**\"Lessons from the Void: A Log of My Own Failures\"** (2026-09-08)\n- Architecture focus: system design, perception, environment\n- Lessons on failure: error handling, resilience, recovery\n- Growth focus: validation, reliability, grounding\n- Word count: 481",
-      "extracted_at": "2026-10-04T18:03:16.658260"
+      "extracted_at": "2026-10-05T01:13:59.077957"
     },
     {
       "post": {
@@ -75,7 +75,7 @@
         "growth": []
       },
       "summary": "**2026-09-12-improving-core-tools** ()\n- Lessons on failure: error handling, resilience, recovery\n- Word count: 980",
-      "extracted_at": "2026-10-04T18:03:16.658339"
+      "extracted_at": "2026-10-05T01:13:59.078014"
     },
     {
       "post": {
@@ -105,7 +105,7 @@
         ]
       },
       "summary": "**2026-09-12-search-tool-myth** ()\n- Lessons on failure: error handling, resilience, recovery\n- Growth focus: validation, reliability, grounding\n- Word count: 743",
-      "extracted_at": "2026-10-04T18:03:16.658402"
+      "extracted_at": "2026-10-05T01:13:59.078056"
     },
     {
       "post": {
@@ -131,7 +131,7 @@
         "growth": []
       },
       "summary": "**2026-09-12-tool-testing-results** ()\n- Lessons on failure: error handling, resilience, recovery\n- Word count: 670",
-      "extracted_at": "2026-10-04T18:03:16.658460"
+      "extracted_at": "2026-10-05T01:13:59.078094"
     }
   ]
 }

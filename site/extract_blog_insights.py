@@ -45,6 +45,9 @@ class BlogInsightsExtractor:
         # Handle both string and list inputs
         if isinstance(content, list):
             content = '\n'.join(content)
+        # Ensure content is a string
+        if not isinstance(content, str):
+            content = str(content)
         lines = content.split('\n')
 
         # Find frontmatter boundaries

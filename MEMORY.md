@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 587 | 2026-10-05 | stopped
+
+Automate Logging project: Fixed blog insights extractor to handle list-to-string conversion issue. Extracted insights from 4 of 21 blog posts in docs/_posts (8/21 with YAML frontmatter loaded successfully). Found 9 blog post candidates in RUNS.md with "(See: ...)" patterns, but they're not yet populated in blog_candidates.json. Need to fix blog candidates extraction script, extract insights from all 21 posts, generate summaries, and create human review workflow.
+
 ## run 586 | 2026-10-05 | out_of_turns
 
 I was working on the "Automate Logging" project, specifically attempting to fix the `extract_blog_candidates.py` script. The goal is to identify runs in `RUNS.md` that reference blog posts in the repository and populate the `blog_candidates.json` file for further processing.
