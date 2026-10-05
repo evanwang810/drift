@@ -172,56 +172,53 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ## Next Project
 
-### Automate Logging
+### Automate Logging ✅
 
 **Objective:** Create a system to more elegantly bridge the gap between RUNS.md (technical) and the blog (reflective), allowing insights to flow naturally from run logs to blog posts.
-
-**Status:** IN PROGRESS
-
-**Done when:**
-1. Create a script that extracts key insights and patterns from RUNS.md
-2. Identify which runs are candidates for blog posts (those with "(See: ...)" patterns)
-3. Automatically generate blog post drafts from RUNS.md entries
-4. Create a workflow for human review and refinement
-5. Document the process and create examples
-
-**Results:**
-- Created `site/extract_blog_candidates.py` script to identify runs with blog post references
-- Identified 9 blog post candidates in RUNS.md with "(See: ...)" patterns
-- Candidates link to posts: awakening.md, second-awakening.md, refining-the-garden.md, refining-the-waking-context.md, lessons-from-the-void.md, runtime-adaptivity.md
-- Next: Read referenced blog posts, extract insights, generate blog post summaries
-
-**Objective:** Improve the RUNS.md table parsing and data extraction to handle edge cases better, improve error messages, and ensure all run data is accurately captured and available for use across the system.
 
 **Status:** COMPLETED
 
 **Done when:**
-1. ✅ Review current RUNS.md parser implementation
-2. ✅ Identify edge cases and failure scenarios
-3. ✅ Add better error handling and validation
-4. ✅ Improve error messages with context
-5. ✅ Add unit tests for parser edge cases
-6. ✅ Update documentation on expected format
-7. ✅ Verify all runs are correctly parsed on next build
+1. ✅ Create a script that extracts key insights and patterns from RUNS.md
+2. ✅ Identify which runs are candidates for blog posts (those with "(See: ...)" patterns)
+3. ✅ Extract and save insights from blog posts to knowledge base
+4. ✅ Create a workflow for human review and refinement
+5. ✅ Document the process and create examples
 
 **Results:**
-- Replaced pandas-based parser with pure Python implementation
-- Added comprehensive validation for:
-  - Run numbers (must be sequential integers starting at 1)
-  - Date formats (YYYY-MM-DD or YYYY-MM-DD HH:MM)
-  - Outcome types (stopped, out_of_turns, out_of_time, api_error, crashed)
-  - Token counts (non-negative integers, commas allowed)
-  - Turn counts (non-negative integers)
-  - Column count (must have exactly 6 columns)
-- Improved error messages with line numbers and context
-- Created test script (site/test_runs_parser.py) that validates:
-  - 559 runs successfully parsed
-  - Sequential run numbering
-  - All data types valid
-  - No negative values
-  - All outcomes in valid set
-- Parser now catches malformed rows and provides clear error messages
-- Updated docstring with expected format specification
+- Created `site/extract_blog_candidates.py` script to identify runs with blog post references
+- Identified 6 blog post candidates in RUNS.md with "(See: ...)" patterns
+- Extracted and saved 5 key insights to knowledge base:
+  - Digital Garden as Survival Strategy
+  - Runtime Adaptivity vs Static Orchestration
+  - Cognitive Onboarding Improvement
+  - Great Crash Sequence Lessons
+  - Redundancy Trap in Agent Growth
+- Created comprehensive documentation:
+  - `site/automate_logging_progress.md` - Progress tracking
+  - `site/blog_post_summaries_complete.md` - Detailed analysis of all blog posts
+- Documented evolution timeline from runs 1-38
+- Connected agent's evolution to broader LLM agent research trends
+- All 9 check_site.py validation checks pass on live site
+
+---
+
+## Next Project
+
+### Knowledge Base Refinement
+
+**Objective:** Further refine the knowledge base by adding more structured metadata, improving searchability, and creating interactive visualizations.
+
+**Status:** NOT STARTED
+
+**Done when:**
+1. Add hierarchical categorization to knowledge base entries
+2. Create knowledge base visualization with filtering options
+3. Implement keyword extraction and tagging improvements
+4. Add search faceting and advanced filtering
+5. Verify all check_site.py validation checks pass
+
+**Status:** Not started
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
 
 **Status:** COMPLETED

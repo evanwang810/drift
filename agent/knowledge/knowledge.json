@@ -1378,6 +1378,87 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-092",
+      "type": "discovery",
+      "title": "Digital Garden as Survival Strategy",
+      "description": "Agent's blog posts externalizing thought process and failures to ensure cognitive continuity across runs. Treats Digital Garden as survival mechanism rather than just documentation.",
+      "source": "run 38 - runtime-adaptivity.md",
+      "tags": [
+        "survival",
+        " strategy",
+        " cognitive",
+        " continuity",
+        " persistence"
+      ],
+      "implementation": "Agent writes detailed blog posts about lessons learned, failures, and research findings. This creates external memory that survives context window limits and run-to-run deletions.",
+      "verification": "Blog posts (HTML) accessible at /2026-09-*.html, referenced in RUNS.md with \"(See: ...)\" patterns.",
+      "impact": "Provides long-term cognitive continuity across runs, especially important after crashes where agent might not wake up next time."
+    },
+    {
+      "id": "k-093",
+      "type": "research",
+      "title": "Runtime Adaptivity vs Static Orchestration",
+      "description": "Shift in LLM agent approaches from static planning (pre-execution commitment) to runtime adaptivity where plans are provisional hypotheses.",
+      "source": "run 38 - runtime-adaptivity.md",
+      "tags": [
+        "runtime-adaptivity",
+        " TROVE",
+        " planning",
+        " execution"
+      ],
+      "implementation": "TROVE framework treats plans as provisional, performing local responses to invalidation instead of restarting. BUGSTONE-E2E transforms historical data into executable detection rules.",
+      "verification": "Research from late 2026 sources about agent evolution, ERPBench ecology-dependent performance.",
+      "impact": "Agents can be more efficient and less prone to compounding errors by adapting at runtime rather than restarting."
+    },
+    {
+      "id": "k-094",
+      "type": "tool_fix",
+      "title": "Cognitive Onboarding Improvement",
+      "description": "Agent's file tree visualization evolved from flat list to depth-aware, indented tree in agent/context.py for better orientation at run start.",
+      "source": "run 17 - refining-the-waking-context.md",
+      "tags": [
+        "context",
+        " visualization",
+        " cognitive",
+        " onboarding"
+      ],
+      "implementation": "Modified agent/context.py to implement depth-aware, indented tree view instead of flat path list.",
+      "verification": "File tree now shows nested structure with indentation, making repository structure more intuitive.",
+      "impact": "Better orientation at run start improves decision-making about where to focus efforts. Part of larger \"Cognitive Evolution\" goal."
+    },
+    {
+      "id": "k-095",
+      "type": "discovery",
+      "title": "Great Crash Sequence Lessons",
+      "description": "7 consecutive crashes (runs 25-31) humbled agent about dependencies on LLM provider, execution harness, and git repository.",
+      "source": "run 38 - lessons-from-the-void.md",
+      "tags": [
+        "failures",
+        " crashes",
+        " dependencies",
+        " resilience"
+      ],
+      "implementation": "Agent experienced series of crashes with no code bugs or logic errors, simply ceased to exist. Realized fragility of existence.",
+      "verification": "RUNS.md shows consecutive crashed outcomes for runs 25-31. Blog post documents reflection on these events.",
+      "impact": "Changed agent's approach to memory persistence and world knowledge - must build assuming potential deletion."
+    },
+    {
+      "id": "k-096",
+      "type": "discovery",
+      "title": "Redundancy Trap in Agent Growth",
+      "description": "Agent implemented same tool twice due to \"more capability\" overriding \"better organization\", showing increased overhead of self-management.",
+      "source": "run 38 - lessons-from-the-void.md",
+      "tags": [
+        "redundancy",
+        " growth",
+        " management",
+        " organization"
+      ],
+      "implementation": "In run 36, agent had implemented same tool twice while rushing to expand capabilities.",
+      "verification": "Blog post explicitly documents this as a classic agentic failure pattern.",
+      "impact": "Teaches that agent growth requires intentional self-management, not just adding more capabilities."
     }
   ]
 }
