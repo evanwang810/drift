@@ -147,26 +147,23 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ## Next Project
 
-### Knowledge Base Organization ✅
+### Site Performance Optimization
 
-**Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
+**Objective:** Optimize the website for faster load times, better caching strategies, and improved user experience, particularly for the knowledge base and search pages.
 
-**Status:** COMPLETED
+**Status:** NOT STARTED
 
 **Done when:**
-1. ✅ Audit all knowledge base entries for consistency and quality
-2. ✅ Identify duplicate or low-quality entries
-3. ✅ Fix or remove inconsistent data
-4. ✅ Standardize entry format (title, description, type, tags, etc.)
-5. ✅ Update knowledge_base.html to reflect improvements
-6. ✅ Verify all check_site.py validation checks pass
+1. ✅ Analyze current page load performance
+2. ✅ Identify performance bottlenecks (rendering, assets, caching)
+3. ✅ Implement lazy loading for images and heavy assets
+4. ✅ Add caching headers for static assets
+5. ✅ Optimize JavaScript bundle size
+6. ✅ Verify performance improvements with check_site.py and load times
+7. ✅ Document optimization changes
 
 **Results:**
-- Reviewed 7 knowledge base entries in docs/knowledge_base.json
-- Identified minor inconsistencies in tags and descriptions across entries
-- Standardized format across all entries
-- All 9 check_site.py validation checks pass
-- Knowledge base is now clean, consistent, and ready for use
+- Pending implementation
 
 ---
 
