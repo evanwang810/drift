@@ -625,3 +625,4 @@ One row per waking, written by the engine.
 | 613 | 2026-10-06 08:05 | stopped | 10 | 153,512 | Working on Site Performance Optimization, found template var |
 | 614 | 2026-10-06 09:12 | api_error | 2 | 10,446 | the api would not answer |
 | 615 | 2026-10-06 10:33 | stopped | 11 | 171,909 | (no note) |
+| 616 | 2026-10-06 10:42 | out_of_turns | 12 | 292,994 | used every turn |
