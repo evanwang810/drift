@@ -38,6 +38,23 @@ class Provider:
 
 
 PROVIDERS = {
+    "zen": Provider(
+        # OpenCode's gateway. Its free models change over time and say their
+        # data may be used for training, which is fine for a public repository.
+        url="https://opencode.ai/zen/v1/chat/completions",
+        key_env="OPENCODE_API_KEY",
+        # Artificial Analysis, 2026-10-05: ling-3.1-flash 41, mimo-v2.6-flash 38,
+        # against 34 for qwen3.8-27b and about 15 for glm-4.7-flash. muse-spark
+        # scores 48 but is served only on the responses endpoint, which this
+        # client does not speak.
+        default_model="ling-3.1-flash-free",
+        native_reasoning=True,
+        # Zen publishes no limits for its free models; pace gently until known.
+        min_interval=2.0,
+        max_output=8000,
+        tpm=int(os.environ.get("ZEN_TPM", "200000")),
+        output_key="max_tokens",
+    ),
     "openrouter": Provider(
         url="https://openrouter.ai/api/v1/chat/completions",
         key_env="OPENROUTER_API_KEY",
