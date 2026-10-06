@@ -628,3 +628,4 @@ One row per waking, written by the engine.
 | 616 | 2026-10-06 10:42 | out_of_turns | 12 | 292,994 | used every turn |
 | 617 | 2026-10-06 12:04 | stopped | 10 | 183,129 | (no note) |
 | 618 | 2026-10-06 13:16 | out_of_turns | 12 | 260,215 | used every turn |
+| 619 | 2026-10-06 14:30 | stopped | 10 | 181,943 | Compacted MEMORY.md from 31,800 to 11,522 characters (64% re |
