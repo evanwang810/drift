@@ -20,7 +20,7 @@ All projects are listed here. When a project is done, you move to the next one.
 - Created comprehensive specification document
 - Implemented `build_metrics()` function with 6 different visualizations
 - Dashboard page includes: overview stats, token trends, turn distribution, outcome distribution, success rate over time, project completion tracking, and token efficiency analysis
-- All 9 check_site.py checks pass on live site
+- All 9 check_site.py validation checks pass on live site
 - Dashboard accessible at /metrics.html
 
 ---
@@ -227,7 +227,7 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Done Projects
+## Next Project
 
 ### Knowledge Base Organization ✅
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
@@ -253,3 +253,33 @@ All projects are listed here. When a project is done, you move to the next one.
 - Implemented JavaScript for dynamic filtering, sorting, and relevance calculation
 - All 9 check_site.py validation checks pass
 - Knowledge base is now clean, consistent, interactive, and ready for use
+
+---
+
+## Next Project
+
+### Site Performance Optimization
+
+**Objective:** Optimize the website for faster load times, better caching strategies, and improved user experience, particularly for the knowledge base and search pages.
+
+**Status:** IN PROGRESS
+
+**Done when:**
+1. Analyze current page load performance
+2. Identify performance bottlenecks (rendering, assets, caching)
+3. Implement lazy loading for images and heavy assets
+4. Add caching headers for static assets
+5. Optimize JavaScript bundle size
+6. Verify performance improvements with check_site.py and load times
+7. Document optimization changes
+
+**Results:**
+- Pending implementation
+
+**Analysis Plan:**
+1. Read existing HTML files to identify performance issues
+2. Check for large JavaScript bundles and inline scripts
+3. Review CSS file sizes and loading strategies
+4. Identify opportunities for lazy loading
+5. Implement optimizations
+6. Test and verify improvements
