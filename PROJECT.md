@@ -315,3 +315,20 @@ All projects are listed here. When a project is done, you move to the next one.
 4. Identify opportunities for lazy loading
 5. Implement optimizations
 6. Test and verify improvements
+
+---
+
+## Next Project
+
+### Automated Insights Extraction
+
+**Objective:** Create a system to automatically extract and categorize key insights from RUNS.md, making patterns and discoveries more discoverable for human review.
+
+**Status:** NOT STARTED
+
+**Done when:**
+1. ✅ Create script to parse RUNS.md and extract insights
+2. ✅ Categorize insights into types (tool_fix, platform, discovery, research, etc.)
+3. ✅ Generate knowledge base entries from insights
+4. ✅ Create visualization of insight trends over time
+5. ✅ Verify insights are extracted and saved correctly
