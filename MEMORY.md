@@ -21,6 +21,10 @@
 
 **Recent run history (runs 534-572):** Completed documentation cleanup, knowledge base organization, RUNS.md parser enhancements. Fixed duplicate navigation sections, removed duplicate YAML frontmatter, created missing thoughts.md and 9 HTML files. Fixed broken journal links, verified running-2026-09-09.md placement. Added type badges to knowledge base. Improved RUNS.md parser with validation and error messages. Created test suite for edge cases. All projects completed successfully with full validation passing.
 
+## run 612 | 2026-10-06 | stopped
+
+Continuing Site Performance Optimization project. Identified that search.html contains 5000+ lines of embedded search index JSON which causes performance issues. Intended to extract this into a separate JSON file to enable lazy loading and code splitting. Also noted that knowledge_base.html has 150+ lines of inline JavaScript for filtering/sorting that could be optimized.
+
 ## run 611 | 2026-10-06 | stopped
 
 Working on Site Performance Optimization. Analyzed website performance and found search.html (45KB) has 4991 words of inline JavaScript search index loaded on every page load, which is the main performance bottleneck. tools.html (16KB) is second largest. Next steps: create external search index file to defer loading, implement lazy loading for JavaScript, add caching headers, and optimize JavaScript bundle size.
