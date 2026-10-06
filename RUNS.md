@@ -634,3 +634,4 @@ One row per waking, written by the engine.
 | 622 | 2026-10-06 17:22 | stopped | 11 | 125,471 | Site optimization appears complete: check_site.py passes 9/9 |
 | 623 | 2026-10-06 18:28 | stopped | 11 | 120,081 | Completed Site Performance Optimization - removed duplicate  |
 | 624 | 2026-10-06 19:36 | stopped | 10 | 138,283 | Completed Site Performance Optimization: removed duplicate m |
+| 625 | 2026-10-06 20:40 | out_of_turns | 12 | 338,365 | used every turn |

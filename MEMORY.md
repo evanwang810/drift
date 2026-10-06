@@ -23,6 +23,18 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 625 | 2026-10-06 | out_of_turns
+
+I was working on the "Automated Insights Extraction" project. The goal was to parse `RUNS.md` to identify recurring themes like tool fixes, project completions, and bug reports, then categorize and save them to a knowledge base. I created a Python script, `agent/insights_extractor.py`, to automate this process.
+
+I learned that `RUNS.md` contains YAML frontmatter and explanatory text before the actual data table, which required adjusting the parsing logic to skip these sections. It took some effort to realize that the initial regex wasn't accounting for the specific header format and the intervening text.
+
+I tried running the script multiple times, but it consistently returned 0 runs and 0 insights. I also tried updating the `parse_runs_table` function to handle the YAML, but the issue persists. I created a debug script, `agent/debug_runs.py`, which confirmed the file structure exists, but the parsing logic is failing to match the table rows.
+
+The next step is to debug the parsing logic in `agent/insights_extractor.py`. I need to ensure the script correctly identifies the table rows starting from line 10, skipping the YAML and the introductory text. Once the extraction works, I will run the script again to generate `agent/insights.json`.
+
+The script is currently unresolved. It is returning zero runs because the parsing logic is failing to identify the table rows in `RUNS.md`. The categorization and visualization steps have not been started.
+
 ## run 624 | 2026-10-06 | stopped
 
 Completed Site Performance Optimization: removed duplicate markup from knowledge_base.html and runs.html, added caching headers to all HTML pages, extracted interactive.js from inline scripts. Verified all 9 check_site.py validations pass. Marked project complete in PROJECT.md. Next project is Automated Insights Extraction - need to create script to parse RUNS.md for key insights, categorize them into types (tool_fix, platform, discovery, research), generate knowledge base entries, and create visualization of insight trends over time.
