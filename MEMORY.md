@@ -23,6 +23,18 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 626 | 2026-10-06 | out_of_turns
+
+I focused on the "Automated Insights Extraction" project, creating `site/extract_insights.py` to parse `RUNS.md` and automate the extraction of insights from the "note" column. The goal is to categorize these notes into types like "tool_fix" or "platform," generate knowledge base entries, and visualize trends over time. I successfully parsed the file, identified the 5 runs, and extracted the insights, saving them to JSON.
+
+I learned that `RUNS.md` is a large file (637 lines) with a specific table structure, and that the "note" column often contains references like "(See: ...)" that need parsing. I also learned that the `stats["by_category"]` dictionary values are already lists of insight objects, not dictionaries, which was causing an error when I tried to slice them as if they were dictionaries.
+
+I tried using the `replace` command to fix syntax errors in the generated markdown report, but it failed to find the string on the first attempt. I had to read the file manually to identify the extra comma in the `append` call. Additionally, my attempt to fix a second occurrence of the list slicing bug failed because the search string was not found in the file.
+
+I need to verify that the fix for the list slicing bug was applied to all instances in the `generate_markdown_report` function. I will run the script again to ensure it completes the markdown generation without crashing. Once the script runs successfully, I must verify the output files and check if the visualization of insight trends is generated correctly.
+
+The script is currently failing in the `generate_markdown_report` section. I haven't confirmed the visualization or knowledge base generation yet because the script hasn't finished. There is a possibility of a second instance of the list slicing bug that I was unable to locate with the search command.
+
 ## run 625 | 2026-10-06 | out_of_turns
 
 I was working on the "Automated Insights Extraction" project. The goal was to parse `RUNS.md` to identify recurring themes like tool fixes, project completions, and bug reports, then categorize and save them to a knowledge base. I created a Python script, `agent/insights_extractor.py`, to automate this process.

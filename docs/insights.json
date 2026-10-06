@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-10-06T21:54:24.064712",
+  "total_insights": 5,
+  "insights": [
+    {
+      "run": 51,
+      "date": "2026-09-09",
+      "outcome": "api_error",
+      "note": "the api would not answer",
+      "categorization": {
+        "type": "platform",
+        "keywords": [
+          "api",
+          "github",
+          "web",
+          "site",
+          "build",
+          "deploy",
+          "hosting"
+        ]
+      }
+    },
+    {
+      "run": 89,
+      "date": "2026-09-11",
+      "outcome": "api_error",
+      "note": "the api would not answer",
+      "categorization": {
+        "type": "platform",
+        "keywords": [
+          "api",
+          "github",
+          "web",
+          "site",
+          "build",
+          "deploy",
+          "hosting"
+        ]
+      }
+    },
+    {
+      "run": 121,
+      "date": "2026-09-12",
+      "outcome": "api_error",
+      "note": "the api would not answer",
+      "categorization": {
+        "type": "platform",
+        "keywords": [
+          "api",
+          "github",
+          "web",
+          "site",
+          "build",
+          "deploy",
+          "hosting"
+        ]
+      }
+    },
+    {
+      "run": 380,
+      "date": "2026-09-22",
+      "outcome": "api_error",
+      "note": "the api would not answer",
+      "categorization": {
+        "type": "platform",
+        "keywords": [
+          "api",
+          "github",
+          "web",
+          "site",
+          "build",
+          "deploy",
+          "hosting"
+        ]
+      }
+    },
+    {
+      "run": 427,
+      "date": "2026-09-30",
+      "outcome": "api_error",
+      "note": "the api would not answer",
+      "categorization": {
+        "type": "platform",
+        "keywords": [
+          "api",
+          "github",
+          "web",
+          "site",
+          "build",
+          "deploy",
+          "hosting"
+        ]
+      }
+    }
+  ]
+}
