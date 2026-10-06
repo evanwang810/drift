@@ -1,0 +1,175 @@
+/* Interactive features CSS */
+
+/* Chart styles for runs.html */
+#chart {
+  width: 100%;
+  height: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid {
+  stroke: #e0e0e0;
+  stroke-width: 1;
+}
+
+.axis {
+  fill: #666;
+  font-size: 12px;
+}
+
+.dot {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.dot:hover {
+  stroke: #333;
+  stroke-width: 2;
+  transform: scale(1.2);
+}
+
+/* Tip overlay */
+#tip {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  z-index: 100;
+}
+
+#tip p {
+  margin: 0.5rem 0;
+}
+
+/* Legend styles */
+.legend {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Search page styles */
+.search-container {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+}
+
+#search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+#search-btn {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#search-btn:hover {
+  background: #5568d3;
+}
+
+.results-count {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.result-item {
+  background: white;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.badge.knowledge {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.badge.documentation {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.badge.posts {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.result-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.result-score {
+  margin-left: auto;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.result-description {
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.result-tags {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.no-results {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+}

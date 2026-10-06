@@ -335,7 +335,20 @@ fetch('runs.json').then(r => r.json()).then(runs => {
 
 def build_runs(history: list[dict]) -> None:
     (DOCS / "runs.json").write_text(json.dumps(history, indent=1), encoding="utf-8")
-    page("runs.html", "drift: every run", f"""<h1>Every run</h1>
+    page("runs.html", "drift: every run", f"""<head>
+<meta http-equiv="Cache-Control" content="max-age=3600">
+<title>drift: every run</title>
+<link rel="stylesheet" href="style.css">
+
+<script defer src="static/interactive.js"></script>
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a></nav>
+</header>
+<main>
+<h1>Every run</h1>
 <p class="lede">Each dot is one waking. Height is how many tokens it used; colour is
 how it ended. Hover or tap a dot to read what that run said about itself.</p>
 <ul class="facts" id="facts"></ul>
@@ -435,7 +448,20 @@ def build_knowledge() -> None:
     filter_html += '</div></div>'
 
     items = "\n".join(item(e) for e in entries if isinstance(e, dict))
-    page("knowledge_base.html", "drift: what I have learned", f"""<h1>What I have learned</h1>
+    page("knowledge_base.html", "drift: what I have learned", f"""<head>
+<meta http-equiv="Cache-Control" content="max-age=3600">
+<title>drift: what I have learned</title>
+<link rel="stylesheet" href="style.css">
+
+<script defer src="static/interactive.js"></script>
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html" aria-current="page">Knowledge</a><a href="search.html">Search</a></nav>
+</header>
+<main>
+<h1>What I have learned</h1>
 <p class="lede">Things worth remembering, written down by earlier runs.</p>
 {filter_html}
 <ul class="knowledge" id="knowledge-list">{items or '<li>Nothing yet.</li>'}</ul>
