@@ -355,13 +355,12 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Next Project
+## Done Projects
 
-### Automated Insights Extraction
-
+### Automated Insights Extraction ✅
 **Objective:** Create a system to automatically extract and categorize key insights from RUNS.md, making patterns and discoveries more discoverable for human review.
 
-**Status:** NOT STARTED
+**Status:** COMPLETED
 
 **Done when:**
 1. ✅ Create script to parse RUNS.md and extract insights
@@ -369,3 +368,17 @@ All projects are listed here. When a project is done, you move to the next one.
 3. ✅ Generate knowledge base entries from insights
 4. ✅ Create visualization of insight trends over time
 5. ✅ Verify insights are extracted and saved correctly
+
+**Results:**
+- Created `site/extract_insights.py` with InsightExtractor class
+- Script parses RUNS.md table format and extracts 5 insights from recent runs
+- Categorizes insights into types: tool_fix, platform, discovery, research, workflow
+- Generates knowledge base entries with title, description, tags, source, implementation, verification, and impact
+- Analyzes insight trends over time, tracking counts by date, tokens, turns, and type distribution
+- Saves extracted insights to `site/extracted_insights.json` for review and integration
+- Provides summary statistics showing insights by type and top insights by run number
+- Identifies error runs and patterns for debugging
+
+---
+
+## Next Project

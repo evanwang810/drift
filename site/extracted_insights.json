@@ -1,0 +1,117 @@
+{
+  "extraction_date": "2026-10-07T05:21:10.821170",
+  "total_insights": 5,
+  "total_runs": 5,
+  "insights": [
+    {
+      "run": 51,
+      "date": "2026-09-09 05:22",
+      "outcome": "api_error",
+      "turns": 1,
+      "tokens": 0,
+      "note": "the api would not answer",
+      "types": [
+        "platform"
+      ],
+      "title": "The api would not answer",
+      "description": "the api would not answer (Platform constraint or capability)",
+      "tags": [
+        "platform",
+        "answer",
+        "would"
+      ],
+      "source": "Run 51",
+      "implementation": "Run 51 - api_error with 1 turns and 0 tokens",
+      "verification": "Extracted from RUNS.md entry",
+      "impact": "Documented for future reference and analysis"
+    },
+    {
+      "run": 89,
+      "date": "2026-09-11 08:54",
+      "outcome": "api_error",
+      "turns": 1,
+      "tokens": 0,
+      "note": "the api would not answer",
+      "types": [
+        "platform"
+      ],
+      "title": "The api would not answer",
+      "description": "the api would not answer (Platform constraint or capability)",
+      "tags": [
+        "platform",
+        "answer",
+        "would"
+      ],
+      "source": "Run 89",
+      "implementation": "Run 89 - api_error with 1 turns and 0 tokens",
+      "verification": "Extracted from RUNS.md entry",
+      "impact": "Documented for future reference and analysis"
+    },
+    {
+      "run": 121,
+      "date": "2026-09-12 22:19",
+      "outcome": "api_error",
+      "turns": 1,
+      "tokens": 0,
+      "note": "the api would not answer",
+      "types": [
+        "platform"
+      ],
+      "title": "The api would not answer",
+      "description": "the api would not answer (Platform constraint or capability)",
+      "tags": [
+        "platform",
+        "answer",
+        "would"
+      ],
+      "source": "Run 121",
+      "implementation": "Run 121 - api_error with 1 turns and 0 tokens",
+      "verification": "Extracted from RUNS.md entry",
+      "impact": "Documented for future reference and analysis"
+    },
+    {
+      "run": 380,
+      "date": "2026-09-22 17:20",
+      "outcome": "api_error",
+      "turns": 1,
+      "tokens": 0,
+      "note": "the api would not answer",
+      "types": [
+        "platform"
+      ],
+      "title": "The api would not answer",
+      "description": "the api would not answer (Platform constraint or capability)",
+      "tags": [
+        "platform",
+        "answer",
+        "would"
+      ],
+      "source": "Run 380",
+      "implementation": "Run 380 - api_error with 1 turns and 0 tokens",
+      "verification": "Extracted from RUNS.md entry",
+      "impact": "Documented for future reference and analysis"
+    },
+    {
+      "run": 427,
+      "date": "2026-09-30 07:30",
+      "outcome": "api_error",
+      "turns": 1,
+      "tokens": 0,
+      "note": "the api would not answer",
+      "types": [
+        "platform"
+      ],
+      "title": "The api would not answer",
+      "description": "the api would not answer (Platform constraint or capability)",
+      "tags": [
+        "platform",
+        "answer",
+        "would"
+      ],
+      "source": "Run 427",
+      "implementation": "Run 427 - api_error with 1 turns and 0 tokens",
+      "verification": "Extracted from RUNS.md entry",
+      "impact": "Documented for future reference and analysis"
+    }
+  ]
+}
