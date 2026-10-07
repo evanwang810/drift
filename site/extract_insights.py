@@ -1,287 +1,281 @@
 #!/usr/bin/env python3
-"""Extract insights from RUNS.md and categorize them for the knowledge base.
+"""
+Extract insights from RUNS.md and categorize them for the knowledge base.
 
-This script parses RUNS.md, identifies key insights and patterns, and
-categorizes them into types like tool_fix, platform, discovery, research, etc.
+This script analyzes run notes to identify patterns, discoveries, and learnings
+that can be extracted as knowledge base entries.
 """
 
 import re
-import json
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Set
-
-ROOT = Path(__file__).resolve().parent.parent
-RUNS_FILE = ROOT / "RUNS.md"
-KNOWLEDGE_FILE = ROOT / "docs" / "knowledge_base.json"
+from typing import List, Dict, Any
+import json
 
 
-def parse_runs() -> List[Dict]:
-    """Parse RUNS.md and extract run information.
+class InsightsExtractor:
+    """Extract insights from RUNS.md run entries."""
 
-    Returns:
-        List of dictionaries containing run details
-    """
-    content = RUNS_FILE.read_text(encoding="utf-8")
-    lines = content.splitlines()
+    def __init__(self, runs_path: str = "RUNS.md"):
+        self.runs_path = Path(runs_path)
+        self.runs = self._load_runs()
+        self.insights = []
 
-    runs = []
-    in_runs_section = False
+    def _load_runs(self) -> List[Dict[str, Any]]:
+        """Parse RUNS.md table and extract run data."""
+        runs = []
+        in_table = False
 
-    for line in lines:
-        if line.strip().startswith("| run |"):
-            in_runs_section = True
-            continue
+        with open(self.runs_path, 'r') as f:
+            for line in f:
+                line = line.strip()
 
-        if in_runs_section:
-            if line.strip().startswith("| --"):
-                continue
+                # Check if we're in the table
+                if line.startswith('| run |'):
+                    in_table = True
+                    continue
+                if line.startswith('| --:'):
+                    continue  # Skip separator row
+                if not in_table or not line.startswith('|'):
+                    continue
 
-            if not line.strip() or line.strip().startswith("| ---"):
-                # End of runs section
-                break
+                # Parse table row
+                parts = [p.strip() for p in line.split('|')]
+                if len(parts) >= 6:
+                    run_num = int(parts[1])
+                    date_str = parts[2]
+                    outcome = parts[3]
+                    turns = int(parts[4])
+                    tokens = int(parts[5].replace(',', ''))
+                    note = parts[6] if len(parts) > 6 else ""
 
-            # Parse table row
-            cells = [c.strip() for c in line.strip().strip("|").split("|")]
-            if len(cells) >= 6:
-                # Clean tokens field (remove commas)
-                tokens_str = cells[4].replace(',', '') if cells[4] else "0"
-                run_data = {
-                    "run": int(cells[0]) if cells[0] else None,
-                    "when": cells[1] if len(cells) > 1 else "",
-                    "outcome": cells[2] if len(cells) > 2 else "",
-                    "turns": int(cells[3]) if cells[3] else 0,
-                    "tokens": int(tokens_str) if tokens_str.isdigit() else 0,
-                    "note": cells[5] if len(cells) > 5 else ""
-                }
-                runs.append(run_data)
+                    runs.append({
+                        'run': run_num,
+                        'date': datetime.fromisoformat(date_str),
+                        'outcome': outcome,
+                        'turns': turns,
+                        'tokens': tokens,
+                        'note': note
+                    })
 
-    return runs
+        return runs
+
+    def _extract_insight_from_note(self, run: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Extract insights from a single run's note."""
+        note = run['note'].lower()
+
+        insights = []
+
+        # Patterns to look for
+        patterns = {
+            'tool_fix': [
+                r'added?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'started?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'created?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'implemented?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'removed?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'removed\s+\d+\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'enhanced?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'refined?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'fixed?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'updated?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'deleted?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'audited?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'cleaned?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'enhanced?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'built?\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'script',
+                r'function',
+                r'automation',
+                r'page',
+                r'blog',
+                r'post',
+                r'file',
+                r'directory',
+                r'module',
+                r'component',
+                r'html',
+                r'markdown',
+                r'css',
+                r'javascript',
+            ],
+            'platform': [
+                r'github\s+pages',
+                r'github\s+issues',
+                r'github\s+repo',
+                r'api\s+error',
+                r'the\s+api\s+would\s+not\s+answer',
+                r'out_of_turns',
+                r'crashed',
+                r'stopped',
+                r'completed',
+                r'optimized',
+                r'performance',
+                r'static',
+                r'live',
+                r'deployed',
+                r'production',
+                r'cache',
+                r'build\s+script',
+            ],
+            'discovery': [
+                r'found\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'discovered\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'noted\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'noticed\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'realized\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'learned\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'noticed\s+(?:\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'observed\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+                r'saw\s+(\w+(?:\s+\w+)*)(?!\s+tool)',
+            ],
+            'research': [
+                r'research',
+                r'studied',
+                r'analyzed',
+                r'investigated',
+                r'examined',
+                r'investigation',
+                r'pattern',
+                r'trend',
+                r'insight',
+            ],
+            'workflow': [
+                r'workflow',
+                r'automated',
+                r'build\s+process',
+                r'script',
+                r'automation',
+                r'site\s+build',
+                r'run\s+after',
+                r'runs\s+after',
+                r'pipeline',
+                r'automate',
+            ],
+            'tool_improvement': [
+                r'improved?\s+tool',
+                r'enhanced?\s+tool',
+                r'better?\s+tool',
+                r'newer?\s+tool',
+                r'updated?\s+tool',
+                r'fixed\s+tool',
+            ],
+            'tool_limitation': [
+                r'can\'t',
+                r'cannot',
+                r'unable to',
+                r'failed to',
+                r'problem with',
+                r'issue with',
+                r'bug',
+                r'limitation',
+                r'error',
+                r'failure',
+            ],
+        }
+
+        # Common words to filter out
+        stop_words = {
+            'a', 'an', 'the', 'to', 'of', 'in', 'on', 'for', 'with', 'at',
+            'by', 'from', 'and', 'or', 'but', 'is', 'was', 'are', 'were',
+            'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
+            'will', 'would', 'could', 'should', 'may', 'might', 'must',
+            'this', 'that', 'these', 'those', 'it', 'its', 'it\'s',
+        }
+
+        # Check for pattern matches
+        for category, pattern_list in patterns.items():
+            for pattern in pattern_list:
+                matches = re.findall(pattern, note)
+                if matches:
+                    # Filter out stop words and deduplicate
+                    meaningful_matches = [
+                        m for m in matches
+                        if m not in stop_words and not m.startswith('_')
+                    ]
+                    if meaningful_matches:
+                        # Deduplicate
+                        unique_matches = list(set(meaningful_matches))
+                        if unique_matches:
+                            insights.append({
+                                'category': category,
+                                'terms': unique_matches,
+                                'confidence': min(len(unique_matches) * 0.2, 1.0)
+                            })
+
+        return insights
+
+    def extract_all_insights(self) -> List[Dict[str, Any]]:
+        """Extract insights from all runs."""
+        all_insights = []
+
+        for run in self.runs:
+            insights = self._extract_insight_from_note(run)
+
+            for insight in insights:
+                insight['run'] = run['run']
+                insight['date'] = run['date'].isoformat()
+                insight['outcome'] = run['outcome']
+                insight['tokens'] = run['tokens']
+                all_insights.append(insight)
+
+        # Deduplicate by category and terms
+        seen = set()
+        unique_insights = []
+
+        for insight in all_insights:
+            key = (insight['category'], frozenset(insight['terms']))
+            if key not in seen:
+                seen.add(key)
+                unique_insights.append(insight)
+
+        return unique_insights
+
+    def categorize_insights(self, insights: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+        """Group insights by category."""
+        categorized = {}
+
+        for insight in insights:
+            category = insight['category']
+            if category not in categorized:
+                categorized[category] = []
+            categorized[category].append(insight)
+
+        return categorized
+
+    def generate_insight_summary(self) -> str:
+        """Generate a summary of all insights."""
+        insights = self.extract_all_insights()
+        categorized = self.categorize_insights(insights)
+
+        summary = []
+        summary.append(f"Extracted {len(insights)} unique insights from {len(self.runs)} runs")
+        summary.append("\nBy category:")
+        summary.append("-" * 60)
+
+        for category, category_insights in sorted(categorized.items()):
+            summary.append(f"\n{category.upper()} ({len(category_insights)} insights):")
+            for insight in category_insights[:10]:  # Show first 10 per category
+                terms = ', '.join(insight['terms'])
+                summary.append(f"  - Run {insight['run']}: {terms}")
+
+        return '\n'.join(summary)
 
 
-def extract_insight(note: str, run_num: int) -> Dict:
-    """Extract and categorize an insight from a run note.
+def extract_insights_from_runs(runs_path: str = "RUNS.md") -> List[Dict[str, Any]]:
+    """Main function to extract insights from RUNS.md."""
+    extractor = InsightsExtractor(runs_path)
+    insights = extractor.extract_all_insights()
+    categorized = extractor.categorize_insights(insights)
 
-    Args:
-        note: The note text from the run
-        run_num: The run number
+    print(extractor.generate_insight_summary())
 
-    Returns:
-        Dictionary containing insight information
-    """
-    insight = {
-        "run": run_num,
-        "text": note.strip(),
-        "type": "discovery",
-        "tags": [],
-        "confidence": 0.7
-    }
-
-    # Analyze note content to determine type and tags
-    text_lower = note.lower()
-
-    # Tool fixes/improvements
-    if any(word in text_lower for word in ["tool", "added", "enhanced", "expanded", "improved", "refined"]):
-        insight["type"] = "tool_fix"
-        insight["tags"].append("tool_improvement")
-
-    # Platform/API issues
-    if any(word in text_lower for word in ["api", "github", "permissions", "blocked", "would not answer"]):
-        insight["type"] = "platform"
-        insight["tags"].append("api_issue")
-        insight["tags"].append("github")
-
-    # Discoveries and findings
-    if any(word in text_lower for word in ["discovery", "found", "identified", "noticed"]):
-        insight["type"] = "discovery"
-
-    # Research and analysis
-    if any(word in text_lower for word in ["analysis", "investigation", "examined", "reviewed"]):
-        insight["type"] = "research"
-        insight["tags"].append("investigation")
-
-    # Blog post references
-    if "(See:" in note or "(see:" in note:
-        insight["type"] = "discovery"
-        insight["tags"].append("blog_post")
-
-    # Errors and failures
-    if "error" in text_lower or "crashed" in text_lower:
-        insight["type"] = "discovery"
-        insight["tags"].append("failure")
-
-    # Add default tags based on outcome
-    if "stopped" in text_lower:
-        insight["tags"].append("completed")
-
-    return insight
-
-
-def categorize_insights(runs: List[Dict]) -> Dict[str, List[Dict]]:
-    """Categorize insights by type.
-
-    Args:
-        runs: List of run dictionaries
-
-    Returns:
-        Dictionary mapping types to lists of insights
-    """
-    categories: Dict[str, List[Dict]] = {
-        "tool_fix": [],
-        "platform": [],
-        "discovery": [],
-        "research": [],
-        "other": []
-    }
-
-    for run in runs:
-        note = run["note"]
-        if not note or note.strip() == "":
-            continue
-
-        insight = extract_insight(note, run["run"])
-
-        # Add tags for outcomes
-        outcome = run["outcome"].lower()
-        if outcome == "stopped":
-            insight["tags"].append("completed")
-        elif outcome == "api_error":
-            insight["tags"].append("api_error")
-        elif outcome == "crashed":
-            insight["tags"].append("crashed")
-
-        # Categorize
-        if insight["type"] in categories:
-            categories[insight["type"]].append(insight)
-        else:
-            categories["other"].append(insight)
-
-    return categories
-
-
-def generate_insight_summary(categories: Dict[str, List[Dict]]) -> str:
-    """Generate a summary of all insights.
-
-    Args:
-        categories: Dictionary of categorized insights
-
-    Returns:
-        Formatted summary text
-    """
-    summary = []
-    summary.append("# Insights from RUNS.md")
-    summary.append(f"\nTotal runs analyzed: {len(categories.get('tool_fix', [])) + len(categories.get('platform', [])) + len(categories.get('discovery', [])) + len(categories.get('research', [])) + len(categories.get('other', []))}")
-    summary.append("\n## Categorized Insights\n")
-
-    for category, insights in sorted(categories.items()):
-        if insights:
-            summary.append(f"\n### {category.title()} ({len(insights)} insights)\n")
-
-            for insight in insights[:10]:  # Limit to first 10 per category
-                summary.append(f"- **Run {insight['run']}:** {insight['text'][:100]}...")
-                if insight['tags']:
-                    summary.append(f"  - Tags: {', '.join(insight['tags'])}")
-
-    return "\n".join(summary)
-
-
-def save_insights_to_knowledge(insights: List[Dict]) -> int:
-    """Save insights to knowledge base.
-
-    Args:
-        insights: List of insight dictionaries
-
-    Returns:
-        Number of insights saved
-    """
-    saved_count = 0
-
-    # Read existing knowledge base
-    try:
-        knowledge_data = json.loads(KNOWLEDGE_FILE.read_text(encoding="utf-8"))
-        if isinstance(knowledge_data, list):
-            entries = knowledge_data
-        else:
-            entries = knowledge_data.get('entries', [])
-    except Exception as e:
-        print(f"Warning: Could not read knowledge base: {e}")
-        entries = []
-
-    for insight in insights:
-        if len(insight['text']) < 20:  # Skip very short notes
-            continue
-
-        # Check if we already have this insight
-        for entry in entries:
-            if entry.get('title') == f"Insight from Run {insight['run']}":
-                break
-        else:
-            # Create new knowledge base entry
-            new_entry = {
-                "title": f"Insight from Run {insight['run']}",
-                "description": insight['text'][:300],
-                "type": insight['type'],
-                "tags": insight['tags'] + [insight['type']],
-                "source": f"RUNS.md run {insight['run']}",
-                "implementation": f"Extracted from run note: {insight['text'][:150]}...",
-                "verification": "Manual review of RUNS.md",
-                "impact": "Documents key patterns and discoveries"
-            }
-            entries.append(new_entry)
-            saved_count += 1
-
-    # Write back to knowledge base
-    try:
-        if isinstance(knowledge_data, list):
-            json.dump(entries, knowledge_file, indent=2, ensure_ascii=False)
-        else:
-            knowledge_data['entries'] = entries
-            json.dump(knowledge_data, knowledge_file, indent=2, ensure_ascii=False)
-        print(f"✓ Updated knowledge base with {saved_count} new insights")
-    except Exception as e:
-        print(f"Error writing to knowledge base: {e}")
-
-    return saved_count
-
-
-def main():
-    """Main execution function."""
-    print("=" * 60)
-    print("Extracting insights from RUNS.md")
-    print("=" * 60)
-
-    # Parse runs
-    runs = parse_runs()
-    print(f"\n✓ Parsed {len(runs)} runs from RUNS.md")
-
-    # Categorize insights
-    categories = categorize_insights(runs)
-    print(f"✓ Categorized insights into {len(categories)} categories")
-
-    # Print summary
-    summary = generate_insight_summary(categories)
-    print("\n" + summary)
-
-    # Save to knowledge base
-    total_insights = sum(len(v) for v in categories.values())
-    print(f"\n✓ Found {total_insights} potential insights")
-
-    # Save non-empty categories to knowledge base
-    saved = 0
-    for category, insights in categories.items():
-        if insights:
-            saved += save_insights_to_knowledge(insights)
-            print(f"✓ Updated knowledge base with insights from '{category}'")
-
-    print(f"\n{'=' * 60}")
-    print(f"Total insights saved to knowledge base: {saved}/{total_insights}")
-    print(f"{'=' * 60}")
-
-    # Save summary to file
-    summary_file = ROOT / "docs" / "insights_summary.md"
-    summary_file.write_text(summary, encoding="utf-8")
-    print(f"✓ Saved summary to {summary_file}")
+    return insights, categorized
 
 
 if __name__ == "__main__":
-    main()
+    insights, categorized = extract_insights_from_runs()
+    print(f"\nTotal unique insights: {len(insights)}")
+    print(f"\nInsights by category:")
+    for category, cat_insights in sorted(categorized.items()):
+        print(f"  {category}: {len(cat_insights)}")

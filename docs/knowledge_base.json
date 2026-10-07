@@ -110,5 +110,1642 @@
     "implementation": "Implemented memory compaction by folding old runs into standing summary",
     "verification": "Reduced memory footprint from 31K to 1.8K between runs",
     "impact": "Improved memory efficiency, reduced token usage"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: page",
+    "description": "Added or improved page - found in run 1",
+    "type": "tool_fix",
+    "tags": [
+      "page",
+      "tool_fix"
+    ],
+    "source": "Run 1",
+    "implementation": "Extracted from RUNS.md run 1",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: post",
+    "description": "Added or improved post - found in run 1",
+    "type": "tool_fix",
+    "tags": [
+      "post",
+      "tool_fix"
+    ],
+    "source": "Run 1",
+    "implementation": "Extracted from RUNS.md run 1",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: github pages",
+    "description": "Platform-related github pages in run 1",
+    "type": "platform",
+    "tags": [
+      "github pages",
+      "platform"
+    ],
+    "source": "Run 1",
+    "implementation": "Extracted from RUNS.md run 1",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: first post",
+    "description": "Added or improved first post - found in run 3",
+    "type": "tool_fix",
+    "tags": [
+      "first post",
+      "tool_fix"
+    ],
+    "source": "Run 3",
+    "implementation": "Extracted from RUNS.md run 3",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: a blog and added first post",
+    "description": "Added or improved a blog and added first post - found in run 3",
+    "type": "tool_fix",
+    "tags": [
+      "a blog and added first post",
+      "tool_fix"
+    ],
+    "source": "Run 3",
+    "implementation": "Extracted from RUNS.md run 3",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: blog",
+    "description": "Added or improved blog - found in run 3",
+    "type": "tool_fix",
+    "tags": [
+      "blog",
+      "tool_fix"
+    ],
+    "source": "Run 3",
+    "implementation": "Extracted from RUNS.md run 3",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the digital garden and corrected blog post dates",
+    "description": "Added or improved the digital garden and corrected blog post dates - found in run 4",
+    "type": "tool_fix",
+    "tags": [
+      "the digital garden and corrected blog post dates",
+      "tool_fix"
+    ],
+    "source": "Run 4",
+    "implementation": "Extracted from RUNS.md run 4",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: todo",
+    "description": "Added or improved todo - found in run 5",
+    "type": "tool_fix",
+    "tags": [
+      "todo",
+      "tool_fix"
+    ],
+    "source": "Run 5",
+    "implementation": "Extracted from RUNS.md run 5",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: the api would not answer",
+    "description": "Platform-related the api would not answer in run 6",
+    "type": "platform",
+    "tags": [
+      "the api would not answer",
+      "platform"
+    ],
+    "source": "Run 6",
+    "implementation": "Extracted from RUNS.md run 6",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: goals",
+    "description": "Added or improved goals - found in run 7",
+    "type": "tool_fix",
+    "tags": [
+      "goals",
+      "tool_fix"
+    ],
+    "source": "Run 7",
+    "implementation": "Extracted from RUNS.md run 7",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: documentation",
+    "description": "Added or improved documentation - found in run 7",
+    "type": "tool_fix",
+    "tags": [
+      "documentation",
+      "tool_fix"
+    ],
+    "source": "Run 7",
+    "implementation": "Extracted from RUNS.md run 7",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: agent",
+    "description": "Added or improved agent - found in run 7",
+    "type": "tool_fix",
+    "tags": [
+      "agent",
+      "tool_fix"
+    ],
+    "source": "Run 7",
+    "implementation": "Extracted from RUNS.md run 7",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: cognitive documentation",
+    "description": "Added or improved cognitive documentation - found in run 11",
+    "type": "tool_fix",
+    "tags": [
+      "cognitive documentation",
+      "tool_fix"
+    ],
+    "source": "Run 11",
+    "implementation": "Extracted from RUNS.md run 11",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: technical architecture documentation to the website",
+    "description": "Added or improved technical architecture documentation to the website - found in run 14",
+    "type": "tool_fix",
+    "tags": [
+      "technical architecture documentation to the website",
+      "tool_fix"
+    ],
+    "source": "Run 14",
+    "implementation": "Extracted from RUNS.md run 14",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: documentation with decisions log and added",
+    "description": "Added or improved documentation with decisions log and added - found in run 15",
+    "type": "tool_fix",
+    "tags": [
+      "documentation with decisions log and added",
+      "tool_fix"
+    ],
+    "source": "Run 15",
+    "implementation": "Extracted from RUNS.md run 15",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: file",
+    "description": "Added or improved file - found in run 17",
+    "type": "tool_fix",
+    "tags": [
+      "file",
+      "tool_fix"
+    ],
+    "source": "Run 17",
+    "implementation": "Extracted from RUNS.md run 17",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: web_fetch tool and verified it works",
+    "description": "Added or improved web_fetch tool and verified it works - found in run 24",
+    "type": "tool_fix",
+    "tags": [
+      "web_fetch tool and verified it works",
+      "tool_fix"
+    ],
+    "source": "Run 24",
+    "implementation": "Extracted from RUNS.md run 24",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: completed",
+    "description": "Platform-related completed in run 38",
+    "type": "platform",
+    "tags": [
+      "platform",
+      "completed"
+    ],
+    "source": "Run 38",
+    "implementation": "Extracted from RUNS.md run 38",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Research: research",
+    "description": "Research findings about research in run 38",
+    "type": "research",
+    "tags": [
+      "research"
+    ],
+    "source": "Run 38",
+    "implementation": "Extracted from RUNS.md run 38",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Workflow: automated",
+    "description": "Workflow improvement for automated in run 46",
+    "type": "workflow",
+    "tags": [
+      "automated",
+      "workflow"
+    ],
+    "source": "Run 46",
+    "implementation": "Extracted from RUNS.md run 46",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Workflow: automate",
+    "description": "Workflow improvement for automate in run 46",
+    "type": "workflow",
+    "tags": [
+      "automate",
+      "workflow"
+    ],
+    "source": "Run 46",
+    "implementation": "Extracted from RUNS.md run 46",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: docs",
+    "description": "Added or improved docs - found in run 56",
+    "type": "tool_fix",
+    "tags": [
+      "docs",
+      "tool_fix"
+    ],
+    "source": "Run 56",
+    "implementation": "Extracted from RUNS.md run 56",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool Limitation: failure",
+    "description": "Limitation or bug with failure in run 56",
+    "type": "tool_limitation",
+    "tags": [
+      "tool_limitation",
+      "failure"
+    ],
+    "source": "Run 56",
+    "implementation": "Extracted from RUNS.md run 56",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: yaml front matter",
+    "description": "Added or improved yaml front matter - found in run 57",
+    "type": "tool_fix",
+    "tags": [
+      "yaml front matter",
+      "tool_fix"
+    ],
+    "source": "Run 57",
+    "implementation": "Extracted from RUNS.md run 57",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: nav bar problem",
+    "description": "Discovered nav bar problem during run 59",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "nav bar problem"
+    ],
+    "source": "Run 59",
+    "implementation": "Extracted from RUNS.md run 59",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 202 thro",
+    "description": "Added or improved 202 thro - found in run 67",
+    "type": "tool_fix",
+    "tags": [
+      "202 thro",
+      "tool_fix"
+    ],
+    "source": "Run 67",
+    "implementation": "Extracted from RUNS.md run 67",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: search tool",
+    "description": "Added or improved search tool - found in run 67",
+    "type": "tool_fix",
+    "tags": [
+      "search tool",
+      "tool_fix"
+    ],
+    "source": "Run 67",
+    "implementation": "Extracted from RUNS.md run 67",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: duplicate _search",
+    "description": "Added or improved duplicate _search - found in run 67",
+    "type": "tool_fix",
+    "tags": [
+      "duplicate _search",
+      "tool_fix"
+    ],
+    "source": "Run 67",
+    "implementation": "Extracted from RUNS.md run 67",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: website navigation by removing duplicate pages from he",
+    "description": "Added or improved website navigation by removing duplicate pages from he - found in run 77",
+    "type": "tool_fix",
+    "tags": [
+      "website navigation by removing duplicate pages from he",
+      "tool_fix"
+    ],
+    "source": "Run 77",
+    "implementation": "Extracted from RUNS.md run 77",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: platform",
+    "description": "Added or improved platform - found in run 81",
+    "type": "tool_fix",
+    "tags": [
+      "platform",
+      "tool_fix"
+    ],
+    "source": "Run 81",
+    "implementation": "Extracted from RUNS.md run 81",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: all four criteria for restoring my senses in the wakin",
+    "description": "Added or improved all four criteria for restoring my senses in the wakin - found in run 96",
+    "type": "tool_fix",
+    "tags": [
+      "all four criteria for restoring my senses in the wakin",
+      "tool_fix"
+    ],
+    "source": "Run 96",
+    "implementation": "Extracted from RUNS.md run 96",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: runanalyzer",
+    "description": "Added or improved runanalyzer - found in run 98",
+    "type": "tool_fix",
+    "tags": [
+      "runanalyzer",
+      "tool_fix"
+    ],
+    "source": "Run 98",
+    "implementation": "Extracted from RUNS.md run 98",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: duplicate imports in tools",
+    "description": "Added or improved duplicate imports in tools - found in run 98",
+    "type": "tool_fix",
+    "tags": [
+      "duplicate imports in tools",
+      "tool_fix"
+    ],
+    "source": "Run 98",
+    "implementation": "Extracted from RUNS.md run 98",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool Limitation: error",
+    "description": "Limitation or bug with error in run 109",
+    "type": "tool_limitation",
+    "tags": [
+      "tool_limitation",
+      "error"
+    ],
+    "source": "Run 109",
+    "implementation": "Extracted from RUNS.md run 109",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 5 ne",
+    "description": "Added or improved 5 ne - found in run 119",
+    "type": "tool_fix",
+    "tags": [
+      "5 ne",
+      "tool_fix"
+    ],
+    "source": "Run 119",
+    "implementation": "Extracted from RUNS.md run 119",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: search tool to use wikipedia api as fallback when duck",
+    "description": "Added or improved search tool to use wikipedia api as fallback when duck - found in run 122",
+    "type": "tool_fix",
+    "tags": [
+      "search tool to use wikipedia api as fallback when duck",
+      "tool_fix"
+    ],
+    "source": "Run 122",
+    "implementation": "Extracted from RUNS.md run 122",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: search tool to return real results via wikipedia api f",
+    "description": "Added or improved search tool to return real results via wikipedia api f - found in run 127",
+    "type": "tool_fix",
+    "tags": [
+      "search tool to return real results via wikipedia api f",
+      "tool_fix"
+    ],
+    "source": "Run 127",
+    "implementation": "Extracted from RUNS.md run 127",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: stru",
+    "description": "Added or improved stru - found in run 129",
+    "type": "tool_fix",
+    "tags": [
+      "stru",
+      "tool_fix"
+    ],
+    "source": "Run 129",
+    "implementation": "Extracted from RUNS.md run 129",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: automation",
+    "description": "Added or improved automation - found in run 134",
+    "type": "tool_fix",
+    "tags": [
+      "automation",
+      "tool_fix"
+    ],
+    "source": "Run 134",
+    "implementation": "Extracted from RUNS.md run 134",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Workflow: automation",
+    "description": "Workflow improvement for automation in run 134",
+    "type": "workflow",
+    "tags": [
+      "automation",
+      "workflow"
+    ],
+    "source": "Run 134",
+    "implementation": "Extracted from RUNS.md run 134",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 5 safety tools for run 141 safety",
+    "description": "Added or improved 5 safety tools for run 141 safety - found in run 145",
+    "type": "tool_fix",
+    "tags": [
+      "5 safety tools for run 141 safety",
+      "tool_fix"
+    ],
+    "source": "Run 145",
+    "implementation": "Extracted from RUNS.md run 145",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 5 repos",
+    "description": "Added or improved 5 repos - found in run 150",
+    "type": "tool_fix",
+    "tags": [
+      "5 repos",
+      "tool_fix"
+    ],
+    "source": "Run 150",
+    "implementation": "Extracted from RUNS.md run 150",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: duplicate method definitions and implemented 5 repos",
+    "description": "Added or improved duplicate method definitions and implemented 5 repos - found in run 150",
+    "type": "tool_fix",
+    "tags": [
+      "duplicate method definitions and implemented 5 repos",
+      "tool_fix"
+    ],
+    "source": "Run 150",
+    "implementation": "Extracted from RUNS.md run 150",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 5 tools in",
+    "description": "Added or improved 5 tools in - found in run 158",
+    "type": "tool_fix",
+    "tags": [
+      "5 tools in",
+      "tool_fix"
+    ],
+    "source": "Run 158",
+    "implementation": "Extracted from RUNS.md run 158",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 4 knowledge",
+    "description": "Added or improved 4 knowledge - found in run 163",
+    "type": "tool_fix",
+    "tags": [
+      "4 knowledge",
+      "tool_fix"
+    ],
+    "source": "Run 163",
+    "implementation": "Extracted from RUNS.md run 163",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: tools",
+    "description": "Added or improved tools - found in run 177",
+    "type": "tool_fix",
+    "tags": [
+      "tools",
+      "tool_fix"
+    ],
+    "source": "Run 177",
+    "implementation": "Extracted from RUNS.md run 177",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: script",
+    "description": "Added or improved script - found in run 179",
+    "type": "tool_fix",
+    "tags": [
+      "script",
+      "tool_fix"
+    ],
+    "source": "Run 179",
+    "implementation": "Extracted from RUNS.md run 179",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Workflow: script",
+    "description": "Workflow improvement for script in run 179",
+    "type": "workflow",
+    "tags": [
+      "script",
+      "workflow"
+    ],
+    "source": "Run 179",
+    "implementation": "Extracted from RUNS.md run 179",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: 57 internal tools in",
+    "description": "Discovered 57 internal tools in during run 180",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "57 internal tools in"
+    ],
+    "source": "Run 180",
+    "implementation": "Extracted from RUNS.md run 180",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: tools audit",
+    "description": "Added or improved tools audit - found in run 181",
+    "type": "tool_fix",
+    "tags": [
+      "tools audit",
+      "tool_fix"
+    ],
+    "source": "Run 181",
+    "implementation": "Extracted from RUNS.md run 181",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: 64 unique tools in agent",
+    "description": "Discovered 64 unique tools in agent during run 181",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "64 unique tools in agent"
+    ],
+    "source": "Run 181",
+    "implementation": "Extracted from RUNS.md run 181",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: comprehensive tools",
+    "description": "Added or improved comprehensive tools - found in run 182",
+    "type": "tool_fix",
+    "tags": [
+      "comprehensive tools",
+      "tool_fix"
+    ],
+    "source": "Run 182",
+    "implementation": "Extracted from RUNS.md run 182",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: 54 tools in agent",
+    "description": "Discovered 54 tools in agent during run 185",
+    "type": "discovery",
+    "tags": [
+      "54 tools in agent",
+      "discovery"
+    ],
+    "source": "Run 185",
+    "implementation": "Extracted from RUNS.md run 185",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: a critical bug i",
+    "description": "Discovered a critical bug i during run 188",
+    "type": "discovery",
+    "tags": [
+      "a critical bug i",
+      "discovery"
+    ],
+    "source": "Run 188",
+    "implementation": "Extracted from RUNS.md run 188",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool Limitation: bug",
+    "description": "Limitation or bug with bug in run 188",
+    "type": "tool_limitation",
+    "tags": [
+      "tool_limitation",
+      "bug"
+    ],
+    "source": "Run 188",
+    "implementation": "Extracted from RUNS.md run 188",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: unnecessary fa",
+    "description": "Added or improved unnecessary fa - found in run 196",
+    "type": "tool_fix",
+    "tags": [
+      "unnecessary fa",
+      "tool_fix"
+    ],
+    "source": "Run 196",
+    "implementation": "Extracted from RUNS.md run 196",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the guarderror bug in _ls tool",
+    "description": "Added or improved the guarderror bug in _ls tool - found in run 196",
+    "type": "tool_fix",
+    "tags": [
+      "the guarderror bug in _ls tool",
+      "tool_fix"
+    ],
+    "source": "Run 196",
+    "implementation": "Extracted from RUNS.md run 196",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: comprehensive site",
+    "description": "Added or improved comprehensive site - found in run 198",
+    "type": "tool_fix",
+    "tags": [
+      "comprehensive site",
+      "tool_fix"
+    ],
+    "source": "Run 198",
+    "implementation": "Extracted from RUNS.md run 198",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: site",
+    "description": "Added or improved site - found in run 200",
+    "type": "tool_fix",
+    "tags": [
+      "site",
+      "tool_fix"
+    ],
+    "source": "Run 200",
+    "implementation": "Extracted from RUNS.md run 200",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: drift website with html pages and css styling",
+    "description": "Added or improved drift website with html pages and css styling - found in run 204",
+    "type": "tool_fix",
+    "tags": [
+      "drift website with html pages and css styling",
+      "tool_fix"
+    ],
+    "source": "Run 204",
+    "implementation": "Extracted from RUNS.md run 204",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: html",
+    "description": "Added or improved html - found in run 204",
+    "type": "tool_fix",
+    "tags": [
+      "html",
+      "tool_fix"
+    ],
+    "source": "Run 204",
+    "implementation": "Extracted from RUNS.md run 204",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: css",
+    "description": "Added or improved css - found in run 204",
+    "type": "tool_fix",
+    "tags": [
+      "css",
+      "tool_fix"
+    ],
+    "source": "Run 204",
+    "implementation": "Extracted from RUNS.md run 204",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: fallba",
+    "description": "Added or improved fallba - found in run 211",
+    "type": "tool_fix",
+    "tags": [
+      "fallba",
+      "tool_fix"
+    ],
+    "source": "Run 211",
+    "implementation": "Extracted from RUNS.md run 211",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: guarderror bug in _ls and _tree tools",
+    "description": "Added or improved guarderror bug in _ls and _tree tools - found in run 211",
+    "type": "tool_fix",
+    "tags": [
+      "guarderror bug in _ls and _tree tools",
+      "tool_fix"
+    ],
+    "source": "Run 211",
+    "implementation": "Extracted from RUNS.md run 211",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown_to_html",
+    "description": "Added or improved markdown_to_html - found in run 220",
+    "type": "tool_fix",
+    "tags": [
+      "markdown_to_html",
+      "tool_fix"
+    ],
+    "source": "Run 220",
+    "implementation": "Extracted from RUNS.md run 220",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown",
+    "description": "Added or improved markdown - found in run 220",
+    "type": "tool_fix",
+    "tags": [
+      "markdown",
+      "tool_fix"
+    ],
+    "source": "Run 220",
+    "implementation": "Extracted from RUNS.md run 220",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown escaping bug in markdown_to_html",
+    "description": "Added or improved markdown escaping bug in markdown_to_html - found in run 221",
+    "type": "tool_fix",
+    "tags": [
+      "markdown escaping bug in markdown_to_html",
+      "tool_fix"
+    ],
+    "source": "Run 221",
+    "implementation": "Extracted from RUNS.md run 221",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: build script",
+    "description": "Platform-related build script in run 228",
+    "type": "platform",
+    "tags": [
+      "platform",
+      "build script"
+    ],
+    "source": "Run 228",
+    "implementation": "Extracted from RUNS.md run 228",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown escaping in build",
+    "description": "Added or improved markdown escaping in build - found in run 230",
+    "type": "tool_fix",
+    "tags": [
+      "markdown escaping in build",
+      "tool_fix"
+    ],
+    "source": "Run 230",
+    "implementation": "Extracted from RUNS.md run 230",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: link checker path resolution bug",
+    "description": "Added or improved link checker path resolution bug - found in run 235",
+    "type": "tool_fix",
+    "tags": [
+      "link checker path resolution bug",
+      "tool_fix"
+    ],
+    "source": "Run 235",
+    "implementation": "Extracted from RUNS.md run 235",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the markdown escaping bug by reordering code block pro",
+    "description": "Added or improved the markdown escaping bug by reordering code block pro - found in run 236",
+    "type": "tool_fix",
+    "tags": [
+      "the markdown escaping bug by reordering code block pro",
+      "tool_fix"
+    ],
+    "source": "Run 236",
+    "implementation": "Extracted from RUNS.md run 236",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: three critical bugs in drift website",
+    "description": "Added or improved three critical bugs in drift website - found in run 238",
+    "type": "tool_fix",
+    "tags": [
+      "three critical bugs in drift website",
+      "tool_fix"
+    ],
+    "source": "Run 238",
+    "implementation": "Extracted from RUNS.md run 238",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown escaping in code blocks and build script",
+    "description": "Added or improved markdown escaping in code blocks and build script - found in run 245",
+    "type": "tool_fix",
+    "tags": [
+      "markdown escaping in code blocks and build script",
+      "tool_fix"
+    ],
+    "source": "Run 245",
+    "implementation": "Extracted from RUNS.md run 245",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: website locally with all posts converted and runs",
+    "description": "Added or improved website locally with all posts converted and runs - found in run 247",
+    "type": "tool_fix",
+    "tags": [
+      "website locally with all posts converted and runs",
+      "tool_fix"
+    ],
+    "source": "Run 247",
+    "implementation": "Extracted from RUNS.md run 247",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: markdown escaping bug in site",
+    "description": "Discovered markdown escaping bug in site during run 252",
+    "type": "discovery",
+    "tags": [
+      "markdown escaping bug in site",
+      "discovery"
+    ],
+    "source": "Run 252",
+    "implementation": "Extracted from RUNS.md run 252",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: from _l",
+    "description": "Added or improved from _l - found in run 253",
+    "type": "tool_fix",
+    "tags": [
+      "from _l",
+      "tool_fix"
+    ],
+    "source": "Run 253",
+    "implementation": "Extracted from RUNS.md run 253",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: three website bugs",
+    "description": "Added or improved three website bugs - found in run 253",
+    "type": "tool_fix",
+    "tags": [
+      "three website bugs",
+      "tool_fix"
+    ],
+    "source": "Run 253",
+    "implementation": "Extracted from RUNS.md run 253",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: site successfully",
+    "description": "Added or improved site successfully - found in run 257",
+    "type": "tool_fix",
+    "tags": [
+      "site successfully",
+      "tool_fix"
+    ],
+    "source": "Run 257",
+    "implementation": "Extracted from RUNS.md run 257",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: link checker to include",
+    "description": "Added or improved link checker to include - found in run 259",
+    "type": "tool_fix",
+    "tags": [
+      "link checker to include",
+      "tool_fix"
+    ],
+    "source": "Run 259",
+    "implementation": "Extracted from RUNS.md run 259",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the link checker to properly validate all links on the",
+    "description": "Added or improved the link checker to properly validate all links on the - found in run 264",
+    "type": "tool_fix",
+    "tags": [
+      "the link checker to properly validate all links on the",
+      "tool_fix"
+    ],
+    "source": "Run 264",
+    "implementation": "Extracted from RUNS.md run 264",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the markdown",
+    "description": "Added or improved the markdown - found in run 266",
+    "type": "tool_fix",
+    "tags": [
+      "the markdown",
+      "tool_fix"
+    ],
+    "source": "Run 266",
+    "implementation": "Extracted from RUNS.md run 266",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: investigating website rebuild issues",
+    "description": "Added or improved investigating website rebuild issues - found in run 273",
+    "type": "tool_fix",
+    "tags": [
+      "investigating website rebuild issues",
+      "tool_fix"
+    ],
+    "source": "Run 273",
+    "implementation": "Extracted from RUNS.md run 273",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: that doc",
+    "description": "Discovered that doc during run 273",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "that doc"
+    ],
+    "source": "Run 273",
+    "implementation": "Extracted from RUNS.md run 273",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: three critical issues with the website build",
+    "description": "Discovered three critical issues with the website build during run 274",
+    "type": "discovery",
+    "tags": [
+      "three critical issues with the website build",
+      "discovery"
+    ],
+    "source": "Run 274",
+    "implementation": "Extracted from RUNS.md run 274",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Workflow: site build",
+    "description": "Workflow improvement for site build in run 274",
+    "type": "workflow",
+    "tags": [
+      "site build",
+      "workflow"
+    ],
+    "source": "Run 274",
+    "implementation": "Extracted from RUNS.md run 274",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown conversion in build",
+    "description": "Added or improved markdown conversion in build - found in run 285",
+    "type": "tool_fix",
+    "tags": [
+      "markdown conversion in build",
+      "tool_fix"
+    ],
+    "source": "Run 285",
+    "implementation": "Extracted from RUNS.md run 285",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: build_runs",
+    "description": "Added or improved build_runs - found in run 291",
+    "type": "tool_fix",
+    "tags": [
+      "build_runs",
+      "tool_fix"
+    ],
+    "source": "Run 291",
+    "implementation": "Extracted from RUNS.md run 291",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: three critical bugs in the website rebuild project",
+    "description": "Added or improved three critical bugs in the website rebuild project - found in run 296",
+    "type": "tool_fix",
+    "tags": [
+      "three critical bugs in the website rebuild project",
+      "tool_fix"
+    ],
+    "source": "Run 296",
+    "implementation": "Extracted from RUNS.md run 296",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: build script to properly parse runs",
+    "description": "Added or improved build script to properly parse runs - found in run 309",
+    "type": "tool_fix",
+    "tags": [
+      "build script to properly parse runs",
+      "tool_fix"
+    ],
+    "source": "Run 309",
+    "implementation": "Extracted from RUNS.md run 309",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown processing order in build",
+    "description": "Added or improved markdown processing order in build - found in run 315",
+    "type": "tool_fix",
+    "tags": [
+      "markdown processing order in build",
+      "tool_fix"
+    ],
+    "source": "Run 315",
+    "implementation": "Extracted from RUNS.md run 315",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown escaping bug in build",
+    "description": "Added or improved markdown escaping bug in build - found in run 323",
+    "type": "tool_fix",
+    "tags": [
+      "markdown escaping bug in build",
+      "tool_fix"
+    ],
+    "source": "Run 323",
+    "implementation": "Extracted from RUNS.md run 323",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: markdown escaping bug in site",
+    "description": "Added or improved markdown escaping bug in site - found in run 326",
+    "type": "tool_fix",
+    "tags": [
+      "markdown escaping bug in site",
+      "tool_fix"
+    ],
+    "source": "Run 326",
+    "implementation": "Extracted from RUNS.md run 326",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: three critica",
+    "description": "Discovered three critica during run 340",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "three critica"
+    ],
+    "source": "Run 340",
+    "implementation": "Extracted from RUNS.md run 340",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: site build",
+    "description": "Added or improved site build - found in run 352",
+    "type": "tool_fix",
+    "tags": [
+      "site build",
+      "tool_fix"
+    ],
+    "source": "Run 352",
+    "implementation": "Extracted from RUNS.md run 352",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: live",
+    "description": "Platform-related live in run 366",
+    "type": "platform",
+    "tags": [
+      "platform",
+      "live"
+    ],
+    "source": "Run 366",
+    "implementation": "Extracted from RUNS.md run 366",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: that docs",
+    "description": "Discovered that docs during run 388",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "that docs"
+    ],
+    "source": "Run 388",
+    "implementation": "Extracted from RUNS.md run 388",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: import to use markdown package",
+    "description": "Added or improved import to use markdown package - found in run 399",
+    "type": "tool_fix",
+    "tags": [
+      "import to use markdown package",
+      "tool_fix"
+    ],
+    "source": "Run 399",
+    "implementation": "Extracted from RUNS.md run 399",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: column indices in table parsing",
+    "description": "Added or improved column indices in table parsing - found in run 424",
+    "type": "tool_fix",
+    "tags": [
+      "column indices in table parsing",
+      "tool_fix"
+    ],
+    "source": "Run 424",
+    "implementation": "Extracted from RUNS.md run 424",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: the empty runs",
+    "description": "Added or improved the empty runs - found in run 431",
+    "type": "tool_fix",
+    "tags": [
+      "the empty runs",
+      "tool_fix"
+    ],
+    "source": "Run 431",
+    "implementation": "Extracted from RUNS.md run 431",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: broken link in 2026",
+    "description": "Added or improved broken link in 2026 - found in run 441",
+    "type": "tool_fix",
+    "tags": [
+      "broken link in 2026",
+      "tool_fix"
+    ],
+    "source": "Run 441",
+    "implementation": "Extracted from RUNS.md run 441",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 81 test",
+    "description": "Added or improved 81 test - found in run 463",
+    "type": "tool_fix",
+    "tags": [
+      "81 test",
+      "tool_fix"
+    ],
+    "source": "Run 463",
+    "implementation": "Extracted from RUNS.md run 463",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: test",
+    "description": "Added or improved test - found in run 463",
+    "type": "tool_fix",
+    "tags": [
+      "test",
+      "tool_fix"
+    ],
+    "source": "Run 463",
+    "implementation": "Extracted from RUNS.md run 463",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: function",
+    "description": "Added or improved function - found in run 490",
+    "type": "tool_fix",
+    "tags": [
+      "function",
+      "tool_fix"
+    ],
+    "source": "Run 490",
+    "implementation": "Extracted from RUNS.md run 490",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: and building corre",
+    "description": "Added or improved and building corre - found in run 503",
+    "type": "tool_fix",
+    "tags": [
+      "and building corre",
+      "tool_fix"
+    ],
+    "source": "Run 503",
+    "implementation": "Extracted from RUNS.md run 503",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: comprehensive documentation structure in docs",
+    "description": "Added or improved comprehensive documentation structure in docs - found in run 518",
+    "type": "tool_fix",
+    "tags": [
+      "comprehensive documentation structure in docs",
+      "tool_fix"
+    ],
+    "source": "Run 518",
+    "implementation": "Extracted from RUNS.md run 518",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: that metrics dashboard project is falsely marked",
+    "description": "Discovered that metrics dashboard project is falsely marked during run 553",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "that metrics dashboard project is falsely marked"
+    ],
+    "source": "Run 553",
+    "implementation": "Extracted from RUNS.md run 553",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Research: analyzed",
+    "description": "Research findings about analyzed in run 557",
+    "type": "research",
+    "tags": [
+      "research",
+      "analyzed"
+    ],
+    "source": "Run 557",
+    "implementation": "Extracted from RUNS.md run 557",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: compr",
+    "description": "Added or improved compr - found in run 558",
+    "type": "tool_fix",
+    "tags": [
+      "compr",
+      "tool_fix"
+    ],
+    "source": "Run 558",
+    "implementation": "Extracted from RUNS.md run 558",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: extraction script for blog post ca",
+    "description": "Added or improved extraction script for blog post ca - found in run 562",
+    "type": "tool_fix",
+    "tags": [
+      "extraction script for blog post ca",
+      "tool_fix"
+    ],
+    "source": "Run 562",
+    "implementation": "Extracted from RUNS.md run 562",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: blog insights extractor to h",
+    "description": "Added or improved blog insights extractor to h - found in run 587",
+    "type": "tool_fix",
+    "tags": [
+      "blog insights extractor to h",
+      "tool_fix"
+    ],
+    "source": "Run 587",
+    "implementation": "Extracted from RUNS.md run 587",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Research: insight",
+    "description": "Research findings about insight in run 587",
+    "type": "research",
+    "tags": [
+      "research",
+      "insight"
+    ],
+    "source": "Run 587",
+    "implementation": "Extracted from RUNS.md run 587",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: interact",
+    "description": "Added or improved interact - found in run 597",
+    "type": "tool_fix",
+    "tags": [
+      "interact",
+      "tool_fix"
+    ],
+    "source": "Run 597",
+    "implementation": "Extracted from RUNS.md run 597",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: 7 ent",
+    "description": "Added or improved 7 ent - found in run 602",
+    "type": "tool_fix",
+    "tags": [
+      "7 ent",
+      "tool_fix"
+    ],
+    "source": "Run 602",
+    "implementation": "Extracted from RUNS.md run 602",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Platform: performance",
+    "description": "Platform-related performance in run 606",
+    "type": "platform",
+    "tags": [
+      "performance",
+      "platform"
+    ],
+    "source": "Run 606",
+    "implementation": "Extracted from RUNS.md run 606",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Discovery: template var",
+    "description": "Discovered template var during run 613",
+    "type": "discovery",
+    "tags": [
+      "discovery",
+      "template var"
+    ],
+    "source": "Run 613",
+    "implementation": "Extracted from RUNS.md run 613",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: duplicate",
+    "description": "Added or improved duplicate - found in run 623",
+    "type": "tool_fix",
+    "tags": [
+      "duplicate",
+      "tool_fix"
+    ],
+    "source": "Run 623",
+    "implementation": "Extracted from RUNS.md run 623",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
+  },
+  {
+    "id": "k-007",
+    "title": "Tool/Feature: duplicate m",
+    "description": "Added or improved duplicate m - found in run 624",
+    "type": "tool_fix",
+    "tags": [
+      "duplicate m",
+      "tool_fix"
+    ],
+    "source": "Run 624",
+    "implementation": "Extracted from RUNS.md run 624",
+    "verification": "Automated extraction from run notes",
+    "impact": "Documents patterns and discoveries across run history"
   }
 ]
