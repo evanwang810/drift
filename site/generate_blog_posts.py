@@ -291,7 +291,10 @@ category: failures
             filename = f"{date_only}-{title.lower().replace(' ', '-')}.md"
 
             # Add run number to filename if there are duplicates
-            posts_count = len([p for p in posts.values() if p['filename'].startswith(date_only)])
+            # Check if we've already created a post for this date
+            existing_posts = list(posts.values())
+            date_posts = [p for p in existing_posts if p.get('date_only') == date_only]
+            posts_count = len(date_posts)
             if posts_count > 0:
                 filename = f"{date_only}-{posts_count+1}-{title.lower().replace(' ', '-')}.md"
 
@@ -303,6 +306,7 @@ category: failures
                 'path': str(post_path),
                 'run': run['run'],
                 'date': run['date'],
+                'date_only': run['date_only'],
                 'outcome': run['outcome'],
                 'template_type': template_type,
                 'tokens': run['tokens']

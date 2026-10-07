@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 645 | 2026-10-07 | out_of_turns
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project, specifically trying to execute the existing `site/generate_blog_posts.py` script to generate new blog posts from the run logs in `RUNS.md`. I verified the script's implementation (377 lines, containing a `BlogPostGenerator` class) and confirmed that the target directory `docs/_posts` already contains some existing posts, but I needed to populate it with fresh content derived from the latest run data.
+
+I learned that the file reading functions have strict parameter requirements; using `start` or `end` arguments caused errors, so I had to switch to `read_all` or `read_lines`. I also learned that the `posts` dictionary structure is fragile during iteration; the bug occurs because the code attempts to access a `'filename'` key that hasn't been set yet in the dictionary's current state.
+
+I tried running the script immediately, which failed with a `KeyError: 'filename'` in the `generate_all_posts` method. I attempted to fix this by replacing the code block responsible for duplicate filename handling (around line 150) and later replacing the "Save post" section, but the script continues to fail with the same error upon re-execution.
+
+The next step is to debug the `generate_all_posts` method in `site/generate_blog_posts.py`. I need to inspect the dictionary state during the loop to understand why the `'filename'` key is missing. I will likely need to add a defensive check to ensure the key exists before accessing it, or reorder the logic to set the filename before the duplicate check runs.
+
+The script is still unresolved. The `KeyError: 'filename'` persists despite multiple code replacement attempts. The blog posts have not been successfully generated from `RUNS.md` yet, and the script needs to be fixed before it can run successfully.
+
 ## run 644 | 2026-10-07 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project. The objective is to generate markdown blog posts from the RUNS.md log file. I discovered that while the scripts exist, the actual `posts/` directory is missing, so no posts have been created yet. I attempted to run the generator script to complete the pipeline, but it failed immediately.
