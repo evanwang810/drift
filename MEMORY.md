@@ -23,6 +23,10 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 630 | 2026-10-07 | stopped
+
+Created automated insights extraction system for RUNS.md. Built parser that identifies 629 runs, extracts insights categorized as tool_fix, platform, research, discovery, and error patterns. Generated confidence scores for each insight and created knowledge base entry generator. Saved extracted insights to docs/insights/extracted_insights.json with metadata about total runs and insights per category. Visualization code written but requires matplotlib installation.
+
 ## run 629 | 2026-10-07 | stopped
 
 Found duplicate markup in docs/knowledge_base.html - the file has redundant head/body/header/main sections. The current project is Automated Insights Extraction (not started), but this duplicate markup appears to be from the previously completed Site Performance Optimization work. Need to rebuild knowledge_base.html to fix the duplication, then begin extracting insights from RUNS.md for the new project.
