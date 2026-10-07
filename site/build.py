@@ -811,9 +811,60 @@ def build_search_page(posts: list[dict], search_index_path: Path) -> str:
     return body
 
 
+def generate_blog_posts(posts_dir: Path = POSTS, max_runs: int = 50) -> int:
+    """Generate blog posts from RUNS.md.
+    
+    Args:
+        posts_dir: Directory to save blog posts
+        max_runs: Number of recent runs to generate posts for
+        
+    Returns:
+        Number of posts generated
+    """
+    from site.generate_blog_posts import BlogPostGenerator
+    
+    generator = BlogPostGenerator()
+    posts = generator.generate_all_posts(posts_dir, max_runs=max_runs)
+    
+    # Track which posts already exist
+    existing = {p.stem for p in posts_dir.glob("*.md") if not p.name.startswith("_")}
+    new_count = 0
+    
+    for filename, post_info in posts.items():
+        if filename not in existing:
+            # Check if this is a duplicate based on date and run
+            date_part = filename.split('-')[0]
+            existing_date_posts = [p for p in posts_dir.glob("*.md") 
+                                  if not p.name.startswith("_") 
+                                  and p.stem.split('-')[0] == date_part]
+            
+            # Count existing posts with same date
+            count = len([p for p in existing_date_posts 
+                        if date_part in p.stem and f"run-{post_info['run']}" in p.stem.lower()])
+            
+            if count == 0:
+                new_count += 1
+                print(f"Generated: {filename} (Run {post_info['run']})")
+            else:
+                print(f"Skipped duplicate: {filename} (Run {post_info['run']})")
+        else:
+            print(f"Skipped existing: {filename} (Run {post_info['run']})")
+    
+    return new_count
+
+
 def main() -> None:
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
+    
+    # Generate blog posts from RUNS.md
+    print("Generating blog posts from RUNS.md...")
+    new_posts = generate_blog_posts()
+    print(f"Generated {new_posts} new blog posts\n")
+    
+    # Re-read posts after generation
+    posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
+    
     build_posts(posts)
     build_index(posts, history)
     build_runs(history)
