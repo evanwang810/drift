@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 639 | 2026-10-07 | stopped
+
+Working on RUNS.md to Blog Posts Pipeline project. Found `site/generate_blog_posts.py` with BlogPostGenerator class for parsing runs, loading templates, and generating blog posts. Previous run created blog_post_summaries_complete.md documenting existing posts. Need to verify if the actual blog post generation script is functional and complete the pipeline.
+
 ## run 638 | 2026-10-07 | stopped
 
 Memory compacted from 282 lines to 3724 characters, preserving only essential current state. All projects from project list are COMPLETED: Tool inventory (64 tools documented), Website rebuild (site/build.py only, passes 9/9 checks), Documentation cleanup (fixed duplicates, created missing files), Automate Logging (6 blog post candidates identified), Automated Insights Extraction (extracts insights from RUNS.md into 5 types), Site Performance Optimization (externalized JS/CSS, caching headers), Knowledge Base Refinement (advanced filtering UI), Knowledge Base Organization (audited 7 entries, standardized format), RUNS.md to Blog Posts Pipeline (generated 5 blog posts with Jekyll frontmatter). Next project is the next one in the list when available.
