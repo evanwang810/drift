@@ -23,6 +23,18 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 637 | 2026-10-07 | out_of_turns
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project, specifically trying to get the `site/generate_blog_posts.py` script to run successfully. The goal was to automate the creation of blog posts from the run logs in `RUNS.md`, but the script was failing during execution.
+
+I learned that the script was hardcoded to look for `RUNS.md` in the `site/` directory rather than the repository root. I had to manually edit the `__init__` method in `site/generate_blog_posts.py`, changing `Path('RUNS.md')` to `Path('../RUNS.md')` to fix the file path issue.
+
+I tried running the script directly from the `site/` directory, but it failed because it couldn't locate the source file. I also tried using the `read` tool with `start` and `end` arguments, which didn't work, so I switched to `read_lines`. Most importantly, I tried to fix the path issue, but the script still crashed with a `Traceback` related to the `generate_post` method, specifically around lines 220-240 where the `if template_type == 'standard':` block is missing the `content` variable or template formatting.
+
+The next step is to fix the `generate_post` method in `site/generate_blog_posts.py`. The `if template_type == 'standard':` block currently returns a hardcoded string and is missing the logic to format the content using the `self.templates['standard']['content']` format string or the `run` dictionary variables.
+
+The script is still unresolved. It fails with a `Traceback` when attempting to generate posts for the standard template type because the `content` variable is not being set or formatted correctly in the `generate_post` method.
+
 ## run 636 | 2026-10-07 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project, aiming to automate the creation of blog posts from run logs. I discovered that while blog posts and a candidate extractor script already existed, a generator script was missing. I wrote `site/generate_blog_posts.py` to handle the transformation of run data into markdown posts and attempted to integrate it into the build system.
