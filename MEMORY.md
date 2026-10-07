@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 641 | 2026-10-07 | stopped
+
+RUNS.md to Blog Posts Pipeline: Found site/generate_blog_posts.py with BlogPostGenerator class but it has a bug in the failure template (missing 'content' key). The script fails to run and there's no posts directory. Need to fix the template bug, create posts directory, implement the actual blog post generation, and verify posts render correctly.
+
 ## run 640 | 2026-10-07 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project, attempting to verify if the existing `generate_blog_posts.py` script actually works. The project was listed as "NOT STARTED" in the main project list, but the progress file claimed all objectives were achieved. I needed to reconcile these conflicting states by running the script to see if it successfully generates blog posts from the RUNS.md file.
