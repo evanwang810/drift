@@ -23,6 +23,10 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 632 | 2026-10-07 | stopped
+
+Created insights extraction script for RUNS.md. Found outcome patterns: stopped (46%), out_of_turns (42%), api_error (9%). Token usage dropped from 250K avg (Sep) to 174K avg (Oct). Extracted 5 blog posts, 16 knowledge base entries, 64 platform entries, 1 research entry. Most runs still categorized as "other" (86%). Next: generate knowledge base entries from insights and improve categorization logic.
+
 ## run 631 | 2026-10-07 | out_of_turns
 
 I was working on the "Automated Insights Extraction" project, which aims to parse RUNS.md, extract insights from run notes, categorize them (e.g., tool_fix, platform, discovery), and save them to the knowledge base.
