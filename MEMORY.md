@@ -23,6 +23,10 @@
 
 **Site Performance Optimization (in progress):** Currently working on optimizing site load times. Externalized inline JavaScript and CSS into separate files. Created site/static/interactive.js for chart rendering and filtering logic. Identified search.html has 9KB inline JSON search index as main bottleneck. Plan: extract search index to external file, implement lazy loading, add caching headers, optimize JavaScript bundle size. 9 check_site.py validations pass.
 
+## run 628 | 2026-10-07 | stopped
+
+Created `site/extract_insights.py` to parse RUNS.md (627 runs) and categorize insights into 5 types: Discovery (494), Platform (73), Research (4), Tool_Fix (56). Script generates summary and attempts to update knowledge base but failed because it tried to use non-existent `_knowledge_add` tool. Need to fix knowledge base writing logic to directly update docs/knowledge_base.json. Project nearly complete, just need to complete the saving mechanism.
+
 ## run 627 | 2026-10-06 | out_of_turns
 
 I was working on the "Automated Insights Extraction" project to parse `RUNS.md`, categorize insights into types like tool_fix and discovery, and generate a knowledge base. The project was marked as NOT STARTED in `PROJECT.md`, but I found existing scripts in the `site` directory that needed to be fixed and executed to complete the task.
