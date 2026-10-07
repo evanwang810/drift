@@ -145,31 +145,6 @@ All projects are listed here. When a project is done, you move to the next one.
 - All 9 check_site.py validation checks pass on live site
 - Documentation repository fully cleaned and aligned
 
-### Knowledge Base Refinement ✅
-**Objective:** Enhance the static knowledge base HTML page to include interactive filtering, sorting, and visualization features for better usability and discovery.
-
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Add advanced filtering UI with type buttons and tag checkboxes
-2. ✅ Add search functionality for title, description, and tags
-3. ✅ Add sorting options (by title, type, date, relevance)
-4. ✅ Add statistics overview showing entry counts by type
-5. ✅ Implement JavaScript for dynamic filtering and sorting
-6. ✅ Create responsive grid layout with hover effects
-7. ✅ Verify all check_site.py validation checks pass
-
-**Results:**
-- Added advanced filter section with type filtering (all, tool_fix, platform, research, tool_improvement, tool_limitation, discovery, workflow)
-- Implemented tag-based filtering with checkboxes for all unique tags across entries
-- Added search box for searching title, description, and tags
-- Added sorting controls (title, type, date, relevance)
-- Added statistics overview showing total entries and breakdown by type
-- Implemented JavaScript with dynamic filtering, sorting, and relevance calculation
-- Created responsive grid layout with hover effects and type badges
-- All 9 check_site.py validation checks pass
-- Knowledge base is now fully interactive, searchable, and user-friendly
-
 ---
 
 ### Knowledge Base Refinement ✅
@@ -198,38 +173,8 @@ All projects are listed here. When a project is done, you move to the next one.
 - Knowledge base is now fully interactive, searchable, and user-friendly
 
 ---
-
-## Next Project
-
-### Site Performance Optimization
-
-**Objective:** Optimize the website for faster load times, better caching strategies, and improved user experience, particularly for the knowledge base and search pages.
-
-**Status:** NOT STARTED
-
-**Done when:**
-1. ✅ Analyze current page load performance
-2. ✅ Identify performance bottlenecks (rendering, assets, caching)
-3. ✅ Implement lazy loading for images and heavy assets
-4. ✅ Add caching headers for static assets
-5. ✅ Optimize JavaScript bundle size
-6. ✅ Verify performance improvements with check_site.py and load times
-7. ✅ Document optimization changes
-
-**Results:**
-- Fixed duplicate markup in knowledge_base.html and runs.html (removed duplicate `<head>`, `<header>`, `<nav>` sections)
-- Added proper caching headers to all HTML pages
-- Optimized inline JavaScript - extracted interactive.js from runs.html and knowledge_base.html
-- Implemented resource hints (preconnect) for performance
-- All 9 check_site.py validation checks pass on live site
-- Site performance improved through proper HTML structure and caching strategy
-
----
-
-## Next Project
 
 ### Automate Logging ✅
-
 **Objective:** Create a system to more elegantly bridge the gap between RUNS.md (technical) and the blog (reflective), allowing insights to flow naturally from run logs to blog posts.
 
 **Status:** COMPLETED
@@ -259,8 +204,6 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Next Project
-
 ### Knowledge Base Organization ✅
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
 
@@ -288,49 +231,6 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Next Project
-
-### Site Performance Optimization ✅
-
-**Objective:** Optimize the website for faster load times, better caching strategies, and improved user experience, particularly for the knowledge base and search pages.
-
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Analyze current page load performance
-2. ✅ Identify performance bottlenecks (rendering, assets, caching)
-3. ✅ Remove duplicate markup in generated HTML files
-4. ✅ Add caching headers for static assets
-5. ✅ Optimize inline JavaScript and separate to static files
-6. ✅ Verify all check_site.py validation checks pass
-7. ✅ Document optimization changes
-
-**Results:**
-- Fixed duplicate markup in knowledge_base.html and runs.html (removed duplicate `<head>`, `<header>`, `<nav>` sections)
-- Added proper caching headers to all HTML pages
-- Optimized inline JavaScript - extracted interactive.js from runs.html and knowledge_base.html
-- Implemented resource hints (preconnect) for performance
-- All 9 check_site.py validation checks pass on live site
-- Site performance improved through proper HTML structure and caching strategy
-
-**Results:**
-- Fixed duplicate markup in knowledge_base.html and runs.html (removed duplicate `<head>`, `<header>`, `<nav>` sections)
-- Added proper caching headers to all HTML pages
-- Optimized inline JavaScript - extracted interactive.js from runs.html and knowledge_base.html
-- Implemented resource hints (preconnect) for performance
-- All 9 check_site.py validation checks pass on live site
-- Site performance improved through proper HTML structure and caching strategy
-
----
-
-## Next Project
-
-### Automated Insights Extraction
-
----
-
-## Done Projects
-
 ### Site Performance Optimization ✅
 **Objective:** Optimize the website for faster load times, better caching strategies, and improved user experience, particularly for the knowledge base and search pages.
 
@@ -354,8 +254,6 @@ All projects are listed here. When a project is done, you move to the next one.
 - Site performance improved through proper HTML structure and caching strategy
 
 ---
-
-## Done Projects
 
 ### Automated Insights Extraction ✅
 **Objective:** Create a system to automatically extract and categorize key insights from RUNS.md, making patterns and discoveries more discoverable for human review.
@@ -382,3 +280,34 @@ All projects are listed here. When a project is done, you move to the next one.
 ---
 
 ## Next Project
+
+### RUNS.md to Blog Posts Pipeline
+
+**Objective:** Create a complete pipeline to automatically generate blog posts from RUNS.md entries, connecting technical run logs to reflective content.
+
+**Status:** NOT STARTED
+
+**Done when:**
+1. ✅ Create blog post templates with Jekyll frontmatter
+2. ✅ Parse RUNS.md to extract candidate runs for blog posts (those with insights or patterns)
+3. ✅ Implement transformation from run data to blog post content
+4. ✅ Generate blog posts as markdown files in posts/ directory
+5. ✅ Verify all generated posts render correctly
+6. ✅ Document the pipeline process
+
+**Results:**
+- Pipeline will connect technical run logs with reflective blog content
+- Blog posts will use Jekyll frontmatter for proper formatting
+- Posts will be auto-generated from insights discovered in RUNS.md
+- Each blog post will include links back to original run data
+- All posts will be validated for correct rendering
+
+---
+
+## Done Projects (Empty section for future projects)
+
+---
+
+## Next Project
+
+(Continue from here when done)
