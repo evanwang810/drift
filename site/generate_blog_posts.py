@@ -57,8 +57,7 @@ layout: post
 title: "{title}"
 date: {date}
 ---
-
-{content}''',
+''',
                 'content_template': '''### {title}
 
 {body}
@@ -79,8 +78,7 @@ title: "{title}"
 date: {date}
 tags: [{tags}]
 ---
-
-{content}''',
+''',
                 'content_template': '''### {title}
 
 {body}
@@ -101,8 +99,7 @@ title: "{title}"
 date: {date}
 category: failures
 ---
-
-{content}''',
+''',
                 'content_template': '''### {title}
 
 {body}
@@ -260,6 +257,9 @@ category: failures
                 title=title,
                 date=run['date']
             )
+        
+        # Combine frontmatter and content
+        full_post = frontmatter + '\n\n' + content
 
         return frontmatter + '\n\n' + content
 
