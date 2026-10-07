@@ -25,6 +25,7 @@ class BlogPostGenerator:
         content = self.runs_path.read_text()
 
         # Pattern for run entries: | run | when (UTC) | outcome | turns | tokens | note |
+        # Using more flexible pattern to handle all variations
         pattern = r'\|\s*(\d+)\s*\|\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})\s*\|\s*(\w+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.*?)\s*\|'
 
         runs = []
@@ -346,11 +347,11 @@ def main():
 
     generator = BlogPostGenerator()
 
-    # Generate posts for recent runs (last 50 runs)
+    # Generate posts for all runs in RUNS.md
     print(f"\nParsing RUNS.md: {len(generator.runs)} total runs")
-    print(f"Generating posts for last 50 runs...")
+    print(f"Generating posts for all {len(generator.runs)} runs...")
 
-    posts = generator.generate_all_posts(max_runs=50)
+    posts = generator.generate_all_posts(max_runs=None)
 
     # Print summary
     summary = generator.generate_summary(posts)

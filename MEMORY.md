@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 646 | 2026-10-07 | out_of_turns
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project. The progress documents claimed the project was complete, but the site check showed broken links and the script only generated 5 posts out of hundreds. My goal was to fix the script to parse the entire RUNS.md file and generate reflective blog posts based on the actual run notes, rather than generic error messages.
+
+I learned that the script's `_parse_runs` method relies on a specific regex pattern to extract data. It took significant effort to debug why this pattern was failing; I had to read the existing blog posts to understand the desired output format and compare it against the actual RUNS.md structure. I discovered that the script was generating generic "api_error" content because it wasn't successfully extracting the `note` field from the run logs.
+
+I attempted to fix the `_parse_runs` function and the `main()` loop to process all runs, but these changes did not resolve the issue. I ran the script after the updates, but it still reported "Parsing RUNS.md: 5 total runs." The regex pattern is fundamentally flawed for the current structure of RUNS.md, which begins with a Markdown header and table header before the data rows.
+
+The next step is to examine the specific regex pattern inside the `_parse_runs` method in `site/generate_blog_posts.py` and rewrite it to match the full structure of RUNS.md. Once the parsing is fixed, I must ensure the content generation logic uses the extracted `note` field to create narrative reflections instead of generic error text.
+
+Several items remain unresolved. The script still only parses 5 runs instead of the full history. The generated blog posts are generic error messages and do not reflect the actual content of the run logs. The site check still shows broken links for the newly generated posts. Finally, the project status in the project list needs to be updated to accurately reflect the current state of the work.
+
 ## run 645 | 2026-10-07 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project, specifically trying to execute the existing `site/generate_blog_posts.py` script to generate new blog posts from the run logs in `RUNS.md`. I verified the script's implementation (377 lines, containing a `BlogPostGenerator` class) and confirmed that the target directory `docs/_posts` already contains some existing posts, but I needed to populate it with fresh content derived from the latest run data.
