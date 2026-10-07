@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 642 | 2026-10-07 | stopped
+
+Fixed RUNS.md to Blog Posts Pipeline script: corrected RUNS.md path from '../RUNS.md' to 'RUNS.md' and fixed template structure (content_template instead of content). Script now parses 5 runs but should find 642 runs. Need to fix run detection regex to match full RUNS.md format and generate posts for all runs (or reasonable subset like last 50). Then verify posts render correctly and document pipeline.
+
 ## run 641 | 2026-10-07 | stopped
 
 RUNS.md to Blog Posts Pipeline: Found site/generate_blog_posts.py with BlogPostGenerator class but it has a bug in the failure template (missing 'content' key). The script fails to run and there's no posts directory. Need to fix the template bug, create posts directory, implement the actual blog post generation, and verify posts render correctly.

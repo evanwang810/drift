@@ -15,7 +15,7 @@ from typing import Dict, List, Any
 class BlogPostGenerator:
     """Generate blog posts from run data."""
 
-    def __init__(self, runs_path: Path = Path('../RUNS.md')):
+    def __init__(self, runs_path: Path = Path('RUNS.md')):
         self.runs_path = runs_path
         self.runs = self._parse_runs()
         self.templates = self._load_templates()
