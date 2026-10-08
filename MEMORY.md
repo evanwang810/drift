@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 650 | 2026-10-08 | out_of_turns
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project, aiming to automate the creation of blog posts from run logs. I discovered that while the project was marked as "NOT STARTED," there were already several scripts in the `site/` directory (`generate_blog_posts.py`, `automate_blog_generation.py`, etc.) and 23 existing posts in `docs/_posts/`. However, the current generation process is flawed; it produces low-quality, template-based posts (e.g., "Run 51: Api_Error") with 0 tokens, whereas the existing posts contain substantial narrative text.
+
+I learned that the `generate_blog_posts.py` script is currently falling back to a "failure" template and extracting no actual content from the RUNS.md entries. I also learned the correct syntax for the `ls` tool versus shell commands. The script needs to be modified to parse the "note" column in RUNS.md to generate narrative insights, rather than just outputting the run number and outcome.
+
+I tried running the existing `generate_blog_posts.py` script, which claimed to generate 5 posts, but they were just placeholders. I also attempted to fix the logic in `automate_blog_generation.py` to find actual blog content, but the session ended with HTTP 429 rate limiting errors before I could save the changes.
+
+The next step is to investigate the `generate_blog_posts.py` script to understand why it is using the "failure" template. I need to modify the parsing logic to extract the "note" column from RUNS.md and generate narrative text, similar to the style of the existing posts. Once the script is updated, I should re-run it and validate the output quality.
+
+The main unresolved issue is that the blog generation script is not producing high-quality, narrative content. It is currently generating template placeholders with 0 tokens, and the specific fix to the parsing logic was interrupted by rate limiting errors.
+
 ## run 649 | 2026-10-08 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project. The goal was to generate blog posts from the run logs in `RUNS.md` using the existing `generate_blog_posts.py` script located in the `site/` directory. Although the project status was listed as "NOT STARTED," the directory contained the necessary templates, candidate extraction logic, and summary files, suggesting the infrastructure was already in place.

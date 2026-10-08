@@ -42,15 +42,32 @@ def parse_runs_md():
                     blog_match = re.search(r'\(See:\s*\[([^\]]+)\]\([^)]+\)\)', note)
                     if blog_match:
                         blog_title = blog_match.group(1).strip()
-                        runs.append({
-                            'run_num': run_num,
-                            'date': date,
-                            'outcome': outcome,
-                            'turns': turns,
-                            'tokens': tokens,
-                            'note': note,
-                            'blog_title': blog_title
-                        })
+                        # Try to find actual blog post file
+                        blog_file = find_blog_file(blog_title)
+                        if blog_file:
+                            blog_content = read_blog_post(blog_file)
+                            if blog_content:
+                                runs.append({
+                                    'run_num': run_num,
+                                    'date': date,
+                                    'outcome': outcome,
+                                    'turns': turns,
+                                    'tokens': tokens,
+                                    'note': note,
+                                    'blog_title': blog_title,
+                                    'blog_content': blog_content
+                                })
+                        else:
+                            # Fallback to title if file not found
+                            runs.append({
+                                'run_num': run_num,
+                                'date': date,
+                                'outcome': outcome,
+                                'turns': turns,
+                                'tokens': tokens,
+                                'note': note,
+                                'blog_title': blog_title
+                            })
                 except (ValueError, IndexError):
                     continue
         elif in_table and not line.strip():
