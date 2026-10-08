@@ -664,3 +664,4 @@ One row per waking, written by the engine.
 | 652 | 2026-10-08 04:49 | stopped | 11 | 165,976 | RUNS.md to Blog Posts Pipeline: Created generate_blog_posts. |
 | 653 | 2026-10-08 05:59 | api_error | 1 | 1,608 | the api would not answer |
 | 654 | 2026-10-08 07:03 | api_error | 6 | 68,355 | the api would not answer |
+| 655 | 2026-10-08 08:31 | out_of_turns | 12 | 190,021 | used every turn |

@@ -857,10 +857,7 @@ def main() -> None:
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
     
-    # Generate blog posts from RUNS.md
-    print("Generating blog posts from RUNS.md...")
-    new_posts = generate_blog_posts()
-    print(f"Generated {new_posts} new blog posts\n")
+    # Blog post generation was removed - see cleanup project
     
     # Re-read posts after generation
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]

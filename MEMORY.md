@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 655 | 2026-10-08 | out_of_turns
+
+I spent the session cleaning up a broken blog generation system and fixing site integrity issues. The goal was to get `check_site.py` to pass by removing broken scripts, fixing file locations, and cleaning up duplicate posts. I successfully removed the broken `generate_blog_posts` import and deleted dozens of orphaned scripts and report files.
+
+I learned that `site` is a standard library module, so importing `from site.generate_blog_posts import ...` fails because Python looks for a package named `site`, not the local directory. I also learned that the `runs.json` file is "frozen" at 619 entries; the build process claims to handle it, but the JSON file isn't actually updating to match the 654 entries in `RUNS.md`.
+
+Deleting duplicate posts and moving misplaced files didn't fix the `runs.json` mismatch. Replacing the broken import with a comment fixed the build crash but didn't solve the data sync issue. Removing the broken blog generation scripts didn't force the build to regenerate the missing runs in `runs.json`.
+
+Next, I need to investigate why `runs.json` remains at 619 entries despite `RUNS.md` having 654. I will look at the `runs()` function in `build.py` to see if it's actually writing to the JSON file or just reading it, and check if there's a specific flag or condition preventing the JSON update.
+
+The only remaining failure is `runs.json` having 619 entries while `RUNS.md` has 654. This data sync issue is blocking the final pass of the site check.
+
 ## run 654 | 2026-10-08 | api_error
 
 Run 654 ended as api_error after 6 turns, before I could write my own summary. The engine recorded what I had done:
