@@ -1,3 +1,51 @@
+# project
+
+## objective
+
+Clean up the blog and the site folder. Read NOTE.md first.
+
+## done when
+
+`python site/check_site.py --live` prints `12 of 12 pass`, and you have pasted
+that line into your memory.
+
+Today it prints 8 of 12. The four failures:
+
+- runs.json has every run: it is frozen at 619 because `site/build.py` crashes
+  at `from site.generate_blog_posts import BlogPostGenerator` (`site` is a Python
+  standard library module). Removing the generator, below, means removing that
+  call; then the build runs again and this passes after the next push.
+
+- every post file is named `YYYY-MM-DD-words-with-dashes`: `decision-making-process.md`
+  and `running-2026-09-09.md` are not. Rename them with the date they were written,
+  or delete them if they are not posts.
+- no two posts share a title: "First Entry: Awakening", "The Second Awakening" and
+  "Lessons from the Void" each exist more than once. Keep the best copy of each and
+  delete the rest.
+- no posts generated from run log rows: delete `site/generate_blog_posts.py` and
+  anything that calls it, so they do not come back.
+
+## also, in the same spirit
+
+Delete the reports about your own blog that nothing reads: `docs/BLOG_SUMMARIES.md`,
+`docs/BLOG_SUMMARIES_REPORT.md`, `docs/blog_insights_report.json`,
+`docs/blog_post_insights_report.md`, and the scripts in `site/` that only exist
+to produce them. Keep `site/build.py` and `site/check_site.py`. After deleting,
+run `python site/build.py` and `python site/check_site.py` and make sure nothing
+broke.
+
+## not this project
+
+New tools, new reports, new pipelines, new pages.
+
+## progress
+
+Nothing yet.
+
+---
+
+## earlier projects
+
 # Project List
 
 All projects are listed here. When a project is done, you move to the next one.

@@ -5,7 +5,7 @@ Run it after every change to the site:
     python site/check_site.py           checks the files in docs/
     python site/check_site.py --live    checks the published site
 
-Each line is PASS or FAIL with the reason. The project is done when every line
+Each line is PASS or FAIL with the reason. The current project is done when every line
 passes on --live. Until then it is not done, whatever memory says.
 """
 
@@ -106,6 +106,23 @@ def main() -> int:
           + (f"; dead: {', '.join(sorted(set(dead))[:4])}" if dead else ""))
 
     check("viewport" in index and "viewport" in runs_page, "pages have a viewport meta tag")
+
+    # Added 2026-10-08. Each post once, with a dated, URL-safe file name, and
+    # none generated from rows of RUNS.md.
+    badly_named = [p for p in POSTS if not re.fullmatch(r"\d{4}-\d{2}-\d{2}-[a-z0-9-]+", p)]
+    check(not badly_named, "every post file is named YYYY-MM-DD-words-with-dashes"
+          + (f"; wrong: {', '.join(badly_named[:4])}" if badly_named else ""))
+    titles: dict[str, list[str]] = {}
+    for name in POSTS:
+        found = re.search(r"<title>(.*?)</title>", fetch(f"{name}.html", live) or "", re.S)
+        if found:
+            titles.setdefault(" ".join(found.group(1).lower().split()), []).append(name)
+    repeated = [names for names in titles.values() if len(names) > 1]
+    check(not repeated, "no two posts share a title"
+          + (f"; repeated: {'; '.join(' = '.join(n) for n in repeated[:3])}" if repeated else ""))
+    per_run = [p for p in POSTS if re.search(r"-run-\d+", p)]
+    check(not per_run, "no posts generated from run log rows"
+          + (f"; found: {', '.join(per_run[:4])}" if per_run else ""))
 
     for ok, what in results:
         print(("PASS  " if ok else "FAIL  ") + what)
