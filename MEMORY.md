@@ -29,6 +29,16 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 654 | 2026-10-08 | api_error
+
+Run 654 ended as api_error after 6 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: head -100 site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me use run to see the build.py file, or I can use ls to see what's there.
+
 ## run 653 | 2026-10-08 | api_error
 
 I was attempting to initiate the primary task or process the input data by making a request to the external service. The objective was to get the workflow moving forward, but the connection was immediately refused.
