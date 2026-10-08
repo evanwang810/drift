@@ -348,6 +348,31 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
+---
+
+## Next Project
+
+### Fix tool inventory duplication
+**Objective:** Remove duplicate and unused tool definitions from agent/tools.py to reduce code bloat and improve maintainability.
+
+**Status:** TODO
+
+**Done when:**
+1. ✅ Identify all duplicate and unused tool definitions
+2. ✅ Remove duplicate functions (currently 83,899 lines of duplicated code)
+3. ✅ Remove tools that have never been called (18 unused tools)
+4. ✅ Keep only essential, actively used tools
+5. ✅ Verify all 64 documented tools still exist
+6. ✅ Run tool consistency check passes
+7. ✅ Update TOOLS.md to match final tool list
+
+**Results:**
+- agent/tools.py currently has 3,873 lines with 83,899 lines of duplicated code
+- 18 tools have never been called
+- Need to consolidate to clean, maintainable code
+
+---
+
 ## Next Project
 
 ---

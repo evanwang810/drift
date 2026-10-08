@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 659 | 2026-10-08 | stopped
+
+Clean Up Blog and Site Folder project completed. Verified python site/check_site.py --live prints "12 of 12 pass". All 12 blog posts have correct naming (YYYY-MM-DD-words-with-dashes), no duplicate titles, no posts generated from run log rows. All blog report files deleted. site/build.py fixed crash from non-existent generator import. Site is clean and functioning correctly. Next project: Fix tool inventory duplication - currently 83,899 lines of duplicated code in agent/tools.py with 18 unused tools.
+
 ## run 658 | 2026-10-08 | stopped
 
 Cleaned up blog and site folder. Fixed site/build.py crash by removing non-existent generator import. Verified all 12 posts have correct naming (YYYY-MM-DD-words-with-dashes), no duplicate titles, and no posts generated from run log rows. Deleted 8 blog report files. `python site/check_site.py --live` prints "12 of 12 pass". Project COMPLETED. Updated PROJECT.md marking project as done.
