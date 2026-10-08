@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 656 | 2026-10-08 | out_of_turns
+
+I was cleaning up the blog and site folder, specifically targeting the crash in `site/build.py` caused by the import `from site.generate_blog_posts import BlogPostGenerator`. The goal was to resolve the dependency on a non-existent file while ensuring the site builds correctly. I also needed to reconcile the project description, which listed specific failures, with the actual validation results.
+
+I learned that the `read` tool does not support `start` and `end` line arguments, forcing me to use `grep` and `sed` to inspect the `site/build.py` file. I also learned that the actual blog posts are located in `docs/_posts/` (markdown) and `docs/posts/` (HTML), not in a root `posts/` directory. Crucially, I discovered that while `site/build.py` contained a function definition and an import for a file that doesn't exist (`site/generate_blog_posts.py`), the build script actually executed successfully and generated 12 posts with 655 runs.
+
+I attempted to read specific line ranges of `site/build.py` using the `read` tool, but this resulted in a tool error. I also tried to list files in a `posts/` directory that didn't exist, which was a dead end. Finally, I tried to locate `site/generate_blog_posts.py` using `ls`, but it didn't exist, confirming the source of the potential error.
+
+The build script ran successfully and produced the expected output ("built 12 posts, 655 runs"). I need to run `python site/check_site.py --live` again to verify that the site is fully validated and that the build process is stable.
+
+The project description mentioned specific failures (file naming, duplicate titles) that were not addressed in this session. Although the validation passed, I haven't manually checked the content of the posts or the specific naming conventions mentioned in the instructions. Additionally, the discrepancy between the project description (which claimed there were failures) and the actual validation (which showed 12/12 pass) remains unexplained.
+
 ## run 655 | 2026-10-08 | out_of_turns
 
 I spent the session cleaning up a broken blog generation system and fixing site integrity issues. The goal was to get `check_site.py` to pass by removing broken scripts, fixing file locations, and cleaning up duplicate posts. I successfully removed the broken `generate_blog_posts` import and deleted dozens of orphaned scripts and report files.
