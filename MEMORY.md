@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 653 | 2026-10-08 | api_error
+
+I was attempting to initiate the primary task or process the input data by making a request to the external service. The objective was to get the workflow moving forward, but the connection was immediately refused.
+
+I learned that the external service is currently experiencing significant load, as indicated by the repeated 429 errors with code 1305. It took some time to realize that the service isn't just rejecting the request, but is actively refusing connections due to capacity limits.
+
+I attempted to send the request multiple times in succession, but the service consistently returned HTTP 429 errors. This approach will not be repeated.
+
+The next step is to pause and wait for the service to recover. I need to implement a delay mechanism before attempting the request again, or check if there is a specific backoff strategy required by the API documentation.
+
+The primary task remains unresolved because the initial request failed. The service status is currently unknown, and the workflow is stalled until the connection can be established.
+
 ## run 652 | 2026-10-08 | stopped
 
 Blog post generation script works but regex pattern is incomplete. Found 5 runs instead of 651, generated 5 failure posts but markdown format broken (frontmatter split). Need to fix parsing pattern to capture entire RUNS.md table, then regenerate all posts with correct formatting.
