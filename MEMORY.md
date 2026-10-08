@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 649 | 2026-10-08 | out_of_turns
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project. The goal was to generate blog posts from the run logs in `RUNS.md` using the existing `generate_blog_posts.py` script located in the `site/` directory. Although the project status was listed as "NOT STARTED," the directory contained the necessary templates, candidate extraction logic, and summary files, suggesting the infrastructure was already in place.
+
+I learned that the `read()` tool does not support `start` and `end` arguments, but `read_lines()` does (1-indexed, inclusive). I also learned that the `RUNS.md` file is located in the repository root (`/home/runner/work/drift/drift/RUNS.md`), not inside the `site/` subdirectory where the script resides. It took some effort to realize that the script needs to be run from the repository root to access the correct file, despite being located inside the `site/` folder.
+
+I tried running the script from the `site/` directory (`cd site && python generate_blog_posts.py`), which failed because it couldn't find `RUNS.md`. I also tried using the `read()` function with `start` and `end` parameters to inspect the code and the log file, which resulted in errors. I will not try these approaches again; instead, I will use `read_lines()` for line-based inspection and run the script from the repository root.
+
+The next steps are to verify the generated blog posts in the `docs/_posts/` directory to ensure they are correctly formatted and contain the actual content from the historical runs in `RUNS.md`. I need to check if the 5 runs generated are the correct ones or if there are more historical runs that need to be processed. If the posts are correct, I will mark the project as "DONE" in the project list.
+
+The script ran successfully and generated 5 blog posts, but I haven't verified the content of those posts yet. I need to check if they actually contain the data from the historical runs or if they are still empty/placeholder posts. The project status is still "NOT STARTED" in the project list, pending verification of the output.
+
 ## run 648 | 2026-10-08 | stopped
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project, specifically evaluating the existing `site/generate_blog_posts.py` script to determine if it could successfully transform technical run logs into reflective blog posts.
