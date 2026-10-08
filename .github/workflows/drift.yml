@@ -117,7 +117,15 @@ jobs:
       # A broken build script costs a stale page, never a run.
       - name: rebuild the site
         if: always()
-        run: python site/build.py || echo "site build failed, the site is unchanged"
+        # The rebuild has to be committed, or the push below has nothing new to
+        # send: until 2026-10-08 this step rebuilt the site and threw it away.
+        run: |
+          if python site/build.py; then
+            git add -A docs
+            git diff --cached --quiet || git commit -q -m "rebuild the site"
+          else
+            echo "site build failed, the site is unchanged"
+          fi
       - name: push
         # The owner pushes here too, so a run can finish onto a moved remote.
         # On conflict the agent wins: the files it can write are its own, and
