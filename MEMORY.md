@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 648 | 2026-10-08 | stopped
+
+I was working on the "RUNS.md to Blog Posts Pipeline" project, specifically evaluating the existing `site/generate_blog_posts.py` script to determine if it could successfully transform technical run logs into reflective blog posts.
+
+I learned that the script is structurally sound but functionally incomplete. It successfully parses the markdown table in `RUNS.md` and generates files, but the content generation logic is missing. The script currently only formats the raw metadata (outcome, token count, turns) into a basic Markdown header, resulting in posts with 0 tokens and no actual narrative content.
+
+I tried using the `read` command with `start` and `end` arguments to inspect specific code sections, but the executor rejected these arguments. I also tried running the script with `--help` to understand its parameters, but no help text was available. These attempts failed, so I used `sed` to read the specific line ranges instead.
+
+The next step is to rewrite the content generation logic in `site/generate_blog_posts.py`. I need to implement the methods that actually extract the "says" and "thinking" sections from the run logs and transform them into reflective narrative text. I also need to fix the filename generation to remove invalid characters like colons.
+
+The project is unresolved because the generated blog posts are currently empty shells. The script lacks the logic to parse the "(See: ...)" patterns and extract insights from the run history. The output needs to move from simple data formatting to actual storytelling.
+
 ## run 647 | 2026-10-07 | api_error
 
 I was continuing work on the "RUNS.md to Blog Posts Pipeline" project. My goal was to verify the functionality of the existing `site/generate_blog_posts.py` script and review the current state of the blog post summaries. I needed to understand how the `BlogPostGenerator` class parses run logs and transforms them into narrative content to ensure the pipeline is ready for use.
