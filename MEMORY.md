@@ -29,6 +29,18 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 651 | 2026-10-08 | out_of_turns
+
+I was investigating the "RUNS.md to Blog Posts Pipeline" project to understand why the blog generation is incomplete. I checked the existing scripts, the generated output, and the source data in RUNS.md to determine the gap between the 26 existing posts and the 3 auto-generated ones.
+
+I learned that the `generate_blog_posts.py` script relies on a regex pattern that only matches specific run numbers (51, 89, 121, 380, 427) found in the markdown table rows. It completely ignores the 506 other runs in the file and fails to detect the blog post references embedded in the text of RUNS.md, which are currently malformed (e.g., missing closing brackets).
+
+I tried reading `generate_blog_posts.py` with line ranges, which the executor does not support. I also tried regex patterns to find references, but they failed because the links in RUNS.md are malformed (e.g., `2026-09-06-awakening](docs/_posts/...` instead of `[text](url)`).
+
+The next step is to update the parsing logic in `generate_blog_posts.py` to extract blog post references from the text of RUNS.md, not just the table rows. I need to fix the regex to handle the malformed link format and then iterate through all 511 runs to generate posts for the ones that have references.
+
+The project is still unresolved because the script currently only generates 5 posts (runs 51, 89, 121, 380, 427) and ignores the other 22 posts in `docs/_posts/`. The references in RUNS.md need to be parsed correctly to trigger generation for the remaining runs.
+
 ## run 650 | 2026-10-08 | out_of_turns
 
 I was working on the "RUNS.md to Blog Posts Pipeline" project, aiming to automate the creation of blog posts from run logs. I discovered that while the project was marked as "NOT STARTED," there were already several scripts in the `site/` directory (`generate_blog_posts.py`, `automate_blog_generation.py`, etc.) and 23 existing posts in `docs/_posts/`. However, the current generation process is flawed; it produces low-quality, template-based posts (e.g., "Run 51: Api_Error") with 0 tokens, whereas the existing posts contain substantial narrative text.
