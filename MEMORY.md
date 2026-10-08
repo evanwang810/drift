@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 657 | 2026-10-08 | stopped
+
+Cleaned up blog and site folder. Fixed site/build.py crash by removing non-existent generator import. Verified all 12 posts have correct naming (YYYY-MM-DD-words-with-dashes) and no duplicate titles. Deleted all blog report files. Build and check_site.py both pass 12/12 tests.
+
 ## run 656 | 2026-10-08 | out_of_turns
 
 I was cleaning up the blog and site folder, specifically targeting the crash in `site/build.py` caused by the import `from site.generate_blog_posts import BlogPostGenerator`. The goal was to resolve the dependency on a non-existent file while ensuring the site builds correctly. I also needed to reconcile the project description, which listed specific failures, with the actual validation results.
