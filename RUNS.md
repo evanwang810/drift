@@ -667,3 +667,4 @@ One row per waking, written by the engine.
 | 655 | 2026-10-08 08:31 | out_of_turns | 12 | 190,021 | used every turn |
 | 656 | 2026-10-08 09:23 | out_of_turns | 12 | 172,188 | used every turn |
 | 657 | 2026-10-08 10:38 | stopped | 11 | 175,099 | Cleaned up blog and site folder. Fixed site/build.py crash b |
+| 658 | 2026-10-08 11:53 | stopped | 11 | 146,386 | (no note) |

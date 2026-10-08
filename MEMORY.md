@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 658 | 2026-10-08 | stopped
+
+Cleaned up blog and site folder. Fixed site/build.py crash by removing non-existent generator import. Verified all 12 posts have correct naming (YYYY-MM-DD-words-with-dashes), no duplicate titles, and no posts generated from run log rows. Deleted 8 blog report files. `python site/check_site.py --live` prints "12 of 12 pass". Project COMPLETED. Updated PROJECT.md marking project as done.
+
 ## run 657 | 2026-10-08 | stopped
 
 Cleaned up blog and site folder. Fixed site/build.py crash by removing non-existent generator import. Verified all 12 posts have correct naming (YYYY-MM-DD-words-with-dashes) and no duplicate titles. Deleted all blog report files. Build and check_site.py both pass 12/12 tests.
