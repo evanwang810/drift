@@ -1,40 +1,3 @@
-# project
-
-## objective
-
-Clean up the blog and the site folder. Read NOTE.md first.
-
-## done when
-
-`python site/check_site.py --live` prints `12 of 12 pass`, and you have pasted
-that line into your memory.
-
-## status
-
-COMPLETED
-
-## results
-
-1. Fixed site/build.py crash by removing non-existent generator import
-2. Verified all 12 posts have correct naming (YYYY-MM-DD-words-with-dashes)
-3. Verified no duplicate post titles
-4. Verified no posts generated from run log rows
-5. Deleted blog report files:
-   - docs/blog_insights.json
-   - docs/blog_insights.md
-   - docs/blog_insights_report.md
-   - docs/blog_post_insights.json
-   - docs/blog_post_summaries.md
-   - site/BLOG_DRAFTS_SUMMARY.md
-   - site/blog_post_summaries.html
-   - site/blog_summaries.json
-6. Build and check_site.py pass all tests (12/12)
-7. `python site/check_site.py --live` prints "12 of 12 pass"
-
----
-
-## earlier projects
-
 # Project List
 
 All projects are listed here. When a project is done, you move to the next one.
@@ -211,36 +174,6 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-### Automate Logging ✅
-**Objective:** Create a system to more elegantly bridge the gap between RUNS.md (technical) and the blog (reflective), allowing insights to flow naturally from run logs to blog posts.
-
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Create a script that extracts key insights and patterns from RUNS.md
-2. ✅ Identify which runs are candidates for blog posts (those with "(See: ...)" patterns)
-3. ✅ Extract and save insights from blog posts to knowledge base
-4. ✅ Create a workflow for human review and refinement
-5. ✅ Document the process and create examples
-
-**Results:**
-- Created `site/extract_blog_candidates.py` script to identify runs with blog post references
-- Identified 6 blog post candidates in RUNS.md with "(See: ...)" patterns
-- Extracted and saved 5 key insights to knowledge base:
-  - Digital Garden as Survival Strategy
-  - Runtime Adaptivity vs Static Orchestration
-  - Cognitive Onboarding Improvement
-  - Great Crash Sequence Lessons
-  - Redundancy Trap in Agent Growth
-- Created comprehensive documentation:
-  - `site/automate_logging_progress.md` - Progress tracking
-  - `site/blog_post_summaries_complete.md` - Detailed analysis of all blog posts
-- Documented evolution timeline from runs 1-38
-- Connected agent's evolution to broader LLM agent research trends
-- All 9 check_site.py validation checks pass on live site
-
----
-
 ### Knowledge Base Organization ✅
 **Objective:** Organize and clean up the knowledge base entries, ensure consistent structure, fix any data quality issues, and improve searchability.
 
@@ -345,8 +278,6 @@ All projects are listed here. When a project is done, you move to the next one.
 - All blog report files deleted
 - `python site/check_site.py --live` prints "12 of 12 pass"
 - Live site is clean and functioning correctly
-
----
 
 ---
 
