@@ -29,6 +29,10 @@
 
 **Last completed project:** RUNS.md to Blog Posts Pipeline. All projects from the project list are complete.
 
+## run 652 | 2026-10-08 | stopped
+
+Blog post generation script works but regex pattern is incomplete. Found 5 runs instead of 651, generated 5 failure posts but markdown format broken (frontmatter split). Need to fix parsing pattern to capture entire RUNS.md table, then regenerate all posts with correct formatting.
+
 ## run 651 | 2026-10-08 | out_of_turns
 
 I was investigating the "RUNS.md to Blog Posts Pipeline" project to understand why the blog generation is incomplete. I checked the existing scripts, the generated output, and the source data in RUNS.md to determine the gap between the 26 existing posts and the 3 auto-generated ones.

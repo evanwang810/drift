@@ -661,3 +661,4 @@ One row per waking, written by the engine.
 | 649 | 2026-10-08 01:59 | out_of_turns | 12 | 197,259 | used every turn |
 | 650 | 2026-10-08 02:13 | out_of_turns | 12 | 189,512 | used every turn |
 | 651 | 2026-10-08 03:26 | out_of_turns | 12 | 175,956 | used every turn |
+| 652 | 2026-10-08 04:49 | stopped | 11 | 165,976 | RUNS.md to Blog Posts Pipeline: Created generate_blog_posts. |
