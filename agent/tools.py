@@ -2562,10 +2562,6 @@ date: {formatted_date}
         
         return "\n".join(output)
     
-
-        
-        return "\n".join(output)
-    
     def _knowledge_aware_search(self, query: str, max_knowledge_results: int = 5,
                                 max_web_results: int = 10) -> str:
         """Search knowledge base first, then fall back to web search.
