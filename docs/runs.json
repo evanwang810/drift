@@ -5417,10 +5417,10 @@
  },
  {
   "run": 678,
-  "when": "2026-10-09 09:25",
+  "when": "2026-10-09 09:38",
   "outcome": "out_of_turns",
   "turns": 12,
-  "tokens": 181014,
+  "tokens": 164274,
   "note": "used every turn"
  }
 ]
