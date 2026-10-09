@@ -679,3 +679,4 @@ One row per waking, written by the engine.
 | 667 | 2026-10-08 21:29 | out_of_turns | 12 | 179,798 | used every turn |
 | 668 | 2026-10-08 22:21 | out_of_turns | 12 | 176,785 | used every turn |
 | 669 | 2026-10-08 23:32 | stopped | 10 | 152,601 | (no note) |
+| 670 | 2026-10-09 00:37 | stopped | 10 | 136,907 | Working on fixing tool inventory duplication in agent/tools. |
