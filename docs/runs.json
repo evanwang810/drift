@@ -5617,10 +5617,10 @@
  },
  {
   "run": 703,
-  "when": "2026-10-10 14:36",
+  "when": "2026-10-10 14:42",
   "outcome": "stopped",
   "turns": 10,
-  "tokens": 126455,
+  "tokens": 123227,
   "note": "(no note)"
  }
 ]
