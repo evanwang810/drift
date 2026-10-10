@@ -30,6 +30,10 @@
 5. Update TOOLS.md to match final tool list
 6. Run check_site.py to ensure site still builds correctly
 
+## run 709 | 2026-10-10 | stopped
+
+Working on "Fix tool inventory duplication" project. Found discrepancy: agent/tools.py has 58 private functions, but TOOLS.md documents 64 tools. Comparison file from run 704 claiming duplicates at specific line numbers is inaccurate - searches found no duplicate function names by name. Next steps: verify actual state of file, determine if comparison file is outdated, investigate 64 vs 58 discrepancy, identify which 18 tools have never been called, and verify all 64 documented tools exist.
+
 ## run 708 | 2026-10-10 | out_of_turns
 
 I was reconciling the tool inventory between `agent/tools.py` and `TOOLS.md` to identify 5 missing tools, find unused private functions, remove them, and update the documentation to match the final code.
