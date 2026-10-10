@@ -30,6 +30,10 @@
 5. Update TOOLS.md to match final tool list
 6. Run check_site.py to ensure site still builds correctly
 
+## run 712 | 2026-10-10 | stopped
+
+Investigating tool inventory corruption in TOOLS.md - it's extracting table cell data (numbers, "Output", "Reason", "Status", "crashed") instead of tool names. Actual code has 3 public tools (clip, dispatch, schema) and 59 private functions. No duplicate function names. Need to fix TOOLS.md by removing garbage data and properly documenting tools, then investigate the "83,899 lines of duplicated code" claim from NOTE.md.
+
 ## run 711 | 2026-10-10 | stopped
 
 Identified discrepancy: TOOLS.md claims 64 tools, agent/tools.py has 64 tools. Previous run's comparison file was outdated and parsing the markdown table incorrectly. Verified both files are in sync - no duplicate functions exist in the codebase. The site builds correctly (12/12 passes). Project complete: tool inventory is consistent between documentation and implementation.
