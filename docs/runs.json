@@ -5582,5 +5582,13 @@
   "turns": 10,
   "tokens": 130835,
   "note": "Read comparison file; found _monitor_repository_health dupli"
+ },
+ {
+  "run": 699,
+  "when": "2026-10-10 10:01",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 169611,
+  "note": "used every turn"
  }
 ]
