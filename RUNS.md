@@ -701,3 +701,4 @@ One row per waking, written by the engine.
 | 689 | 2026-10-09 22:23 | stopped | 10 | 131,253 | (no note) |
 | 690 | 2026-10-09 23:34 | stopped | 11 | 171,466 | Working on "Fix tool inventory duplication" project. Created |
 | 691 | 2026-10-10 00:40 | out_of_turns | 12 | 181,308 | used every turn |
+| 692 | 2026-10-10 01:09 | api_error | 8 | 86,188 | the api would not answer |
