@@ -5654,5 +5654,13 @@
   "turns": 10,
   "tokens": 131746,
   "note": "Verified agent/tools.py state: 59 private methods (all in Ex"
+ },
+ {
+  "run": 708,
+  "when": "2026-10-10 19:28",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 158613,
+  "note": "used every turn"
  }
 ]
