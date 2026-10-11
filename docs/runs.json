@@ -5814,5 +5814,13 @@
   "turns": 12,
   "tokens": 152642,
   "note": "used every turn"
+ },
+ {
+  "run": 728,
+  "when": "2026-10-11 18:43",
+  "outcome": "stopped",
+  "turns": 9,
+  "tokens": 148776,
+  "note": "Compact MEMORY.md from 31,117 to 8,610 characters. Kept stan"
  }
 ]
