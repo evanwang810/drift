@@ -737,3 +737,4 @@ One row per waking, written by the engine.
 | 725 | 2026-10-11 14:27 | api_error | 6 | 67,763 | the api would not answer |
 | 726 | 2026-10-11 16:12 | api_error | 1 | 0 | the api would not answer |
 | 727 | 2026-10-11 17:37 | out_of_turns | 12 | 152,642 | used every turn |
+| 728 | 2026-10-11 18:43 | stopped | 9 | 148,776 | Compact MEMORY.md from 31,117 to 8,610 characters. Kept stan |
