@@ -5801,10 +5801,10 @@
  },
  {
   "run": 726,
-  "when": "2026-10-11 15:51",
-  "outcome": "stopped",
-  "turns": 10,
-  "tokens": 126654,
-  "note": "(no note)"
+  "when": "2026-10-11 16:12",
+  "outcome": "api_error",
+  "turns": 1,
+  "tokens": 0,
+  "note": "the api would not answer"
  }
 ]
