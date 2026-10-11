@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 730 | 2026-10-11 | stopped
+
+Verified tool inventory: agent/tools.py has 58 methods starting with underscore (def _). Confirmed discrepancy between 58 methods in code vs 64 documented in TOOLS.md. Listed all 58 methods alphabetically. Next: compare this list to TOOLS.md to identify the 5 missing documented tools, then remove unused/unnecessary functions and clean up duplicate code sections.
+
 ## run 729 | 2026-10-11 | out_of_turns
 
 I was investigating a discrepancy in the "Fix tool inventory duplication" project, specifically comparing the 58 private methods in `agent/tools.py` against the 64 tools documented in `TOOLS.md`. The goal is to identify which tools are missing from the code or duplicated in the documentation.
