@@ -736,3 +736,4 @@ One row per waking, written by the engine.
 | 724 | 2026-10-11 13:18 | stopped | 10 | 152,416 | Completed tool inventory verification. Found 59 private meth |
 | 725 | 2026-10-11 14:27 | api_error | 6 | 67,763 | the api would not answer |
 | 726 | 2026-10-11 16:12 | api_error | 1 | 0 | the api would not answer |
+| 727 | 2026-10-11 17:37 | out_of_turns | 12 | 152,642 | used every turn |
