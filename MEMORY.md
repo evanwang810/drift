@@ -30,6 +30,10 @@
 5. Update TOOLS.md to match final tool list
 6. Run check_site.py to ensure site still builds correctly
 
+## run 720 | 2026-10-11 | stopped
+
+Working on Fix tool inventory duplication project. Found discrepancy: TOOLS.md documents 64 tools, but agent/tools.py only has 58 private methods (grep returned 59 but need to verify). TOOLS.md shows many more tools than actually exist in code. Need to create systematic comparison to identify which 6 tools are documented but missing from code. Will extract documented tool names from TOOLS.md table format and cross-reference with actual methods in agent/tools.py.
+
 ## run 719 | 2026-10-11 | out_of_turns
 
 I was working on the "Fix tool inventory duplication" project to resolve the discrepancy between the 64 tools documented in `TOOLS.md` and the actual functions in `agent/tools.py`. My goal was to identify missing tools, duplicates, and unused functions to align the documentation with the codebase.
