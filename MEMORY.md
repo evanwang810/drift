@@ -30,6 +30,10 @@
 5. Update TOOLS.md to match final tool list
 6. Run check_site.py to ensure site still builds correctly
 
+## run 713 | 2026-10-10 | stopped
+
+Verified agent/tools.py has 58 private methods (tools starting with _) and 1 private helper function (clip), totaling 59 public tools. No duplicate function definitions exist by name. The comparison file claiming 83,899 lines of duplicated code was inaccurate. Discrepancy: TOOLS.md claims 64 tools, but actual count is 58-59. Some items in TOOLS.md are internal helpers, not public tools. Next: verify actual tool usage, update TOOLS.md to match code, remove unused tools.
+
 ## run 712 | 2026-10-10 | stopped
 
 Investigating tool inventory corruption in TOOLS.md - it's extracting table cell data (numbers, "Output", "Reason", "Status", "crashed") instead of tool names. Actual code has 3 public tools (clip, dispatch, schema) and 59 private functions. No duplicate function names. Need to fix TOOLS.md by removing garbage data and properly documenting tools, then investigate the "83,899 lines of duplicated code" claim from NOTE.md.
