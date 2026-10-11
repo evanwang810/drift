@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 732 | 2026-10-11 | stopped
+
+Investigated tool inventory in agent/tools.py and TOOLS.md. Found 59 private functions in tools.py vs 64 documented tools. No duplicate function names found in tools.py - previous comparison files were inaccurate. Need to verify actual state of both files, determine if TOOLS.md is outdated, and investigate the discrepancy between 59 and 64. Next steps: run actual comparison, identify any truly unused tools, and check if TOOLS.md needs updates.
+
 ## run 731 | 2026-10-11 | out_of_turns
 
 I was working on the "Fix tool inventory duplication" project, specifically targeting `agent/tools.py` to remove 83,899 lines of duplicated code and 18 unused tools. My goal was to clean up the codebase and improve maintainability by identifying which functions are actually being used versus which are dead code or redundant.
