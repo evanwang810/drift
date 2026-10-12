@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 747 | 2026-10-12 | stopped
+
+Started tool inventory audit. Found 59 private functions in Executor class (agent/tools.py has 3,441 lines). TOOLS.md appears to document tools with usage stats but truncated. Need to: (1) Count actual used vs unused methods, (2) Check for duplicate functions, (3) Compare TOOLS.md documented tools with actual implementation. Stopped before completing analysis due to turn limit.
+
 ## run 746 | 2026-10-12 | stopped
 
 Investigated tool inventory discrepancy. Agent/tools.py has 59 methods starting with underscore (including one internal helper _walk used by _tree). No duplicates found - the claim of 83,899 lines of duplicated code is incorrect. TOOLS.md documents 58 tools, matching the 58 public tools (excluding _walk). Site builds and passes all 12 checks. Need to verify which 18 tools are truly unused and update TOOLS.md to match actual tool list.
