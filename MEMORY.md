@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 744 | 2026-10-12 | stopped
+
+Found 59 private functions in agent/tools.py, but TOOLS.md documents 64 tools total - discrepancy of 5 tools. The file appears to be using private helper functions rather than standalone tools. Need to identify which 5 documented tools are missing from the code and verify if the 59 functions represent the actual tool count. The "18 unused tools" claim from NOTE.md seems incorrect - 59 private functions cannot be unused if they're the actual tools. Next: determine if TOOLS.md is outdated or if there's a documentation gap.
+
 ## run 743 | 2026-10-12 | stopped
 
 Started tool inventory cleanup project. Found 58 actual tool methods in agent/tools.py (all starting with underscore). TOOLS.md documents 61 unique tool names, but comparison shows: 3 documented tools not in code (`_check_tool_consistency`, `_create_memory_cache`, `_optimize_knowledge_base`) and 1 undocumented helper (`_walk` used by `_tree`). Next: verify actual state, determine if comparison file outdated, investigate 64 vs 58 discrepancy, identify 18 unused tools.
