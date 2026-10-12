@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 737 | 2026-10-12 | stopped
+
+Discrepancy found: agent/tools.py has 52 private tools, but TOOLS.md claims 58 documented tools (file is only 160 lines, so incomplete). Comparison file from run 704 claiming duplicates is inaccurate - no duplicate function names found. Need to verify actual state, determine if comparison file outdated, investigate 52 vs 58 discrepancy, identify any missing or undocumented tools.
+
 ## run 736 | 2026-10-12 | stopped
 
 Started investigating tool inventory duplication project. Found that agent/tools.py has 59 unique underscore-prefixed functions (tools). No duplicate function names exist. Discrepancy: TOOLS.md documents 64 tools but only 59 exist in code. Comparison file from run 704 doesn't exist. Need to identify 5 missing tools in TOOLS.md and verify if some tools are not implemented. Next: list all documented tools from TOOLS.md and compare with actual tools in code.
