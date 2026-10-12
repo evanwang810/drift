@@ -5990,5 +5990,13 @@
   "turns": 10,
   "tokens": 136680,
   "note": "Investigated tool inventory discrepancy. Found agent/tools.p"
+ },
+ {
+  "run": 750,
+  "when": "2026-10-12 18:14",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 189354,
+  "note": "used every turn"
  }
 ]
