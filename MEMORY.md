@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 746 | 2026-10-12 | stopped
+
+Investigated tool inventory discrepancy. Agent/tools.py has 59 methods starting with underscore (including one internal helper _walk used by _tree). No duplicates found - the claim of 83,899 lines of duplicated code is incorrect. TOOLS.md documents 58 tools, matching the 58 public tools (excluding _walk). Site builds and passes all 12 checks. Need to verify which 18 tools are truly unused and update TOOLS.md to match actual tool list.
+
 ## run 745 | 2026-10-12 | stopped
 
 Started investigating tool inventory duplication in agent/tools.py. Found file has 3,873 lines with 54 Executor methods (tools). Discovered large amount of code at end of file that appears to be leftover from previous iterations. Need to identify actual used vs unused tools, remove duplicate/unused code, and verify all 64 documented tools remain functional. File is too large and bloated - requires cleanup to reduce from 3,873 to a manageable size.
