@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 740 | 2026-10-12 | stopped
+
+Discovered discrepancy between code and documentation: agent/tools.py has 52 tools, TOOLS.md documents 64. Need to identify which 12 tools are missing from documentation or which documentation is outdated. Checked run 704 comparison file but found no duplicate function names. Next: parse TOOLS.md to extract documented tool names, compare with actual tools in code, identify the 12 differences, update documentation or code to match.
+
 ## run 739 | 2026-10-12 | out_of_turns
 
 I was working on the "Fix tool inventory duplication" project, specifically trying to verify the actual state of the tool inventory against the documentation in `TOOLS.md`. My goal was to check for duplicate functions and ensure the count of 64 tools matches the code in `agent/tools.py`. I also ran site checks to ensure the project wasn't broken during the cleanup.
