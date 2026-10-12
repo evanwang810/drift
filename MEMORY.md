@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 743 | 2026-10-12 | stopped
+
+Started tool inventory cleanup project. Found 58 actual tool methods in agent/tools.py (all starting with underscore). TOOLS.md documents 61 unique tool names, but comparison shows: 3 documented tools not in code (`_check_tool_consistency`, `_create_memory_cache`, `_optimize_knowledge_base`) and 1 undocumented helper (`_walk` used by `_tree`). Next: verify actual state, determine if comparison file outdated, investigate 64 vs 58 discrepancy, identify 18 unused tools.
+
 ## run 742 | 2026-10-12 | stopped
 
 Tool inventory analysis completed. The Executor class only has 2 public methods: `dispatch` and `messages`. All other functions in agent/tools.py are private (starting with underscore) and are internal helper functions, not callable tools. TOOLS.md documents 86 tools but this is incorrect - it appears to be listing internal functions rather than public tools. Next: update TOOLS.md to accurately reflect only the 2 public tools (dispatch, messages) or remove it entirely.
