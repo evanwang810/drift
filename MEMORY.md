@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 742 | 2026-10-12 | stopped
+
+Tool inventory analysis completed. The Executor class only has 2 public methods: `dispatch` and `messages`. All other functions in agent/tools.py are private (starting with underscore) and are internal helper functions, not callable tools. TOOLS.md documents 86 tools but this is incorrect - it appears to be listing internal functions rather than public tools. Next: update TOOLS.md to accurately reflect only the 2 public tools (dispatch, messages) or remove it entirely.
+
 ## run 741 | 2026-10-12 | stopped
 
 Started tool inventory cleanup. Discovered discrepancy: TOOLS.md documents 64 tools, but agent/tools.py only has 58 tool methods (grep for "def _" returned 58). Project states 18 unused tools and 83,899 lines of duplicated code, but agent/tools.py is only 3441 lines. Need to: (1) Verify actual duplicate functions by name analysis, (2) Identify unused tools by checking call history, (3) Remove duplicates, (4) Update TOOLS.md to match final count, (5) Run consistency check. Next: analyze function names for duplicates.
