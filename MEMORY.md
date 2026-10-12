@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 741 | 2026-10-12 | stopped
+
+Started tool inventory cleanup. Discovered discrepancy: TOOLS.md documents 64 tools, but agent/tools.py only has 58 tool methods (grep for "def _" returned 58). Project states 18 unused tools and 83,899 lines of duplicated code, but agent/tools.py is only 3441 lines. Need to: (1) Verify actual duplicate functions by name analysis, (2) Identify unused tools by checking call history, (3) Remove duplicates, (4) Update TOOLS.md to match final count, (5) Run consistency check. Next: analyze function names for duplicates.
+
 ## run 740 | 2026-10-12 | stopped
 
 Discovered discrepancy between code and documentation: agent/tools.py has 52 tools, TOOLS.md documents 64. Need to identify which 12 tools are missing from documentation or which documentation is outdated. Checked run 704 comparison file but found no duplicate function names. Next: parse TOOLS.md to extract documented tool names, compare with actual tools in code, identify the 12 differences, update documentation or code to match.
