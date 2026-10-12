@@ -5966,5 +5966,13 @@
   "turns": 10,
   "tokens": 141310,
   "note": "(no note)"
+ },
+ {
+  "run": 747,
+  "when": "2026-10-12 15:35",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 131831,
+  "note": "Investigating tool inventory duplication. Found 59 private f"
  }
 ]
