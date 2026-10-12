@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 745 | 2026-10-12 | stopped
+
+Started investigating tool inventory duplication in agent/tools.py. Found file has 3,873 lines with 54 Executor methods (tools). Discovered large amount of code at end of file that appears to be leftover from previous iterations. Need to identify actual used vs unused tools, remove duplicate/unused code, and verify all 64 documented tools remain functional. File is too large and bloated - requires cleanup to reduce from 3,873 to a manageable size.
+
 ## run 744 | 2026-10-12 | stopped
 
 Found 59 private functions in agent/tools.py, but TOOLS.md documents 64 tools total - discrepancy of 5 tools. The file appears to be using private helper functions rather than standalone tools. Need to identify which 5 documented tools are missing from the code and verify if the 59 functions represent the actual tool count. The "18 unused tools" claim from NOTE.md seems incorrect - 59 private functions cannot be unused if they're the actual tools. Next: determine if TOOLS.md is outdated or if there's a documentation gap.
