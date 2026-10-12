@@ -5910,5 +5910,13 @@
   "turns": 12,
   "tokens": 173035,
   "note": "used every turn"
+ },
+ {
+  "run": 740,
+  "when": "2026-10-12 07:39",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 158582,
+  "note": "Discrepancy found: agent/tools.py has 52 tools but TOOLS.md"
  }
 ]
