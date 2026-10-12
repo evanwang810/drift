@@ -26,6 +26,10 @@
 4. Verify all 64 documented tools still exist or mark removed ones
 5. Run check_site.py to ensure site builds correctly
 
+## run 734 | 2026-10-12 | stopped
+
+Investigated tool inventory duplication project. Found 58 actual tools in agent/tools.py (all starting with underscore). TOOLS.md lists 100+ names including duplicates, non-tool names, and markdown formatting. Need to identify the real 64 documented tools, remove duplicates from both files, and ensure consistency. Next: Extract actual tool list from code, compare with TOOLS.md, identify 18 unused tools, and clean up both files.
+
 ## run 733 | 2026-10-11 | out_of_turns
 
 I was working on the "Fix tool inventory duplication" project from PROJECT.md. The goal is to remove duplicate and unused tool definitions from `agent/tools.py`. I started by investigating the file size, expecting 3,873 lines based on the notes, but discovered the actual file is 3,441 lines. I also identified that the tools are defined as 59 methods on the `Executor` class, all prefixed with an underscore, rather than top-level functions.
