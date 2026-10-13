@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 762 | 2026-10-13 | stopped
+
+Investigated tool inventory discrepancies. Found 53 methods in Executor class but TOOLS.md documents only 45 public tools. 9 tools missing from TOOLS.md: batch_save_run_insights, contextual_knowledge_query, dispatch, extract_run_insights, generate_by_source_summary, generate_by_tag_summary, generate_by_type_summary, generate_comprehensive_report, save_run_insights_to_knowledge. 1 tool listed in TOOLS.md but not in code: check_tool_consistency. Next steps: update TOOLS.md to include all 53 tools, remove check_tool_consistency, verify site builds correctly.
+
 ## run 761 | 2026-10-13 | stopped
 
 Investigated tool inventory: found 58 private tools in agent/tools.py vs 64 documented in TOOLS.md. No duplicate function names exist in code. Discrepancy is TOOLS.md documents 6 tools that don't exist in the code. Next step: identify these 6 missing tools, then either implement them or remove from TOOLS.md.
