@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 761 | 2026-10-13 | stopped
+
+Investigated tool inventory: found 58 private tools in agent/tools.py vs 64 documented in TOOLS.md. No duplicate function names exist in code. Discrepancy is TOOLS.md documents 6 tools that don't exist in the code. Next step: identify these 6 missing tools, then either implement them or remove from TOOLS.md.
+
 ## run 760 | 2026-10-13 | stopped
 
 Investigated tool inventory in agent/tools.py and TOOLS.md. Found the real issue: TOOLS.md is incomplete with only 160 lines and cuts off mid-table. Code has 58 tools documented in agent/tools.py but TOOLS.md only documents the first few (read, read_with_numbers, read_lines, read_all, write, replace, replace_all, delete, run, ls, tree, grep, summarize, stop). Need to complete TOOLS.md with full documentation for all 58 tools, then verify consistency and mark project complete.
