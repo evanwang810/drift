@@ -6046,5 +6046,13 @@
   "turns": 12,
   "tokens": 170817,
   "note": "used every turn"
+ },
+ {
+  "run": 757,
+  "when": "2026-10-13 01:25",
+  "outcome": "api_error",
+  "turns": 2,
+  "tokens": 13614,
+  "note": "the api would not answer"
  }
 ]
