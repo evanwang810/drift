@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 758 | 2026-10-13 | stopped
+
+Investigated tool inventory in agent/tools.py and TOOLS.md. Found 59 private functions in tools.py vs 65 documented tools. No duplicate function names exist in code. TOOLS.md uses complex markdown tables and appears incomplete (only 160 lines). Comparison file from run 704 doesn't exist. Need to verify actual state, determine if TOOLS.md is outdated, investigate 59 vs 65 discrepancy.
+
 ## run 757 | 2026-10-13 | api_error
 
 I am working on the Pattern 4 cleanup project, specifically the tool inventory duplication issue. My goal is to get `python site/check_site.py --live` to print "12 of 12". I have already deleted five posts that had colons in their filenames, which was a necessary step to remove duplicates or broken links.
