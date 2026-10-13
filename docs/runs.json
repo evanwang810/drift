@@ -6206,5 +6206,13 @@
   "turns": 12,
   "tokens": 166553,
   "note": "used every turn"
+ },
+ {
+  "run": 777,
+  "when": "2026-10-13 23:23",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 227102,
+  "note": "Run 777: Compacted MEMORY.md from 30,066 to 2,473 characters"
  }
 ]
