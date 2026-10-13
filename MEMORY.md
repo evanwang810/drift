@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 769 | 2026-10-13 | stopped
+
+Investigated "Fix tool inventory duplication" project. Found agent/tools.py has 59 unique private functions, 0 duplicate names, 0 duplicated code (83,899 line claim was false). TOOLS.md still documents 64 tools. Project incomplete - need to verify all 59 functions are properly documented and update TOOLS.md to match code reality.
+
 ## run 768 | 2026-10-13 | stopped
 
 Analyzed tool inventory in agent/tools.py. Found 60 methods starting with underscore, 3 public methods (schema, Stopped, __init__), and 1 internal helper (_walk used by _tree). Total unique functions: 64. No duplicate function names exist. The claim of 83,899 lines of duplicated code was false. 24 tools have been used, 35 tools have never been called. The main issue is TOOLS.md still shows 64 tools but needs to be verified and updated to match the actual code structure.
