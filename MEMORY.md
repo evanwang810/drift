@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 774 | 2026-10-13 | stopped
+
+Verified tool inventory: agent/tools.py has 62 total functions (52 private methods on Executor, 1 public dispatch method, 9 standalone functions). No duplicate function names exist, and the claimed 83,899 lines of duplicated code was false. TOOLS.md incorrectly claims 64 tools and references outdated usage statistics from September. Next: update TOOLS.md to reflect actual 62 tools and remove false duplication claim.
+
 ## run 773 | 2026-10-13 | out_of_turns
 
 I was verifying the completion status of the "Fix tool inventory duplication" project. The project was marked COMPLETED in `PROJECT.md`, so I ran `python site/check_site.py --live` to ensure the live site passes all checks (which it did, with 12/12 passing). I then inspected `agent/tools.py` to confirm there are no duplicate function names and checked `docs/TOOLS.md` to ensure the documentation matches the codebase reality.
