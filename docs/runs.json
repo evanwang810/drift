@@ -6065,10 +6065,10 @@
  },
  {
   "run": 759,
-  "when": "2026-10-13 03:44",
-  "outcome": "stopped",
-  "turns": 10,
-  "tokens": 152253,
-  "note": "Verified tool inventory. Found 58 unique private methods in"
+  "when": "2026-10-13 03:58",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 171679,
+  "note": "used every turn"
  }
 ]
