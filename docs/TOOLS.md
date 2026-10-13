@@ -1,6 +1,6 @@
 # Tools Catalog
 
-This file documents all available tools in the repository. Tools are methods in the `Executor` class in `agent/tools.py` that start with an underscore.
+This file documents all available tools in the repository. Tools are functions in `agent/tools.py`. The public tools (`dispatch`, `schema`, `clip`) are callable directly; private tools (`_toolname`) are internal helpers.
 
 ## File Operations
 
@@ -25,10 +25,6 @@ This file documents all available tools in the repository. Tools are methods in 
 **`tree`** - List files in a directory and subdirectories as a tree structure.
 
 **`grep`** - Search for a pattern in files recursively.
-
-**`search`** - Search the web for a query using DuckDuckGo and Wikipedia API.
-
-**`search_wikipedia`** - Search Wikipedia API and return results.
 
 ## Shell Operations
 
@@ -108,116 +104,110 @@ This file documents all available tools in the repository. Tools are methods in 
 
 **`cleanup_temp_files`** - Remove temporary files safely.
 
-**_extract_run_insights_** - Extract insights from RUNS.md entries and identify key patterns.
+## Internal Functions (Not Public Tools)
 
-**_save_run_insights_to_knowledge_** - Add insights from a run to the knowledge base.
+These are private helper functions in `agent/tools.py` that are not callable directly:
 
-**_batch_save_run_insights_** - Batch save extracted insights to the knowledge base.
+**`_dispatch_`** - Route tool calls to the appropriate method.
 
-## Internal Functions
+**`_analyze_runs_`** - Internal wrapper for analyze_runs function.
 
-**_dispatch_** - Route tool calls to the appropriate method.
+**`_contextual_knowledge_query_`** - Query knowledge base based on current work context.
 
-**_analyze_runs_** - Internal wrapper for analyze_runs function.
+**`_cleanup_temp_files_`** - Remove temporary files safely.
 
-**_contextual_knowledge_query_** - Query knowledge base based on current work context.
+**`_create_blog_posts_from_runs_`** - Generate complete blog posts from RUNS.md entries.
 
-**_cleanup_temp_files_** - Remove temporary files safely.
+**`_extract_run_insights_`** - Extract insights from RUNS.md entries.
 
-**_create_blog_posts_from_runs_** - Generate complete blog posts from RUNS.md entries.
+**`_find_unused_files_`** - Identify unused or orphaned files.
 
-**_delete_** - Delete a file.
+**`_generate_blog_post_`** - Generate a full blog post with frontmatter.
 
-**_extract_run_insights_** - Extract insights from RUNS.md entries.
+**`_generate_by_source_summary_`** - Generate summary organized by source.
 
-**_find_unused_files_** - Identify unused or orphaned files.
+**`_generate_by_tag_summary_`** - Generate summary organized by tags.
 
-**_generate_blog_post_** - Generate a full blog post with frontmatter.
+**`_generate_by_type_summary_`** - Generate summary organized by entry type.
 
-**_generate_by_source_summary_** - Generate summary organized by source.
+**`_generate_comprehensive_report_`** - Generate comprehensive report with all dimensions.
 
-**_generate_by_tag_summary_** - Generate summary organized by tags.
+**`_generate_docs_`** - Generate comprehensive documentation for all tools, projects, and workflows.
 
-**_generate_by_type_summary_** - Generate summary organized by entry type.
+**`_generate_knowledge_report_`** - Generate knowledge-based reports and summaries.
 
-**_generate_comprehensive_report_** - Generate comprehensive report with all dimensions.
+**`_gh_close_issue_`** - Close a GitHub issue.
 
-**_generate_docs_** - Generate comprehensive documentation for all tools, projects, and workflows.
+**`_gh_comment_issue_`** - Comment on a GitHub issue.
 
-**_generate_knowledge_report_** - Generate knowledge-based reports and summaries.
+**`_gh_create_issue_from_project_`** - Create GitHub issues from PROJECT.md incomplete tasks.
 
-**_gh_close_issue_** - Close a GitHub issue.
+**`_gh_list_issues_`** - List open GitHub issues for this repository.
 
-**_gh_comment_issue_** - Comment on a GitHub issue.
+**`_gh_read_issue_`** - Read a GitHub issue with its comments.
 
-**_gh_create_issue_from_project_** - Create GitHub issues from PROJECT.md incomplete tasks.
+**`_grep_`** - Search for a pattern in files recursively.
 
-**_gh_list_issues_** - List open GitHub issues for this repository.
+**`_knowledge_add_`** - Add an entry to the knowledge base.
 
-**_gh_read_issue_** - Read a GitHub issue with its comments.
+**`_knowledge_aware_search_`** - Search knowledge base first, then fall back to web search.
 
-**_grep_** - Search for a pattern in files recursively.
+**`_knowledge_list_`** - List all knowledge entries, optionally filtered by type.
 
-**_knowledge_add_** - Add an entry to the knowledge base.
+**`_knowledge_search_`** - Search knowledge base by title, description, tags, or implementation.
 
-**_knowledge_aware_search_** - Search knowledge base first, then fall back to web search.
+**`_ls_`** - List files in a directory.
 
-**_knowledge_list_** - List all knowledge entries, optionally filtered by type.
+**`_monitor_repository_health_`** - Check repository integrity and health.
 
-**_knowledge_search_** - Search knowledge base by title, description, tags, or implementation.
+**`_organize_repo_`** - Automate repository cleanup and organization.
 
-**_ls_** - List files in a directory.
+**`_read_`** - Read a file.
 
-**_monitor_repository_health_** - Check repository integrity and health.
+**`_read_all_`** - Read a file entirely, ignoring the usual size limit.
 
-**_organize_repo_** - Automate repository cleanup and organization.
+**`_read_lines_`** - Read a range of lines from a file.
 
-**_read_** - Read a file.
+**`_read_with_numbers_`** - Read a file with line numbers.
 
-**_read_all_** - Read a file entirely, ignoring the usual size limit.
+**`_replace_`** - Replace the first occurrence of a string in a file.
 
-**_read_lines_** - Read a range of lines from a file.
+**`_replace_all_`** - Replace all occurrences of a string in a file.
 
-**_read_with_numbers_** - Read a file with line numbers.
+**`_research_recommendations_`** - Suggest whether to search web or use existing knowledge.
 
-**_replace_** - Replace the first occurrence of a string in a file.
+**`_research_summary_`** - Summarize research from knowledge base entries.
 
-**_replace_all_** - Replace all occurrences of a string in a file.
+**`_review_project_structure_`** - Check PROJECT.md and directory structure alignment.
 
-**_research_recommendations_** - Suggest whether to search web or use existing knowledge.
+**`_run_`** - Run a shell command in the repository root.
 
-**_research_summary_** - Summarize research from knowledge base entries.
+**`_runs_to_blog_candidates_`** - Scan RUNS.md and generate blog post candidates.
 
-**_review_project_structure_** - Check PROJECT.md and directory structure alignment.
+**`_save_run_insights_to_knowledge_`** - Add insights from a run to the knowledge base.
 
-**_run_** - Run a shell command in the repository root.
+**`_search_`** - Search the web for a query.
 
-**_runs_to_blog_candidates_** - Scan RUNS.md and generate blog post candidates.
+**`_search_wikipedia_`** - Search Wikipedia API and return results.
 
-**_save_run_insights_to_knowledge_** - Add insights from a run to the knowledge base.
+**`_similar_research_`** - Find similar past research before starting new searches.
 
-**_search_** - Search the web for a query.
+**`_stop_`** - End the run.
 
-**_search_wikipedia_** - Search Wikipedia API and return results.
+**`_summarize_`** - Replace everything you have done so far with a summary.
 
-**_similar_research_** - Find similar past research before starting new searches.
+**`_test_rollback_point_`** - Create and validate rollback points for safe experimentation.
 
-**_stop_** - End the run.
+**`_tree_`** - List files in a directory and its subdirectories as a tree.
 
-**_summarize_** - Replace everything you have done so far with a summary.
+**`_validate_git_status_`** - Warn about uncommitted changes before making significant changes.
 
-**_test_rollback_point_** - Create and validate rollback points for safe experimentation.
+**`_validate_python_`** - Check if a Python file has syntax errors.
 
-**_tree_** - List files in a directory and its subdirectories as a tree.
+**`_validate_python_syntax_`** - Check if a Python file has syntax errors before running.
 
-**_validate_git_status_** - Warn about uncommitted changes before making significant changes.
+**`_web_fetch_`** - Fetch content from a URL.
 
-**_validate_python_** - Check if a Python file has syntax errors.
+**`_write_`** - Write a file, replacing it entirely.
 
-**_validate_python_syntax_** - Check if a Python file has syntax errors before running.
-
-**_web_fetch_** - Fetch content from a URL.
-
-**_write_** - Write a file, replacing it entirely.
-
-Total: 59 tools documented
+Total: 62 unique functions (59 private, 3 public)
