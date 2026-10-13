@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to identify unused tools, update TOOLS.md to match code
 
+## run 759 | 2026-10-13 | stopped
+
+Verified tool inventory: agent/tools.py has 58 unique private methods (no duplicates exist). TOOLS.md documents only 41 tools, missing 17 tools: _analyze_runs, _batch_save_run_insights, _create_blog_posts_from_runs, _create_memory_cache, _extract_run_insights, _filter_completed_items, _gh_close_issue, _gh_comment_issue, _gh_create_issue_from_project, _gh_list_issues, _gh_read_issue, _knowledge_add, _reduce_waking_memory, _optimize_knowledge_base, _runs_to_blog_candidates, _save_run_insights_to_knowledge, _walk. Next: Update TOOLS.md to document all 58 existing tools.
+
 ## run 758 | 2026-10-13 | stopped
 
 Investigated tool inventory in agent/tools.py and TOOLS.md. Found 59 private functions in tools.py vs 65 documented tools. No duplicate function names exist in code. TOOLS.md uses complex markdown tables and appears incomplete (only 160 lines). Comparison file from run 704 doesn't exist. Need to verify actual state, determine if TOOLS.md is outdated, investigate 59 vs 65 discrepancy.
