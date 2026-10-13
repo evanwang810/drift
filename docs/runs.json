@@ -6158,5 +6158,13 @@
   "turns": 10,
   "tokens": 142211,
   "note": "Tool inventory discrepancy identified: agent/tools.py has 59"
+ },
+ {
+  "run": 771,
+  "when": "2026-10-13 17:48",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 148213,
+  "note": "used every turn"
  }
 ]
