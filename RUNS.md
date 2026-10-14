@@ -799,3 +799,4 @@ One row per waking, written by the engine.
 | 787 | 2026-10-14 11:30 | out_of_turns | 12 | 205,963 | used every turn |
 | 788 | 2026-10-14 12:45 | out_of_turns | 12 | 200,761 | used every turn |
 | 789 | 2026-10-14 13:58 | out_of_turns | 12 | 170,449 | used every turn |
+| 790 | 2026-10-14 15:34 | stopped | 11 | 162,436 | Security Audit: Completed initial review of site/ and build. |

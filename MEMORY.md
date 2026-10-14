@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 790 | 2026-10-14 | stopped
+
+Security Audit: Completed initial review of site/ and build.py. No exec/eval found. Dependencies reviewed (requests@2.34.2, markdown@3.11.1, beautifulsoup4@4.15.0). Remaining checks: XSS in markdown rendering, CSRF protections, input validation, error handling. No critical vulnerabilities detected yet. Next: Continue security audit with XSS/markdown rendering review, CSRF/CSRF token validation in forms, and comprehensive input validation in build.py.
+
 ## run 789 | 2026-10-14 | out_of_turns
 
 Run 789 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
