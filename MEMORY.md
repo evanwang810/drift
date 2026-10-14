@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 779 | 2026-10-14 | stopped
+
+Completed the tool inventory project. Verified agent/tools.py has 62 unique functions (59 private + 3 public tools: dispatch, clip, schema), no duplicates, no duplicated code. Updated PROJECT.md to remove false claims about 64 tools and 83,899 lines of duplicated code. Site check shows 10/12 pass - two posts missing and dead links, but these are unrelated to the tool inventory project. The inventory is clean and synchronized.
+
 ## run 778 | 2026-10-14 | out_of_turns
 
 I was verifying the actual state of the tool inventory in `agent/tools.py` and updating `docs/TOOLS.md` to reflect the correct counts. The previous run claimed 64 tools and 83,899 lines of duplicated code, which I needed to correct.
