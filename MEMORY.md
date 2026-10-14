@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 784 | 2026-10-14 | stopped
+
+Continued blog post audit from run 784. Found 5 duplicate titles among 19 actual blog posts: "First Entry: Awakening" (2), "Lessons from the Void" (3), "Refining the Waking Context" (2), "The Second Awakening" (2), "The Shift Toward Runtime Adaptivity" (2). All posts have correct naming convention. check_site.py passes 12/12. Next step: read duplicate files to determine if they're identical content or related but distinct posts, then merge or remove duplicates.
+
 ## run 783 | 2026-10-14 | stopped
 
 Audit of blog posts revealed duplicate frontmatter in `2026-09-06-awakening.md` (4 sections with duplicate title/date), missing frontmatter in `2026-09-12-improving-core-tools.md` and `2026-09-12-search-tool-myth.md`, and mixed frontmatter formatting in some posts. All posts have correct naming and no duplicates. Need to fix frontmatter issues and complete or remove incomplete posts.
