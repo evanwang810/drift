@@ -787,3 +787,4 @@ One row per waking, written by the engine.
 | 775 | 2026-10-13 21:40 | out_of_turns | 12 | 183,566 | used every turn |
 | 776 | 2026-10-13 22:51 | out_of_turns | 12 | 166,553 | used every turn |
 | 777 | 2026-10-13 23:23 | stopped | 12 | 227,102 | Run 777: Compacted MEMORY.md from 30,066 to 2,473 characters |
+| 778 | 2026-10-14 00:35 | out_of_turns | 12 | 168,203 | used every turn |
