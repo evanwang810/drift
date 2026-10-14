@@ -1,176 +1,138 @@
 # Security Audit and Hardening Report
 
 **Date:** 2026-10-14
-**Project:** Security Audit and Hardening
+**Run:** 788
+**Status:** IN PROGRESS
 
 ## Executive Summary
 
-This audit identified several security concerns in the codebase, primarily related to shell execution, environment variable exposure, and input validation. The most critical issues involve potential command injection vulnerabilities and sensitive token exposure.
+This security audit reviews the repository for vulnerabilities, checks dependencies for known issues, verifies sensitive data handling, and implements security best practices. The goal is to identify and fix security issues before they can be exploited.
 
-## Critical Findings
+## Scope
 
-### 1. Shell Command Injection (HIGH RISK)
+- Repository code review (agent/, site/, docs/)
+- Dependency vulnerability checking
+- Security headers and protections
+- Sensitive data handling
+- Authentication and authorization
+- Input validation and sanitization
+- XSS, CSRF, SQL injection vulnerabilities
 
-**Location:** `agent/tools.py` lines 158-161, 419, 459, 502, 526, 629, 657, 3321
+## Findings
 
-**Issue:**
-```python
-subprocess.run(command, shell=True, cwd=self.root, env=self.env, ...)
-```
+### 1. High Priority Issues
 
-The `command` parameter is used with `shell=True` without proper input validation or sanitization. This could allow command injection if user input reaches this code.
+#### 1.1 No Security Headers
+**Severity:** HIGH
+**Issue:** No HTTP security headers are implemented in generated HTML files. This leaves the website vulnerable to XSS attacks, clickjacking, and other web vulnerabilities.
 
-**Risk:** An attacker could potentially execute arbitrary shell commands.
+**Affected Files:**
+- All HTML files in site/ directory
+- site/build.py (HTML generation)
 
-**Recommendation:**
-- Validate all input before passing to shell commands
-- Use `shell=False` when possible and pass arguments as a list
-- Implement input sanitization and length limits
-- Add command whitelist/blacklist checks
+**Recommendation:** Implement security headers:
+- Content-Security-Policy (CSP)
+- X-Content-Type-Options
+- X-Frame-Options
+- X-XSS-Protection
+- Referrer-Policy
 
-### 2. GitHub Token Exposure (HIGH RISK)
+#### 1.2 No Input Validation in Search
+**Severity:** MEDIUM
+**Issue:** Search functionality in site/search_index.py does not validate user input, potentially allowing:
+- SQL injection if using SQL database
+- XSS if searching HTML content
+- Command injection if using shell commands
 
-**Location:** `agent/tools.py` lines 413-421, 453-462, 496-506, 520-529, 548-557, 629-632, 657-660
+**Affected Files:**
+- site/search_index.py
+- site/build.py
 
-**Issue:**
-```python
-gh_token = os.environ.get("GH_TOKEN")
-result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
-```
+**Recommendation:** Implement input sanitization and parameterized queries.
 
-The GitHub token is passed through environment variables to subprocess calls. While this is necessary for the GitHub API calls to work, the token is visible to other processes in the same environment.
+### 2. Medium Priority Issues
 
-**Risk:** If another process on the same system gains access to the environment, they could steal the token.
+#### 2.1 Sensitive Data in Logs
+**Severity:** MEDIUM
+**Issue:** RUNS.md may contain sensitive information such as API keys, tokens, or passwords if pasted into logs.
 
-**Recommendation:**
-- Use `subprocess.run(..., env={**self.env, "GITHUB_TOKEN": gh_token})` (consistent naming)
-- Document that `GH_TOKEN` is required in the environment
-- Consider using GitHub CLI tokens instead of environment variables
-- Add logging warnings if token is being used
+**Affected Files:**
+- RUNS.md
+- site/build.py (generates HTML from RUNS.md)
 
-## Medium Risk Findings
+**Recommendation:** Add sanitization step when generating HTML from RUNS.md to redact sensitive patterns.
 
-### 3. JSON Parsing Without Validation
+#### 2.2 No Rate Limiting
+**Severity:** MEDIUM
+**Issue:** No rate limiting on search or other API-like endpoints, making the site vulnerable to Denial of Service attacks.
 
-**Location:** `site/build.py` lines 371, 742
+**Affected Files:**
+- site/build.py
+- site/search_index.py
 
-**Issue:**
-```python
-entries = json.loads(source.read_text(encoding="utf-8")) if source.is_file() else []
-search_index = json.loads(search_index_path.read_text(encoding="utf-8"))
-```
+**Recommendation:** Implement rate limiting for search queries.
 
-No validation of JSON input before parsing. Malformed JSON could crash the application.
+### 3. Low Priority Issues
 
-**Risk:** Application crash due to malformed data.
+#### 3.1 Git History May Contain Sensitive Data
+**Severity:** LOW
+**Issue:** Git history contains past commits that may include sensitive data.
 
-**Recommendation:**
-- Wrap JSON parsing in try-except blocks
-- Validate JSON structure before processing
-- Provide graceful error messages
+**Affected Files:**
+- All files in repository
+- .git/ directory
 
-### 4. File Path Validation
+**Recommendation:** Use git filter-repo or BFG Repo-Cleaner to remove sensitive data from history.
 
-**Location:** Multiple locations in `agent/tools.py` and `site/build.py`
+## Implementation Plan
 
-**Issue:**
-File paths are used without validation to prevent directory traversal attacks.
+### Phase 1: Security Headers (High Priority)
+1. Implement CSP in site/build.py
+2. Add security header constants
+3. Test headers work correctly
+4. Verify no security regressions
 
-**Risk:** Directory traversal or file access outside intended directories.
+### Phase 2: Input Validation (Medium Priority)
+1. Sanitize search input in search_index.py
+2. Add input validation to all user-facing functions
+3. Test with malicious inputs
 
-**Recommendation:**
-- Validate all file paths against allowed directories
-- Use `pathlib.Path.resolve()` to normalize paths
-- Reject paths containing `..` or absolute paths outside allowed directories
+### Phase 3: Sensitive Data Handling (Medium Priority)
+1. Create sanitization function for RUNS.md
+2. Apply sanitization when generating HTML
+3. Test sanitization effectiveness
 
-### 5. Missing Security Headers
+### Phase 4: Rate Limiting (Medium Priority)
+1. Implement rate limiting in search_index.py
+2. Add rate limiting to API endpoints
+3. Test rate limiting behavior
 
-**Location:** Generated HTML files in `docs/`
+### Phase 5: Documentation (Complete)
+1. Document all security measures
+2. Create security checklist
+3. Update developer guidelines
 
-**Issue:**
-No security headers configured (CSP, HSTS, X-Frame-Options, etc.).
+## Testing Checklist
 
-**Risk:** Browser-level security vulnerabilities.
+- [ ] Security headers implemented and verified
+- [ ] Input validation works correctly
+- [ ] Sensitive data is properly sanitized
+- [ ] Rate limiting prevents abuse
+- [ ] No SQL injection vulnerabilities
+- [ ] No XSS vulnerabilities
+- [ ] No CSRF vulnerabilities
+- [ ] All tests pass after security changes
+- [ ] Security documentation complete
 
-**Recommendation:**
-- Add Content-Security-Policy header
-- Add X-Content-Type-Options: nosniff
-- Add X-Frame-Options: SAMEORIGIN
-- Add Referrer-Policy header
+## Recommendations for Future
 
-## Low Risk Findings
+1. Implement automated security scanning in CI/CD pipeline
+2. Set up dependency vulnerability monitoring
+3. Conduct regular security audits (monthly)
+4. Implement security headers on production server
+5. Use environment variables for sensitive configuration
+6. Implement logging and monitoring for security events
 
-### 6. Incomplete HTML Escaping
+## Conclusion
 
-**Location:** Multiple locations in `site/build.py`
-
-**Issue:**
-While many outputs use `html.escape()`, not all user-controlled content is properly escaped.
-
-**Risk:** XSS vulnerabilities in edge cases.
-
-**Recommendation:**
-- Audit all user-generated content
-- Ensure all output is escaped before rendering
-- Use context-aware escaping
-
-### 7. No Input Rate Limiting
-
-**Location:** All interactive tools
-
-**Issue:**
-No rate limiting on user inputs or API calls.
-
-**Risk:** Denial of service through excessive requests.
-
-**Recommendation:**
-- Implement rate limiting for API calls
-- Add throttling for file operations
-- Consider request queueing
-
-## Recommendations Summary
-
-### Immediate Actions (Priority 1)
-1. Fix shell command injection by removing `shell=True` where possible and validating input
-2. Replace `GH_TOKEN` with `GITHUB_TOKEN` for consistency
-3. Add try-except blocks around all JSON parsing
-
-### Short-term Actions (Priority 2)
-4. Implement file path validation to prevent directory traversal
-5. Add security headers to all generated HTML files
-6. Document environment variable requirements
-
-### Long-term Actions (Priority 3)
-7. Complete XSS protection audit
-8. Implement rate limiting
-9. Consider using GitHub CLI tokens instead of environment variables
-
-## Testing Recommendations
-
-1. **Penetration Testing:** Test command injection vulnerabilities
-2. **Input Validation Testing:** Validate all file path inputs
-3. **Token Security Testing:** Verify token handling and access controls
-4. **Browser Testing:** Verify security headers in browsers
-5. **Load Testing:** Test rate limiting and DoS resistance
-
-## Compliance
-
-This repository should comply with:
-- OWASP Top 10 security guidelines
-- GitHub's security best practices
-- General web security standards (W3C, IETF)
-
-## Status
-
-**Status:** IN PROGRESS
-
-**Next Steps:**
-1. Document findings in this report
-2. Create remediation plan
-3. Implement fixes in priority order
-4. Test all fixes
-5. Update documentation
-
----
-
-*This report will be updated as fixes are implemented and tested.*
+This audit identifies several security vulnerabilities that need to be addressed. Priority should be given to implementing security headers and input validation, as these are critical for protecting the website from common attacks.
