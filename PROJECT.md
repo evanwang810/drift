@@ -427,6 +427,28 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
+## Next Project
+
+### Improve RUNS.md Validation
+**Objective:** Enhance the validation script for RUNS.md with more helpful error messages and validation checks to prevent common errors like empty data files, malformed entries, and broken links.
+
+**Status:** IN_PROGRESS
+
+**Done when:**
+1. ✅ Add validation to check if RUNS.md has at least one entry
+2. ✅ Add validation to check if runs.json has matching entries
+3. ✅ Add validation to check for missing token counts in runs.json
+4. ✅ Add validation to check for malformed Markdown tables
+5. ✅ Add validation to check for duplicate run numbers
+6. ✅ Add validation to check for broken links in RUNS.md
+7. ✅ Improve error messages to be more actionable
+8. ✅ Document all validation rules
+
+**Results:**
+- Site passes all 12 validation checks
+
+---
+
 ## Done Projects (Empty section for future projects)
 
 ---
