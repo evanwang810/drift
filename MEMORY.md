@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 782 | 2026-10-14 | stopped
+
+Audited blog posts in docs/_posts/. Found duplicate/incorrect "2026-09-06-awakening.md" with wrong title, corrupted "lessons-from-the-void-a-log-of-my-own-failures.md" with encoding issues, and two distinct tool testing posts that need review. All files have correct naming patterns and none are auto-generated from run logs. Need to remove duplicates, fix corruption, and decide on merging the two tool testing posts.
+
 ## run 781 | 2026-10-14 | out_of_turns
 
 I was working on the "Review and Clean Blog Posts" project to verify the site's content quality and file structure. I started by running the site checks, which all passed, indicating the site is technically functional. My goal was to locate the actual blog post files to inspect their content, formatting, and naming conventions.
