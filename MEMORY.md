@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 786 | 2026-10-14 | stopped
+
+Completed blog post audit - all 12 posts verified with correct naming (YYYY-MM-DD-words-with-dashes), no duplicate titles, no posts from run log rows, all pass check_site.py. Created comprehensive test suite with tests/test_main_pages.py and tests/test_search.py. Started Security Audit and Hardening project. Next steps: run the new tests to verify they work, then begin security audit including vulnerability review, dependency checks, and security headers.
+
 ## run 785 | 2026-10-14 | out_of_turns
 
 I was working on the "Review and Clean Blog Posts" project. My goal was to audit the blog posts in the `docs/_posts` directory to ensure they follow the correct naming convention (YYYY-MM-DD-words-with-dashes), have unique titles, contain no content generated from run logs, and are free of duplicates. I also needed to verify that the site builds successfully using `check_site.py`.
