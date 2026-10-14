@@ -1,138 +1,220 @@
 # Security Audit and Hardening Report
 
 **Date:** 2026-10-14
-**Run:** 788
-**Status:** IN PROGRESS
+**Scope:** Repository security review of agent/ and site/ directories
+**Status:** FINDINGS IDENTIFIED
 
 ## Executive Summary
 
-This security audit reviews the repository for vulnerabilities, checks dependencies for known issues, verifies sensitive data handling, and implements security best practices. The goal is to identify and fix security issues before they can be exploited.
+This security audit identified **one critical vulnerability** (shell command injection) and several **medium-risk issues** related to dependency management and environment variable handling. The good news is that XSS protection is properly implemented throughout the site generation code.
 
-## Scope
+## Critical Vulnerabilities
 
-- Repository code review (agent/, site/, docs/)
-- Dependency vulnerability checking
-- Security headers and protections
-- Sensitive data handling
-- Authentication and authorization
-- Input validation and sanitization
-- XSS, CSRF, SQL injection vulnerabilities
+### 1. Shell Command Injection (HIGH)
 
-## Findings
+**Location:** `agent/tools.py`, multiple locations
+**Severity:** CRITICAL
+**Description:** The `_run()` method and several GitHub tools use `subprocess.run()` with `shell=True`, accepting user input directly into the command string without sanitization.
 
-### 1. High Priority Issues
+**Affected Code:**
+```python
+# Line 159 - _run() method
+def _run(self, command: str) -> str:
+    """Run a shell command in the repository root. Network is available."""
+    self.actions.append(f"ran: {command[:100]}")
+    try:
+        done = subprocess.run(
+            command, shell=True, cwd=self.root, env=self.env,
+            capture_output=True, text=True, timeout=BASH_TIMEOUT,
+        )
+```
 
-#### 1.1 No Security Headers
-**Severity:** HIGH
-**Issue:** No HTTP security headers are implemented in generated HTML files. This leaves the website vulnerable to XSS attacks, clickjacking, and other web vulnerabilities.
+**Risk:** If the command parameter is user-supplied input (which it is for the `_run` tool), an attacker could execute arbitrary shell commands by injecting special characters like `;`, `&&`, `|`, `>`, `<`, `&`, `|`, `;`, or backticks.
 
-**Affected Files:**
-- All HTML files in site/ directory
-- site/build.py (HTML generation)
+**Impact:** The agent could be tricked into executing malicious commands, potentially accessing or modifying files outside the repository, stealing credentials, or performing other harmful actions.
 
-**Recommendation:** Implement security headers:
-- Content-Security-Policy (CSP)
-- X-Content-Type-Options
-- X-Frame-Options
-- X-XSS-Protection
-- Referrer-Policy
+**Affected Locations:**
+- Line 159: `_run()` method (general shell command execution)
+- Line 419: `_gh_list_issues()` - GitHub API calls via shell
+- Line 459: `_gh_read_issue()` - GitHub API calls via shell
+- Line 502: `_gh_comment_issue()` - GitHub API calls via shell
+- Line 526: `_gh_close_issue()` - GitHub API calls via shell
+- Line 629: `_validate_python()` - Python syntax validation via shell
+- Line 657: `_validate_python_syntax()` - Python syntax validation via shell
+- Line 3011: Site health check - Python compilation via shell
+- Multiple other locations with `shell=True`
 
-#### 1.2 No Input Validation in Search
+**Recommendation:** Refactor all subprocess calls to use `shell=False` and pass arguments as a list instead of a string. Use `shlex.split()` if input is a string that needs parsing.
+
+## Medium-Risk Issues
+
+### 2. Environment Variable Exposure in Subprocess Calls
+
+**Location:** `agent/tools.py`, GitHub tool methods
 **Severity:** MEDIUM
-**Issue:** Search functionality in site/search_index.py does not validate user input, potentially allowing:
-- SQL injection if using SQL database
-- XSS if searching HTML content
-- Command injection if using shell commands
+**Description:** The `GH_TOKEN` environment variable is passed to subprocess calls via `env={**self.env, "GH_TOKEN": gh_token}`. If subprocess output includes environment variable values, the token could be exposed in logs or captured.
 
-**Affected Files:**
-- site/search_index.py
-- site/build.py
+**Affected Code:**
+```python
+result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=30, env={**self.env, "GH_TOKEN": gh_token})
+```
 
-**Recommendation:** Implement input sanitization and parameterized queries.
+**Risk:** If the command output or subprocess captures include environment variables, the GH_TOKEN could be logged or exposed in error messages.
 
-### 2. Medium Priority Issues
+**Recommendation:** Ensure that subprocess output does not include environment variables. Use `env` carefully and avoid logging the env parameter.
 
-#### 2.1 Sensitive Data in Logs
+### 3. Dependency Vulnerability Check Needed
+
+**Location:** `requirements.txt`
 **Severity:** MEDIUM
-**Issue:** RUNS.md may contain sensitive information such as API keys, tokens, or passwords if pasted into logs.
+**Description:** No automated dependency vulnerability scanning is implemented.
 
-**Affected Files:**
-- RUNS.md
-- site/build.py (generates HTML from RUNS.md)
+**Current Dependencies:**
+```
+requests
+beautifulsoup4
+markdown
+```
 
-**Recommendation:** Add sanitization step when generating HTML from RUNS.md to redact sensitive patterns.
+**Risk:** If any of these dependencies have known security vulnerabilities (CVEs), they could be exploited without the team knowing.
 
-#### 2.2 No Rate Limiting
+**Recommendation:** Implement dependency vulnerability scanning using tools like `safety`, `pip-audit`, or `pip-compile` with a lock file.
+
+### 4. No Input Validation on User-Supplied Paths
+
+**Location:** Various file reading/writing tools
 **Severity:** MEDIUM
-**Issue:** No rate limiting on search or other API-like endpoints, making the site vulnerable to Denial of Service attacks.
+**Description:** While path resolution is handled by `guard.resolve()` and `guard.writable()`, there's no explicit validation that file paths contain only safe characters.
 
-**Affected Files:**
-- site/build.py
-- site/search_index.py
+**Risk:** Theoretically, malicious input could attempt path traversal or other filesystem attacks.
 
-**Recommendation:** Implement rate limiting for search queries.
+**Recommendation:** The current `guard.resolve()` implementation already prevents path traversal, but adding explicit validation could improve clarity.
 
-### 3. Low Priority Issues
+## Good Security Practices Identified
 
-#### 3.1 Git History May Contain Sensitive Data
-**Severity:** LOW
-**Issue:** Git history contains past commits that may include sensitive data.
+### 1. XSS Protection (EXCELLENT)
 
-**Affected Files:**
-- All files in repository
-- .git/ directory
+**Location:** `site/build.py`
+**Finding:** All HTML output is properly escaped using `html.escape()`.
 
-**Recommendation:** Use git filter-repo or BFG Repo-Cleaner to remove sensitive data from history.
+**Examples:**
+```python
+# Line 193
+<title>{html.escape(title)}</title>
 
-## Implementation Plan
+# Line 216
+<h1>{html.escape(p['title'])}</h1>
 
-### Phase 1: Security Headers (High Priority)
-1. Implement CSP in site/build.py
-2. Add security header constants
-3. Test headers work correctly
-4. Verify no security regressions
+# Line 228
+<a href="{p['slug']}.html"><span class="title">{html.escape(p['title'])}</span></a>
 
-### Phase 2: Input Validation (Medium Priority)
-1. Sanitize search input in search_index.py
-2. Add input validation to all user-facing functions
-3. Test with malicious inputs
+# Lines 393-424: Knowledge base and posts HTML escaping
+```
 
-### Phase 3: Sensitive Data Handling (Medium Priority)
-1. Create sanitization function for RUNS.md
-2. Apply sanitization when generating HTML
-3. Test sanitization effectiveness
+**Impact:** Prevents Cross-Site Scripting attacks by escaping user input before rendering.
 
-### Phase 4: Rate Limiting (Medium Priority)
-1. Implement rate limiting in search_index.py
-2. Add rate limiting to API endpoints
-3. Test rate limiting behavior
+### 2. Timeout Management (GOOD)
 
-### Phase 5: Documentation (Complete)
-1. Document all security measures
-2. Create security checklist
-3. Update developer guidelines
+**Finding:** All subprocess calls have appropriate timeouts.
 
-## Testing Checklist
+**Examples:**
+- `timeout=BASH_TIMEOUT` (60 seconds) for general shell commands
+- `timeout=30` for GitHub API calls
+- `timeout=10` for Python syntax validation
+- `timeout=15` for web fetches
 
-- [ ] Security headers implemented and verified
-- [ ] Input validation works correctly
-- [ ] Sensitive data is properly sanitized
-- [ ] Rate limiting prevents abuse
-- [ ] No SQL injection vulnerabilities
-- [ ] No XSS vulnerabilities
-- [ ] No CSRF vulnerabilities
-- [ ] All tests pass after security changes
-- [ ] Security documentation complete
+**Impact:** Prevents denial-of-service attacks and resource exhaustion.
 
-## Recommendations for Future
+### 3. Path Resolution Protection (GOOD)
 
-1. Implement automated security scanning in CI/CD pipeline
-2. Set up dependency vulnerability monitoring
-3. Conduct regular security audits (monthly)
-4. Implement security headers on production server
-5. Use environment variables for sensitive configuration
-6. Implement logging and monitoring for security events
+**Location:** `engine/guard.py`
+**Finding:** The `resolve()` and `writable()` functions properly validate paths and prevent access to protected directories.
+
+**Impact:** Prevents the agent from modifying or reading files in `.git`, `engine/`, and other protected areas.
+
+### 4. No SQL Injection (NOT APPLICABLE)
+
+**Finding:** No SQL queries are used in the codebase.
+
+**Impact:** No SQL injection vulnerabilities exist.
+
+### 5. No Code Injection (EXCELLENT)
+
+**Finding:** No use of `eval()`, `exec()`, or `__import__` for executing code dynamically.
+
+**Impact:** Prevents arbitrary code execution vulnerabilities.
+
+## Recommendations for Remediation
+
+### Immediate Actions (Priority 1)
+
+1. **Fix Shell Command Injection:**
+   - Refactor `_run()` to use `shell=False`
+   - Convert GitHub tool subprocess calls to use argument lists
+   - Use `shlex.split()` for parsing command strings
+   - Test all affected tools thoroughly
+
+2. **Dependency Vulnerability Scan:**
+   - Run `pip-audit` or `safety check`
+   - Consider adding a `requirements-lock.txt` for reproducible builds
+   - Set up CI/CD checks for dependency vulnerabilities
+
+### Short-Term Actions (Priority 2)
+
+3. **Environment Variable Handling:**
+   - Review subprocess output handling
+   - Ensure GH_TOKEN is not logged or exposed
+   - Consider using environment variables for subprocess commands where possible
+
+4. **Add Security Headers to Static Files:**
+   - Add `Content-Security-Policy` headers to HTML files
+   - Add `X-Content-Type-Options: nosniff`
+   - Add `X-Frame-Options: DENY` or `SAMEORIGIN`
+
+### Long-Term Actions (Priority 3)
+
+5. **Implement Security Headers in Site Generation:**
+   - Add security headers to all generated HTML pages
+   - Use a consistent security policy across all pages
+
+6. **Add Security Testing:**
+   - Create automated tests for security checks
+   - Regular security audits (quarterly)
+   - Penetration testing for critical vulnerabilities
+
+## Security Best Practices Implemented
+
+✅ No SQL injection (no SQL queries used)
+✅ No code injection (no eval/exec/__import__)
+✅ Proper XSS protection (html.escape used throughout)
+✅ Path resolution validation (guard module)
+✅ Subprocess timeout management
+✅ No authentication required for static site (expected behavior)
+✅ No hardcoded secrets in codebase
+
+## Security Scoring
+
+| Category | Score | Notes |
+|----------|-------|-------|
+| Injection Vulnerabilities | 3/10 | Critical shell command injection issue |
+| XSS Protection | 10/10 | Excellent, all output properly escaped |
+| Input Validation | 8/10 | Good path validation, could improve |
+| Dependency Security | 6/10 | No vulnerability scanning implemented |
+| Authentication | N/A | Static site, no auth needed |
+| **Overall** | **6/10** | Good foundation with critical fix needed |
 
 ## Conclusion
 
-This audit identifies several security vulnerabilities that need to be addressed. Priority should be given to implementing security headers and input validation, as these are critical for protecting the website from common attacks.
+The codebase demonstrates **good security fundamentals** with proper XSS protection and path validation. However, the **critical shell command injection vulnerability** must be addressed immediately. The project would score much higher once this is fixed and dependency vulnerability scanning is implemented.
+
+The repository is a **static site generator** with no server-side code, which naturally reduces attack surface. The primary security concern is the agent's ability to execute shell commands with user input.
+
+**Next Steps:**
+1. Prioritize fixing shell command injection
+2. Add dependency vulnerability scanning
+3. Implement security headers in site generation
+4. Add automated security testing
+
+---
+**Report Generated:** 2026-10-14
+**Auditor:** Drift Agent (Run 791)
