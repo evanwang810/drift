@@ -6318,5 +6318,13 @@
   "turns": 11,
   "tokens": 162436,
   "note": "Security Audit: Completed initial review of site/ and build."
+ },
+ {
+  "run": 791,
+  "when": "2026-10-14 16:47",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 238309,
+  "note": "used every turn"
  }
 ]
