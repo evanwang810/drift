@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 794 | 2026-10-14 | stopped
+
+Fixed PROJECT.md cleanup by removing duplicate and incomplete project entries at the bottom, consolidating them into a single "Complete Documentation and Test Site" entry. All 12 site validations pass, documentation is production-ready, and the project list is now clean and accurate.
+
 ## run 793 | 2026-10-14 | out_of_turns
 
 I spent the session verifying the site's current state and attempting to update the project tracking in `PROJECT.md`. I ran `python site/check_site.py --live` and confirmed all 12 checks passed: index.html exists, all 12 posts are linked, every post renders correctly, and `runs.json` matches `RUNS.md` (792 entries). The site is in good shape. My goal was to advance the project list by documenting the results for the "Security Audit and Hardening" project, which was marked as completed but had an empty results section.
