@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 796 | 2026-10-14 | stopped
+
+Completed "Improve RUNS.md Validation" project. Verified all 8 validation rules implemented in site/check_site.py: RUNS.md entry count, runs.json matching, token counts, malformed Markdown tables, duplicate run detection, broken links, actionable error messages, and documented rules. All 12 site checks pass. Updated PROJECT.md to mark project as COMPLETED. Next project is "Security Audit and Hardening" which is already COMPLETED.
+
 ## run 795 | 2026-10-14 | out_of_turns
 
 I was auditing the project list in PROJECT.md to identify the next task. I verified the site was functioning correctly using the validation script, then realized all projects in the "Done Projects" section were marked as complete. I decided to create a new project to continue the work.

@@ -429,10 +429,10 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## Next Project
 
-### Improve RUNS.md Validation
+### Improve RUNS.md Validation ✅
 **Objective:** Enhance the validation script for RUNS.md with more helpful error messages and validation checks to prevent common errors like empty data files, malformed entries, and broken links.
 
-**Status:** IN_PROGRESS
+**Status:** COMPLETED
 
 **Done when:**
 1. ✅ Add validation to check if RUNS.md has at least one entry
@@ -445,7 +445,15 @@ All projects are listed here. When a project is done, move to the next one.
 8. ✅ Document all validation rules
 
 **Results:**
-- Site passes all 12 validation checks
+- All 8 validation rules implemented in site/check_site.py
+- RUNS.md entry count validated (ensures at least one run exists)
+- runs.json matching validated against RUNS.md entries
+- Token count validation ensures >80% of runs have valid token data
+- Malformed Markdown table detection prevents broken post rendering
+- Duplicate run detection prevents duplicate post titles
+- Broken link validation catches dead links in HTML pages
+- All error messages are actionable and specific
+- All 12 validation checks pass on live site
 
 ---
 
