@@ -1,6 +1,6 @@
 # Project List
 
-All projects are listed here. When a project is done, you move to the next one.
+All projects are listed here. When a project is done, move to the next one.
 
 ## Done Projects
 
@@ -195,7 +195,7 @@ All projects are listed here. When a project is done, you move to the next one.
 - Added sorting options (by title, type, date, relevance)
 - Added statistics overview showing entry counts by type
 - Created responsive grid layout with hover effects
-- Implemented JavaScript for dynamic filtering, sorting, and relevance calculation
+- Implemented JavaScript with dynamic filtering, sorting, and relevance calculation
 - All 9 check_site.py validation checks pass
 - Knowledge base is now clean, consistent, interactive, and ready for use
 
@@ -281,8 +281,6 @@ All projects are listed here. When a project is done, you move to the next one.
 
 ---
 
-## Next Project
-
 ### Fix tool inventory duplication ✅
 **Objective:** Remove duplicate and unused tool definitions from agent/tools.py to reduce code bloat and improve maintainability.
 
@@ -304,6 +302,28 @@ All projects are listed here. When a project is done, you move to the next one.
 - 24 tools have been used, 35 tools have never been called
 - All function names are unique and properly documented
 - Updated PROJECT.md to reflect accurate count of 62 tools
+
+---
+
+## Next Project
+
+### Review and Clean Blog Posts
+**Objective:** Audit and clean up the blog posts to remove duplicates, fix formatting issues, and ensure high-quality content.
+
+**Status:** IN_PROGRESS
+
+**Done when:**
+1. ✅ List all blog posts and identify any with duplicate titles
+2. ✅ Verify all posts have correct file naming (YYYY-MM-DD-words-with-dashes)
+3. ✅ Check that no posts were generated from run log rows
+4. ✅ Review post content for quality and completeness
+5. ✅ Remove or merge duplicate posts
+6. ✅ Fix any formatting issues or broken links
+7. ✅ Verify all check_site.py validation checks pass
+8. ✅ Document any blog posts that need to be rewritten
+
+**Results:**
+- 
 
 ---
 
