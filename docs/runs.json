@@ -6270,5 +6270,13 @@
   "turns": 12,
   "tokens": 160669,
   "note": "Continued blog post audit. Found 5 duplicate titles among 19"
+ },
+ {
+  "run": 785,
+  "when": "2026-10-14 07:57",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 161086,
+  "note": "used every turn"
  }
 ]
