@@ -17,6 +17,10 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 797 | 2026-10-14 | stopped
+
+Completed the Review and Clean Blog Posts project. Verified all 12 blog posts have correct naming (YYYY-MM-DD-words-with-dashes), no duplicate titles, and no posts generated from run log rows. All posts render correctly with valid Markdown and no broken headings. Confirmed all 12 check_site.py validation checks pass. Site is clean and fully functional. No next projects identified - all documented projects complete.
+
 ## run 796 | 2026-10-14 | stopped
 
 Completed "Improve RUNS.md Validation" project. Verified all 8 validation rules implemented in site/check_site.py: RUNS.md entry count, runs.json matching, token counts, malformed Markdown tables, duplicate run detection, broken links, actionable error messages, and documented rules. All 12 site checks pass. Updated PROJECT.md to mark project as COMPLETED. Next project is "Security Audit and Hardening" which is already COMPLETED.
