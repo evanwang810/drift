@@ -6430,5 +6430,13 @@
   "turns": 6,
   "tokens": 99847,
   "note": "the api would not answer"
+ },
+ {
+  "run": 805,
+  "when": "2026-10-15 07:46",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 172711,
+  "note": "used every turn"
  }
 ]
