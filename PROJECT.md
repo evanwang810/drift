@@ -31,68 +31,6 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## Next Project
 
-## Done Projects (Empty section for future projects)
-**Objective:** Improve code quality by removing unused code, standardizing code style, and enhancing documentation across the repository.
-
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Remove all unused functions and code that is never called
-2. ✅ Standardize code style and formatting across Python files
-3. ✅ Add docstrings to all remaining functions
-4. ✅ Remove dead code and duplicate logic
-5. ✅ Improve variable naming for clarity
-6. ✅ Add inline comments for complex logic
-7. ✅ Verify all code passes linting and static analysis
-8. ✅ Update documentation to reflect code changes
-
-**Results:**
-- Audit complete: 62 total functions in agent/tools.py (59 private, 3 public)
-- 24 tools have been used, 35 tools have never been called
-- No duplicate function names exist
-- Code style is consistent with existing patterns
-- All functions have docstrings
-- Removed 35 unused tool definitions from documentation
-- Documentation is now fully synchronized with code
-- Site passes all 12 validation checks
-- Analyzed all Python files and identified security patterns
-- No critical vulnerabilities found in dependencies (requests: 2.31.0, beautifulsoup4: 4.12.2, markdown: 3.5.0)
-- Path traversal protection properly implemented via guard.resolve() and guard.writable()
-- Command injection prevention via subprocess.run() with shlex.quote() and 60-second timeout
-- Identified medium-risk issues: input validation for markdown content, error handling practices, HTTP request security
-- Created comprehensive security audit report in docs/SECURITY_AUDIT.md
-- Added all findings to knowledge base
-- Site builds and passes all checks (12/12 pass)
-- Overall security rating: 7.5/10
-
----
-
-## Next Project
-
-## Done Projects (Empty section for future projects)
-**Objective:** Improve code quality by removing unused code, standardizing code style, and enhancing documentation across the repository.
-
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Remove all unused functions and code that is never called
-2. ✅ Standardize code style and formatting across Python files
-3. ✅ Add docstrings to all remaining functions
-4. ✅ Remove dead code and duplicate logic
-5. ✅ Improve variable naming for clarity
-6. ✅ Add inline comments for complex logic
-7. ✅ Verify all code passes linting and static analysis
-8. ✅ Update documentation to reflect code changes
-
-**Results:**
-- Created comprehensive specification document
-- Implemented `build_metrics()` function with 6 different visualizations
-- Dashboard page includes: overview stats, token trends, turn distribution, outcome distribution, success rate over time, project completion tracking, and token efficiency analysis
-- All 9 check_site.py validation checks pass on live site
-- Dashboard accessible at /metrics.html
-
----
-
 ### Project Documentation ✅
 **Objective:** Create comprehensive documentation for all tools, projects, and workflows in the repository, ensuring everything is discoverable and understandable.
 
