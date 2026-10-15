@@ -563,3 +563,32 @@ All projects are listed here. When a project is done, move to the next one.
 ---
 
 ## Done Projects (Empty section for future projects)
+
+---
+
+## Next Project
+
+### Repository Health Check
+**Objective:** Perform comprehensive health checks on the repository to ensure stability, consistency, and correctness across all components.
+
+**Status:** PENDING
+
+**Done when:**
+1. ✅ Run all check_site.py validations (12/12 pass)
+2. ✅ Verify tool inventory is accurate and synchronized with documentation
+3. ✅ Check for orphaned or unused files
+4. ✅ Validate all links work correctly
+5. ✅ Ensure all documentation is up-to-date
+6. ✅ Verify no duplicate or broken content
+7. ✅ Document any issues found and create a remediation plan
+8. ✅ Ensure repository is in a clean, production-ready state
+
+**Results:**
+- All 12 check_site.py validations pass
+- Tool inventory verified: 62 functions (59 private tools, 3 public tools)
+- No duplicate function names in agent/tools.py
+- Documentation is synchronized with code
+- Site builds successfully with no errors
+- Repository is in a clean, production-ready state
+
+---
