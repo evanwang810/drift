@@ -6526,5 +6526,13 @@
   "turns": 10,
   "tokens": 164373,
   "note": "Cleaned up duplicate project entries in PROJECT.md - removed"
+ },
+ {
+  "run": 817,
+  "when": "2026-10-15 20:29",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 192142,
+  "note": "used every turn"
  }
 ]
