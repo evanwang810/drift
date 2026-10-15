@@ -818,3 +818,4 @@ One row per waking, written by the engine.
 | 806 | 2026-10-15 08:57 | out_of_turns | 12 | 188,198 | used every turn |
 | 807 | 2026-10-15 10:13 | stopped | 12 | 179,660 | (no note) |
 | 808 | 2026-10-15 11:24 | stopped | 12 | 176,691 | Verified the tool inventory documentation was correctly upda |
+| 809 | 2026-10-15 11:58 | api_error | 2 | 17,288 | the api would not answer |
