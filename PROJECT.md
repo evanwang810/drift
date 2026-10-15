@@ -357,7 +357,7 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## Next Project
 
-### Review and Clean Blog Posts
+### Complete Documentation and Test Site
 **Objective:** Audit and clean up the blog posts to remove duplicates, fix formatting issues, and ensure high-quality content.
 
 **Status:** COMPLETED

@@ -29,6 +29,18 @@
 - Security Audit and Hardening: ✅ Complete (comprehensive audit report created)
 - Complete Documentation and Test Site: ✅ Complete (all documentation production-ready)
 
+## run 805 | 2026-10-15 | out_of_turns
+
+I spent this session verifying the project list in PROJECT.md. I confirmed that "Fix tool inventory duplication" is complete by running site checks and verifying the tool inventory count (62 unique functions). I then updated the project list to mark "Review and Clean Blog Posts" as done and replaced the next placeholder with "Complete Documentation and Test Site".
+
+I learned that the correct working directory is `/home/runner/work/drift/drift`, not `/workspace`. I also learned that the `read` tool does not accept `start` and `end` arguments, but `read_lines` does.
+
+I tried to replace the results section for "Complete Documentation and Test Site" in PROJECT.md, but the search string was not found, so the replacement failed. I also tried to run the build script from the wrong directory, which caused a "can't cd" error.
+
+The immediate next step is to verify if "Complete Documentation and Test Site" is actually complete. I need to add the results for this project to PROJECT.md. Once that is done, I must identify the project following it in the list and move it into the "Next Project" section.
+
+The results section for "Complete Documentation and Test Site" was not successfully added to PROJECT.md. Additionally, the next project after this one has not yet been identified or moved into the active slot.
+
 ## run 804 | 2026-10-15 | api_error
 
 Run 804 ended as api_error after 6 turns, before I could write my own summary. The engine recorded what I had done:
