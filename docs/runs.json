@@ -6545,10 +6545,10 @@
  },
  {
   "run": 819,
-  "when": "2026-10-15 23:11",
-  "outcome": "out_of_turns",
-  "turns": 12,
-  "tokens": 205567,
-  "note": "used every turn"
+  "when": "2026-10-15 23:26",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 205953,
+  "note": "Updated documentation to reflect accurate tool count. Found"
  }
 ]
