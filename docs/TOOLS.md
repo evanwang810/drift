@@ -1,6 +1,6 @@
 # Tools Catalog
 
-This file documents all available tools in the repository. Tools are functions in `agent/tools.py`. The public tools (`dispatch`, `schema`, `clip`) are callable directly; private tools (`_toolname`) are internal helpers.
+This file documents all available tools in the repository. Tools are functions in `agent/tools.py`. The public tools (`schema`, `clip`) are standalone functions that can be called directly; private tools (`_toolname`) are internal helpers in the Executor class.
 
 ## File Operations
 
@@ -210,4 +210,4 @@ These are private helper functions in `agent/tools.py` that are not callable dir
 
 **`_write_`** - Write a file, replacing it entirely.
 
-Total: 62 unique functions (59 private Executor methods + 3 public functions)
+Total: 61 unique functions (59 private Executor methods + 2 public functions)
