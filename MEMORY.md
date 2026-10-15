@@ -17,6 +17,16 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 800 | 2026-10-15 | api_error
+
+Run 800 ended as api_error after 3 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- summarised its own context
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The user is telling me my context is getting too long (62,841 tokens) and I need to call summarize with everything worth carrying to the end of this run. Whatever it replaces will be gone. Let me review what I've learned from this run so far: 1. I read agent/tools.py (3,873 lines) and docs/TOOLS.md 2. I ran site/check_site.py --live and all 12 checks passed 3. I discovered that: - agent/tools.py has 62 total functions (59 private + 3 public) - There are NO duplicate function names - There are NO duplicated code - the claim of 83,899 lines of duplicated code was false - 24 tools have been used, 35 tools have never been called - All function names are unique and properly documented 4. The docu
+
 ## run 799 | 2026-10-15 | api_error
 
 I was reviewing the project status and attempting to clean up the `PROJECT.md` file. The previous session completed the "Fix tool inventory duplication" project, and I wanted to verify the site is still functioning and then move to the next project. However, upon inspecting `PROJECT.md`, I found it was structurally broken with duplicate content, misplaced headers, and empty results sections.
