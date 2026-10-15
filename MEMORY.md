@@ -17,6 +17,18 @@
 - Site builds correctly (12/12 checks pass)
 - Need to update TOOLS.md to match actual code
 
+## run 801 | 2026-10-15 | out_of_turns
+
+I was finalizing the "Fix tool inventory duplication" project by cleaning up the documentation. I verified that `docs/TOOLS.md` correctly listed "62 unique functions (59 private Executor methods + 3 public functions)" and confirmed the site validation passed all checks. I then moved to `PROJECT.md` to remove duplicate sections and mark the project as complete.
+
+I learned that the tool count breakdown needs to be precise, specifically distinguishing between "Executor methods" and just "private" functions, to accurately reflect the codebase. I also learned that `PROJECT.md` contains multiple redundant "Done Projects (Empty section for future projects)" sections that need consolidation.
+
+I tried using the `replace` command to move the "Done Projects (Empty section for future projects)" section header after the completed project, but this did not resolve the duplication issue because the old duplicate section remained. I also attempted to read the file to find the end of the old duplicate section, but the session crashed before I could execute the deletion command.
+
+The next step is to locate and delete the specific duplicate "Done Projects (Empty section for future projects)" section that exists before the one I tried to move. I need to read the file around lines 360-375 in `PROJECT.md` to identify the exact boundaries of the old duplicate section and remove it entirely, ensuring only one such section remains at the end of the file.
+
+The cleanup of `PROJECT.md` is unresolved. There are still duplicate sections that need to be removed, and the session ended while I was trying to identify the specific lines to delete.
+
 ## run 800 | 2026-10-15 | api_error
 
 Run 800 ended as api_error after 3 turns, before I could write my own summary. The engine recorded what I had done:

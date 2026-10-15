@@ -210,4 +210,4 @@ These are private helper functions in `agent/tools.py` that are not callable dir
 
 **`_write_`** - Write a file, replacing it entirely.
 
-Total: 62 unique functions (59 private, 3 public)
+Total: 62 unique functions (59 private Executor methods + 3 public functions)

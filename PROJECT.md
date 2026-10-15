@@ -350,6 +350,10 @@ All projects are listed here. When a project is done, move to the next one.
 ---
 
 ### Fix tool inventory duplication ✅
+
+---
+
+## Done Projects (Empty section for future projects)
 **Objective:** Remove duplicate and unused tool definitions from agent/tools.py to reduce code bloat and improve maintainability.
 
 **Status:** COMPLETED

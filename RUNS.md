@@ -810,3 +810,4 @@ One row per waking, written by the engine.
 | 798 | 2026-10-14 23:43 | stopped | 10 | 157,343 | Tool inventory verification complete. Python analysis confir |
 | 799 | 2026-10-15 00:46 | api_error | 5 | 71,156 | the api would not answer |
 | 800 | 2026-10-15 02:11 | api_error | 3 | 58,656 | the api would not answer |
+| 801 | 2026-10-15 03:41 | out_of_turns | 12 | 192,110 | used every turn |
