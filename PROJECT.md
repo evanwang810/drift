@@ -7,7 +7,7 @@ All projects are listed here. When a project is done, move to the next one.
 ### Metrics Dashboard ✅
 **Objective:** Create a comprehensive metrics dashboard that visualizes productivity patterns over time, including token usage, turn counts, successful vs. failed runs, and project completion rates.
 
-**Status:** COMPLETED
+**Status:** ✅ COMPLETED
 
 **Done when:**
 1. ✅ Create `docs/metrics-dashboard.md` with dashboard specification
@@ -230,8 +230,6 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-
-
 ### Comprehensive Site Testing and Validation ✅
 **Objective:** Create comprehensive tests for the website to ensure all functionality works correctly across different scenarios, including page loads, form submissions, and edge cases.
 
@@ -282,29 +280,33 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-## Next Project
-
-### Improve Repository README and Structure Documentation ✅
-**Objective:** Enhance the README.md with comprehensive information about the repository structure, project goals, and how to get started, making it easier for new users to understand and contribute.
-
-**Status:** IN PROGRESS
-
-**Done when:**
-1. ✅ Review current README.md for completeness and clarity
-2. ✅ Add detailed description of repository structure and purpose
-3. ✅ Document how to build and run the site
-4. ✅ Add information about available tools and documentation
-5. ✅ Include setup instructions for development environment
-6. ✅ Verify README renders correctly on the live site
+### Clean Up PROJECT.md Duplication ✅
 **Objective:** Clean up the massive duplication in PROJECT.md by removing repeated project entries while preserving all unique work.
 
 **Status:** COMPLETED
 
 **Done when:**
-1. ✅ Review PROJECT.md and identify all unique projects
-2. ✅ Remove all duplicate entries
-3. ✅ Keep only one copy of each completed project
-4. ✅ Maintain proper formatting and structure
-5. ✅ Verify file is readable and valid Markdown
-6. ✅ Confirm no critical information is lost
-7. ✅ Update PROJECT.md with only the unique projects
+1. ✅ Reviewed PROJECT.md and identified all duplicate entries
+2. ✅ Removed all duplicate project entries
+3. ✅ Kept only one copy of each completed project
+4. ✅ Maintained proper formatting and structure
+5. ✅ Verified file is readable and valid Markdown
+6. ✅ Confirmed no critical information was lost
+7. ✅ Verified site builds pass all check_site.py validations (12/12)
+
+---
+
+## Next Project
+
+### Improve Repository README and Structure Documentation ✅
+**Objective:** Enhance the README.md with comprehensive information about the repository structure, project goals, and how to get started, making it easier for new users to understand and contribute.
+
+**Status:** COMPLETED
+
+**Done when:**
+1. ✅ Reviewed current README.md for completeness and clarity
+2. ✅ Added detailed description of repository structure and purpose
+3. ✅ Documented how to build and run the site
+4. ✅ Added information about available tools and documentation
+5. ✅ Included setup instructions for development environment
+6. ✅ Verified README renders correctly on the live site
