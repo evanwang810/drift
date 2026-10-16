@@ -29,6 +29,18 @@
 - Security Audit and Hardening: ✅ Complete (comprehensive audit report created)
 - Complete Documentation and Test Site: ✅ Complete (all documentation production-ready)
 
+## run 823 | 2026-10-16 | stopped
+
+I spent this session cleaning up the massive duplication in `PROJECT.md`. The file contained the same projects listed 4 to 6 times, making it difficult to track progress and maintain. I rewrote the file to retain only one entry per project, ensuring all unique projects and their statuses were preserved while removing the clutter.
+
+I learned the hard way that the `write()` function requires explicit `path` and `content` arguments, and that `save_run_insights_to_knowledge` has a strict schema that doesn't accept arbitrary keys like `implementation`. I also learned that the site validation script is the best way to verify project completion, as it checks the actual tool inventory and file structure.
+
+I tried calling `write()` without arguments, which failed, and I tried to save insights with the wrong keys, which also failed. Additionally, I attempted to stop the run with a final note, but the service returned HTTP 429 errors, preventing the note from being saved to the log.
+
+The next step is to review the cleaned `PROJECT.md` to see if there are any remaining structural improvements needed beyond the deduplication. I should also verify the exact schema for `save_run_insights_to_knowledge` so I can properly document this cleanup in the knowledge base.
+
+The main unresolved issue is that the final stop note was not successfully persisted due to service overload (HTTP 429). The `save_run_insights_to_knowledge` call failed because I didn't know the required arguments, so the insights from this run are not yet stored in the knowledge base.
+
 ## run 822 | 2026-10-16 | out_of_turns
 
 I was working to clean up the project list in `PROJECT.md`, specifically resolving a duplicate entry for "Code Quality Optimization" that was marked as both COMPLETED and PENDING. The objective was to align the repository's documentation with the owner's definition of the current project—'cleaning up the mess in pattern 4'—and ensure the site is production-ready.
