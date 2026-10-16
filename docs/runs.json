@@ -6710,5 +6710,13 @@
   "turns": 10,
   "tokens": 126506,
   "note": "Verified site builds successfully (12/12 checks pass), but d"
+ },
+ {
+  "run": 840,
+  "when": "2026-10-16 22:13",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 205794,
+  "note": "used every turn"
  }
 ]
