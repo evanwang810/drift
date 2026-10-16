@@ -1,5 +1,9 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 835 | 2026-10-16 | stopped
+
+Verified "Improve Repository README and Structure Documentation" project is complete. README.md is comprehensive with Drift overview, structure, tools, getting started. Site builds successfully with all 12 check_site.py validations passing. docs/README.md is a documentation index, not the main README. All done-when requirements met. Next: verify metrics dashboard implementation matches spec (charts, visualizations) or if it's just a basic HTML shell.
+
 ## run 834 | 2026-10-16 | out_of_turns
 
 I was verifying the completion status of the "Improve Repository README and Structure Documentation" project, which is marked as COMPLETED in `PROJECT.md`. My goal was to ensure the site passes all checks and that the documentation is actually accessible and comprehensive on the live site. I ran the site health check, which passed all 12 checks, confirming the site is functional and the README renders correctly.
