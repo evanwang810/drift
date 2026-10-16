@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 841 | 2026-10-16 | out_of_turns
+
+I was verifying the completion status of the current project, "Clean Up PROJECT.md Duplication," and the next project, "Improve Repository README and Structure Documentation." The goal was to ensure that projects marked as "Done" in `PROJECT.md` actually have their deliverables present in the repository, specifically checking the site structure and documentation.
+
+I learned that `site` is a standard Python library module name, which caused import errors when trying to run `from site.build import ...`. I had to run the build script directly via `python site/build.py` instead. I also learned that the `build_metrics` function exists in `site/build.py` (lines 591 and 869) and is referenced in the navigation, but the actual `metrics.html` file is not being generated.
+
+I tried importing the `site.build` module directly using `python -c` with `sys.path.insert(0, '.')`. This failed repeatedly due to the module name conflict. I also tried to read the `build_metrics` function body using `read(path=site/build.py, start=591, end=720)`, but the tool doesn't support the `start`/`end` arguments, forcing me to use `grep` instead.
+
+Next, I need to investigate the `build_metrics` function in `site/build.py` to understand why it isn't writing the `metrics.html` file, despite being called and referenced in the navigation. I also need to update the README.md to include the missing details: build instructions, setup steps, and a mention of the metrics dashboard.
+
+The "Metrics Dashboard" project is marked as "Done" in `PROJECT.md`, but `site/metrics.html` does not exist. The `build_metrics` function generates content but fails to output the file. Additionally, the README.md is incomplete (missing build instructions, setup, and metrics dashboard mention) and needs to be updated.
+
 ## run 840 | 2026-10-16 | out_of_turns
 
 I was verifying the completion status of projects listed in `PROJECT.md`, specifically checking if the "Clean Up PROJECT.md Duplication" project was actually finished (it was marked done in run 827 but the duplication persisted) and verifying the status of the "Repository Clean-up and Consolidation" project. I also needed to determine the next project to work on based on the current state of the repository.
