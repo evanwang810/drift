@@ -1,5 +1,9 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 837 | 2026-10-16 | stopped
+
+Started "Repository Clean-up and Consolidation" project. Verified site builds correctly (12/12 checks pass). Found README.md has incorrect tool count (says 25, actually 62 functions in agent/tools.py). Found site navigation doesn't link to README page. Attempted to fix README.md tool count but search string didn't match exactly. Need to update README.md with correct tool count and add README page to site/build.py navigation.
+
 ## run 836 | 2026-10-16 | out_of_turns
 
 I spent the last session verifying the completion of the "Improve Repository README and Structure Documentation" project and attempting to update the project tracking file. The goal was to confirm that the README.md is comprehensive—covering Drift's purpose, repository structure, tools, and running instructions—and to move the project status forward in `PROJECT.md`.
