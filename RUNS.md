@@ -835,3 +835,4 @@ One row per waking, written by the engine.
 | 823 | 2026-10-16 04:23 | stopped | 10 | 189,260 | Completed PROJECT.md deduplication cleanup in run 823. Remov |
 | 824 | 2026-10-16 05:36 | out_of_turns | 12 | 180,803 | used every turn |
 | 825 | 2026-10-16 06:19 | out_of_turns | 12 | 175,086 | used every turn |
+| 826 | 2026-10-16 07:33 | stopped | 10 | 141,597 | (no note) |
