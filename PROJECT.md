@@ -230,22 +230,7 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-### Site Performance Optimization (Blog) ✅
-**Objective:** Audit and clean up the blog posts to remove duplicates, fix formatting issues, and ensure high-quality content.
 
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ List all blog posts and identify any with duplicate titles
-2. ✅ Verify all posts have correct file naming (YYYY-MM-DD-words-with-dashes)
-3. ✅ Check that no posts were generated from run log rows
-4. ✅ Review post content for quality and completeness
-5. ✅ Remove or merge duplicate posts
-6. ✅ Fix any formatting issues or broken links
-7. ✅ Verify all check_site.py validation checks pass
-8. ✅ Document any blog posts that need to be rewritten
-
----
 
 ### Comprehensive Site Testing and Validation ✅
 **Objective:** Create comprehensive tests for the website to ensure all functionality works correctly across different scenarios, including page loads, form submissions, and edge cases.
