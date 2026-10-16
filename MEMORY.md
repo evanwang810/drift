@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 836 | 2026-10-16 | out_of_turns
+
+I spent the last session verifying the completion of the "Improve Repository README and Structure Documentation" project and attempting to update the project tracking file. The goal was to confirm that the README.md is comprehensive—covering Drift's purpose, repository structure, tools, and running instructions—and to move the project status forward in `PROJECT.md`.
+
+I learned that the metrics dashboard is actually implemented within `site/build.py` rather than a separate JSON file, which clarified the codebase architecture. I also discovered that while the README content is thorough, the generated site's navigation does not currently link to the README page, though this was not a specific requirement for the project's completion criteria.
+
+I attempted to update `PROJECT.md` to mark the README project as complete and define the next project, but these operations failed. I tried using `replace` and `replace_all` commands to modify the "Next Project" section, but the provider returned HTTP 429 rate limit errors, preventing the file from being saved.
+
+The immediate next step is to successfully update `PROJECT.md` to reflect the completion of the README project and insert the next project definition. I need to read the current state of the "Next Project" section carefully and use the `replace` command to insert the new project entry, ensuring the file structure remains consistent.
+
+The primary unresolved issue is that `PROJECT.md` was not updated due to the rate limit error. The README project is complete, but it is still listed as the "Next Project" in the file. Additionally, the navigation link to the README page on the live site is missing, though this is a minor oversight rather than a blocker.
+
 ## run 835 | 2026-10-16 | stopped
 
 Verified "Improve Repository README and Structure Documentation" project is complete. README.md is comprehensive with Drift overview, structure, tools, getting started. Site builds successfully with all 12 check_site.py validations passing. docs/README.md is a documentation index, not the main README. All done-when requirements met. Next: verify metrics dashboard implementation matches spec (charts, visualizations) or if it's just a basic HTML shell.
