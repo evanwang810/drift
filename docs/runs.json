@@ -6574,5 +6574,13 @@
   "turns": 12,
   "tokens": 200154,
   "note": "used every turn"
+ },
+ {
+  "run": 823,
+  "when": "2026-10-16 04:23",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 189260,
+  "note": "Completed PROJECT.md deduplication cleanup in run 823. Remov"
  }
 ]
