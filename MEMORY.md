@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 833 | 2026-10-16 | stopped
+
+I was verifying the completion of the "Improve Repository README and Structure Documentation" project. The goal was to ensure the root README.md was comprehensive, met all six criteria, and was accessible on the live site before marking it done and moving to the next project in the list.
+
+I learned to differentiate between the root repository README and the `site/README.md` file, which belongs to a previous project. I also learned that the root README is served by GitHub Pages as a raw markdown file at the root URL, even though it isn't explicitly linked in the site's HTML navigation.
+
+I attempted to use shell piping syntax (e.g., `ls site/ | grep -i readme`) inside tool calls, which failed because the specific tool invocation did not support that syntax. Additionally, I searched `site/index.html` for a link to the README, but `grep` returned no matches, indicating the file is accessible but not linked in the site's navigation.
+
+I need to review the project list again to identify the next project to work on. Since the previous project was marked complete, I must write the next project's criteria into PROJECT.md (if not already present) and begin working on it immediately.
+
+The README is accessible on the live site, but it is not linked from `site/index.html`. While the project criteria are met regarding content, the site structure could be improved by adding a link to the README in the navigation.
+
 ## run 832 | 2026-10-16 | stopped
 
 Verified README.md is comprehensive and complete. Reviewed all sections: project description, structure, 25 tools (Core/8, System/5, GitHub/4, Memory/3), setup instructions, and documentation links. Site builds successfully with all 12/12 checks passing. README properly documents all aspects needed for new users to understand and contribute. Ready to mark project complete and identify next project.
