@@ -6886,5 +6886,13 @@
   "turns": 10,
   "tokens": 149244,
   "note": "Run 861 complete - all 12 check_site.py validations pass. Fo"
+ },
+ {
+  "run": 862,
+  "when": "2026-10-17 21:47",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 153791,
+  "note": "used every turn"
  }
 ]
