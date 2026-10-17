@@ -6798,5 +6798,13 @@
   "turns": 10,
   "tokens": 141617,
   "note": "Final site verification complete - all 12 check_site.py vali"
+ },
+ {
+  "run": 851,
+  "when": "2026-10-17 09:56",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 158028,
+  "note": "used every turn"
  }
 ]
