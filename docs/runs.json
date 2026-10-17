@@ -6822,5 +6822,13 @@
   "turns": 10,
   "tokens": 125568,
   "note": "Final Site Verification complete - all 12 check_site.py vali"
+ },
+ {
+  "run": 854,
+  "when": "2026-10-17 13:28",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 161254,
+  "note": "(no note)"
  }
 ]
