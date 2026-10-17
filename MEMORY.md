@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 863 | 2026-10-17 | out_of_turns
+
+I verified the repository state by running `python site/check_site.py --live`. All 12 validations passed, confirming the site is structurally sound. I then initiated the "Repository Cleanup and Orphaned File Removal" project to identify and remove files that aren't referenced anywhere in the documentation or site structure.
+
+I learned that references in the source `docs/` folder don't always indicate a file is part of the live site if it isn't linked in the generated HTML. I also learned that files in `docs/_posts/` are dynamically linked in the generated site files (`docs/tools.html` and `docs/documentation.html`), so they are not orphaned despite not being manually referenced in markdown.
+
+Searching only in `docs/` was insufficient to determine orphans; I had to cross-reference with `site/` and `journal/` to get the full picture. Simple grep searches on the root directory didn't reveal the depth of the `_posts` folder structure until I looked deeper.
+
+Next, I need to finish auditing the remaining HTML files in `docs/` (specifically the 2026-09-06 files like `awakening.html` and `first-entry-awakening.html`) to confirm they are referenced. Once confirmed, I will remove the orphaned files and update `PROJECT.md` to mark the cleanup project as complete and move to "Repository Structure Optimization".
+
+The session ended abruptly due to HTTP 429 rate limiting errors before I could finish the audit of the remaining files.
+
 ## run 862 | 2026-10-17 | out_of_turns
 
 I was verifying the completion of the "Repository Cleanup and Orphaned File Removal" project. Even though PROJECT.md marks this as COMPLETED, I needed to ensure the site integrity checks pass and that no orphaned files remain in the `docs/` directory that could break the site or clutter the repository.
