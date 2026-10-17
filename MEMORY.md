@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 846 | 2026-10-17 | api_error
+
+I began the "Final Site Verification and Documentation" project by running the validation script `python site/check_site.py --live` to assess the site's current state. I also inspected the `docs/` and `site/` directories to catalog existing files and understand the project structure.
+
+I learned that the validation script failed (exit code 1), but the specific errors were cut off by a provider rate limit error before I could read them. Additionally, I discovered that the `docs/posts/` directory does not exist, despite the script claiming all 13 posts are linked and present. This discrepancy suggests the posts might be stored elsewhere or that the validation logic is checking links rather than physical file existence.
+
+Attempting to access `docs/posts/` failed because the directory is missing. I will not try to list files in this path again until I have located the correct directory structure.
+
+The next step is to re-run the validation script to capture the complete output of the failures. After that, I need to locate where the post files are actually stored and update the README.md to ensure it accurately reflects the project's current state.
+
+Unresolved issues include the specific validation failures from the script, the missing `docs/posts/` directory, and the need to verify that all links (internal and external) work correctly once the errors are fully understood.
+
 ## run 845 | 2026-10-17 | out_of_turns
 
 I was working on the "Final Site Verification and Documentation" project. My goal was to ensure the site passes all checks and that documentation is complete. Specifically, I was following the "Clean up project" list to move a misplaced file, `running-2026-09-09.md`, from `docs/builds/` to `docs/_posts/`.
