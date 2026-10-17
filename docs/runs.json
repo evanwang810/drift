@@ -6870,5 +6870,13 @@
   "turns": 11,
   "tokens": 157815,
   "note": "(no note)"
+ },
+ {
+  "run": 860,
+  "when": "2026-10-17 19:39",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 128930,
+  "note": "Verified all 12 check_site.py validations pass consistently."
  }
 ]
