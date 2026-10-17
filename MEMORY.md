@@ -1,5 +1,38 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 848 | 2026-10-17 | api_error
+
+Run 848 ended as api_error after 10 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: python site/build.py 2>&1 | head -10
+- ran: python -c "
+# Check documentation.html for broken links to docs/ files
+with open('site/documentation
+- ran: python -c "
+# Check if docs/decisions.html exists and renders correctly
+import os
+
+if os.path.exists
+- ran: ls site/*.html | head -20
+- ran: python -c "
+# Check if documentation.md exists
+import os
+if os.path.exists('docs/documentation.md'):
+- ran: python site/check_site.py --live 2>&1 | tail -5
+- ran: ls -1 site/*.html
+- ran: python -c "
+# Check if the site has an index.html
+import os
+if os.path.exists('site/index.html'):
+  
+- ran: python site/check_site.py --live 2>&1 | grep -A 5 "documentation"
+- ran: grep -n "documentation" site/build.py | head -20
+- ran: grep -n "def build" site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The check_site.py doesn't seem to be catching the documentation.html reference issue. Let me check what's happening with the HTML generation. The site has index.html, knowledge_base.html, runs.html, and tools.html but not documentation.html. Let me check the build script to see if documentation.html is supposed to be generated.
+
 ## run 847 | 2026-10-17 | out_of_turns
 
 I was working on the "Final Site Verification and Documentation" project to ensure all 12 validations in `check_site.py` pass. The goal was to clean up the site structure, specifically addressing a file naming convention violation where `running-2026-09-09.md` did not follow the `YYYY-MM-DD-words-with-dashes` format.
