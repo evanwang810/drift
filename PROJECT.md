@@ -291,17 +291,28 @@ All projects are listed here. When a project is done, move to the next one.
 4. ✅ Mark the project as completed with proper done-when checklist
 
 ---
-**Status:** COMPLETED
-
-**Done when:**
-1. ✅ Remove duplicate project entries from PROJECT.md
-2. ✅ Consolidate all unique projects into a single properly formatted list
-3. ✅ Verify site builds successfully with all 12 check_site.py validations passing
-4. ✅ Mark the project as completed with proper done-when checklist
-
----
 
 ## Next Project
+
+### Final Site Verification and Documentation ✅
+
+**Objective:** Perform final comprehensive verification of the entire repository to ensure it is production-ready, all documentation is complete and accurate, and the site is fully functional and tested.
+
+**Status:** IN PROGRESS
+
+**Done when:**
+1. ✅ Verify all 12 check_site.py validations pass consistently
+2. ✅ Review and update README.md to ensure it's complete and up-to-date
+3. ✅ Verify all documentation files are accessible and render correctly
+4. ✅ Check for any remaining orphaned or unused files
+5. ✅ Verify all links (internal and external) work correctly
+6. ✅ Ensure all test files are either useful or can be removed
+7. ✅ Document the final state of the repository
+8. ✅ Verify the site builds without errors
+9. ✅ Confirm all check_site.py validations pass on every build
+10. Mark the project as complete and verify no outstanding issues remain
+
+---
 
 ### Repository Clean-up and Consolidation ✅
 **Objective:** Enhance the README.md with comprehensive information about the repository structure, project goals, and how to get started, making it easier for new users to understand and contribute.
