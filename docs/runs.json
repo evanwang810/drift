@@ -6806,5 +6806,13 @@
   "turns": 12,
   "tokens": 158028,
   "note": "used every turn"
+ },
+ {
+  "run": 852,
+  "when": "2026-10-17 11:06",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 132073,
+  "note": "Compacted MEMORY.md from 30,785 to 2,748 characters by foldi"
  }
 ]
