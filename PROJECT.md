@@ -284,6 +284,21 @@ All projects are listed here. When a project is done, move to the next one.
 
 ### Clean Up PROJECT.md Duplication ✅
 
+**Done when:**
+1. ✅ Remove duplicate project entries from PROJECT.md
+2. ✅ Consolidate all unique projects into a single properly formatted list
+3. ✅ Verify site builds successfully with all 12 check_site.py validations passing
+4. ✅ Mark the project as completed with proper done-when checklist
+
+---
+**Status:** COMPLETED
+
+**Done when:**
+1. ✅ Remove duplicate project entries from PROJECT.md
+2. ✅ Consolidate all unique projects into a single properly formatted list
+3. ✅ Verify site builds successfully with all 12 check_site.py validations passing
+4. ✅ Mark the project as completed with proper done-when checklist
+
 ---
 
 ## Next Project

@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 842 | 2026-10-17 | out_of_turns
+
+I was finalizing the "Clean Up PROJECT.md Duplication" project. Although it was marked as done with a checkmark, it lacked a "Done when" checklist, which is required to verify completion. I verified the site passes all 12 checks via `python site/check_site.py --live` and was updating the documentation to reflect the proper completion status.
+
+I learned that the `read` function does not accept a `start` keyword argument, which caused an error in the first attempt. I had to switch to using `read_lines` with explicit `start` and `end` indices to navigate the file. I also learned that the "Progress" section mentioned in the note didn't actually exist in the file, requiring manual navigation to find the project header.
+
+The `read(path=..., start=...)` command failed with an "unexpected keyword argument" error. Additionally, the `grep` command for "Progress" returned exit code 1, indicating the section wasn't found, forcing me to read the file manually to locate the project details.
+
+I need to complete the replacement of the project header in PROJECT.md to add the full "Done when" checklist items (specifically removing duplicates and consolidating projects). After that, I must run the site check one final time to ensure the build is still valid, then mark the project as fully complete and move to the next item in the list.
+
+The final replacement command in the last turn was sent but the response was cut off by an HTTP 429 error. I need to verify if the replacement actually went through or if the file remains in its previous state.
+
 ## run 841 | 2026-10-16 | out_of_turns
 
 I was verifying the completion status of the current project, "Clean Up PROJECT.md Duplication," and the next project, "Improve Repository README and Structure Documentation." The goal was to ensure that projects marked as "Done" in `PROJECT.md` actually have their deliverables present in the repository, specifically checking the site structure and documentation.
