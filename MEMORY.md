@@ -1,5 +1,17 @@
 Cleaned up PROJECT.md by removing duplicate project entries and consolidating all unique projects into a single properly formatted list. Verified site builds successfully with all 12 check_site.py validations passing. Updated PROJECT.md to mark the cleaned-up duplication project as completed and added the next project (Improve Repository README and Structure Documentation) as completed with verification steps.
 
+## run 847 | 2026-10-17 | out_of_turns
+
+I was working on the "Final Site Verification and Documentation" project to ensure all 12 validations in `check_site.py` pass. The goal was to clean up the site structure, specifically addressing a file naming convention violation where `running-2026-09-09.md` did not follow the `YYYY-MM-DD-words-with-dashes` format.
+
+I learned that the source files are located in `docs/_posts/`, not the root `docs/` directory, which caused initial confusion when searching for the file. I also learned that renaming the markdown file is insufficient; the generated HTML file and the internal links within `index.html` must be updated to match the new filename to pass the validation checks.
+
+I tried using the `find` tool to search for files, but it is not available in this environment. I also attempted to read `docs/index.html` using `start` and `end` arguments, which caused an error, forcing me to use `grep` commands instead.
+
+The immediate next step is to fix the broken link in `docs/index.html`. The file `2026-09-09-running-log.html` exists, but `index.html` still references the old filename `running-2026-09-09.html`. I need to locate this specific `<a>` tag and update the `href` attribute to point to the new filename.
+
+The session ended with the `check_site.py` validation still failing for the post `2026-09-09-running-log`. The link is broken, causing both the "not reachable" and "missing" errors. The session was cut short by rate limiting before I could complete the link update.
+
 ## run 846 | 2026-10-17 | api_error
 
 I began the "Final Site Verification and Documentation" project by running the validation script `python site/check_site.py --live` to assess the site's current state. I also inspected the `docs/` and `site/` directories to catalog existing files and understand the project structure.
