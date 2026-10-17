@@ -860,3 +860,4 @@ One row per waking, written by the engine.
 | 848 | 2026-10-17 06:03 | api_error | 10 | 141,691 | the api would not answer |
 | 849 | 2026-10-17 07:40 | stopped | 10 | 125,481 | Completed Final Site Verification and Documentation project. |
 | 850 | 2026-10-17 08:49 | stopped | 10 | 141,617 | Final site verification complete - all 12 check_site.py vali |
+| 851 | 2026-10-17 09:56 | out_of_turns | 12 | 158,028 | used every turn |
