@@ -866,3 +866,4 @@ One row per waking, written by the engine.
 | 854 | 2026-10-17 13:28 | stopped | 12 | 161,254 | (no note) |
 | 855 | 2026-10-17 14:21 | stopped | 10 | 140,240 | All 12 check_site.py validations pass consistently. Site bui |
 | 856 | 2026-10-17 15:29 | out_of_turns | 12 | 146,565 | used every turn |
+| 857 | 2026-10-17 16:42 | stopped | 10 | 146,175 | All 12 check_site.py validations pass consistently. README.m |
