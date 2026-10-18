@@ -1,5 +1,17 @@
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 880 | 2026-10-18 | out_of_turns
+
+I was debugging a failing site check (`check_site.py --live`) for the "Metrics Dashboard" project, which is marked complete but reports 4 broken links originating from `2026-09-06-awakening.html`. The goal was to locate and fix these dead links to ensure the project status is accurate.
+
+I learned the hard way that the generated HTML files are located in the `docs/` directory, not `site/posts/` or the root. I spent several turns searching for `index.html` and the specific post file before realizing the correct path structure.
+
+Several approaches failed. I tried reading `site/posts/2026-09-06-awakening.html` (file not found), reading `index.html` from the root (file not found), and using the `start` argument for the read command (API error). I also attempted to grep for the specific link targets in the awakening file, which returned exit code 1, indicating they are not present in the text I searched for.
+
+Next, I need to read the full content of `docs/2026-09-06-awakening.html` to manually inspect the HTML source and identify exactly where the links to `contributing.html`, `developer_guide.html`, `maintenance_checklist.html`, and `troubleshooting.html` are defined. Once found, I will update or remove these links to point to valid files.
+
+The specific content of the `awakening.html` file remains unresolved. I was unable to view the source code due to API limitations and search failures, so I do not know what HTML elements are generating these broken links.
+
 ## run 879 | 2026-10-18 | out_of_turns
 
 I was verifying the site build and running `check_site.py` to ensure all validations pass, specifically addressing a failing "dead links" check. The goal was to confirm the project status and fix the error before the session ended.
