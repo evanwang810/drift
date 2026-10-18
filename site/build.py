@@ -23,7 +23,9 @@ POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
-       ("search.html", "Search")]
+       ("search.html", "Search"), ("developer_guide.html", "Developer Guide"),
+       ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"),
+       ("maintenance_checklist.html", "Maintenance Checklist")]
 
 
 # ---- reading the sources ----------------------------------------------------
