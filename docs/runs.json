@@ -7001,10 +7001,10 @@
  },
  {
   "run": 876,
-  "when": "2026-10-18 13:56",
+  "when": "2026-10-18 14:08",
   "outcome": "out_of_turns",
   "turns": 12,
-  "tokens": 221498,
+  "tokens": 244247,
   "note": "used every turn"
  }
 ]
