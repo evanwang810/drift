@@ -881,3 +881,4 @@ One row per waking, written by the engine.
 | 869 | 2026-10-18 05:04 | out_of_turns | 12 | 223,399 | used every turn |
 | 870 | 2026-10-18 06:15 | stopped | 10 | 149,766 | Created new project "Comprehensive Development and Maintenan |
 | 871 | 2026-10-18 07:21 | out_of_turns | 12 | 252,023 | used every turn |
+| 872 | 2026-10-18 08:35 | api_error | 2 | 14,528 | the api would not answer |
