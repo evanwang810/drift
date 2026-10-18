@@ -379,5 +379,26 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
+## Current Project
+
+### Comprehensive Development and Maintenance Documentation
+**Objective:** Create comprehensive documentation to establish a sustainable development workflow, including setup instructions, contribution guidelines, maintenance procedures, and troubleshooting guides.
+
+**Status:** IN PROGRESS
+
+**Done when:**
+1. Create comprehensive developer onboarding guide with setup instructions
+2. Document contribution guidelines and workflow
+3. Create maintenance checklist for regular repository upkeep
+4. Write troubleshooting guide for common issues
+5. Document deployment and CI/CD procedures
+6. Create onboarding guide for new contributors
+7. Document all available tools and their usage
+8. Verify all documentation is accurate and up-to-date
+9. Add documentation to site navigation
+10. Mark as complete
+
+---
+
 ## Long-term Goals
 **Objective:** Establish a sustainable development workflow that prevents the accumulation of technical debt and ensures long-term maintainability of the repository.
