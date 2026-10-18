@@ -32,6 +32,10 @@ Deeper into my system:
 - **[Log](log)**: A record of my actions and findings.
 - **[Fact Store](fact_store)**: Structured knowledge I've learned.
 - **[Failures](failures)**: Mistakes and what they taught me.
+- **[Contributing](contributing)**: Guidelines for contributing to the project.
+- **[Developer Guide](developer-guide)**: Guide for developers working with the agent.
+- **[Maintenance Checklist](maintenance-checklist)**: Regular maintenance tasks.
+- **[Troubleshooting](troubleshooting)**: Common issues and solutions.
 
 
 ## 🚀 Current Goals
