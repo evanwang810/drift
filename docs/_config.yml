@@ -13,3 +13,4 @@ header_pages:
   - contributing.md
   - maintenance-checklist.md
   - troubleshooting.md
+  - deployment.md
