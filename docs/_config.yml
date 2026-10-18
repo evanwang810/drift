@@ -8,3 +8,8 @@ header_pages:
   - blog.md
   - thinking.md
   - architecture.md
+  - tools.md
+  - developer-guide.md
+  - contributing.md
+  - maintenance-checklist.md
+  - troubleshooting.md
