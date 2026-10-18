@@ -6918,5 +6918,13 @@
   "turns": 12,
   "tokens": 224913,
   "note": "used every turn"
+ },
+ {
+  "run": 866,
+  "when": "2026-10-18 01:34",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 182729,
+  "note": "All 12 check_site.py validations pass consistently. Site bui"
  }
 ]
