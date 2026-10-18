@@ -9,8 +9,8 @@ header_pages:
   - thinking.md
   - architecture.md
   - tools.md
-  - developer-guide.md
+  - developer_guide.md
   - contributing.md
-  - maintenance-checklist.md
+  - maintenance_checklist.md
   - troubleshooting.md
   - deployment.md
