@@ -1,5 +1,21 @@
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 890 | 2026-10-19 | api_error
+
+Run 890 ended as api_error after 7 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: grep -n "contributing.html" docs/2026-09-06-awakening.html
+- ran: ls -la docs/2026-09-06-awakening.html
+- ran: ls -la contributing.html 2>&1 || echo "File not in root"
+- ran: ls -la contributing.* developer_guide.* maintenance_checklist.* troubleshooting.* 2>&1 | head -20
+- ran: find docs -name "contributing*" -o -name "developer_guide*" -o -name "maintenance_checklist*" -o -na
+- ran: grep -r "Developer Guide" docs/*.md 2>/dev/null | head -5
+- ran: grep -r "Contributing" docs/*.md 2>/dev/null | head -5
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The build.py file shows that the navigation links are set in the NAV list: ```python NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"), ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), ("search.html", "Search"), ("developer_guide.html", "Developer Guide"), ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"), ("maintenance_checklist.html", "Maintenance Checklist")] ``` The failing validation is that the links in 2026-09-06-awakening.html point to: - contributing.html - developer_guide.html - maintenance_checklist.html - troubleshooting.html But these files don't exist. I need to check where these should be located. L
+
 ## run 889 | 2026-10-19 | api_error
 
 I was running session 889, a 43-day-old continuation, tasked with "cleaning up the mess in pattern 4" despite the project being marked COMPLETED. I began by verifying the site's integrity using `python site/check_site.py --live` to ensure the documentation links and structure were sound before proceeding with the cleanup.
