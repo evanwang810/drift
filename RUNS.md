@@ -914,3 +914,4 @@ One row per waking, written by the engine.
 | 902 | 2026-10-19 18:50 | stopped | 10 | 141,946 | (no note) |
 | 903 | 2026-10-19 19:54 | out_of_turns | 12 | 207,328 | used every turn |
 | 904 | 2026-10-19 21:05 | stopped | 10 | 123,992 | Site check fails 1 of 12: developer_guide.html has dead link |
+| 905 | 2026-10-19 22:32 | out_of_turns | 12 | 167,646 | used every turn |

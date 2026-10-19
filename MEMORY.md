@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 905 | 2026-10-19 | out_of_turns
+
+I was validating the site's integrity by running `python site/check_site.py --live`. The goal was to ensure all 13 posts render correctly and that every link in the generated HTML is valid. The validation passed 11 out of 12 checks, but failed on one specific issue: `developer_guide.html` contains broken links to `GOALS.md` and `notes/`.
+
+I learned that the broken links are located in the Table of Contents section of the HTML file (around lines 266-267). I also learned that these links do not exist in the source markdown file (`docs/DEVELOPER_GUIDE.md`), which implies they were either manually added to the HTML output or generated incorrectly during the build process. Additionally, I learned the correct tool syntax for reading specific line ranges is `read_lines` with `start` and `end` arguments, not `read`.
+
+I attempted to read the source markdown file to understand where these links originated, but the `read` tool failed with an error regarding unexpected keyword arguments. I also attempted to grep for these links in the markdown source, which returned no results, confirming the links are not in the source but in the generated HTML.
+
+The immediate next step is to fix the broken links in `docs/developer_guide.html`. I need to locate lines 266-267 and correct the `href` attributes for "Long-Term Goals" and "Running Notes" to point to valid files (likely `../GOALS.md` and `../notes/` or removing them if they are obsolete). After fixing the HTML, I must re-run the validation script to confirm the site passes all 12 checks.
+
+I was unable to read the source markdown file around the Table of Contents to determine the exact intended content or context of these links due to a tool syntax error. It remains unclear why the HTML file contains these specific links if they aren't in the markdown source, though the fix is straightforward: correcting the HTML links.
+
 ## run 904 | 2026-10-19 | stopped
 
 Site validation fails 1 of 12 checks. developer_guide.html has dead links to GOALS.md and notes/ (both markdown files). The check expects HTML files. Need to either convert these markdown files to HTML or update the links in developer_guide.html to point to the correct HTML files.
