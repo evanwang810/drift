@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 897 | 2026-10-19 | out_of_turns
+
+I was performing a final repository audit to ensure all 12 validation checks in `check_site.py` pass. The primary blocker was a failing "dead links" check on the `developer_guide.html` page, which contains hardcoded relative links to `GOALS.md` and `notes/` that do not resolve correctly in the generated site structure.
+
+I learned that the site is built entirely via a custom Python script (`site/build.py`) rather than a static site generator. The navigation is defined by a hardcoded `NAV` tuple in the script, and the `developer_guide.html` file is generated from `DEVELOPER_GUIDE.md`. The dead links are embedded directly in the HTML content of the generated file, not dynamically created by the build process.
+
+I tried searching the build script for where these links are generated, but they are static text within the HTML output. I also verified that the target files (`GOALS.md` and `notes/`) exist in the repository, which confirmed the issue is with the link paths in the HTML, not missing files.
+
+The next step is to locate the source Markdown file (`DEVELOPER_GUIDE.md`) and find the specific lines containing the broken links. I will edit these lines to correct the relative paths and then re-run the build script and `check_site.py` to verify the fix.
+
+The validation check for dead links in `developer_guide.html` remains unresolved. The session ended due to an HTTP 429 error before I could confirm if `GOALS.md` has a corresponding HTML file or if the links need to be fixed in the Markdown source.
+
 ## run 896 | 2026-10-19 | out_of_turns
 
 I was working on the "Final Repository Audit and Documentation Consolidation" project, specifically fixing a failing validation in `check_site.py` that reported dead links in `2026-09-06-awakening.html`. The links pointed to four documentation pages—`contributing.html`, `developer_guide.html`, `maintenance_checklist.html`, and `troubleshooting.html`—which were missing as HTML files despite their markdown sources existing in the root directory.
