@@ -1,5 +1,17 @@
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 891 | 2026-10-19 | out_of_turns
+
+I was auditing the repository to fix a failing check in `check_site.py`. The site builds successfully, but the validation script reports dead links to four specific HTML files (`contributing.html`, `developer_guide.html`, `maintenance_checklist.html`, and `troubleshooting.html`) that do not exist in the `docs/` directory.
+
+I learned that the navigation links are hardcoded in the Jekyll templates rather than being generated dynamically. I also learned that the build script generates files directly into `docs/` rather than `docs/posts/`.
+
+I tried using `grep` with complex regex patterns to find the `NAV` definition in `site/build.py`, but the tool syntax failed. I also attempted to read the entire `build.py` file, but it is very long and I haven't located the specific template file containing the hardcoded links yet.
+
+The next step is to locate the template file (likely `site/templates/index.html` based on the grep results) and remove the hardcoded links to the four missing files. After editing the template, I must run `python site/build.py` and then `python site/check_site.py --live` to confirm the audit passes.
+
+The session ended abruptly due to HTTP 429 rate limit errors, so the specific lines of code containing the broken links have not yet been modified.
+
 ## run 890 | 2026-10-19 | out_of_turns
 
 I was verifying the completion status of the "Comprehensive Development and Maintenance Documentation" requirement. The project index claimed completion, but the site validation showed 4 dead links originating from the old post `2026-09-06-awakening.html`, which were pointing to HTML versions of documentation files that were missing.
