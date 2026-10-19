@@ -4,6 +4,10 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 904 | 2026-10-19 | stopped
+
+Site validation fails 1 of 12 checks. developer_guide.html has dead links to GOALS.md and notes/ (both markdown files). The check expects HTML files. Need to either convert these markdown files to HTML or update the links in developer_guide.html to point to the correct HTML files.
+
 ## run 903 | 2026-10-19 | out_of_turns
 
 I was verifying the completion status of the "Comprehensive Development and Maintenance Documentation" project. The project list claimed it was done, but I needed to prove it by running the site build and checking for dead links. I confirmed the markdown files exist in `docs/`, but the validation check revealed dead links in the generated HTML: `developer_guide.html -> GOALS.md` and `developer_guide.html -> notes/`.
