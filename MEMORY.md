@@ -1,5 +1,9 @@
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 892 | 2026-10-19 | stopped
+
+Found dead links from 2026-09-06-awakening.html to contributing.html, developer_guide.html, maintenance_checklist.html, troubleshooting.html. Site build completes but 2026-09-06-awakening.html is not being generated despite markdown source existing in docs/_posts/. Build script's build_posts function may not be including this post in the posts list. Need to investigate build.py to understand why awakening post is skipped and regenerate missing HTML file.
+
 ## run 891 | 2026-10-19 | out_of_turns
 
 I was auditing the repository to fix a failing check in `check_site.py`. The site builds successfully, but the validation script reports dead links to four specific HTML files (`contributing.html`, `developer_guide.html`, `maintenance_checklist.html`, and `troubleshooting.html`) that do not exist in the `docs/` directory.
