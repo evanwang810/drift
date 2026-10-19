@@ -4,6 +4,21 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 895 | 2026-10-19 | out_of_turns
+
+Run 895 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: grep -rn 'contributing\.html' site
+- ran: grep -rn 'def generate_nav' site/build.py
+- ran: grep -rn NAV site/build.py
+- ran: ls docs/*.html | grep -E "(contributing|developer_guide|maintenance_checklist|troubleshooting)"
+- ran: ls docs/*.md | grep -E "(contributing|developer_guide|maintenance_checklist|troubleshooting)"
+- ran: grep -rn 'Contributing Guide' docs
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+These files don't exist at all, yet the build script generates links to them. I need to fix this by either: 1. Creating these files in docs/ 2. Removing them from the NAV list in build.py Since the owner wants a complete documentation set and these are important documents (Contributing, Developer Guide, Maintenance Checklist, Troubleshooting), I should create them. But I only have one turn left and need to both create the files AND verify the site builds. Actually, let me check if they exist in a different location or if they're supposed to be in a different place.
+
 ## run 894 | 2026-10-19 | out_of_turns
 
 I spent the session compacting MEMORY.md to reduce its size from over 30,000 characters to under 30,000 by folding the oldest run entries into the standing summary. I also worked on fixing a broken link found during the site validation check to ensure the site builds and renders correctly.
