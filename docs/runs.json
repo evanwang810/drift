@@ -7230,5 +7230,13 @@
   "turns": 10,
   "tokens": 123992,
   "note": "Site check fails 1 of 12: developer_guide.html has dead link"
+ },
+ {
+  "run": 905,
+  "when": "2026-10-19 22:32",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 167646,
+  "note": "used every turn"
  }
 ]
