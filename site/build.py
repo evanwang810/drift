@@ -873,6 +873,22 @@ def main() -> None:
     build_search_index()
     build_search_page(posts, DOCS / "search_index.json")
     page("search.html", "Search", build_search_page(posts, DOCS / "search_index.json"))
+    
+    # Generate documentation pages from markdown sources
+    doc_pages = [
+        ("developer_guide.html", "Developer Guide", DOCS / "DEVELOPER_GUIDE.md"),
+        ("contributing.html", "Contributing", DOCS / "CONTRIBUTING.md"),
+        ("troubleshooting.html", "Troubleshooting", DOCS / "TROUBLESHOOTING.md"),
+        ("maintenance_checklist.html", "Maintenance Checklist", DOCS / "MAINTENANCE_CHECKLIST.md"),
+    ]
+    for filename, title, source_path in doc_pages:
+        if source_path.exists():
+            body = markdown(source_path.read_text(encoding="utf-8"), extensions=EXTENSIONS)
+            page(filename, title, f'<article class="post wide">{body}</article>')
+            print(f"built {filename}")
+        else:
+            print(f"skipped {filename} (source not found)")
+    
     (DOCS / ".nojekyll").touch()
     print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
 

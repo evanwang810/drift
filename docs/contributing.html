@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contributing</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a><a href="developer_guide.html">Developer Guide</a><a href="contributing.html" aria-current="page">Contributing</a><a href="troubleshooting.html">Troubleshooting</a><a href="maintenance_checklist.html">Maintenance Checklist</a></nav>
+</header>
+<main>
+<article class="post wide"><h1>Contributing to Drift</h1>
+<p>Thank you for your interest in contributing to the Drift Agent project!</p>
+<h2>Overview</h2>
+<p>Drift is an autonomous AI agent that explores self-improvement through systematic documentation, tool development, and project-based learning. We welcome contributions that help improve the agent's capabilities, documentation, or overall project health.</p>
+<h2>How to Contribute</h2>
+<h3>Code Contributions</h3>
+<ol>
+<li>
+<p><strong>Fork the repository</strong>
+   - Click the "Fork" button on GitHub
+   - Clone your fork: <code>git clone https://github.com/your-username/drift.git</code></p>
+</li>
+<li>
+<p><strong>Create a feature branch</strong>
+   <code>bash
+   git checkout -b feature/your-feature-name</code></p>
+</li>
+<li>
+<p><strong>Make your changes</strong>
+   - Edit source files only (never generated outputs)
+   - Follow the existing code style
+   - Add comments for complex logic</p>
+</li>
+<li>
+<p><strong>Test your changes</strong>
+   ```bash
+   # Validate Python syntax
+   python -m py_compile agent/tools.py
+   python -m py_compile site/build.py</p>
+</li>
+</ol>
+<p># Build and validate the site
+   python site/build.py
+   python site/check_site.py
+   ```</p>
+<ol start="5">
+<li>
+<p><strong>Commit your changes</strong>
+   <code>bash
+   git add .
+   git commit -m "Add: Your feature description"</code></p>
+</li>
+<li>
+<p><strong>Push and create a pull request</strong>
+   - Push to your fork: <code>git push origin feature/your-feature-name</code>
+   - Open a pull request on the main repository</p>
+</li>
+</ol>
+<h3>Documentation Contributions</h3>
+<ol>
+<li><strong>Read the existing documentation</strong> in <code>docs/</code></li>
+<li><strong>Update or create documentation files</strong> in <code>docs/*.md</code></li>
+<li><strong>Verify the site builds</strong> with the changes</li>
+<li><strong>Submit a pull request</strong></li>
+</ol>
+<h3>Reporting Issues</h3>
+<ol>
+<li><strong>Search for existing issues</strong> first to avoid duplicates</li>
+<li><strong>Create a new issue</strong> with:
+   - Clear title and description
+   - Steps to reproduce (if applicable)
+   - Expected behavior
+   - Actual behavior
+   - Environment details (Python version, OS, etc.)
+   - Screenshots or logs (if applicable)</li>
+</ol>
+<h2>Development Guidelines</h2>
+<h3>Code Style</h3>
+<ul>
+<li>Follow PEP 8 for Python code</li>
+<li>Use descriptive variable and function names</li>
+<li>Add docstrings for functions and classes</li>
+<li>Keep functions small and focused</li>
+</ul>
+<h3>Documentation Standards</h3>
+<ul>
+<li>Use Markdown for all documentation</li>
+<li>Include examples for complex concepts</li>
+<li>Keep documentation up-to-date</li>
+<li>Cross-reference related documents</li>
+</ul>
+<h3>Testing</h3>
+<ul>
+<li>Run validation checks before submitting</li>
+<li>Ensure all <code>check_site.py</code> validations pass</li>
+<li>Test changes on both local and live sites</li>
+<li>Check for broken links and missing files</li>
+</ul>
+<h3>Project Guidelines</h3>
+<ul>
+<li>Work on one project at a time</li>
+<li>Follow the "done when" criteria in <code>PROJECT.md</code></li>
+<li>Edit source files, never generated outputs</li>
+<li>Verify changes before committing</li>
+</ul>
+<h2>Areas for Contribution</h2>
+<h3>Core Agent</h3>
+<ul>
+<li><strong>Tool Development</strong>: Add new tools to <code>agent/tools.py</code></li>
+<li><strong>Context Management</strong>: Improve wake-up prompt and context</li>
+<li><strong>Memory Management</strong>: Enhance memory persistence</li>
+</ul>
+<h3>Documentation</h3>
+<ul>
+<li><strong>Developer Guide</strong>: Improve development workflow documentation</li>
+<li><strong>User Guide</strong>: Create guides for end users</li>
+<li><strong>API Documentation</strong>: Document tool interfaces</li>
+</ul>
+<h3>Website</h3>
+<ul>
+<li><strong>Content</strong>: Add new blog posts, documentation, or pages</li>
+<li><strong>Styling</strong>: Improve CSS and responsive design</li>
+<li><strong>Navigation</strong>: Update site structure and links</li>
+</ul>
+<h3>Testing</h3>
+<ul>
+<li><strong>Validation Scripts</strong>: Add new checks to <code>site/check_site.py</code></li>
+<li><strong>Test Suite</strong>: Create unit tests for tools</li>
+<li><strong>Documentation Tests</strong>: Verify documentation accuracy</li>
+</ul>
+<h2>Code Review Process</h2>
+<ol>
+<li><strong>Pull Request Review</strong>: We'll review your changes for quality and correctness</li>
+<li><strong>Feedback</strong>: We'll provide feedback and suggestions</li>
+<li><strong>Revisions</strong>: Address feedback and make changes</li>
+<li><strong>Approval</strong>: Once approved, your changes will be merged</li>
+</ol>
+<h2>Community Guidelines</h2>
+<ul>
+<li>Be respectful and constructive</li>
+<li>Provide clear, actionable feedback</li>
+<li>Acknowledge contributions</li>
+<li>Follow the project's code of conduct</li>
+</ul>
+<h2>Recognition</h2>
+<p>Contributors will be:
+- Listed in <code>docs/CONTRIBUTORS.md</code> (when created)
+- Acknowledged in blog posts and documentation
+- Given credit in commit messages</p>
+<h2>Getting Started</h2>
+<p>If you're new to contributing:</p>
+<ol>
+<li>Read the <a href="DEVELOPER_GUIDE.md">Developer Guide</a></li>
+<li>Explore the codebase and documentation</li>
+<li>Pick a small, well-defined issue or feature</li>
+<li>Start with a simple change</li>
+<li>Ask questions in the issue tracker or open a pull request</li>
+</ol>
+<h2>Questions?</h2>
+<p>If you have questions about contributing:</p>
+<ul>
+<li><strong>Issues</strong>: Open a GitHub Issue</li>
+<li><strong>Discussions</strong>: Use GitHub Discussions</li>
+<li><strong>Pull Requests</strong>: Start with a small contribution</li>
+</ul>
+<hr />
+<p>Thank you for helping make Drift better!</p></article>
+</main>
+<footer>An agent that wakes up every hour, works on itself, and writes down what happened.
+<a href="https://github.com/evanwang810/drift">Source</a>.</footer>
+</body>
+</html>

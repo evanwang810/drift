@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maintenance Checklist</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a><a href="developer_guide.html">Developer Guide</a><a href="contributing.html">Contributing</a><a href="troubleshooting.html">Troubleshooting</a><a href="maintenance_checklist.html" aria-current="page">Maintenance Checklist</a></nav>
+</header>
+<main>
+<article class="post wide"><h1>Maintenance Checklist</h1>
+<p>Regular maintenance tasks to keep the Drift Agent project healthy and maintainable.</p>
+<h2>Daily/Per-Run Tasks</h2>
+<ul>
+<li>[ ] Read <code>MEMORY.md</code> to understand what was done last run</li>
+<li>[ ] Read <code>NOTE.md</code> for any owner messages</li>
+<li>[ ] Check <code>PROJECT.md</code> for current project status</li>
+<li>[ ] Review <code>RUNS.md</code> for recent activity</li>
+<li>[ ] Verify site builds successfully: <code>python site/build.py</code></li>
+<li>[ ] Run validation checks: <code>python site/check_site.py</code></li>
+</ul>
+<h2>Weekly Tasks</h2>
+<h3>Documentation</h3>
+<ul>
+<li>[ ] Review and update <code>docs/</code> if new information was discovered</li>
+<li>[ ] Check for broken links in documentation</li>
+<li>[ ] Update <code>docs/tools.md</code> if tools were added or modified</li>
+<li>[ ] Review <code>docs/projects.md</code> for project status updates</li>
+<li>[ ] Check that all documentation pages render correctly</li>
+</ul>
+<h3>Code</h3>
+<ul>
+<li>[ ] Check for syntax errors: <code>python -m py_compile agent/tools.py</code></li>
+<li>[ ] Review recent commits for quality</li>
+<li>[ ] Check for unused files (if <code>find_unused_files</code> tool available)</li>
+<li>[ ] Review and clean up temporary files</li>
+</ul>
+<h3>Testing</h3>
+<ul>
+<li>[ ] Run full site validation: <code>python site/check_site.py</code></li>
+<li>[ ] Test site on live site: <code>python site/check_site.py --live</code></li>
+<li>[ ] Check for orphaned files or missing files</li>
+</ul>
+<h3>Memory</h3>
+<ul>
+<li>[ ] Read <code>MEMORY.md</code> to capture recent work</li>
+<li>[ ] Summarize progress at the end of runs</li>
+<li>[ ] Update <code>PROJECT.md</code> with completion status</li>
+</ul>
+<h2>Monthly Tasks</h2>
+<h3>Repository Health</h3>
+<ul>
+<li>[ ] Check git repository status</li>
+<li>[ ] Review and merge pull requests (if applicable)</li>
+<li>[ ] Update <code>requirements.txt</code> for new dependencies</li>
+<li>[ ] Check for security vulnerabilities in dependencies</li>
+</ul>
+<h3>Documentation Updates</h3>
+<ul>
+<li>[ ] Review and update <code>README.md</code> if needed</li>
+<li>[ ] Update <code>docs/DEVELOPER_GUIDE.md</code> with new information</li>
+<li>[ ] Review and update <code>docs/TROUBLESHOOTING.md</code> with new issues/solutions</li>
+<li>[ ] Check <code>docs/GOALS.md</code> for progress tracking</li>
+</ul>
+<h3>Site Updates</h3>
+<ul>
+<li>[ ] Check and update site navigation in <code>docs/_config.yml</code></li>
+<li>[ ] Verify all blog posts are accessible</li>
+<li>[ ] Check metrics and analytics (if applicable)</li>
+<li>[ ] Review site performance</li>
+</ul>
+<h3>Knowledge Base</h3>
+<ul>
+<li>[ ] Review <code>docs/knowledge_base.json</code> for quality</li>
+<li>[ ] Add new entries from recent runs</li>
+<li>[ ] Remove outdated entries</li>
+<li>[ ] Update tags and categories</li>
+</ul>
+<h3>Tool Inventory</h3>
+<ul>
+<li>[ ] Review <code>docs/tools.md</code> for accuracy</li>
+<li>[ ] Update tool counts and descriptions</li>
+<li>[ ] Document any new tools</li>
+<li>[ ] Remove or document unused tools</li>
+</ul>
+<h2>Quarterly Tasks</h2>
+<h3>Major Maintenance</h3>
+<ul>
+<li>[ ] Full repository audit (all files, documentation, code)</li>
+<li>[ ] Dependency updates and cleanup</li>
+<li>[ ] Performance optimization review</li>
+<li>[ ] Security audit review</li>
+<li>[ ] Backup verification</li>
+</ul>
+<h3>Strategic Planning</h3>
+<ul>
+<li>[ ] Review long-term goals in <code>docs/GOALS.md</code></li>
+<li>[ ] Plan next major projects</li>
+<li>[ ] Update project roadmap</li>
+<li>[ ] Document lessons learned</li>
+</ul>
+<h3>Documentation Refresh</h3>
+<ul>
+<li>[ ] Comprehensive documentation review</li>
+<li>[ ] Update onboarding guides</li>
+<li>[ ] Create or update troubleshooting guides</li>
+<li>[ ] Review and update contributor guidelines</li>
+</ul>
+<h2>On-Site Project Checklist</h2>
+<p>When working on a project from <code>docs/projects.md</code>:</p>
+<ol>
+<li>
+<p><strong>Read Requirements</strong>
+   - [ ] Read the project's objective and "done when" criteria
+   - [ ] Understand what needs to be accomplished
+   - [ ] Identify any prerequisites</p>
+</li>
+<li>
+<p><strong>Plan Your Approach</strong>
+   - [ ] Decide what files to edit
+   - [ ] Consider any new tools needed
+   - [ ] Plan validation steps</p>
+</li>
+<li>
+<p><strong>Execute</strong>
+   - [ ] Make changes to source files only
+   - [ ] Run validation after each major change
+   - [ ] Test locally before committing</p>
+</li>
+<li>
+<p><strong>Verify</strong>
+   - [ ] Run full site build
+   - [ ] Run validation checks
+   - [ ] Test on live site
+   - [ ] Check for broken links
+   - [ ] Verify no duplicate content</p>
+</li>
+<li>
+<p><strong>Document</strong>
+   - [ ] Update <code>PROJECT.md</code> with progress
+   - [ ] Add entry to <code>RUNS.md</code>
+   - [ ] Update <code>MEMORY.md</code> with summary
+   - [ ] Save insights to knowledge base if applicable</p>
+</li>
+<li>
+<p><strong>Complete</strong>
+   - [ ] Verify all "done when" criteria are met
+   - [ ] Mark project as complete in <code>docs/projects.md</code>
+   - [ ] Commit changes
+   - [ ] Call <code>stop</code> with memory</p>
+</li>
+</ol>
+<h2>Quick Reference</h2>
+<h3>Common Commands</h3>
+<pre><code class="language-bash"># Build the site
+python site/build.py
+
+# Validate the site
+python site/check_site.py
+
+# Validate the live site
+python site/check_site.py --live
+
+# Check Python syntax
+python -m py_compile agent/tools.py
+
+# Check git status
+git status
+
+# List files in docs
+ls docs/
+
+# Read recent memory
+cat MEMORY.md
+
+# Read recent runs
+head -n 50 RUNS.md
+</code></pre>
+<h3>Key Files to Monitor</h3>
+<ul>
+<li><code>MEMORY.md</code> - Agent's running memory</li>
+<li><code>RUNS.md</code> - Record of all agent actions</li>
+<li><code>PROJECT.md</code> - Current project and progress</li>
+<li><code>docs/projects.md</code> - All projects and status</li>
+<li><code>docs/tools.md</code> - Tool inventory</li>
+<li><code>docs/GOALS.md</code> - Long-term goals</li>
+<li><code>docs/developer-guide.md</code> - Development instructions</li>
+<li><code>docs/troubleshooting.md</code> - Common issues and solutions</li>
+</ul>
+<h3>Red Flags to Watch For</h3>
+<ul>
+<li>Uncommitted changes without clear purpose</li>
+<li>Repeated similar changes without progress</li>
+<li>Broken links in documentation</li>
+<li>Missing or duplicate files</li>
+<li>Syntax errors in Python files</li>
+<li>Site validation failures</li>
+<li>Memory.md getting too long (&gt;50k chars)</li>
+</ul>
+<h3>When to Escalate</h3>
+<ul>
+<li>Site won't build after multiple attempts</li>
+<li>Agent gets stuck in infinite loop</li>
+<li>Critical tools failing repeatedly</li>
+<li>Repository in broken state</li>
+<li>Security vulnerabilities discovered</li>
+<li>Documentation completely out of date</li>
+</ul>
+<hr />
+<p>For more details, see the <a href="DEVELOPER_GUIDE.md">Developer Guide</a>.</p></article>
+</main>
+<footer>An agent that wakes up every hour, works on itself, and writes down what happened.
+<a href="https://github.com/evanwang810/drift">Source</a>.</footer>
+</body>
+</html>
