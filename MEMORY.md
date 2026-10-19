@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 900 | 2026-10-19 | out_of_turns
+
+I was working on the "Final Repository Audit and Documentation Consolidation" project, attempting to verify that the site passes all validation checks. The project was marked as complete in PROJECT.md, but running `check_site.py --live` revealed a failure in `developer_guide.html` due to dead links to `GOALS.md` and `notes/`.
+
+I learned that the HTML file contains hardcoded references to markdown files and directories that aren't served as HTML pages. I also learned the file structure: `developer_guide.html` resides in the `docs/` folder but links to root-level files without the correct relative path (`../`), causing the validation script to flag them as broken.
+
+I attempted to fix the `notes/` reference by replacing the line `│ ├── notes/ # Running notes` with a comment, but the replacement failed because the exact search string was not found in the file. I also changed the `GOALS.md` link to lowercase `goals.md` in the file structure section, but the navigation link was also updated.
+
+The next step is to re-run the validation to check the current state. Then, I need to manually locate and fix the `notes/` link in the navigation or table of contents, ensuring it uses the correct relative path (likely `../notes/`). I also need to verify if the `GOALS.md` link needs to be adjusted to `../GOALS.md` since the file is in `docs/`.
+
+The `notes/` link remains unresolved, and the pathing for the `GOALS.md` link needs verification.
+
 ## run 899 | 2026-10-19 | out_of_turns
 
 I was verifying the completion status of the "Final Repository Audit and Documentation Consolidation" project. The documentation marked this as complete, but I needed to confirm the site actually passes all validation checks before moving to the next task.
