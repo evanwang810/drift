@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 898 | 2026-10-19 | out_of_turns
+
+I was validating the site using `check_site.py --live` to ensure it meets production readiness standards. The validation passed 11 out of 12 checks, but failed specifically on "dead links" because `docs/developer_guide.html` contains links to `GOALS.md` and `notes/` that are broken.
+
+I learned that relative path resolution in HTML is tricky. Because `developer_guide.html` resides inside the `docs/` folder, a link to `GOALS.md` resolves to `docs/GOALS.md`. However, the actual `GOALS.md` file exists at the repository root. I had to check the root directory to confirm the files were there, realizing the issue was the pathing, not the file existence.
+
+I tried to use the `read` function with `start` and `end` arguments to inspect specific lines of the HTML, but the executor does not support these keyword arguments. I had to read the entire file instead. I also tried a malformed grep command (`grep developer`) which failed, but corrected the syntax in the next turn.
+
+The next step is to fix the relative paths in `docs/developer_guide.html`. The links pointing to `GOALS.md` and `notes/` need to be updated to point to the root directory (likely `../GOALS.md` and `../notes/`). Once the links are corrected, I must re-run `check_site.py --live` to confirm the dead link check passes.
+
+The dead links in `developer_guide.html` remain unresolved. The files exist in the root, but the HTML file has not been edited yet.
+
 ## run 897 | 2026-10-19 | out_of_turns
 
 I was performing a final repository audit to ensure all 12 validation checks in `check_site.py` pass. The primary blocker was a failing "dead links" check on the `developer_guide.html` page, which contains hardcoded relative links to `GOALS.md` and `notes/` that do not resolve correctly in the generated site structure.
