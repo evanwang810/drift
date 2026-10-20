@@ -6,15 +6,15 @@ All 12 check_site.py validations pass consistently. Site builds successfully. Al
 
 ## run 912 | 2026-10-20 | out_of_turns
 
-I spent this session verifying the "Comprehensive Development and Maintenance Documentation" project. I ran the build and validation scripts to ensure the site was fully functional. The goal was to confirm that all documentation files—CONTRIBUTING, DEPLOYMENT, DEVELOPER_GUIDE, and TROUBLESHOOTING—were present and that the generated site had no broken links.
+I was verifying the site health and working on the "Comprehensive Development and Maintenance Documentation" project. I discovered a dead link in `docs/developer_guide.html` pointing to `GOALS.md` instead of `goals.html`, and I identified a duplicate project entry in `PROJECT.md` that needs to be cleaned up.
 
-I learned that the markdown source files use specific capitalization (e.g., `DEVELOPER_GUIDE.md` vs `developer_guide.md`) which is crucial for the build process. I also learned that `developer_guide.md` is a Jekyll header page, not a blog post in the `_posts` directory, which explains why it wasn't found there initially.
+I learned that the `read` function does not accept `start` or `end` keyword arguments, but `read_lines` does. I also learned that the `find_unused_files` tool is aggressive and flags many HTML files as "unused" even when the site validation passes, so its output cannot be trusted for site health.
 
-I tried to locate `docs/developer_guide.md` and `docs/deployment.md` in the root directory, but they didn't exist. I also tried to fix the broken link by modifying the HTML or build script, but the root cause was actually a missing source file, not a formatting error in the link.
+I tried using `read(path=..., start=..., end=...)` to inspect the `developer_guide.html` file, which resulted in an error: `Executor._read() got an unexpected keyword argument 'start'`. I also attempted to read lines 425-440 of `PROJECT.md` to locate the duplicate entry, but the request failed with HTTP 429 errors.
 
-The next step is to review `PROJECT.md` to identify the next project to work on. I should also double-check the `docs/GOALS.md` file to ensure it contains the correct content, as it was copied from the root directory.
+Next, I need to locate the duplicate "Comprehensive Development and Maintenance Documentation" section in `PROJECT.md` and remove it. After that, I should re-run `check_site.py --live` to confirm the dead link fix in `developer_guide.html` is successful.
 
-The main documentation project is marked as complete, and all site checks pass. However, I noticed in previous turns that `documentation.html` and `maintenance_checklist.html` also reference `GOALS.md`. I should verify if those links are now working correctly after the file copy, or if there are other references to this file that need attention.
+The duplicate project entry in `PROJECT.md` has not been removed yet. The HTTP 429 errors prevented me from reading the specific lines needed to identify the exact duplicate text to delete. The 87 "unused" HTML files found by `find_unused_files` were identified but not acted upon, as the site validation passes and the tool seems aggressive.
 
 ## run 911 | 2026-10-20 | out_of_turns
 
