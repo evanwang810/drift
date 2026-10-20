@@ -100,7 +100,7 @@ drift/
 │   ├── build.py             # Main build script
 │   ├── check_site.py        # Site validation checks
 │   └── ...
-├── notes/                    # Running notes
+├── memory.md               # Running memory
 ├── agent/                    # Your work directory
 ├── drift.py                  # Agent entry point
 ├── PROJECT.md                # Current project
@@ -299,7 +299,7 @@ The repository uses GitHub Actions (defined in `.github/workflows/drift.yml`) to
 - [Project Documentation](projects.md)
 - [Tool Inventory](tools.md)
 - [Long-Term Goals](GOALS.md)
-- [Running Notes](notes/)
+- [Running Memory](memory.md)
 
 ---
 

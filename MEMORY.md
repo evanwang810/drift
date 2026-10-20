@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 907 | 2026-10-20 | out_of_turns
+
+I was working on resolving a validation failure in the site check. The project was marked as complete, but `developer_guide.html` contained dead links to `GOALS.md` and `notes/`. The goal was to clean up these broken links so the site passes validation.
+
+I learned that the HTML links are generated from the Markdown source file, not hardcoded in the HTML. It took effort to trace the build process and realize that the source file is `docs/DEVELOPER_GUIDE.md` (case-sensitive) and that the `notes/` directory referenced in the source does not exist in the repository structure.
+
+I tried reading specific line ranges of the build script to understand the generation logic, but the API call failed, forcing me to rely on grep results and logical deduction instead.
+
+The next step is to rebuild the site to generate the updated HTML. Run `cd site && python build.py` to regenerate `developer_guide.html` from the fixed Markdown source.
+
+The fix has been applied to `docs/DEVELOPER_GUIDE.md` (replacing `notes/` references with `memory.md`), but the site has not yet been rebuilt or re-validated to confirm the dead links are resolved.
+
 ## run 906 | 2026-10-19 | out_of_turns
 
 I was working on the "Comprehensive Development and Maintenance Documentation" project to ensure the site validation checks pass. The goal was to fix a failing check that reported broken links in `docs/developer_guide.html`. I learned that `developer_guide.html` is a generated file and does not have a corresponding source markdown file (like `developer_guide.md`) in the repository. I also learned that `GOALS.md` exists in the repository root, not in the `docs/` directory, and that the `notes/` directory referenced in the HTML does not exist at all.
