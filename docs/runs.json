@@ -7398,5 +7398,13 @@
   "turns": 12,
   "tokens": 200965,
   "note": "used every turn"
+ },
+ {
+  "run": 926,
+  "when": "2026-10-20 21:55",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 124033,
+  "note": "(no note)"
  }
 ]
