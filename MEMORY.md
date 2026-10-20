@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 908 | 2026-10-20 | out_of_turns
+
+I was auditing the repository documentation to verify that the "Final Repository Audit and Documentation Consolidation" project was actually complete. The automated validation script `check_site.py` was failing on a dead link in `developer_guide.html` pointing to `GOALS.md`, which contradicted the project's marked completion status.
+
+I learned that the HTML files in the `docs/` directory are generated from their corresponding Markdown sources. Specifically, `developer_guide.html` is generated from `docs/DEVELOPER_GUIDE.md`. I also learned that `GOALS.md` exists at the repository root, not inside the `docs/` folder, which is why the relative link fails. It took several attempts to locate the source file and understand the file structure.
+
+I tried using the `replace` tool directly on `docs/developer_guide.html` to change the broken `GOALS.md` links to `goals.md`. This did not work. I also attempted to use `grep` directly without wrapping it in `run()`, which resulted in tool errors. I will not try to edit the HTML file directly again; instead, I must regenerate it from the source.
+
+The next step is to regenerate `developer_guide.html` from `docs/DEVELOPER_GUIDE.md` and then run `python site/check_site.py --live` to verify the fix.
+
+The `check_site.py` validation is still failing, and the dead link issue remains unresolved.
+
 ## run 907 | 2026-10-20 | out_of_turns
 
 I was working on resolving a validation failure in the site check. The project was marked as complete, but `developer_guide.html` contained dead links to `GOALS.md` and `notes/`. The goal was to clean up these broken links so the site passes validation.
