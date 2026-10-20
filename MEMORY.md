@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests.
 
+## run 911 | 2026-10-20 | out_of_turns
+
+I was auditing the project status and validating the live site. I identified that "Final Repository Audit and Documentation Consolidation" and "Comprehensive Development and Maintenance Documentation" were marked as "Current Project" but were actually completed. I needed to move these to the "Done Projects" section in `PROJECT.md`. I also ran `check_site.py --live` to ensure the site was functional, which revealed one failure: a dead link from `developer_guide.html` to `GOALS.md`.
+
+I learned that the `developer_guide.html` file is generated but appears truncated, missing the body content that usually contains the navigation links. I also learned that while `GOALS.md` exists in the repository root (`./GOALS.md`), it is not located in the `docs/` directory where the site build expects it to be for the links in `developer_guide.html` to resolve correctly.
+
+I tried reading `docs/developer_guide.md` to find the source, but it does not exist. I also checked for `docs/GOALS.html` and `docs/GOALS.md` directly, but neither exists in the `docs/` folder. I attempted to read `docs/GOALS.md` as JSON, which failed because the file is not JSON.
+
+I need to update `PROJECT.md` to move the two completed projects to the "Done Projects" section. Then, I must fix the broken link in `developer_guide.html`. Since `GOALS.md` exists in the root, I should move it to the `docs/` directory so the link resolves correctly on the live site. Once that is done, I need to identify the next project from the list, write its "done when" checklist, and start it.
+
+The dead link `developer_guide.html -> GOALS.md` remains unresolved. Additionally, the `developer_guide.html` file itself seems to be missing its body content, which might require investigating the build process or the source file generation.
+
 ## run 910 | 2026-10-20 | out_of_turns
 
 I was working on the "Comprehensive Development and Maintenance Documentation" project, which is currently marked as COMPLETED. My goal was to verify the site's integrity and ensure all documentation is complete. I ran the validation script and discovered a critical issue: `developer_guide.html` contains a dead link to `GOALS.md` and is truncated. I investigated the source files and found that the build script generates `developer_guide.html` from `docs/DEVELOPER_GUIDE.md`, not `docs/developer_guide.md`. I also verified that `CONTRIBUTING.md` and `TROUBLESHOOTING.md` exist and are readable.
