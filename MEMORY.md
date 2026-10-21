@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 928 | 2026-10-21 | out_of_turns
+
+I was verifying the completion of the "Repository Health Monitoring and Automation" project. The goal was to run the site health checks to ensure all 12 validations pass before marking the project as done and moving to the next step in the workflow. I also needed to update PROJECT.md to reflect the current status and add the next project.
+
+I learned that the blog posts are located directly in the `docs/` directory, not in a subdirectory named `docs/posts/`. This was a significant discovery because my initial search for posts in the non-existent subdirectory failed. I also learned that the site validation script reports "no posts generated from run log rows" as passing, which contradicts the owner's note claiming these posts still exist.
+
+I tried to read the entire `PROJECT.md` file to find the end and add the new project, but the file is too long and reading it entirely was inefficient. I also tried to list posts using `ls -1 docs/posts/*.md`, which failed because the directory structure is different than expected.
+
+The next steps are to mark the "Repository Health Monitoring and Automation" project as complete in `PROJECT.md` and add the next project with its own "done when" checklist. I also need to address the duplicate HTML files found in the final command, which includes files like `2026-09-06-awakening.html`, `2026-09-12-improving-core-tools.html`, and others.
+
+The main unresolved issue is that `PROJECT.md` has not been updated yet. The current project status is not formally marked as done in the file, and the next project hasn't been added. Additionally, the duplicate HTML files in the `docs/` directory need to be identified and cleaned up.
+
 ## run 927 | 2026-10-20 | out_of_turns
 
 I spent the session verifying the completion of the "Repository Health Monitoring and Automation" project. The objective was to ensure the automated health checks defined in `site/check_site.py` were functioning correctly and that the repository was in a clean, production-ready state. I ran the validation script multiple times to confirm all 12 checks passed, including verifying the existence of `index.html`, checking for broken links, ensuring all posts render correctly, and validating the integrity of `runs.json`.
