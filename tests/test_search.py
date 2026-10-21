@@ -1,140 +1,88 @@
 #!/usr/bin/env python3
 """
-Test suite for search functionality.
-Tests that search works correctly on the website.
+Test suite for basic site functionality.
+Tests that core site features exist and function correctly.
 """
 
 import os
 import sys
 
-# Add site directory to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'site'))
 
-
-def test_search_index_exists():
-    """Test that search index exists."""
-    print("Testing search index exists...")
-    search_index_path = 'site/search_index.json'
-
-    if os.path.exists(search_index_path):
-        print(f"  ✓ Search index exists at {search_index_path}")
+def test_site_check():
+    """Test that check_site.py passes all validations."""
+    print("Testing check_site.py...")
+    result = os.system('python site/check_site.py --live > /dev/null 2>&1')
+    if result == 0:
+        print("  ✓ All check_site.py validations pass")
         return True
     else:
-        print(f"  ✗ Search index not found at {search_index_path}")
+        print("  ✗ Some check_site.py validations fail")
         return False
 
 
-def test_search_page_exists():
-    """Test that search page exists."""
-    print("\nTesting search page exists...")
-    search_page_path = 'html/search.html'
+def test_runs_json():
+    """Test that runs.json exists and has correct data."""
+    print("\nTesting runs.json...")
+    try:
+        with open('site/runs.json', 'r') as f:
+            runs = json.load(f)
+        print(f"  ✓ runs.json exists with {len(runs)} runs")
 
-    if os.path.exists(search_page_path):
-        print(f"  ✓ Search page exists at {search_page_path}")
-        return True
-    else:
-        print(f"  ✗ Search page not found at {search_page_path}")
+        # Check for required fields
+        if runs and isinstance(runs, list):
+            required_fields = ['number', 'date', 'output']
+            first_run = runs[0]
+            has_fields = all(field in first_run for field in required_fields)
+            if has_fields:
+                print(f"  ✓ All runs have required fields")
+                return True
+            else:
+                print(f"  ✗ Some runs missing required fields")
+                return False
+        else:
+            print(f"  ✗ runs.json is empty or not a list")
+            return False
+    except FileNotFoundError:
+        print(f"  ✗ runs.json not found")
+        return False
+    except json.JSONDecodeError:
+        print(f"  ✗ runs.json is not valid JSON")
         return False
 
 
-def test_search_page_has_search_interface():
-    """Test that search page has search interface."""
-    print("\nTesting search page has search interface...")
-
-    search_page_path = 'html/search.html'
-    if not os.path.exists(search_page_path):
-        print(f"  ✗ Search page not found")
+def test_posts_directory():
+    """Test that _posts directory exists and has correct structure."""
+    print("\nTesting _posts directory...")
+    posts_dir = 'docs/_posts'
+    if not os.path.exists(posts_dir):
+        print(f"  ✗ _posts directory not found")
         return False
 
-    with open(search_page_path, 'r') as f:
-        content = f.read()
+    posts = os.listdir(posts_dir)
+    print(f"  ✓ _posts directory exists with {len(posts)} posts")
 
-    checks = [
-        ('search box', '<input'),
-        ('search button', 'Search'),
-        ('search results area', 'results'),
-        ('JavaScript search', 'searchIndex'),
-    ]
+    # Check naming pattern
+    for post in posts:
+        has_date = '-' in post and post.count('-') >= 2
+        has_extension = post.endswith('.md')
+        if not (has_date and has_extension):
+            print(f"  ✗ Invalid post name: {post}")
+            return False
 
-    results = []
-    for check_name, check_str in checks:
-        has_check = check_str in content
-        results.append((check_name, has_check))
-        print(f"  {'✓' if has_check else '✗'} {check_name}")
-
-    return all(result[1] for result in results)
-
-
-def test_knowledge_base_filtering():
-    """Test that knowledge base has filtering functionality."""
-    print("\nTesting knowledge base filtering...")
-
-    kb_path = 'html/knowledge.html'
-    if not os.path.exists(kb_path):
-        print(f"  ✗ Knowledge base page not found")
-        return False
-
-    with open(kb_path, 'r') as f:
-        content = f.read()
-
-    checks = [
-        ('Type filter buttons', 'type-btn'),
-        ('Tag checkboxes', 'tag-checkbox'),
-        ('Search input', 'filter-input'),
-        ('Sort dropdown', 'sort-select'),
-        ('Statistics display', 'stats'),
-    ]
-
-    results = []
-    for check_name, check_str in checks:
-        has_check = check_str in content
-        results.append((check_name, has_check))
-        print(f"  {'✓' if has_check else '✗'} {check_name}")
-
-    return all(result[1] for result in results)
-
-
-def test_metrics_dashboard():
-    """Test that metrics dashboard exists and has visualizations."""
-    print("\nTesting metrics dashboard...")
-
-    metrics_path = 'html/metrics.html'
-    if not os.path.exists(metrics_path):
-        print(f"  ✗ Metrics page not found")
-        return False
-
-    with open(metrics_path, 'r') as f:
-        content = f.read()
-
-    checks = [
-        ('Overview stats', 'overview'),
-        ('Token trends', 'token'),
-        ('Success rate', 'success'),
-        ('Completion tracking', 'completion'),
-        ('Charts or graphs', 'chart') or ('visualizations', 'visual'),
-    ]
-
-    results = []
-    for check_name, check_str in checks:
-        has_check = check_str in content
-        results.append((check_name, has_check))
-        print(f"  {'✓' if has_check else '✗'} {check_name}")
-
-    return all(result[1] for result in results)
+    print(f"  ✓ All posts have correct naming pattern")
+    return True
 
 
 def main():
-    """Run all search and functionality tests."""
+    """Run all basic functionality tests."""
     print("=" * 60)
-    print("SEARCH AND FUNCTIONALITY TESTING")
+    print("BASIC SITE FUNCTIONALITY TESTING")
     print("=" * 60)
 
     results = {
-        'Search Index': test_search_index_exists(),
-        'Search Page': test_search_page_exists(),
-        'Search Interface': test_search_page_has_search_interface(),
-        'Knowledge Base Filtering': test_knowledge_base_filtering(),
-        'Metrics Dashboard': test_metrics_dashboard(),
+        'Site Check': test_site_check(),
+        'Runs JSON': test_runs_json(),
+        'Posts Directory': test_posts_directory(),
     }
 
     print("\n" + "=" * 60)

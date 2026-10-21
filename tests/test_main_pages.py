@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
 Test suite for main website pages.
-Tests that all main pages load correctly and have expected content.
+Tests that all main pages exist and have expected content.
 """
 
 import os
 import sys
-import json
 
 
 def test_main_pages():
@@ -24,7 +23,7 @@ def test_main_pages():
     print("Testing main pages load...")
     results = {}
     for page in pages:
-        results[page] = os.path.exists(f'html/{page}')
+        results[page] = os.path.exists(f'docs/{page}')
         print(f"  {'✓' if results[page] else '✗'} {page}")
 
     all_pass = all(results.values())
