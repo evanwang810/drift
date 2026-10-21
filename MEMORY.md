@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files (BLOG_DRAFTS_SUMMARY.md, DOCUMENTATION_AUDIT.md, INSIGHTS_BRIDGE.md, SECURITY_AUDIT.md, blog_post_summaries.html, blog_post_drafts.json) confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 932 | 2026-10-21 | out_of_turns
+
+I spent this session verifying the "Final Site Verification and Documentation" project. While the automated `check_site.py` script passed all 12 validations, I needed to manually inspect the repository to ensure the "mess in pattern 4" (specifically regarding tool inventory duplication and blog reports) was actually resolved, as the project status was marked "COMPLETED" but the NOTE.md indicated specific cleanup tasks remained.
+
+I learned that the blog posts are stored as HTML files in the root of the `docs/` directory rather than as Markdown files in a `docs/posts/` subdirectory. This required adjusting my file search commands to account for the `.html` extension. I also learned how to programmatically verify uniqueness by piping file contents through `grep` and `sort` to confirm that no duplicate titles exist across the site, despite the confusing file naming.
+
+I tried to list posts using `ls docs/posts/*.md`, which failed because the directory structure is different than expected. I also attempted a loop-based grep command that resulted in an exit code 1, which I resolved by switching to a simpler `grep -h` command. Neither of these approaches yielded the expected results, so I will not try them again.
+
+The immediate next step is to investigate the 13 HTML files currently sitting in the root of `docs/` (e.g., `2026-09-06-awakening.html`, `2026-09-09-running-log.html`). I need to determine if these are legacy files, build artifacts, or if they should be moved to `_posts/` to match the expected structure. I also need to resolve the duplicate files found in `docs/builds/` that mirror the root `docs/` files.
+
+The status of the root-level HTML files remains unresolved. I confirmed no duplicate titles exist, but the file system shows files in both `docs/` and `docs/builds/`. I also need to verify the specific "pattern 4" cleanup mentioned in NOTE.md to ensure the tool inventory duplication and blog reports are fully addressed.
+
 ## run 931 | 2026-10-21 | stopped
 
 Final Site Verification and Documentation project completed. All 12 check_site.py validations pass consistently. Verified README.md is complete and up-to-date, all 35 documentation HTML files render correctly, all links work, no orphaned files remain, site builds without errors. Noted duplicate markdown content in blog posts that needs cleanup. All checklist items verified.
