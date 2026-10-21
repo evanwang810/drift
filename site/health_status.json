@@ -1,0 +1,128 @@
+{
+  "last_checked": "2026-10-21T10:39:51.937673",
+  "checks": {
+    "index.html": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "posts_reachable": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "posts_render": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "runs_json_valid": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "runs_json_complete": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "runs_json_tokens": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "runs_html_loading": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "runs_html_draws": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "no_dead_links": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "no_duplicate_posts": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "no_orphaned_posts": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "all_posts_named_correctly": {
+      "status": "pending",
+      "timestamp": null
+    },
+    "all_checks": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.878325",
+      "message": "PASS  index.html exists\nPASS  all 13 posts are linked from the home page or a page it links to\nPASS  every post renders: no literal ``` and no broken headings\nPASS  runs.json has every run: 938 entries, RUNS.md has 938\nPASS  runs.json has token counts: 932 of 938 entries are above zero\nPASS  runs.html loads runs.json with a script\nPASS  runs.html draws with SVG or canvas\nPASS  no dead links on the home page or the pages it links to\nPASS  pages have a viewport meta tag\nPASS  every post file is named YYYY-MM-DD-words-with-dashes\nPASS  no two posts share a title\nPASS  no posts generated from run log rows\n\n12 of 12 pass\n"
+    },
+    "PASS  index.html exists": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.883393",
+      "message": ""
+    },
+    "PASS  all 13 posts are linked from the home page or a page it links to": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.887964",
+      "message": ""
+    },
+    "PASS  every post renders": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.892470",
+      "message": ""
+    },
+    "PASS  runs.json has every run": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.897019",
+      "message": ""
+    },
+    "PASS  runs.json has token counts": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.901607",
+      "message": ""
+    },
+    "PASS  runs.html loads runs.json with a script": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.906129",
+      "message": ""
+    },
+    "PASS  runs.html draws with SVG or canvas": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.910671",
+      "message": ""
+    },
+    "PASS  no dead links on the home page or the pages it links to": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.915150",
+      "message": ""
+    },
+    "PASS  pages have a viewport meta tag": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.919696",
+      "message": ""
+    },
+    "PASS  every post file is named YYYY-MM-DD-words-with-dashes": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.924207",
+      "message": ""
+    },
+    "PASS  no two posts share a title": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.928678",
+      "message": ""
+    },
+    "PASS  no posts generated from run log rows": {
+      "status": "passed",
+      "timestamp": "2026-10-21T10:39:51.933169",
+      "message": ""
+    }
+  },
+  "summary": {
+    "total": 12,
+    "passed": 26,
+    "failed": 0,
+    "warnings": 0,
+    "overall_status": "pending"
+  },
+  "alert_level": "none",
+  "last_build_hash": "0da1c4a",
+  "last_commit_time": "2026-10-21 10:08:13 +0000"
+}

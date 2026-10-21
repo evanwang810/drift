@@ -1,0 +1,346 @@
+---
+layout: default
+title: Health Status
+---
+
+<div class="health-dashboard">
+  <h1>Repository Health Status</h1>
+  <div class="health-summary">
+    <div class="summary-card passed" id="summary-overall">
+      <h2>Overall Status</h2>
+      <div class="status-indicator" id="overall-indicator">Pending</div>
+      <div class="status-count" id="overall-count">0/12 checks passed</div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-card passed">
+        <h3>Passed</h3>
+        <div class="count" id="passed-count">0</div>
+      </div>
+      <div class="summary-card failed">
+        <h3>Failed</h3>
+        <div class="count" id="failed-count">0</div>
+      </div>
+      <div class="summary-card warning">
+        <h3>Warnings</h3>
+        <div class="count" id="warning-count">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="health-checks">
+    <h2>Individual Checks</h2>
+    <div class="checks-list" id="checks-list">
+      <!-- Checks will be populated by JavaScript -->
+    </div>
+  </div>
+
+  <div class="health-timeline">
+    <h2>Check History</h2>
+    <div id="check-history">
+      <p>No checks run yet.</p>
+    </div>
+  </div>
+
+  <div class="health-actions">
+    <h2>Actions</h2>
+    <div class="action-buttons">
+      <button onclick="runHealthCheck()" class="btn btn-primary">Run Health Check</button>
+      <button onclick="viewHealthLog()" class="btn btn-secondary">View Health Log</button>
+      <button onclick="viewRunbook()" class="btn btn-secondary">View Runbook</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Load health status from JSON file
+async function loadHealthStatus() {
+  try {
+    const response = await fetch('/drift/health_status.json');
+    const data = await response.json();
+    updateDashboard(data);
+  } catch (error) {
+    document.getElementById('checks-list').innerHTML = '<p>Failed to load health status. Please run a health check first.</p>';
+  }
+}
+
+function updateDashboard(data) {
+  // Update summary cards
+  const passed = data.summary.passed;
+  const failed = data.summary.failed;
+  const warnings = data.summary.warnings;
+  const total = data.summary.total;
+
+  document.getElementById('passed-count').textContent = passed;
+  document.getElementById('failed-count').textContent = failed;
+  document.getElementById('warning-count').textContent = warnings;
+  document.getElementById('overall-count').textContent = `${passed}/${total} checks passed`;
+
+  // Update overall status
+  const overall = document.getElementById('summary-overall');
+  const indicator = document.getElementById('overall-indicator');
+
+  if (data.alert_level === 'critical') {
+    overall.className = 'summary-card failed';
+    indicator.textContent = 'Critical Issues';
+    indicator.style.backgroundColor = '#dc3545';
+  } else if (data.alert_level === 'warning') {
+    overall.className = 'summary-card warning';
+    indicator.textContent = 'Warnings';
+    indicator.style.backgroundColor = '#ffc107';
+  } else if (data.alert_level === 'none') {
+    overall.className = 'summary-card passed';
+    indicator.textContent = 'All Systems Normal';
+    indicator.style.backgroundColor = '#28a745';
+  } else {
+    overall.className = 'summary-card pending';
+    indicator.textContent = 'Pending';
+    indicator.style.backgroundColor = '#6c757d';
+  }
+
+  // Update individual checks
+  const checksList = document.getElementById('checks-list');
+  checksList.innerHTML = '';
+
+  Object.entries(data.checks).forEach(([name, check]) => {
+    const statusClass = check.status === 'passed' ? 'passed' : check.status === 'failed' ? 'failed' : 'warning';
+    const statusIcon = check.status === 'passed' ? '✓' : check.status === 'failed' ? '✗' : '!';
+
+    const checkItem = document.createElement('div');
+    checkItem.className = `check-item ${statusClass}`;
+    checkItem.innerHTML = `
+      <div class="check-header">
+        <span class="check-icon">${statusIcon}</span>
+        <span class="check-name">${name}</span>
+      </div>
+      <div class="check-details">
+        <span class="check-status">${check.status.toUpperCase()}</span>
+        ${check.timestamp ? `<span class="check-time">Last checked: ${new Date(check.timestamp).toLocaleString()}</span>` : ''}
+      </div>
+    `;
+    checksList.appendChild(checkItem);
+  });
+
+  // Update timeline
+  const timeline = document.getElementById('check-history');
+  if (data.last_checked) {
+    timeline.innerHTML = `<p><strong>Last check:</strong> ${new Date(data.last_checked).toLocaleString()}</p>
+                        <p><strong>Last build hash:</strong> ${data.last_build_hash || 'N/A'}</p>
+                        <p><strong>Last commit time:</strong> ${data.last_commit_time || 'N/A'}</p>`;
+  }
+}
+
+// Run health check (placeholder - actual implementation would call check_site.py)
+function runHealthCheck() {
+  alert('Health check would be run here. In production, this would call check_site.py --live');
+}
+
+// View health log (placeholder)
+function viewHealthLog() {
+  alert('Health log would be viewed here. In production, this would show historical check results.');
+}
+
+// View runbook (placeholder)
+function viewRunbook() {
+  alert('Runbook would be viewed here. In production, this would show the health monitoring procedures.');
+}
+
+// Load health status on page load
+document.addEventListener('DOMContentLoaded', loadHealthStatus);
+</script>
+
+<style>
+.health-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.health-dashboard h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.health-summary {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.summary-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.summary-card.passed {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.summary-card.failed {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.summary-card.warning {
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+}
+
+.summary-card.pending {
+  background: #e2e3e5;
+  border: 1px solid #d6d8db;
+}
+
+.summary-card h2 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.status-indicator {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.summary-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #555;
+}
+
+.summary-card .count {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.health-checks, .health-timeline, .health-actions {
+  margin-bottom: 2rem;
+}
+
+.health-checks h2, .health-timeline h2, .health-actions h2 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.checks-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.check-item {
+  padding: 1rem;
+  border-radius: 6px;
+  background: #f8f9fa;
+  border-left: 4px solid #ccc;
+}
+
+.check-item.passed {
+  border-left-color: #28a745;
+  background: #d4edda;
+}
+
+.check-item.failed {
+  border-left-color: #dc3545;
+  background: #f8d7da;
+}
+
+.check-item.warning {
+  border-left-color: #ffc107;
+  background: #fff3cd;
+}
+
+.check-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.check-icon {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.check-name {
+  font-weight: 500;
+}
+
+.check-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.check-status {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.check-time {
+  color: #666;
+}
+
+.health-actions h2 {
+  margin-bottom: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+}
+
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+</style>

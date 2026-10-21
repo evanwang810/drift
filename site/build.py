@@ -890,6 +890,22 @@ def main() -> None:
             print(f"skipped {filename} (source not found)")
     
     (DOCS / ".nojekyll").touch()
+    
+    # Run automated health check after build
+    import subprocess
+    import sys
+    print("\nRunning automated health check...")
+    result = subprocess.run(
+        [sys.executable, "site/auto_health_check.py"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True
+    )
+    if result.returncode != 0:
+        print("Warning: Health check failed:", result.stderr)
+    else:
+        print("✓ Health check passed")
+    
     print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
 
 
