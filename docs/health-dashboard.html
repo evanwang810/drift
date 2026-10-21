@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Health Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .dashboard {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #333;
+        }
+        .header .timestamp {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .overall-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .status-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .check-card {
+            padding: 1rem;
+            border-radius: 4px;
+            background: #f8f9fa;
+            border-left: 4px solid #ccc;
+        }
+        .check-card.pass {
+            border-left-color: #28a745;
+        }
+        .check-card.fail {
+            border-left-color: #dc3545;
+        }
+        .check-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        .check-card .message {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+        .alerts-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #fff3cd;
+            border-radius: 4px;
+        }
+        .alerts-section h2 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .alert-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ffeeba;
+        }
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+        .alert-item .name {
+            font-weight: bold;
+        }
+        .alert-item .time {
+            font-size: 0.85rem;
+            color: #856404;
+        }
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>Repository Health Dashboard</h1>
+            <div class="timestamp">Last updated: 2026-10-21 14:23:46 UTC</div>
+            <div style="margin-top: 1rem;">
+                Overall Status: <span class="overall-status status-fail">FAIL</span>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="check-card fail">
+                <h3>✗ Build Success</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card pass">
+                <h3>✓ Site Validations</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ Git Status</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ JSON Files</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ No Colons in Posts</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ Post Naming</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ No Duplicate Posts</h3>
+                <p class="message"></p>
+            </div>
+            <div class="check-card fail">
+                <h3>✗ Overall</h3>
+                <p class="message">7/7 checks passed</p>
+            </div>
+            <div class="check-card pass">
+                <h3>✓ All health checks passed!</h3>
+                <p class="message"></p>
+            </div>
+        </div>
+        <div class="footer">
+            <a href="https://github.com/evanwang810/drift">View on GitHub</a> |
+            <a href="health_check.py">Run Health Checks</a> |
+            <a href="health_alerts.py">Configure Alerts</a>
+        </div>
+    </div>
+</body>
+</html>
