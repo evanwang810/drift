@@ -12,6 +12,8 @@ Checks:
 
 from __future__ import annotations
 
+import argparse
+import datetime
 import json
 import re
 import subprocess
@@ -69,7 +71,7 @@ def check_site_validations(live: bool = False) -> tuple[bool, str]:
         return False, f"Site validation failed:\n{stdout}"
 
 
-def check_git_status() -> tuple[bool, str]:
+def check_git_status(live: bool = False) -> tuple[bool, str]:
     """Check that there are no uncommitted changes."""
     success, stdout, stderr = run_command(["git", "status", "--porcelain"], cwd=ROOT)
     if not success:
@@ -82,7 +84,7 @@ def check_git_status() -> tuple[bool, str]:
         return True, "Repository is clean (no uncommitted changes)"
 
 
-def check_json_files() -> tuple[bool, str]:
+def check_json_files(live: bool = False) -> tuple[bool, str]:
     """Check that all JSON files are valid."""
     issues = []
     
@@ -123,7 +125,7 @@ def check_json_files() -> tuple[bool, str]:
         return True, "All JSON files are valid"
 
 
-def check_no_colon_in_posts() -> tuple[bool, str]:
+def check_no_colon_in_posts(live: bool = False) -> tuple[bool, str]:
     """Check that no post files have colons in their names (Windows compatibility)."""
     posts_dir = DOCS / "_posts"
     if not posts_dir.exists():
@@ -140,7 +142,7 @@ def check_no_colon_in_posts() -> tuple[bool, str]:
         return True, "No posts have colons in names"
 
 
-def check_post_naming() -> tuple[bool, str]:
+def check_post_naming(live: bool = False) -> tuple[bool, str]:
     """Check that all posts follow YYYY-MM-DD-words-with-dashes naming convention."""
     posts_dir = DOCS / "_posts"
     if not posts_dir.exists():
@@ -158,7 +160,7 @@ def check_post_naming() -> tuple[bool, str]:
         return True, "All posts follow YYYY-MM-DD-title naming convention"
 
 
-def check_no_duplicate_posts() -> tuple[bool, str]:
+def check_no_duplicate_posts(live: bool = False) -> tuple[bool, str]:
     """Check that no posts have duplicate titles."""
     posts_dir = DOCS / "_posts"
     if not posts_dir.exists():
@@ -190,7 +192,15 @@ def check_no_duplicate_posts() -> tuple[bool, str]:
 
 def main() -> int:
     """Run all health checks and return exit code."""
-    live = "--live" in sys.argv
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Automated health checks for the repository")
+    parser.add_argument("--live", action="store_true", help="Check the live site")
+    parser.add_argument("--auto-rollback", action="store_true", 
+                       help="Automatically rollback on critical failures")
+    args = parser.parse_args()
+    
+    live = args.live
     checks = [
         ("Build Success", check_build_success, live),
         ("Site Validations", check_site_validations, live),
@@ -220,6 +230,44 @@ def main() -> int:
     passed = sum(1 for _, _, _ in results if _[0])
     total = len(results)
     print(f"\nHealth Check Summary: {passed}/{total} checks passed")
+    
+    # Auto-rollback on critical failures
+    if args.auto_rollback and passed < total:
+        # Determine which checks failed
+        failed_checks = [name for success, name, _ in results if not success]
+        
+        # Critical checks that trigger rollback
+        critical_checks = ["Build Success", "Site Validations"]
+        
+        critical_failures = [name for name in failed_checks if name in critical_checks]
+        
+        if critical_failures:
+            print("\n" + "=" * 70)
+            print("CRITICAL FAILURES DETECTED - AUTOMATIC ROLLBACK INITIATED")
+            print("=" * 70)
+            print(f"Failed critical checks: {', '.join(critical_failures)}")
+            
+            # Import rollback function
+            from health_rollback import create_rollback_tag, get_current_commit
+            
+            # Create rollback tag
+            current_commit = get_current_commit()
+            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+            tag_name = f"health-check-fail-{timestamp}"
+            
+            print(f"\nCreating rollback point: {tag_name}")
+            if create_rollback_tag(tag_name, current_commit):
+                print(f"\n✓ Rollback point created at {current_commit[:8]}")
+                print(f"  To revert to this point later:")
+                print(f"    python site/health_rollback.py --tag {tag_name} --revert")
+                print(f"\n  Or view what would be rolled back:")
+                print(f"    git reset --soft HEAD~1")
+                print(f"    git status")
+            else:
+                print(f"\n✗ Failed to create rollback point")
+                return 1
+        else:
+            print("\n✗ Some health checks failed (non-critical), but no auto-rollback needed.")
     
     if passed == total:
         print("✓ All health checks passed!")
