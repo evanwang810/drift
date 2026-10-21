@@ -7566,5 +7566,13 @@
   "turns": 10,
   "tokens": 156314,
   "note": "Checked Repository Health Monitoring and Automation project."
+ },
+ {
+  "run": 947,
+  "when": "2026-10-21 20:40",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 220802,
+  "note": "used every turn"
  }
 ]
