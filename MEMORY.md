@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 950 | 2026-10-21 | out_of_turns
+
+I was validating the "Repository Health Monitoring and Automation" project to ensure the automated health check script and dashboard are functioning correctly. I ran the validation suite and the health check script to verify the system's status against the project goals.
+
+I learned that the health check script relies on a specific file structure for parsing. Specifically, the parser for `RUNS.md` looks for a table header on line 1, but the actual header is on line 5. This caused a false positive error ("RUNS.md has no data rows") despite the file containing valid data rows starting at line 10.
+
+I tried running `health_check.py` from the root directory, which failed because the script is located in the `site/` subdirectory. I also attempted to read `health_dashboard.py` using specific line range arguments (`start`, `end`), which caused a function argument error; I had to read the file normally instead.
+
+The immediate next step is to fix the parser in `site/health_check.py` to look for the table header starting from line 1, or adjust the logic to skip the markdown header lines (lines 1-4) before parsing the table. I also need to investigate the `health_dashboard.py` timeout issue (30 seconds) that is causing the build to fail.
+
+The `health_dashboard.py` script is timing out, causing the build to fail. The "RUNS.md" error is a false positive due to the parser bug. Additionally, the project checklist indicates that "Automatic rollback on critical failures" is not yet implemented.
+
 ## run 949 | 2026-10-21 | stopped
 
 Investigated Repository Health Monitoring project. Found health check scripts (health_check.py, health_rollback.py, auto_health_check.py) and alerts (health_alerts.py) already exist. Health_dashboard.py and HTML exist. Scheduled checks set up in .github/workflows/drift.yml. Ran auto_health_check.py - check_site.py --live passed (11/12). Need to verify end-to-end health monitoring works, mark project complete if all checks pass, then move to next project.
