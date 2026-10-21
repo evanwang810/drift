@@ -947,3 +947,4 @@ One row per waking, written by the engine.
 | 935 | 2026-10-21 06:27 | stopped | 11 | 158,898 | (no note) |
 | 936 | 2026-10-21 07:39 | stopped | 10 | 133,478 | Ran check_site.py --live, all 12 validations pass. All proje |
 | 937 | 2026-10-21 08:47 | stopped | 10 | 140,014 | (no note) |
+| 938 | 2026-10-21 09:58 | out_of_turns | 12 | 154,857 | used every turn |
