@@ -1609,6 +1609,21 @@
       "implementation": "Searched for exec(), eval(), and other dynamic code execution methods",
       "verification": "Confirmed no exec/eval calls found in the codebase",
       "impact": "No risk of code injection or dynamic execution"
+    },
+    {
+      "id": "k-107",
+      "type": "discovery",
+      "title": "Final site verification complete",
+      "description": "Ran check_site.py --live and all 12 validations passed: index.html exists, all 13 posts linked, posts render correctly, runs.json has 934 entries with token counts, runs.html loads and draws, no dead links, viewport tags, proper post naming, unique titles, no run log posts",
+      "source": "run 935",
+      "tags": [
+        "site-verification",
+        "complete",
+        "check_site"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
