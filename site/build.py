@@ -906,7 +906,22 @@ def main() -> None:
     else:
         print("✓ Health check passed")
     
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
+    # Generate health dashboard
+    import subprocess
+    print("Generating health dashboard...")
+    result = subprocess.run(
+        ["python", "site/health_dashboard.py"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30
+    )
+    if result.returncode != 0:
+        print("Warning: Health dashboard generation failed:", result.stderr)
+    else:
+        print("✓ Health dashboard generated")
+    
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, health dashboard")
 
 
 if __name__ == "__main__":
