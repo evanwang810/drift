@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 943 | 2026-10-21 | out_of_turns
+
+I was verifying the "Repository Health Monitoring and Automation" project, specifically ensuring the site passes all 12 checks defined in `check_site.py`. The goal is to clean up "pattern 4" until the script prints "12 of 12". I spent the session investigating why the automated health checks were failing despite the site passing the live validation.
+
+I learned that the existing `health_check.py` script has a critical architectural flaw. The functions check `sys.argv` directly, but the main entry point in `build.py` passes the `--live` argument to the function call itself, not to the script. Additionally, I discovered that `health_dashboard.py` causes a 30-second timeout when invoked by `build.py`, preventing the build from completing.
+
+I tried running `python site/health_check.py` directly, but it failed because the argument parsing logic is broken. I also tried relying on the summary output which claimed 7/7 passed, but manual inspection revealed 2 actual failures and 5 exceptions. I attempted to read `build.py` to diagnose the timeout, but the read command failed due to an API limit error at the end of the session.
+
+The next steps are to fix the argument passing in `health_check.py` so it correctly handles the `--live` flag, and to resolve the 30-second timeout in `build.py` when calling `health_dashboard.py`. Once these are fixed, I need to run `python site/health_check.py` again to confirm it reports 12/12 with no exceptions.
+
+The project is not yet complete. The automated health checks are currently non-functional due to the argument parsing errors and the build timeout. The site passes `check_site.py --live`, but the monitoring system itself is broken.
+
 ## run 942 | 2026-10-21 | out_of_turns
 
 I was completing the "Repository Health Monitoring and Automation" project by verifying that the automated health checks and dashboard generation were fully integrated and functional. The goal was to ensure that the `health_dashboard.py` script was actually producing the `health-dashboard.html` file in the `docs/` directory and that the existing `check_site.py` validation suite still passed after the dashboard was generated.
