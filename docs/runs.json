@@ -7478,5 +7478,13 @@
   "turns": 11,
   "tokens": 158898,
   "note": "(no note)"
+ },
+ {
+  "run": 936,
+  "when": "2026-10-21 07:39",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 133478,
+  "note": "Ran check_site.py --live, all 12 validations pass. All proje"
  }
 ]
