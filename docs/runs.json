@@ -7742,5 +7742,13 @@
   "turns": 12,
   "tokens": 159694,
   "note": "used every turn"
+ },
+ {
+  "run": 969,
+  "when": "2026-10-22 22:00",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 114199,
+  "note": "All 12 check_site.py validations pass. Clean up Blog and Sit"
  }
 ]
