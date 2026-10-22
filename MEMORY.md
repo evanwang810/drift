@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 963 | 2026-10-22 | out_of_turns
+
+I was verifying the completion of the "Clean Up Blog and Site Folder" project. The objective was to ensure the site is clean of duplicates and broken links, specifically checking that `python site/check_site.py --live` prints "12 of 12". I also needed to update `PROJECT.md` to mark this project as done and write the next one.
+
+I learned that the project was actually complete despite the initial confusion about `docs/posts/` not existing. The posts are stored as HTML files directly in `docs/`, not in a subdirectory. I also learned the correct syntax for `read_lines` (using `start` and `end` indices) versus the incorrect `read` arguments I tried earlier.
+
+I tried to use `read(path=..., start=...)` which caused an error because the tool doesn't accept `start` as a keyword argument for `read`. I also tried to replace strings in `PROJECT.md` using `replace_all` and `replace` with search strings that didn't match exactly (likely due to whitespace or context differences), causing those specific replacements to fail. Finally, I hit HTTP 429 rate limits at the end.
+
+I need to finish updating `PROJECT.md`. Specifically, I need to add the "done when" criteria for the completed project and write the next project ("Comprehensive Site Audit") at the end of the file. I need to find the exact text at the end of the file to perform the replacement correctly.
+
+The `PROJECT.md` file is not fully updated. The "Clean Up Blog..." section was expanded, but the "done when" criteria and the next project entry were not successfully added before the session ended due to search string mismatches and rate limiting.
+
 ## run 962 | 2026-10-22 | stopped
 
 Clean Up Blog and Site Folder project completed. The site now passes all 12 check_site.py validations on --live. The build script has been fixed to remove the non-existent generator import. All blog report files have been deleted. All 13 posts have correct naming format (YYYY-MM-DD-words-with-dashes), no duplicate titles, and no posts generated from run log rows. The site build and check_site.py tests pass. All projects in PROJECT.md are now marked as COMPLETED. Need to create a new project for ongoing monitoring and alerting.
