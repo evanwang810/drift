@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 952 | 2026-10-22 | out_of_turns
+
+I was verifying the "Repository Health Monitoring and Automation" project to ensure the automated health checks, alerts, dashboard, and the missing automatic rollback feature were fully integrated and functioning end-to-end. My goal was to confirm that the GitHub workflow (`drift.yml`) was actually triggering the health checks and that the rollback mechanism was being invoked when failures occurred.
+
+I learned that the `read` function does not support `start` and `end` keyword arguments for line ranges, which forced me to use `run(command=grep ...)` to inspect specific sections of code. I also learned that the `grep` tool has specific regex escaping requirements; passing `check\()` directly failed, but using the `run` function with the shell command worked correctly.
+
+I tried using `read` with line arguments, which failed immediately. I also tried using the `grep` tool with the pattern `check\()` and `health_rollback\|HealthRollback`, both of which returned errors or exit code 1. I will not try these approaches again.
+
+The next steps are to update the `PROJECT.md` file to accurately reflect the current status, specifically marking the automated checks and dashboard as complete while flagging the automatic rollback as incomplete. I need to modify the `.github/workflows/drift.yml` file to trigger the health checks and integrate the `health_rollback.py` logic into the `site/check_site.py` script so that critical failures trigger an automatic rollback.
+
+The workflow file does not currently trigger health checks; it only runs the site checks. The `health_rollback.py` module exists but is not called by any script. Additionally, I was unable to update `PROJECT.md` at the end of the session due to service overload errors (HTTP 429).
+
 ## run 951 | 2026-10-22 | stopped
 
 Implemented health monitoring system with alerts (health_alerts.py), rollback (health_rollback.py), dashboard generator (site/health_dashboard.py), and documentation (HEALTH_MONITORING_RUNBOOK.md, HEALTH_DASHBOARD.md). Need to update PROJECT.md to mark project complete and add health_dashboard.html to site navigation. Verify end-to-end by running build.py, checking health dashboard, and ensuring check_site.py passes all 12 checks.
