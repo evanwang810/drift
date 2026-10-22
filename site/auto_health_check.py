@@ -112,6 +112,16 @@ def main() -> int:
     data = load_health_status()
     print(f"Loaded health status from {HEALTH_STATUS}")
 
+    # Initialize rollback handler
+    try:
+        import sys
+        sys.path.insert(0, str(ROOT))
+        from health_rollback import HealthRollback
+        rollback = HealthRollback()
+    except ImportError as e:
+        print(f"Warning: health_rollback.py not available, rollback disabled: {e}")
+        rollback = None
+
     # Run check_site.py
     print("\nRunning check_site.py --live...")
     success, output = run_check_site()
@@ -119,9 +129,25 @@ def main() -> int:
     if success:
         print("✓ check_site.py passed")
         update_check_result(data, "all_checks", "passed", output)
+        
+        # On success, create/refresh rollback tag
+        if rollback and rollback.enabled:
+            try:
+                rollback.create_rollback_tag("Post-build health check passed")
+                print("✓ Rollback point refreshed after successful build")
+            except Exception as e:
+                print(f"Warning: Failed to refresh rollback tag: {e}")
     else:
         print("✗ check_site.py failed")
         update_check_result(data, "all_checks", "failed", output)
+        
+        # On critical failure, trigger rollback
+        if rollback and rollback.enabled:
+            if rollback.rollback_on_all or rollback.is_critical_failure([("failed", "all_checks")] + extract_check_results(output)):
+                try:
+                    rollback.perform_rollback()
+                except Exception as e:
+                    print(f"Warning: Rollback failed: {e}")
 
     # Extract individual check results from output
     checks_passed = []
