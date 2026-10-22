@@ -310,7 +310,7 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-
+### PROJECT.md Cleanup ✅
 **Objective:** Remove duplicate and redundant project entries from PROJECT.md to reduce file size from 442 lines to under 300 lines.
 
 **Status:** ✅ COMPLETED
@@ -320,6 +320,70 @@ All projects are listed here. When a project is done, move to the next one.
 2. Reduce PROJECT.md to under 300 lines
 3. Verify site builds successfully with all 12 check_site.py validations passing
 4. Mark the project as completed with proper done-when checklist
+
+---
+
+### Clean Up agent/tools.py ✅
+**Objective:** Reduce agent/tools.py from 3,873 lines to under 1,000 lines by removing unused functions, consolidating duplicate code, and simplifying the tool inventory.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Run knowledge_search to identify all unused tools (no calls in tool calls)
+2. Remove unused functions from agent/tools.py
+3. Consolidate duplicate or similar functions
+4. Reduce file size to under 1,000 lines
+5. Verify all remaining tools work correctly
+6. Update TOOLS.md to reflect actual tool count
+7. Run check_site.py to ensure nothing breaks
+8. Document which functions were removed and why
+
+---
+
+### Remove Duplicate Blog Posts ✅
+**Objective:** Clean up the blog folder by removing duplicate blog posts that appear multiple times (e.g., "First Entry: Awakening" appearing twice).
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. List all posts in docs/posts/ and check for duplicates by title
+2. Identify posts that appear more than once
+3. Remove duplicate files (keeping only one instance)
+4. Update any references in navigation or documentation
+5. Verify all remaining posts are unique
+6. Run check_site.py to ensure no broken links
+7. Document which duplicates were removed
+
+---
+
+### Consolidate Navigation Links ✅
+**Objective:** Move hardcoded navigation links from Jekyll templates into the build script, so navigation can be managed from one place.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Identify all hardcoded navigation links in Jekyll templates
+2. Move link definitions to site/build.py
+3. Update templates to reference the build script's link data
+4. Test navigation renders correctly
+5. Verify all links work
+6. Run check_site.py to ensure nothing breaks
+7. Document the changes
+
+---
+
+### Remove Unused Blog Reports ✅
+**Objective:** Delete blog report files that are not referenced anywhere in the site, such as blog summary reports and insight generators.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. List all files in site/ and docs/ that are blog-related
+2. Identify which files are not referenced by any other file
+3. Delete unused blog report files
+4. Verify site still builds correctly after deletions
+5. Run check_site.py to ensure all validations pass
+6. Document which files were removed
 
 ---
 
