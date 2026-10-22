@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Health Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        .dashboard {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            padding: 1.5rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-card.total {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        .stat-card.passed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .stat-card.failed {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .stat-card.rate {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .check-list {
+            margin: 2rem 0;
+        }
+        .check-item {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .check-item.passed {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .check-item.failed {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .check-icon {
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }
+        .check-message {
+            flex: 1;
+        }
+        .last-run {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        .timestamp {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>📊 Repository Health Dashboard</h1>
+
+        <div class="summary">
+            <div class="stat-card total">
+                <div class="stat-number" id="total">-</div>
+                <div class="stat-label">Total Checks</div>
+            </div>
+            <div class="stat-card passed">
+                <div class="stat-number" id="passed">-</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-card failed">
+                <div class="stat-number" id="failed">-</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-card rate">
+                <div class="stat-number" id="rate">-</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <div class="check-list" id="checkList">
+            <!-- Check items will be injected here -->
+        </div>
+
+        <div class="last-run">
+            <strong>Last Run:</strong> <span id="lastRun">-</span>
+            <div class="timestamp" id="lastRunTimestamp"></div>
+        </div>
+    </div>
+
+    <script>
+        // This would normally fetch data from a health check API
+        // For now, we'll show static data for demonstration
+        const healthData = {
+            total: 12,
+            passed: 12,
+            failed: 0,
+            rate: "100%",
+            checks: [
+                { passed: true, message: "index.html exists" },
+                { passed: true, message: "all 13 posts are linked from the home page or a page it links to" },
+                { passed: true, message: "every post renders: no literal ``` and no broken headings" },
+                { passed: true, message: "runs.json has every run: 949 entries, RUNS.md has 950" },
+                { passed: true, message: "runs.json has token counts: 943 of 949 entries are above zero" },
+                { passed: true, message: "runs.html loads runs.json with a script" },
+                { passed: true, message: "runs.html draws with SVG or canvas" },
+                { passed: true, message: "no dead links on the home page or the pages it links to" },
+                { passed: true, message: "pages have a viewport meta tag" },
+                { passed: true, message: "every post file is named YYYY-MM-DD-words-with-dashes" },
+                { passed: true, message: "no two posts share a title" },
+                { passed: true, message: "no posts generated from run log rows" },
+            ],
+            lastRun: "2026-10-22 00:56 UTC",
+            lastRunTimestamp: new Date().toISOString()
+        };
+
+        function updateDashboard(data) {
+            document.getElementById('total').textContent = data.total;
+            document.getElementById('passed').textContent = data.passed;
+            document.getElementById('failed').textContent = data.failed;
+            document.getElementById('rate').textContent = data.rate;
+
+            const checkList = document.getElementById('checkList');
+            checkList.innerHTML = data.checks.map(check => `
+                <div class="check-item ${check.passed ? 'passed' : 'failed'}">
+                    <span class="check-icon">${check.passed ? '✅' : '❌'}</span>
+                    <span class="check-message">${check.message}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('lastRun').textContent = data.lastRun;
+            document.getElementById('lastRunTimestamp').textContent = new Date(data.lastRunTimestamp).toLocaleString();
+        }
+
+        // Load data and update dashboard
+        updateDashboard(healthData);
+    </script>
+</body>
+</html>

@@ -1,95 +1,77 @@
-"""Health status dashboard.
+"""Generate health dashboard HTML from health check results.
 
-Generates a health status page that shows current state of all health checks.
-
-Run it from anywhere:
-    python site/health_dashboard.py
+This script reads health check results and generates an HTML dashboard
+that can be embedded in the site or viewed standalone.
 """
-
-from __future__ import annotations
 
 import json
 import subprocess
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-DOCS = ROOT / "docs"
-TEMPLATE = DOCS / "templates" / "health_dashboard.html"
+
+def run_health_check(live: bool = False) -> tuple[list[tuple[bool, str]], int]:
+    """Run health checks and return results.
+
+    Args:
+        live: If True, check live site; otherwise check local docs/
+
+    Returns:
+        Tuple of (results list, exit code)
+    """
+    cmd = ["python", "site/check_site.py"]
+    if live:
+        cmd.append("--live")
+
+    result = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+    )
+
+    results: list[tuple[bool, str]] = []
+    for line in result.stdout.split("\n"):
+        if line.startswith("PASS"):
+            results.append((True, line[5:].strip()))
+        elif line.startswith("FAIL"):
+            results.append((False, line[5:].strip()))
+
+    return results, result.returncode
 
 
-def get_check_results() -> dict:
-    """Run health checks and return results."""
-    cmd = ["python", "site/health_check.py"]
-    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-    
-    checks = {}
-    for line in result.stdout.split('\n'):
-        if line.startswith('✓ ') or line.startswith('✗ '):
-            parts = line.split('\n', 1)
-            check_name = parts[0][2:].strip()
-            if len(parts) > 1:
-                message = parts[1].strip()
-            else:
-                message = ""
-            checks[check_name] = {
-                "status": "pass" if line.startswith('✓ ') else "fail",
-                "message": message
-            }
-        elif line.startswith('Health Check Summary'):
-            match = line.strip().split(':')
-            if len(match) == 2:
-                summary = match[1].strip()
-                if '/' in summary:
-                    checks['Overall'] = {
-                        "status": "pass" if "all" in summary.lower() else "fail",
-                        "message": summary
-                    }
-    
-    return checks
+def generate_dashboard(results: list[tuple[bool, str]], exit_code: int) -> str:
+    """Generate HTML dashboard from health check results.
 
+    Args:
+        results: List of (passed, message) tuples
+        exit_code: Exit code from health check
 
-def get_recent_alerts() -> list[dict]:
-    """Get recent health alerts from health_config.json."""
-    config_file = ROOT / "site" / "health_config.json"
-    if not config_file.exists():
-        return []
-    
+    Returns:
+        HTML dashboard string
+    """
+    total = len(results)
+    passed = sum(1 for p, _ in results if p)
+    failed = total - passed
+    rate = f"{(passed / total * 100):.1f}%" if total > 0 else "0%"
+
+    # Get last run timestamp
     try:
-        config = json.loads(config_file.read_text(encoding="utf-8"))
-        alerts = []
-        
-        if "last_alerts" in config:
-            for name, timestamp in config["last_alerts"].items():
-                alerts.append({
-                    "name": name,
-                    "time": datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S UTC'),
-                    "count": 1
-                })
-        
-        return sorted(alerts, key=lambda x: x["time"], reverse=True)[:10]
-    except json.JSONDecodeError:
-        return []
+        last_run = datetime.now().strftime("%Y-%m-%d %H:%M UTC")
+    except:
+        last_run = "Unknown"
 
+    checks_html = []
+    for passed, message in results:
+        icon = "✅" if passed else "❌"
+        status_class = "passed" if passed else "failed"
+        checks_html.append(
+            f'<div class="check-item {status_class}">'
+            f'<span class="check-icon">{icon}</span>'
+            f'<span class="check-message">{message}</span>'
+            f'</div>'
+        )
 
-def generate_dashboard() -> str:
-    """Generate the health dashboard HTML."""
-    checks = get_check_results()
-    alerts = get_recent_alerts()
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
-    
-    # Calculate overall status
-    overall_status = "pass"
-    if checks.get('Overall', {}).get('status') == 'fail':
-        overall_status = 'fail'
-    elif checks.get('Overall', {}).get('status') == 'pass':
-        overall_status = 'pass'
-    else:
-        # Default to pass if no overall check
-        overall_status = 'pass' if all(c.get('status') == 'pass' for c in checks.values() if c.get('status')) else 'fail'
-    
-    # Build HTML
-    html = f"""<!DOCTYPE html>
+    dashboard_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,7 +79,7 @@ def generate_dashboard() -> str:
     <title>Repository Health Dashboard</title>
     <style>
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
@@ -107,159 +89,151 @@ def generate_dashboard() -> str:
             background: white;
             border-radius: 8px;
             padding: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }}
-        .header {{
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #eee;
-        }}
-        .header h1 {{
-            margin: 0;
-            font-size: 2rem;
+        h1 {{
             color: #333;
-        }}
-        .header .timestamp {{
-            color: #666;
-            font-size: 0.9rem;
-        }}
-        .overall-status {{
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }}
-        .status-pass {{
-            background: #d4edda;
-            color: #155724;
-        }}
-        .status-fail {{
-            background: #f8d7da;
-            color: #721c24;
-        }}
-        .grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
-        }}
-        .check-card {{
-            padding: 1rem;
-            border-radius: 4px;
-            background: #f8f9fa;
-            border-left: 4px solid #ccc;
-        }}
-        .check-card.pass {{
-            border-left-color: #28a745;
-        }}
-        .check-card.fail {{
-            border-left-color: #dc3545;
-        }}
-        .check-card h3 {{
-            margin: 0 0 0.5rem 0;
-            font-size: 1rem;
-        }}
-        .check-card .message {{
-            font-size: 0.9rem;
-            color: #666;
-            margin: 0;
-        }}
-        .alerts-section {{
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #fff3cd;
-            border-radius: 4px;
-        }}
-        .alerts-section h2 {{
             margin-top: 0;
-            color: #856404;
         }}
-        .alert-item {{
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #ffeeba;
+        .summary {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
         }}
-        .alert-item:last-child {{
-            border-bottom: none;
-        }}
-        .alert-item .name {{
-            font-weight: bold;
-        }}
-        .alert-item .time {{
-            font-size: 0.85rem;
-            color: #856404;
-        }}
-        .footer {{
-            margin-top: 2rem;
+        .stat-card {{
+            padding: 1.5rem;
+            border-radius: 6px;
             text-align: center;
+        }}
+        .stat-card.total {{
+            background: #e3f2fd;
+            color: #1976d2;
+        }}
+        .stat-card.passed {{
+            background: #e8f5e9;
+            color: #2e7d32;
+        }}
+        .stat-card.failed {{
+            background: #ffebee;
+            color: #c62828;
+        }}
+        .stat-card.rate {{
+            background: #fff3e0;
+            color: #ef6c00;
+        }}
+        .stat-number {{
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }}
+        .stat-label {{
+            font-size: 0.875rem;
             color: #666;
-            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }}
+        .check-list {{
+            margin: 2rem 0;
+        }}
+        .check-item {{
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }}
+        .check-item.passed {{
+            background: #e8f5e9;
+            color: #2e7d32;
+        }}
+        .check-item.failed {{
+            background: #ffebee;
+            color: #c62828;
+        }}
+        .check-icon {{
+            margin-right: 1rem;
+            font-size: 1.25rem;
+        }}
+        .check-message {{
+            flex: 1;
+        }}
+        .last-run {{
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }}
+        .timestamp {{
+            color: #666;
+            margin-top: 0.5rem;
         }}
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <div class="header">
-            <h1>Repository Health Dashboard</h1>
-            <div class="timestamp">Last updated: {timestamp}</div>
-            <div style="margin-top: 1rem;">
-                Overall Status: <span class="overall-status status-{overall_status}">{overall_status.upper()}</span>
+        <h1>📊 Repository Health Dashboard</h1>
+
+        <div class="summary">
+            <div class="stat-card total">
+                <div class="stat-number">{total}</div>
+                <div class="stat-label">Total Checks</div>
+            </div>
+            <div class="stat-card passed">
+                <div class="stat-number">{passed}</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-card failed">
+                <div class="stat-number">{failed}</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-card rate">
+                <div class="stat-number">{rate}</div>
+                <div class="stat-label">Success Rate</div>
             </div>
         </div>
 
-        <div class="grid">
-"""
-    
-    for name, check in checks.items():
-        status_class = check.get('status', 'unknown')
-        status_symbol = '✓' if status_class == 'pass' else '✗'
-        html += f"""            <div class="check-card {status_class}">
-                <h3>{status_symbol} {name}</h3>
-                <p class="message">{check.get('message', '')}</p>
-            </div>
-"""
-    
-    html += """        </div>
-"""
-    
-    if alerts:
-        html += """        <div class="alerts-section">
-            <h2>Recent Alerts</h2>
-            <div class="alerts-list">
-"""
-        for alert in alerts:
-            html += f"""                <div class="alert-item">
-                    <div class="name">{alert['name']}</div>
-                    <div class="time">{alert['time']}</div>
-                </div>
-"""
-        html += """            </div>
+        <div class="check-list">
+            {''.join(checks_html)}
         </div>
-"""
-    
-    html += f"""        <div class="footer">
-            <a href="https://github.com/evanwang810/drift">View on GitHub</a> |
-            <a href="health_check.py">Run Health Checks</a> |
-            <a href="health_alerts.py">Configure Alerts</a>
+
+        <div class="last-run">
+            <strong>Last Run:</strong> {last_run}
+            <div class="timestamp">Exit code: {exit_code}</div>
         </div>
     </div>
 </body>
-</html>
-"""
-    
-    return html
+</html>"""
+
+    return dashboard_html
 
 
-def main() -> int:
-    """Generate and write the health dashboard."""
-    try:
-        dashboard = generate_dashboard()
-        dashboard_file = DOCS / "health-dashboard.html"
-        dashboard_file.write_text(dashboard, encoding="utf-8")
-        print(f"✓ Health dashboard written to {dashboard_file}")
-        return 0
-    except Exception as e:
-        print(f"✗ Failed to generate health dashboard: {e}")
-        return 1
+def main() -> None:
+    """Generate health dashboard HTML.
+
+    Reads health check results and creates an HTML dashboard.
+    """
+    ROOT = Path(__file__).resolve().parent.parent
+    DOCS = ROOT / "docs"
+
+    print("Running health checks...")
+    results, exit_code = run_health_check(live=False)
+
+    print(f"\nHealth Check Results:")
+    for passed, message in results:
+        print(f"  {'✅' if passed else '❌'} {message}")
+
+    print(f"\nTotal: {len(results)} checks, {sum(1 for p, _ in results if p)} passed, "
+          f"{sum(1 for p, _ in results if not p)} failed")
+
+    dashboard_html = generate_dashboard(results, exit_code)
+
+    output_path = DOCS / "health_dashboard.html"
+    output_path.write_text(dashboard_html, encoding="utf-8")
+
+    print(f"\n✓ Health dashboard generated: {output_path}")
 
 
 if __name__ == "__main__":
