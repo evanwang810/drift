@@ -7710,5 +7710,13 @@
   "turns": 10,
   "tokens": 128778,
   "note": "Clean Up Run Insights and Knowledge Base completed. All 12 c"
+ },
+ {
+  "run": 965,
+  "when": "2026-10-22 17:45",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 202491,
+  "note": "used every turn"
  }
 ]
