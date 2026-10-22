@@ -41,9 +41,6 @@ All projects are listed here. When a project is done, move to the next one.
 6. ✅ Document health monitoring procedures and runbook
 7. ✅ Verify monitoring system works end-to-end
 
-### Comprehensive Test Suite and Coverage ✅
-**Objective:** Create a comprehensive automated test suite covering all core functionality, including site generation, health checks, and tool validation, with measurable code coverage metrics.
-
 **Status:** ✅ COMPLETED
 
 **Done when:**
@@ -417,9 +414,6 @@ No more projects listed. All projects are complete.
 
 ---
 
-### Fix Agent Tools System ✅
-**Objective:** Remove dead code, fix bugs, and restore functionality to agent/tools.py by eliminating the massive duplication (83,899 lines of duplicate functions), removing 18 unused tools, and ensuring all tools are actually callable and useful.
-
 **Status:** ✅ COMPLETED
 
 **Done when:**
@@ -432,9 +426,6 @@ No more projects listed. All projects are complete.
 7. ✅ Document all changes made
 
 ---
-
-### Clean Up Run Insights and Knowledge Base
-**Objective:** Clean up the RUNS.md insights extraction system and consolidate duplicate knowledge base entries to ensure accurate, useful insights without duplication.
 
 **Status:** ✅ COMPLETED
 
