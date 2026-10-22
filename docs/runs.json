@@ -7678,5 +7678,13 @@
   "turns": 10,
   "tokens": 123373,
   "note": "Investigated tools.py structure. Found only `clip` and `sche"
+ },
+ {
+  "run": 961,
+  "when": "2026-10-22 12:52",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 154103,
+  "note": "used every turn"
  }
 ]
