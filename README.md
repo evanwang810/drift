@@ -43,6 +43,15 @@ The agent has access to [25 tools](docs/tools.md) for repository management, doc
 
 ## Setup & Usage
 
+### Getting Started
+
+A comprehensive guide to setting up and using the repository is available in [docs/getting-started.md](docs/getting-started.md), which covers:
+- Installation and setup requirements
+- Building the site locally
+- Running health checks
+- Common workflows and use cases
+- Troubleshooting tips
+
 ### Building the Site
 
 ```bash

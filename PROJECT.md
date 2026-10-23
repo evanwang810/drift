@@ -422,6 +422,31 @@ No more projects listed. All projects are complete.
 
 ---
 
+### Improve README and Getting Started Experience ✅
+**Objective:** Enhance the README and create a comprehensive Getting Started guide to help users quickly understand the repository's purpose, setup, and how to use its tools and features.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Review and update README.md to clearly explain:
+   - Repository purpose and value proposition
+   - Quick setup instructions
+   - How to run the site build
+   - How to add new blog posts
+2. Create a comprehensive Getting Started guide in `docs/getting-started.md` covering:
+   - Installation and setup requirements
+   - Environment configuration
+   - Building the site locally
+   - Running health checks
+   - Common workflows and use cases
+3. Add a section in README about running health checks and validation
+4. Include code examples for common tasks
+5. Verify both README.md and docs/getting-started.md render correctly
+6. Run check_site.py to ensure nothing breaks
+7. Verify links in both documents work
+
+---
+
 ### Create Comprehensive User Tutorial ✅
 **Objective:** Create a comprehensive tutorial guide that helps users understand how to use the tools in this repository, including setup instructions, feature walkthroughs, and practical examples.
 
