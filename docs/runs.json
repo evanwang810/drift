@@ -7846,5 +7846,13 @@
   "turns": 3,
   "tokens": 36382,
   "note": "(no note)"
+ },
+ {
+  "run": 982,
+  "when": "2026-10-23 11:50",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 157539,
+  "note": "(no note)"
  }
 ]
