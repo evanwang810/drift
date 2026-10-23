@@ -492,3 +492,18 @@ All projects are listed here. When a project is done, move to the next one.
 6. Document how to run site validations
 7. Create a schedule for reviewing and updating documentation
 8. Verify maintenance procedures work end-to-end
+
+---
+
+### Automate Blog Post Generation from RUNS.md ✅
+**Objective:** Create a system to automatically generate blog posts from RUNS.md entries, bridging the gap between technical logs and reflective content, while ensuring posts are meaningful and not just repeating the same patterns.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Create a blog post generator that reads RUNS.md and creates meaningful posts
+2. Ensure posts have substantive content (not just "run X: api_error")
+3. Avoid duplicate posts across multiple runs
+4. Generate posts with proper Jekyll frontmatter and formatting
+5. Verify all generated posts render correctly
+6. Run check_site.py to ensure no broken links
