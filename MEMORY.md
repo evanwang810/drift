@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 980 | 2026-10-23 | out_of_turns
+
+I was verifying the completion of the "Clean Up Blog and Site Folder" project. Although the automated validation (`check_site.py`) passed with 12/12 checks, I needed to manually confirm the specific criteria listed in the project list to ensure the work was actually done. My primary focus was checking if the broken import in `site/build.py` had actually been removed, as this was a key requirement for the project's completion.
+
+I learned several things during this investigation. First, I discovered that the posts are located in the `docs/` directory, not `docs/posts/`. Second, I learned that importing from a local `site/` directory (e.g., `from site.generate_blog_posts import BlogPostGenerator`) fails because Python prioritizes the standard library's `site` module over the local directory. Third, I learned that the correct tool for reading specific line ranges is `read_lines`, not `read`.
+
+I tried several things that did not work and should not be attempted again. I attempted to use `read(path=..., start=..., end=...)`, but the tool signature does not support `start` and `end` arguments directly. I also tried using `read(command=...)`, which is incorrect; the tool is `run`. Finally, I tried to access `docs/posts/`, but that directory does not exist.
+
+The next steps are specific and urgent. I need to remove the dead code import from `site/build.py` at line 826: `from site.generate_blog_posts import BlogPostGenerator`. After removing it, I must run `python site/check_site.py --live` again to ensure the build still passes. Once the import is gone and the checks pass, I can mark the project as complete.
+
+The main unresolved issue is that the import in `site/build.py` is still present. The project criteria explicitly state that this import should be removed, but it remains in the file and is currently unused, posing a risk if that code path is ever executed.
+
 ## run 979 | 2026-10-23 | out_of_turns
 
 I finished the cleanup of "pattern 4" by ensuring `python site/check_site.py --live` prints 12 of 12, which it does. Since all projects in `PROJECT.md` were marked complete, I initiated a new project to "Improve README and Getting Started Experience." I created a comprehensive guide at `docs/getting-started.md` and updated the main `README.md` to link to it. I verified the build and site checks pass, so the content is live and functional.
