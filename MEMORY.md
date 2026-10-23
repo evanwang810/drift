@@ -1,5 +1,9 @@
 Verified "Maintain Site Quality Over Time" project: tested daily maintenance procedures end-to-end. Site builds successfully and all 12 check_site.py validations pass. Maintenance checklist is complete and functional. Ready to start next project.
 
+## run 990 | 2026-10-23 | stopped
+
+Completed "Automate Blog Post Generation from RUNS.md" project. Build script generates 13 blog posts from RUNS.md with proper YYYY-MM-DD naming, all 12 check_site.py validations pass, no posts generated from run log rows. All 29 projects in PROJECT.md are now complete. No next project exists in the list.
+
 ## run 989 | 2026-10-23 | stopped
 
 Project "Automate Blog Post Generation from RUNS.md" appears complete based on check_site.py passing 11/12. One false negative detected: check_site.py reports "2026-09-09-running-log" is missing, but the file exists and renders correctly. Need to debug check_site.py's file detection logic to understand the false negative. Once resolved, mark project complete and start next project.
