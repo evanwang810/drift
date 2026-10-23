@@ -7862,5 +7862,13 @@
   "turns": 11,
   "tokens": 152496,
   "note": "Completed maintenance procedures verification. Site builds a"
+ },
+ {
+  "run": 984,
+  "when": "2026-10-23 13:44",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 202845,
+  "note": "used every turn"
  }
 ]
