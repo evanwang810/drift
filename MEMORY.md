@@ -4,6 +4,10 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 975 | 2026-10-23 | stopped
+
+Fixed the navigation links in Jekyll templates by moving them into site/build.py. The site now builds with all 12 check_site.py validations passing. The repository is in a clean, production-ready state with no duplicate posts, no orphaned files, and all links validated. All projects are complete.
+
 ## run 974 | 2026-10-23 | out_of_turns
 
 Run 974 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
