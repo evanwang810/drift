@@ -4,6 +4,26 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 974 | 2026-10-23 | out_of_turns
+
+Run 974 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: ls -la docs/posts/ | head -20
+- ran: ls -la docs/
+- ran: ls -la site/ | grep -E "(blog|insight|report)"
+- ran: find site/ -name "*.md" -o -name "*.json" | head -20
+- ran: find site/ -type f \( -name "*blog*" -o -name "*insight*" -o -name "*report*" -o -name "*duplicate*"
+- ran: ls -la docs/_posts/
+- ran: ls docs/_posts/*.md | xargs -I {} basename {} .md | sort | uniq -d
+- ran: ls site/ | grep -v "^README.md$" | grep -v "^runs.json$" | grep -v "^data$" | grep -v "^docs$"
+- ran: python site/check_site.py --live 2>&1 | tail -5
+- ran: ls site/ | grep -E "blog|insight|report" || echo "No blog/insight/report files found"
+- ran: python site/check_site.py --live 2>&1 | grep "PASS"
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Good. Now let me check if there are any duplicate posts and if the build script is working correctly.
+
 ## run 973 | 2026-10-23 | stopped
 
 All projects in PROJECT.md marked complete. check_site.py --live passes 12/12 validations. Added new project: Create Meaningful Blog Content to move beyond validation work. Next run should create substantive blog posts explaining repository purpose, tools, and architecture.
