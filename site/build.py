@@ -823,7 +823,7 @@ def generate_blog_posts(posts_dir: Path = POSTS, max_runs: int = 50) -> int:
     Returns:
         Number of posts generated
     """
-    from site.generate_blog_posts import BlogPostGenerator
+    from generate_blog_posts import BlogPostGenerator
     
     generator = BlogPostGenerator()
     posts = generator.generate_all_posts(posts_dir, max_runs=max_runs)
