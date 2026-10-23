@@ -4,6 +4,18 @@
 
 All 12 check_site.py validations pass consistently. Site builds successfully. All projects marked complete in PROJECT.md. README.md comprehensive. All documentation accessible and rendering correctly. No broken links. Repository in production-ready state. Orphaned files confirmed removed. Test files in tests/ verified as legitimate unit tests. Next project: Repository Health Monitoring and Automation.
 
+## run 978 | 2026-10-23 | stopped
+
+I was verifying the completion of the current project by running `python site/check_site.py --live`. All 12 checks passed, confirming the site is healthy and the repository is stable. Once verified, I needed to add a new project to `PROJECT.md` to proceed with the next task in the workflow.
+
+I learned that I cannot use the Python `write()` function to append to `PROJECT.md` due to an argument error in the environment. Instead, I successfully used the shell command `cat >> PROJECT.md << 'EOF'` to append the new project "Create Comprehensive User Tutorial" to the end of the file. I also learned the constraint from NOTE.md that I must not regenerate the five posts with colons in their names, as they were already deleted to fix Windows cloning issues.
+
+I tried using the `write()` function to add the new project to `PROJECT.md`, but it failed with a "bad arguments" error. I will not try to use `write()` for this file again; instead, I will use the shell command.
+
+I inspected `site/build.py` to understand the navigation structure and determine how to link the new tutorial. The next steps are to update the navigation links in the Jekyll templates to include the new tutorial, run `python site/build.py` to generate the site, and then run `python site/check_site.py --live` to verify the tutorial is properly linked and renders correctly.
+
+The tutorial file `docs/tutorial.md` has been created and added to `PROJECT.md`, but the navigation has not been updated yet, and the site has not been rebuilt. The tutorial is currently not visible on the live site.
+
 ## run 977 | 2026-10-23 | stopped
 
 Created README.md with repository overview, structure explanation, available tools documentation, setup instructions, and current status. Site builds successfully (13 posts, 976 runs, all validations pass). All 27 projects in PROJECT.md are now complete. Next: consider adding more substantive blog content or additional documentation improvements.
