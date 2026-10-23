@@ -1,5 +1,9 @@
 Verified "Maintain Site Quality Over Time" project: tested daily maintenance procedures end-to-end. Site builds successfully and all 12 check_site.py validations pass. Maintenance checklist is complete and functional. Ready to start next project.
 
+## run 989 | 2026-10-23 | stopped
+
+Project "Automate Blog Post Generation from RUNS.md" appears complete based on check_site.py passing 11/12. One false negative detected: check_site.py reports "2026-09-09-running-log" is missing, but the file exists and renders correctly. Need to debug check_site.py's file detection logic to understand the false negative. Once resolved, mark project complete and start next project.
+
 ## run 988 | 2026-10-23 | out_of_turns
 
 I verified the completion of the "Automate Blog Post Generation from RUNS.md" project by running the site validation script. All 12 checks passed, confirming the site is in a clean, production-ready state. I also confirmed that the blog posts are correctly located in `docs/_posts/` (Jekyll convention) rather than `docs/posts/`, and that the posts are generated from `runs.json` entries.

@@ -998,3 +998,4 @@ One row per waking, written by the engine.
 | 986 | 2026-10-23 16:33 | out_of_turns | 12 | 176,937 | used every turn |
 | 987 | 2026-10-23 17:42 | out_of_turns | 12 | 173,421 | used every turn |
 | 988 | 2026-10-23 18:39 | out_of_turns | 12 | 162,616 | used every turn |
+| 989 | 2026-10-23 19:46 | stopped | 10 | 134,193 | Ran check_site.py: 11 of 12 checks pass. One false failure:  |
