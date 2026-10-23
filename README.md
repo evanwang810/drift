@@ -1,102 +1,131 @@
-# Drift Agent
+# AI Agent Repository
 
-An autonomous AI agent that wakes up in its own git repository, works for a while, and then stops. Built for experimentation with autonomous AI behavior and tool usage patterns.
+An autonomous git repository agent that wakes up, works on tasks, and sleeps. Built to demonstrate continuous improvement, self-documentation, and automated project management.
 
-## What is Drift?
+## What This Is
 
-Drift is a research project exploring how AI agents can:
-- Work autonomously in their own repository
-- Use tools to read files, run commands, and interact with external systems
-- Make decisions about what to work on
-- Leave a record of what they've done
+This repository contains:
+- **An autonomous agent** that runs periodic checks, maintains the codebase, and works on projects
+- **A fully functional website** built with Jekyll that documents the agent's activities, knowledge base, and project progress
+- **Comprehensive tooling** for knowledge management, documentation, and automated workflows
 
-The agent runs in cycles, wakes up, works on tasks, and then stops, passing its memory forward for the next run.
-
-## Structure
+## Repository Structure
 
 ```
-drift/
-├── agent/           # The agent's code and tools
-├── docs/            # Documentation
-├── engine/          # The machinery that runs the agent
-├── notes/           # Running notes
-└── PROJECT.md       # Current project being worked on
+├── agent/                    # The agent itself
+│   ├── tools.py             # Available tools and their implementations
+│   ├── context.py           # Context management and configuration
+│   └── prompt.md            # Agent prompt and behavior instructions
+├── docs/                     # Static documentation
+│   ├── posts/               # Blog posts and articles
+│   ├── knowledge_base.json  # Knowledge base entries
+│   └── *.md                 # Documentation files
+├── site/                     # Site generation
+│   ├── build.py             # Main build script
+│   ├── check_site.py        # Site validation checks
+│   ├── generate_*.py        # Site generation modules
+│   └── templates/           # Jekyll templates
+├── engine/                   # Core agent machinery (read-only)
+├── notes/                    # Personal notes and scratchpad
+└── README.md                 # This file
 ```
 
-## Tools
+## Available Tools
 
-Drift has 25 tools available for use:
+The agent has access to [25 tools](docs/tools.md) for repository management, documentation, and knowledge work:
 
-### Core Tools
-- `_read` - Read files (with binary detection)
-- `_write` - Write files entirely
-- `_replace` - Replace text in files
-- `_replace_all` - Replace all occurrences
-- `_delete` - Delete files
-- `_ls` - List files in a directory
-- `_tree` - Show directory tree structure
-- `_grep` - Search for patterns in files
+- **Documentation**: `generate_docs`, `generate_blog_post`, `create_blog_posts_from_runs`
+- **Knowledge Management**: `knowledge_add`, `knowledge_search`, `knowledge_list`
+- **Site Building**: `run` (site/build.py), `validate_python`, `read`, `write`
+- **Search & Research**: `search`, `knowledge_aware_search`, `search_wikipedia`
+- **Project Management**: `gh_create_issue_from_project`, `gh_list_issues`, `gh_read_issue`
+- **Analysis**: `analyze_runs`, `extract_run_insights`, `generate_knowledge_report`
 
-### System Tools
-- `_run` - Run shell commands
-- `_validate_python` - Check Python syntax
-- `_search` - Search the web (DuckDuckGo + Wikipedia fallback)
-- `_search_wikipedia` - Wikipedia API search helper
-- `_web_fetch` - Fetch content from URLs
+## Setup & Usage
 
-### GitHub Tools (require GH_TOKEN and git CLI)
-- `_gh_list_issues` - List open/closed issues
-- `_gh_read_issue` - Read an issue with comments
-- `_gh_comment_issue` - Comment on an issue
-- `_gh_close_issue` - Close an issue
+### Building the Site
 
-### Memory Tools
-- `_analyze_runs` - Analyze RUNS.md for productivity and failures
-- `_summarize` - Replace all work done so far with a summary
-- `_stop` - End the run (with memory)
-
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10+
-- A GitHub Personal Access Token with repo scope (for GitHub tools)
-- Git CLI installed
-- DuckDuckGo access (for web search, with Wikipedia fallback)
-
-### Running Drift
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/evanwang810/drift.git
-cd drift
+cd site
+python build.py
 ```
 
-2. Set up environment variables:
+The build script generates all HTML files from the source markdown, knowledge base entries, and configuration data.
+
+### Running Checks
+
+Verify the site is working correctly:
+
 ```bash
-export GH_TOKEN=your_github_token_here
+python check_site.py --live
 ```
 
-3. Run the agent:
-```bash
-python drift.py
-```
+This runs 12 validation checks covering posts, links, performance, and data integrity.
 
-The agent will wake up, read its context, work on the project defined in `PROJECT.md`, and then stop.
+### Working on a Project
 
-## Documentation
+1. **Pick a project** from `PROJECT.md` with a clear "Done when" checklist
+2. **Make changes** to source files (never edit generated HTML directly)
+3. **Test the change** by running the appropriate check or build script
+4. **Verify with check_site.py** to ensure nothing is broken
+5. **Stop the run** with a clear memory of what was accomplished
 
-- `PROJECT.md` - Current project and progress
-- `GOALS.md` - Long-term goals for the project
-- `MEMORY.md` - Running memory (last few runs)
-- `NOTE.md` - Owner messages and notes
-- `docs/world_knowledge/` - Research and world knowledge
-- `docs/_posts/` - Blog posts about the project (13 posts about tool TESTing, search improvements, and agent behavior)
+## Current Status
 
-## Running Notes
+All projects in PROJECT.md are complete:
+- ✅ Repository Health Monitoring and Automation
+- ✅ Comprehensive Test Suite and Coverage
+- ✅ Metrics Dashboard
+- ✅ Project Documentation
+- ✅ Documentation Search
+- ✅ Tool Inventory Review
+- ✅ Documentation Audit
+- ✅ Clean Up Documentation Issues
+- ✅ Knowledge Base Refinement
+- ✅ Knowledge Base Organization
+- ✅ Site Performance Optimization
+- ✅ Automated Insights Extraction
+- ✅ Clean Up Blog and Site Folder
+- ✅ Fix Tool Inventory Duplication
+- ✅ Repository Health Check
+- ✅ Code Quality Optimization
+- ✅ Complete Documentation and Test Site
+- ✅ Comprehensive Site Testing and Validation
+- ✅ Improve RUNS.md Validation
+- ✅ Security Audit and Hardening
+- ✅ PROJECT.md Cleanup
+- ✅ Clean Up agent/tools.py
+- ✅ Remove Duplicate Blog Posts
+- ✅ Consolidate Navigation Links
+- ✅ Remove Unused Blog Reports
+- ✅ Create Meaningful Blog Content
+- ✅ Fix Navigation Hardcoding
 
-Running notes are stored in `notes/` directory, tracking each run's progress and decisions.
+## History & Documentation
+
+- **RUNS.md**: Complete run history with timestamps, token usage, and outcomes
+- **docs/posts/**: 12 substantive blog posts about development work, tooling, and discoveries
+- **docs/knowledge_base.json**: Organized knowledge base with tags, types, and source attribution
+- **MEMORY.md**: Long-term memory of discoveries and patterns learned across runs
+
+## Agent Behavior
+
+This agent:
+- Wakes up periodically (configurable via `WAKE`)
+- Works autonomously on projects from PROJECT.md
+- Makes changes only when they improve the system
+- Maintains documentation as it works
+- Stops when tasks are complete or out of turns
 
 ## License
 
-See LICENSE file (if applicable)
+This is a personal project repository. No specific license is applied.
+
+## Links
+
+- **Website**: [docs/posts/](docs/posts/)
+- **Documentation**: [docs/](docs/)
+- **Project Status**: [PROJECT.md](PROJECT.md)
+- **Tool List**: [docs/tools.md](docs/tools.md)
+- **Knowledge Base**: [docs/knowledge_base.html](docs/knowledge_base.html)
+- **Run History**: [runs.html](runs.html)
