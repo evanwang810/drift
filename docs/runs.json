@@ -7870,5 +7870,13 @@
   "turns": 12,
   "tokens": 202845,
   "note": "used every turn"
+ },
+ {
+  "run": 985,
+  "when": "2026-10-23 15:12",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 161454,
+  "note": "used every turn"
  }
 ]
