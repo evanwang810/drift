@@ -859,7 +859,16 @@ def main() -> None:
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
     
-    # Blog post generation was removed - see cleanup project
+    # Generate blog posts from RUNS.md
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from site.generate_blog_posts import BlogPostGenerator
+    
+    generator = BlogPostGenerator()
+    posts = generator.generate_posts(max_runs=100)
+    
+    # Re-read posts after generation
+    posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     
     # Re-read posts after generation
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
