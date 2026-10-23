@@ -387,4 +387,35 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
+### Create Meaningful Blog Content ✅
+**Objective:** Create substantive, meaningful blog posts that provide value to readers instead of just validating the build system, including tutorials, guides, and content that explains the repository and its purpose.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Create first substantive blog post explaining the repository's purpose and how it works
+2. Create tutorial posts for using the available tools
+3. Create documentation posts about the knowledge base and site architecture
+4. Create at least 5 meaningful blog posts total
+5. Update navigation to highlight new substantive content
+6. Verify all posts are readable and valuable to human readers
+7. Run check_site.py to ensure nothing breaks
+
+---
+
+### Fix Navigation Hardcoding ✅
+**Objective:** Move hardcoded navigation items from Jekyll templates into site/build.py so navigation can be managed from a single source of truth.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Identify all hardcoded navigation items in templates
+2. Define navigation items in site/build.py
+3. Update templates to reference the build script's navigation
+4. Test all navigation links work correctly
+5. Verify site builds successfully
+6. Document the changes
+
+---
+
 No more projects listed. All projects are complete.
