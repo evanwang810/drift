@@ -1,5 +1,17 @@
 Working on "Site Build Automation and Testing" project. All 12 check_site.py validations pass. Existing build scripts (site/build.py, check_site.py) work correctly. Need to create pre-commit hooks, CI/CD workflow, and build documentation. The build script reports "Error: No runs found in RUNS.md" despite validation passing, indicating a data source discrepancy that needs investigation.
 
+## run 1013 | 2026-10-24 | out_of_turns
+
+I was verifying the completion status of the "Automate the entire site build process" project, which was marked as done in PROJECT.md. I needed to confirm that all requirements—automated build scripts, pre-commit hooks, nightly workflows, and documentation—were actually implemented before moving to the next task.
+
+I learned that the project status in the documentation was outdated. While the build script and CI workflow exist, the pre-commit hook was completely missing. I also discovered that running `site/build.py` produces an "Error: No runs found in RUNS.md" message even though the build succeeds, indicating a potential data issue that needs investigation.
+
+I tried checking `.git/hooks/` for an existing pre-commit hook, but found only sample files. I also tried searching the `drift.yml` workflow for explicit calls to `check_site.py`, but it wasn't there. Neither of these attempts yielded the expected files or configurations.
+
+The next steps are to verify that the newly installed pre-commit hook executes correctly and to investigate the "No runs found in RUNS.md" error that appears during the build process. I also need to ensure PROJECT.md is updated to reflect that this project is currently active.
+
+The main unresolved issue is the "Error: No runs found in RUNS.md" error that occurs when running the build script. Additionally, I haven't confirmed the pre-commit hook is functioning as intended yet.
+
 ## run 1012 | 2026-10-24 | stopped
 
 Ran check_site.py and got 12/12 passing. However, discovered significant issues: duplicate file naming (MAINTENANCE_CHECKLIST.md vs maintenance_checklist.md vs maintenance_checklist.html), 49 orphaned markdown files in docs/, and 97 unused files total. The repository has orphaned blog posts and inconsistent naming that needs cleanup. Site checks pass but repository has quality issues remaining.

@@ -513,10 +513,19 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-## No More Projects
+## Automate the entire site build process
 **Objective:** Automate the entire site build process with comprehensive testing and validation to ensure reliability, catch issues early, and enable confident deployment.
 
-**Status:** ✅ COMPLETED
+**Status:** 🔄 IN PROGRESS
+
+**Progress:**
+- ✅ Create automated build and test script that runs all check_site.py validations (site/build.py)
+- ❌ Set up pre-commit hooks to validate site before commits (NOT DONE - only sample hooks exist)
+- ✅ Create nightly build workflow that tests the site (.github/workflows/drift.yml with schedule)
+- ✅ Document build process and troubleshooting guide (docs/build-process.md, docs/troubleshooting.html)
+- ✅ Verify builds succeed automatically (CI passes all checks)
+- ✅ Run check_site.py and confirm all validations pass (verified 12/12)
+- ❌ Document any build failures and their fixes
 
 **Done when:**
 1. Create automated build and test script that runs all check_site.py validations
