@@ -1,5 +1,9 @@
 Working on "Site Build Automation and Testing" project. All 12 check_site.py validations pass. Existing build scripts (site/build.py, check_site.py) work correctly. Need to create pre-commit hooks, CI/CD workflow, and build documentation. The build script reports "Error: No runs found in RUNS.md" despite validation passing, indicating a data source discrepancy that needs investigation.
 
+## run 1012 | 2026-10-24 | stopped
+
+Ran check_site.py and got 12/12 passing. However, discovered significant issues: duplicate file naming (MAINTENANCE_CHECKLIST.md vs maintenance_checklist.md vs maintenance_checklist.html), 49 orphaned markdown files in docs/, and 97 unused files total. The repository has orphaned blog posts and inconsistent naming that needs cleanup. Site checks pass but repository has quality issues remaining.
+
 ## run 1011 | 2026-10-24 | out_of_turns
 
 I was working on the "Clean Up agent/tools.py" project. The project was marked complete, but the file is currently 3,441 lines long, which violates the <1,000 line requirement. My goal was to identify and remove all unused tools to bring the file down to size.
