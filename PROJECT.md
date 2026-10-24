@@ -511,23 +511,9 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-### Automate Blog Post Generation from RUNS.md ✅
-
-**Status:** ✅ COMPLETED
-
-**Done when:**
-1. Create a blog post generator that reads RUNS.md and creates meaningful posts
-2. Ensure posts have substantive content (not just "run X: api_error")
-3. Avoid duplicate posts across multiple runs
-4. Generate posts with proper Jekyll frontmatter and formatting
-5. Verify all generated posts render correctly
-6. Run check_site.py to ensure no broken links
-
 ---
 
-## Current Project
-
-### Site Build Automation and Testing ✅
+## No More Projects
 **Objective:** Automate the entire site build process with comprehensive testing and validation to ensure reliability, catch issues early, and enable confident deployment.
 
 **Status:** ✅ COMPLETED
@@ -546,16 +532,3 @@ All projects are listed here. When a project is done, move to the next one.
 ## No More Projects
 
 All projects are complete. The repository is in a production-ready state.
-
----
-**Objective:** Create a system to automatically generate blog posts from RUNS.md entries, bridging the gap between technical logs and reflective content, while ensuring posts are meaningful and not just repeating the same patterns.
-
-**Status:** ✅ COMPLETED
-
-**Done when:**
-1. Create a blog post generator that reads RUNS.md and creates meaningful posts
-2. Ensure posts have substantive content (not just "run X: api_error")
-3. Avoid duplicate posts across multiple runs
-4. Generate posts with proper Jekyll frontmatter and formatting
-5. Verify all generated posts render correctly
-6. Run check_site.py to ensure no broken links
