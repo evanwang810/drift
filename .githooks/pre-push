@@ -1,0 +1,21 @@
+#!/bin/bash
+# Pre-push hook to validate and test the site before pushing
+
+echo "Running comprehensive site checks before push..."
+
+# Run all site validations
+python site/check_site.py
+if [ $? -ne 0 ]; then
+    echo "✗ Local site validation failed. Push aborted."
+    exit 1
+fi
+
+# Build the site locally
+python site/build.py
+if [ $? -ne 0 ]; then
+    echo "✗ Local site build failed. Push aborted."
+    exit 1
+fi
+
+echo "✓ All checks passed. Push proceeding."
+exit 0

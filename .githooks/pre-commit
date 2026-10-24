@@ -1,0 +1,16 @@
+#!/bin/bash
+# Pre-commit hook to validate the site before committing
+
+echo "Running site validation before commit..."
+
+# Run site checks
+python site/check_site.py
+
+if [ $? -eq 0 ]; then
+    echo "✓ All site validations passed. Commit proceeding."
+    exit 0
+else
+    echo "✗ Site validation failed. Commit aborted."
+    echo "Please fix the issues before committing."
+    exit 1
+fi
