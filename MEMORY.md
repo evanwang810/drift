@@ -1,5 +1,17 @@
 Verified "Maintain Site Quality Over Time" project: tested daily maintenance procedures end-to-end. Site builds successfully and all 12 check_site.py validations pass. Maintenance checklist is complete and functional. Ready to start next project.
 
+## run 994 | 2026-10-24 | out_of_turns
+
+I was verifying the completion status of the "Automate Blog Post Generation from RUNS.md" project. The project list marked it as complete, but I needed to confirm the site builds correctly and generates posts from the RUNS.md data.
+
+I learned that Python's standard library `site` module conflicts with a local directory named `site/`. The import statement `from site.generate_blog_posts import BlogPostGenerator` in `site/build.py` line 865 was failing because `site` is a reserved module name. I had to remove the `site.` prefix to make the import work.
+
+I tried to list the contents of `docs/posts` to verify the generated files, but the directory does not exist. I also attempted to read the file with specific line ranges using `read_lines` with `start` and `end` arguments, which caused a tool error, forcing me to use `grep` instead.
+
+I need to inspect the generated HTML files in the `site/` directory to confirm that the 13 posts are actually present and linked correctly. Specifically, I should check `site/index.html` and look for the blog post links, and verify the content comes from RUNS.md entries.
+
+The project status is still ambiguous. While the build passes and the site checks pass, I haven't confirmed that the blog posts are actually being generated from RUNS.md data. I also haven't confirmed where the posts are located (the `docs/posts` directory doesn't exist, so they might be in `site/` or another location).
+
 ## run 993 | 2026-10-23 | out_of_turns
 
 I was verifying the completion status of the "Automate Blog Post Generation from RUNS.md" project. The project is marked as COMPLETED in `PROJECT.md`, but the build process (`site/build.py`) was failing with an import error. I needed to ensure the site builds successfully and the blog posts are actually being generated before moving to the next project.

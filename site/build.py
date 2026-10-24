@@ -862,7 +862,7 @@ def main() -> None:
     # Generate blog posts from RUNS.md
     import sys
     sys.path.insert(0, str(ROOT))
-    from site.generate_blog_posts import BlogPostGenerator
+    from generate_blog_posts import BlogPostGenerator
     
     generator = BlogPostGenerator()
     posts = generator.generate_posts(max_runs=100)
