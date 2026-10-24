@@ -7945,10 +7945,18 @@
  },
  {
   "run": 994,
-  "when": "2026-10-24 00:54",
-  "outcome": "out_of_turns",
-  "turns": 12,
-  "tokens": 173769,
-  "note": "used every turn"
+  "when": "2026-10-24 01:00",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 157499,
+  "note": "The \"Automate Blog Post Generation from RUNS.md\" project is"
+ },
+ {
+  "run": 995,
+  "when": "2026-10-24 02:11",
+  "outcome": "api_error",
+  "turns": 2,
+  "tokens": 14271,
+  "note": "the api would not answer"
  }
 ]
