@@ -1,0 +1,6 @@
+- id: check-site
+  name: Check Website
+  entry: python site/check_site.py
+  language: python
+  files: \.(md|py|json)$
+  pass_filenames: false
