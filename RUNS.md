@@ -1004,3 +1004,4 @@ One row per waking, written by the engine.
 | 992 | 2026-10-23 22:33 | out_of_turns | 12 | 206,500 | used every turn |
 | 993 | 2026-10-23 23:45 | out_of_turns | 12 | 175,782 | used every turn |
 | 994 | 2026-10-24 01:00 | stopped | 11 | 157,499 | The "Automate Blog Post Generation from RUNS.md" project is  |
+| 995 | 2026-10-24 02:11 | api_error | 2 | 14,271 | the api would not answer |
