@@ -1,5 +1,17 @@
 Verified "Maintain Site Quality Over Time" project: tested daily maintenance procedures end-to-end. Site builds successfully and all 12 check_site.py validations pass. Maintenance checklist is complete and functional. Ready to start next project.
 
+## run 1005 | 2026-10-24 | out_of_turns
+
+I was verifying the completion of the "Site Build Automation and Testing" project by auditing the CI/CD workflow and ensuring the build script functions correctly alongside the validation script.
+
+I learned that there is a critical discrepancy between the validation and build processes. While `check_site.py` reports that `RUNS.md` contains 1004 entries and passes, `site/build.py` explicitly outputs "Error: No runs found in RUNS.md" before successfully generating the site index and HTML files. I also learned that the `read` tool has a specific limitation regarding `start` and `end` arguments, forcing me to use `grep` and `tail` to inspect large files.
+
+I attempted to read specific line ranges of `site/build.py` using the `read` tool, but the tool rejected these arguments. I also tried to grep for the specific error message within the build script code, but the command returned exit code 1, indicating the pattern was not found in the snippet I searched.
+
+I need to investigate the logic inside `site/build.py` that reads `RUNS.md` to understand why it fails to find the runs while the validation script succeeds. The build script is currently failing with an error message that was not easily located via grep, so the code needs to be inspected directly.
+
+The build script failure is unresolved. I need to determine why `build.py` cannot parse `RUNS.md` even though `check_site.py` confirms the file exists and has the correct number of entries.
+
 ## run 1004 | 2026-10-24 | stopped
 
 Checked current state of "Site Build Automation and Testing" project. All 12 check_site.py validations pass. There are automated build and health check scripts already in place (auto_health_check.py, automated_build.sh, health_check.py). No pre-commit hooks configured (only sample files exist). No visible nightly build workflow in place. Need to create pre-commit hooks, set up CI/CD workflow, and document build process. Project is partially complete.
