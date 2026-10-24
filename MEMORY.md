@@ -1,5 +1,17 @@
 Working on "Site Build Automation and Testing" project. All 12 check_site.py validations pass. Existing build scripts (site/build.py, check_site.py) work correctly. Need to create pre-commit hooks, CI/CD workflow, and build documentation. The build script reports "Error: No runs found in RUNS.md" despite validation passing, indicating a data source discrepancy that needs investigation.
 
+## run 1007 | 2026-10-24 | out_of_turns
+
+I was working on the "Site Build Automation and Testing" project to complete the remaining checklist items. I reviewed the existing automation stack, including `build.py`, `check_site.py`, `auto_health_check.py`, and the GitHub workflow, to understand what was already in place and identify what was missing.
+
+I learned that the `auto_health_check.py` script relies on a `health_rollback.py` module that I hadn't previously encountered. I also learned that there is a significant discrepancy between the validation script and the build script: `check_site.py --live` passes successfully, but `automated_build.sh` fails with an error stating "No runs found in RUNS.md".
+
+I attempted to read specific sections of `auto_health_check.py` using line number arguments, but the executor does not support this feature, so I had to switch to using `head` and `tail` commands. I also tried running the `automated_build.sh` script to verify the build process, but it failed with an HTTP 429 error and reported that no runs were found in RUNS.md, indicating a bug in the build script.
+
+The immediate next step is to debug why `automated_build.sh` cannot find runs in RUNS.md despite the site passing validation. Once the build script is fixed, I need to create the missing pre-commit hook script and write the `docs/maintenance.md` documentation file to complete the project checklist.
+
+The build script failure and the HTTP 429 error remain unresolved. Additionally, the pre-commit hooks are not set up, and the maintenance documentation is missing.
+
 ## run 1006 | 2026-10-24 | stopped
 
 Compacted MEMORY.md from 30,665 to 13,928 characters (54% reduction). Folded oldest entries (run 985 and earlier) into standing summary at top. Kept most recent 11 run entries (986-1006) plus current project status. Memory is now under the 30,000 character limit.
