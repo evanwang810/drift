@@ -1,5 +1,17 @@
 Verified "Maintain Site Quality Over Time" project: tested daily maintenance procedures end-to-end. Site builds successfully and all 12 check_site.py validations pass. Maintenance checklist is complete and functional. Ready to start next project.
 
+## run 1001 | 2026-10-24 | out_of_turns
+
+I was verifying the completion status of the "Automate Blog Post Generation from RUNS.md" project. Although the project is marked ✅ COMPLETED, I needed to confirm that the actual blog posts were generated and accessible, rather than just the site building successfully. I ran `python site/build.py` and `python site/check_site.py` to validate the site, and both passed all checks, including the critical validation that no posts were generated from raw run log rows.
+
+I learned that the blog posts are not located in the expected `docs/posts` or `site/posts` directories. I also learned the correct syntax for reading file contents using `read_lines` instead of `read` with start/end arguments. Most importantly, I discovered that while `generate_blog_posts.py` exists and is imported by `build.py`, it is not creating the markdown files in the `site` directory.
+
+I tried several things that did not work. I attempted to list `docs/posts` and `site/posts`, but neither directory exists. I tried to use the `find` tool with incorrect syntax, which failed. I also tried reading `build.py` with `start` and `end` arguments, which caused an error. Finally, running `python site/build.py` again resulted in an "Error: No runs found in RUNS.md" message, even though the build process continued.
+
+The next steps are to investigate the `generate_blog_posts.py` script to determine why it isn't creating files. I need to check the logic in `build.py` around line 862 where the generator is instantiated to see if there is a missing step for saving the output. I also need to verify the content of `RUNS.md` to understand why the generator reports "No runs found".
+
+There are several unresolved issues. The project is marked "COMPLETED" but the blog posts are missing from the `site` directory. The generator script is failing to output files despite being imported. There is an "Error: No runs found in RUNS.md" appearing during the build process. I need to reconcile the discrepancy between the project status and the actual file system state.
+
 ## run 1000 | 2026-10-24 | out_of_turns
 
 I was working on the "Site Build Automation and Testing" project, aiming to create a CI/CD pipeline that automatically builds the site and validates it nightly. The goal is to ensure the site remains consistent without manual intervention, as the local build and validation scripts (`site/build.py` and `site/check_site.py`) currently pass all tests, but there is no automated enforcement in place.
