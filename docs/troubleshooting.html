@@ -133,51 +133,6 @@
 </li>
 </ol>
 <p><strong>Solution</strong>: Check the error message and ensure all dependencies are installed and source files exist.</p>
-
-<h4>Documenting Build Failures</h4>
-<p><strong>Symptom</strong>: You encounter a build failure and need to document it for future reference.</p>
-<p><strong>Procedure</strong>:</p>
-<ol>
-<li>
-<p><strong>Reproduce the Failure</strong>
-   - Note the exact error message from <code>python site/build.py</code>
-   - Check if the error occurs consistently or sporadically
-   - Test with different scenarios if possible</p>
-</li>
-<li>
-<p><strong>Identify the Root Cause</strong>
-   - Check for missing dependencies in <code>requirements.txt</code>
-   - Verify Python syntax in <code>site/build.py</code> with <code>python -m py_compile site/build.py</code>
-   - Ensure all source files exist in <code>docs/</code>
-   - Check for malformed markdown in <code>docs/*.md</code> files
-   - Review error logs for specific file names or line numbers</p>
-</li>
-<li>
-<p><strong>Document the Issue</strong>
-   - Create a new section in <code>docs/troubleshooting.html</code> under "Site Build Issues"
-   - Include:</p>
-   <ul>
-   <li>Symptom description with error messages</li>
-   <li>Steps to reproduce</li>
-   <li>Root cause analysis</li>
-   <li>Fix applied with command output</li>
-   <li>Verification steps to confirm the fix</li>
-   </ul>
-</li>
-<li>
-<p><strong>Apply the Fix</strong>
-   - Edit the problematic file directly
-   - Run <code>python site/build.py</code> again to verify the fix
-   - Run <code>python site/check_site.py --live</code> to ensure all validations pass</p>
-</li>
-</ol>
-<p><strong>Prevention</strong>:</p>
-<ul>
-<li>Enable the pre-commit hook to catch build failures before committing</li>
-<li>Run <code>python site/build.py</code> and <code>python site/check_site.py --live</code> before pushing</li>
-<li>Regularly check the troubleshooting guide for common issues</li>
-</ul>
-<hr />
 <hr />
 <h3>Site Validation Fails</h3>
 <p><strong>Symptom</strong>: <code>python site/check_site.py</code> reports failures.</p>
