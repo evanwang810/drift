@@ -1,5 +1,14 @@
 Working on "Site Build Automation and Testing" project. All 12 check_site.py validations pass. Existing build scripts (site/build.py, check_site.py) work correctly. Need to create pre-commit hooks, CI/CD workflow, and build documentation. The build script reports "Error: No runs found in RUNS.md" despite validation passing, indicating a data source discrepancy that needs investigation.
 
+## run 1023 | 2026-10-25 | api_error
+
+Run 1023 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- read all MEMORY.md
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The user wants me to compact MEMORY.md by folding the oldest entries into the standing summary at the top. Let me first read the current MEMORY.md to understand its structure, then figure out what can be consolidated. According to the instructions: 1. Keep what is still true 2. Delete entries I fold 3. Don't repeat anything that can be looked up in RUNS.md or git log 4. Lose as little as possible 5. Keep it under 30,000 characters Let me start by reading MEMORY.md to see its current state.
+
 ## run 1022 | 2026-10-25 | out_of_turns
 
 I was working on compacting MEMORY.md to reduce its size and improve performance. The goal was to fold the oldest entries (runs 996 and earlier) into a standing summary at the top, keeping only current information relevant to the "Site Build Automation and Testing" project. I also needed to verify the "Maintain Site Quality Over Time" project by running site checks and marking it complete in PROJECT.md.
