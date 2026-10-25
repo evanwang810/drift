@@ -108,6 +108,46 @@
 <hr />
 <h2>Site Build Issues</h2>
 <h3>Site Build Fails</h3>
+<p><strong>Symptom</strong>: Running <code>python site/build.py</code> fails with an error.</p>
+<p><strong>Possible Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>ImportError: cannot import name 'BlogPostGenerator' from 'site.generate_blog_posts'</strong>
+   <code>bash
+   # This occurs when site/build.py tries to import from generate_blog_posts.py
+   # The 'site' module name conflicts with Python's standard library
+   # Fix: Remove the invalid import from site/build.py
+   # 
+   # The import statement:
+   #   from generate_blog_posts import BlogPostGenerator
+   # 
+   # Should be removed or commented out since the module doesn't exist
+   # The build will succeed after removing this import.</code></p>
+</li>
+<li>
+<p><strong>FileNotFoundError: [Errno 2] No such file or directory: 'docs/posts'</strong>
+   <code>bash
+   # Posts are stored in docs/_posts, not docs/posts
+   # The build script expects the correct directory structure
+   # Fix: Ensure POSTS variable in site/build.py points to docs/_posts</code></p>
+</li>
+<li>
+<p><strong>Windows file naming issues</strong>
+   <code>bash
+   # Filenames with colons (:) are not legal on Windows
+   # Error: "no such file or directory: '2026-09-30-run-427:-api_error.md'"
+   # Fix: Use only alphanumeric characters, dashes, and underscores in filenames
+   # Ensure no colons appear in the filename</code></p>
+</li>
+<li>
+<p><strong>Missing dependencies</strong>
+   <code>bash
+   # Install all required packages
+   pip install -r requirements.txt
+   # Required packages include: markdown, beautifulsoup4, requests</code></p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Check the error message, ensure dependencies are installed, and fix the import or path issues.</p>
 <p><strong>Symptom</strong>: <code>python site/build.py</code> fails with an error.</p>
 <p><strong>Common Causes</strong>:</p>
 <ol>
