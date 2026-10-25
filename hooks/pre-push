@@ -1,0 +1,46 @@
+#!/bin/bash
+# Pre-push hook to run full CI checks before pushing
+# This ensures the site is fully validated before deployment
+
+set -e
+
+echo "🔍 Running pre-push checks..."
+
+# Check if site/build.py exists
+if [ ! -f "site/build.py" ]; then
+    echo "❌ Error: site/build.py not found"
+    exit 1
+fi
+
+# Run the site build
+echo "🔨 Building site..."
+python site/build.py
+
+if [ $? -ne 0 ]; then
+    echo "❌ Site build failed"
+    echo "   Please fix the errors before pushing."
+    exit 1
+fi
+
+# Run site checks
+echo "✅ Checking site integrity..."
+python site/check_site.py --live
+
+if [ $? -ne 0 ]; then
+    echo "❌ Site validation failed"
+    echo "   Please fix the issues before pushing."
+    exit 1
+fi
+
+# Run tests if they exist
+if [ -d "tests" ]; then
+    echo "🧪 Running tests..."
+    python -m pytest tests/ -v
+    if [ $? -ne 0 ]; then
+        echo "❌ Tests failed"
+        echo "   Please fix the failing tests before pushing."
+        exit 1
+    fi
+fi
+
+echo "✅ All pre-push checks passed!"

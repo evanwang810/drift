@@ -1,0 +1,35 @@
+#!/bin/bash
+# Pre-commit hook to validate site before commits
+# This ensures the site builds and all checks pass before allowing a commit
+
+set -e
+
+echo "🔍 Running pre-commit checks..."
+
+# Check if site/build.py exists
+if [ ! -f "site/build.py" ]; then
+    echo "❌ Error: site/build.py not found"
+    exit 1
+fi
+
+# Run the site build
+echo "🔨 Building site..."
+python site/build.py
+
+if [ $? -ne 0 ]; then
+    echo "❌ Site build failed"
+    echo "   Please fix the errors before committing."
+    exit 1
+fi
+
+# Run site checks
+echo "✅ Checking site integrity..."
+python site/check_site.py --live
+
+if [ $? -ne 0 ]; then
+    echo "❌ Site validation failed"
+    echo "   Please fix the issues before committing."
+    exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
