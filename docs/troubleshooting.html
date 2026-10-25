@@ -134,6 +134,48 @@
 </ol>
 <p><strong>Solution</strong>: Check the error message and ensure all dependencies are installed and source files exist.</p>
 <hr />
+<h4>Build Failures and Their Fixes</h4>
+<p><strong>Common Build Failures</strong>:</p>
+<ol>
+<li>
+<p><strong>ImportError: cannot import name 'BlogPostGenerator'</strong>
+   <code>bash
+   # Issue: site/build.py imports BlogPostGenerator from 'site.generate_blog_posts'
+   # This causes a NameError because 'site' is Python's standard library module
+   # Fix: Remove the invalid import and ensure build.py works without it</code></p>
+</li>
+<li>
+<p><strong>FileNotFoundError: [Errno 2] No such file or directory: 'docs/posts'</strong>
+   <code>bash
+   # Issue: The build script looks for docs/posts but the actual directory is docs/_posts
+   # Fix: Update the path in site/build.py from 'docs/posts' to 'docs/_posts'</code></p>
+</li>
+<li>
+<p><strong>Broken HTML file names with colons</strong>
+   <code>bash
+   # Issue: Windows doesn't allow colons in file names, causing clone failures
+   # Fix: Regenerate posts with valid file names (no colons)
+   python site/build.py</code></p>
+</li>
+<li>
+<p><strong>runs.json is empty or malformed</strong>
+   <code>bash
+   # Issue: RUNS.md parser looks for table header on line 5 instead of line 1
+   # Fix: Ensure RUNS.md has a proper header on the first line
+   # Then regenerate runs.json:
+   python site/build.py</code></p>
+</li>
+</ol>
+<p><strong>General Build Debugging Steps</strong>:</p>
+<ol>
+<li>Check the exact error message from the build script</li>
+<li>Review the error location in the code</li>
+<li>Verify all required files exist (docs/, RUNS.md, etc.)</li>
+<li>Check Python dependencies are installed: <code>pip install -r requirements.txt</code></li>
+<li>Run the build with verbose output to see detailed errors</li>
+<li>Check if the issue is in the build script or in generated content</li>
+</ol>
+<hr />
 <h3>Site Validation Fails</h3>
 <p><strong>Symptom</strong>: <code>python site/check_site.py</code> reports failures.</p>
 <p><strong>Common Issues</strong>:</p>
