@@ -128,6 +128,114 @@
    - Check that required source files exist in <code>docs/</code></p>
 </li>
 <li>
+<p><strong>Broken Links</strong>
+   - Check for broken links in your Markdown files
+   - Run <code>python site/check_site.py --live</code> to find broken links</p>
+</li>
+<li>
+<p><strong>Invalid HTML</strong>
+   - Check that all generated HTML files are valid
+   - Run <code>python site/check_site.py --live</code> to validate HTML</p>
+</li>
+<li>
+<p><strong>Missing Files</strong>
+   - Ensure all referenced files exist in the correct location
+   - Check that <code>docs/posts/</code> contains all expected post files</p>
+</li>
+</ol>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>Run <code>python site/check_site.py --live</code> to identify the specific issue</li>
+<li>Check the error message for details</li>
+<li>Fix the identified issue in the source files</li>
+<li>Rebuild the site: <code>python site/build.py</code></li>
+<li>Run <code>python site/check_site.py --live</code> again to verify the fix</li>
+</ol>
+<hr />
+<h3>Pre-commit Hooks Don't Run</h3>
+<p><strong>Symptom</strong>: Your pre-commit or pre-push hooks are not executing when you commit or push.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Wrong Hook File Name</strong>
+   - Must be exactly <code>.git/hooks/pre-commit</code> or <code>.git/hooks/pre-push</code>
+   - No extension, just the name</p>
+</li>
+<li>
+<p><strong>Wrong Permissions</strong>
+   - Hook files must be executable
+   - Run <code>chmod +x .git/hooks/pre-commit</code> and <code>chmod +x .git/hooks/pre-push</code></p>
+</li>
+<li>
+<p><strong>Git Config</strong>
+   - Ensure hooks are enabled: <code>git config core.hooksPath .git/hooks</code></p>
+</li>
+</ol>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>Check file permissions: <code>ls -la .git/hooks/</code></li>
+<li>Verify file names are correct (no extensions)</li>
+<li>Make hooks executable if needed</li>
+<li>Test by making a small change and committing</li>
+</ol>
+</main>
+</body>
+</html>
+<li>
+<p><strong>Broken Links</strong>
+   - Check for broken links in your Markdown files
+   - Run <code>python site/check_site.py --live</code> to find broken links</p>
+</li>
+<li>
+<p><strong>Invalid HTML</strong>
+   - Check that all generated HTML files are valid
+   - Run <code>python site/check_site.py --live</code> to validate HTML</p>
+</li>
+<li>
+<p><strong>Missing Files</strong>
+   - Ensure all referenced files exist in the correct location
+   - Check that <code>docs/posts/</code> contains all expected post files</p>
+</li>
+</ol>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>Run <code>python site/check_site.py --live</code> to identify the specific issue</li>
+<li>Check the error message for details</li>
+<li>Fix the identified issue in the source files</li>
+<li>Rebuild the site: <code>python site/build.py</code></li>
+<li>Run <code>python site/check_site.py --live</code> again to verify the fix</li>
+</ol>
+<hr />
+<h3>Pre-commit Hooks Don't Run</h3>
+<p><strong>Symptom</strong>: Your pre-commit or pre-push hooks are not executing when you commit or push.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Wrong Hook File Name</strong>
+   - Must be exactly <code>.git/hooks/pre-commit</code> or <code>.git/hooks/pre-push</code>
+   - No extension, just the name</p>
+</li>
+<li>
+<p><strong>Wrong Permissions</strong>
+   - Hook files must be executable
+   - Run <code>chmod +x .git/hooks/pre-commit</code> and <code>chmod +x .git/hooks/pre-push</code></p>
+</li>
+<li>
+<p><strong>Git Config</strong>
+   - Ensure hooks are enabled: <code>git config core.hooksPath .git/hooks</code></p>
+</li>
+</ol>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>Check file permissions: <code>ls -la .git/hooks/</code></li>
+<li>Verify file names are correct (no extensions)</li>
+<li>Make hooks executable if needed</li>
+<li>Test by making a small change and committing</li>
+</ol>
+</main>
+</body>
+</html>
+<li>
 <p><strong>Markdown Parsing Errors</strong>
    - Check for malformed markdown in <code>docs/*.md</code> files</p>
 </li>
