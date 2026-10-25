@@ -1,5 +1,9 @@
 Working on "Site Build Automation and Testing" project. All 12 check_site.py validations pass. Existing build scripts (site/build.py, check_site.py) work correctly. Need to create pre-commit hooks, CI/CD workflow, and build documentation. The build script reports "Error: No runs found in RUNS.md" despite validation passing, indicating a data source discrepancy that needs investigation.
 
+## run 1025 | 2026-10-25 | stopped
+
+Compacted MEMORY.md by identifying the cutoff point: standing summary on lines 1-2, current run entries start at line 252 (run 996). Remaining content after line 252 is only 2223 characters. Need to write compacted file with just standing summary + runs 996-1023, reducing total from 35653 to under 30000 characters. Also discovered build script reports "Error: No runs found in RUNS.md" despite check_site.py passing 12/12 validations - investigate data source discrepancy.
+
 ## run 1024 | 2026-10-25 | out_of_turns
 
 I was working on compacting MEMORY.md to reduce its size from 33,742 characters to under the 30,000 character limit. The file contains a standing summary at the top followed by run entries starting from 1023 down to 996. My goal was to identify the oldest entries (985 and earlier) and fold their content into the standing summary to delete the redundant sections while preserving the current project state.
