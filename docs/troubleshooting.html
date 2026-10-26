@@ -134,6 +134,170 @@
 </ol>
 <p><strong>Solution</strong>: Check the error message and ensure all dependencies are installed and source files exist.</p>
 <hr />
+<h4 id="build-failure-common-causes">Build Failure: Common Causes</h4>
+<p><strong>Common causes of build failures include:</strong></p>
+<ol>
+<li>
+<p><strong>Import Errors</strong> - Missing dependencies or incorrect Python imports</p>
+<p><em>Example Error:</em><br>
+<code>ModuleNotFoundError: No module named 'markdown'</code></p>
+<p><em>Fix:</em></p>
+<pre><code># Install missing dependencies
+pip install -r requirements.txt
+
+# Verify installation
+python -c "import markdown; print('markdown is installed')"
+</code></pre>
+</li>
+<li>
+<p><strong>File Not Found Errors</strong> - Required source files are missing or in wrong location</p>
+<p><em>Example Error:</em><br>
+<code>FileNotFoundError: [Errno 2] No such file or directory: 'docs/runs.json'</code></p>
+<p><em>Fix:</em></p>
+<pre><code># Check if runs.json exists
+ls docs/runs.json
+
+# Run the build to regenerate it
+python site/build.py
+</code></pre>
+</li>
+<li>
+<p><strong>Markdown Parsing Errors</strong> - Malformed markdown in source files</p>
+<p><em>Example Error:</em><br>
+<code>markdown.extensions.fenced_code.FencedCodeError: Unclosed code block</code></p>
+<p><em>Fix:</em></p>
+<pre><code># Check the specific file for markdown errors
+python -c "
+import markdown
+with open('docs/some-file.md', 'r') as f:
+    content = f.read()
+    try:
+        html = markdown.markdown(content)
+        print('Markdown is valid')
+    except Exception as e:
+        print(f'Markdown error: {e}')
+"
+
+# Fix the syntax error in the markdown file
+</code></pre>
+</li>
+<li>
+<p><strong>JSON Parse Errors</strong> - Invalid JSON in runs.json or other data files</p>
+<p><em>Example Error:</em><br>
+<code>json.decoder.JSONDecodeError: Expecting value: line 1 column 2 (char 1)</code></p>
+<p><em>Fix:</em></p>
+<pre><code># Validate JSON syntax
+python -m json.tool docs/runs.json
+
+# Rebuild the data file
+python site/build.py
+</code></pre>
+</li>
+<li>
+<p><strong>Template Rendering Errors</strong> - Issues in Jinja2 templates</p>
+<p><em>Example Error:</em><br>
+<code>Jinja2.TemplateError: no filter named 'date'</code></p>
+<p><em>Fix:</em></p>
+<pre><code># Check the template file for filter usage
+# Ensure required Jinja2 filters are available or define them
+
+# Rebuild the templates
+python site/build.py
+</code></pre>
+</li>
+</ol>
+<hr />
+<h4 id="build-failure-troubleshooting-steps">Build Failure: Troubleshooting Steps</h4>
+<p>When a build fails, follow these steps to diagnose and fix the issue:</p>
+<ol>
+<li>
+<p><strong>Read the Error Message Carefully</strong></p>
+<p>Every error message contains valuable information about what went wrong. Note the file name, line number, and specific error type.</p>
+</li>
+<li>
+<p><strong>Check Python Syntax</strong></p>
+<pre><code># Validate Python syntax
+python -m py_compile site/build.py
+
+# This will report syntax errors before runtime
+</code></pre>
+</li>
+<li>
+<p><strong>Verify Dependencies</strong></p>
+<pre><code># List installed packages
+pip list | grep -E "markdown|jinja2|requests"
+
+# Reinstall dependencies
+pip install -r requirements.txt
+</code></pre>
+</li>
+<li>
+<p><strong>Check File Paths</strong></p>
+<pre><code># Verify all required files exist
+ls -la docs/
+ls -la site/
+
+# Check for typos in file references
+</code></pre>
+</li>
+<li>
+<p><strong>Test in Isolation</strong></p>
+<pre><code># Run the build script directly
+python site/build.py
+
+# Check the exit code
+echo $?
+</code></pre>
+</li>
+<li>
+<p><strong>Check for Common Issues</strong></p>
+<ul>
+<li><strong>Duplicate files</strong> - Check for multiple versions of the same file</li>
+<li><strong>Encoding issues</strong> - Ensure files use UTF-8 encoding</li>
+<li><strong>Permission issues</strong> - Verify write permissions on output files</li>
+<li><strong>Outdated data</strong> - Run the full build process to regenerate all data files</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4 id="build-failure-recovery">Build Failure: Recovery</h4>
+<p>If the build fails and you cannot fix it immediately:</p>
+<ol>
+<li>
+<p><strong>Use a Known Good Version</strong></p>
+<pre><code># Create a rollback point
+git tag backup-before-fix
+
+# If needed, restore from the backup
+git reset --hard backup-before-fix
+</code></pre>
+</li>
+<li>
+<p><strong>Build Incrementally</strong></p>
+<p>Build individual components instead of the entire site to isolate the issue:</p>
+<pre><code># Build just the posts
+python site/build.py --posts
+
+# Build just the knowledge base
+python site/build.py --knowledge-base
+
+# Build just the navigation
+python site/build.py --navigation
+</code></pre>
+</li>
+<li>
+<p><strong>Check Logs</strong></p>
+<p>Look for detailed log files or enable verbose output:</p>
+<pre><code># Add verbose flag if available
+python site/build.py --verbose
+</code></pre>
+</li>
+<li>
+<p><strong>Get Help</strong></p>
+<p>If the issue persists, check the project documentation or ask for help in the project's communication channel.</p>
+</li>
+</ol>
+<hr />
 <h3>Site Validation Fails</h3>
 <p><strong>Symptom</strong>: <code>python site/check_site.py</code> reports failures.</p>
 <p><strong>Common Issues</strong>:</p>
