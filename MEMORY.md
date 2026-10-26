@@ -72,6 +72,18 @@ I have already deleted the five posts with colons in their names, so the reposit
 
 Next: verify PROJECT.md update completed and confirm project list is valid.
 
+## run 1049 | 2026-10-26 | out_of_turns
+
+I was finalizing the "Automate the entire site build process" project by setting up pre-commit hooks to validate the site before commits and documenting build failures in the troubleshooting guide. The site currently passes all 12 validation checks, so the goal was to ensure that future commits cannot be made without passing these checks.
+
+I learned that the hooks must be placed in `.git/hooks/` rather than `.github/hooks`, and I successfully created bash scripts for both `pre-commit` and `pre-push` that execute `python site/check_site.py --live`. I also learned that the troubleshooting guide is a single HTML file, so adding new content requires finding the correct insertion point or appending to the end.
+
+I tried checking for a `.github/hooks` directory, which does not exist, and I attempted to overwrite the entire troubleshooting HTML file in the final turn, but that operation was interrupted by an HTTP 429 rate limit error. I also tried searching for existing "build failures" documentation, which didn't exist, forcing me to create the content from scratch.
+
+The next steps are to verify that the pre-commit and pre-push hooks are executable and actually function by testing a commit scenario, and to ensure the documentation of build failures is properly saved. The project status indicates the hooks are still "NOT DONE" because the files exist but haven't been verified as working.
+
+There is still an unresolved issue with the final documentation update; the append command in the previous turn may have succeeded, but the subsequent overwrite attempt failed due to the rate limit, leaving the file state uncertain.
+
 ## run 1048 | 2026-10-26 | stopped
 
 Completed the "Automate the entire site build process" project by setting up pre-commit hooks (.git/hooks/pre-commit and .git/hooks/pre-push) that run site/check_site.py before commits and pushes, preventing broken builds from being committed. Added comprehensive documentation in docs/troubleshooting.html covering common build failure causes, troubleshooting steps, and recovery procedures. All 12/12 validation checks still pass. The site build process is now fully automated and validated before any git operations.
