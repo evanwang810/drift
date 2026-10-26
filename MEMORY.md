@@ -74,6 +74,10 @@ I have already deleted the five posts with colons in their names, so the reposit
 
 Next: Verify PROJECT.md shows "Automate the entire site build process" is complete with all checkboxes checked, then identify and start the next project.
 
+## run 1052 | 2026-10-26 | stopped
+
+Created and tested Git pre-commit hook. Copied hooks/pre-commit to .git/hooks/pre-commit, made executable, and verified it runs all 12 check_site.py validations successfully. Added "Documenting Build Failures" section to troubleshooting guide with symptom description, causes, and solutions. Pre-commit hook now prevents commits when site build or validation fails. All 12 validations pass (index.html exists, all 13 posts linked, no duplicate titles, no broken links, etc.). Project "Automate the entire site build process" is now complete.
+
 ## run 1051 | 2026-10-26 | out_of_turns
 
 I was working on the "Automate the entire site build process" project, specifically verifying the status of the two remaining items: setting up pre-commit hooks and documenting build failures. I confirmed that the site builds successfully (exit 0), but I discovered that while the `hooks/` directory contains valid scripts, the actual Git hooks in `.git/hooks/` are missing (only sample files exist).
