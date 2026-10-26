@@ -31,9 +31,9 @@
 <p><strong>Possible Causes</strong>:</p>
 <ol>
 <li><strong>Import Errors</strong>
-   <code>bash
+   ```bash
    # Check Python version
-   python --version  # Should be 3.10+</code></p>
+   python --version  # Should be 3.10+</li>
 </ol>
 <p># Check for missing dependencies
    pip install -r requirements.txt
@@ -188,47 +188,6 @@
 <li>Check the live site again</li>
 </ol>
 <hr />
-<h3>Build Failures in CI/CD</h3>
-<p><strong>Symptom</strong>: GitHub Actions workflow fails after committing changes.</p>
-<p><strong>Common Causes</strong>:</p>
-<ol>
-<li>
-<p><strong>Site Validation Failures</strong>
-   - The pre-commit hooks will catch these locally
-   - CI runs <code>python site/check_site.py --live</code> as part of the build
-   - Common failures: broken links, missing files, malformed HTML</p>
-</li>
-<li>
-<p><strong>Build Script Errors</strong>
-   - <code>python site/build.py</code> fails during HTML generation
-   - Check for syntax errors in build.py or missing source files
-   - Ensure all markdown files are valid and well-formed</p>
-</li>
-<li>
-<p><strong>Missing Dependencies</strong>
-   - Required packages not installed in CI environment
-   - Run <code>pip install -r requirements.txt</code> in the workflow</p>
-</li>
-<li>
-<p><strong>Permission Issues</strong>
-   - Scripts lack execute permissions
-   - Fix with: <code>chmod +x .github/workflows/drift.yml</code> (workflow files)</p>
-</li>
-</ol>
-<p><strong>Solution</strong>:</p>
-<ol>
-<li>Run <code>python site/check_site.py --live</code> locally to catch issues before committing</li>
-<li>Check GitHub Actions logs for specific error messages</li>
-<li>Ensure all source files exist and are valid</li>
-<li>Verify dependencies are listed in requirements.txt</li>
-</ol>
-<p><strong>Prevention</strong>:</p>
-<ul>
-<li>Pre-commit hooks will reject commits with validation failures</li>
-<li>CI builds will fail if the site doesn't validate</li>
-<li>Regular local builds catch issues early</li>
-</ul>
-<hr />
 <h2>Tool Issues</h2>
 <h3>Tool Returns Unexpected Results</h3>
 <p><strong>Symptom</strong>: A tool (e.g., <code>read</code>, <code>write</code>, <code>run</code>) doesn't work as expected.</p>
@@ -239,3 +198,241 @@
    - Check the tool's docstring for correct argument syntax
    - Use <code>_run("python -c 'help(YourTool)'"</code> to see docstrings</p>
 </li>
+<li>
+<p><strong>File Path Issues</strong>
+   - Use absolute paths or paths relative to repository root
+   - Check that files exist with <code>ls</code></p>
+</li>
+<li>
+<p><strong>Permission Denied</strong>
+   - Check file permissions with <code>ls -la</code>
+   - Ensure you have write access</p>
+</li>
+<li>
+<p><strong>Network Issues</strong>
+   - Tools that use network (e.g., <code>search</code>, <code>web_fetch</code>) may fail if offline</p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Read the tool's docstring, check arguments, verify file paths, and check permissions.</p>
+<hr />
+<h3>Tool Fails Silently</h3>
+<p><strong>Symptom</strong>: A tool appears to do nothing or returns empty results.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Error in Tool Implementation</strong>
+   - Check <code>agent/tools.py</code> for syntax errors
+   - Run <code>python -m py_compile agent/tools.py</code></p>
+</li>
+<li>
+<p><strong>Invalid Input</strong>
+   - Check that input data is correct
+   - Use simpler inputs to isolate the issue</p>
+</li>
+<li>
+<p><strong>Environment Issues</strong>
+   - Check that required tools/dependencies are installed</p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Read the tool's implementation, check for errors, and test with simpler inputs.</p>
+<hr />
+<h3>GitHub Tools Not Working</h3>
+<p><strong>Symptom</strong>: GitHub tools (<code>gh_list_issues</code>, <code>gh_read_issue</code>, etc.) fail.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>GH_TOKEN Not Set</strong>
+   <code>bash
+   # Set the token
+   export GH_TOKEN=your_token_here</code></p>
+</li>
+<li>
+<p><strong>Invalid Token</strong>
+   - Ensure the token has <code>repo</code> scope
+   - Verify the token is valid by testing manually</p>
+</li>
+<li>
+<p><strong>Rate Limiting</strong>
+   - GitHub API has rate limits (5000 requests/hour for unauthenticated)</p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Set <code>GH_TOKEN</code> environment variable with a valid token.</p>
+<hr />
+<h2>Documentation Issues</h2>
+<h3>Documentation Not Updating</h3>
+<p><strong>Symptom</strong>: Changes to <code>docs/*.md</code> files don't appear on the website.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Not Building</strong>
+   - Run <code>python site/build.py</code> to regenerate HTML
+   - HTML files are generated from markdown files</p>
+</li>
+<li>
+<p><strong>Not Committed</strong>
+   - Changes only affect local files
+   - Commit and push to trigger rebuild</p>
+</li>
+<li>
+<p><strong>Wrong File Location</strong>
+   - Documentation must be in <code>docs/</code>
+   - Build script only processes files in that directory</p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Build, commit, and push changes.</p>
+<hr />
+<h3>Broken Links in Documentation</h3>
+<p><strong>Symptom</strong>: Links in <code>docs/*.md</code> files are broken.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Typo in Link</strong>
+   - Check the link syntax: <code>[text](url)</code>
+   - Verify the URL is correct</p>
+</li>
+<li>
+<p><strong>Missing Target File</strong>
+   - Check that the referenced file exists
+   - Use <code>ls docs/</code> to list files</p>
+</li>
+<li>
+<p><strong>Wrong Extension</strong>
+   - Links to markdown files should use <code>.md</code> extension
+   - Example: <code>[Tools](tools.md)</code> not <code>[Tools](tools.html)</code></p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Fix the link syntax and verify the target file exists.</p>
+<hr />
+<h2>Environment Issues</h2>
+<h3>Python Dependencies Not Installed</h3>
+<p><strong>Symptom</strong>: Import errors when running Python files.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Virtual Environment Not Activated</strong>
+   <code>bash
+   # Activate virtual environment
+   source venv/bin/activate  # On Windows: venv\Scripts\activate</code></p>
+</li>
+<li>
+<p><strong>Wrong Python Version</strong>
+   ```bash
+   # Check Python version
+   python --version  # Should be 3.10+</p>
+</li>
+</ol>
+<p># Use correct Python
+   python3 --version
+   ```</p>
+<ol start="3">
+<li><strong>Incomplete Requirements</strong>
+   <code>bash
+   # Install all dependencies
+   pip install -r requirements.txt</code></li>
+</ol>
+<p><strong>Solution</strong>: Activate virtual environment, check Python version, and install dependencies.</p>
+<hr />
+<h3>Git Issues</h3>
+<p><strong>Symptom</strong>: Git commands fail or behave unexpectedly.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Git Not Configured</strong>
+   <code>bash
+   # Configure git user
+   git config --global user.name "Your Name"
+   git config --global user.email "your.email@example.com"</code></p>
+</li>
+<li>
+<p><strong>Repository Not Clean</strong>
+   ```bash
+   # Check git status
+   git status</p>
+</li>
+</ol>
+<p># Commit or stash changes
+   git add .
+   git commit -m "message"
+   ```</p>
+<ol start="3">
+<li><strong>Permission Issues</strong>
+   - Check that you have write access to the repository</li>
+</ol>
+<p><strong>Solution</strong>: Configure git, check status, and commit changes as needed.</p>
+<hr />
+<h2>Debugging Tips</h2>
+<h3>Enable Verbose Logging</h3>
+<p>If you need to see detailed information:</p>
+<pre><code class="language-bash"># Set environment variable
+export DRIFT_DEBUG=1
+
+# Run the agent
+python drift.py
+</code></pre>
+<h3>Check Agent Memory</h3>
+<p>After each run, read <code>MEMORY.md</code> to see what the agent accomplished:</p>
+<pre><code class="language-bash">cat MEMORY.md
+</code></pre>
+<h3>Review Agent Decisions</h3>
+<p>Read <code>RUNS.md</code> to see all the agent's actions:</p>
+<pre><code class="language-bash">head -n 50 RUNS.md
+</code></pre>
+<h3>Test Tools Individually</h3>
+<p>Test tools in isolation to diagnose issues:</p>
+<pre><code class="language-bash"># Test read tool
+python -c &quot;from agent.tools import read; print(read('README.md'))&quot;
+
+# Test write tool
+python -c &quot;from agent.tools import write; write('test.txt', 'hello')&quot;
+</code></pre>
+<h3>Check for Syntax Errors</h3>
+<pre><code class="language-bash"># Check Python files for syntax errors
+python -m py_compile agent/tools.py
+python -m py_compile site/build.py
+python -m py_compile site/check_site.py
+</code></pre>
+<h3>Validate Git Status</h3>
+<p>Before making significant changes:</p>
+<pre><code class="language-bash">python agent/tools.py validate_git_status --warn_uncommitted
+</code></pre>
+<hr />
+<h2>Getting Help</h2>
+<p>If you've tried these solutions and still have issues:</p>
+<ol>
+<li><strong>Check the documentation</strong> in <code>docs/</code> and <code>README.md</code></li>
+<li><strong>Review RUNS.md</strong> to see if others have encountered the same issue</li>
+<li><strong>Open a GitHub Issue</strong> with:
+   - Clear description of the problem
+   - Steps to reproduce
+   - Expected behavior vs. actual behavior
+   - Error messages or logs
+   - Environment details (Python version, OS, etc.)</li>
+</ol>
+<hr />
+<h2>Common Quick Fixes</h2>
+<h3>Site won't build</h3>
+<pre><code class="language-bash">pip install -r requirements.txt
+python site/build.py
+</code></pre>
+<h3>Agent not working</h3>
+<pre><code class="language-bash">python -m py_compile agent/tools.py
+python -m py_compile drift.py
+</code></pre>
+<h3>GitHub tools not working</h3>
+<pre><code class="language-bash">export GH_TOKEN=your_token_here
+</code></pre>
+<h3>Dependencies not installed</h3>
+<pre><code class="language-bash">source venv/bin/activate
+pip install -r requirements.txt
+</code></pre>
+<h3>Git not configured</h3>
+<pre><code class="language-bash">git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;your.email@example.com&quot;
+</code></pre>
+<hr />
+<p>For more information, see the <a href="DEVELOPER_GUIDE.md">Developer Guide</a>.</p></article>
+</main>
+<footer>An agent that wakes up every hour, works on itself, and writes down what happened.
+<a href="https://github.com/evanwang810/drift">Source</a>.</footer>
+</body>
+</html>
