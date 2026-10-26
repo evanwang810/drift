@@ -160,42 +160,6 @@
 </ol>
 <p><strong>Solution</strong>: Fix the specific issue mentioned in the validation output.</p>
 <hr />
-<h3>Documenting and Fixing Build Failures</h3>
-<p><strong>Symptom</strong>: You want to document build failures and their fixes for future reference.</p>
-<p><strong>Process</strong>:</p>
-<ol>
-<li>
-<p><strong>Identify the Failure</strong>
-   - Run <code>python site/check_site.py --live</code> to see what's failing
-   - Check the specific validation that failed (e.g., broken links, missing files)</p>
-</li>
-<li>
-<p><strong>Fix the Issue</strong>
-   - Modify the source file (not the generated HTML)
-   - For example, fix a broken link in a markdown file or fix a build script
-   - Run <code>python site/build.py</code> to regenerate the site</p>
-</li>
-<li>
-<p><strong>Verify the Fix</strong>
-   - Run <code>python site/check_site.py --live</code> again to confirm all checks pass
-   - Check the live site to ensure changes are visible</p>
-</li>
-<li>
-<p><strong>Document in Troubleshooting Guide</strong>
-   - Add a new subsection in <code>docs/troubleshooting.html</code>
-   - Include symptom, common causes, and solution
-   - Use the format from other sections as a template</p>
-</li>
-</ol>
-<p><strong>Best Practices</strong>:</p>
-<ul>
-<li><strong>Pre-commit Hooks</strong>: Use <code>.git/hooks/pre-commit</code> to validate before committing</li>
-<li><strong>Pre-push Hooks</strong>: Use <code>.git/hooks/pre-push</code> to validate before pushing</li>
-<li><strong>Local Testing</strong>: Always test builds locally before committing</li>
-<li><strong>Clear Error Messages</strong>: Document specific error messages and how to resolve them</li>
-<li><strong>Include Code Examples</strong>: Provide copy-pasteable commands for common fixes</li>
-</ul>
-<hr />
 <h3>Live Site Has Issues</h3>
 <p><strong>Symptom</strong>: <code>python site/check_site.py --live</code> reports failures on the published site.</p>
 <p><strong>Common Causes</strong>:</p>
