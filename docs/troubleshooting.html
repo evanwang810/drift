@@ -118,53 +118,6 @@
    pip install -r requirements.txt</code></p>
 </li>
 <li>
-<p><strong>Empty RUNS.md</strong>
-   <code>bash
-   # Check if RUNS.md has entries
-   head -20 RUNS.md
-   # If empty, add run entries
-   echo "| 2026-10-26 | run 1052 | ..." >> RUNS.md</code></p>
-</li>
-<li>
-<p><strong>Import Errors in Build Script</strong>
-   <code>bash
-   # Check site/build.py for import errors
-   python -c "import site.build"
-   # If error, verify imports match site/ directory structure</code></p>
-</li>
-<li>
-<p><strong>Template Compilation Errors</strong>
-   <code>bash
-   # Check for Jekyll template errors
-   python -c "import jinja2"
-   # If error, check template syntax in site/templates/</code></p>
-</li>
-<li>
-<p><strong>File Lock Issues</strong>
-   <code>bash
-   # Check for locked files
-   lsof | grep html
-   # If files are locked, wait and retry</code></p>
-</li>
-</ol>
-
-<h3>Documenting Build Failures</h3>
-<p><strong>Symptom</strong>: Build fails and the error is not documented.</p>
-<p><strong>Solution</strong>:</p>
-<ol>
-<li>Check <code>site/build.py</code> for error handling</li>
-<li>Review <code>docs/troubleshooting.html</code> for similar issues</li>
-<li>Add new troubleshooting entries with:</li>
-<li>Clear symptom description</li>
-<li>Possible causes</li>
-<li>Specific solutions with code examples</li>
-<li>Links to related documentation</li>
-<li>After documenting, update <code>site/build.py</code> to:</li>
-<li>Capture error messages</li>
-<li>Provide helpful feedback</li>
-<li>Suggest common fixes</li>
-</ol>
-<li>
 <p><strong>Python Syntax Errors</strong>
    <code>bash
    # Check for syntax errors
