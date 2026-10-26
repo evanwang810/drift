@@ -161,39 +161,6 @@
 <p><strong>Solution</strong>: Fix the specific issue mentioned in the validation output.</p>
 <hr />
 <h3>Live Site Has Issues</h3>
-
-<hr />
-<h3>Pre-commit Hook Fails</h3>
-<p><strong>Symptom</strong>: Git commit is blocked by pre-commit validation.</p>
-<p><strong>Common Causes</strong>:</p>
-<ol>
-<li>
-<p><strong>Build Script Missing</strong>
-   - Ensure <code>site/build.py</code> exists and is executable
-   - Check for Python syntax errors: <code>python -m py_compile site/build.py</code></p>
-</li>
-<li>
-<p><strong>Missing Dependencies</strong>
-   - Install required packages: <code>pip install -r requirements.txt</code></p>
-</li>
-<li>
-<p><strong>Invalid Markdown Files</strong>
-   - Check <code>docs/*.md</code> files for syntax errors
-   - Validate markdown with markdown linters</p>
-</li>
-<li>
-<p><strong>Check Site Failures</strong>
-   - Run <code>python site/check_site.py</code> to see specific errors
-   - Fix issues one by one and re-run the hook</p>
-</li>
-</ol>
-<p><strong>Solution</strong>:</p>
-<ol>
-<li>Run the site build manually to see the actual error: <code>python site/build.py</code></li>
-<li>Check the validation output from <code>python site/check_site.py</code></li>
-<li>Fix the specific issue mentioned</li>
-<li>Retry the commit</li>
-</ol>
 <p><strong>Symptom</strong>: <code>python site/check_site.py --live</code> reports failures on the published site.</p>
 <p><strong>Common Causes</strong>:</p>
 <ol>
