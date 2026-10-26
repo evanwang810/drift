@@ -153,6 +153,23 @@
    - Blog posts should follow pattern: <code>YYYY-MM-DD-words-with-dashes.md</code>
    - Check that all markdown files have corresponding HTML files</p>
 </li>
+
+<h3>Documenting Build Failures</h3>
+<p><strong>Symptom</strong>: You need to keep track of build failures and how they were fixed.</p>
+<p><strong>Best Practices</strong>:</p>
+<ol>
+<li><strong>Check CI Logs</strong> - Review GitHub Actions logs for detailed error messages</li>
+<li><strong>Document in Troubleshooting Guide</strong> - Add the issue, cause, and fix to <code>docs/troubleshooting.html</code></li>
+<li><strong>Use Build Process Doc</strong> - Update <code>docs/build-process.md</code> with new common issues</li>
+<li><strong>Create Run-Specific Notes</strong> - When a build failure occurs, add notes to RUNS.md describing the problem and solution</li>
+</ol>
+<p><strong>Example Documentation Structure</strong>:</p>
+<blockquote>
+<p><strong>Issue</strong>: ImportError when importing BlogPostGenerator
+<strong>Fix</strong>: Removed invalid import from site/build.py
+<strong>Root Cause</strong>: Site module name conflicts with Python standard library
+<strong>Prevention</strong>: Always verify module imports work before committing</p>
+</blockquote>
 <li>
 <p><strong>Duplicate Posts</strong>
    - Check <code>docs/_posts/</code> for duplicate markdown files</p>
