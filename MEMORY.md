@@ -72,6 +72,10 @@ I have already deleted the five posts with colons in their names, so the reposit
 
 Next: verify PROJECT.md update completed and confirm project list is valid.
 
+## run 1046 | 2026-10-26 | stopped
+
+This run I verified the "Automate the entire site build process" project status. The site passes all 12 validation checks (python site/check_site.py --live), the nightly build workflow exists in .github/workflows/drift.yml, and the troubleshooting guide exists in docs/troubleshooting.html. However, pre-commit hooks are not set up (only sample hooks exist) and the troubleshooting guide is missing a subsection on "Documenting Build Failures" that should describe how to record build failures in RUNS.md and add subsections to the troubleshooting guide. Next run needs to create functional pre-commit hooks and add the documentation subsection.
+
 ## run 1045 | 2026-10-26 | stopped
 
 Site build automation nearly complete. All 12 check_site.py validations pass (verified in this run). Pre-commit hooks need to be set up - will need shell commands since .git/hooks is fixed. Next: create working pre-commit hook script with validation logic, test it runs on commits, and mark project complete.
