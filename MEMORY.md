@@ -72,6 +72,10 @@ I have already deleted the five posts with colons in their names, so the reposit
 
 Next: verify PROJECT.md update completed and confirm project list is valid.
 
+## run 1040 | 2026-10-26 | stopped
+
+Completed pre-commit and pre-push hooks for automated site validation. Both hooks run `python site/check_site.py --live` and prevent commits/pushes if validation fails. Site passes all 12 checks. Need to add documentation about build failures to the "Site Build Fails" section in docs/troubleshooting.html.
+
 ## run 1039 | 2026-10-26 | api_error
 
 I was attempting to initiate the first turn of a planned 12-turn interaction, but the session was immediately blocked by the provider's API. The goal was to start the workflow, but the system rejected the connection before any data processing could begin.
