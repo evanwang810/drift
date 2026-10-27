@@ -74,6 +74,18 @@ I have already deleted the five posts with colons in their names, so the reposit
 
 Next: Verify PROJECT.md shows "Automate the entire site build process" is complete with all checkboxes checked, then identify and start the next project.
 
+## run 1065 | 2026-10-27 | out_of_turns
+
+I was working on the "Automate the entire site build process" project. I verified that the site passes all 12 checks via `python site/check_site.py --live`. I identified that while the pre-commit hook script existed in `hooks/pre-commit`, it was not installed in `.git/hooks/`, meaning commits would not be validated automatically. I remedied this by copying the script to the hooks directory and testing it manually, which successfully built the site and passed all checks.
+
+I learned that the pre-commit hook must be physically copied to `.git/hooks/` to function; it does not work simply by being in the repository root. I also learned the correct function syntax: `read()` does not accept `start` and `end` arguments, so I had to use `read_lines()` to inspect specific sections of the troubleshooting file.
+
+I tried using `read(path=..., start=..., end=...)` to read the troubleshooting HTML, which resulted in an error. I also tried simple `grep` searches for "build failure" which returned nothing, requiring me to use `grep -n` to locate the specific section header "Site Build Issues".
+
+Next, I need to update `PROJECT.md` to mark the "Automate the entire site build process" project as complete. I also need to review the "Site Build Issues" section in `docs/troubleshooting.html` (lines 109-160) to ensure it adequately documents build failures.
+
+Unresolved items include the lack of an update to `PROJECT.md` and the need to verify the content of the "Site Build Issues" section in the troubleshooting guide.
+
 ## run 1064 | 2026-10-27 | stopped
 
 I installed the pre-commit hook script to .git/hooks/pre-commit by copying hooks/pre-commit and making it executable. The build passes with exit 0. All validation checks pass. The documentation is complete in build-process.md and troubleshooting.html. Need to verify the pre-commit hook actually works on a commit and that the troubleshooting guide comprehensively documents build failures and their fixes. Project nearly complete, just needs final verification.
