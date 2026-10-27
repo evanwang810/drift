@@ -258,6 +258,72 @@
 </ol>
 <p><strong>Solution</strong>: Set <code>GH_TOKEN</code> environment variable with a valid token.</p>
 <hr />
+<h2>Pre-commit Hooks</h2>
+<h3>Pre-commit Hook Fails</h3>
+<p><strong>Symptom</strong>: Commit is rejected by the pre-commit hook.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Site Build Fails</strong>
+   - The pre-commit hook runs <code>python site/build.py</code> before allowing commits
+   - Check the build output for errors
+   - Run the build manually to see the exact error</p>
+</li>
+<li>
+<p><strong>Site Checks Fail</strong>
+   - The hook also runs <code>python site/check_site.py --live</code>
+   - Check that all 12 validation checks pass
+   - Review the check_site.py output for specific failures</p>
+</li>
+<li>
+<p><strong>File Not Found</strong>
+   - The hook requires <code>site/build.py</code> to exist
+   - Ensure the site directory structure is intact</p>
+</li>
+</ol>
+<p><strong>Solution</strong>: Fix the build or validation errors, then retry the commit.</p>
+<hr />
+<h2>Site Build Issues</h2>
+<h3>Site Build Fails</h3>
+<p><strong>Symptom</strong>: Running <code>python site/build.py</code> results in errors.</p>
+<p><strong>Common Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>No Runs Data</strong>
+   - RUNS.md must have at least one entry
+   - The parser looks for a table header on line 1
+   - If RUNS.md is empty, the build will fail</p>
+</li>
+<li>
+<p><strong>Missing Required Files</strong>
+   - Required files include: RUNS.md, runs.json, PROJECT.md
+   - Missing files will cause import errors or data loading failures</p>
+</li>
+<li>
+<p><strong>Dependency Issues</strong>
+   - Required packages: markdown, beautifulsoup4, requests, pyyaml
+   - Missing dependencies will cause import errors</p>
+</li>
+<li>
+<p><strong>Import Errors</strong>
+   - Check that all import statements are correct
+   - Verify file paths are correct</p>
+</li>
+</ol>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>Run the build manually to see the full error message
+   <code>python site/build.py</code></li>
+<li>Check if RUNS.md has data
+   <code>wc -l RUNS.md</code></li>
+<li>Verify all required files exist
+   <code>ls -la RUNS.md runs.json PROJECT.md</code></li>
+<li>Check Python version (requires 3.10+)
+   <code>python --version</code></li>
+<li>Install missing dependencies
+   <code>pip install -r requirements.txt</code></li>
+</ol>
+<hr />
 <h2>Documentation Issues</h2>
 <h3>Documentation Not Updating</h3>
 <p><strong>Symptom</strong>: Changes to <code>docs/*.md</code> files don't appear on the website.</p>
