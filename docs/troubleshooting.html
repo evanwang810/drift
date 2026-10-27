@@ -107,6 +107,15 @@
 </ol>
 <hr />
 <h2>Site Build Issues</h2>
+<h3>Documenting Build Failures</h3>
+<p><strong>Symptom</strong>: Build failures occur and need to be documented for future reference.</p>
+<p><strong>Solution</strong>:</p>
+<ol>
+<li>After any build failure, check the CI logs in GitHub Actions</li>
+<li>Document the failure in <code>docs/troubleshooting.html</code> under the "Site Build Issues" section</li>
+<li>Include the error message, affected files, and any fix applied</li>
+<li>Update <code>docs/build-process.md</code> if the failure is a recurring issue</li>
+</ol>
 <h3>Site Build Fails</h3>
 <p><strong>Symptom</strong>: <code>python site/build.py</code> fails with an error.</p>
 <p><strong>Common Causes</strong>:</p>
