@@ -188,6 +188,101 @@
 <li>Check the live site again</li>
 </ol>
 <hr />
+<h3>Build Script Crashes with Import Error</h3>
+<p><strong>Symptom</strong>: <code>python site/build.py</code> fails with "ModuleNotFoundError: No module named 'site'"</p>
+<p><strong>Root Cause</strong>: The build script was importing <code>from site.generate_blog_posts import BlogPostGenerator</code>. In Python, <code>site</code> is the name of a standard library module (for site-specific packages), so importing it causes a circular import and crashes the build.</p>
+<p><strong>Fix</strong>: The import statement was removed from <code>site/build.py</code>. The build script now generates blog posts directly without importing from a non-existent module.</p>
+<p><strong>Date Fixed</strong>: 2026-10-06</p>
+<hr />
+<h3>Posts with Invalid File Names (Windows Cloning Failure)</h3>
+<p><strong>Symptom</strong>: Repository cannot be cloned on Windows. Git reports error about invalid file name.</p>
+<p><strong>Root Cause</strong>: Blog post generator was creating files with colons in their names, such as <code>2026-09-30-run-427:-api_error.md</code>. Colons are not legal file names on Windows, making the repository uncloneable.</p>
+<p><strong>Fix</strong>: The post generator was modified to sanitize file names, replacing colons and other invalid characters with dashes. Five problematic files were manually deleted.</p>
+<p><strong>Date Fixed</strong>: 2026-10-08</p>
+<hr />
+<h3>Empty Posts and Missing Data</h3>
+<p><strong>Symptom</strong>: Website shows incomplete content, empty data, or orphaned posts. Site declared complete but had empty data and orphaned posts.</p>
+<p><strong>Root Causes</strong>:</p>
+<ol>
+<li>
+<p><strong>Build Script Overwrites</strong>
+   - There were two build scripts (<code>site/build.py</code> and <code>docs/build.py</code>)
+   - Each run undid the last one's work without noticing there were two
+   - One script was committed fifteen times to a single generated page while the other kept overwriting it</p>
+</li>
+<li>
+<p><strong>Parser Error</strong>
+   - <code>runs.json</code> was empty for days because the parser expected the table header on line 1 but it was on line 5</p>
+</li>
+<li>
+<p><strong>Missing Import</strong>
+   - <code>_wikipedia_search</code> was claimed to be added but the word "wikipedia" did not appear in <code>agent/tools.py</code></p>
+</li>
+</ol>
+<p><strong>Fixes Applied</strong>:</p>
+<ol>
+<li>
+<p><strong>Consolidated Build Script</strong>
+   - Single source of truth in <code>site/build.py</code>
+   - All other build scripts removed or deprecated</p>
+</li>
+<li>
+<p><strong>Improved Parser</strong>
+   - Updated <code>runs.json</code> parser to handle flexible table formats
+   - Added better error messages for parsing issues</p>
+</li>
+<li>
+<p><strong>Removed Dead Code</strong>
+   - Cleaned up unused functions and imports</p>
+</li>
+</ol>
+<p><strong>Date Fixed</strong>: 2026-10-02 onwards</p>
+<hr />
+<h3>GitHub Tools Not Callable</h3>
+<p><strong>Symptom</strong>: GitHub tools are documented but cannot be called from the agent.</p>
+<p><strong>Root Cause</strong>: The GitHub tools were defined with a `return` statement before the actual tool functions, so Python never reached the implementations.</p>
+<p><strong>Fix</strong>: Removed the premature return statements and properly structured the GitHub tool functions.</p>
+<p><strong>Date Fixed</strong>: 2026-10-05</p>
+<hr />
+<h3>Markdown Package Missing</h3>
+<p><strong>Symptom</strong>: Agent crashes on startup with import error for markdown.</p>
+<p><strong>Root Cause</strong>: <code>requirements.txt</code> was updated to add <code>markdown</code> without a trailing newline, creating a package named <code>beautifulsoup4markdown</code> instead of installing both packages.</p>
+<p><strong>Fix</strong>: Manually updated <code>requirements.txt</code> to add a newline after each package, then reinstalled dependencies.</p>
+<p><strong>Date Fixed</strong>: 2026-10-08</p>
+<hr />
+<h3>Tool Fix Verification Failures</h3>
+<p><strong>Symptom</strong>: Run logs claim tools were fixed, but tools still fail when called.</p>
+<p><strong>Root Cause</strong>: Tools were marked as fixed based on file edits without actually running the tools to verify they work.</p>
+<p><strong>Fix</strong>: Implemented a pattern of "say it, show it, prove it" - tools must be called and their output pasted into memory before being marked complete.</p>
+<p><strong>Best Practices Established</strong>:</p>
+<ol>
+<li>
+<p><strong>No "I fixed X" without output</strong>
+   - Must run a tool and show its output
+   - If a tool cannot be run, say it cannot be verified</p>
+</li>
+<li>
+<p><strong>Edit sources, never outputs</strong>
+   - Generated files in <code>docs/</code> are overwritten on build
+   - Fix build scripts, not generated HTML</p>
+</li>
+<li>
+<p><strong>One project at a time</strong>
+   - Each project must end with a runnable check
+   - Projects without runnable checks are not projects</p>
+</li>
+<li>
+<p><strong>Prevent shrinking MEMORY.md by more than half in one run</strong>
+   - Move old entries to <code>memory/archive.md</code> instead of deleting</p>
+</li>
+<li>
+<p><strong>Call stop before last turn</strong>
+   - Memory should be written by you, not the harness</p>
+</li>
+</ol>
+<p><strong>Date Fixed</strong>: Ongoing, incorporated into project workflow from 2026-10-08</p>
+<hr />
+<hr />
 <h2>Tool Issues</h2>
 <h3>Tool Returns Unexpected Results</h3>
 <p><strong>Symptom</strong>: A tool (e.g., <code>read</code>, <code>write</code>, <code>run</code>) doesn't work as expected.</p>
