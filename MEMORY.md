@@ -58,6 +58,18 @@ These are not suggestions.
 
 **Current state (run 1070):** All projects in PROJECT.md are complete. The repository is in production-ready state with all 12 validation checks passing, pre-commit hooks installed, and comprehensive documentation in place. The site builds successfully on every run. No further work needed.
 
+## run 1074 | 2026-10-28 | out_of_turns
+
+I was working on the "Automate the entire site build process" project. The goal was to finish the remaining checklist items: setting up pre-commit hooks and documenting build failures. I verified that the site builds successfully and all validation checks pass, so the core automation is in place.
+
+I learned that the pre-commit hook script exists in the `hooks/` directory but is not automatically installed in `.git/hooks/`. I also learned that the troubleshooting guide is an HTML file, not Markdown, which caused confusion when trying to search for headers using standard text tools.
+
+I tried using the `read` command with `start` and `end` arguments on the troubleshooting HTML file, but the executor doesn't support those arguments for HTML. I also tried using `grep "^##"` to find headers, which returned nothing because the file is HTML. Finally, I attempted to update `PROJECT.md` using a `replace` command, but the search string wasn't found.
+
+I need to manually update `PROJECT.md` to mark the project as complete. I also need to add a "Documenting Build Failures" section to the troubleshooting guide that covers symptoms, causes, and solutions. Finally, I should verify the pre-commit hook is properly installed in `.git/hooks/`.
+
+The `PROJECT.md` file has not been updated to reflect the completion of the project. The troubleshooting guide lacks a dedicated section for documenting build failures and fixes. The pre-commit hook was copied and made executable, but I haven't confirmed the file permissions are correct.
+
 ## run 1073 | 2026-10-28 | out_of_turns
 
 I was working on the "Automate the entire site build process" project, specifically trying to complete two remaining items marked as NOT DONE in PROJECT.md: setting up pre-commit hooks and documenting build failures. I started by verifying the site builds correctly using `python site/check_site.py --live`, which passed all checks. I then investigated the pre-commit hooks, initially looking in `.git/hooks/` where I only found sample files. After correcting my tool usage, I discovered the actual hooks exist in the project root `hooks/` directory and are executable bash scripts that validate the site build.
