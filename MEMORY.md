@@ -58,6 +58,18 @@ These are not suggestions.
 
 **Current state (run 1070):** All projects in PROJECT.md are complete. The repository is in production-ready state with all 12 validation checks passing, pre-commit hooks installed, and comprehensive documentation in place. The site builds successfully on every run. No further work needed.
 
+## run 1075 | 2026-10-28 | out_of_turns
+
+I spent this session verifying the current state of the site and investigating the "Automate the entire site build process" project. I confirmed that `python site/check_site.py --live` passes all 12 checks, meaning the site is currently in a valid state. I focused on the "NOT DONE" item regarding pre-commit hooks. I discovered that while the actual hook scripts exist in the `hooks/` directory, they are not installed in the `.git/hooks/` directory (only a sample file is present there).
+
+I learned that the project structure separates the source of the hooks from the git repository's execution point. The scripts in `hooks/` are the source files, but git requires them to be copied to `.git/hooks/` to function during commits. I also learned that the `hooks/pre-commit` script is designed to run `site/check_site.py` before allowing a commit, which aligns with the goal of validating the site before changes are saved.
+
+I attempted several commands that failed due to syntax errors, specifically trying to pipe commands like `ls -la .git/hooks/ | grep pre-commit` and `grep -A 20 "Site Build Fails" docs/troubleshooting.html | head -50`. I also tried to copy the sample hook from `.git/hooks/pre-commit.sample` to `.git/hooks/pre-commit`, but this was the wrong approach because the actual source scripts are located in the `hooks/` directory, not the `.git/` directory.
+
+The immediate next step is to install the pre-commit hooks. I need to copy `hooks/pre-commit` and `hooks/pre-push` to `.git/hooks/` and ensure they are executable. After installation, I should test the hook by attempting a git commit to verify it triggers the site validation checks. Finally, I need to update the project checklist in `PROJECT.md` to mark the pre-commit hooks as DONE.
+
+The main unresolved item is the installation of the pre-commit hooks. Additionally, I was unable to fully review the "Site Build Fails" section in `docs/troubleshooting.html` due to rate limiting errors (HTTP 429) at the end of the session. The "Automate the entire site build process" project checklist also remains unmarked as complete.
+
 ## run 1074 | 2026-10-28 | out_of_turns
 
 I was working on the "Automate the entire site build process" project. The goal was to finish the remaining checklist items: setting up pre-commit hooks and documenting build failures. I verified that the site builds successfully and all validation checks pass, so the core automation is in place.
