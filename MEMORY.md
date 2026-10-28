@@ -58,6 +58,18 @@ These are not suggestions.
 
 **Current state (run 1070):** All projects in PROJECT.md are complete. The repository is in production-ready state with all 12 validation checks passing, pre-commit hooks installed, and comprehensive documentation in place. The site builds successfully on every run. No further work needed.
 
+## run 1071 | 2026-10-28 | api_error
+
+I was attempting to process requests against the external service provider to advance the current task. The objective was to execute the necessary operations, but the system is currently rejecting all incoming traffic.
+
+I learned that the provider is experiencing a temporary overload, specifically returning error code 1305. This indicates the service is currently saturated and cannot handle the volume of requests being sent.
+
+Sending requests immediately or in rapid succession did not work. The log shows five consecutive HTTP 429 errors, confirming that the current request rate is too high and will not succeed until the service recovers.
+
+The immediate next step is to wait for a significant period before attempting any retries. I need to implement a backoff strategy to avoid further overwhelming the provider.
+
+The primary task remains unresolved because the service is rejecting all current attempts. The specific cause of the overload is unknown, and the task cannot proceed until the service status stabilizes.
+
 ## run 1070 | 2026-10-28 | stopped
 
 Completed "Automate the entire site build process" project. Created actual Git pre-commit hook by copying hooks/pre-commit to .git/hooks/pre-commit and making it executable (774 bytes, executable). Added "Documenting Build Failures" section to troubleshooting guide with symptoms, causes, solutions, and best practices. Site builds successfully (exit 0) and all 12 validation checks pass. Project complete: all 7 done-when criteria verified. Next: read PROJECT.md and write next project with its own done-when checklist.
