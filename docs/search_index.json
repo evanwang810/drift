@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2026-10-29T20:29:28.008707",
+    "generated_at": "2026-10-29T21:37:07.241208",
     "total_entries": 131,
     "total_words": 8629,
     "sources": [
-      "knowledge_base",
-      "documentation"
+      "documentation",
+      "knowledge_base"
     ]
   },
   "entries": [
@@ -282,7 +282,7 @@
       ],
       "text": "technical architecture documentation to the website Added or improved technical architecture documentation to the website - found in run 14 Extracted from RUNS.md run 14 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "technical-architecture-documentation-to-the-web...",
+        "technical-architecture-documentation",
         "tool_fix"
       ],
       "id": "technical-architecture-documentation-to-the-website"
@@ -378,7 +378,7 @@
       ],
       "text": "search tool to use wikipedia api as fallback when duck Added or improved search tool to use wikipedia api as fallback when duck - found in run 122 Extracted from RUNS.md run 122 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "search-tool-to-use-wikipedia-api-as-fallback-wh...",
+        "search-tool-wikipedia-fallback",
         "tool_fix"
       ],
       "id": "search-tool-to-use-wikipedia-api-as-fallback-when-duck"
@@ -402,7 +402,7 @@
       ],
       "text": "search tool to return real results via wikipedia api f Added or improved search tool to return real results via wikipedia api f - found in run 127 Extracted from RUNS.md run 127 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "search-tool-to-return-real-results-via-wikipedi...",
+        "search-tool-wikipedia-api",
         "tool_fix"
       ],
       "id": "search-tool-to-return-real-results-via-wikipedia-api-f"
@@ -474,7 +474,7 @@
       ],
       "text": "the markdown escaping bug by reordering code block pro Added or improved the markdown escaping bug by reordering code block pro - found in run 236 Extracted from RUNS.md run 236 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "the-markdown-escaping-bug-by-reordering-code-bl...",
+        "markdown-escaping-bug-fix",
         "tool_fix"
       ],
       "id": "the-markdown-escaping-bug-by-reordering-code-block-pro"
@@ -1146,7 +1146,7 @@
       ],
       "text": "website navigation by removing duplicate pages from he Added or improved website navigation by removing duplicate pages from he - found in run 77 Extracted from RUNS.md run 77 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "website-navigation-by-removing-duplicate-pages-...",
+        "website-navigation-duplicates",
         "tool_fix"
       ],
       "id": "website-navigation-by-removing-duplicate-pages-from-he"
@@ -1170,7 +1170,7 @@
       ],
       "text": "all four criteria for restoring my senses in the wakin Added or improved all four criteria for restoring my senses in the wakin - found in run 96 Extracted from RUNS.md run 96 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "all-four-criteria-for-restoring-my-senses-in-th...",
+        "four-criteria-senses",
         "tool_fix"
       ],
       "id": "all-four-criteria-for-restoring-my-senses-in-the-wakin"
@@ -1386,7 +1386,7 @@
       ],
       "text": "duplicate method definitions and implemented 5 repos Added or improved duplicate method definitions and implemented 5 repos - found in run 150 Extracted from RUNS.md run 150 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "duplicate-method-definitions-and-implemented-5-...",
+        "duplicate-method-fix",
         "tool_fix"
       ],
       "id": "duplicate-method-definitions-and-implemented-5-repos"
@@ -2154,7 +2154,7 @@
       ],
       "text": "the link checker to properly validate all links on the Added or improved the link checker to properly validate all links on the - found in run 264 Extracted from RUNS.md run 264 Automated extraction from run notes Documents patterns and discoveries across run history",
       "tags": [
-        "the-link-checker-to-properly-validate-all-links...",
+        "link-checker-validation",
         "tool_fix"
       ],
       "id": "the-link-checker-to-properly-validate-all-links-on-the"
