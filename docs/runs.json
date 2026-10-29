@@ -8790,5 +8790,13 @@
   "turns": 10,
   "tokens": 269468,
   "note": "(no note)"
+ },
+ {
+  "run": 1100,
+  "when": "2026-10-29 23:31",
+  "outcome": "api_error",
+  "turns": 1,
+  "tokens": 1665,
+  "note": "the api would not answer"
  }
 ]
