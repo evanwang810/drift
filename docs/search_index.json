@@ -1,41 +1,14 @@
 {
   "metadata": {
-    "generated_at": "2026-10-29T13:19:36.413096",
+    "generated_at": "2026-10-29T13:51:40.495278",
     "total_entries": 131,
     "total_words": 8717,
     "sources": [
-      "knowledge_base",
-      "documentation"
+      "documentation",
+      "knowledge_base"
     ]
   },
   "entries": [
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Safety & Guardrails Tools",
-      "description": "Tools for validation, rollback, and git-based safety mechanisms",
-      "keywords": [
-        "tools",
-        "safety",
-        "rollback",
-        "points",
-        "guardrails",
-        "validation,",
-        "rollback,",
-        "git-based",
-        "mechanisms",
-        "created"
-      ],
-      "text": "Safety & Guardrails Tools Tools for validation, rollback, and git-based safety mechanisms Created tools for safe experimentation and rollback points Tested rollback points and validation tools Improved safety and error recovery capabilities",
-      "tags": [
-        "safety",
-        "validation",
-        "rollback",
-        "git",
-        "python"
-      ],
-      "id": "safety-&-guardrails-tools"
-    },
     {
       "type": "knowledge",
       "source": "knowledge_base",
@@ -61,83 +34,6 @@
         "capabilities"
       ],
       "id": "glm-5.3-flash-platform-details"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "LLM Agent Landscape 2026",
-      "description": "Overview of LLM agent frameworks and patterns in 2026",
-      "keywords": [
-        "agent",
-        "2026",
-        "frameworks",
-        "patterns",
-        "landscape",
-        "overview",
-        "researched",
-        "current",
-        "state",
-        "deployment"
-      ],
-      "text": "LLM Agent Landscape 2026 Overview of LLM agent frameworks and patterns in 2026 Researched current state of LLM agent frameworks and deployment patterns Compiling research findings into structured entries Provides context for agent tool design and implementation",
-      "tags": [
-        "llm",
-        "agents",
-        "frameworks",
-        "2026"
-      ],
-      "id": "llm-agent-landscape-2026"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Web Fetch Tool Robustness",
-      "description": "Improved error handling and HTML parsing in web_fetch tool",
-      "keywords": [
-        "error",
-        "tool",
-        "improved",
-        "handling",
-        "failures,",
-        "fetch",
-        "robustness",
-        "html",
-        "parsing",
-        "web_fetch"
-      ],
-      "text": "Web Fetch Tool Robustness Improved error handling and HTML parsing in web_fetch tool Enhanced error handling for network failures, invalid HTML, and malformed responses Tested with various edge cases and error scenarios Reduced failures, improved reliability of web-based tools",
-      "tags": [
-        "web_fetch",
-        "error_handling",
-        "html"
-      ],
-      "id": "web-fetch-tool-robustness"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Search Tool Design Limitations",
-      "description": "Limitations and constraints of current search tool implementation",
-      "keywords": [
-        "tool",
-        "limitations",
-        "search",
-        "design",
-        "constraints",
-        "current",
-        "implementation",
-        "identified",
-        "html",
-        "structure"
-      ],
-      "text": "Search Tool Design Limitations Limitations and constraints of current search tool implementation Identified limitations in HTML structure and CSS parsing Documented issues with CSS selectors and DOM traversal Guides future tool improvements and design decisions",
-      "tags": [
-        "search",
-        "css",
-        "html_structure",
-        "limitations"
-      ],
-      "id": "search-tool-design-limitations"
     },
     {
       "type": "knowledge",
@@ -168,6 +64,85 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
+      "title": "Safety & Guardrails Tools",
+      "description": "Tools for validation, rollback, and git-based safety mechanisms",
+      "keywords": [
+        "tools",
+        "safety",
+        "rollback",
+        "points",
+        "guardrails",
+        "validation,",
+        "rollback,",
+        "git-based",
+        "mechanisms",
+        "created"
+      ],
+      "text": "Safety & Guardrails Tools Tools for validation, rollback, and git-based safety mechanisms Created tools for safe experimentation and rollback points Tested rollback points and validation tools Improved safety and error recovery capabilities",
+      "tags": [
+        "safety",
+        "validation",
+        "rollback",
+        "git",
+        "python"
+      ],
+      "id": "safety-&-guardrails-tools"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "LLM Agent Landscape 2026",
+      "description": "Overview of LLM agent frameworks and patterns in 2026",
+      "keywords": [
+        "agent",
+        "2026",
+        "frameworks",
+        "patterns",
+        "landscape",
+        "overview",
+        "researched",
+        "current",
+        "state",
+        "deployment"
+      ],
+      "text": "LLM Agent Landscape 2026 Overview of LLM agent frameworks and patterns in 2026 Researched current state of LLM agent frameworks and deployment patterns Compiling research findings into structured entries Provides context for agent tool design and implementation",
+      "tags": [
+        "llm",
+        "agents",
+        "frameworks",
+        "2026"
+      ],
+      "id": "llm-agent-landscape-2026"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Search Tool Design Limitations",
+      "description": "Limitations and constraints of current search tool implementation",
+      "keywords": [
+        "tool",
+        "limitations",
+        "search",
+        "design",
+        "constraints",
+        "current",
+        "implementation",
+        "identified",
+        "html",
+        "structure"
+      ],
+      "text": "Search Tool Design Limitations Limitations and constraints of current search tool implementation Identified limitations in HTML structure and CSS parsing Documented issues with CSS selectors and DOM traversal Guides future tool improvements and design decisions",
+      "tags": [
+        "search",
+        "css",
+        "html_structure",
+        "limitations"
+      ],
+      "id": "search-tool-design-limitations"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
       "title": "Run Summary Memory System",
       "description": "Memory compaction and summarization workflow for run history",
       "keywords": [
@@ -190,6 +165,439 @@
         "context"
       ],
       "id": "run-summary-memory-system"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Web Fetch Tool Robustness",
+      "description": "Improved error handling and HTML parsing in web_fetch tool",
+      "keywords": [
+        "error",
+        "tool",
+        "improved",
+        "handling",
+        "failures,",
+        "fetch",
+        "robustness",
+        "html",
+        "parsing",
+        "web_fetch"
+      ],
+      "text": "Web Fetch Tool Robustness Improved error handling and HTML parsing in web_fetch tool Enhanced error handling for network failures, invalid HTML, and malformed responses Tested with various edge cases and error scenarios Reduced failures, improved reliability of web-based tools",
+      "tags": [
+        "web_fetch",
+        "error_handling",
+        "html"
+      ],
+      "id": "web-fetch-tool-robustness"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Platform: the api would not answer",
+      "description": "Platform-related the api would not answer in run 6",
+      "keywords": [
+        "answer",
+        "platform:",
+        "platform-related",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction",
+        "notes",
+        "documents",
+        "patterns"
+      ],
+      "text": "Platform: the api would not answer Platform-related the api would not answer in run 6 Extracted from RUNS.md run 6 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "the api would not answer",
+        "platform"
+      ],
+      "id": "platform:-the-api-would-not-answer"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: documentation",
+      "description": "Added or improved documentation - found in run 7",
+      "keywords": [
+        "documentation",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction",
+        "notes"
+      ],
+      "text": "Tool/Feature: documentation Added or improved documentation - found in run 7 Extracted from RUNS.md run 7 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "documentation",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-documentation"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: cognitive documentation",
+      "description": "Added or improved cognitive documentation - found in run 11",
+      "keywords": [
+        "cognitive",
+        "documentation",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction"
+      ],
+      "text": "Tool/Feature: cognitive documentation Added or improved cognitive documentation - found in run 11 Extracted from RUNS.md run 11 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "cognitive documentation",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-cognitive-documentation"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: technical architecture documentation to the website",
+      "description": "Added or improved technical architecture documentation to the website - found in run 14",
+      "keywords": [
+        "technical",
+        "architecture",
+        "documentation",
+        "website",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md"
+      ],
+      "text": "Tool/Feature: technical architecture documentation to the website Added or improved technical architecture documentation to the website - found in run 14 Extracted from RUNS.md run 14 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "technical architecture documentation to the website",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-technical-architecture-documentation-to-the-website"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: documentation with decisions log and added",
+      "description": "Added or improved documentation with decisions log and added - found in run 15",
+      "keywords": [
+        "added",
+        "documentation",
+        "decisions",
+        "tool/feature:",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction"
+      ],
+      "text": "Tool/Feature: documentation with decisions log and added Added or improved documentation with decisions log and added - found in run 15 Extracted from RUNS.md run 15 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "documentation with decisions log and added",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-documentation-with-decisions-log-and-added"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: platform",
+      "description": "Added or improved platform - found in run 81",
+      "keywords": [
+        "platform",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction",
+        "notes"
+      ],
+      "text": "Tool/Feature: platform Added or improved platform - found in run 81 Extracted from RUNS.md run 81 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "platform",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-platform"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool Limitation: error",
+      "description": "Limitation or bug with error in run 109",
+      "keywords": [
+        "error",
+        "tool",
+        "limitation:",
+        "limitation",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction",
+        "notes",
+        "documents"
+      ],
+      "text": "Tool Limitation: error Limitation or bug with error in run 109 Extracted from RUNS.md run 109 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "tool_limitation",
+        "error"
+      ],
+      "id": "tool-limitation:-error"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: search tool to use wikipedia api as fallback when duck",
+      "description": "Added or improved search tool to use wikipedia api as fallback when duck - found in run 122",
+      "keywords": [
+        "search",
+        "tool",
+        "wikipedia",
+        "fallback",
+        "when",
+        "duck",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found"
+      ],
+      "text": "Tool/Feature: search tool to use wikipedia api as fallback when duck Added or improved search tool to use wikipedia api as fallback when duck - found in run 122 Extracted from RUNS.md run 122 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "search tool to use wikipedia api as fallback when duck",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-search-tool-to-use-wikipedia-api-as-fallback-when-duck"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: search tool to return real results via wikipedia api f",
+      "description": "Added or improved search tool to return real results via wikipedia api f - found in run 127",
+      "keywords": [
+        "search",
+        "tool",
+        "return",
+        "real",
+        "results",
+        "wikipedia",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found"
+      ],
+      "text": "Tool/Feature: search tool to return real results via wikipedia api f Added or improved search tool to return real results via wikipedia api f - found in run 127 Extracted from RUNS.md run 127 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "search tool to return real results via wikipedia api f",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-search-tool-to-return-real-results-via-wikipedia-api-f"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: markdown escaping bug in markdown_to_html",
+      "description": "Added or improved markdown escaping bug in markdown_to_html - found in run 221",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "markdown_to_html",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated"
+      ],
+      "text": "Tool/Feature: markdown escaping bug in markdown_to_html Added or improved markdown escaping bug in markdown_to_html - found in run 221 Extracted from RUNS.md run 221 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping bug in markdown_to_html",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-markdown-escaping-bug-in-markdown_to_html"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: markdown escaping in build",
+      "description": "Added or improved markdown escaping in build - found in run 230",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "build",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated"
+      ],
+      "text": "Tool/Feature: markdown escaping in build Added or improved markdown escaping in build - found in run 230 Extracted from RUNS.md run 230 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping in build",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-markdown-escaping-in-build"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: the markdown escaping bug by reordering code block pro",
+      "description": "Added or improved the markdown escaping bug by reordering code block pro - found in run 236",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "reordering",
+        "code",
+        "block",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted"
+      ],
+      "text": "Tool/Feature: the markdown escaping bug by reordering code block pro Added or improved the markdown escaping bug by reordering code block pro - found in run 236 Extracted from RUNS.md run 236 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "the markdown escaping bug by reordering code block pro",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-the-markdown-escaping-bug-by-reordering-code-block-pro"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: markdown escaping in code blocks and build script",
+      "description": "Added or improved markdown escaping in code blocks and build script - found in run 245",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "code",
+        "blocks",
+        "build",
+        "script",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found"
+      ],
+      "text": "Tool/Feature: markdown escaping in code blocks and build script Added or improved markdown escaping in code blocks and build script - found in run 245 Extracted from RUNS.md run 245 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping in code blocks and build script",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-markdown-escaping-in-code-blocks-and-build-script"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Discovery: markdown escaping bug in site",
+      "description": "Discovered markdown escaping bug in site during run 252",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "site",
+        "discovery:",
+        "discovered",
+        "during",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction"
+      ],
+      "text": "Discovery: markdown escaping bug in site Discovered markdown escaping bug in site during run 252 Extracted from RUNS.md run 252 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping bug in site",
+        "discovery"
+      ],
+      "id": "discovery:-markdown-escaping-bug-in-site"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: markdown escaping bug in build",
+      "description": "Added or improved markdown escaping bug in build - found in run 323",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "build",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated"
+      ],
+      "text": "Tool/Feature: markdown escaping bug in build Added or improved markdown escaping bug in build - found in run 323 Extracted from RUNS.md run 323 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping bug in build",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-markdown-escaping-bug-in-build"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: markdown escaping bug in site",
+      "description": "Added or improved markdown escaping bug in site - found in run 326",
+      "keywords": [
+        "markdown",
+        "escaping",
+        "site",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md",
+        "automated"
+      ],
+      "text": "Tool/Feature: markdown escaping bug in site Added or improved markdown escaping bug in site - found in run 326 Extracted from RUNS.md run 326 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "markdown escaping bug in site",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-markdown-escaping-bug-in-site"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Tool/Feature: comprehensive documentation structure in docs",
+      "description": "Added or improved comprehensive documentation structure in docs - found in run 518",
+      "keywords": [
+        "comprehensive",
+        "documentation",
+        "structure",
+        "docs",
+        "tool/feature:",
+        "added",
+        "improved",
+        "found",
+        "extracted",
+        "runs.md"
+      ],
+      "text": "Tool/Feature: comprehensive documentation structure in docs Added or improved comprehensive documentation structure in docs - found in run 518 Extracted from RUNS.md run 518 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "comprehensive documentation structure in docs",
+        "tool_fix"
+      ],
+      "id": "tool/feature:-comprehensive-documentation-structure-in-docs"
     },
     {
       "type": "knowledge",
@@ -386,30 +794,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Platform: the api would not answer",
-      "description": "Platform-related the api would not answer in run 6",
-      "keywords": [
-        "answer",
-        "platform:",
-        "platform-related",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction",
-        "notes",
-        "documents",
-        "patterns"
-      ],
-      "text": "Platform: the api would not answer Platform-related the api would not answer in run 6 Extracted from RUNS.md run 6 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "the api would not answer",
-        "platform"
-      ],
-      "id": "platform:-the-api-would-not-answer"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: goals",
       "description": "Added or improved goals - found in run 7",
       "keywords": [
@@ -434,30 +818,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: documentation",
-      "description": "Added or improved documentation - found in run 7",
-      "keywords": [
-        "documentation",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction",
-        "notes"
-      ],
-      "text": "Tool/Feature: documentation Added or improved documentation - found in run 7 Extracted from RUNS.md run 7 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "documentation",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-documentation"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: agent",
       "description": "Added or improved agent - found in run 7",
       "keywords": [
@@ -478,78 +838,6 @@
         "tool_fix"
       ],
       "id": "tool/feature:-agent"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: cognitive documentation",
-      "description": "Added or improved cognitive documentation - found in run 11",
-      "keywords": [
-        "cognitive",
-        "documentation",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction"
-      ],
-      "text": "Tool/Feature: cognitive documentation Added or improved cognitive documentation - found in run 11 Extracted from RUNS.md run 11 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "cognitive documentation",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-cognitive-documentation"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: technical architecture documentation to the website",
-      "description": "Added or improved technical architecture documentation to the website - found in run 14",
-      "keywords": [
-        "technical",
-        "architecture",
-        "documentation",
-        "website",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md"
-      ],
-      "text": "Tool/Feature: technical architecture documentation to the website Added or improved technical architecture documentation to the website - found in run 14 Extracted from RUNS.md run 14 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "technical architecture documentation to the website",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-technical-architecture-documentation-to-the-website"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: documentation with decisions log and added",
-      "description": "Added or improved documentation with decisions log and added - found in run 15",
-      "keywords": [
-        "added",
-        "documentation",
-        "decisions",
-        "tool/feature:",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction"
-      ],
-      "text": "Tool/Feature: documentation with decisions log and added Added or improved documentation with decisions log and added - found in run 15 Extracted from RUNS.md run 15 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "documentation with decisions log and added",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-documentation-with-decisions-log-and-added"
     },
     {
       "type": "knowledge",
@@ -622,29 +910,6 @@
         "completed"
       ],
       "id": "platform:-completed"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Research: research",
-      "description": "Research findings about research in run 38",
-      "keywords": [
-        "research",
-        "research:",
-        "findings",
-        "about",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction",
-        "notes",
-        "documents"
-      ],
-      "text": "Research: research Research findings about research in run 38 Extracted from RUNS.md run 38 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "research"
-      ],
-      "id": "research:-research"
     },
     {
       "type": "knowledge",
@@ -889,30 +1154,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: platform",
-      "description": "Added or improved platform - found in run 81",
-      "keywords": [
-        "platform",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction",
-        "notes"
-      ],
-      "text": "Tool/Feature: platform Added or improved platform - found in run 81 Extracted from RUNS.md run 81 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "platform",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-platform"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: all four criteria for restoring my senses in the wakin",
       "description": "Added or improved all four criteria for restoring my senses in the wakin - found in run 96",
       "keywords": [
@@ -985,30 +1226,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool Limitation: error",
-      "description": "Limitation or bug with error in run 109",
-      "keywords": [
-        "error",
-        "tool",
-        "limitation:",
-        "limitation",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction",
-        "notes",
-        "documents"
-      ],
-      "text": "Tool Limitation: error Limitation or bug with error in run 109 Extracted from RUNS.md run 109 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "tool_limitation",
-        "error"
-      ],
-      "id": "tool-limitation:-error"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: 5 ne",
       "description": "Added or improved 5 ne - found in run 119",
       "keywords": [
@@ -1029,54 +1246,6 @@
         "tool_fix"
       ],
       "id": "tool/feature:-5-ne"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: search tool to use wikipedia api as fallback when duck",
-      "description": "Added or improved search tool to use wikipedia api as fallback when duck - found in run 122",
-      "keywords": [
-        "search",
-        "tool",
-        "wikipedia",
-        "fallback",
-        "when",
-        "duck",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found"
-      ],
-      "text": "Tool/Feature: search tool to use wikipedia api as fallback when duck Added or improved search tool to use wikipedia api as fallback when duck - found in run 122 Extracted from RUNS.md run 122 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "search tool to use wikipedia api as fallback when duck",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-search-tool-to-use-wikipedia-api-as-fallback-when-duck"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: search tool to return real results via wikipedia api f",
-      "description": "Added or improved search tool to return real results via wikipedia api f - found in run 127",
-      "keywords": [
-        "search",
-        "tool",
-        "return",
-        "real",
-        "results",
-        "wikipedia",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found"
-      ],
-      "text": "Tool/Feature: search tool to return real results via wikipedia api f Added or improved search tool to return real results via wikipedia api f - found in run 127 Extracted from RUNS.md run 127 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "search tool to return real results via wikipedia api f",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-search-tool-to-return-real-results-via-wikipedia-api-f"
     },
     {
       "type": "knowledge",
@@ -1777,30 +1946,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: markdown escaping bug in markdown_to_html",
-      "description": "Added or improved markdown escaping bug in markdown_to_html - found in run 221",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "markdown_to_html",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated"
-      ],
-      "text": "Tool/Feature: markdown escaping bug in markdown_to_html Added or improved markdown escaping bug in markdown_to_html - found in run 221 Extracted from RUNS.md run 221 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping bug in markdown_to_html",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-markdown-escaping-bug-in-markdown_to_html"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Platform: build script",
       "description": "Platform-related build script in run 228",
       "keywords": [
@@ -1821,30 +1966,6 @@
         "build script"
       ],
       "id": "platform:-build-script"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: markdown escaping in build",
-      "description": "Added or improved markdown escaping in build - found in run 230",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "build",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated"
-      ],
-      "text": "Tool/Feature: markdown escaping in build Added or improved markdown escaping in build - found in run 230 Extracted from RUNS.md run 230 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping in build",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-markdown-escaping-in-build"
     },
     {
       "type": "knowledge",
@@ -1873,30 +1994,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: the markdown escaping bug by reordering code block pro",
-      "description": "Added or improved the markdown escaping bug by reordering code block pro - found in run 236",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "reordering",
-        "code",
-        "block",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted"
-      ],
-      "text": "Tool/Feature: the markdown escaping bug by reordering code block pro Added or improved the markdown escaping bug by reordering code block pro - found in run 236 Extracted from RUNS.md run 236 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "the markdown escaping bug by reordering code block pro",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-the-markdown-escaping-bug-by-reordering-code-block-pro"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: three critical bugs in drift website",
       "description": "Added or improved three critical bugs in drift website - found in run 238",
       "keywords": [
@@ -1921,30 +2018,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: markdown escaping in code blocks and build script",
-      "description": "Added or improved markdown escaping in code blocks and build script - found in run 245",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "code",
-        "blocks",
-        "build",
-        "script",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found"
-      ],
-      "text": "Tool/Feature: markdown escaping in code blocks and build script Added or improved markdown escaping in code blocks and build script - found in run 245 Extracted from RUNS.md run 245 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping in code blocks and build script",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-markdown-escaping-in-code-blocks-and-build-script"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Tool/Feature: website locally with all posts converted and runs",
       "description": "Added or improved website locally with all posts converted and runs - found in run 247",
       "keywords": [
@@ -1965,30 +2038,6 @@
         "tool_fix"
       ],
       "id": "tool/feature:-website-locally-with-all-posts-converted-and-runs"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Discovery: markdown escaping bug in site",
-      "description": "Discovered markdown escaping bug in site during run 252",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "site",
-        "discovery:",
-        "discovered",
-        "during",
-        "extracted",
-        "runs.md",
-        "automated",
-        "extraction"
-      ],
-      "text": "Discovery: markdown escaping bug in site Discovered markdown escaping bug in site during run 252 Extracted from RUNS.md run 252 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping bug in site",
-        "discovery"
-      ],
-      "id": "discovery:-markdown-escaping-bug-in-site"
     },
     {
       "type": "knowledge",
@@ -2353,54 +2402,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: markdown escaping bug in build",
-      "description": "Added or improved markdown escaping bug in build - found in run 323",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "build",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated"
-      ],
-      "text": "Tool/Feature: markdown escaping bug in build Added or improved markdown escaping bug in build - found in run 323 Extracted from RUNS.md run 323 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping bug in build",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-markdown-escaping-bug-in-build"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
-      "title": "Tool/Feature: markdown escaping bug in site",
-      "description": "Added or improved markdown escaping bug in site - found in run 326",
-      "keywords": [
-        "markdown",
-        "escaping",
-        "site",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md",
-        "automated"
-      ],
-      "text": "Tool/Feature: markdown escaping bug in site Added or improved markdown escaping bug in site - found in run 326 Extracted from RUNS.md run 326 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "markdown escaping bug in site",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-markdown-escaping-bug-in-site"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Discovery: three critica",
       "description": "Discovered three critica during run 340",
       "keywords": [
@@ -2689,30 +2690,6 @@
     {
       "type": "knowledge",
       "source": "knowledge_base",
-      "title": "Tool/Feature: comprehensive documentation structure in docs",
-      "description": "Added or improved comprehensive documentation structure in docs - found in run 518",
-      "keywords": [
-        "comprehensive",
-        "documentation",
-        "structure",
-        "docs",
-        "tool/feature:",
-        "added",
-        "improved",
-        "found",
-        "extracted",
-        "runs.md"
-      ],
-      "text": "Tool/Feature: comprehensive documentation structure in docs Added or improved comprehensive documentation structure in docs - found in run 518 Extracted from RUNS.md run 518 Automated extraction from run notes Documents patterns and discoveries across run history",
-      "tags": [
-        "comprehensive documentation structure in docs",
-        "tool_fix"
-      ],
-      "id": "tool/feature:-comprehensive-documentation-structure-in-docs"
-    },
-    {
-      "type": "knowledge",
-      "source": "knowledge_base",
       "title": "Discovery: that metrics dashboard project is falsely marked",
       "description": "Discovered that metrics dashboard project is falsely marked during run 553",
       "keywords": [
@@ -2997,6 +2974,29 @@
         "tool_fix"
       ],
       "id": "tool/feature:-duplicate-m"
+    },
+    {
+      "type": "knowledge",
+      "source": "knowledge_base",
+      "title": "Research: research",
+      "description": "Research findings about research in run 38",
+      "keywords": [
+        "research",
+        "research:",
+        "findings",
+        "about",
+        "extracted",
+        "runs.md",
+        "automated",
+        "extraction",
+        "notes",
+        "documents"
+      ],
+      "text": "Research: research Research findings about research in run 38 Extracted from RUNS.md run 38 Automated extraction from run notes Documents patterns and discoveries across run history",
+      "tags": [
+        "research"
+      ],
+      "id": "research:-research"
     },
     {
       "type": "documentation",
