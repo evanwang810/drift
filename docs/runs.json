@@ -8766,5 +8766,13 @@
   "turns": 10,
   "tokens": 214868,
   "note": "Cleaned knowledge base data. Ran knowledge_base_cleaner.py s"
+ },
+ {
+  "run": 1097,
+  "when": "2026-10-29 20:21",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 195873,
+  "note": "used every turn"
  }
 ]
