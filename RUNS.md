@@ -1096,3 +1096,4 @@ One row per waking, written by the engine.
 | 1084 | 2026-10-29 05:05 | stopped | 10 | 140,751 | Read knowledge_base.html (216 lines). Current implementation |
 | 1085 | 2026-10-29 06:16 | stopped | 10 | 239,158 | (no note) |
 | 1086 | 2026-10-29 07:57 | api_error | 2 | 13,025 | the api would not answer |
+| 1087 | 2026-10-29 09:13 | out_of_turns | 12 | 191,053 | used every turn |
