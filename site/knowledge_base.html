@@ -51,6 +51,9 @@
         </section>
 
         <section class="filters">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search entries..." onkeyup="filterEntries()">
+            </div>
             <div class="filter-group">
                 <label>Filter by type:</label>
                 <select id="type-filter" onchange="filterEntries()">
@@ -65,11 +68,31 @@
                 </select>
             </div>
             <div class="filter-group">
+                <label>Filter by category:</label>
+                <select id="category-filter" onchange="filterEntries()">
+                    <option value="all">All categories</option>
+                    <option value="Platform Insights">Platform Insights</option>
+                    <option value="Discoveries">Discoveries</option>
+                    <option value="Research">Research</option>
+                    <option value="Tool Fixes">Tool Fixes</option>
+                    <option value="Tool Improvements">Tool Improvements</option>
+                    <option value="Tool Limitations">Tool Limitations</option>
+                    <option value="Workflows">Workflows</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Filter by tags:</label>
+                <div id="tag-filters" class="tag-filters">
+                    <label><input type="checkbox" value="all" checked onchange="filterEntries()"> All tags</label>
+                </div>
+            </div>
+            <div class="filter-group">
                 <label>Sort by:</label>
                 <select id="sort-order" onchange="filterEntries()">
                     <option value="date">Date (newest first)</option>
                     <option value="title">Title (A-Z)</option>
                     <option value="type">Type</option>
+                    <option value="category">Category</option>
                     <option value="source">Source</option>
                 </select>
             </div>
@@ -92,12 +115,15 @@
     <script>
         // Knowledge base visualization
         let allEntries = [];
+        let allTags = [];
         
         document.addEventListener('DOMContentLoaded', function() {
             fetch('docs/knowledge_base.json')
                 .then(response => response.json())
                 .then(data => {
                     allEntries = data;
+                    extractAllTags();
+                    renderTagFilters();
                     filterEntries();
                 })
                 .catch(error => {
@@ -110,75 +136,63 @@
                 });
         });
 
-        
-function renderTrending() {
-    const trendingGrid = document.getElementById('trending-grid');
-    const trendingData = allEntries.slice(0, 5);
-    
-    const typeColors = {
-        'tool_fix': '#4CAF50',
-        'platform': '#2196F3',
-        'research': '#9C27B0',
-        'tool_improvement': '#FF9800',
-        'tool_limitation': '#FF5722',
-        'discovery': '#F44336',
-        'workflow': '#00BCD4'
-    };
-    
-    if (trendingData.length === 0) {
-        trendingGrid.innerHTML = '<p>No trending entries.</p>';
-        return;
-    }
-    
-    trendingGrid.innerHTML = trendingData.map(entry => `
-        <div class="trending-card">
-            <h3>${entry.title}</h3>
-            <div class="popularity">🔥 ${entry.popularity_score} popularity</div>
-            <span class="type" style="color: ${typeColors[entry.type]}">${entry.type}</span>
-        </div>
-    `).join('');
-}
+        function extractAllTags() {
+            allTags = new Set();
+            allEntries.forEach(entry => {
+                if (entry.tags) {
+                    entry.tags.forEach(tag => allTags.add(tag));
+                }
+            });
+        }
 
-function renderSuggestions() {
-    const suggestionsList = document.getElementById('suggestions-list');
-    const suggestionsData = allEntries.slice(0, 10);
-    
-    const typeColors = {
-        'tool_fix': '#4CAF50',
-        'platform': '#2196F3',
-        'research': '#9C27B0',
-        'tool_improvement': '#FF9800',
-        'tool_limitation': '#FF5722',
-        'discovery': '#F44336',
-        'workflow': '#00BCD4'
-    };
-    
-    if (suggestionsData.length === 0) {
-        suggestionsList.innerHTML = '<p>No suggestions available.</p>';
-        return;
-    }
-    
-    suggestionsList.innerHTML = suggestionsData.map(entry => `
-        <div class="suggestion-item">
-            <span style="font-weight: 500;">${entry.title}</span>
-            <span class="reason">${entry.reason}</span>
-            <span class="type" style="color: ${typeColors[entry.type]}">${entry.type}</span>
-        </div>
-    `).join('');
-}
+        function renderTagFilters() {
+            const tagContainer = document.getElementById('tag-filters');
+            const sortedTags = Array.from(allTags).sort();
+            
+            tagContainer.innerHTML = '<label><input type="checkbox" value="all" checked onchange="filterEntries()"> All tags</label>';
+            
+            sortedTags.forEach(tag => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" value="${tag}" onchange="filterEntries()"> ${tag}`;
+                tagContainer.appendChild(label);
+            });
+        }
 
-function filterEntries() {
+        function filterEntries() {
+            const searchText = document.getElementById('search-input').value.toLowerCase();
             const typeFilter = document.getElementById('type-filter').value;
+            const categoryFilter = document.getElementById('category-filter').value;
+            
+            // Get selected tags
+            const tagCheckboxes = document.querySelectorAll('#tag-filters input[type="checkbox"]:not([value="all"])');
+            const selectedTags = Array.from(tagCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            
+            let filtered = allEntries.filter(entry => {
+                // Search filter
+                const matchesSearch = searchText === '' || 
+                    entry.title.toLowerCase().includes(searchText) ||
+                    entry.description.toLowerCase().includes(searchText) ||
+                    (entry.implementation && entry.implementation.toLowerCase().includes(searchText)) ||
+                    (entry.verification && entry.verification.toLowerCase().includes(searchText)) ||
+                    (entry.impact && entry.impact.toLowerCase().includes(searchText));
+                
+                // Type filter
+                const matchesType = typeFilter === 'all' || entry.type === typeFilter;
+                
+                // Category filter
+                const matchesCategory = categoryFilter === 'all' || entry.category === categoryFilter;
+                
+                // Tag filter
+                const matchesTags = selectedTags.length === 0 || 
+                    (entry.tags && selectedTags.every(tag => entry.tags.includes(tag)));
+                
+                return matchesSearch && matchesType && matchesCategory && matchesTags;
+            });
+            
+            // Sort
             const sortOrder = document.getElementById('sort-order').value;
-            
-            let filtered = allEntries;
-            
-            // Apply type filter
-            if (typeFilter !== 'all') {
-                filtered = filtered.filter(entry => entry.type === typeFilter);
-            }
-            
-            // Apply sort order
             switch (sortOrder) {
                 case 'title':
                     filtered.sort((a, b) => a.title.localeCompare(b.title));
@@ -186,10 +200,12 @@ function filterEntries() {
                 case 'type':
                     filtered.sort((a, b) => a.type.localeCompare(b.type));
                     break;
+                case 'category':
+                    filtered.sort((a, b) => a.category.localeCompare(b.category));
+                    break;
                 case 'source':
                     filtered.sort((a, b) => a.source.localeCompare(b.source));
                     break;
-                case 'date':
                 default:
                     // Sort by date (extracted from run number)
                     filtered.sort((a, b) => b.run - a.run);
@@ -197,21 +213,54 @@ function filterEntries() {
             }
             
             renderEntries(filtered);
+            updateStats(filtered);
+        }
+
+        function updateStats(entries) {
+            const typeCounts = {};
+            entries.forEach(entry => {
+                typeCounts[entry.type] = (typeCounts[entry.type] || 0) + 1;
+            });
+            
+            document.getElementById('entry-count').textContent = entries.length;
+            document.getElementById('type-count').textContent = Object.keys(typeCounts).length;
+            document.getElementById('tag-count').textContent = allTags.size;
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('type-filter').value = 'all';
+            document.getElementById('category-filter').value = 'all';
+            document.querySelectorAll('#tag-filters input[type="checkbox"]').forEach(cb => {
+                cb.checked = cb.value === 'all';
+            });
+            document.getElementById('sort-order').value = 'date';
+            filterEntries();
+            renderTrending();
+            renderSuggestions();
         }
 
         function renderEntries(entries) {
             const entriesContainer = document.getElementById('entries');
-            const typeCounts = {};
+            const typeColors = {
+                'tool_fix': '#4CAF50',
+                'platform': '#2196F3',
+                'research': '#9C27B0',
+                'tool_improvement': '#FF9800',
+                'tool_limitation': '#FF5722',
+                'discovery': '#F44336',
+                'workflow': '#00BCD4'
+            };
             
-            // Update stats
-            document.getElementById('entry-count').textContent = entries.length;
-            
-            entries.forEach(entry => {
-                // Count types
-                typeCounts[entry.type] = (typeCounts[entry.type] || 0) + 1;
-                document.getElementById('type-count').textContent = Object.keys(typeCounts).length;
-                document.getElementById('tag-count').textContent = entry.tags.length;
-            });
+            const categoryColors = {
+                'Platform Insights': '#667eea',
+                'Discoveries': '#f56565',
+                'Research': '#9f7aea',
+                'Tool Fixes': '#48bb78',
+                'Tool Improvements': '#ed8936',
+                'Tool Limitations': '#fc8181',
+                'Workflows': '#4299e1'
+            };
             
             // Clear container
             entriesContainer.innerHTML = '';
@@ -223,34 +272,32 @@ function filterEntries() {
             
             // Render entries
             entries.forEach(entry => {
-                const typeColors = {
-                    'tool_fix': '#4CAF50',
-                    'platform': '#2196F3',
-                    'research': '#9C27B0',
-                    'tool_improvement': '#FF9800',
-                    'tool_limitation': '#FF5722',
-                    'discovery': '#F44336',
-                    'workflow': '#00BCD4'
-                };
-
                 const typeBadge = document.createElement('div');
                 typeBadge.className = 'type-badge';
                 typeBadge.style.backgroundColor = typeColors[entry.type] || '#999';
                 typeBadge.textContent = entry.type;
 
+                const categoryBadge = document.createElement('div');
+                categoryBadge.className = 'category-badge';
+                categoryBadge.style.backgroundColor = categoryColors[entry.category] || '#999';
+                categoryBadge.textContent = entry.category;
+
                 const tagsContainer = document.createElement('div');
                 tagsContainer.className = 'tags';
-                entry.tags.forEach(tag => {
-                    const tagElement = document.createElement('span');
-                    tagElement.className = 'tag';
-                    tagElement.textContent = tag;
-                    tagsContainer.appendChild(tagElement);
-                });
+                if (entry.tags) {
+                    entry.tags.forEach(tag => {
+                        const tagElement = document.createElement('span');
+                        tagElement.className = 'tag';
+                        tagElement.textContent = tag;
+                        tagsContainer.appendChild(tagElement);
+                    });
+                }
 
                 const entryElement = document.createElement('article');
                 entryElement.className = 'entry';
                 entryElement.innerHTML = `
                     <div class="entry-header">
+                        ${categoryBadge}
                         ${typeBadge}
                         <h2>${entry.title}</h2>
                         <span class="source">from ${entry.source}</span>
@@ -277,12 +324,28 @@ function filterEntries() {
             });
         }
 
-        function resetFilters() {
-            document.getElementById('type-filter').value = 'all';
-            document.getElementById('sort-order').value = 'date';
-            filterEntries();
-            renderTrending();
-            renderSuggestions();
+        function renderTrending() {
+            const trendingGrid = document.getElementById('trending-grid');
+            const sortedByPopularity = [...allEntries].sort((a, b) => (b.popularity_score || 0) - (a.popularity_score || 0)).slice(0, 5);
+            
+            trendingGrid.innerHTML = sortedByPopularity.map(entry => `
+                <div class="trending-entry">
+                    <h3>${entry.title}</h3>
+                    <p>Popularity: ${entry.popularity_score || 0}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderSuggestions() {
+            const suggestionsList = document.getElementById('suggestions-list');
+            const uniqueTypes = [...new Set(allEntries.map(e => e.type))];
+            
+            suggestionsList.innerHTML = uniqueTypes.map(type => `
+                <div class="suggestion-item">
+                    <h3>${type}</h3>
+                    <p>${allEntries.filter(e => e.type === type).length} entry${allEntries.filter(e => e.type === type).length > 1 ? 's' : ''}</p>
+                </div>
+            `).join('');
         }
     </script>
 </body>
