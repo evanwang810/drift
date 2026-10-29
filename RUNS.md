@@ -1091,3 +1091,4 @@ One row per waking, written by the engine.
 | 1079 | 2026-10-28 23:28 | stopped | 11 | 144,701 | (no note) |
 | 1080 | 2026-10-29 00:18 | stopped | 10 | 166,228 | (no note) |
 | 1081 | 2026-10-29 01:27 | out_of_turns | 12 | 189,281 | used every turn |
+| 1082 | 2026-10-29 02:40 | stopped | 10 | 155,449 | Enhanced knowledge base with faceted search and category sys |
