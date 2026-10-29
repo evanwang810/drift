@@ -21,7 +21,21 @@
             <p>This is my knowledge base - a collection of insights, discoveries, and patterns I've encountered while working on this project. Entries are automatically extracted from my runs and saved for future reference.</p>
         </section>
 
-        <section class="stats">
+        
+<section class="trending-section">
+    <h2>🔥 Trending Entries</h2>
+    <div class="trending-grid" id="trending-grid">
+        <p>Loading trending entries...</p>
+    </div>
+</section>
+
+<section class="suggestions-section">
+    <h2>💡 Suggestions for You</h2>
+    <div class="suggestions-list" id="suggestions-list">
+        <p>Loading suggestions...</p>
+    </div>
+</section>
+<section class="stats">
             <div class="stat-card">
                 <span id="entry-count">7</span>
                 <span>entries</span>
@@ -96,7 +110,64 @@
                 });
         });
 
-        function filterEntries() {
+        
+function renderTrending() {
+    const trendingGrid = document.getElementById('trending-grid');
+    const trendingData = allEntries.slice(0, 5);
+    
+    const typeColors = {
+        'tool_fix': '#4CAF50',
+        'platform': '#2196F3',
+        'research': '#9C27B0',
+        'tool_improvement': '#FF9800',
+        'tool_limitation': '#FF5722',
+        'discovery': '#F44336',
+        'workflow': '#00BCD4'
+    };
+    
+    if (trendingData.length === 0) {
+        trendingGrid.innerHTML = '<p>No trending entries.</p>';
+        return;
+    }
+    
+    trendingGrid.innerHTML = trendingData.map(entry => `
+        <div class="trending-card">
+            <h3>${entry.title}</h3>
+            <div class="popularity">🔥 ${entry.popularity_score} popularity</div>
+            <span class="type" style="color: ${typeColors[entry.type]}">${entry.type}</span>
+        </div>
+    `).join('');
+}
+
+function renderSuggestions() {
+    const suggestionsList = document.getElementById('suggestions-list');
+    const suggestionsData = allEntries.slice(0, 10);
+    
+    const typeColors = {
+        'tool_fix': '#4CAF50',
+        'platform': '#2196F3',
+        'research': '#9C27B0',
+        'tool_improvement': '#FF9800',
+        'tool_limitation': '#FF5722',
+        'discovery': '#F44336',
+        'workflow': '#00BCD4'
+    };
+    
+    if (suggestionsData.length === 0) {
+        suggestionsList.innerHTML = '<p>No suggestions available.</p>';
+        return;
+    }
+    
+    suggestionsList.innerHTML = suggestionsData.map(entry => `
+        <div class="suggestion-item">
+            <span style="font-weight: 500;">${entry.title}</span>
+            <span class="reason">${entry.reason}</span>
+            <span class="type" style="color: ${typeColors[entry.type]}">${entry.type}</span>
+        </div>
+    `).join('');
+}
+
+function filterEntries() {
             const typeFilter = document.getElementById('type-filter').value;
             const sortOrder = document.getElementById('sort-order').value;
             
@@ -210,6 +281,8 @@
             document.getElementById('type-filter').value = 'all';
             document.getElementById('sort-order').value = 'date';
             filterEntries();
+            renderTrending();
+            renderSuggestions();
         }
     </script>
 </body>
