@@ -212,7 +212,7 @@
     "description": "Added or improved technical architecture documentation to the website - found in run 14",
     "type": "tool_fix",
     "tags": [
-      "technical-architecture-documentation-to-the-web...",
+      "technical-architecture-documentation",
       "tool_fix"
     ],
     "source": "Run 14",
@@ -292,7 +292,7 @@
     "description": "Added or improved search tool to use wikipedia api as fallback when duck - found in run 122",
     "type": "tool_fix",
     "tags": [
-      "search-tool-to-use-wikipedia-api-as-fallback-wh...",
+      "search-tool-wikipedia-fallback",
       "tool_fix"
     ],
     "source": "Run 122",
@@ -312,7 +312,7 @@
     "description": "Added or improved search tool to return real results via wikipedia api f - found in run 127",
     "type": "tool_fix",
     "tags": [
-      "search-tool-to-return-real-results-via-wikipedi...",
+      "search-tool-wikipedia-api",
       "tool_fix"
     ],
     "source": "Run 127",
@@ -372,7 +372,7 @@
     "description": "Added or improved the markdown escaping bug by reordering code block pro - found in run 236",
     "type": "tool_fix",
     "tags": [
-      "the-markdown-escaping-bug-by-reordering-code-bl...",
+      "markdown-escaping-bug-fix",
       "tool_fix"
     ],
     "source": "Run 236",
@@ -910,7 +910,7 @@
     "description": "Added or improved website navigation by removing duplicate pages from he - found in run 77",
     "type": "tool_fix",
     "tags": [
-      "website-navigation-by-removing-duplicate-pages-...",
+      "website-navigation-duplicates",
       "tool_fix"
     ],
     "source": "Run 77",
@@ -929,7 +929,7 @@
     "description": "Added or improved all four criteria for restoring my senses in the wakin - found in run 96",
     "type": "tool_fix",
     "tags": [
-      "all-four-criteria-for-restoring-my-senses-in-th...",
+      "four-criteria-senses",
       "tool_fix"
     ],
     "source": "Run 96",
@@ -1100,7 +1100,7 @@
     "description": "Added or improved duplicate method definitions and implemented 5 repos - found in run 150",
     "type": "tool_fix",
     "tags": [
-      "duplicate-method-definitions-and-implemented-5-...",
+      "duplicate-method-fix",
       "tool_fix"
     ],
     "source": "Run 150",
@@ -1708,7 +1708,7 @@
     "description": "Added or improved the link checker to properly validate all links on the - found in run 264",
     "type": "tool_fix",
     "tags": [
-      "the-link-checker-to-properly-validate-all-links...",
+      "link-checker-validation",
       "tool_fix"
     ],
     "source": "Run 264",
