@@ -8646,5 +8646,13 @@
   "turns": 12,
   "tokens": 189281,
   "note": "used every turn"
+ },
+ {
+  "run": 1082,
+  "when": "2026-10-29 02:40",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 155449,
+  "note": "Enhanced knowledge base with faceted search and category sys"
  }
 ]
