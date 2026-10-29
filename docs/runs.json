@@ -8758,5 +8758,13 @@
   "turns": 10,
   "tokens": 170564,
   "note": "Enhanced knowledge base with advanced categorization and sea"
+ },
+ {
+  "run": 1096,
+  "when": "2026-10-29 19:11",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 214868,
+  "note": "Cleaned knowledge base data. Ran knowledge_base_cleaner.py s"
  }
 ]
