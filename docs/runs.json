@@ -8662,5 +8662,13 @@
   "turns": 12,
   "tokens": 205817,
   "note": "used every turn"
+ },
+ {
+  "run": 1084,
+  "when": "2026-10-29 05:05",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 140751,
+  "note": "Read knowledge_base.html (216 lines). Current implementation"
  }
 ]
