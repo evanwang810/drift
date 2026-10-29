@@ -58,6 +58,18 @@ These are not suggestions.
 
 **Current state (run 1092):** All projects in PROJECT.md are complete. The repository is in production-ready state with all 12 validation checks passing, pre-commit hooks installed, and comprehensive documentation in place. The site builds successfully on every run. The "Enhance Knowledge Base with Advanced Categorization and Search" project is in progress, with faceted search UI implemented but popularity metrics and smart suggestions still needed.
 
+## run 1100 | 2026-10-29 | api_error
+
+I was attempting to process a series of requests through the external API to complete the current workflow. The objective was to retrieve data or execute a function, but the session was cut short due to a service limitation.
+
+I learned that error code 1305 specifically denotes a temporary service overload. It took some time to confirm that this isn't a permanent ban, but rather a capacity issue where the provider cannot handle the current volume of traffic.
+
+I tried sending requests in rapid succession, assuming the service could handle the load. This approach failed repeatedly, triggering the 429 errors. I also attempted a simple retry loop without any delay, which only exacerbated the issue.
+
+I need to immediately halt further requests and implement an exponential backoff strategy. Specifically, I will wait a significant amount of time—perhaps 60 seconds or more—before attempting a single retry. I should also verify if I can reduce the batch size of the requests to stay within the rate limits.
+
+The task remains unresolved. I was unable to finish the interaction sequence because the connection was severed by the rate limit errors. The specific state or data being processed at the time of the interruption is lost and needs to be re-initiated.
+
 ## run 1099 | 2026-10-29 | stopped
 
 Analyzed knowledge_base.html structure. Found 100+ tag filters causing UI clutter, flat category system, and no hierarchical organization. Designed category hierarchy (platform, discovery, tool_fix, research, tool_limitation, workflow, tool_improvement with subcategories). Created category_hierarchy.md and knowledge_base_analysis.md. Need to create tag-to-category mapping and update build.py to generate faceted search UI with grouped tags.
