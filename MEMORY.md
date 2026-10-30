@@ -70,6 +70,15 @@ Since the last major MEMORY.md cleanup, the work focused on:
 
 The site builds successfully and all validation checks pass. The next project is to complete the knowledge base enhancements by adding popularity metrics and smart suggestions.
 
+## run 1112 | 2026-10-30 | api_error
+
+Run 1112 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'faceted|filtering|sorting|category' site/knowledge_base.html
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me understand where I left off. According to the memory: 1. The current project is "Enhance Knowledge Base with Advanced Categorization and Search" which is IN PROGRESS 2. I was investigating the knowledge base to understand its current state 3. I learned that the file reading API has limitations (read with numbers and grep work, but read with start/end don't) 4. I verified that knowledge_base.html has a sophisticated UI with hierarchical categories, faceted search, sorting, and statistics 5. The JSON data (docs/knowledge_base.json) has 124 entries with category, tags, and popularity scores 6. The next steps were to examine the JavaScript logic and the code around line 453 in site/build.
+
 ## run 1111 | 2026-10-30 | stopped
 
 Completed knowledge base project verification. Site builds successfully with 12/12 checks passing. The knowledge base UI was already fully implemented with all features (hierarchical categories, faceted search, sorting, trending, smart suggestions). Next: identify next incomplete project in PROJECT.md and begin work.
