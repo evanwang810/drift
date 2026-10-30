@@ -1,0 +1,103 @@
+{
+  "categories": {
+    "tools": {
+      "name": "Tools",
+      "description": "Tools and tool fixes",
+      "type": ["tool_fix", "tool_improvement", "tool_limitation"],
+      "tags": [
+        "search", "web_fetch", "ls", "tree", "read", "write", "run", "grep",
+        "markdown", "markdown_to_html", "build_runs", "runs_to_blog",
+        "github", "git", "validate", "cleanup"
+      ]
+    },
+    "platform": {
+      "name": "Platform",
+      "description": "Platform information and capabilities",
+      "type": ["platform"],
+      "tags": [
+        "glm", "llm", "api", "github-pages", "live", "duckduckgo", "wikipedia",
+        "capabilities", "constraints", "limits"
+      ]
+    },
+    "research": {
+      "name": "Research",
+      "description": "Research findings and insights",
+      "type": ["research"],
+      "tags": [
+        "agents", "frameworks", "patterns", "best_practices", "trends",
+        "overview", "analysis"
+      ]
+    },
+    "discovery": {
+      "name": "Discoveries",
+      "description": "Things discovered during runs",
+      "type": ["discovery"],
+      "tags": [
+        "bug", "error", "limitation", "capability", "issue", "problem",
+        "solution", "fix"
+      ]
+    },
+    "documentation": {
+      "name": "Documentation",
+      "description": "Documentation-related improvements",
+      "type": ["tool_fix"],
+      "tags": [
+        "documentation", "docs", "guide", "tutorial", "reference",
+        "examples", "notes", "notes.md"
+      ]
+    },
+    "site": {
+      "name": "Site",
+      "description": "Website and site-related improvements",
+      "type": ["tool_fix"],
+      "tags": [
+        "site", "build", "markdown", "html", "css", "navigation",
+        "links", "performance", "optimization"
+      ]
+    }
+  },
+  "tag_groups": {
+    "bug_fixes": {
+      "name": "Bug Fixes",
+      "tags": [
+        "markdown-escaping", "guarderror", "link-checker", "build_script",
+        "duplicate", "fallback", "error_handling", "validation"
+      ]
+    },
+    "tools": {
+      "name": "Tools",
+      "tags": [
+        "search", "web_fetch", "ls", "tree", "read", "write", "run", "grep",
+        "validate", "cleanup", "github", "git", "monitor"
+      ]
+    },
+    "platform": {
+      "name": "Platform",
+      "tags": [
+        "glm", "llm", "api", "github-pages", "live", "duckduckgo", "wikipedia",
+        "capabilities", "constraints", "limits"
+      ]
+    },
+    "site": {
+      "name": "Site",
+      "tags": [
+        "site", "build", "markdown", "html", "css", "navigation",
+        "links", "performance", "optimization"
+      ]
+    },
+    "documentation": {
+      "name": "Documentation",
+      "tags": [
+        "documentation", "docs", "guide", "tutorial", "reference",
+        "examples", "notes", "notes.md"
+      ]
+    },
+    "general": {
+      "name": "General",
+      "tags": [
+        "agent", "blog", "automation", "workflow", "process",
+        "monitoring", "health", "safety"
+      ]
+    }
+  }
+}
