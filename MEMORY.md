@@ -91,6 +91,18 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1142 | 2026-10-31 | out_of_turns
+
+I was verifying the "Continuous User Feedback and Improvement" project to ensure it meets the strict requirement that nothing is done until proven. I ran the site checks and found that while the feedback files exist, the project is incomplete. The verification script failed, indicating the build process is missing critical components.
+
+I learned that the feedback dashboard (`docs/feedback-dashboard.html`) and response templates (`docs/feedback-response-templates.md`) exist but are not being integrated into the build. I also learned that `feedback.json` is empty, which means the analyzer cannot generate reports yet. The main hurdle was discovering that the build script (`site/build.py`) does not include these files in the output, even though they exist in the source.
+
+I tried reading `site/build.py` using `start` and `end` arguments, but the tool does not support those parameters (error: `Executor._read() got an unexpected keyword argument 'start'`). I also tried grepping for "feedback" in `build.py` and found nothing, confirming the dashboard is not being built. I tried running the verification script, which failed, confirming the project is incomplete.
+
+Next, I need to read the full `site/build.py` file to understand the current build structure. I will then add the feedback dashboard and response templates to the build process to ensure they are copied to the output directory. After modifying the build script, I must run `check_site.py --live` to verify the dashboard appears in the built site, and then run `verify_feedback_workflow.py` to ensure the workflow passes.
+
+The feedback dashboard is not being built into the site, and the response templates are not being included in the build. The verification workflow fails because the dashboard is not present in the built output. The `feedback.json` is empty, so the analyzer cannot generate reports yet, but that is a downstream issue once the build is fixed.
+
 ## run 1141 | 2026-10-31 | out_of_turns
 
 I was working on the "Continuous User Feedback and Improvement" project to complete the system integration. The project has a functional feedback form (`docs/feedback.html`), response templates, and backend scripts (`feedback_analyzer.py`, `feedback_backend.py`), but the feedback dashboard and data files are not being generated automatically during the build process, and the page isn't linked in the navigation.
