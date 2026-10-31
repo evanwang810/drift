@@ -115,6 +115,150 @@ For urgent matters, you can reach out directly at the [GitHub repository](https:
     </form>
 </div>
 
+<div class="feedback-dashboard-section" id="feedback-dashboard-section">
+    <h2>Feedback Summary</h2>
+    <div id="feedback-stats">
+        <p>Loading statistics...</p>
+    </div>
+    <div id="recent-feedback" class="recent-feedback">
+        <h3>Recent Feedback</h3>
+        <div id="recent-feedback-list">
+            <p>Loading recent feedback...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// Feedback submission
+document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const statusEl = document.querySelector('.feedback-status');
+    const formData = new FormData(this);
+    
+    const submission = {
+        name: formData.get('name') || 'Anonymous',
+        email: formData.get('email') || '',
+        category: formData.get('category'),
+        priority: formData.get('priority'),
+        description: formData.get('description'),
+        impact: formData.get('impact') || '',
+        subscribe: document.getElementById('subscribe').checked
+    };
+    
+    try {
+        const response = await fetch('/feedback-api/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(submission)
+        });
+        
+        if (response.ok) {
+            statusEl.innerHTML = '<p class="success">Thank you! Your feedback has been submitted successfully.</p>';
+            this.reset();
+        } else {
+            throw new Error('Submission failed');
+        }
+    } catch (error) {
+        statusEl.innerHTML = '<p class="error">There was an error submitting your feedback. Please try again later.</p>';
+    }
+});
+
+// Load feedback summary
+async function loadFeedbackSummary() {
+    try {
+        const response = await fetch('/feedback-api/summary');
+        const stats = await response.json();
+        
+        document.getElementById('feedback-stats').innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">${stats.total}</div>
+                    <div class="stat-label">Total Submissions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.by_category.bug || 0}</div>
+                    <div class="stat-label">Bug Reports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.by_priority.high || 0}</div>
+                    <div class="stat-label">High Priority</div>
+                </div>
+            </div>
+        `;
+        
+        const recentList = document.getElementById('recent-feedback-list');
+        if (stats.recent.length > 0) {
+            recentList.innerHTML = stats.recent.map(item => `
+                <div class="feedback-item">
+                    <div class="feedback-header">
+                        <span class="feedback-category">${item.category}</span>
+                        <span class="feedback-priority priority-${item.priority}">${item.priority}</span>
+                    </div>
+                    <div class="feedback-content">
+                        <p><strong>Name:</strong> ${item.name}</p>
+                        <p>${item.description}</p>
+                    </div>
+                    <div class="feedback-footer">
+                        <span class="feedback-time">${item.timestamp}</span>
+                        ${item.subscribe ? '<span class="feedback-subscribed">Subscribed</span>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        } else {
+            recentList.innerHTML = '<p>No recent feedback yet.</p>';
+        }
+    } catch (error) {
+        console.error('Failed to load feedback summary:', error);
+        document.getElementById('feedback-stats').innerHTML = '<p>Unable to load feedback statistics.</p>';
+    }
+}
+
+// Load feedback summary on page load
+document.addEventListener('DOMContentLoaded', loadFeedbackSummary);
+
+// Load high priority feedback for administrators
+async function loadHighPriorityFeedback() {
+    try {
+        const response = await fetch('/feedback-api/high-priority');
+        const highPriority = await response.json();
+        
+        const dashboardSection = document.getElementById('feedback-dashboard-section');
+        if (highPriority.length > 0) {
+            dashboardSection.innerHTML = `
+                <h2>High Priority Feedback (${highPriority.length})</h2>
+                <div class="high-priority-list">
+                    ${highPriority.map(item => `
+                        <div class="feedback-item feedback-item-high">
+                            <div class="feedback-header">
+                                <span class="feedback-category">${item.category}</span>
+                                <span class="feedback-priority priority-${item.priority}">${item.priority}</span>
+                                <span class="feedback-id">#${item.id}</span>
+                            </div>
+                            <div class="feedback-content">
+                                <p><strong>Name:</strong> ${item.name}</p>
+                                <p>${item.description}</p>
+                            </div>
+                            <div class="feedback-footer">
+                                <span class="feedback-time">${item.timestamp}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Failed to load high priority feedback:', error);
+    }
+}
+
+loadHighPriorityFeedback();
+</script>
+    </form>
+</div>
+
 <div class="feedback-dashboard" id="feedback-dashboard" style="display: none;">
     <h2>Feedback Dashboard</h2>
     <div class="stats-grid">

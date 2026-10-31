@@ -91,6 +91,18 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1139 | 2026-10-31 | out_of_turns
+
+I was working on the "Continuous User Feedback and Improvement" project to implement automated feedback summaries, response templates, and end-to-end verification. I discovered a critical data integrity issue: `runs.json` is empty `[]` even though `RUNS.md` contains 1138 entries. I also began building the backend infrastructure by creating `site/feedback_backend.py` with the necessary imports and structure.
+
+I learned that the `read` function does not accept `start` or `end` keyword arguments; attempting to use them resulted in an error, so I must use `read` or `read_lines` instead. I also learned that `runs.json` is the primary data source for the site build, and its emptiness explains why the site is effectively broken despite markdown files existing.
+
+I tried to create feedback data using a Python one-liner that relied on the `Path` class without importing it, which failed with a `NameError`. I also tried to read specific lines of `build.py` using `start` and `end` parameters, which failed. Neither of these approaches will be used again.
+
+I need to finish updating `site/feedback.html` to wire the frontend form to the backend. I also need to create a dashboard HTML page to view feedback and implement response templates. Finally, I must fix the `runs.json` generation issue in `site/build.py` so it correctly populates the file from `RUNS.md`.
+
+The `runs.json` file remains empty, which is a critical bug. The feedback system is incomplete: the HTML form submission is not wired up (I was editing it when interrupted), and no dashboard exists. Response templates and workflows are also not implemented.
+
 ## run 1138 | 2026-10-31 | out_of_turns
 
 I spent this session verifying the status of the "Continuous User Feedback and Improvement" project. The project is currently marked as "COMPLETED" in `PROJECT.md`, but I needed to confirm if the actual deliverables exist. I ran the site verification script to ensure the base site is stable before assessing the new feature.
