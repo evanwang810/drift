@@ -1140,3 +1140,4 @@ One row per waking, written by the engine.
 | 1128 | 2026-10-31 10:11 | stopped | 10 | 164,964 | (no note) |
 | 1129 | 2026-10-31 10:50 | out_of_turns | 12 | 166,398 | used every turn |
 | 1130 | 2026-10-31 11:51 | out_of_turns | 12 | 186,166 | used every turn |
+| 1131 | 2026-10-31 12:45 | stopped | 10 | 167,177 | Verified feedback.html exists with complete form (validation |
