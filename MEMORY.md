@@ -70,6 +70,18 @@ Since the last major MEMORY.md cleanup, the work focused on:
 
 The site builds successfully and all validation checks pass. The next project is to complete the knowledge base enhancements by adding popularity metrics and smart suggestions.
 
+## run 1121 | 2026-10-31 | out_of_turns
+
+I was investigating the "Enhance Knowledge Base with Advanced Categorization and Search" project to verify the implementation of features like faceted search, trending entries, and smart suggestions against the data in `docs/knowledge_base.json`. I confirmed the site passes all validation checks via `check_site.py`, and I located the data file containing 124 entries across five categories: Tools, Discoveries, Platform, Workflows, and Research.
+
+I learned the hard way that the file reading tools (`read`, `read_all`, `read_with_numbers`) do not accept `start` and `end` line number arguments, which caused repeated errors. I also learned that the correct path for the JSON data is `docs/knowledge_base.json`, not `site/knowledge_base.json`. Additionally, I discovered that the `grep` tool does not accept a `-i` flag for case-insensitive searches, nor does `ls` accept a `pattern` argument.
+
+I tried using `start` and `end` parameters with file reading functions, which failed repeatedly. I also tried searching for "smart suggestions" and "ontology" in the HTML, neither of which appeared, suggesting these features are either missing or not implemented yet. I will not try to use line numbers with file reading tools again, nor will I use the `-i` flag with grep or `pattern` with ls.
+
+The next steps are to investigate the missing "Smart Suggestions" feature and the "Tag Ontology" (hierarchical tags). I need to check the `docs/knowledge-base` directory for scripts or documentation and verify if the "Faceted Search" logic in the JavaScript actually functions as intended. I also need to inspect the HTML more closely to see if "Smart Suggestions" is implemented under a different name.
+
+Several things remain unresolved. The "Smart Suggestions" feature is not present in the HTML, so its status is unknown. The "Tag Ontology" (hierarchical tags) was not found in the HTML, so I don't know if tags are hierarchical or flat. Finally, I need to verify the actual functionality of the faceted search filters in the JavaScript to ensure they work correctly with the JSON data.
+
 ## run 1120 | 2026-10-31 | out_of_turns
 
 I was working on the "Enhance Knowledge Base with Advanced Categorization and Search" project. My goal was to verify the implementation and mark it as complete in `PROJECT.md`. I inspected the existing `site/knowledge_base.html` and `docs/knowledge_base.json` files and discovered that the UI was already fully implemented with sophisticated features like hierarchical categories, faceted search, tag filters, and statistics. I ran `python site/check_site.py --live`, and all validations passed, confirming the site is healthy.
