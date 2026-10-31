@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Drift</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/runs.html">Runs</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/metrics.html">Metrics</a>
+            <a href="/knowledge_base.html">Knowledge</a>
+            <a href="/search.html">Search</a>
+            <a href="/developer_guide.html">Developer Guide</a>
+            <a href="/contributing.html">Contributing</a>
+            <a href="/troubleshooting.html">Troubleshooting</a>
+            <a href="/maintenance_checklist.html">Maintenance Checklist</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Feedback</h1>
+
+        <div class="feedback-form-container">
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">Name (optional)</label>
+                    <input type="text" id="name" name="name" placeholder="Your name or handle">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (optional)</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="feature">Feature Request</option>
+                        <option value="improvement">Improvement</option>
+                        <option value="compliment">Compliment</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="6" required placeholder="Please describe your feedback in detail. Include any relevant context, screenshots, or steps to reproduce if applicable."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="impact">Impact</label>
+                    <textarea id="impact" name="impact" rows="3" placeholder="How does this affect your experience? Why is this important to you?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Submit Feedback</button>
+            </form>
+
+            <div id="feedbackSuccess" class="success-message" style="display: none;">
+                <h2>Thank you for your feedback!</h2>
+                <p>Your feedback has been submitted successfully. You will receive an acknowledgment shortly.</p>
+                <p><strong>Feedback ID:</strong> <span id="feedbackId"></span></p>
+                <p>We review feedback regularly and will update you on any changes or responses.</p>
+            </div>
+        </div>
+
+        <div class="feedback-info">
+            <h2>Feedback Guidelines</h2>
+            <h3>Categories</h3>
+            <ul>
+                <li><strong>Bug Report</strong>: Something isn't working as expected</li>
+                <li><strong>Feature Request</strong>: Something you'd like to see added</li>
+                <li><strong>Improvement</strong>: Suggestions for making things better</li>
+                <li><strong>Compliment</strong>: Positive feedback or appreciation</li>
+                <li><strong>Other</strong>: Any other type of feedback</li>
+            </ul>
+
+            <h3>Priority Levels</h3>
+            <ul>
+                <li><strong>Low</strong>: Nice to have, but not critical</li>
+                <li><strong>Medium</strong>: Would be helpful, should be done eventually</li>
+                <li><strong>High</strong>: Important, should be addressed soon</li>
+                <li><strong>Critical</strong>: Blocks important functionality</li>
+            </ul>
+
+            <h3>What Happens Next?</h3>
+            <ol>
+                <li>You'll receive an acknowledgment with your Feedback ID</li>
+                <li>Feedback is reviewed regularly (typically weekly)</li>
+                <li>Responders use standardized templates for consistency</li>
+                <li>You'll be notified of updates and responses</li>
+                <li>High and critical issues are addressed as soon as possible</li>
+            </ol>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Drift. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                category: document.getElementById('category').value,
+                priority: document.getElementById('priority').value,
+                description: document.getElementById('description').value,
+                impact: document.getElementById('impact').value,
+                submittedAt: new Date().toISOString()
+            };
+
+            // Generate a simple Feedback ID
+            const feedbackId = 'FB-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+
+            // Simulate submission (in production, this would send to a backend)
+            console.log('Feedback submitted:', formData);
+            console.log('Feedback ID:', feedbackId);
+
+            // Store in localStorage for demonstration
+            let feedbacks = JSON.parse(localStorage.getItem('driftFeedbacks') || '[]');
+            feedbacks.push({
+                id: feedbackId,
+                ...formData
+            });
+            localStorage.setItem('driftFeedbacks', JSON.stringify(feedbacks));
+
+            // Show success message
+            document.getElementById('feedbackForm').style.display = 'none';
+            document.getElementById('feedbackSuccess').style.display = 'block';
+            document.getElementById('feedbackId').textContent = feedbackId;
+
+            // In a real implementation, you would send this to a server
+            // fetch('/api/feedback', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+        });
+    </script>
+</body>
+</html>
