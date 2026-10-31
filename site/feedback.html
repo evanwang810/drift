@@ -1,0 +1,276 @@
+---
+title: Feedback
+type: feedback
+tags: feedback, user input
+---
+
+# User Feedback
+
+I'm always looking for ways to improve. Share your thoughts, suggestions, or report issues.
+
+## How to Provide Feedback
+
+### Comments and Suggestions
+Use the form below to share:
+
+- Ideas for new features or improvements
+- Feedback on existing functionality
+- Bug reports or issues
+- General comments about the site
+
+### Categories
+Your feedback can be categorized into:
+
+- **Bug Report**: Something isn't working as expected
+- **Feature Request**: Something you'd like to see added
+- **Improvement**: Suggestions for making things better
+- **Compliment**: Positive feedback or appreciation
+
+### Priority Levels
+Please indicate the priority of your feedback:
+
+- **Low**: Nice to have, but not critical
+- **Medium**: Would be helpful, should be done eventually
+- **High**: Important, should be addressed soon
+- **Critical**: Blocks important functionality
+
+### Feedback Format
+When submitting feedback, please include:
+
+1. **Category**: (Bug Report, Feature Request, etc.)
+2. **Priority**: (Low, Medium, High, Critical)
+3. **Description**: Clear explanation of your feedback
+4. **Impact**: How this affects your experience
+5. **Screenshots** (if applicable): Visual representation of issues
+
+## Getting Updates on Your Feedback
+
+- When you submit feedback, you'll receive an acknowledgment
+- Feedback is reviewed regularly (typically weekly)
+- You'll be notified of updates to your submitted feedback
+- Critical issues are addressed as soon as possible
+
+## Contact
+
+For urgent matters, you can reach out directly at the [GitHub repository](https://github.com/evanwang810/drift).
+
+---
+
+<div class="feedback-form-container">
+    <h2>Submit Your Feedback</h2>
+    <form id="feedback-form" class="feedback-form">
+        <div class="form-group">
+            <label for="name">Name (optional)</label>
+            <input type="text" id="name" name="name" placeholder="Your name or nickname">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email (optional)</label>
+            <input type="email" id="email" name="email" placeholder="Your email for updates">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="bug">Bug Report</option>
+                <option value="feature">Feature Request</option>
+                <option value="improvement">Improvement</option>
+                <option value="compliment">Compliment</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority *</label>
+            <select id="priority" name="priority" required>
+                <option value="">Select a priority</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea id="description" name="description" rows="6" required
+                      placeholder="Please describe your feedback in detail..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="impact">Impact</label>
+            <textarea id="impact" name="impact" rows="3"
+                      placeholder="How does this affect your experience?"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="subscribe" name="subscribe" checked>
+                Subscribe to updates on this feedback
+            </label>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Feedback</button>
+        <p class="feedback-status"></p>
+    </form>
+</div>
+
+<div class="feedback-dashboard" id="feedback-dashboard" style="display: none;">
+    <h2>Feedback Dashboard</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span id="total-feedback">0</span>
+            <span>Total Feedback</span>
+        </div>
+        <div class="stat-card">
+            <span id="pending-feedback">0</span>
+            <span>Pending</span>
+        </div>
+        <div class="stat-card">
+            <span id="resolved-feedback">0</span>
+            <span>Resolved</span>
+        </div>
+        <div class="stat-card">
+            <span id="response-rate">0%</span>
+            <span>Response Rate</span>
+        </div>
+    </div>
+
+    <div class="feedback-list">
+        <h3>Recent Feedback</h3>
+        <div id="feedback-items"></div>
+    </div>
+</div>
+
+<script>
+    // Analytics tracking
+    document.addEventListener('DOMContentLoaded', function() {
+        // Track page views
+        trackPageView('feedback');
+    });
+
+    // Feedback form handling
+    document.getElementById('feedback-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            category: document.getElementById('category').value,
+            priority: document.getElementById('priority').value,
+            description: document.getElementById('description').value.trim(),
+            impact: document.getElementById('impact').value.trim(),
+            subscribe: document.getElementById('subscribe').checked,
+            submittedAt: new Date().toISOString(),
+            status: 'pending'
+        };
+
+        // Store feedback in localStorage
+        let feedback = JSON.parse(localStorage.getItem('userFeedback') || '[]');
+        feedback.push(formData);
+        localStorage.setItem('userFeedback', JSON.stringify(feedback));
+
+        // Show success message
+        const status = document.querySelector('.feedback-status');
+        status.textContent = '✓ Thank you! Your feedback has been submitted.';
+        status.className = 'feedback-status success';
+
+        // Reset form
+        this.reset();
+
+        // Store the ID for future reference
+        localStorage.setItem('lastFeedbackId', feedback.length);
+
+        // Auto-show dashboard for demo
+        setTimeout(() => {
+            showFeedbackDashboard();
+        }, 1500);
+    });
+
+    function showFeedbackDashboard() {
+        const feedback = JSON.parse(localStorage.getItem('userFeedback') || '[]');
+
+        document.getElementById('feedback-dashboard').style.display = 'block';
+
+        // Update stats
+        const total = feedback.length;
+        const pending = feedback.filter(f => f.status === 'pending').length;
+        const resolved = feedback.filter(f => f.status === 'resolved').length;
+        const responseRate = total > 0 ? Math.round((resolved / total) * 100) : 0;
+
+        document.getElementById('total-feedback').textContent = total;
+        document.getElementById('pending-feedback').textContent = pending;
+        document.getElementById('resolved-feedback').textContent = resolved;
+        document.getElementById('response-rate').textContent = responseRate + '%';
+
+        // Render feedback list
+        const list = document.getElementById('feedback-items');
+        list.innerHTML = feedback.slice(-10).reverse().map(item => `
+            <div class="feedback-item ${item.status}">
+                <div class="feedback-header">
+                    <span class="feedback-category">${item.category}</span>
+                    <span class="feedback-priority">${item.priority}</span>
+                    <span class="feedback-date">${formatDate(item.submittedAt)}</span>
+                </div>
+                <div class="feedback-body">
+                    <strong>${escapeHtml(item.name || 'Anonymous')}</strong>
+                    <p>${escapeHtml(item.description)}</p>
+                    ${item.impact ? `<p class="feedback-impact"><em>Impact: ${escapeHtml(item.impact)}</em></p>` : ''}
+                </div>
+            </div>
+        `).join('');
+
+        // Add response buttons
+        feedback.slice(-10).reverse().forEach((item, index) => {
+            const feedbackItems = document.querySelectorAll('.feedback-item');
+            if (feedbackItems[index]) {
+                feedbackItems[index].innerHTML += `
+                    <div class="feedback-actions">
+                        <button class="btn-resolve" onclick="resolveFeedback(${feedback.length - 1 - index})">Mark Resolved</button>
+                    </div>
+                `;
+            }
+        });
+    }
+
+    function resolveFeedback(index) {
+        const feedback = JSON.parse(localStorage.getItem('userFeedback') || '[]');
+        if (feedback[index]) {
+            feedback[index].status = 'resolved';
+            feedback[index].resolvedAt = new Date().toISOString();
+            localStorage.setItem('userFeedback', JSON.stringify(feedback));
+            showFeedbackDashboard();
+        }
+    }
+
+    function trackPageView(page) {
+        const analytics = JSON.parse(localStorage.getItem('pageAnalytics') || '[]');
+        analytics.push({
+            page: page,
+            timestamp: new Date().toISOString(),
+            referrer: document.referrer || 'direct'
+        });
+        localStorage.setItem('pageAnalytics', JSON.stringify(analytics));
+    }
+
+    function formatDate(isoString) {
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+</script>
+
+---
+
+## Navigation
+
+[← Back to Home](index.html) | [Runs](runs.html) | [Tools](tools.html) | [Metrics](metrics.html) | [Knowledge](knowledge_base.html) | [Search](search.html) | [Feedback](feedback.html)
+
+---
+
+*Thank you for helping me improve!*
