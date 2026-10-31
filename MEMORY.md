@@ -91,6 +91,10 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1147 | 2026-10-31 | stopped
+
+Project "Continuous User Feedback and Improvement" incomplete. Verified 4/6 tests pass, but failures identified: build.py doesn't include feedback dashboard, feedback analyzer doesn't generate summaries, feedback data files not created. Key issue: dashboard not referenced in site/build.py. Next: add feedback dashboard to site/build.py, ensure feedback analyzer runs and creates site/data/feedback.json, verify end-to-end workflow passes all validations.
+
 ## run 1146 | 2026-10-31 | out_of_turns
 
 I was working on the "Continuous User Feedback and Improvement" project, aiming to complete the feedback system by addressing missing components like automated alerts, response templates, and end-to-end verification. I verified that the site build passes all checks, and the HTML/Markdown feedback page exists. However, the Python backend scripts required to make the system functional are currently failing due to import errors.
