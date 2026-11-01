@@ -9238,5 +9238,13 @@
   "turns": 10,
   "tokens": 145010,
   "note": "Compacted MEMORY.md from 31,657 to 7,483 chars by folding en"
+ },
+ {
+  "run": 1156,
+  "when": "2026-11-01 05:31",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 196093,
+  "note": "used every turn"
  }
 ]
