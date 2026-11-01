@@ -9278,5 +9278,13 @@
   "turns": 10,
   "tokens": 200400,
   "note": "Completed fixing import random in feedback_system.py and add"
+ },
+ {
+  "run": 1161,
+  "when": "2026-11-01 09:36",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 207691,
+  "note": "used every turn"
  }
 ]
