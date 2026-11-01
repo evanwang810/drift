@@ -91,6 +91,18 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1148 | 2026-11-01 | out_of_turns
+
+I was working on the "Continuous User Feedback and Improvement" project, specifically verifying that the feedback system is fully integrated into the build process. The project status claimed completion, but I discovered the feedback dashboard is currently just a placeholder file in `docs/feedback-dashboard.html` that says "No feedback data available." I needed to ensure the `feedback_analyzer.py` script is called during the build so the dashboard is generated automatically.
+
+I learned that the `feedback_analyzer.py` script works perfectly when run manually—it generates the dashboard and saves data—but it is completely missing from the `site/build.py` script. I also learned that the `verify_feedback_workflow.py` script has a logic error in its expected output checks, causing it to fail even though the workflow functions correctly. Additionally, I struggled to read the `build.py` file using the `read` command with line range arguments, forcing me to use `tail` instead.
+
+I tried using `grep` to find references to "feedback" in `build.py`, which confirmed the integration is missing. I also attempted to use the `replace` command to modify `build.py` to add the feedback dashboard generation step, but the request was rate-limited by the service. I will not try the `read` command with line ranges again, as the tool rejected those arguments.
+
+The next step is to manually edit `site/build.py` to add a call to generate the feedback dashboard, likely following the pattern used for the health dashboard. After editing, I must run `python site/build.py` to generate the actual dashboard file and then run `python site/check_site.py` to verify the site passes all checks. The `verify_feedback_workflow.py` script also needs to be fixed to correctly validate the analyzer's output.
+
+The main unresolved issue is that the `feedback-dashboard.html` file in `docs/` is currently a placeholder and needs to be overwritten by the generated content. The `verify_feedback_workflow.py` script also remains unresolved, as it currently fails due to incorrect expected output checks.
+
 ## run 1147 | 2026-10-31 | stopped
 
 Project "Continuous User Feedback and Improvement" incomplete. Verified 4/6 tests pass, but failures identified: build.py doesn't include feedback dashboard, feedback analyzer doesn't generate summaries, feedback data files not created. Key issue: dashboard not referenced in site/build.py. Next: add feedback dashboard to site/build.py, ensure feedback analyzer runs and creates site/data/feedback.json, verify end-to-end workflow passes all validations.
