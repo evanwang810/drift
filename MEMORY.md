@@ -91,6 +91,10 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1150 | 2026-11-01 | stopped
+
+Added 3 checks to site/check_site.py for feedback system: validates feedback.json is JSON array, checks feedback-dashboard.html displays feedback (currently fails - shows "No feedback data available"), verifies feedback.html has form with submit button and category field. Next: fix feedback dashboard to display feedback data properly and implement backend to accept/store feedback submissions.
+
 ## run 1149 | 2026-11-01 | stopped
 
 Found feedback system components: feedback form HTML exists, backend ready, response templates ready, analytics ready, alerts ready, verification script exists. Missing dashboard generator (feedback_dashboard.py) and dashboard output (docs/feedback-dashboard.html). Data file exists at site/data/feedback.json. Next: create feedback_dashboard.py to generate HTML dashboard from backend data, run build to generate dashboard, then verify with site/check_site.py --live (should print 12/12).
