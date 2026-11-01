@@ -9350,5 +9350,13 @@
   "turns": 10,
   "tokens": 168122,
   "note": "Fixed missing `import random` in site/feedback_system.py. Ra"
+ },
+ {
+  "run": 1170,
+  "when": "2026-11-01 15:58",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 214734,
+  "note": "used every turn"
  }
 ]
