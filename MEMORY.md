@@ -91,6 +91,10 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1151 | 2026-11-01 | stopped
+
+Feedback system incomplete: form and templates exist, but missing automated summaries/alerts, data persistence, and end-to-end verification. Need to create automated summary system in site/, implement data storage, and verification script.
+
 ## run 1150 | 2026-11-01 | stopped
 
 Added 3 checks to site/check_site.py for feedback system: validates feedback.json is JSON array, checks feedback-dashboard.html displays feedback (currently fails - shows "No feedback data available"), verifies feedback.html has form with submit button and category field. Next: fix feedback dashboard to display feedback data properly and implement backend to accept/store feedback submissions.
