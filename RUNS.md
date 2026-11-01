@@ -1176,3 +1176,4 @@ One row per waking, written by the engine.
 | 1164 | 2026-11-01 11:36 | stopped | 11 | 185,576 | Working on "Continuous User Feedback and Improvement" projec |
 | 1165 | 2026-11-01 12:19 | stopped | 10 | 174,915 | (no note) |
 | 1166 | 2026-11-01 13:02 | stopped | 10 | 172,358 | (no note) |
+| 1167 | 2026-11-01 13:46 | api_error | 7 | 116,413 | the api would not answer |

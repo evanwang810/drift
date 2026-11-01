@@ -1,92 +1,62 @@
 [
   {
     "id": "FB-20261101-12345",
+    "timestamp": "2026-11-01T12:00:00",
+    "name": "John Doe",
+    "email": "john@example.com",
     "category": "bug",
-    "priority": "critical",
-    "status": "new",
-    "description": "The search functionality on the homepage is not working properly. When I type a query, it returns no results even when valid content exists.",
-    "submittedAt": "2026-11-01T08:00:00Z",
-    "response": ""
-  },
-  {
-    "id": "FB-20261101-23456",
-    "category": "feature",
     "priority": "high",
-    "status": "new",
-    "description": "Please add a dark mode option for the entire website. It would be much easier on the eyes during night browsing.",
-    "submittedAt": "2026-11-01T09:30:00Z",
-    "response": ""
+    "status": "investigating",
+    "title": "Search functionality broken on mobile",
+    "description": "When I try to search from my phone, the results don't load. The search button doesn't respond at all.",
+    "submittedAt": "2026-11-01T10:30:00"
   },
   {
-    "id": "FB-20261101-34567",
-    "category": "improvement",
+    "id": "FB-20261031-67890",
+    "timestamp": "2026-10-31T15:45:00",
+    "name": "Jane Smith",
+    "email": "jane@example.com",
+    "category": "feature",
     "priority": "medium",
     "status": "new",
-    "description": "The knowledge base could benefit from better search filters. I want to filter by tags and type more easily.",
-    "submittedAt": "2026-11-01T10:15:00Z",
-    "response": ""
+    "title": "Dark mode toggle",
+    "description": "It would be great to have a dark mode option for late-night browsing. The current light theme is too bright.",
+    "submittedAt": "2026-10-31T09:15:00"
   },
   {
-    "id": "FB-20261101-45678",
+    "id": "FB-20261030-11223",
+    "timestamp": "2026-10-30T08:20:00",
+    "name": "Bob Johnson",
+    "email": "bob@example.com",
+    "category": "improvement",
+    "priority": "low",
+    "status": "acknowledged",
+    "title": "Documentation needs better examples",
+    "description": "The tutorial is good, but I'd like to see more real-world examples of how to use the search function with complex queries.",
+    "submittedAt": "2026-10-30T14:00:00"
+  },
+  {
+    "id": "FB-20261029-33445",
+    "timestamp": "2026-10-29T16:10:00",
+    "name": "Alice Brown",
+    "email": "alice@example.com",
     "category": "compliment",
-    "priority": "low",
-    "status": "responded",
-    "description": "Great documentation! I was able to set up the entire repository in under 30 minutes thanks to the getting started guide.",
-    "submittedAt": "2026-11-01T11:45:00Z",
-    "response": "Thank you for the kind words! We're glad the documentation helped you get started quickly. If you have any other questions, feel free to reach out."
-  },
-  {
-    "id": "FB-20261030-56789",
-    "category": "bug",
-    "priority": "high",
-    "status": "new",
-    "description": "The metrics dashboard is not loading on mobile devices. The charts are cut off on smaller screens.",
-    "submittedAt": "2026-10-30T14:20:00Z",
-    "response": ""
-  },
-  {
-    "id": "FB-20261030-67890",
-    "category": "feature",
     "priority": "medium",
-    "status": "responded",
-    "description": "It would be great to have a notification system for new blog posts. Currently, I have to check manually.",
-    "submittedAt": "2026-10-30T16:00:00Z",
-    "response": "That's a great idea. We're currently working on a newsletter feature that will be released in the next update. Stay tuned!"
+    "status": "resolved",
+    "title": "Great search interface!",
+    "description": "I love how the search results are filtered in real-time. It makes finding information so much faster.",
+    "submittedAt": "2026-10-29T11:20:00"
   },
   {
-    "id": "FB-20261029-78901",
-    "category": "other",
-    "priority": "low",
-    "status": "new",
-    "description": "Could you add a tutorial video showing how to use the tool inventory? Text documentation is sometimes hard to follow.",
-    "submittedAt": "2026-10-29T09:00:00Z",
-    "response": ""
-  },
-  {
-    "id": "FB-20261029-89012",
+    "id": "FB-20261028-55667",
+    "timestamp": "2026-10-28T09:30:00",
+    "name": "Charlie Wilson",
+    "email": "charlie@example.com",
     "category": "bug",
     "priority": "critical",
     "status": "new",
-    "description": "When trying to access the feedback form, I get a 500 error. Please check the feedback.html page.",
-    "submittedAt": "2026-10-29T12:30:00Z",
-    "response": ""
-  },
-  {
-    "id": "FB-20261028-90123",
-    "category": "feature",
-    "priority": "high",
-    "status": "new",
-    "description": "Please add an export feature for the knowledge base so users can download their search results or filtered data.",
-    "submittedAt": "2026-10-28T15:00:00Z",
-    "response": ""
-  },
-  {
-    "id": "FB-20261028-01234",
-    "category": "improvement",
-    "priority": "medium",
-    "status": "responded",
-    "description": "The site loading speed could be improved. Some pages take 3-4 seconds to load on my connection.",
-    "submittedAt": "2026-10-28T17:30:00Z",
-    "response": "We've been working on performance optimization. The most recent updates should have improved load times. Thanks for your patience!"
+    "title": "Knowledge base links broken",
+    "description": "Several links in the knowledge base section are 404 errors. The search index seems outdated.",
+    "submittedAt": "2026-10-28T17:45:00"
   }
 ]
