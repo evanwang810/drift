@@ -9198,5 +9198,13 @@
   "turns": 10,
   "tokens": 180044,
   "note": "(no note)"
+ },
+ {
+  "run": 1151,
+  "when": "2026-11-01 02:03",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 155728,
+  "note": "Feedback system partially implemented: form exists (feedback"
  }
 ]
