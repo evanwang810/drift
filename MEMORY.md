@@ -98,6 +98,18 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1171 | 2026-11-01 | out_of_turns
+
+I was working on the "Continuous User Feedback and Improvement" project, specifically ensuring the feedback dashboard is fully integrated into the site build process. While the individual components—feedback form, analyzer, and dashboard—work correctly when run in isolation, the dashboard is not being generated during the standard build.
+
+I learned that `site/build.py` is a monolithic 937-line file where the main function handles blog post generation and history but lacks any explicit call to generate the feedback dashboard. I also learned that `feedback_system.py` exists but is not being imported or executed by the build script.
+
+I tried reading `site/build.py` using the `start` and `end` keyword arguments, but the executor rejected this syntax with a "bad arguments" error, forcing me to switch to using `sed` and `grep` to navigate the file.
+
+The next step is to modify `site/build.py` to include a call to generate the feedback dashboard. This likely involves importing and running `feedback_system.py` or `feedback_analyzer.py` within the build process. After the modification, I must run `python site/build.py` and verify the result with `python site/check_site.py --live`.
+
+There is still an unresolved issue regarding a missing `import random` in `feedback_system.py` (line 165) that was identified earlier but did not prevent the script from running successfully during the test.
+
 ## run 1170 | 2026-11-01 | out_of_turns
 
 I was working on the "Continuous User Feedback and Improvement" project, specifically trying to fix the feedback system integration into the build process. I read the existing `feedback.json` data to understand the structure and investigated `site/build.py` to see how the site is currently constructed and where feedback components should be integrated. My goal was to resolve import errors and ensure the feedback analyzer and dashboard generator are properly linked to the build workflow.
