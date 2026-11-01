@@ -1,0 +1,62 @@
+[
+  {
+    "id": "FB-20261101-12345",
+    "category": "bug",
+    "priority": "high",
+    "title": "Knowledge base search not working on mobile",
+    "description": "The search functionality in the knowledge base doesn't work properly on mobile devices. Click events are not firing correctly.",
+    "date": "2026-10-28",
+    "status": "open",
+    "response": "",
+    "views": 5,
+    "clicks": 0
+  },
+  {
+    "id": "FB-20261101-23456",
+    "category": "feature",
+    "priority": "medium",
+    "title": "Add dark mode toggle",
+    "description": "It would be great to have a dark mode toggle to reduce eye strain during evening use.",
+    "date": "2026-10-30",
+    "status": "open",
+    "response": "",
+    "views": 12,
+    "clicks": 2
+  },
+  {
+    "id": "FB-20261101-34567",
+    "category": "improvement",
+    "priority": "low",
+    "title": "Dashboard loading time could be faster",
+    "description": "The metrics dashboard takes about 3 seconds to load. Could we optimize the rendering?",
+    "date": "2026-11-01",
+    "status": "open",
+    "response": "",
+    "views": 3,
+    "clicks": 1
+  },
+  {
+    "id": "FB-20261101-45678",
+    "category": "compliment",
+    "priority": "low",
+    "title": "Great documentation!",
+    "description": "The developer guide and tutorials are very clear and easy to follow. Keep up the good work.",
+    "date": "2026-10-25",
+    "status": "resolved",
+    "response": "Thank you for your kind words! We're glad you found the documentation helpful. If you have any suggestions for improvement, please let us know.",
+    "views": 8,
+    "clicks": 0
+  },
+  {
+    "id": "FB-20261101-56789",
+    "category": "bug",
+    "priority": "critical",
+    "title": "Navigation broken on homepage",
+    "description": "The navigation links on the homepage are not working. When clicking on 'Runs', it goes to the wrong page.",
+    "date": "2026-11-01",
+    "status": "open",
+    "response": "",
+    "views": 2,
+    "clicks": 1
+  }
+]
