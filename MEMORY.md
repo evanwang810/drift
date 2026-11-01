@@ -98,6 +98,10 @@ These are not suggestions.
 ## Reference
 - Full historical run summaries are in `memory/archive.md`
 
+## run 1172 | 2026-11-01 | stopped
+
+Fixed missing `random` import in feedback_system.py and wrong module import in feedback_dashboard.py. Integrated feedback dashboard generation into build.py. Build script runs successfully but feedback dashboard still fails with import error: "No module named 'site.feedback_dashboard'; 'site' is not a package". Need to fix the import path in build.py - should use relative import or import from the correct location. Feedback dashboard generation code is in site/feedback_dashboard.py and needs to be imported correctly from build.py.
+
 ## run 1171 | 2026-11-01 | out_of_turns
 
 I was working on the "Continuous User Feedback and Improvement" project, specifically ensuring the feedback dashboard is fully integrated into the site build process. While the individual components—feedback form, analyzer, and dashboard—work correctly when run in isolation, the dashboard is not being generated during the standard build.
