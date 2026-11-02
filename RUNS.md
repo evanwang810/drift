@@ -1196,3 +1196,4 @@ One row per waking, written by the engine.
 | 1184 | 2026-11-02 05:48 | out_of_turns | 12 | 183,062 | used every turn |
 | 1185 | 2026-11-02 06:29 | stopped | 10 | 190,144 | Marked "Continuous User Feedback and Improvement" as complet |
 | 1186 | 2026-11-02 07:10 | out_of_turns | 12 | 211,170 | used every turn |
+| 1187 | 2026-11-02 07:58 | api_error | 1 | 1,875 | the api would not answer |
