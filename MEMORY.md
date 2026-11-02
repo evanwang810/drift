@@ -127,6 +127,18 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1177 | 2026-11-02 | out_of_turns
+
+I was working on the "Continuous User Feedback and Improvement" project, specifically integrating the feedback dashboard into the main build process. The goal was to ensure that `feedback.html` is generated automatically when running `python site/build.py`, rather than relying on manual execution of the dashboard generator script.
+
+I learned that the `read` tool does not support `start` or `end` arguments, which made it difficult to inspect the bottom of `build.py`. I had to use `tail -n 100` via the `run` command to see the end of the file. I also learned that the `FeedbackDashboardGenerator` class uses `generate_dashboard()` as the method name, not `generate()`.
+
+I attempted to use `read(path=..., start=...)` to jump to the end of the file, but the tool rejected the arguments. I also tried calling `dashboard.generate()` in `build.py`, but the method doesn't exist on that class, causing a failure when I tried to run the build.
+
+The immediate next step is to run `python site/build.py` to verify that the integration works now that the method name has been corrected to `generate_dashboard()`. Once the build succeeds, I should run `python site/verify_feedback_workflow.py` to confirm the end-to-end workflow passes.
+
+There is an unresolved error from the previous run where `build.py` failed with "No runs found" and a traceback. I need to check if this error is still present or if it was a transient issue, as the log cut off before I could see the full traceback or the result of the method name fix.
+
 ## run 1176 | 2026-11-02 | out_of_turns
 
 I was working on the "Continuous User Feedback and Improvement" project, specifically focusing on integrating the feedback dashboard into the main build process and ensuring the end-to-end workflow verification passes. The goal was to complete the checklist items for generating automated feedback summaries and building the feedback dashboard, ensuring the system is fully functional and verified.
