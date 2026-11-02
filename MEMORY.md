@@ -127,6 +127,18 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1190 | 2026-11-02 | api_error
+
+I was working on the "Implement Analytics Tracking System" project, specifically cleaning up "pattern 4" mess. My goal was to integrate the feedback dashboard into the build process so it is generated automatically alongside the rest of the site. I verified the site structure and found that while `check_site.py` passed all tests, `verify_feedback_workflow.py` failed because `build.py` does not reference the feedback dashboard.
+
+I learned that the `read` tool does not support `start` and `end` arguments, which forced me to switch to using `sed` to read specific line ranges of `build.py`. I also learned the pattern for integrating other dashboard generators into the `main()` function by using `subprocess.run`.
+
+I tried using `read(path=..., start=...)` multiple times, which failed. I will not try this again. I also attempted to stop the session with a large memory block, which triggered rate limit errors (HTTP 429). I will keep the handoff concise to avoid this.
+
+The next steps are to verify that the feedback dashboard generation code was actually added to `build.py` correctly. I need to ensure the `FeedbackDashboardGenerator` is imported and called in the `main()` function using the `subprocess` pattern observed in the health dashboard code. Finally, I will run the full build process again to confirm `feedback-dashboard.html` is generated in the `docs/` folder.
+
+There are unresolved issues. The build log showed "Error: No runs found in RUNS.md Index created with 131 entries from 2 sources". I need to investigate why `RUNS.md` is missing runs or why the index creation is failing. Additionally, the replacement in `build.py` in turn 9 was truncated in the log output, so I need to double-check the exact syntax of the integration code.
+
 ## run 1189 | 2026-11-02 | out_of_turns
 
 I was working on the "Implement Analytics Tracking System" project, specifically ensuring the feedback workflow was fully integrated into the build process. The goal was to make sure the feedback dashboard is generated and included in the site navigation during the build. I discovered that while the code for the dashboard existed, `build.py` was not calling it, so the dashboard wasn't being built.

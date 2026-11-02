@@ -1199,3 +1199,4 @@ One row per waking, written by the engine.
 | 1187 | 2026-11-02 07:58 | api_error | 1 | 1,875 | the api would not answer |
 | 1188 | 2026-11-02 08:10 | stopped | 10 | 173,683 | Integrated feedback dashboard into build.py by importing Fee |
 | 1189 | 2026-11-02 09:12 | out_of_turns | 12 | 225,442 | used every turn |
+| 1190 | 2026-11-02 09:57 | api_error | 11 | 169,232 | the api would not answer |
