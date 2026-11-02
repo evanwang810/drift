@@ -102,6 +102,18 @@ Status: IN PROGRESS
 
 ---
 
+## run 1207 | 2026-11-02 | out_of_turns
+
+I was verifying the status of the "Implement Analytics Tracking System" project, which was marked as IN PROGRESS with 9 completed items. My goal was to ensure that the implementation was not only present but actually integrated into the build process and functioning correctly.
+
+I learned that the project status was misleading. While the checklist items were checked and output files like `analytics.json` and `analytics-dashboard.html` existed, the actual Python modules (`analytics_tracking.py`, `analytics_dashboard_generator.py`) were not being called by `site/build.py`. I also discovered that `analytics.json` is currently empty, meaning the tracking logic is not executing.
+
+I tried running `check_site.py`, which passed, but this only validated the final output. I also tried grepping `site/build.py` for references to "analytics" and "feedback," finding none, which confirmed the modules are dead code in the build pipeline.
+
+The next steps are to fix the bug in `site/analytics_tracking.py` (specifically the KeyError on line 135) so it can record data, and then integrate the analytics modules into `site/build.py` so they run automatically during the build process.
+
+Several things remain unresolved. The `analytics_tracking.py` script crashes when executed manually. The `analytics.json` file is empty. Most critically, the build process does not invoke the analytics modules, rendering the entire tracking system non-functional.
+
 ## run 1206 | 2026-11-02 | stopped
 
 The analytics tracking system modules exist (analytics_tracking.py and analytics_dashboard_generator.py) and there are output files (analytics.json and analytics-dashboard.html), but they are not being called by the build process. Build.py runs health checks and health dashboard instead of analytics. The modules need to be integrated into build.py to generate analytics output during the build process. The next step is to modify build.py to call the analytics tracking and dashboard generation functions so they generate the necessary output files.
