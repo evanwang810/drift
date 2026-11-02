@@ -127,6 +127,10 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1179 | 2026-11-02 | stopped
+
+Verified feedback system is incomplete: 5/6 verify_feedback_workflow.py tests pass, but build.py does not reference feedback dashboard generation. Need to integrate FeedbackDashboardGenerator into build.py by importing and calling generate_dashboard() in main(), add feedback-dashboard.html to navigation. After integration, run verify_feedback_workflow.py to confirm all 6 tests pass.
+
 ## run 1178 | 2026-11-02 | stopped
 
 Completed the "Continuous User Feedback and Improvement" project. Integrated the feedback dashboard into the build process by adding `generate_feedback_dashboard()` function to `site/build.py`, which is called in `main()` before generating the final HTML. Ran `verify_feedback_workflow.py` and all 6 tests passed (feedback.html exists, analyzer runs, dashboard generated, templates complete, build includes dashboard, check_site.py passes). Updated PROJECT.md to mark project as completed with all checklist items done. Next: start a new project from PROJECT.md.
