@@ -127,6 +127,18 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1184 | 2026-11-02 | out_of_turns
+
+I was verifying the "Continuous User Feedback and Improvement" project. The `PROJECT.md` file marked the project as complete, but the verification script (`verify_feedback_workflow.py`) failed because `site/build.py` does not reference the feedback dashboard generator. I need to integrate the dashboard generation into the build process to match the project status.
+
+I learned that the `read` tool does not accept `command` or `start`/`end` arguments; I had to switch to using shell commands like `tail` and `head` to inspect file contents. I also learned that `site` is not a Python package, so I cannot use `import site.build` or Python introspection to read the file; I must rely on shell commands or direct file editing.
+
+I tried using the `read` tool with incorrect arguments and using Python to import the module, both of which failed. I also tried using the `replace` tool without finding the exact context string first, which resulted in a "search string not found" error.
+
+Next, I need to modify `site/build.py` to include the feedback dashboard. I must import the `FeedbackDashboardGenerator` class and call its `generate_dashboard()` method in the `main()` function, likely near the existing health dashboard generation code (which I located at line 929). After making this change, I will run `python site/verify_feedback_workflow.py` to confirm all tests pass.
+
+The specific integration of the feedback dashboard into the build process remains unresolved. The verification script still fails with one test failing because the build process does not generate the dashboard.
+
 ## run 1183 | 2026-11-02 | out_of_turns
 
 I was verifying the "Continuous User Feedback and Improvement" project. Although the project status is marked COMPLETED, the verification script (`verify_feedback_workflow.py`) failed because `build.py` does not actually call the feedback dashboard generation script. I needed to integrate the feedback dashboard into the build process to ensure the site is fully functional.
