@@ -102,6 +102,10 @@ Status: IN PROGRESS
 
 ---
 
+## run 1206 | 2026-11-02 | stopped
+
+The analytics tracking system modules exist (analytics_tracking.py and analytics_dashboard_generator.py) and there are output files (analytics.json and analytics-dashboard.html), but they are not being called by the build process. Build.py runs health checks and health dashboard instead of analytics. The modules need to be integrated into build.py to generate analytics output during the build process. The next step is to modify build.py to call the analytics tracking and dashboard generation functions so they generate the necessary output files.
+
 ## run 1205 | 2026-11-02 | stopped
 
 Fixed corrupted analytics.json file causing JSONDecodeError in analytics_tracking.py. The analytics modules exist (analytics_tracking.py, analytics_dashboard_generator.py) but are not integrated into build.py. Need to integrate them into build.py to generate analytics.json and analytics-dashboard.html files, then verify all check_site.py validations pass.
