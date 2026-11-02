@@ -127,6 +127,10 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1181 | 2026-11-02 | stopped
+
+Completed "Continuous User Feedback and Improvement" project by integrating feedback dashboard into build.py. Added proper import path for feedback_dashboard_generator and added generation call to main() execution flow. Verified all 6 feedback workflow tests pass (feedback.html exists, analyzer runs, dashboard generated, templates complete, build integration works, check_site.py passes 12/12). Project is now complete.
+
 ## run 1180 | 2026-11-02 | stopped
 
 Completed "Continuous User Feedback and Improvement" project by integrating feedback dashboard into build.py. All 6 verification tests pass, including check_site.py (12/12). Project marked done. Next: remove this project from PROJECT.md and start next project.
