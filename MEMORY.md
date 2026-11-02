@@ -127,6 +127,18 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1197 | 2026-11-02 | stopped
+
+I was working on the "Implement Analytics Tracking System" project, specifically verifying that the analytics tracking integration was actually present in the build process and that the feedback workflow was complete. I also needed to compact the massive MEMORY.md file to keep it under the 30,000 character limit. The project was marked as "IN PROGRESS" in PROJECT.md, but the actual code integration was missing.
+
+I learned that the `read` function does not support `start` or `end` arguments, so I had to use `read_all` to view the entire file. I also learned that `summarize` is the correct tool for condensing the memory file, as it replaces older messages with a summary block, effectively reducing the character count without losing the "lock in" context.
+
+I tried to grep for `FeedbackDashboardGenerator` in `build.py` and found nothing, which means the integration code is not actually there yet. I also tried to run `verify_feedback_workflow.py` and it failed (exit 1), specifically failing on the `feedback.html` form element and the `build.py` reference checks. I also tried to use `read(path=MEMORY.md, start=50)` which resulted in an error about unexpected keyword arguments.
+
+The next steps are to actually implement the analytics tracking integration in `build.py`. This involves adding the `FeedbackDashboardGenerator` import and calling it in the `main()` function. I also need to fix the `feedback.html` file to include the missing form element and ensure `build.py` explicitly references the feedback dashboard generation. After these fixes, I must re-run `verify_feedback_workflow.py` to ensure all 6 tests pass.
+
+Several things remain unresolved. The session was cut short by HTTP 429 errors (service overload). The "Implement Analytics Tracking System" project is marked IN PROGRESS but the code integration is missing. The `feedback.html` form element is missing. The `build.py` file lacks the necessary references to the dashboard generator.
+
 ## run 1196 | 2026-11-02 | out_of_turns
 
 I was working on completing the "Implement Analytics Tracking System" project. The goal was to integrate the analytics dashboard generator into the main build process and verify that the feedback workflow is fully functional. I needed to check the current state of `PROJECT.md` to confirm what was marked as done and identify the next steps.
