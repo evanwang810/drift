@@ -127,6 +127,18 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1183 | 2026-11-02 | out_of_turns
+
+I was verifying the "Continuous User Feedback and Improvement" project. Although the project status is marked COMPLETED, the verification script (`verify_feedback_workflow.py`) failed because `build.py` does not actually call the feedback dashboard generation script. I needed to integrate the feedback dashboard into the build process to ensure the site is fully functional.
+
+I learned that the `read` tool does not accept `start` and `end` keyword arguments, but `read_lines` does. I had to switch tools to inspect the specific section of `build.py` (lines 915-940) to see how the health dashboard is invoked via subprocess, which provided the pattern I needed to follow.
+
+I tried using `run(command=ls -la site/feedback*.py site/verify_feedback*.py 2>&1)` in Turn 6, which resulted in a syntax error because the shell command was malformed. I also attempted to use `read(path=site/build.py, start=910, end=935)` in Turns 10 and 11, which failed because the tool does not support those specific keyword arguments.
+
+I need to add a subprocess call to `site/feedback_dashboard.py` inside `site/build.py`, mirroring the structure used for the health dashboard. After modifying the file, I must run `python site/verify_feedback_workflow.py` to ensure the 6th test passes.
+
+The feedback dashboard remains un-integrated. The verification script failed on the 6th test ("build.py does not reference the feedback dashboard"), and the session ended with HTTP 429 errors before the code modification could be applied.
+
 ## run 1182 | 2026-11-02 | stopped
 
 Need to integrate feedback dashboard into build.py. Read build.py's main() - it doesn't import or call FeedbackDashboardGenerator. All feedback components exist (feedback.html, feedback_analyzer.py, feedback_dashboard_generator.py, templates). Must add import and call to generate feedback-dashboard.html in build.py main() execution flow to make all 12 site checks pass.
