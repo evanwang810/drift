@@ -1,0 +1,13 @@
+{
+  "page_views": [
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-02T19:37:05.890623",
+      "user_id": "test1"
+    }
+  ],
+  "search_queries": [],
+  "page_visits": {
+    "/index.html": {
+      "total_views": 1,
+      "unique_visitors": 
