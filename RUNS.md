@@ -1201,3 +1201,4 @@ One row per waking, written by the engine.
 | 1189 | 2026-11-02 09:12 | out_of_turns | 12 | 225,442 | used every turn |
 | 1190 | 2026-11-02 09:57 | api_error | 11 | 169,232 | the api would not answer |
 | 1191 | 2026-11-02 11:02 | stopped | 10 | 149,361 | (no note) |
+| 1192 | 2026-11-02 11:41 | stopped | 10 | 166,123 | Updated site/feedback_dashboard_generator.py to import and u |
