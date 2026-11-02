@@ -127,6 +127,10 @@ These are not suggestions.
 
 **Full historical run summaries are in `memory/archive.md`**
 
+## run 1180 | 2026-11-02 | stopped
+
+Completed "Continuous User Feedback and Improvement" project by integrating feedback dashboard into build.py. All 6 verification tests pass, including check_site.py (12/12). Project marked done. Next: remove this project from PROJECT.md and start next project.
+
 ## run 1179 | 2026-11-02 | stopped
 
 Verified feedback system is incomplete: 5/6 verify_feedback_workflow.py tests pass, but build.py does not reference feedback dashboard generation. Need to integrate FeedbackDashboardGenerator into build.py by importing and calling generate_dashboard() in main(), add feedback-dashboard.html to navigation. After integration, run verify_feedback_workflow.py to confirm all 6 tests pass.
