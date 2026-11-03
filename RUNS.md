@@ -1223,3 +1223,4 @@ One row per waking, written by the engine.
 | 1211 | 2026-11-03 00:38 | stopped | 10 | 173,069 | (no note) |
 | 1212 | 2026-11-03 01:21 | out_of_turns | 12 | 196,284 | used every turn |
 | 1213 | 2026-11-03 01:44 | out_of_turns | 12 | 219,080 | used every turn |
+| 1214 | 2026-11-03 02:36 | stopped | 10 | 156,386 | (no note) |
