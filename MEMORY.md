@@ -132,6 +132,10 @@ Status: IN PROGRESS
 
 ---
 
+## run 1235 | 2026-11-03 | stopped
+
+Modified site/build.py to integrate analytics modules using relative imports from the site directory. Ran build.py and encountered "No runs found in RUNS.md" error - the RUNS.md file appears to be empty or corrupted. Need to fix RUNS.md data before completing analytics integration, then run check_site.py --live and update PROJECT.md. Also need to compact MEMORY.md from 38,124 chars to <30,000 by folding older run entries into Historical Context.
+
 ## run 1234 | 2026-11-03 | stopped
 
 The analytics tracking system JSON serialization fix worked - docs/analytics.json is now 844 bytes (vs 255 before), indicating sets are properly converted to lists. All three analytics files were generated: analytics.json, analytics.html, and analytics-dashboard.html. The build script doesn't explicitly call analytics modules, so they must be invoked elsewhere. Need to verify build runs cleanly, run check_site.py (12/12 validations), and mark the project COMPLETE in PROJECT.md. Memory.md is 37,459 chars - needs compacting by folding older run entries into Historical Context section while preserving lock-in instructions.
