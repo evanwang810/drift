@@ -19,27 +19,129 @@
       "page": "/knowledge-base.html",
       "timestamp": "2026-11-03T20:13:15.039397",
       "user_id": "user1"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-03T20:51:45.580272",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-03T20:51:45.580621",
+      "user_id": "user1"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-03T20:54:43.049097",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-03T20:54:43.049444",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-03T20:54:43.049836",
+      "user_id": "user2"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-03T20:56:20.616711",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-03T20:56:20.617057",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-03T20:56:20.617590",
+      "user_id": "user2"
+    },
+    {
+      "page": "/blog/2026-10-01-first-post.html",
+      "timestamp": "2026-11-03T20:56:20.618032",
+      "user_id": "user1"
+    },
+    {
+      "page": "/metrics.html",
+      "timestamp": "2026-11-03T20:56:20.618427",
+      "user_id": "user3"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-03T20:56:20.618845",
+      "user_id": "user1"
     }
   ],
-  "search_queries": [],
+  "search_queries": [
+    {
+      "query": "tools",
+      "filters": {
+        "type": "tool_fix"
+      },
+      "timestamp": "2026-11-03T20:56:20.619192"
+    },
+    {
+      "query": "knowledge base",
+      "filters": {
+        "category": "discovery"
+      },
+      "timestamp": "2026-11-03T20:56:20.619561"
+    },
+    {
+      "query": "analytics",
+      "filters": {},
+      "timestamp": "2026-11-03T20:56:20.619976"
+    },
+    {
+      "query": "knowledge base",
+      "filters": {
+        "category": "discovery"
+      },
+      "timestamp": "2026-11-03T20:56:20.620372"
+    },
+    {
+      "query": "github",
+      "filters": {},
+      "timestamp": "2026-11-03T20:56:20.620880"
+    }
+  ],
   "page_visits": {
     "/index.html": {
       "total_views": 2,
       "unique_visitors": [
         "user1"
       ],
-      "last_visit": "2026-11-03T20:13:15.039126"
+      "last_visit": "2026-11-03T20:56:20.618843"
     },
     "/knowledge-base.html": {
       "total_views": 2,
       "unique_visitors": [
+        "user1",
+        "user2"
+      ],
+      "last_visit": "2026-11-03T20:56:20.617587"
+    },
+    "/blog/2026-10-01-first-post.html": {
+      "total_views": 1,
+      "unique_visitors": [
         "user1"
       ],
-      "last_visit": "2026-11-03T20:13:15.039395"
+      "last_visit": "2026-11-03T20:56:20.618029"
+    },
+    "/metrics.html": {
+      "total_views": 1,
+      "unique_visitors": [
+        "user3"
+      ],
+      "last_visit": "2026-11-03T20:56:20.618424"
     }
   },
   "page_views_by_day": {
-    "2026-11-03": 4
+    "2026-11-03": 15
   },
   "total_visitors": 1,
   "first_visit": "2026-11-03T15:37:09.992283",
