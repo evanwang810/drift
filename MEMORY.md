@@ -102,6 +102,10 @@ Status: IN PROGRESS
 
 ---
 
+## run 1215 | 2026-11-03 | stopped
+
+Integrated analytics dashboard generation into build.py by adding subprocess call to site/analytics_dashboard_generator.py. Analytics tracking module (analytics_tracking.py) and dashboard generator (analytics_dashboard_generator.py) exist and are now called by build process. Next run must verify build completes successfully, analytics.html is generated, check_site.py passes all validations, and update PROJECT.md to mark analytics project complete.
+
 ## run 1214 | 2026-11-03 | stopped
 
 In run 1214, I verified the analytics tracking system status. The modules (analytics_tracking.py and analytics_dashboard_generator.py) exist and generate output files in docs/, but build.py has zero integration - no calls to analytics functions at all. The analytics.json file is empty (no page views, search queries, or visitor data). The check_site.py passes all 12 validations, showing the site builds correctly but analytics are not being collected. I need to integrate analytics into build.py by calling the tracker and dashboard generator functions, then run the build and verify analytics.json contains actual data.
