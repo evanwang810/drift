@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Dashboard</title>
+    <title>Feedback Dashboard - Drift</title>
     <link rel="stylesheet" href="/static/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -26,161 +25,206 @@
     <main>
         <h1>Feedback Dashboard</h1>
 
-        <div class="dashboard-stats">
+        <div class="dashboard-summary">
             <div class="stat-card">
-                <h3>Total Feedback</h3>
-                <p class="stat-number">5</p>
+                <div class="stat-label">Total Feedback</div>
+                <div class="stat-value">5</div>
             </div>
             <div class="stat-card">
-                <h3>Critical Issues</h3>
-                <p class="stat-number critical">2</p>
-            </div>
-            <div class="stat-card">
-                <h3>High Priority</h3>
-                <p class="stat-number high">1</p>
-            </div>
-            <div class="stat-card">
-                <h3>Medium Priority</h3>
-                <p class="stat-number medium">2</p>
+                <div class="stat-label">Action Items</div>
+                <div class="stat-value highlight">2</div>
             </div>
         </div>
 
-        <div class="dashboard-charts">
+        <div class="dashboard-section">
+            <h2>Feedback by Category</h2>
             <div class="chart-container">
-                <h3>Feedback by Category</h3>
-                <canvas id="categoryChart"></canvas>
+
+                <div class="bar-chart-item">
+                    <span class="bar-label">Bug</span>
+                    <span class="bar-value">2</span>
+                    <div class="bar-fill" style="width: 40.0%">
+                        <span class="bar-percent">40.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">Feature</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">Improvement</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">Compliment</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Feedback by Priority</h2>
             <div class="chart-container">
-                <h3>Feedback by Priority</h3>
-                <canvas id="priorityChart"></canvas>
+
+                <div class="bar-chart-item">
+                    <span class="bar-label">Medium</span>
+                    <span class="bar-value">2</span>
+                    <div class="bar-fill" style="width: 40.0%; background-color: #ca8a04">
+                        <span class="bar-percent">40.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">High</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%; background-color: #ea580c">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">Low</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%; background-color: #4b5563">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
+                <div class="bar-chart-item">
+                    <span class="bar-label">Critical</span>
+                    <span class="bar-value">1</span>
+                    <div class="bar-fill" style="width: 20.0%; background-color: #dc2626">
+                        <span class="bar-percent">20.0%</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="dashboard-list">
-            <h3>Recent Feedback</h3>
-            <div class="list-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Category</th>
-                            <th>Priority</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        <tr>
-                            <td>2026-10-28</td>
-                            <td>bug</td>
-                            <td class="critical">critical</td>
-                            <td>Several links in the knowledge base section are 40...</td>
-                        </tr>
+        <div class="dashboard-section">
+            <h2>Most Common Keywords</h2>
+            <div class="keyword-cloud">
 
-                        <tr>
-                            <td>2026-10-29</td>
-                            <td>compliment</td>
-                            <td class="medium">medium</td>
-                            <td>I love how the search results are filtered in real...</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-10-30</td>
-                            <td>improvement</td>
-                            <td class="low">low</td>
-                            <td>The tutorial is good, but I'd like to see more rea...</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-10-31</td>
-                            <td>feature</td>
-                            <td class="medium">medium</td>
-                            <td>It would be great to have a dark mode option for l...</td>
-                        </tr>
-
-                        <tr>
-                            <td>2026-11-01</td>
-                            <td>bug</td>
-                            <td class="high">high</td>
-                            <td>When I try to search from my phone, the results do...</td>
-                        </tr>
-
-                    </tbody>
-                </table>
+                <span class="keyword-tag">search (5)</span>
+                <span class="keyword-tag">results (2)</span>
+                <span class="keyword-tag">try (1)</span>
+                <span class="keyword-tag">phone (1)</span>
+                <span class="keyword-tag">don't (1)</span>
+                <span class="keyword-tag">load (1)</span>
+                <span class="keyword-tag">button (1)</span>
+                <span class="keyword-tag">doesn't (1)</span>
+                <span class="keyword-tag">respond (1)</span>
+                <span class="keyword-tag">great (1)</span>
+                <span class="keyword-tag">dark (1)</span>
+                <span class="keyword-tag">mode (1)</span>
+                <span class="keyword-tag">option (1)</span>
+                <span class="keyword-tag">late-night (1)</span>
+                <span class="keyword-tag">browsing (1)</span>
             </div>
         </div>
 
-        <div class="dashboard-alerts">
-            <h3>Alerts</h3>
-<div class="alert alert-⚠️ high priority alert">⚠️ HIGH PRIORITY ALERT: 1 high-priority items require attention</div><div class="alert alert-🚨 critical alert">🚨 CRITICAL ALERT: 1 critical issues need immediate attention</div><div class="alert alert-⏰ unresponded alert">⏰ UNRESPONDED ALERT: 1 critical items haven't been addressed yet</div>
+        <div class="dashboard-section">
+            <h2>Feedback Trends (Recent Weeks)</h2>
+            <div class="trend-chart">
+
+                <div class="trend-item">
+                    <span class="trend-label">Week 2026-W44</span>
+                    <span class="trend-value">5 feedback</span>
+                    <div class="trend-bar" style="width: 25%"></div>
+                </div>
+            </div>
         </div>
+
+        <div class="dashboard-section">
+            <h2>🚨 Action Items (High Priority)</h2>
+            <div class="action-list">
+
+                <div class="action-item card">
+                    <span class="action-tag tag-High">High</span>
+                    <span class="action-category">Bug</span>
+                    <p class="action-description">"When I try to search from my phone, the results don't load. The search button doesn't respond at all."</p>
+                </div>
+                <div class="action-item card">
+                    <span class="action-tag tag-Critical">Critical</span>
+                    <span class="action-category">Bug</span>
+                    <p class="action-description">"Several links in the knowledge base section are 404 errors. The search index seems outdated."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Recent Feedback</h2>
+            <div class="feedback-list">
+
+                <div class="feedback-item card">
+                    <div class="feedback-header">
+                        <span class="feedback-category">Bug</span>
+                        <span class="feedback-priority tag-High">High</span>
+                    </div>
+                    <p class="feedback-description">"When I try to search from my phone, the results don't load. The search button doesn't respond at all."</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-user">👤 John Doe</span>
+                        <span class="feedback-date">📅 2026-11-01</span>
+                    </div>
+                </div>
+                <div class="feedback-item card">
+                    <div class="feedback-header">
+                        <span class="feedback-category">Feature</span>
+                        <span class="feedback-priority tag-Medium">Medium</span>
+                    </div>
+                    <p class="feedback-description">"It would be great to have a dark mode option for late-night browsing. The current light theme is too bright."</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-user">👤 Jane Smith</span>
+                        <span class="feedback-date">📅 2026-10-31</span>
+                    </div>
+                </div>
+                <div class="feedback-item card">
+                    <div class="feedback-header">
+                        <span class="feedback-category">Improvement</span>
+                        <span class="feedback-priority tag-Low">Low</span>
+                    </div>
+                    <p class="feedback-description">"The tutorial is good, but I'd like to see more real-world examples of how to use the search function with complex queries."</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-user">👤 Bob Johnson</span>
+                        <span class="feedback-date">📅 2026-10-30</span>
+                    </div>
+                </div>
+                <div class="feedback-item card">
+                    <div class="feedback-header">
+                        <span class="feedback-category">Compliment</span>
+                        <span class="feedback-priority tag-Medium">Medium</span>
+                    </div>
+                    <p class="feedback-description">"I love how the search results are filtered in real-time. It makes finding information so much faster."</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-user">👤 Alice Brown</span>
+                        <span class="feedback-date">📅 2026-10-29</span>
+                    </div>
+                </div>
+                <div class="feedback-item card">
+                    <div class="feedback-header">
+                        <span class="feedback-category">Bug</span>
+                        <span class="feedback-priority tag-Critical">Critical</span>
+                    </div>
+                    <p class="feedback-description">"Several links in the knowledge base section are 404 errors. The search index seems outdated."</p>
+                    <div class="feedback-footer">
+                        <span class="feedback-user">👤 Charlie Wilson</span>
+                        <span class="feedback-date">📅 2026-10-28</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer>
         <p>&copy; 2026 Drift. All rights reserved.</p>
     </footer>
 
-    <script>
-        const categoryData = {
-            labels: ['bug', 'feature', 'improvement', 'compliment'],
-            datasets: [{
-                label: 'Count',
-                data: ['2', '1', '1', '1'],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(153, 102, 255, 0.7)',
-                    'rgba(255, 159, 64, 0.7)'
-                ]
-            }]
-        };
-
-        const priorityData = {
-            labels: ['Critical', 'High', 'Medium', 'Low'],
-            datasets: [{
-                label: 'Count',
-                data: [
-                    2,
-                    1,
-                    2,
-                    1
-                ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.7)',
-                    'rgba(255, 159, 64, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(75, 192, 192, 0.7)'
-                ]
-            }]
-        };
-
-        new Chart(document.getElementById('categoryChart'), {
-            type: 'bar',
-            data: categoryData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-
-        new Chart(document.getElementById('priorityChart'), {
-            type: 'doughnut',
-            data: priorityData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 </html>
