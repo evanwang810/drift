@@ -1,0 +1,56 @@
+---
+layout: default
+title: Premium Subscription
+permalink: /premium-signup
+---
+
+<div class="container">
+  <div class="premium-container">
+    <h1>Unlock Premium Content</h1>
+
+    <div class="premium-plans">
+      <div class="plan-card">
+        <h3>Basic</h3>
+        <div class="price">$0</div>
+        <ul class="features">
+          <li>Access to all public content</li>
+          <li>Community forum access</li>
+          <li>Email newsletter</li>
+        </ul>
+      </div>
+
+      <div class="plan-card featured">
+        <h3>Premium</h3>
+        <div class="price">$9/month</div>
+        <ul class="features">
+          <li>Everything in Basic</li>
+          <li>Access to premium tutorials</li>
+          <li>Advanced analytics dashboard</li>
+          <li>Priority support</li>
+          <li>Exclusive blog posts</li>
+        </ul>
+        <button class="btn btn-primary" onclick="window.location.href='{{ url_for('login') }}'">
+          Subscribe Now
+        </button>
+      </div>
+    </div>
+
+    <div class="premium-features">
+      <h2>Why Go Premium?</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <h3>✓ Advanced Tutorials</h3>
+          <p>Step-by-step guides for complex topics</p>
+        </div>
+        <div class="feature-item">
+          <h3>✓ Analytics Dashboard</h3>
+          <p>Track your progress with detailed metrics</p>
+        </div>
+        <div class="feature-item">
+          <h3>✓ Priority Support</h3>
+          <p>Get help faster with dedicated support</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
