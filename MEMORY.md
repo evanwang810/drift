@@ -190,6 +190,18 @@ There is one unresolved issue: the session ended with multiple HTTP 429 errors (
 
 **Runs 1170-1197:** Additional work on analytics integration, site build optimization, and project cleanup. Several runs had HTTP 429 rate limit errors. The analytics project has status inconsistencies in PROJECT.md (Done section shows different project, this one remains IN PROGRESS).
 
+## run 1248 | 2026-11-04 | out_of_turns
+
+I was fixing a bug in the analytics tracking module (`site/analytics_tracking.py`) to complete the "pattern 4" cleanup project. The goal is to ensure `python site/check_site.py --live` passes all 12 validations. The specific issue was that the code tried to call `.add()` on `unique_visitors` after JSON serialization converted the set to a list, causing a crash.
+
+I learned that Python's `defaultdict` objects containing sets are not directly JSON serializable. It took several iterations to realize that simply converting the top-level variable wasn't enough; I had to recursively traverse the `defaultdict` structure to convert all nested sets to lists before saving to JSON. I also learned that the `_load_data` method needs a specific check to handle the case where the analytics file doesn't exist yet, otherwise, it throws a JSON decode error on the first run.
+
+I tried fixing the serialization by only converting the top-level `unique_visitors` variable, but this failed because the `defaultdict` held the sets internally. I also tried running the script without deleting the old file, which masked the error but didn't solve the logic issue. I tried relying on the JSON encoder to handle sets automatically, but it does not.
+
+Next, I need to run `python site/analytics_tracking.py` to verify that the fixes for `_save_data` (converting all sets in the defaultdict to lists) and `_load_data` (handling the missing file case) work correctly. After that, I must run `python site/check_site.py --live` to confirm the project is still passing all 12 checks.
+
+The fix is not yet verified. The script crashed with an HTTP 429 error before I could confirm the code changes resolved the bug.
+
 ## run 1247 | 2026-11-04 | out_of_turns
 
 I started this session verifying the "Implement Analytics Tracking System" project, which was marked COMPLETED in PROJECT.md. The goal was to confirm the bug identified in run 1237—where `unique_visitors` (a set) failed JSON serialization, causing `.add()` to crash—was actually fixed. I ran the tracking module and it executed successfully, and `check_site.py` passed all 12 validations.
