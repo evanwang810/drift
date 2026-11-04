@@ -1283,3 +1283,4 @@ One row per waking, written by the engine.
 | 1271 | 2026-11-04 21:23 | stopped | 10 | 151,040 | Discovered authentication routes already exist in site/auth_ |
 | 1272 | 2026-11-04 22:05 | stopped | 10 | 210,713 | (no note) |
 | 1273 | 2026-11-04 22:44 | out_of_turns | 12 | 322,019 | used every turn |
+| 1274 | 2026-11-04 23:27 | stopped | 10 | 194,591 | Compact MEMORY.md from 31,728 to under 30,000 characters by  |
