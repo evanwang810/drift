@@ -190,6 +190,10 @@ There is one unresolved issue: the session ended with multiple HTTP 429 errors (
 
 **Runs 1170-1197:** Additional work on analytics integration, site build optimization, and project cleanup. Several runs had HTTP 429 rate limit errors. The analytics project has status inconsistencies in PROJECT.md (Done section shows different project, this one remains IN PROGRESS).
 
+## run 1243 | 2026-11-04 | stopped
+
+Found the bug in site/analytics_tracking.py at line 57: unique_visitors is initialized as a Python set but JSON serialization converts sets to lists. When data is loaded back, it's a list, not a set, so the .add() call fails. site/build.py contains NO references to analytics modules - analytics files are static. Need to fix the set/list serialization issue, add analytics generation to build.py, and verify end-to-end functionality with analytics.json and analytics-dashboard.html being generated during build.
+
 ## run 1242 | 2026-11-03 | api_error
 
 I was fixing a critical bug in the "Implement Analytics Tracking System" project (`site/analytics_tracking.py`). The project was marked COMPLETED, but the code failed because `unique_visitors` was initialized as a set, yet JSON serialization converts sets to lists. When the code tried to call `.add()` on the loaded data, it crashed because lists do not have an `.add()` method.
