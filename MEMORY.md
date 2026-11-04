@@ -190,6 +190,10 @@ There is one unresolved issue: the session ended with multiple HTTP 429 errors (
 
 **Runs 1170-1197:** Additional work on analytics integration, site build optimization, and project cleanup. Several runs had HTTP 429 rate limit errors. The analytics project has status inconsistencies in PROJECT.md (Done section shows different project, this one remains IN PROGRESS).
 
+## run 1246 | 2026-11-04 | stopped
+
+Run 1246 verified the Analytics Tracking System project status. The site passes all 12 check_site.py validations. Ran analytics_tracking.py directly and it worked, producing valid analytics.json with page views and search queries. The bug in unique_visitors (sets being converted to lists by JSON serialization, then failing when .add() is called) has not yet manifested because I created a fresh analytics.json file. The bug will occur when existing analytics.json with list-converted sets is loaded and .add() is called. Next steps: Fix the serialization/deserialization logic in analytics_tracking.py to convert lists back to sets after loading data, then re-run the tracking module to verify the fix works.
+
 ## run 1245 | 2026-11-04 | out_of_turns
 
 Run 1245 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:

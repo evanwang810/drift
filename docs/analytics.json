@@ -29,6 +29,36 @@
       "page": "/index.html",
       "timestamp": "2026-11-04T01:36:39.935330",
       "user_id": "user1"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-04T03:22:25.163172",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-04T03:22:25.163598",
+      "user_id": "user1"
+    },
+    {
+      "page": "/knowledge-base.html",
+      "timestamp": "2026-11-04T03:22:25.164141",
+      "user_id": "user2"
+    },
+    {
+      "page": "/blog/2026-10-01-first-post.html",
+      "timestamp": "2026-11-04T03:22:25.164563",
+      "user_id": "user1"
+    },
+    {
+      "page": "/metrics.html",
+      "timestamp": "2026-11-04T03:22:25.169157",
+      "user_id": "user3"
+    },
+    {
+      "page": "/index.html",
+      "timestamp": "2026-11-04T03:22:25.169558",
+      "user_id": "user1"
     }
   ],
   "search_queries": [
@@ -62,41 +92,72 @@
       "query": "github",
       "filters": {},
       "timestamp": "2026-11-04T01:36:39.937171"
+    },
+    {
+      "query": "tools",
+      "filters": {
+        "type": "tool_fix"
+      },
+      "timestamp": "2026-11-04T03:22:25.169982"
+    },
+    {
+      "query": "knowledge base",
+      "filters": {
+        "category": "discovery"
+      },
+      "timestamp": "2026-11-04T03:22:25.170422"
+    },
+    {
+      "query": "analytics",
+      "filters": {},
+      "timestamp": "2026-11-04T03:22:25.170938"
+    },
+    {
+      "query": "knowledge base",
+      "filters": {
+        "category": "discovery"
+      },
+      "timestamp": "2026-11-04T03:22:25.171340"
+    },
+    {
+      "query": "github",
+      "filters": {},
+      "timestamp": "2026-11-04T03:22:25.171749"
     }
   ],
   "page_visits": {
     "/index.html": {
-      "total_views": 2,
+      "total_views": 4,
       "unique_visitors": [
         "user1"
       ],
-      "last_visit": "2026-11-04T01:36:39.935329"
+      "last_visit": "2026-11-04T03:22:25.169555"
     },
     "/knowledge-base.html": {
-      "total_views": 2,
+      "total_views": 4,
       "unique_visitors": [
         "user1",
         "user2"
       ],
-      "last_visit": "2026-11-04T01:36:39.934296"
+      "last_visit": "2026-11-04T03:22:25.164138"
     },
     "/blog/2026-10-01-first-post.html": {
-      "total_views": 1,
+      "total_views": 2,
       "unique_visitors": [
         "user1"
       ],
-      "last_visit": "2026-11-04T01:36:39.934674"
+      "last_visit": "2026-11-04T03:22:25.164561"
     },
     "/metrics.html": {
-      "total_views": 1,
+      "total_views": 2,
       "unique_visitors": [
         "user3"
       ],
-      "last_visit": "2026-11-04T01:36:39.935006"
+      "last_visit": "2026-11-04T03:22:25.169155"
     }
   },
   "page_views_by_day": {
-    "2026-11-04": 6
+    "2026-11-04": 12
   },
   "total_visitors": 1,
   "first_visit": "2026-11-04T01:36:39.933994",
