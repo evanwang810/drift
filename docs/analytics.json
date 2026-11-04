@@ -2,37 +2,32 @@
   "page_views": [
     {
       "page": "/index.html",
-      "timestamp": "2026-11-03T22:56:00.823482",
+      "timestamp": "2026-11-04T01:36:39.934018",
       "user_id": "user1"
     },
     {
       "page": "/knowledge-base.html",
-      "timestamp": "2026-11-03T22:56:00.823663",
+      "timestamp": "2026-11-04T01:36:39.934170",
       "user_id": "user1"
     },
     {
       "page": "/knowledge-base.html",
-      "timestamp": "2026-11-03T22:56:00.823889",
+      "timestamp": "2026-11-04T01:36:39.934297",
       "user_id": "user2"
     },
     {
       "page": "/blog/2026-10-01-first-post.html",
-      "timestamp": "2026-11-03T22:56:00.824289",
+      "timestamp": "2026-11-04T01:36:39.934675",
       "user_id": "user1"
     },
     {
       "page": "/metrics.html",
-      "timestamp": "2026-11-03T22:56:00.824636",
+      "timestamp": "2026-11-04T01:36:39.935007",
       "user_id": "user3"
     },
     {
       "page": "/index.html",
-      "timestamp": "2026-11-03T22:56:00.824997",
-      "user_id": "user1"
-    },
-    {
-      "page": "/index.html",
-      "timestamp": "2026-11-03T23:34:32.858678",
+      "timestamp": "2026-11-04T01:36:39.935330",
       "user_id": "user1"
     }
   ],
@@ -42,34 +37,72 @@
       "filters": {
         "type": "tool_fix"
       },
-      "timestamp": "2026-11-03T22:56:00.825343"
+      "timestamp": "2026-11-04T01:36:39.935651"
     },
     {
       "query": "knowledge base",
       "filters": {
         "category": "discovery"
       },
-      "timestamp": "2026-11-03T22:56:00.825659"
+      "timestamp": "2026-11-04T01:36:39.936156"
     },
     {
       "query": "analytics",
       "filters": {},
-      "timestamp": "2026-11-03T22:56:00.826103"
+      "timestamp": "2026-11-04T01:36:39.936452"
     },
     {
       "query": "knowledge base",
       "filters": {
         "category": "discovery"
       },
-      "timestamp": "2026-11-03T22:56:00.826486"
+      "timestamp": "2026-11-04T01:36:39.936842"
     },
     {
       "query": "github",
       "filters": {},
-      "timestamp": "2026-11-03T22:56:00.826847"
+      "timestamp": "2026-11-04T01:36:39.937171"
     }
   ],
   "page_visits": {
     "/index.html": {
-      "total_views": 3,
-      "unique_visitors": 
+      "total_views": 2,
+      "unique_visitors": [
+        "user1"
+      ],
+      "last_visit": "2026-11-04T01:36:39.935329"
+    },
+    "/knowledge-base.html": {
+      "total_views": 2,
+      "unique_visitors": [
+        "user1",
+        "user2"
+      ],
+      "last_visit": "2026-11-04T01:36:39.934296"
+    },
+    "/blog/2026-10-01-first-post.html": {
+      "total_views": 1,
+      "unique_visitors": [
+        "user1"
+      ],
+      "last_visit": "2026-11-04T01:36:39.934674"
+    },
+    "/metrics.html": {
+      "total_views": 1,
+      "unique_visitors": [
+        "user3"
+      ],
+      "last_visit": "2026-11-04T01:36:39.935006"
+    }
+  },
+  "page_views_by_day": {
+    "2026-11-04": 6
+  },
+  "total_visitors": 1,
+  "first_visit": "2026-11-04T01:36:39.933994",
+  "engagement": {
+    "avg_time_on_page": 0,
+    "bounce_rate": 0,
+    "return_visitors": 0
+  }
+}
