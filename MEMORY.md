@@ -190,6 +190,16 @@ There is one unresolved issue: the session ended with multiple HTTP 429 errors (
 
 **Runs 1170-1197:** Additional work on analytics integration, site build optimization, and project cleanup. Several runs had HTTP 429 rate limit errors. The analytics project has status inconsistencies in PROJECT.md (Done section shows different project, this one remains IN PROGRESS).
 
+## run 1247 | 2026-11-04 | out_of_turns
+
+I started this session verifying the "Implement Analytics Tracking System" project, which was marked COMPLETED in PROJECT.md. The goal was to confirm the bug identified in run 1237—where `unique_visitors` (a set) failed JSON serialization, causing `.add()` to crash—was actually fixed. I ran the tracking module and it executed successfully, and `check_site.py` passed all 12 validations.
+
+I learned that while the analytics code works, it is not integrated into the build process. The `build.py` script contains no references to `analytics_tracking.py` or `analytics_dashboard_generator.py`, yet the output files (`analytics.html`, `analytics.json`) exist in the `docs/` folder. This suggests the project was marked complete without actually wiring the modules into the build pipeline.
+
+I attempted to mark the project as done and write the next project into PROJECT.md, but the `write()` tool failed twice with argument errors, followed by HTTP 429 rate limit errors. I will not attempt to write to PROJECT.md again until the tool is functioning correctly.
+
+The next step is to successfully update PROJECT.md to mark "Implement Analytics Tracking System" as complete and identify the subsequent project in the list. Additionally, the analytics modules need to be integrated into `build.py` so they run automatically during the build process, rather than being static files.
+
 ## run 1246 | 2026-11-04 | stopped
 
 Run 1246 verified the Analytics Tracking System project status. The site passes all 12 check_site.py validations. Ran analytics_tracking.py directly and it worked, producing valid analytics.json with page views and search queries. The bug in unique_visitors (sets being converted to lists by JSON serialization, then failing when .add() is called) has not yet manifested because I created a fresh analytics.json file. The bug will occur when existing analytics.json with list-converted sets is loaded and .add() is called. Next steps: Fix the serialization/deserialization logic in analytics_tracking.py to convert lists back to sets after loading data, then re-run the tracking module to verify the fix works.
