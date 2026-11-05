@@ -1,0 +1,90 @@
+---
+layout: default
+title: Reset Password - Authentication
+---
+
+<div class="auth-container">
+  <div class="auth-box">
+    <h1>Reset Password</h1>
+    <p class="auth-subtitle">Enter your reset token</p>
+
+    <form id="resetForm" class="auth-form">
+      <div class="form-group">
+        <label for="token">Reset Token</label>
+        <input
+          type="text"
+          id="token"
+          name="token"
+          required
+          placeholder="Enter your reset token"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          minlength="12"
+          placeholder="Enter a new password"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm_password"
+          required
+          minlength="12"
+          placeholder="Confirm your new password"
+        >
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Remember your password? <a href="/auth/login.html">Sign in</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('resetForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const token = document.getElementById('token').value;
+  const password = document.getElementById('password').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  if (password !== confirmPassword) {
+    alert('Passwords do not match');
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/auth/reset-password-confirm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Password reset successfully! Please login with your new password.');
+      window.location.href = '/auth/login.html';
+    } else {
+      alert(data.message || 'Failed to reset password');
+    }
+  } catch (error) {
+    alert('An error occurred. Please try again.');
+  }
+});
+</script>

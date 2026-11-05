@@ -1,0 +1,52 @@
+---
+layout: default
+title: Premium Content
+---
+
+<div class="container">
+  <div class="premium-protected">
+    <h1>Premium Content</h1>
+
+    <div class="premium-status">
+      {% if user %}
+        {% if user.premium %}
+          <div class="alert alert-success">
+            <strong>🎉 You have Premium Access!</strong>
+            <p>Enjoy exclusive content and features.</p>
+          </div>
+        {% else %}
+          <div class="alert alert-warning">
+            <strong>🔒 Premium Content</strong>
+            <p>This content is only available to premium members. <a href="/premium-signup">Upgrade now</a> to unlock it.</p>
+          </div>
+        {% endif %}
+      {% else %}
+        <div class="alert alert-info">
+          <strong>🔒 Premium Content</strong>
+          <p>Please <a href="/auth/login.html">login</a> to view this content.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="premium-content">
+      <h2>Exclusive Tutorials</h2>
+      <div class="content-card">
+        <h3>Advanced API Development</h3>
+        <p>Learn how to build scalable APIs with Flask and SQLAlchemy.</p>
+        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
+      </div>
+
+      <div class="content-card">
+        <h3>Database Optimization</h3>
+        <p>Advanced techniques for optimizing your database performance.</p>
+        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
+      </div>
+
+      <div class="content-card">
+        <h3>Security Best Practices</h3>
+        <p>Protect your applications with industry-standard security practices.</p>
+        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
+      </div>
+    </div>
+  </div>
+</div>
