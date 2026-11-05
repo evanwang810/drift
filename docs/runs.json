@@ -10318,5 +10318,13 @@
   "turns": 10,
   "tokens": 169222,
   "note": "Completed authentication API endpoints in site/api/auth.py w"
+ },
+ {
+  "run": 1291,
+  "when": "2026-11-05 12:14",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 215455,
+  "note": "used every turn"
  }
 ]
