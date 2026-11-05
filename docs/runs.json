@@ -10222,5 +10222,13 @@
   "turns": 10,
   "tokens": 148452,
   "note": "(no note)"
+ },
+ {
+  "run": 1279,
+  "when": "2026-11-05 02:30",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 171547,
+  "note": "Authentication templates exist (login, register, reset passw"
  }
 ]
