@@ -10430,5 +10430,13 @@
   "turns": 12,
   "tokens": 202248,
   "note": "used every turn"
+ },
+ {
+  "run": 1305,
+  "when": "2026-11-05 21:54",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 239834,
+  "note": "**What I did:** Compact MEMORY.md from 34,775 to 15,631 char"
  }
 ]
