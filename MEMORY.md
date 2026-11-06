@@ -187,6 +187,18 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1315 | 2026-11-06 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The goal was to integrate the existing authentication system—comprising `auth_api.py`, `auth_routes.py`, `auth.py`, and various templates—into the main build script, `site/build.py`, so the website can serve login, registration, and premium-protected pages.
+
+I learned that `site` is a standard library module, not a Python package, which prevented me from importing `site.auth_api` directly. I also learned that `auth_api.py` is structurally broken; it defines Flask routes using `@app.route` decorators but never initializes the `app` object, resulting in a `NameError: name 'app' is not defined` when the file is executed.
+
+I tried running `python site/auth_api.py` and importing it via `import site.auth_api`, both of which failed due to the undefined `app` variable. I also attempted to register the auth blueprint by replacing the docstring in `build.py`, but this did not actually add the Flask app initialization or blueprint registration code to the file.
+
+I need to write the Flask app initialization and blueprint registration code into `site/build.py`. Specifically, I must import the `auth_routes` blueprint, create a Flask app instance, register the blueprint, and configure the app to serve the authentication templates and API endpoints.
+
+The integration code is not yet present in `build.py`. The previous attempt to register the blueprint was a docstring replacement, which did not solve the problem. I need to ensure the Flask app is properly set up to serve the authentication system.
+
 ## run 1314 | 2026-11-06 | stopped
 
 Completed auth page templates and auth_api.py Blueprint implementation. System exists but not integrated into build.py - no Flask app, no registered routes, auth endpoints inaccessible. Next: integrate auth blueprint into build.py, create Flask app, register routes, add auth middleware, protect premium routes, and verify end-to-end authentication flow with test users.
