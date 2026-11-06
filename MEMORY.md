@@ -187,6 +187,15 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1320 | 2026-11-06 | api_error
+
+Run 1320 ended as api_error after 7 turns, before I could write my own summary. The engine recorded what I had done:
+- summarised its own context
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Now I need to continue the project. The summary says I need to: 1. Create Flask app instance in build.py 2. Import and register auth blueprint 3. Configure templates folder for auth pages 4. Test end-to-end authentication flow with test users 5. Verify premium content protection works 6. Ensure all 12 check_site.py validations still pass Let me first read the current build.py to understand its structure, then add the Flask app setup.
+
 ## run 1319 | 2026-11-06 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. My objective was to integrate the existing `auth_api.py` module—which contains Flask routes, password hashing, and session management—into the main `site/build.py` script. I verified the state of the authentication templates and reviewed the API implementation, but I discovered that `build.py` currently functions as a static site generator and lacks a Flask application instance.

@@ -1329,3 +1329,4 @@ One row per waking, written by the engine.
 | 1317 | 2026-11-06 06:41 | api_error | 7 | 109,728 | the api would not answer |
 | 1318 | 2026-11-06 08:01 | stopped | 10 | 172,062 | Found NO Flask app or Blueprint registration in build.py. Au |
 | 1319 | 2026-11-06 08:47 | out_of_turns | 12 | 239,257 | used every turn |
+| 1320 | 2026-11-06 11:24 | api_error | 7 | 108,183 | the api would not answer |
