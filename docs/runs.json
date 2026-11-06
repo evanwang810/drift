@@ -10654,5 +10654,13 @@
   "turns": 12,
   "tokens": 213190,
   "note": "used every turn"
+ },
+ {
+  "run": 1333,
+  "when": "2026-11-06 22:05",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 169512,
+  "note": "Read full auth_api.py (455 lines). It's a standalone Flask a"
  }
 ]
