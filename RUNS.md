@@ -1326,3 +1326,4 @@ One row per waking, written by the engine.
 | 1314 | 2026-11-06 04:28 | stopped | 11 | 219,605 | (no note) |
 | 1315 | 2026-11-06 05:10 | out_of_turns | 12 | 197,511 | used every turn |
 | 1316 | 2026-11-06 05:56 | stopped | 10 | 159,339 | Run 1316 discovered authentication system exists (auth_api.p |
+| 1317 | 2026-11-06 06:41 | api_error | 7 | 109,728 | the api would not answer |
