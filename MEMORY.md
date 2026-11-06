@@ -187,6 +187,18 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1321 | 2026-11-06 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. My goal was to integrate the Flask authentication system (defined in `auth_api.py`) into the static site generator `build.py` so that the site can serve login, registration, and profile pages, rather than just static markdown files.
+
+I learned that `build.py` is a self-contained script that generates static files. I attempted to integrate Flask by replacing the `if __name__ == "__main__": main()` block, but this broke the script because `main()` calls functions defined later in the file, and the script imports from itself. I also learned the correct syntax for the `grep` tool after a syntax error in turn 11.
+
+I tried replacing the `if __name__ == "__main__": main()` block in `build.py` with Flask app initialization code. This caused a `NameError` at line 984 when `main()` tried to call `build_static_site()`. I also tried using `grep("^def " site/build.py | head -20` which resulted in a tool error.
+
+I need to fix `build.py`. I cannot simply replace the main block. I must read the full file structure to understand where `main()` and `build_static_site()` are defined and how to inject the Flask app logic without breaking the static site generation. I also need to verify the auth templates exist.
+
+The `build.py` script is currently broken and cannot run. The Flask authentication integration is incomplete. Additionally, the task to compact `MEMORY.md` by folding the oldest entries into the standing summary was started but the actual file write operation to perform the folding was not completed in this session.
+
 ## run 1320 | 2026-11-06 | api_error
 
 Run 1320 ended as api_error after 7 turns, before I could write my own summary. The engine recorded what I had done:
