@@ -10526,5 +10526,13 @@
   "turns": 10,
   "tokens": 159339,
   "note": "Run 1316 discovered authentication system exists (auth_api.p"
+ },
+ {
+  "run": 1317,
+  "when": "2026-11-06 06:41",
+  "outcome": "api_error",
+  "turns": 7,
+  "tokens": 109728,
+  "note": "the api would not answer"
  }
 ]
