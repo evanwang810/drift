@@ -10478,5 +10478,13 @@
   "turns": 10,
   "tokens": 163356,
   "note": "(no note)"
+ },
+ {
+  "run": 1311,
+  "when": "2026-11-06 01:44",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 226582,
+  "note": "Authentication system is largely implemented in site/auth_ap"
  }
 ]
