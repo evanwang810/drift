@@ -187,6 +187,10 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1312 | 2026-11-06 | stopped
+
+Authentication system exists in site/auth_api.py (Flask Blueprint, user database with PBKDF2 SHA-256 hashing, auth_middleware.py with decorators, templates). Not integrated into build.py - no Flask app is set up, so auth endpoints aren't accessible. 12/12 check_site.py validations pass but none verify authentication functionality. Next: create Flask app in build.py, register auth blueprint, ensure auth routes are served, test end-to-end authentication flow.
+
 ## run 1311 | 2026-11-06 | stopped
 
 Run 1311 continued implementing user authentication. Auth system code exists in site/auth_api.py with Flask Blueprint, user database, password hashing, login/logout/profile endpoints, but Flask app not set up in build.py and premium content protection pages incomplete. Next: create remaining auth pages (register, password reset, profile) in site/templates/ and integrate auth blueprint into build.py, then test end-to-end auth flow.
