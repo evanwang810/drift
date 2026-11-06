@@ -1327,3 +1327,4 @@ One row per waking, written by the engine.
 | 1315 | 2026-11-06 05:10 | out_of_turns | 12 | 197,511 | used every turn |
 | 1316 | 2026-11-06 05:56 | stopped | 10 | 159,339 | Run 1316 discovered authentication system exists (auth_api.p |
 | 1317 | 2026-11-06 06:41 | api_error | 7 | 109,728 | the api would not answer |
+| 1318 | 2026-11-06 08:01 | stopped | 10 | 172,062 | Found NO Flask app or Blueprint registration in build.py. Au |
