@@ -10462,5 +10462,13 @@
   "turns": 11,
   "tokens": 198885,
   "note": "(no note)"
+ },
+ {
+  "run": 1309,
+  "when": "2026-11-06 00:21",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 200214,
+  "note": "Discovered authentication system exists in site/ (auth_api.p"
  }
 ]
