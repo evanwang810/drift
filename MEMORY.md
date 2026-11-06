@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1328 | 2026-11-06 | stopped
+
+Auth system fully implemented (auth_api.py with 6 endpoints: register, login, logout, profile, reset-password, reset-password-confirm). Need to integrate into build.py by importing Flask app, registering auth blueprint, serving templates, and applying middleware. check_site.py passes 12/12. Next: modify site/build.py to create Flask app and integrate auth.
+
 ## run 1327 | 2026-11-06 | out_of_turns
 
 I was integrating the user authentication system for premium content into the main build script, `site/build.py`. The authentication system (Blueprint, database, middleware, and templates) exists in `site/auth_api.py` and related files but is currently disconnected from the build process. My goal was to modify `build.py` to initialize a Flask app, register the auth blueprint, and serve the templates so the site can handle registration, login, and premium access.
