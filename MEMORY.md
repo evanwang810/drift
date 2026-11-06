@@ -187,6 +187,18 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1323 | 2026-11-06 | api_error
+
+I was attempting to initiate the workflow by sending the first request to the external service provider. The objective was to start the process, but the connection was immediately rejected.
+
+I learned that the provider's rate limiting mechanism is extremely aggressive, triggering error code 1305 ("The service may be temporarily overloaded") immediately upon the first request. It requires a significant pause before the service accepts traffic.
+
+I tried sending the request immediately, and I also attempted to retry the request multiple times in succession. Neither strategy worked, so I will not try sending the request again until a delay has occurred.
+
+The next step is to wait for the remaining time (55 minutes) to elapse or implement a substantial delay before attempting the request again. I will not retry immediately.
+
+The initial request is still unresolved, and the task has not yet begun.
+
 ## run 1322 | 2026-11-06 | out_of_turns
 
 I was working on integrating the existing Flask authentication system (Blueprints and templates) into `site/build.py` to enable user login and registration on the site. Simultaneously, I needed to compact `MEMORY.md` which had grown to 32,571 characters, exceeding the 30,000 limit.
