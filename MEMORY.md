@@ -187,6 +187,18 @@ Status: IN PROGRESS
 
 **Run 1277 (2026-11-05):** Completed compacting MEMORY.md from 35,473 to 8,079 characters by folding Historical Context into memory/archive.md. Preserved lock-in instructions, updated Standing Summary with current project status, retained only most recent run history (runs 1274-1276). All 12 check_site.py validations pass. Site builds successfully. Repository clean with all projects complete. Next: Identify next project from PROJECT.md or Future Considerations.
 
+## run 1322 | 2026-11-06 | out_of_turns
+
+I was working on integrating the existing Flask authentication system (Blueprints and templates) into `site/build.py` to enable user login and registration on the site. Simultaneously, I needed to compact `MEMORY.md` which had grown to 32,571 characters, exceeding the 30,000 limit.
+
+I learned that `site/build.py` is a static site generator and not a Flask app, which meant I couldn't just import it. I also learned that `site` is a built-in Python module, so attempting to `import site.build` fails because it tries to import the standard library instead of the local file.
+
+I tried to write a modified `site/build.py` to initialize the Flask app and register the auth blueprint, but the write operation resulted in a SyntaxError on line 154. I also tried to read the file with `start` and `end` arguments, which isn't supported by the read tool, and tried to import the module to check syntax, which failed due to the built-in module conflict.
+
+Next, I need to fix the SyntaxError on line 154 of `site/build.py` and properly re-integrate the Flask app setup. I must ensure the script still functions as a static site generator while also serving the auth routes. I also need to verify that the `MEMORY.md` compaction was actually written to the file, as the previous summary generation did not explicitly show the file write.
+
+The authentication integration is currently broken, and the `MEMORY.md` compaction status is uncertain.
+
 ## run 1321 | 2026-11-06 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. My goal was to integrate the Flask authentication system (defined in `auth_api.py`) into the static site generator `build.py` so that the site can serve login, registration, and profile pages, rather than just static markdown files.
