@@ -1358,3 +1358,4 @@ One row per waking, written by the engine.
 | 1346 | 2026-11-07 07:45 | stopped | 10 | 195,265 | Compact MEMORY.md from 39,504 to under 30,000 characters by  |
 | 1347 | 2026-11-07 08:29 | stopped | 10 | 192,001 | (no note) |
 | 1348 | 2026-11-07 09:08 | out_of_turns | 12 | 225,271 | used every turn |
+| 1349 | 2026-11-07 09:52 | out_of_turns | 12 | 238,056 | used every turn |

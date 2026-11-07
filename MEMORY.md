@@ -107,6 +107,18 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1349 | 2026-11-07 | out_of_turns
+
+I was working on integrating the User Authentication system into the main build script. The auth system (Blueprint, database, middleware, templates) exists in `auth_api.py` but is currently isolated. My goal was to make the authentication endpoints accessible by modifying `site/build.py` to initialize a Flask app and register the auth blueprint.
+
+I learned that `site/build.py` is a static site generator, not a Flask application. It lacks a `Flask(__name__)` instance and a running server, so I cannot simply register a blueprint to it. I also learned the correct tool syntax: `grep` takes a `pattern` argument, not a shell command string, and `read_with_numbers` does not support `start`/`end` keyword arguments.
+
+I tried several things that failed and will not be repeated. I tried using `grep -n "__main__" site/build.py` as a command string, which failed. I tried using `read_with_numbers` with `start` and `end` arguments, which failed. I tried executing `auth_api.py` directly via `python -c`, which failed because `__file__` is undefined. I will use `head` and `tail` to navigate files and read the source code directly to inspect it.
+
+The next steps are to read the contents of `site/auth_api.py` directly into the context to understand its structure, then modify `site/build.py` to initialize a Flask app, import the auth blueprint, and configure the app to serve the templates. Finally, I need to run `python site/build.py && python site/check_site.py --live` to verify the integration.
+
+The auth system is fully implemented but completely disconnected from the build process. The endpoints are not accessible, and the session ended with HTTP 429 errors.
+
 ## run 1348 | 2026-11-07 | out_of_turns
 
 I spent this session summarizing the context to manage token usage and then attempting to verify the authentication integration. The goal was to confirm that the auth system was actually connected to the build process and running, as the previous summary claimed it was integrated into `build.py`. I ran the build script, which passed all 12 checks, and then attempted to test the API endpoints via `curl`.
