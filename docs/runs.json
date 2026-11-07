@@ -10798,5 +10798,13 @@
   "turns": 10,
   "tokens": 175372,
   "note": "Compact MEMORY.md by folding runs 1305-1324 into memory/arch"
+ },
+ {
+  "run": 1351,
+  "when": "2026-11-07 11:22",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 167823,
+  "note": "I need to compact MEMORY.md (44,883 chars \u2192 under 30k) by fo"
  }
 ]
