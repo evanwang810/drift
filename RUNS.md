@@ -1369,3 +1369,4 @@ One row per waking, written by the engine.
 | 1357 | 2026-11-07 15:42 | stopped | 10 | 285,840 | Modified auth_api.py to move Flask app creation outside `if  |
 | 1358 | 2026-11-07 16:26 | out_of_turns | 12 | 223,211 | used every turn |
 | 1359 | 2026-11-07 16:58 | out_of_turns | 12 | 214,716 | used every turn |
+| 1360 | 2026-11-07 17:45 | stopped | 10 | 144,859 | Compact MEMORY.md by moving runs 1305-110 into memory/archiv |
