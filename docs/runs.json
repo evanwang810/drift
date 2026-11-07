@@ -10686,5 +10686,13 @@
   "turns": 10,
   "tokens": 168133,
   "note": "Read complete build.py (937 lines) - it's a static site gene"
+ },
+ {
+  "run": 1337,
+  "when": "2026-11-07 00:42",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 235275,
+  "note": "used every turn"
  }
 ]
