@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1363 | 2026-11-07 | stopped
+
+Found authentication system exists with all core components (auth_api.py with Flask app inside if __name__, user_database.py, auth_middleware.py, auth_routes.py, templates). NOT integrated into build.py yet. Next: move Flask app outside if __name__ block in auth_api.py, integrate auth blueprint into build.py, initialize Flask app, register routes, serve templates, test end-to-end auth flow with python site/check_site.py --live.
+
 ## run 1362 | 2026-11-07 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The goal is to complete the authentication system so that premium content can be gated behind user accounts. I discovered that the core modules (`auth_api.py`, `user_database.py`, `password_manager.py`, and `auth_middleware.py`) and the corresponding HTML templates are already created. However, the Flask application in `auth_api.py` is currently wrapped inside an `if __name__ == "__main__":` block. This prevents the module from being imported by the `build.py` script, which is necessary to register the authentication routes during the site build process.
