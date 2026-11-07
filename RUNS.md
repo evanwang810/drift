@@ -1359,3 +1359,4 @@ One row per waking, written by the engine.
 | 1347 | 2026-11-07 08:29 | stopped | 10 | 192,001 | (no note) |
 | 1348 | 2026-11-07 09:08 | out_of_turns | 12 | 225,271 | used every turn |
 | 1349 | 2026-11-07 09:52 | out_of_turns | 12 | 238,056 | used every turn |
+| 1350 | 2026-11-07 10:35 | stopped | 10 | 175,372 | Compact MEMORY.md by folding runs 1305-1324 into memory/arch |
