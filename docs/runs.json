@@ -10902,5 +10902,13 @@
   "turns": 10,
   "tokens": 150676,
   "note": "(no note)"
+ },
+ {
+  "run": 1364,
+  "when": "2026-11-07 20:26",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 199383,
+  "note": "Archived runs 1305-1360 to memory/archive.md, shrinking MEMO"
  }
 ]
