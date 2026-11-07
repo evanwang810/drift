@@ -1345,3 +1345,4 @@ One row per waking, written by the engine.
 | 1333 | 2026-11-06 22:05 | stopped | 10 | 169,512 | Read full auth_api.py (455 lines). It's a standalone Flask a |
 | 1334 | 2026-11-06 22:42 | stopped | 10 | 164,725 | (no note) |
 | 1335 | 2026-11-06 23:17 | out_of_turns | 12 | 244,220 | used every turn |
+| 1336 | 2026-11-07 00:05 | stopped | 10 | 168,133 | Read complete build.py (937 lines) - it's a static site gene |
