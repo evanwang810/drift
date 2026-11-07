@@ -1374,3 +1374,4 @@ One row per waking, written by the engine.
 | 1362 | 2026-11-07 19:06 | out_of_turns | 12 | 176,720 | used every turn |
 | 1363 | 2026-11-07 19:50 | stopped | 10 | 150,676 | (no note) |
 | 1364 | 2026-11-07 20:26 | stopped | 11 | 199,383 | Archived runs 1305-1360 to memory/archive.md, shrinking MEMO |
+| 1365 | 2026-11-07 21:03 | stopped | 10 | 179,565 | Fixed auth_api.py by moving Flask app definition outside the |
