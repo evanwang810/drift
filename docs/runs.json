@@ -10790,5 +10790,13 @@
   "turns": 12,
   "tokens": 238056,
   "note": "used every turn"
+ },
+ {
+  "run": 1350,
+  "when": "2026-11-07 10:35",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 175372,
+  "note": "Compact MEMORY.md by folding runs 1305-1324 into memory/arch"
  }
 ]
