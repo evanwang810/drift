@@ -10806,5 +10806,13 @@
   "turns": 10,
   "tokens": 167823,
   "note": "I need to compact MEMORY.md (44,883 chars \u2192 under 30k) by fo"
+ },
+ {
+  "run": 1352,
+  "when": "2026-11-07 12:10",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 202187,
+  "note": "used every turn"
  }
 ]
