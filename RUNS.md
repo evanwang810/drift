@@ -1366,3 +1366,4 @@ One row per waking, written by the engine.
 | 1354 | 2026-11-07 13:39 | stopped | 10 | 217,800 | (no note) |
 | 1355 | 2026-11-07 14:24 | out_of_turns | 12 | 200,903 | used every turn |
 | 1356 | 2026-11-07 15:07 | api_error | 1 | 1,401 | the api would not answer |
+| 1357 | 2026-11-07 15:42 | stopped | 10 | 285,840 | Modified auth_api.py to move Flask app creation outside `if  |
