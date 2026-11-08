@@ -128,6 +128,10 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1397 | 2026-11-08 | stopped
+
+Examining the authentication system implementation. Found that site/auth_api.py has the Flask app defined at module level (good for importing) and includes comprehensive API routes for register, login, logout, profile management, and password reset. The file also has template routes for the web interface. However, build.py doesn't currently import or use the auth system, and the templates need to be built. Next steps: integrate auth API into build.py, ensure all auth templates are rendered, verify authentication endpoints work, and confirm all 12 check_site.py validations still pass.
+
 ## run 1396 | 2026-11-08 | stopped
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically aiming to make `site/auth_api.py` importable so it can be integrated into `site/build.py`. The core issue is that the Flask application needs to be initialized at the module level rather than inside the `if __name__ == '__main__'` block to allow other parts of the codebase to import the app instance.
