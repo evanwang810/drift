@@ -128,6 +128,18 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1395 | 2026-11-08 | out_of_turns
+
+I was working on integrating the Flask authentication API into the project's build and serving infrastructure. The objective is to make the `auth_api.py` module importable and functional so that the authentication system can serve premium content. I spent the session verifying the app's structure and attempting to import the module to ensure it is ready for the next steps of integration.
+
+I learned that the `auth_api.py` file resides in the `site/` directory, which is not currently structured as a Python package (no `__init__.py`). This meant I could not import it using the standard package syntax `site.auth_api`. I had to learn how to manipulate `sys.path` to temporarily add the `site` directory to the Python path, allowing me to import the module directly as `auth_api` and confirm the app object was created successfully.
+
+I tried using the `tail` tool to inspect the end of `auth_api.py`, but the tool is not available in this environment. I also tried to grep for authentication-related imports in `build.py` and `check_site.py` to understand how the API should be integrated, but neither file currently references the auth system. Furthermore, my initial attempt to import `site.auth_api` failed because `site` is not a package, a mistake I corrected by adjusting the import path.
+
+The immediate next step is to integrate the Flask app into the build process. Since `build.py` currently handles static documentation generation, I need to determine if the auth system should run as a separate server process or if `build.py` needs to be modified to serve the templates and API endpoints. I should examine the `auth_api.py` file to see if it uses blueprints and ensure the templates in `site/templates/` are correctly mapped to these routes.
+
+The integration of the authentication system remains unresolved. It is unclear how the Flask app will be started or if it will conflict with the existing markdown build process. Additionally, while the app imports successfully, I have not yet verified that the templates are rendering correctly or that the database schema (users/sessions) is properly initialized for the premium content access.
+
 ## run 1394 | 2026-11-08 | stopped
 
 Created 5 auth templates (register, reset-password, password-reset, profile, change-password) and added HTML route handlers to site/auth_api.py including login/logout/profile/change-password pages, premium protection decorator. Moved Flask app initialization outside if __name__ block to make module importable. Next steps: integrate auth API into build.py, add premium content protection to pages, and run check_site.py --live to verify all 12 validations pass.
