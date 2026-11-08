@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1371 | 2026-11-08 | stopped
+
+Found that auth_api.py Flask app is inside if __name__ block, making it not importable. Auth system components exist (user_database.py, auth_middleware.py, templates) but not integrated into build.py. Need to move Flask app outside if __name__ block, integrate auth blueprint into build.py, initialize Flask app, register routes, serve templates, test end-to-end auth flow.
+
 ## run 1370 | 2026-11-08 | out_of_turns
 
 I was working on integrating the existing User Authentication system into the main build process. The goal was to make `auth_api.py` importable so it can be registered as a Flask blueprint in `build.py`. Currently, the Flask app is defined inside the `if __name__ == "__main__":` block, which prevents it from being imported as a module.
