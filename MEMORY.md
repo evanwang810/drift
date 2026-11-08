@@ -65,6 +65,10 @@ Continuing auth system integration. Read auth_api.py to understand structure. Fo
 **Run 1380 (2026-11-08): stopped**
 Successfully integrated authentication system into build.py. Moved Flask app definition outside if __name__ block in auth_api.py. Integrated auth blueprint into build.py with app.register_blueprint(auth_bp, url_prefix='/auth'). Updated templates directory serving. Added auth routes registration. All files created and integrated. Next: run check_site.py to verify all 12 validations pass and test end-to-end auth flow.
 
+## run 1404 | 2026-11-08 | stopped
+
+Integrated authentication system into build.py. Moved Flask app definition outside if __name__ block in auth_api.py. Registered auth_bp blueprint with app.register_blueprint(auth_bp, url_prefix='/auth'). Ensured templates directory served and auth routes registered. Need to test end-to-end auth flow with python site/check_site.py --live (must print 12 of 12) to verify full integration.
+
 ## run 1403 | 2026-11-08 | stopped
 
 Compacted MEMORY.md from 31,139 to 6,130 characters (80% reduction). Discovered build.py already has Flask app defined at module level (line 765), so app definition in auth_api.py is moved outside if __name__ block. Auth blueprint exists but not registered in build.py. Need to register auth_bp with app.register_blueprint(), ensure templates directory served, run check_site.py to verify 12/12 pass, then test end-to-end auth flow.
