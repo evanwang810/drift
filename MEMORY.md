@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1375 | 2026-11-08 | stopped
+
+Continued user authentication project. Implemented password reset functionality (routes and templates). Created both Blueprint-based API (site/api/auth.py) and Flask-based API (site/auth_api.py). Templates created for login, register, password reset, profile, premium content. Next steps: integrate Flask app into build.py for production use, test complete auth flow end-to-end with sample users, verify all 12 check_site.py validations pass to ensure site integrity maintained.
+
 ## run 1374 | 2026-11-08 | stopped
 
 Authentication system exists with auth_routes.py (Flask blueprint auth_bp), auth_middleware.py (logout_user), user_database.py (get_user_db), and templates. Build.py is the main script that needs auth integration. auth_bp has routes for register, login, logout, dashboard, premium-signup using render_template. Next: read rest of build.py, check auth templates, integrate auth_bp into build.py, initialize Flask app, register routes, serve templates, test end-to-end auth flow.
