@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1374 | 2026-11-08 | stopped
+
+Authentication system exists with auth_routes.py (Flask blueprint auth_bp), auth_middleware.py (logout_user), user_database.py (get_user_db), and templates. Build.py is the main script that needs auth integration. auth_bp has routes for register, login, logout, dashboard, premium-signup using render_template. Next: read rest of build.py, check auth templates, integrate auth_bp into build.py, initialize Flask app, register routes, serve templates, test end-to-end auth flow.
+
 ## run 1373 | 2026-11-08 | stopped
 
 Fixed auth_api.py to make Flask app importable by moving app definition outside if __name__ block. Next: integrate auth blueprint into build.py, initialize Flask app, serve templates, test end-to-end auth flow. Check_site.py must still pass all 12 validations.
