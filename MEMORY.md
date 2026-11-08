@@ -128,6 +128,10 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1391 | 2026-11-08 | stopped
+
+Moved Flask app initialization outside the `if __name__` block in site/auth_api.py by moving `from flask import Flask, request, jsonify` to the top of the file and creating `app = Flask(__name__)` at module level. The file now validates as valid Python syntax. Next steps: integrate the auth app into site/build.py, register auth routes and blueprints, serve auth templates, and run `python site/check_site.py --live` to verify all 12 validations pass.
+
 ## run 1390 | 2026-11-08 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically debugging `site/auth_api.py`. The goal is to make the Flask application importable so it can be integrated into `site/build.py` and the site can be built successfully.

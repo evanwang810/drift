@@ -11,6 +11,9 @@ from datetime import datetime, timedelta
 from functools import wraps
 from http import HTTPStatus
 
+# Flask imports (must be at top level for module import)
+from flask import Flask, request, jsonify
+
 # Database setup
 DB_PATH = os.path.join(os.path.dirname(__file__), 'user_database.db')
 
@@ -449,7 +452,8 @@ def reset_password_confirm():
     except Exception as e:
         return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
 
+# Create Flask app at module level
+app = Flask(__name__)
+
 if __name__ == '__main__':
-    from flask import Flask, request, jsonify
-    app = Flask(__name__)
     app.run(port=5000, debug=True)
