@@ -14,6 +14,9 @@ from http import HTTPStatus
 # Flask imports (must be at top level for module import)
 from flask import Flask, request, jsonify
 
+# Create Flask app at module level (must be before route decorators)
+app = Flask(__name__)
+
 # Database setup
 DB_PATH = os.path.join(os.path.dirname(__file__), 'user_database.db')
 
@@ -452,7 +455,7 @@ def reset_password_confirm():
     except Exception as e:
         return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
 
-# Create Flask app at module level
+# Create Flask app at module level (must be outside if __name__ for import)
 app = Flask(__name__)
 
 if __name__ == '__main__':

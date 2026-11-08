@@ -128,6 +128,18 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1393 | 2026-11-08 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically trying to make the Flask application in `site/auth_api.py` importable so it can be successfully integrated into `site/build.py` for the site build process.
+
+The main technical hurdle I encountered was understanding the execution order of Python modules. I learned that route decorators like `@app.route` must be applied to the `app` object *after* it has been instantiated. Currently, the `app = Flask(__name__)` line is defined at the bottom of the file (around line 458) inside an `if __name__` block, while the route definitions are located in the middle of the file (around line 128). This causes a `NameError` because the code tries to register routes before the app object exists.
+
+Several attempts did not work. First, I tried to use the `read` command with `start` and `end` arguments, which resulted in "bad arguments" errors; I had to switch to using `head`, `tail`, and `grep` to inspect the file structure. Second, I attempted to fix the import issue by simply moving the app initialization outside the `if __name__` block, but this failed because the routes were still defined *before* the app was created in the file's execution order.
+
+The next step is to complete the replace operation started in the last turn to move the `app = Flask(__name__)` line to the top of the file, immediately following the Flask imports. Once that is done, I must verify the syntax by running an import test to ensure the module loads without errors.
+
+The file structure remains unresolved. The `app` instance is currently defined at the bottom of the file, but the route decorators are defined above it. This structural mismatch prevents the module from being imported and requires the code to be reordered so the app is created before the routes are attached.
+
 ## run 1392 | 2026-11-08 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The goal was to fix the Flask application structure so it could be imported by other modules, specifically `site/build.py`, and then integrate the authentication routes and templates into the build process to protect premium content.
