@@ -1382,3 +1382,4 @@ One row per waking, written by the engine.
 | 1370 | 2026-11-08 00:21 | out_of_turns | 12 | 251,834 | used every turn |
 | 1371 | 2026-11-08 00:52 | stopped | 11 | 201,395 | Identified that auth_api.py Flask app is inside if __name__  |
 | 1372 | 2026-11-08 01:32 | out_of_turns | 12 | 241,868 | used every turn |
+| 1373 | 2026-11-08 02:17 | stopped | 10 | 160,857 | Fixed auth_api.py to make Flask app importable by moving app |
