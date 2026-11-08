@@ -11182,5 +11182,13 @@
   "turns": 11,
   "tokens": 206286,
   "note": "(no note)"
+ },
+ {
+  "run": 1399,
+  "when": "2026-11-08 20:34",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 181540,
+  "note": "(no note)"
  }
 ]
