@@ -455,6 +455,313 @@ def reset_password_confirm():
     except Exception as e:
         return jsonify({'error': str(e)}), HTTPStatus.INTERNAL_SERVER_ERROR
 
+# Route handlers for HTML pages
+@app.route('/auth/register', methods=['GET', 'POST'])
+def register_page():
+    """Register page handler."""
+    if request.method == 'POST':
+        # Handle registration form submission
+        username = request.form.get('username', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm_password', '')
+        role = request.form.get('role', 'registered')
+        accept_terms = request.form.get('accept_terms', False)
+
+        if not accept_terms:
+            return render_template('auth-register.html', error='You must accept the Terms of Service')
+
+        if password != confirm_password:
+            return render_template('auth-register.html', error='Passwords do not match')
+
+        if len(password) < 8:
+            return render_template('auth-register.html', error='Password must be at least 8 characters')
+
+        # Create new user
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            cursor.execute('SELECT id FROM users WHERE username = ? OR email = ?', (username, email))
+            if cursor.fetchone():
+                conn.close()
+                return render_template('auth-register.html', error='Username or email already exists')
+
+            password_hash = hash_password(password)
+            cursor.execute(
+                'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)',
+                (username, email, password_hash, role)
+            )
+
+            user_id = cursor.lastrowid
+            conn.commit()
+            conn.close()
+
+            return redirect('/auth/login?registered=success')
+
+        except Exception as e:
+            return render_template('auth-register.html', error=str(e))
+
+    return render_template('auth-register.html')
+
+@app.route('/auth/login', methods=['GET', 'POST'])
+def login_page():
+    """Login page handler."""
+    if request.method == 'POST':
+        # Handle login form submission
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
+        user = cursor.fetchone()
+
+        if not user or not verify_password(user['password_hash'], password):
+            conn.close()
+            return render_template('auth-login.html', error='Invalid username or password')
+
+        # Check if user is banned
+        if user['role'] == 'banned':
+            conn.close()
+            return render_template('auth-login.html', error='Account has been banned')
+
+        # Create session
+        token = generate_token()
+        expires_at = datetime.utcnow() + timedelta(days=7)
+
+        cursor.execute(
+            'INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?)',
+            (user['id'], token, expires_at)
+        )
+
+        # Update last login
+        cursor.execute('UPDATE users SET last_login = ? WHERE id = ?', (datetime.utcnow(), user['id']))
+
+        conn.commit()
+        conn.close()
+
+        # Set cookie
+        resp = make_response(redirect('/'))
+        resp.set_cookie('session_token', token, max_age=7*24*60*60)
+        return resp
+
+    registered = request.args.get('registered') == 'success'
+    return render_template('auth-login.html', registered=registered)
+
+@app.route('/auth/logout', methods=['GET', 'POST'])
+def logout_page():
+    """Logout page handler."""
+    token = request.cookies.get('session_token') or request.headers.get('Authorization', '').replace('Bearer ', '')
+
+    if token:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM sessions WHERE token = ?', (token,))
+        conn.commit()
+        conn.close()
+
+    resp = make_response(redirect('/'))
+    resp.delete_cookie('session_token')
+    return resp
+
+@app.route('/auth/profile', methods=['GET', 'POST'])
+@require_auth
+def profile_page():
+    """Profile page handler."""
+    if request.method == 'POST':
+        # Handle profile update
+        username = request.form.get('username', request.user['username']).strip()
+        email = request.form.get('email', request.user['email']).strip().lower()
+        current_password = request.form.get('current_password', '')
+        new_password = request.form.get('new_password', '')
+        confirm_new_password = request.form.get('confirm_new_password', '')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Check if username is taken
+        cursor.execute('SELECT id FROM users WHERE username = ? AND id != ?', (username, request.user['id']))
+        if cursor.fetchone():
+            conn.close()
+            return render_template('auth-profile.html', error='Username already taken')
+
+        # Check if email is taken
+        cursor.execute('SELECT id FROM users WHERE email = ? AND id != ?', (email, request.user['id']))
+        if cursor.fetchone():
+            conn.close()
+            return render_template('auth-profile.html', error='Email already taken')
+
+        # Update profile
+        cursor.execute('UPDATE users SET username = ?, email = ? WHERE id = ?', (username, email, request.user['id']))
+
+        # Update password if provided
+        if new_password:
+            if new_password != confirm_new_password:
+                conn.close()
+                return render_template('auth-profile.html', error='New passwords do not match')
+
+            if len(new_password) < 8:
+                conn.close()
+                return render_template('auth-profile.html', error='Password must be at least 8 characters')
+
+            if not current_password:
+                conn.close()
+                return render_template('auth-profile.html', error='Current password is required')
+
+            # Verify current password
+            cursor.execute('SELECT password_hash FROM users WHERE id = ?', (request.user['id'],))
+            user = cursor.fetchone()
+
+            if not verify_password(user['password_hash'], current_password):
+                conn.close()
+                return render_template('auth-profile.html', error='Current password is incorrect')
+
+            new_password_hash = hash_password(new_password)
+            cursor.execute('UPDATE users SET password_hash = ? WHERE id = ?', (new_password_hash, request.user['id']))
+
+        conn.commit()
+        conn.close()
+
+        return render_template('auth-profile.html', success=True)
+
+    return render_template('auth-profile.html')
+
+@app.route('/auth/change-password', methods=['GET', 'POST'])
+@require_auth
+def change_password_page():
+    """Change password page handler."""
+    if request.method == 'POST':
+        current_password = request.form.get('current_password', '')
+        new_password = request.form.get('new_password', '')
+        confirm_new_password = request.form.get('confirm_new_password', '')
+
+        if new_password != confirm_new_password:
+            return render_template('auth-change-password.html', error='Passwords do not match')
+
+        if len(new_password) < 8:
+            return render_template('auth-change-password.html', error='Password must be at least 8 characters')
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Verify current password
+        cursor.execute('SELECT password_hash FROM users WHERE id = ?', (request.user['id'],))
+        user = cursor.fetchone()
+
+        if not verify_password(user['password_hash'], current_password):
+            conn.close()
+            return render_template('auth-change-password.html', error='Current password is incorrect')
+
+        # Update password
+        new_password_hash = hash_password(new_password)
+        cursor.execute('UPDATE users SET password_hash = ? WHERE id = ?', (new_password_hash, request.user['id']))
+
+        conn.commit()
+        conn.close()
+
+        return render_template('auth-change-password.html', success=True)
+
+    return render_template('auth-change-password.html')
+
+@app.route('/auth/forgot-password', methods=['POST'])
+def forgot_password():
+    """Forgot password page handler."""
+    email = request.form.get('email', '').strip().lower()
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+    user = cursor.fetchone()
+
+    if user:
+        # Generate reset token
+        token = generate_reset_token()
+        expires_at = datetime.utcnow() + timedelta(hours=1)
+
+        # Delete old tokens
+        cursor.execute('DELETE FROM password_reset_tokens WHERE email = ?', (email,))
+
+        # Create new token
+        cursor.execute(
+            'INSERT INTO password_reset_tokens (email, token, expires_at) VALUES (?, ?, ?)',
+            (email, token, expires_at)
+        )
+
+        conn.commit()
+
+    conn.close()
+
+    return render_template('auth-reset-password.html', message='If an account exists with this email, a password reset link has been sent.')
+
+@app.route('/auth/password-reset', methods=['POST'])
+def password_reset():
+    """Password reset page handler."""
+    token = request.form.get('token', '')
+    password = request.form.get('password', '')
+    confirm_password = request.form.get('confirm_password', '')
+
+    if password != confirm_password:
+        return render_template('auth-password-reset.html', error='Passwords do not match')
+
+    if len(password) < 8:
+        return render_template('auth-password-reset.html', error='Password must be at least 8 characters')
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # Verify token
+    cursor.execute('''
+        SELECT email FROM password_reset_tokens
+        WHERE token = ? AND expires_at > ?
+    ''', (token, datetime.utcnow()))
+
+    token_data = cursor.fetchone()
+
+    if not token_data:
+        conn.close()
+        return render_template('auth-password-reset.html', error='Invalid or expired reset token')
+
+    email = token_data['email']
+
+    # Get user
+    cursor.execute('SELECT id FROM users WHERE email = ?', (email,))
+    user = cursor.fetchone()
+
+    if not user:
+        conn.close()
+        return render_template('auth-password-reset.html', error='User not found')
+
+    # Update password
+    password_hash = hash_password(password)
+    cursor.execute('UPDATE users SET password_hash = ? WHERE id = ?', (password_hash, user['id']))
+
+    # Delete token
+    cursor.execute('DELETE FROM password_reset_tokens WHERE token = ?', (token,))
+
+    conn.commit()
+    conn.close()
+
+    return render_template('auth-password-reset.html', success=True)
+
+@app.route('/auth/resend-verification')
+def resend_verification():
+    """Resend verification link page."""
+    return render_template('auth-reset-password.html', message='Verification link has been sent to your email.')
+
+# Premium content protection decorator
+def require_premium(f):
+    """Decorator to require premium role for routes."""
+    @wraps(f)
+    @require_auth
+    def decorated_function(*args, **kwargs):
+        if request.user['role'] != 'premium':
+            return jsonify({'error': 'Premium content requires a Premium subscription'}), HTTPStatus.FORBIDDEN
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Create Flask app at module level (must be outside if __name__ for import)
 app = Flask(__name__)
 
