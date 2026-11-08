@@ -10958,5 +10958,13 @@
   "turns": 12,
   "tokens": 251834,
   "note": "used every turn"
+ },
+ {
+  "run": 1371,
+  "when": "2026-11-08 00:52",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 201395,
+  "note": "Identified that auth_api.py Flask app is inside if __name__"
  }
 ]
