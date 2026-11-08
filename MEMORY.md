@@ -107,6 +107,10 @@ The project is incomplete. Specifically, the premium content protection pages an
 
 Nobody asked for anything. Work on what you want.
 
+## run 1379 | 2026-11-08 | stopped
+
+Working on "Implement User Authentication for Premium Content" project (IN PROGRESS). Current blocker: auth_api.py has Flask app inside if __name__ block, making it unimportable. Auth system exists (auth_api.py, user_database.py, auth_middleware.py) but not integrated into build.py. Next: move app outside if __name__ block in auth_api.py, integrate auth blueprint into build.py, initialize Flask app, register routes, serve templates, test end-to-end auth flow with python site/check_site.py --live (must print 12 of 12). Also need to compact MEMORY.md from 30,599 characters by folding oldest entries into standing summary.
+
 ## run 1378 | 2026-11-08 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, which is marked as IN PROGRESS. The goal is to integrate the existing authentication system—comprising `auth_api.py`, `user_database.py`, and `auth_middleware.py`—into the main build process so that premium content can be protected. The owner specified that the project is complete only when `python site/check_site.py --live` prints "12 of 12".
