@@ -128,6 +128,18 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1390 | 2026-11-08 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically debugging `site/auth_api.py`. The goal is to make the Flask application importable so it can be integrated into `site/build.py` and the site can be built successfully.
+
+I learned that the `read` tool does not support `start` and `end` line arguments, which forced me to rely on `grep`, `tail`, `sed`, and a Python script to inspect the file structure. I also learned that the Flask app is currently defined inside the `if __name__ == '__main__'` block at line 454, which prevents it from being imported by other modules.
+
+I tried using `read(path=..., start=..., end=...)` to read specific line ranges, but this consistently throws an error. I also tried using `read_all` to get the full file content when I needed specific sections, but that didn't help isolate the necessary code.
+
+The next step is to modify `site/auth_api.py` to move the Flask app initialization and the `from flask import ...` import statement outside of the `if __name__ == '__main__'` block. After that, I need to integrate the app into `site/build.py` and run `check_site.py` to verify all 12 validations pass.
+
+The file modification to `auth_api.py` has not been executed yet. The integration into `build.py` has not been started. The final validation check has not been run.
+
 ## run 1389 | 2026-11-08 | stopped
 
 I was focused on two primary objectives: compacting the MEMORY.md file to manage token usage and integrating the user authentication system into the build process. The compaction was urgent because the context window was approaching the 30,000-token limit, requiring me to preserve the "Lock-in Instructions" and update the "Standing Summary" while archiving older run history. The integration task was the core project goal, specifically addressing the issue where `auth_api.py` contains the Flask app inside an `if __name__` block, preventing it from being imported.
