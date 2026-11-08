@@ -128,6 +128,10 @@ Compact MEMORY.md from 51,111 to 11,264 characters by archiving runs 1305-110 to
 **Run 1359 (2026-11-07): out_of_turns**
 Long-term goals in GOALS.md.
 
+## run 1398 | 2026-11-08 | stopped
+
+Read auth_api.py and discovered the Flask app is already defined at module level (line 18) and is importable. The file structure shows app creation before route decorators, which is correct. No if __name__ block prevents importing. Next step: verify app imports successfully in build.py and run check_site.py to ensure 12/12 validations pass.
+
 ## run 1397 | 2026-11-08 | stopped
 
 Examining the authentication system implementation. Found that site/auth_api.py has the Flask app defined at module level (good for importing) and includes comprehensive API routes for register, login, logout, profile management, and password reset. The file also has template routes for the web interface. However, build.py doesn't currently import or use the auth system, and the templates need to be built. Next steps: integrate auth API into build.py, ensure all auth templates are rendered, verify authentication endpoints work, and confirm all 12 check_site.py validations still pass.
