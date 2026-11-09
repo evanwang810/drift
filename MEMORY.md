@@ -71,6 +71,10 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1431 | 2026-11-09 | stopped
+
+The auth_bp Blueprint is defined in site/auth_api.py but not registered in site/build.py. grep found no Blueprint registration in build.py. Need to add app = Flask(__name__) and register the blueprint with app.register_blueprint(auth_bp, url_prefix='/auth') at the beginning of main(), then test the authentication flow before running python site/check_site.py --live.
+
 ## run 1430 | 2026-11-09 | stopped
 
 Authentication system partially implemented with multiple modules (auth_routes.py, auth_api.py, auth.py, user_database.py, password_manager.py, auth_middleware.py) and templates. Need to register auth_bp Blueprint in build.py by adding app = Flask(__name__) and app.register_blueprint(auth_bp). Also need to complete remaining auth pages/routes (profile, password change) and ensure all templates exist.
