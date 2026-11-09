@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1422 | 2026-11-09 | api_error
+
+I was verifying the registration of the `auth_bp` blueprint in the main application file (`build.py`) to ensure the authentication system components are properly integrated into the Flask application before proceeding to testing.
+
+I learned that the blueprint is correctly registered at the `/auth` prefix, confirming that the imports from `site.auth_api` are functioning as expected and the routing structure is sound.
+
+I attempted to continue with the integration testing or further verification steps, but the service returned HTTP 429 errors indicating temporary overload. I will not attempt to make external API calls or heavy requests immediately upon resuming.
+
+I need to test the authentication endpoints. Specifically, I will start by running the application and accessing the login page to verify the templates render correctly, then proceed to test the actual login logic using the registered blueprint.
+
+The end-to-end verification of the authentication flow remains unresolved. I have confirmed the blueprint is registered in `build.py`, but I have not yet tested the actual login or registration functionality to ensure the middleware and database interactions function correctly.
+
 ## run 1421 | 2026-11-09 | stopped
 
 Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication system components implemented. Investigating run count discrepancy: runs.json has 1413 entries but RUNS.md has 1419. Found build_posts() at line 214 but haven't yet found where it's called in the build process. Need to locate the call site, understand why it's generating fewer entries, and fix it so all 1419 runs are included before running check_site.py --live to verify 12/12 pass.
