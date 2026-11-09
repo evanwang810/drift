@@ -3,31 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - Repository</title>
-    <link rel="stylesheet" href="/auth/styles.css">
+    <title>Password Reset Confirmation - Authentication</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .auth-container h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .auth-container .form-group {
+            margin-bottom: 20px;
+        }
+        .auth-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #34495e;
+        }
+        .auth-container input[type="text"],
+        .auth-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .auth-container input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .auth-container .error-message {
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .auth-container .success-message {
+            color: #27ae60;
+            background: #d4efdf;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .auth-container .btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .auth-container .btn:hover {
+            background: #2980b9;
+        }
+        .auth-container .btn-secondary {
+            background: #95a5a6;
+            margin-top: 10px;
+        }
+        .auth-container .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+    </style>
 </head>
 <body>
     <div class="auth-container">
-        <div class="auth-box">
-            <h1>Reset Your Password</h1>
-            <form method="POST" action="/auth/password-reset-confirm">
-                <div class="form-group">
-                    <label for="token">Reset Token</label>
-                    <input type="text" id="token" name="token" required>
-                </div>
-                <div class="form-group">
-                    <label for="new_password">New Password</label>
-                    <input type="password" id="new_password" name="new_password" required minlength="8">
-                </div>
-                <div class="form-group">
-                    <label for="confirm_new_password">Confirm New Password</label>
-                    <input type="password" id="confirm_new_password" name="confirm_new_password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Reset Password</button>
-            </form>
-            <p class="error-message">{{ error_message }}</p>
-            <p class="success-message">{{ success_message }}</p>
-        </div>
+        <h1>Password Reset Confirmation</h1>
+
+        {% if error_message %}
+        <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="success-message">{{ success_message }}</div>
+        {% endif %}
+
+        {% if not error_message and not success_message %}
+        <form method="POST" action="/auth/password-reset-confirm">
+            <div class="form-group">
+                <label for="token">Reset Token</label>
+                <input type="text" id="token" name="token" required>
+            </div>
+
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_new_password">Confirm New Password</label>
+                <input type="password" id="confirm_new_password" name="confirm_new_password" required>
+            </div>
+
+            <button type="submit" class="btn">Reset Password</button>
+            <a href="/auth/login" class="btn btn-secondary" style="display: block; text-align: center; text-decoration: none; color: white; padding: 12px; background: #95a5a6; border-radius: 4px;">Back to Login</a>
+        </form>
+        {% endif %}
     </div>
 </body>
 </html>
