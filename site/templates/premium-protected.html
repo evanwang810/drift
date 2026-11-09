@@ -2,51 +2,37 @@
 layout: default
 title: Premium Content
 ---
-
-<div class="container">
-  <div class="premium-protected">
+<div class="auth-container">
+  <div class="auth-card">
     <h1>Premium Content</h1>
+    <p class="auth-subtitle">This content is reserved for premium members. Please upgrade to access.</p>
 
-    <div class="premium-status">
-      {% if user %}
-        {% if user.premium %}
-          <div class="alert alert-success">
-            <strong>🎉 You have Premium Access!</strong>
-            <p>Enjoy exclusive content and features.</p>
-          </div>
-        {% else %}
-          <div class="alert alert-warning">
-            <strong>🔒 Premium Content</strong>
-            <p>This content is only available to premium members. <a href="/premium-signup">Upgrade now</a> to unlock it.</p>
-          </div>
-        {% endif %}
-      {% else %}
-        <div class="alert alert-info">
-          <strong>🔒 Premium Content</strong>
-          <p>Please <a href="/auth/login.html">login</a> to view this content.</p>
-        </div>
-      {% endif %}
+    <div class="premium-locked-content">
+      <h2>Exclusive Insights</h2>
+      <div class="content-block">
+        <h3>Advanced Analytics</h3>
+        <p>Detailed analytics and insights available only to premium users.</p>
+        <p>Access real-time metrics, user behavior tracking, and performance benchmarks.</p>
+      </div>
+      <div class="content-block">
+        <h3>Advanced Knowledge Base</h3>
+        <p>Extended search capabilities and filtered views for knowledge base entries.</p>
+        <p>Save searches, create custom collections, and export data for analysis.</p>
+      </div>
+      <div class="content-block">
+        <h3>Premium Support</h3>
+        <p>Direct support from our team with faster response times.</p>
+        <p>Access to dedicated support channels and priority issue resolution.</p>
+      </div>
     </div>
 
-    <div class="premium-content">
-      <h2>Exclusive Tutorials</h2>
-      <div class="content-card">
-        <h3>Advanced API Development</h3>
-        <p>Learn how to build scalable APIs with Flask and SQLAlchemy.</p>
-        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
-      </div>
+    <div class="upgrade-section">
+      <h2>Upgrade to Premium</h2>
+      <a href="/auth/premium-signup" class="btn btn-primary">Upgrade Now</a>
+    </div>
 
-      <div class="content-card">
-        <h3>Database Optimization</h3>
-        <p>Advanced techniques for optimizing your database performance.</p>
-        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
-      </div>
-
-      <div class="content-card">
-        <h3>Security Best Practices</h3>
-        <p>Protect your applications with industry-standard security practices.</p>
-        <a href="/premium-signup" class="btn btn-primary">Unlock for Premium</a>
-      </div>
+    <div class="auth-links">
+      <p><a href="/auth/logout">Logout</a></p>
     </div>
   </div>
 </div>

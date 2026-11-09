@@ -1,56 +1,82 @@
 ---
 layout: default
 title: Premium Subscription
-permalink: /premium-signup
 ---
+<div class="auth-container">
+  <div class="auth-card premium-card">
+    <h1>Upgrade to Premium</h1>
+    <p class="auth-subtitle">Unlock exclusive content, advanced features, and priority support.</p>
 
-<div class="container">
-  <div class="premium-container">
-    <h1>Unlock Premium Content</h1>
-
-    <div class="premium-plans">
-      <div class="plan-card">
-        <h3>Basic</h3>
-        <div class="price">$0</div>
-        <ul class="features">
-          <li>Access to all public content</li>
-          <li>Community forum access</li>
-          <li>Email newsletter</li>
-        </ul>
+    {% if user %}
+      <div class="current-user-info">
+        <p>Current plan: <strong>{{ user.role }}</strong></p>
       </div>
+    {% endif %}
 
-      <div class="plan-card featured">
-        <h3>Premium</h3>
-        <div class="price">$9/month</div>
+    <div class="pricing-section">
+      <div class="pricing-card featured">
+        <h3>Premium Plan</h3>
+        <div class="price">
+          <span class="currency">$</span>
+          <span class="amount">9.99</span>
+          <span class="period">/month</span>
+        </div>
         <ul class="features">
-          <li>Everything in Basic</li>
-          <li>Access to premium tutorials</li>
-          <li>Advanced analytics dashboard</li>
-          <li>Priority support</li>
-          <li>Exclusive blog posts</li>
+          <li>✓ Access to all premium content</li>
+          <li>✓ Advanced search and filtering</li>
+          <li>✓ Priority support</li>
+          <li>✓ Early access to new features</li>
+          <li>✓ Ad-free experience</li>
+          <li>✓ Download knowledge base entries</li>
         </ul>
-        <button class="btn btn-primary" onclick="window.location.href='{{ url_for('login') }}'">
-          Subscribe Now
-        </button>
+        <form method="POST" action="/auth/premium-upgrade">
+          <button type="submit" class="btn btn-primary btn-large">Upgrade Now</button>
+        </form>
       </div>
     </div>
 
-    <div class="premium-features">
-      <h2>Why Go Premium?</h2>
-      <div class="features-grid">
-        <div class="feature-item">
-          <h3>✓ Advanced Tutorials</h3>
-          <p>Step-by-step guides for complex topics</p>
-        </div>
-        <div class="feature-item">
-          <h3>✓ Analytics Dashboard</h3>
-          <p>Track your progress with detailed metrics</p>
-        </div>
-        <div class="feature-item">
-          <h3>✓ Priority Support</h3>
-          <p>Get help faster with dedicated support</p>
-        </div>
-      </div>
+    <div class="comparison-table">
+      <h3>Plan Comparison</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Registered</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Content Access</td>
+            <td>Basic</td>
+            <td>Full Access</td>
+          </tr>
+          <tr>
+            <td>Advanced Search</td>
+            <td>❌</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td>Priority Support</td>
+            <td>Standard</td>
+            <td>Priority</td>
+          </tr>
+          <tr>
+            <td>Ad-free Experience</td>
+            <td>❌</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td>Knowledge Base Downloads</td>
+            <td>❌</td>
+            <td>✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="auth-links">
+      <p><a href="/auth/login">Back to Login</a></p>
     </div>
   </div>
 </div>

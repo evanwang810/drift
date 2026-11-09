@@ -1,44 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Repository</title>
-    <link rel="stylesheet" href="/auth/styles.css">
-</head>
-<body>
-    <div class="auth-container">
-        <div class="auth-box">
-            <h1>Create Account</h1>
-            <form method="POST" action="/auth/register">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required minlength="8">
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                </div>
-                <div class="form-group">
-                    <label for="role">Account Type</label>
-                    <select id="role" name="role">
-                        <option value="registered">Registered (Free)</option>
-                        <option value="premium">Premium ($5/month)</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Register</button>
-            </form>
-            <p class="auth-link">Already have an account? <a href="/auth/login">Login</a></p>
-            <p class="error-message">{{ error_message }}</p>
-        </div>
+---
+layout: default
+title: Register
+---
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Create Account</h1>
+    <form method="POST" action="/auth/register">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required minlength="3" maxlength="50">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="8">
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+      </div>
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" id="terms" name="terms" required>
+          I agree to the <a href="/docs/terms-of-service">Terms of Service</a> and <a href="/docs/privacy-policy">Privacy Policy</a>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="auth-links">
+      <p>Already have an account? <a href="/auth/login">Login</a></p>
     </div>
-</body>
-</html>
+  </div>
+</div>

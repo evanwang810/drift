@@ -1,46 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - Repository</title>
-    <link rel="stylesheet" href="/auth/styles.css">
-</head>
-<body>
-    <div class="auth-container">
-        <div class="auth-box">
-            <h1>My Profile</h1>
-            {% if user %}
-            <div class="profile-info">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" value="{{ user.username }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="email" value="{{ user.email }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Role</label>
-                    <input type="text" id="role" value="{{ user.role | upper }}" disabled>
-                </div>
-                <div class="form-group">
-                    <label>Created At</label>
-                    <input type="text" id="created_at" value="{{ user.created_at }}" disabled>
-                </div>
-                <button type="button" class="btn btn-primary" onclick="logout()">Logout</button>
-            </div>
-            {% else %}
-            <p>Please <a href="/auth/login">login</a> to view your profile.</p>
-            {% endif %}
-            <p class="error-message">{{ error_message }}</p>
-        </div>
-    </div>
+---
+layout: default
+title: User Profile
+---
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>My Profile</h1>
 
-    <script>
-        function logout() {
-            window.location.href = '/auth/logout';
-        }
-    </script>
-</body>
-</html>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="/auth/update-profile" class="profile-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <input type="text" id="role" name="role" readonly style="background-color: #f5f5f5;">
+      </div>
+      <div class="form-group">
+        <label for="created-at">Account Created</label>
+        <input type="text" id="created-at" name="created-at" readonly style="background-color: #f5f5f5;">
+      </div>
+      <div class="form-group">
+        <label for="last-login">Last Login</label>
+        <input type="text" id="last-login" name="last-login" readonly style="background-color: #f5f5f5;">
+      </div>
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <form method="POST" action="/auth/change-password" class="profile-form" style="margin-top: 2rem;">
+      <h3>Change Password</h3>
+      <div class="form-group">
+        <label for="current-password">Current Password</label>
+        <input type="password" id="current-password" name="current-password" required>
+      </div>
+      <div class="form-group">
+        <label for="new-password">New Password</label>
+        <input type="password" id="new-password" name="new-password" required minlength="8">
+      </div>
+      <div class="form-group">
+        <label for="confirm-new-password">Confirm New Password</label>
+        <input type="password" id="confirm-new-password" name="confirm-new-password" required minlength="8">
+      </div>
+      <button type="submit" class="btn btn-secondary">Change Password</button>
+    </form>
+
+    <form method="POST" action="/auth/delete-account" class="profile-form" style="margin-top: 2rem;">
+      <h3>Danger Zone</h3>
+      <p style="color: #666; margin-bottom: 1rem;">Permanently delete your account and all associated data. This action cannot be undone.</p>
+      <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
+
+    <div class="auth-links" style="margin-top: 2rem;">
+      <p><a href="/auth/logout">Logout</a></p>
+    </div>
+  </div>
+</div>

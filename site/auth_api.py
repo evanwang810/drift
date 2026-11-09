@@ -1,256 +1,293 @@
 """
-Authentication API endpoints for user registration, login, password reset, and profile management.
-"""
-from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
-from site.user_database import UserDatabase
-from site.password_manager import PasswordManager
-import os
-import secrets
-from datetime import datetime, timedelta
+Authentication API Routes
 
+This module provides Flask routes for:
+- User registration
+- User login/logout
+- Password reset
+- Profile management
+"""
+
+from flask import Blueprint, render_template, redirect, url_for, request, session, flash, g
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from user_database import get_user_db
+from auth_middleware import login_required, premium_required, logout_user, verify_login, create_user_session
+
+# Create blueprint
 auth_bp = Blueprint('auth', __name__)
 
-# Initialize components
-user_db = UserDatabase()
-password_manager = PasswordManager()
 
-# Configuration
-TOKEN_EXPIRY_HOURS = 24
-RESET_TOKEN_EXPIRY_HOURS = 1
-
-
-@auth_bp.route('/auth/register', methods=['GET', 'POST'])
+# Register Route
+@auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     """Handle user registration."""
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
-        email = request.form.get('email', '').strip().lower()
+        email = request.form.get('email', '').strip()
         password = request.form.get('password', '')
-        confirm_password = request.form.get('confirm_password', '')
-        role = request.form.get('role', 'registered')
+        confirm_password = request.form.get('confirm-password', '')
+        terms = request.form.get('terms')
 
-        # Validate input
-        if not username or not email or not password:
-            return render_template('auth-register.html', error_message='All fields are required')
+        # Validation
+        if not all([username, email, password, confirm_password, terms]):
+            flash('Please fill in all fields and accept the terms', 'error')
+            return render_template('auth-register.html')
 
         if password != confirm_password:
-            return render_template('auth-register.html', error_message='Passwords do not match')
+            flash('Passwords do not match', 'error')
+            return render_template('auth-register.html')
 
         if len(password) < 8:
-            return render_template('auth-register.html', error_message='Password must be at least 8 characters')
+            flash('Password must be at least 8 characters', 'error')
+            return render_template('auth-register.html')
 
-        # Check if user already exists
-        if user_db.get_user_by_username(username):
-            return render_template('auth-register.html', error_message='Username already exists')
+        # Register user
+        user_db = get_user_db()
+        success, message = user_db.register_user(username, email, password)
 
-        if user_db.get_user_by_email(email):
-            return render_template('auth-register.html', error_message='Email already registered')
-
-        # Create new user
-        user_id = user_db.create_user(username, email, password, role)
-
-        # Set session
-        session['user_id'] = user_id
-        session['username'] = username
-        session['role'] = role
-
-        return redirect(url_for('auth.profile'))
+        if success:
+            flash(message, 'success')
+            return redirect(url_for('auth.login'))
+        else:
+            flash(message, 'error')
+            return render_template('auth-register.html')
 
     return render_template('auth-register.html')
 
 
-@auth_bp.route('/auth/login', methods=['GET', 'POST'])
+# Login Route
+@auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Handle user login."""
     if request.method == 'POST':
-        username = request.form.get('username', '').strip()
+        username = request.form.get('username', '')
         password = request.form.get('password', '')
+        remember = request.form.get('remember', False)
 
-        if not username or not password:
-            return render_template('auth-login.html', error_message='Username and password are required')
+        # Authenticate
+        user = verify_login(username, password)
 
-        # Get user
-        user = user_db.get_user_by_username(username)
+        if user:
+            # Set session
+            session.permanent = remember
+            session['user'] = {
+                'id': user['id'],
+                'token': user['token']
+            }
 
-        if not user or not password_manager.verify_password(password, user['password_hash']):
-            return render_template('auth-login.html', error_message='Invalid username or password')
+            # Update last login
+            user_db = get_user_db()
+            user_db.update_last_login(user['id'])
 
-        # Set session
-        session['user_id'] = user['id']
-        session['username'] = user['username']
-        session['role'] = user['role']
-
-        # Redirect based on role
-        if user['role'] == 'premium':
-            return redirect(url_for('auth.profile'))
-        return redirect(url_for('home'))
+            flash('Login successful', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid username or password', 'error')
 
     return render_template('auth-login.html')
 
 
-@auth_bp.route('/auth/logout')
+# Logout Route
+@auth_bp.route('/logout')
+@login_required
 def logout():
     """Handle user logout."""
-    session.clear()
-    return redirect(url_for('auth.login'))
+    logout_user()
+    flash('You have been logged out', 'info')
+    return redirect(url_for('index'))
 
 
-@auth_bp.route('/auth/profile')
-def profile():
-    """Display user profile."""
-    if 'user_id' not in session:
-        return redirect(url_for('auth.login'))
-
-    user = user_db.get_user_by_id(session['user_id'])
-
-    if not user:
-        session.clear()
-        return redirect(url_for('auth.login'))
-
-    return render_template('auth-profile.html', user=user)
-
-
-@auth_bp.route('/auth/password-reset', methods=['GET', 'POST'])
-def password_reset():
-    """Request password reset."""
+# Forgot Password Route
+@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    """Handle password reset request."""
     if request.method == 'POST':
-        email = request.form.get('email', '').strip().lower()
+        email = request.form.get('email', '').strip()
 
         if not email:
-            return render_template('auth-password-reset.html', error_message='Email is required')
+            flash('Please enter your email address', 'error')
+            return render_template('auth-forgot-password.html')
 
-        user = user_db.get_user_by_email(email)
+        # Create reset token
+        user_db = get_user_db()
+        success, message = user_db.create_password_reset_token(email)
 
-        if user:
-            # Generate reset token
-            token = secrets.token_hex(32)
-            expiry = datetime.utcnow() + timedelta(hours=RESET_TOKEN_EXPIRY_HOURS)
-
-            # Store token in database
-            user_db.create_password_reset_token(user['id'], token, expiry)
-
+        if success:
             # In production, send email with reset link
-            # For demo, store in a simple file (not recommended for production)
-            reset_file = os.path.join('site', 'temp_password_resets.txt')
-            with open(reset_file, 'a') as f:
-                f.write(f"{user['id']},{token},{expiry.isoformat()}\n")
-
-        # Always show success message (security best practice - don't reveal if email exists)
-        return render_template('auth-password-reset.html',
-                             success_message='If the email exists, a reset link has been sent.')
-
-    return render_template('auth-password-reset.html')
-
-
-@auth_bp.route('/auth/password-reset-confirm', methods=['GET', 'POST'])
-def password_reset_confirm():
-    """Confirm and complete password reset."""
-    if request.method == 'POST':
-        token = request.form.get('token', '').strip()
-        new_password = request.form.get('new_password', '')
-        confirm_new_password = request.form.get('confirm_new_password', '')
-
-        if not token or not new_password or not confirm_new_password:
-            return render_template('auth-reset-confirm.html',
-                                 error_message='All fields are required')
-
-        if new_password != confirm_new_password:
-            return render_template('auth-reset-confirm.html',
-                                 error_message='Passwords do not match')
-
-        if len(new_password) < 8:
-            return render_template('auth-reset-confirm.html',
-                                 error_message='Password must be at least 8 characters')
-
-        # Verify token
-        reset_data = user_db.get_password_reset_token(token)
-
-        if not reset_data:
-            return render_template('auth-reset-confirm.html',
-                                 error_message='Invalid or expired reset token')
-
-        # Check if token is expired
-        expiry = datetime.fromisoformat(reset_data['expiry'])
-        if datetime.utcnow() > expiry:
-            return render_template('auth-reset-confirm.html',
-                                 error_message='Reset token has expired')
-
-        # Update password
-        user_id = reset_data['user_id']
-        new_hash = password_manager.hash_password(new_password)
-        user_db.update_password(user_id, new_hash)
-
-        # Remove token
-        user_db.delete_password_reset_token(token)
-
-        # Redirect to login
-        return render_template('auth-reset-confirm.html',
-                             success_message='Password reset successful. Please login with your new password.')
-
-    return render_template('auth-reset-confirm.html')
-
-
-# API endpoints for AJAX requests
-@auth_bp.route('/api/auth/check', methods=['GET'])
-def check_auth():
-    """Check if user is authenticated."""
-    if 'user_id' in session:
-        user = user_db.get_user_by_id(session['user_id'])
-        if user:
-            return jsonify({
-                'authenticated': True,
-                'user': {
-                    'id': user['id'],
-                    'username': user['username'],
-                    'email': user['email'],
-                    'role': user['role']
-                }
-            })
-    return jsonify({'authenticated': False})
-
-
-@auth_bp.route('/api/auth/change-password', methods=['POST'])
-def change_password():
-    """Change user password (requires authentication)."""
-    if 'user_id' not in session:
-        return jsonify({'error': 'Not authenticated'}), 401
-
-    if request.method == 'POST':
-        current_password = request.form.get('current_password', '')
-        new_password = request.form.get('new_password', '')
-        confirm_new_password = request.form.get('confirm_new_password', '')
-
-        if not current_password or not new_password or not confirm_new_password:
-            return jsonify({'error': 'All fields are required'}), 400
-
-        if new_password != confirm_new_password:
-            return jsonify({'error': 'Passwords do not match'}), 400
-
-        if len(new_password) < 8:
-            return jsonify({'error': 'Password must be at least 8 characters'}), 400
-
-        user_id = session['user_id']
-        user = user_db.get_user_by_id(user_id)
-
-        # Verify current password
-        if not password_manager.verify_password(current_password, user['password_hash']):
-            return jsonify({'error': 'Current password is incorrect'}), 400
-
-        # Update password
-        new_hash = password_manager.hash_password(new_password)
-        user_db.update_password(user_id, new_hash)
-
-        return jsonify({'success': True, 'message': 'Password changed successfully'})
-
-
-# Premium content protection middleware
-def require_premium(f):
-    """Decorator to require premium access for routes."""
-    def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
+            flash(message, 'success')
             return redirect(url_for('auth.login'))
-        user = user_db.get_user_by_id(session['user_id'])
-        if not user or user['role'] != 'premium':
-            return render_template('auth-premium-required.html')
-        return f(*args, **kwargs)
-    return decorated_function
+        else:
+            flash(message, 'error')
+            return render_template('auth-forgot-password.html')
+
+    return render_template('auth-forgot-password.html')
+
+
+# Reset Password Route
+@auth_bp.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    """Handle password reset."""
+    token = request.args.get('token')
+
+    if not token:
+        flash('Invalid reset link', 'error')
+        return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        confirm_password = request.form.get('confirm-password', '')
+
+        # Validation
+        if not all([password, confirm_password]):
+            flash('Please fill in all fields', 'error')
+            return render_template('auth-reset-password.html')
+
+        if password != confirm_password:
+            flash('Passwords do not match', 'error')
+            return render_template('auth-reset-password.html')
+
+        if len(password) < 8:
+            flash('Password must be at least 8 characters', 'error')
+            return render_template('auth-reset-password.html')
+
+        # Reset password
+        user_db = get_user_db()
+        success, message = user_db.reset_password(token, password)
+
+        if success:
+            flash(message, 'success')
+            return redirect(url_for('auth.login'))
+        else:
+            flash(message, 'error')
+            return render_template('auth-reset-password.html')
+
+    return render_template('auth-reset-password.html')
+
+
+# Profile Route
+@auth_bp.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    """Display and update user profile."""
+    user_db = get_user_db()
+    user = g.user
+
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        email = request.form.get('email', '').strip()
+        new_password = request.form.get('new-password', '')
+        confirm_new_password = request.form.get('confirm-new-password', '')
+
+        # Update profile
+        success, message = user_db.update_profile(user['id'], username, email)
+
+        if success:
+            flash(message, 'success')
+        else:
+            flash(message, 'error')
+
+        # Change password if provided
+        if new_password:
+            if new_password != confirm_new_password:
+                flash('New passwords do not match', 'error')
+            elif len(new_password) < 8:
+                flash('Password must be at least 8 characters', 'error')
+            else:
+                current_password = request.form.get('current-password', '')
+                if not user_db.verify_password(current_password, user['password_hash']):
+                    flash('Current password is incorrect', 'error')
+                else:
+                    user_db.update_password(user['id'], new_password)
+                    flash('Password changed successfully', 'success')
+
+        # Refresh user data
+        user = g.user
+
+    return render_template('auth-profile.html')
+
+
+# Update Profile Route
+@auth_bp.route('/update-profile', methods=['POST'])
+@login_required
+def update_profile():
+    """Handle profile update."""
+    user_db = get_user_db()
+    user = g.user
+
+    username = request.form.get('username', '').strip()
+    email = request.form.get('email', '').strip()
+
+    success, message = user_db.update_profile(user['id'], username, email)
+
+    if success:
+        flash(message, 'success')
+    else:
+        flash(message, 'error')
+
+    return redirect(url_for('auth.profile'))
+
+
+# Change Password Route
+@auth_bp.route('/change-password', methods=['POST'])
+@login_required
+def change_password():
+    """Handle password change."""
+    user_db = get_user_db()
+    user = g.user
+
+    current_password = request.form.get('current-password', '')
+    new_password = request.form.get('new-password', '')
+    confirm_new_password = request.form.get('confirm-new-password', '')
+
+    if new_password != confirm_new_password:
+        flash('New passwords do not match', 'error')
+        return redirect(url_for('auth.profile'))
+
+    if len(new_password) < 8:
+        flash('Password must be at least 8 characters', 'error')
+        return redirect(url_for('auth.profile'))
+
+    if not user_db.verify_password(current_password, user['password_hash']):
+        flash('Current password is incorrect', 'error')
+        return redirect(url_for('auth.profile'))
+
+    user_db.update_password(user['id'], new_password)
+    flash('Password changed successfully', 'success')
+    return redirect(url_for('auth.profile'))
+
+
+# Delete Account Route
+@auth_bp.route('/delete-account', methods=['POST'])
+@login_required
+def delete_account():
+    """Handle account deletion."""
+    user_db = get_user_db()
+    user = g.user
+
+    password = request.form.get('password', '')
+
+    if not user_db.verify_password(password, user['password_hash']):
+        flash('Password is incorrect', 'error')
+        return redirect(url_for('auth.profile'))
+
+    success, message = user_db.delete_user(user['id'])
+
+    if success:
+        flash(message, 'success')
+        logout_user()
+        return redirect(url_for('index'))
+    else:
+        flash(message, 'error')
+        return redirect(url_for('auth.profile'))
+
+
+# Premium Signup Route
+@auth_bp.route('/premium-signup')
+@premium_required
+def premium_signup():
+    """Display premium signup page."""
+    user_db = get_user_db()
+    user = g.user
+
+    return render_template('premium-signup.html', user=user)
