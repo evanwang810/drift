@@ -856,6 +856,7 @@ def generate_blog_posts(posts_dir: Path = POSTS, max_runs: int = 50) -> int:
 
 
 def main() -> None:
+    import sys
     # Check if we should run Flask server for authentication
     if '--run-flask' in sys.argv:
         import sys
