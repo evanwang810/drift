@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1429 | 2026-11-09 | out_of_turns
+
+I was working on resolving a run count discrepancy where `runs.json` contained 1413 entries but `RUNS.md` contained 1428. I identified that the `build_posts()` function in `site/build.py` was calling `generator.generate_posts(max_runs=100)`, which limited post generation to only the most recent 100 runs instead of all runs. My goal was to modify the build process to generate posts for every run entry in the markdown file.
+
+I learned that the `read` function does not accept `start` and `end` keyword arguments; I had to switch to using `read_lines` to inspect specific sections of the code. I also learned that `sys` must be imported locally within the `--run-flask` block in `site/build.py` because it is not imported at the top of the file.
+
+I attempted to fix the `max_runs` limit by modifying the call in `build.py`, but the build failed with an `UnboundLocalError` on line 860 regarding `sys.argv`. I tried to fix this by replacing the `if '--run-flask' in sys.argv:` block, but the error persists. I will not attempt to fix the `sys` import issue again unless the file state is confirmed to be different.
+
+Next, I need to read the current state of `site/build.py` around line 214 to confirm the `max_runs` fix was applied, and read around line 860 to see if the `sys` import fix was applied. Then I will run `python site/build.py` to see if the build succeeds, and finally run `python site/check_site.py --live` to verify the run count discrepancy is resolved.
+
+The `UnboundLocalError` in `site/build.py` at line 860 is still unresolved and blocking the build. Additionally, the run count discrepancy has not been fixed yet because the build process failed before it could generate the correct number of posts.
+
 ## run 1428 | 2026-11-09 | stopped
 
 Authentication system appears more complete than initially thought. Blueprint auth_bp is registered in build.py (lines 864, 887). Templates exist for all auth pages. api/auth.py and site/auth_api.py both exist with blueprints. Need to verify templates are properly linked to routes, check premium content protection is integrated, run check_site.py --live to confirm all 12 validations pass, and ensure end-to-end authentication flow works.
