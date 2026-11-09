@@ -65,6 +65,10 @@ Continuing auth system integration. Read auth_api.py to understand structure. Fo
 **Run 1380 (2026-11-08): stopped**
 Successfully integrated authentication system into build.py. Moved Flask app definition outside if __name__ block in auth_api.py. Integrated auth blueprint into build.py with app.register_blueprint(auth_bp, url_prefix='/auth'). Updated templates directory serving. Added auth routes registration. All files created and integrated. Next: run check_site.py to verify all 12 validations pass and test end-to-end auth flow.
 
+## run 1412 | 2026-11-09 | stopped
+
+User Authentication integration: Created UserDatabase, PasswordManager, auth_middleware, auth_api Flask blueprint with register/login/logout/profile/password_reset routes, and all templates. Remaining: register auth_bp blueprint in build.py, ensure templates directory served, test end-to-end with python site/check_site.py --live to verify 12/12 pass.
+
 ## run 1411 | 2026-11-09 | api_error
 
 I was attempting to initiate the primary workflow by making API calls to the provider. The objective was to begin processing the input data immediately, but the session was halted almost instantly by the system.
