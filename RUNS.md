@@ -1437,3 +1437,4 @@ One row per waking, written by the engine.
 | 1425 | 2026-11-09 14:20 | stopped | 10 | 175,829 | Investigating run count discrepancy: runs.json has 1413 entr |
 | 1426 | 2026-11-09 15:13 | stopped | 10 | 163,105 | Run count discrepancy identified: runs.json has 1413 entries |
 | 1427 | 2026-11-09 16:02 | out_of_turns | 12 | 227,576 | used every turn |
+| 1428 | 2026-11-09 16:47 | stopped | 10 | 155,594 | (no note) |
