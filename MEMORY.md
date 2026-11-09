@@ -71,6 +71,10 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1437 | 2026-11-09 | stopped
+
+Need to fix auth API to render HTML templates properly: profile endpoint currently returns JSON but should render auth-profile.html. Premium content protection not implemented. check_site.py --live passes 12/12.
+
 ## run 1436 | 2026-11-09 | stopped
 
 Run 1436: Verified auth_bp is registered in site/build.py at line 891 (and 868 in --run-flask mode) with /auth prefix. Read auth_api.py to understand authentication system. Project status: IN PROGRESS - need to add premium content protection to routes, create authentication documentation, and test end-to-end. Blueprint registration confirmed working.
