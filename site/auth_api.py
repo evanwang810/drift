@@ -751,6 +751,35 @@ def resend_verification():
     """Resend verification link page."""
     return render_template('auth-reset-password.html', message='Verification link has been sent to your email.')
 
+@app.route('/auth/logout')
+def logout():
+    """Logout user."""
+    session.clear()
+    flash('You have been logged out successfully', 'success')
+    return redirect(url_for('login'))
+
+@app.route('/auth/profile')
+@require_auth
+def profile():
+    """User profile page."""
+    return render_template('auth-profile.html')
+
+@app.route('/auth/change-password', methods=['GET'])
+@require_auth
+def change_password_page():
+    """Change password page handler."""
+    return render_template('auth-change-password.html')
+
+@app.route('/auth/forgot-password', methods=['GET'])
+def forgot_password_page():
+    """Forgot password page handler."""
+    return render_template('auth-forgot-password.html')
+
+@app.route('/auth/password-reset', methods=['GET'])
+def password_reset_page():
+    """Password reset page handler."""
+    return render_template('auth-password-reset.html')
+
 # Premium content protection decorator
 def require_premium(f):
     """Decorator to require premium role for routes."""

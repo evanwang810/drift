@@ -1,216 +1,30 @@
 ---
 layout: default
-title: Login - Premium Content Access
-description: Login to access premium content
+title: Login
 ---
-
 <div class="auth-container">
   <div class="auth-card">
-    <div class="auth-header">
-      <h1>Welcome Back</h1>
-      <p>Login to access premium content</p>
-    </div>
-
-    {% if error %}
-    <div class="alert alert-error">
-      <strong>Error:</strong> {{ error.message }}{% if error.premium_only %}<br>
-      <small>Premium subscription required</small>{% endif %}
-    </div>
-    {% endif %}
-
-    {% if success %}
-    <div class="alert alert-success">
-      <strong>Success:</strong> {{ success }}
-    </div>
-    {% endif %}
-
-    <form action="/api/auth/login" method="POST" class="auth-form">
+    <h1>Welcome Back</h1>
+    <form method="POST" action="/auth/login">
       <div class="form-group">
-        <label for="username">Username or Email</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          required
-          placeholder="Enter your username or email"
-          autocomplete="username"
-        >
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
       </div>
-
       <div class="form-group">
         <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          placeholder="Enter your password"
-          autocomplete="current-password"
-        >
+        <input type="password" id="password" name="password" required>
       </div>
-
-      <div class="form-options">
-        <label class="checkbox">
-          <input type="checkbox" name="remember">
-          <span>Remember me</span>
+      <div class="form-group">
+        <label for="remember">
+          <input type="checkbox" id="remember" name="remember">
+          Remember me for 30 days
         </label>
-        <a href="/auth/reset-password" class="forgot-password">Forgot password?</a>
       </div>
-
-      <button type="submit" class="btn btn-primary btn-block">Login</button>
+      <button type="submit" class="btn btn-primary">Login</button>
     </form>
-
-    <div class="auth-footer">
-      <p>Don't have an account? <a href="/auth/register">Sign up</a></p>
+    <div class="auth-links">
+      <p>Don't have an account? <a href="/auth/register">Register</a></p>
+      <p><a href="/auth/forgot-password">Forgot Password?</a></p>
     </div>
   </div>
 </div>
-
-<style>
-.auth-container {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.auth-card {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.auth-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.auth-header h1 {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.auth-header p {
-  color: #666;
-  font-size: 1rem;
-}
-
-.auth-form .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.auth-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: 500;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-
-.auth-form input:focus {
-  outline: none;
-  border-color: #3b82f6;
-}
-
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-.checkbox input[type="checkbox"] {
-  width: 1rem;
-  height: 1rem;
-}
-
-.forgot-password {
-  color: #3b82f6;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.forgot-password:hover {
-  color: #2563eb;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.btn:hover {
-  opacity: 0.9;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-primary {
-  background-color: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #2563eb;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.auth-footer {
-  text-align: center;
-  margin-top: 1.5rem;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.auth-footer a {
-  color: #3b82f6;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.alert {
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-}
-
-.alert-error {
-  background-color: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fecaca;
-}
-
-.alert-success {
-  background-color: #d1fae5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
-}
-</style>
