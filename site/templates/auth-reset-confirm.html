@@ -1,90 +1,33 @@
----
-layout: default
-title: Reset Password - Authentication
----
-
-<div class="auth-container">
-  <div class="auth-box">
-    <h1>Reset Password</h1>
-    <p class="auth-subtitle">Enter your reset token</p>
-
-    <form id="resetForm" class="auth-form">
-      <div class="form-group">
-        <label for="token">Reset Token</label>
-        <input
-          type="text"
-          id="token"
-          name="token"
-          required
-          placeholder="Enter your reset token"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="password">New Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          minlength="12"
-          placeholder="Enter a new password"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          name="confirm_password"
-          required
-          minlength="12"
-          placeholder="Confirm your new password"
-        >
-      </div>
-
-      <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
-    </form>
-
-    <div class="auth-footer">
-      <p>Remember your password? <a href="/auth/login.html">Sign in</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - Repository</title>
+    <link rel="stylesheet" href="/auth/styles.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1>Reset Your Password</h1>
+            <form method="POST" action="/auth/password-reset-confirm">
+                <div class="form-group">
+                    <label for="token">Reset Token</label>
+                    <input type="text" id="token" name="token" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password</label>
+                    <input type="password" id="new_password" name="new_password" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_new_password">Confirm New Password</label>
+                    <input type="password" id="confirm_new_password" name="confirm_new_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+            </form>
+            <p class="error-message">{{ error_message }}</p>
+            <p class="success-message">{{ success_message }}</p>
+        </div>
     </div>
-  </div>
-</div>
-
-<script>
-document.getElementById('resetForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const token = document.getElementById('token').value;
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirm-password').value;
-
-  if (password !== confirmPassword) {
-    alert('Passwords do not match');
-    return;
-  }
-
-  try {
-    const response = await fetch('/api/auth/reset-password-confirm', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token, password })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert('Password reset successfully! Please login with your new password.');
-      window.location.href = '/auth/login.html';
-    } else {
-      alert(data.message || 'Failed to reset password');
-    }
-  } catch (error) {
-    alert('An error occurred. Please try again.');
-  }
-});
-</script>
+</body>
+</html>
