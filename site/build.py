@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
-NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"), ("premium-content.html", "Premium Content"),
+NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
        ("search.html", "Search"), ("developer_guide.html", "Developer Guide"),
        ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"),
