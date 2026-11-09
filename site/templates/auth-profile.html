@@ -1,66 +1,100 @@
----
-layout: default
-title: User Profile
----
-<div class="auth-container">
-  <div class="auth-card">
-    <h1>My Profile</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Repository Website</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h1>My Profile</h1>
+                <p>Manage your account settings and preferences</p>
+            </div>
 
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.category }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
+            <div class="profile-content">
+                {% if user %}
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <div class="avatar-initials">{{ user.username[:2].upper() }}</div>
+                    </div>
+                    <div class="profile-details">
+                        <h2>{{ user.username }}</h2>
+                        <p class="profile-email">{{ user.email }}</p>
+                        <p class="profile-role">{{ 'Premium Member' if user.is_premium else 'Free Member' }}</p>
+                    </div>
+                </div>
 
-    <form method="POST" action="/auth/update-profile" class="profile-form">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label for="role">Role</label>
-        <input type="text" id="role" name="role" readonly style="background-color: #f5f5f5;">
-      </div>
-      <div class="form-group">
-        <label for="created-at">Account Created</label>
-        <input type="text" id="created-at" name="created-at" readonly style="background-color: #f5f5f5;">
-      </div>
-      <div class="form-group">
-        <label for="last-login">Last Login</label>
-        <input type="text" id="last-login" name="last-login" readonly style="background-color: #f5f5f5;">
-      </div>
-      <button type="submit" class="btn btn-primary">Update Profile</button>
-    </form>
+                <div class="profile-forms">
+                    <form method="POST" action="/auth/update-profile" id="profileForm">
+                        <h3>Change Password</h3>
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" name="currentPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" minlength="8">
+                            <small class="form-hint">Leave blank to keep current password</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmNewPassword">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" name="confirmNewPassword">
+                        </div>
 
-    <form method="POST" action="/auth/change-password" class="profile-form" style="margin-top: 2rem;">
-      <h3>Change Password</h3>
-      <div class="form-group">
-        <label for="current-password">Current Password</label>
-        <input type="password" id="current-password" name="current-password" required>
-      </div>
-      <div class="form-group">
-        <label for="new-password">New Password</label>
-        <input type="password" id="new-password" name="new-password" required minlength="8">
-      </div>
-      <div class="form-group">
-        <label for="confirm-new-password">Confirm New Password</label>
-        <input type="password" id="confirm-new-password" name="confirm-new-password" required minlength="8">
-      </div>
-      <button type="submit" class="btn btn-secondary">Change Password</button>
-    </form>
+                        {% if passwordError %}
+                        <div class="alert alert-error">{{ passwordError }}</div>
+                        {% endif %}
 
-    <form method="POST" action="/auth/delete-account" class="profile-form" style="margin-top: 2rem;">
-      <h3>Danger Zone</h3>
-      <p style="color: #666; margin-bottom: 1rem;">Permanently delete your account and all associated data. This action cannot be undone.</p>
-      <button type="submit" class="btn btn-danger">Delete Account</button>
-    </form>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
 
-    <div class="auth-links" style="margin-top: 2rem;">
-      <p><a href="/auth/logout">Logout</a></p>
+                    <form method="POST" action="/auth/logout" id="logoutForm">
+                        <button type="submit" class="btn btn-danger">Sign Out</button>
+                    </form>
+                </div>
+
+                {% if user.is_premium %}
+                <div class="premium-banner">
+                    <h3>Premium Member</h3>
+                    <p>You have access to exclusive premium content, advanced features, and priority support.</p>
+                    <a href="/docs/premium-content" class="btn btn-primary">View Premium Content</a>
+                </div>
+                {% endif %}
+
+                {% else %}
+                <div class="alert alert-error">
+                    You must be logged in to view your profile. <a href="/auth/login">Sign in</a>.
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword && newPassword !== confirmNewPassword) {
+                e.preventDefault();
+                alert('Passwords do not match. Please try again.');
+            }
+
+            if (newPassword) {
+                const hasUpperCase = /[A-Z]/.test(newPassword);
+                const hasLowerCase = /[a-z]/.test(newPassword);
+                const hasNumber = /[0-9]/.test(newPassword);
+
+                if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+                    e.preventDefault();
+                    alert('Password must contain uppercase, lowercase, and numbers.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

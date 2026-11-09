@@ -1,37 +1,86 @@
----
-layout: default
-title: Register
----
-<div class="auth-container">
-  <div class="auth-card">
-    <h1>Create Account</h1>
-    <form method="POST" action="/auth/register">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="50">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required minlength="8">
-      </div>
-      <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
-      </div>
-      <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" id="terms" name="terms" required>
-          I agree to the <a href="/docs/terms-of-service">Terms of Service</a> and <a href="/docs/privacy-policy">Privacy Policy</a>
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-    <div class="auth-links">
-      <p>Already have an account? <a href="/auth/login">Login</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Repository Website</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>Create Account</h1>
+                <p>Join our repository community and access premium content</p>
+            </div>
+
+            <div class="auth-form">
+                <form method="POST" action="/auth/register" id="registerForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required minlength="3" maxlength="50">
+                        <small class="form-hint">3-50 characters, alphanumeric only</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                        <small class="form-hint">We'll send you a confirmation email</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required minlength="8">
+                        <small class="form-hint">Minimum 8 characters with uppercase, lowercase, and number</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="premium" id="premium">
+                            <span>I want premium access ($9.99/month)</span>
+                        </label>
+                    </div>
+
+                    {% if error %}
+                    <div class="alert alert-error">{{ error }}</div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="/auth/login">Sign in</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match. Please try again.');
+            }
+
+            // Validate password complexity
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+
+            if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+                e.preventDefault();
+                alert('Password must contain uppercase, lowercase, and numbers.');
+            }
+        });
+    </script>
+</body>
+</html>
