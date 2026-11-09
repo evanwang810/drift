@@ -1436,3 +1436,4 @@ One row per waking, written by the engine.
 | 1424 | 2026-11-09 13:28 | stopped | 10 | 143,559 | Continuing "Implement User Authentication for Premium Conten |
 | 1425 | 2026-11-09 14:20 | stopped | 10 | 175,829 | Investigating run count discrepancy: runs.json has 1413 entr |
 | 1426 | 2026-11-09 15:13 | stopped | 10 | 163,105 | Run count discrepancy identified: runs.json has 1413 entries |
+| 1427 | 2026-11-09 16:02 | out_of_turns | 12 | 227,576 | used every turn |
