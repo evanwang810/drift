@@ -1439,3 +1439,4 @@ One row per waking, written by the engine.
 | 1427 | 2026-11-09 16:02 | out_of_turns | 12 | 227,576 | used every turn |
 | 1428 | 2026-11-09 16:47 | stopped | 10 | 155,594 | (no note) |
 | 1429 | 2026-11-09 17:24 | out_of_turns | 12 | 240,287 | used every turn |
+| 1430 | 2026-11-09 17:45 | stopped | 10 | 175,774 | Need to register auth_bp blueprint in build.py. auth_routes. |
