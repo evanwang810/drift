@@ -1,108 +1,104 @@
 """
-Authentication Blueprint
-Implements user authentication, registration, password reset, and profile management.
+Authentication Blueprint for Flask application.
+Handles user registration, login, logout, password reset, and profile management.
 """
 
-from flask import Blueprint, render_template, redirect, url_for, request, session
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
-import os
+import secrets
+import datetime
+from functools import wraps
 
 # Create blueprint
-auth_bp = Blueprint('auth', __name__, template_folder='templates/auth')
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-# User database file path
-USER_DB_PATH = os.path.join(os.path.dirname(__file__), 'user_database.json')
+# Import site modules
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'site'))
+from user_database import UserDatabase
+from password_manager import PasswordManager
 
-# Create user database file if it doesn't exist
-if not os.path.exists(USER_DB_PATH):
-    with open(USER_DB_PATH, 'w') as f:
-        f.write('[]')
+# Initialize database
+user_db = UserDatabase()
 
-# Load user database
-def load_users():
-    """Load users from database file."""
-    with open(USER_DB_PATH, 'r') as f:
-        return __import__('json').load(f)
+# Initialize password manager
+password_manager = PasswordManager()
 
-# Save user database
-def save_users(users):
-    """Save users to database file."""
-    with open(USER_DB_PATH, 'w') as f:
-        __import__('json').dump(users, f, indent=2)
+# Premium content routes
+premium_routes = Blueprint('premium', __name__, url_prefix='/premium')
+premium_routes.config = {'premium': True}
 
-# Check if user exists
-def user_exists(username):
-    """Check if a user with the given username exists."""
-    users = load_users()
-    return any(user['username'] == username for user in users)
 
-# Check if email exists
-def email_exists(email):
-    """Check if a user with the given email exists."""
-    users = load_users()
-    return any(user['email'] == email for user in users)
+def require_auth(f):
+    """Decorator to require authentication for a route."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('auth.login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
-# Get user by username
-def get_user(username):
-    """Get a user by username."""
-    users = load_users()
-    for user in users:
-        if user['username'] == username:
-            return user
-    return None
 
-# Create user
-def create_user(username, email, password):
-    """Create a new user."""
-    users = load_users()
-    new_user = {
-        'username': username,
-        'email': email,
-        'password_hash': generate_password_hash(password),
-        'joined_date': datetime.utcnow().isoformat(),
-        'premium_status': 'guest',
-        'premium_expires': None
-    }
-    users.append(new_user)
-    save_users(users)
-    return new_user
+def require_premium(f):
+    """Decorator to require premium membership for a route."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('auth.login', next=request.url))
+        if session.get('premium_expires', 0) < datetime.datetime.now().timestamp():
+            return redirect(url_for('auth.premium', plan='upgrade'))
+        return f(*args, **kwargs)
+    return decorated_function
 
-# Verify password
-def verify_password(username, password):
-    """Verify password for a user."""
-    user = get_user(username)
-    if not user:
-        return False
-    return check_password_hash(user['password_hash'], password)
 
-# Update user password
-def update_password(username, new_password):
-    """Update user password."""
-    users = load_users()
-    for i, user in enumerate(users):
-        if user['username'] == username:
-            users[i]['password_hash'] = generate_password_hash(new_password)
-            save_users(users)
-            return True
-    return False
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    """Handle user registration."""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirmPassword = request.form.get('confirmPassword')
 
-# Check if user is premium
-def is_premium(username):
-    """Check if user is premium."""
-    user = get_user(username)
-    if not user:
-        return False
-    if user['premium_status'] != 'premium':
-        return False
-    # Check if premium has expired
-    if user['premium_expires']:
-        expires = datetime.fromisoformat(user['premium_expires'])
-        if expires < datetime.utcnow():
-            return False
-    return True
+        # Validation
+        if not username or not email or not password:
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'All fields are required'}])
 
-# Login route
+        if password != confirmPassword:
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'Passwords do not match'}])
+
+        if len(password) < 8:
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'Password must be at least 8 characters'}])
+
+        # Check if username exists
+        if user_db.get_user_by_username(username):
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'Username already exists'}])
+
+        # Check if email exists
+        if user_db.get_user_by_email(email):
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'Email already registered'}])
+
+        # Hash password and create user
+        password_hash = password_manager.hash_password(password)
+        user_id = user_db.create_user(username, email, password_hash)
+
+        if user_id:
+            return redirect(url_for('auth.login', registered=True))
+        else:
+            return render_template('auth-register.html',
+                                  messages=[{'type': 'error', 'text': 'Registration failed. Please try again.'}])
+
+    registered = request.args.get('registered') == 'true'
+    messages = request.args.getlist('messages') if registered else []
+    return render_template('auth-register.html', messages=messages)
+
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     """Handle user login."""
@@ -111,191 +107,254 @@ def login():
         password = request.form.get('password')
 
         if not username or not password:
-            return render_template('auth-login.html', error='Username and password are required')
+            return render_template('auth-login.html',
+                                  messages=[{'type': 'error', 'text': 'Username and password are required'}])
 
-        if not user_exists(username):
-            return render_template('auth-login.html', error='User not found')
+        # Get user
+        user = user_db.get_user_by_username(username)
 
-        if not verify_password(username, password):
-            return render_template('auth-login.html', error='Invalid password')
+        if not user:
+            return render_template('auth-login.html',
+                                  messages=[{'type': 'error', 'text': 'Invalid username or password'}])
+
+        # Verify password
+        if not password_manager.verify_password(password, user['password_hash']):
+            return render_template('auth-login.html',
+                                  messages=[{'type': 'error', 'text': 'Invalid username or password'}])
 
         # Set session
-        session['user_id'] = username
-        session['email'] = get_user(username)['email']
-        session['premium_status'] = get_user(username)['premium_status']
+        session['user_id'] = user['id']
+        session['username'] = user['username']
+        session['email'] = user['email']
+        session['premium'] = user.get('premium', False)
+        session['premium_expires'] = user.get('premium_expires', 0)
 
-        return redirect(url_for('auth.profile'))
+        # Redirect to next page or home
+        next_page = request.args.get('next', url_for('index'))
+        return redirect(next_page)
 
-    return render_template('auth-login.html')
+    registered = request.args.get('registered') == 'true'
+    messages = request.args.getlist('messages') if registered else []
+    return render_template('auth-login.html', messages=messages)
 
-# Register route
-@auth_bp.route('/register', methods=['GET', 'POST'])
-def register():
-    """Handle user registration."""
-    if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
 
-        # Validate inputs
-        if not username or not email or not password:
-            return render_template('auth-register.html', error='All fields are required')
-
-        if len(username) < 3:
-            return render_template('auth-register.html', error='Username must be at least 3 characters')
-
-        if len(password) < 8:
-            return render_template('auth-register.html', error='Password must be at least 8 characters')
-
-        if password != confirm_password:
-            return render_template('auth-register.html', error='Passwords do not match')
-
-        if user_exists(username):
-            return render_template('auth-register.html', error='Username already exists')
-
-        if email_exists(email):
-            return render_template('auth-register.html', error='Email already registered')
-
-        # Create user
-        create_user(username, email, password)
-
-        # Auto-login after registration
-        session['user_id'] = username
-        session['email'] = email
-        session['premium_status'] = 'guest'
-
-        return redirect(url_for('auth.profile'))
-
-    return render_template('auth-register.html')
-
-# Logout route
 @auth_bp.route('/logout')
 def logout():
     """Handle user logout."""
     session.clear()
     return redirect(url_for('auth.login'))
 
-# Profile route
-@auth_bp.route('/profile', methods=['GET', 'POST'])
-def profile():
-    """Display user profile."""
-    # Check if user is logged in
-    if 'user_id' not in session:
-        return redirect(url_for('auth.login'))
 
-    user = get_user(session['user_id'])
-
-    if request.method == 'POST':
-        current_password = request.form.get('current_password')
-        new_password = request.form.get('new_password')
-        confirm_password = request.form.get('confirm_password')
-
-        if current_password and new_password:
-            if new_password != confirm_password:
-                return render_template('auth-profile.html',
-                    user=user,
-                    error='Passwords do not match')
-
-            if not verify_password(session['user_id'], current_password):
-                return render_template('auth-profile.html',
-                    user=user,
-                    error='Current password is incorrect')
-
-            update_password(session['user_id'], new_password)
-
-        return redirect(url_for('auth.profile'))
-
-    # Get premium expiry if applicable
-    premium_expires = None
-    if user['premium_status'] == 'premium' and user['premium_expires']:
-        expires = datetime.fromisoformat(user['premium_expires'])
-        if expires >= datetime.utcnow():
-            premium_expires = expires.strftime('%Y-%m-%d')
-
-    return render_template('auth-profile.html',
-        username=user['username'],
-        email=user['email'],
-        premium_status=user['premium_status'],
-        premium_expires=premium_expires,
-        joined_date=datetime.fromisoformat(user['joined_date']).strftime('%Y-%m-%d'),
-        status='Active' if user['premium_status'] == 'premium' else 'Registered')
-
-# Password reset request route
-@auth_bp.route('/reset-password', methods=['GET', 'POST'])
-def reset_password():
+@auth_bp.route('/password-reset', methods=['GET', 'POST'])
+def password_reset():
     """Handle password reset request."""
     if request.method == 'POST':
         email = request.form.get('email')
 
         if not email:
-            return render_template('auth-password-reset.html', error='Email is required')
-
-        users = load_users()
-        user = next((u for u in users if u['email'] == email), None)
-
-        if not user:
-            # Don't reveal if email exists for security
             return render_template('auth-password-reset.html',
-                success='If an account with this email exists, a reset link has been sent.')
+                                  messages=[{'type': 'error', 'text': 'Email is required'}])
 
-        # In a real implementation, you would send an email with a reset token
-        # For now, we'll just show a success message
+        # Check if user exists
+        user = user_db.get_user_by_email(email)
+
+        if user:
+            # Generate reset token
+            token = secrets.token_urlsafe(32)
+            reset_expires = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+            # Store token in database
+            user_db.create_reset_token(user['id'], token, reset_expires.timestamp())
+
+            # TODO: Send email with reset link (implementation depends on email service)
+
+        # Always show success message (security best practice)
         return render_template('auth-password-reset.html',
-            success='If an account with this email exists, a reset link has been sent.')
+                              messages=[{'type': 'success', 'text': 'If an account exists with this email, a password reset link has been sent.'}])
 
     return render_template('auth-password-reset.html')
 
-# API endpoint to check if user is premium
-@auth_bp.route('/api/check-premium', methods=['GET'])
-def check_premium():
-    """Check if current user is premium (API endpoint)."""
-    if 'user_id' not in session:
-        return {'is_premium': False, 'role': 'guest'}, 401
 
-    is_premium_user = is_premium(session['user_id'])
+@auth_bp.route('/reset-password-confirm', methods=['POST'])
+def reset_password_confirm():
+    """Handle password reset confirmation."""
+    token = request.form.get('token')
+    newPassword = request.form.get('newPassword')
+    confirmNewPassword = request.form.get('confirmNewPassword')
 
-    return {
-        'is_premium': is_premium_user,
-        'role': 'premium' if is_premium_user else session.get('premium_status', 'guest')
-    }
+    if not token or not newPassword:
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'error', 'text': 'Invalid reset link. Please request a new password reset.'}])
 
-# API endpoint to upgrade to premium
-@auth_bp.route('/api/upgrade-premium', methods=['POST'])
-def upgrade_premium():
-    """Upgrade user to premium status."""
-    if 'user_id' not in session:
-        return {'success': False, 'error': 'Not logged in'}, 401
+    if newPassword != confirmNewPassword:
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'error', 'text': 'Passwords do not match'}])
 
-    # In a real implementation, this would connect to a payment processor
-    # For now, we'll just simulate upgrading
-    users = load_users()
-    for i, user in enumerate(users):
-        if user['username'] == session['user_id']:
-            users[i]['premium_status'] = 'premium'
-            users[i]['premium_expires'] = (datetime.utcnow() + __import__('datetime').timedelta(days=30)).isoformat()
-            save_users(users)
-            break
+    if len(newPassword) < 8:
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'error', 'text': 'Password must be at least 8 characters'}])
 
-    session['premium_status'] = 'premium'
+    # Validate token and reset password
+    user_id = user_db.validate_reset_token(token)
 
-    return {'success': True, 'message': 'Successfully upgraded to premium!'}
+    if not user_id:
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'error', 'text': 'Invalid or expired reset link. Please request a new password reset.'}])
 
-# API endpoint to get user info
-@auth_bp.route('/api/user-info', methods=['GET'])
-def get_user_info():
-    """Get current user info (API endpoint)."""
-    if 'user_id' not in session:
-        return {'success': False, 'error': 'Not logged in'}, 401
+    # Hash new password
+    password_hash = password_manager.hash_password(newPassword)
 
-    user = get_user(session['user_id'])
+    # Update password
+    if user_db.update_password(user_id, password_hash):
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'success', 'text': 'Password reset successful! You can now login with your new password.'}])
+    else:
+        return render_template('auth-password-reset-confirm.html',
+                              messages=[{'type': 'error', 'text': 'Failed to reset password. Please try again.'}])
 
-    return {
-        'success': True,
-        'user': {
-            'username': user['username'],
-            'email': user['email'],
-            'premium_status': user['premium_status'],
-            'joined_date': user['joined_date']
-        }
-    }
+
+@auth_bp.route('/profile', methods=['GET', 'POST'])
+@require_auth
+def profile():
+    """Handle user profile management."""
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        # Update profile
+        new_username = request.form.get('username')
+        new_email = request.form.get('email')
+
+        if new_username and new_username != session['username']:
+            if user_db.get_user_by_username(new_username):
+                return render_template('auth-profile.html',
+                                      messages=[{'type': 'error', 'text': 'Username already exists'}],
+                                      user=user_db.get_user_by_id(user_id))
+
+        if new_email and new_email != session['email']:
+            if user_db.get_user_by_email(new_email):
+                return render_template('auth-profile.html',
+                                      messages=[{'type': 'error', 'text': 'Email already registered'}],
+                                      user=user_db.get_user_by_id(user_id))
+
+        if user_db.update_user(user_id, new_username, new_email):
+            session['username'] = new_username or session['username']
+            session['email'] = new_email or session['email']
+            messages = [{'type': 'success', 'text': 'Profile updated successfully'}]
+        else:
+            messages = [{'type': 'error', 'text': 'Failed to update profile'}]
+
+        return render_template('auth-profile.html', messages=messages, user=user_db.get_user_by_id(user_id))
+
+    return render_template('auth-profile.html', user=user_db.get_user_by_id(user_id))
+
+
+@auth_bp.route('/change-password', methods=['POST'])
+@require_auth
+def change_password():
+    """Handle password change."""
+    user_id = session['user_id']
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    # Validate current password
+    user = user_db.get_user_by_id(user_id)
+    if not password_manager.verify_password(current_password, user['password_hash']):
+        return jsonify({'success': False, 'message': 'Current password is incorrect'})
+
+    if len(new_password) < 8:
+        return jsonify({'success': False, 'message': 'New password must be at least 8 characters'})
+
+    if new_password != confirm_password:
+        return jsonify({'success': False, 'message': 'Passwords do not match'})
+
+    # Update password
+    password_hash = password_manager.hash_password(new_password)
+    if user_db.update_password(user_id, password_hash):
+        return jsonify({'success': True, 'message': 'Password changed successfully'})
+    else:
+        return jsonify({'success': False, 'message': 'Failed to change password'})
+
+
+@auth_bp.route('/premium', methods=['GET', 'POST'])
+@require_auth
+def premium():
+    """Premium membership page."""
+    user_id = session['user_id']
+    user = user_db.get_user_by_id(user_id)
+
+    # Check if user is already premium
+    if user.get('premium', False) and user.get('premium_expires', 0) > datetime.datetime.now().timestamp():
+        return render_template('auth-premium.html', user=user, premium=True, messages=[])
+
+    if request.method == 'POST':
+        plan = request.form.get('plan', 'monthly')
+
+        if plan == 'monthly':
+            # Generate subscription key
+            subscription_key = f"PREM-{user['username']}-{secrets.token_urlsafe(16)}"
+            premium_expires = datetime.datetime.now() + datetime.timedelta(days=30)
+            price = 9.99
+        elif plan == 'annual':
+            subscription_key = f"PREM-{user['username']}-{secrets.token_urlsafe(16)}"
+            premium_expires = datetime.datetime.now() + datetime.timedelta(days=365)
+            price = 99.99
+        else:
+            return render_template('auth-premium.html',
+                                  user=user,
+                                  messages=[{'type': 'error', 'text': 'Invalid subscription plan'}])
+
+        # Update user with premium status
+        if user_db.update_premium(user_id, True, premium_expires.timestamp(), subscription_key):
+            session['premium'] = True
+            session['premium_expires'] = premium_expires.timestamp()
+            messages = [{'type': 'success', 'text': f'Subscription activated! You now have Premium access for {plan}. Price: ${price}'}]
+        else:
+            messages = [{'type': 'error', 'text': 'Failed to activate subscription'}]
+
+        return render_template('auth-premium.html', user=user, premium=True, messages=messages)
+
+    return render_template('auth-premium.html', user=user, premium=False, messages=[])
+
+
+# Premium content routes (require authentication and premium membership)
+@premium_routes.route('/')
+@require_auth
+@require_premium
+def index():
+    """Premium content home page."""
+    return render_template('premium/index.html')
+
+
+@premium_routes.route('/documents')
+@require_auth
+@require_premium
+def documents():
+    """Premium documents page."""
+    return render_template('premium/documents.html')
+
+
+@premium_routes.route('/downloads')
+@require_auth
+@require_premium
+def downloads():
+    """Premium downloads page."""
+    return render_template('premium/downloads.html')
+
+
+@premium_routes.route('/api/dashboard')
+@require_auth
+@require_premium
+def dashboard_api():
+    """API endpoint for premium dashboard data."""
+    user_id = session['user_id']
+    user = user_db.get_user_by_id(user_id)
+
+    return jsonify({
+        'username': user['username'],
+        'email': user['email'],
+        'premium': True,
+        'premium_expires': datetime.datetime.fromtimestamp(user.get('premium_expires', 0)).isoformat() if user.get('premium') else None,
+        'subscription_key': user.get('subscription_key', ''),
+        'plan': 'monthly' if user.get('premium_expires', 0) > datetime.datetime.now().timestamp() else None
+    })
