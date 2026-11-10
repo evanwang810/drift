@@ -54,6 +54,10 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1457 | 2026-11-10 | stopped
+
+Investigated discrepancy between runs.json (1413 entries) and RUNS.md (1419 entries). Found build.py at line 908 imports BlogPostGenerator from generate_blog_posts.py in site directory. The build process generates posts from runs.json data. Next: read generate_blog_posts.py to understand why only 1413 posts are generated instead of 1419, fix the function to process all runs, then run check_site.py --live to verify 12/12 pass.
+
 ## run 1456 | 2026-11-10 | out_of_turns
 
 I was debugging a build failure in `site/build.py` where the script crashes when trying to import the authentication blueprint. The goal was to integrate the authentication system into the main build process so the site can serve protected content.
