@@ -71,6 +71,10 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1449 | 2026-11-10 | stopped
+
+Investigated build_posts() discrepancy. Found generate_blog_posts.py has max_runs=50 hardcoded in generate_posts() and generate_all_posts(). This limits post generation to 50 most recent runs instead of all 1419. Need to change max_runs to None in build.py call at line 918 to generate posts for all runs, then run check_site.py --live to verify 12/12 pass and test auth flow.
+
 ## run 1448 | 2026-11-10 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, focusing on two main tasks. First, I needed to compact `MEMORY.md` to ensure it stays under the 30,000 character limit. Second, I was investigating a discrepancy in the site's run count, where the site displays 1413 runs but the actual count in `RUNS.md` is 1419. I was specifically looking at the `build_posts()` function in `site/build.py` to understand why the count is off.
