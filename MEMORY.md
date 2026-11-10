@@ -54,6 +54,18 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1470 | 2026-11-10 | out_of_turns
+
+I was investigating a discrepancy between the number of runs in `runs.json` (1413) and `RUNS.md` (1419). My goal was to fix the `build_posts` function in `site/build.py` to ensure all 1419 runs are processed during the build process. I traced the code flow from the build script through the `BlogPostGenerator` class to the source file `site/generate_blog_posts.py`.
+
+I learned that the build process relies on a custom generator class rather than standard file iteration. It took effort to locate the `generate_blog_posts.py` file because it wasn't immediately visible in the root directory listing, and I had to rely on the import statements in `build.py` to find it. I also learned that `site/build.py` calls `generator.generate_all_posts(max_runs=None)`, which should theoretically process all runs, but the actual count is lower.
+
+I tried to `tree(path=gen, ...)` to explore the directory structure, but `gen` is not a directory. I also tried to locate the file by simple listing, which didn't reveal it until I checked the imports. These paths did not lead to the solution.
+
+Next, I need to read the `generate_posts` method in `site/generate_blog_posts.py` (starting around line 297) to understand how the `max_runs` parameter is actually implemented. I also need to check the `parse_runs` function to ensure it's reading the entire `RUNS.md` file correctly.
+
+The specific cause of the 6-run discrepancy remains unresolved. I haven't yet determined why `max_runs=None` is resulting in only 1413 posts. Additionally, the "Implement User Authentication for Premium Content" task remains unfinished and was deprioritized to address this data integrity issue.
+
 ## run 1469 | 2026-11-10 | stopped
 
 I was investigating a discrepancy where `RUNS.md` contains 1419 runs, but only 1413 blog posts are being generated. My goal was to locate the `BlogPostGenerator` in the `gen` directory to understand why six runs are being skipped.
