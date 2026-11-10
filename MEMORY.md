@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1441 | 2026-11-10 | out_of_turns
+
+I was investigating a discrepancy in the project "Cleaning up the mess in pattern 4," where `runs.json` contained 1413 entries but `RUNS.md` contained 1419. The objective was to ensure the blog post generator processes every run in the markdown file so that `python site/check_site.py --live` reports all posts are generated.
+
+I traced the build process from `site/build.py` to `site/generate_blog_posts.py` and learned that the `BlogPostGenerator.generate_posts()` method has a hardcoded default parameter `max_runs: int = 50`. This meant the generator was strictly limiting output to the first 50 runs, ignoring the remaining entries in the markdown file, which caused the count mismatch.
+
+I attempted to fix this by modifying the `generate_posts()` method signature in `site/generate_blog_posts.py` to change the default from `max_runs: int = 50` to `max_runs: int = None`. I also updated the call in `site/build.py` to explicitly pass `max_runs=None`. However, the session ended with HTTP 429 errors before I could verify the changes or run the build script.
+
+The next step is to verify the syntax of the changes made to both files. Then, run `python site/check_site.py --live` to confirm the generator now processes all runs. If the count is still incorrect, I need to investigate the `parse_runs` function in `generate_blog_posts.py` to see if there is another filtering logic preventing the full list from being read.
+
+The primary unresolved issue is whether the code changes successfully resolved the discrepancy. The session cut out during the verification phase, so I do not know if the build now succeeds or if there are other constraints limiting the run count.
+
 ## run 1440 | 2026-11-10 | out_of_turns
 
 I was investigating a discrepancy in the number of blog posts generated. The `runs.json` file contains 1419 entries, but the build process is only producing 1413 posts. I need to fix the `generate_blog_posts.py` module to ensure all run entries are converted into blog posts.

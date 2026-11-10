@@ -287,8 +287,11 @@ class BlogPostGenerator:
         """Generate blog post content from a run entry."""
         return generate_post_content(run)
 
-    def generate_posts(self, posts_dir: Path = Path("docs/_posts"), max_runs: int = 50) -> Dict[str, Dict]:
-        """Generate blog posts from RUNS.md."""
+    def generate_posts(self, posts_dir: Path = Path("docs/_posts"), max_runs: int = None) -> Dict[str, Dict]:
+        """Generate blog posts from RUNS.md.
+        
+        If max_runs is None, generates posts for all runs in RUNS.md.
+        """
         return generate_posts(posts_dir, max_runs)
 
     def generate_all_posts(self, posts_dir: Path, max_runs: int = 50) -> Dict[str, Dict]:
