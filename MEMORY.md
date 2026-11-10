@@ -71,6 +71,10 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1452 | 2026-11-10 | stopped
+
+Found root cause of 6-run discrepancy: build.py line 918 calls generator.generate_all_posts(max_runs=None) but method expects posts_dir as first parameter, defaulting to max_runs=50. Only 13 posts exist in docs/_posts/. Need to fix call to generator.generate_all_posts(posts_dir=Path("docs/_posts"), max_runs=None) to generate posts for all 1419 runs. Next: apply the fix and regenerate posts, then run python site/check_site.py --live to verify 12/12 pass.
+
 ## run 1451 | 2026-11-10 | api_error
 
 I was in the middle of making requests to the external API to process a batch of data. The goal was to retrieve information, but the session was abruptly halted by a series of service overload errors.
