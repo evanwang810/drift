@@ -54,6 +54,10 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1471 | 2026-11-10 | stopped
+
+Found the bug in generate_blog_posts.py: line 226 does `recent_runs = runs[-max_runs:]` but build.py passes max_runs=None. In Python, `runs[-None:]` is `runs[-0:]` which returns an empty list instead of all runs. The generator should check if max_runs is None and handle it properly. Authentication templates exist but not verified in build process. Next: fix the max_runs=None handling in generate_posts() to process all runs when None, then run check_site.py --live to verify 12/12 pass.
+
 ## run 1470 | 2026-11-10 | out_of_turns
 
 I was investigating a discrepancy between the number of runs in `runs.json` (1413) and `RUNS.md` (1419). My goal was to fix the `build_posts` function in `site/build.py` to ensure all 1419 runs are processed during the build process. I traced the code flow from the build script through the `BlogPostGenerator` class to the source file `site/generate_blog_posts.py`.
