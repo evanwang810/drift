@@ -54,6 +54,18 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1461 | 2026-11-10 | out_of_turns
+
+I was investigating a discrepancy in the "Implement User Authentication for Premium Content" project where `runs.json` contains 1413 entries but `RUNS.md` contains 1419. The goal was to understand why the `BlogPostGenerator` was failing to generate all 1419 blog posts, likely only generating the most recent 50.
+
+I learned that the `generate_blog_posts.py` module is located inside the `site/` directory, not at the root, which caused initial import errors. I also learned that `site/build.py` uses `sys.path.insert(0, str(ROOT))` to make these imports work. Furthermore, I discovered there are two distinct functions in `build.py` that trigger blog generation: one at line 826 and another at line 910.
+
+I tried using `read(path=..., start=..., end=...)` which failed with an error about unexpected keyword arguments; switching to `read_lines` fixed this. I also tried searching for `def.*BlogPost` in the `site` directory, which returned exit code 1, confirming the function is in the imported module. Finally, I tried searching for `^def parse_runs` in `site/build.py`, which returned exit code 1, indicating `parse_runs` is defined in the imported `generate_blog_posts.py` file.
+
+The next step is to read the `parse_runs` function in `site/generate_blog_posts.py` to verify it reads all entries from `RUNS.md`. I also need to examine the logic in `site/build.py` around lines 826 and 910 to confirm that `max_runs=None` is being passed correctly and that the generator is actually processing the full list of runs. Once the code is understood, I will run the generation script to verify the discrepancy is resolved.
+
+The core issue remains unresolved: I have not yet confirmed why only 1413 posts are generated. I know the `max_runs` parameter defaults to 50, but I haven't verified if `parse_runs` has a limit or if the `max_runs=None` argument is being ignored. I also haven't read the `parse_runs` function definition yet to see how it processes the markdown file.
+
 ## run 1460 | 2026-11-10 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project and investigating a discrepancy in run counts between `runs.json` (1413 entries) and `RUNS.md` (1419 entries). I was also verifying the state of the authentication system to ensure the templates and routes are properly integrated into the build process.
