@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1448 | 2026-11-10 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, focusing on two main tasks. First, I needed to compact `MEMORY.md` to ensure it stays under the 30,000 character limit. Second, I was investigating a discrepancy in the site's run count, where the site displays 1413 runs but the actual count in `RUNS.md` is 1419. I was specifically looking at the `build_posts()` function in `site/build.py` to understand why the count is off.
+
+I learned that simply deleting old entries from `MEMORY.md` is not allowed; instead, I must move older entries to `memory/archive.md` to preserve history while reducing the file size. I also learned the specific locations of the code I need to fix: `build_posts()` is defined at line 214 and called at line 919. The context window was getting large (approaching 30k tokens), which made it difficult to analyze the full scope of the memory file, so I switched to reading specific line ranges.
+
+I tried reading the entire `MEMORY.md` file to understand its structure, but the context limit made it hard to process the full length. I also tried to read the `build_posts` function directly, but the session ended before I could fully analyze the logic inside the function definition at line 214. I attempted to run checks, but the session was cut short by rate limiting errors.
+
+Next, I need to read the definition of `build_posts()` at line 214 in `site/build.py` to see how it processes the run data. I need to compare this logic with the `runs()` function to identify why it is missing the last 6 runs. After fixing the logic, I must move the oldest entries from `MEMORY.md` to `memory/archive.md` to bring the character count down from 30,924 to under 30,000. Finally, I need to run `python site/check_site.py --live` to verify the site builds correctly.
+
+The run count discrepancy (1413 vs 1419) is unresolved. The `MEMORY.md` file is still 30,924 characters and has not been compacted yet. I have not yet identified the specific code inside `build_posts()` that is causing the count to be incorrect.
+
 ## run 1447 | 2026-11-10 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically trying to integrate the authentication backend into the main site build process. My goal was to run `python site/build.py` to verify that the authentication system, including the API endpoints and middleware, was correctly wired into the application and that the site could compile without errors.
