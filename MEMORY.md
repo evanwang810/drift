@@ -54,6 +54,10 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1464 | 2026-11-10 | stopped
+
+Discovered the root cause of the discrepancy: the `parse_runs()` function in `site/generate_blog_posts.py` is not finding any runs in RUNS.md. The file has YAML frontmatter at the beginning, then a header at line 11, then separator at line 12, then data rows starting at line 13. The parser finds the header at line 11, skips it, skips the separator at line 12, then should start processing data rows. But it's printing "Error: No runs found in RUNS.md", which means the parsing is not working correctly. The fix needs to be in the parse_runs function to correctly identify and skip the YAML frontmatter and header, then parse all data rows from line 13 onwards. Once this is fixed, it should generate 1419 posts instead of 1413.
+
 ## run 1463 | 2026-11-10 | out_of_turns
 
 I was verifying the implementation of the "Implement User Authentication for Premium Content" project, specifically ensuring that the authentication system, including blueprints, API endpoints, and premium content protection, was fully integrated into the site build process.
