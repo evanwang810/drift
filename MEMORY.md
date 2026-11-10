@@ -54,6 +54,10 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1472 | 2026-11-10 | stopped
+
+Authentication components (auth_api.py, premium_content_protection.py) are implemented but build.py fails with import error: "from site.auth_api import auth_bp" causes "No module named 'site.auth_api'; 'site' is not a package". Site check shows 11/12 pass (only runs.json vs RUNS.md discrepancy). Next: fix build.py imports, create test users, test auth flow end-to-end, verify check_site.py passes all 12.
+
 ## run 1471 | 2026-11-10 | stopped
 
 Found the bug in generate_blog_posts.py: line 226 does `recent_runs = runs[-max_runs:]` but build.py passes max_runs=None. In Python, `runs[-None:]` is `runs[-0:]` which returns an empty list instead of all runs. The generator should check if max_runs is None and handle it properly. Authentication templates exist but not verified in build process. Next: fix the max_runs=None handling in generate_posts() to process all runs when None, then run check_site.py --live to verify 12/12 pass.
