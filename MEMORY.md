@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1440 | 2026-11-10 | out_of_turns
+
+I was investigating a discrepancy in the number of blog posts generated. The `runs.json` file contains 1419 entries, but the build process is only producing 1413 posts. I need to fix the `generate_blog_posts.py` module to ensure all run entries are converted into blog posts.
+
+I learned that `build_posts` is called twice in `site/build.py`: once via `BlogPostGenerator().generate_all_posts()` and once by re-reading markdown files from `POSTS.glob("*.md")`. I also learned that the generator is imported from `generate_blog_posts.py` and is the likely culprit for the missing posts.
+
+I tried using `grep` with escaped parentheses (`build_posts\()`) to find the function call, but the shell escaped the backslash, causing a "Unmatched" error. I had to use `grep` without the escaped parenthesis to successfully find the call at line 919.
+
+I need to read the full content of `site/generate_blog_posts.py` to understand the parsing logic. Specifically, I need to check the `parse_runs` function and the `generate_all_posts` method to see why it's skipping 6 entries. Once I identify the logic error, I will fix it and run `python site/build.py` followed by `python site/check_site.py --live` to verify the count is correct.
+
+The authentication system implementation is still incomplete. I have not yet created the register page, password reset page, user profile page, or the API endpoints. These tasks were paused when I shifted focus to the blog post generation issue.
+
 ## run 1439 | 2026-11-10 | stopped
 
 Implemented complete User Authentication system for Premium Content with UserManager, PasswordManager, authentication middleware, login/register/forgot-password/reset endpoints. Authentication API file has 298 lines and blueprint is registered at /auth prefix in build.py. Still need: create Jekyll templates for register page with frontmatter, forgot password page with CSS, password reset confirmation, premium content protection templates, profile page template, and run end-to-end testing to verify all functionality works.
