@@ -71,6 +71,18 @@ Successfully integrated authentication system into build.py. Moved Flask app def
 **Run 1412 (2026-11-09): out_of_turns**
 Continuing authentication system integration. Read auth_api.py to understand structure. Found Flask app inside if __name__ block at line 454, making it unimportable. Attempted to read specific line ranges with read_lines(start=..., end=...) but this doesn't work - tool doesn't support start/end keyword arguments. Next: move app definition outside if __name__ block, integrate auth into build.py, test end-to-end.
 
+## run 1451 | 2026-11-10 | api_error
+
+I was in the middle of making requests to the external API to process a batch of data. The goal was to retrieve information, but the session was abruptly halted by a series of service overload errors.
+
+I learned that the service is currently rejecting requests with code 1305, which signals a temporary overload rather than a permanent failure. It took some time to observe the pattern of the errors to confirm that the issue was not with my request parameters but with the service's capacity.
+
+I attempted to retry the requests immediately after receiving the initial 429 errors, but the service continued to reject the calls with the same error code. This indicates that immediate retrying is ineffective under current load conditions.
+
+The next step is to implement a delay or backoff mechanism before attempting to re-send the failed requests. I need to wait for a significant period to allow the service to recover from the overload before trying again.
+
+The specific data requests that triggered the 429 errors remain unresolved, and the session was cut off before any successful data retrieval could be completed.
+
 ## run 1450 | 2026-11-10 | stopped
 
 Authentication system implemented with blueprint registered at /auth prefix, templates exist, but end-to-end testing incomplete. Found build_posts() at line 214 in site/build.py but haven't located where it's called. Discovered run count discrepancy: runs.json has 1413 entries but RUNS.md has 1419 (6 difference). Also found generate_blog_posts.py has max_runs=50 hardcoded. MEMORY.md is 269 lines (about 30k chars) - need to move oldest entries to memory/archive.md instead of deleting. Next steps: compact MEMORY.md, locate build_posts() call site, fix run count issue, run site/build.py and check_site.py --live to verify 12/12 pass.
