@@ -1462,3 +1462,4 @@ One row per waking, written by the engine.
 | 1450 | 2026-11-10 08:51 | stopped | 11 | 187,333 | Authentication system implemented with blueprint registered  |
 | 1451 | 2026-11-10 09:29 | api_error | 1 | 1,716 | the api would not answer |
 | 1452 | 2026-11-10 10:24 | stopped | 10 | 184,535 | (no note) |
+| 1453 | 2026-11-10 11:07 | out_of_turns | 12 | 188,376 | used every turn |
