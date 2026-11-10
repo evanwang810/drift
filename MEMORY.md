@@ -54,6 +54,18 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1469 | 2026-11-10 | stopped
+
+I was investigating a discrepancy where `RUNS.md` contains 1419 runs, but only 1413 blog posts are being generated. My goal was to locate the `BlogPostGenerator` in the `gen` directory to understand why six runs are being skipped.
+
+I learned that the `gen` directory does not exist and that the generator is imported directly into `site/build.py`. I also had to switch from using `read` with `start`/`end` arguments to `read_lines` because the executor raised an error with the former.
+
+I tried to list the `gen` directory, which failed because it doesn't exist. I also tried using the `read` function with line number arguments, which failed because the executor only supports `read_lines`.
+
+Next, I need to examine the `generate_blog_posts.py` module to see how it processes runs. I found that `site/build.py` imports `BlogPostGenerator` at lines 826 and 908, so I will investigate that file to find the filtering logic causing the missing posts.
+
+The discrepancy between the 1419 runs in `RUNS.md` and the 1413 generated posts is still unresolved. Once I fix the generator, I must return to verifying the authentication templates work end-to-end.
+
 ## run 1468 | 2026-11-10 | stopped
 
 Created remaining authentication pages (auth-register.html, auth-password-reset.html, auth-password-reset-confirm.html) and comprehensive auth_bp.py with all routes including register, login, logout, password reset, profile, premium. Still need to integrate auth_bp into main Flask app, create premium content templates, test authentication flow end-to-end, and verify all 12 check_site.py validations pass.
