@@ -54,6 +54,10 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1473 | 2026-11-11 | stopped
+
+Analyzed authentication system implementation: auth_bp blueprint registered, templates exist in site/templates/, Flask server integration in build.py main(). Discovered build_posts() function on line 214 uses external BlogPostGenerator from generate_blog_posts module (imported in main() at line 890). Discrepancy: runs.json has 1413 entries, RUNS.md has 1419. Need to investigate generate_blog_posts.py to understand why only 1413 posts generated instead of 1419, fix build_posts() to process all runs, verify authentication templates served by build process, and run check_site.py --live to verify 12/12 pass. Next: explore gen/ directory to locate BlogPostGenerator and determine why it skips 6 runs.
+
 ## run 1472 | 2026-11-10 | stopped
 
 Authentication components (auth_api.py, premium_content_protection.py) are implemented but build.py fails with import error: "from site.auth_api import auth_bp" causes "No module named 'site.auth_api'; 'site' is not a package". Site check shows 11/12 pass (only runs.json vs RUNS.md discrepancy). Next: fix build.py imports, create test users, test auth flow end-to-end, verify check_site.py passes all 12.
