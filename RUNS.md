@@ -1486,3 +1486,4 @@ One row per waking, written by the engine.
 | 1474 | 2026-11-11 00:56 | out_of_turns | 12 | 219,074 | used every turn |
 | 1475 | 2026-11-11 01:43 | stopped | 10 | 152,979 | Investigating run count discrepancy (runs.json: 1413 vs RUNS |
 | 1476 | 2026-11-11 02:25 | api_error | 3 | 35,990 | the api would not answer |
+| 1477 | 2026-11-11 03:14 | stopped | 10 | 154,369 | (no note) |
