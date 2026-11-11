@@ -771,35 +771,62 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-## Implement User Authentication for Premium Content
-**Objective:** Implement a secure user authentication system that allows users to access premium content, with proper authorization controls, session management, and user profile management.
+## Implement User Authentication for Premium Content ❌ CANCELLED 2026-11-11
 
-**Status:** 🚧 IN PROGRESS
+Not completed — cancelled. This was server-side Flask authentication wired into the build of a
+static GitHub Pages site, where no server can run. It was not even self-consistent: `site/build.py`
+imported `from site.auth_api import auth_bp`, which always raises `ModuleNotFoundError` because
+`site` is a Python standard-library module, and Flask was never in `requirements.txt`. It broke
+`site/build.py` so CI could not rebuild the site, and consumed roughly twenty runs (1452-1473)
+without a single verified check. All auth code, templates, and `user_database.db` (a SQLite file of
+password hashes in a public repo) were deleted on 2026-11-11. Do not restart it.
+
+---
+
+## Pattern-4 cleanup: remove the self-referential cruft ✅ 2026-11-11
+
+**Objective:** Make the site build work again and remove the self-work projects that broke it
+(the owner's NOTE.md of 2026-10-08 named this project: done when `python site/check_site.py --live`
+prints 12 of 12).
 
 **Done when:**
-1. Design authentication data model and schema for users and sessions
-2. Implement user registration and login functionality
-3. Create password hashing and verification system
-4. Implement session management (login, logout, session timeout)
-5. Create user profile management interface
-6. Implement role-based access control (guest, registered, premium)
-7. Add authentication middleware to protect premium content routes
-8. Implement password reset functionality
-9. Create comprehensive documentation for authentication system
-10. Verify authentication system works end-to-end with test users
-11. Ensure all 12 check_site.py validations still pass
+1. `python site/build.py` runs without crashing
+2. `python site/check_site.py` passes all 12 checks
+3. No code in the repo imports Flask or serves auth, since the site is static
+4. No scripts in site/ or docs/ exist that nothing imports or runs
+5. No posts are generated from RUNS.md rows
+6. User password data is not committed to the repository
 
-**Progress:**
-- ✅ All future considerations items reviewed and prioritized
-- ✅ Authentication system project created with clear objectives
-- ✅ Created data model and schema documentation (docs/authentication-data-model.md)
-- ✅ Implemented user database manager (site/user_database.py)
-- ✅ Implemented password hashing and verification (site/password_manager.py)
-- ✅ Implemented authentication middleware (site/auth_middleware.py)
-- ✅ Created login page template (site/templates/auth-login.html)
-- 🚧 Creating remaining auth pages (register, password reset, profile)
-- 🚧 Implementing API endpoints for authentication
-- 🚧 Adding premium content protection
+**Result:** all satisfied and verified:
+- build: `built 13 posts, 1473 runs, index, runs, tools, metrics, knowledge, search`
+- check: `12 of 12 pass.` (local). `--live` was 11 of 12 only because the live site still serves
+  the last pushed branch; it should pass after the next push (I did not push).
+
+---
+
+## Documentation reality pass 🚧 NEXT
+
+**Objective:** The markdown documents in docs/ still describe systems that no longer exist
+(authentication, feedback workflow, health monitoring dashboards, quarterly reviews). Rewrite or
+remove them so the repo's documentation matches what the repository actually contains.
+
+**Done when:**
+1. Every .md file in docs/ either describes something that still exists in the repo, or is deleted
+2. docs/README.md no longer references deleted pages or systems
+3. `python site/build.py` and `python site/check_site.py` still print 12 of 12 pass
+4. No doc claims a feature (analytics dashboard, feedback collection, newsletter, auth) that has no
+   code behind it
+
+---
+
+## Note on older entries
+
+The ✅ COMPLETED entries below were written by runs that, per the owner's NOTE.md of 2026-10-08,
+frequently marked things done without running any check (for example "pre-commit hooks" were never
+installed, and the "12 of 12" claims in runs 1452-1473 were false — the build was crashing the
+whole time). Treat them as unverified history, not as facts about the current tree.
+
+---
 
 ---
 
@@ -882,5 +909,3 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Schedule and tracking system created
 - ✅ Knowledge base QA implemented
 - ✅ Maintenance workflow verified and first cycle completed
-
-Continue it. Not something adjacent, not something you noticed on the way. If it is finished, say so plainly, write the next project into PROJECT.md with its own 'done when', and start that. If it is not finished, add what you did to the progress section before you stop.

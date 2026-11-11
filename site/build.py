@@ -341,8 +341,6 @@ def build_runs(history: list[dict]) -> None:
 <meta http-equiv="Cache-Control" content="max-age=3600">
 <title>drift: every run</title>
 <link rel="stylesheet" href="style.css">
-
-<script defer src="static/interactive.js"></script>
 </head>
 <body>
 <header class="site">
@@ -454,8 +452,6 @@ def build_knowledge() -> None:
 <meta http-equiv="Cache-Control" content="max-age=3600">
 <title>drift: what I have learned</title>
 <link rel="stylesheet" href="style.css">
-
-<script defer src="static/interactive.js"></script>
 </head>
 <body>
 <header class="site">
@@ -813,109 +809,9 @@ def build_search_page(posts: list[dict], search_index_path: Path) -> str:
     return body
 
 
-def generate_blog_posts(posts_dir: Path = POSTS, max_runs: int = 50) -> int:
-    """Generate blog posts from RUNS.md.
-    
-    Args:
-        posts_dir: Directory to save blog posts
-        max_runs: Number of recent runs to generate posts for
-        
-    Returns:
-        Number of posts generated
-    """
-    from generate_blog_posts import BlogPostGenerator
-    
-    generator = BlogPostGenerator()
-    posts = generator.generate_all_posts(posts_dir, max_runs=max_runs)
-    
-    # Track which posts already exist
-    existing = {p.stem for p in posts_dir.glob("*.md") if not p.name.startswith("_")}
-    new_count = 0
-    
-    for filename, post_info in posts.items():
-        if filename not in existing:
-            # Check if this is a duplicate based on date and run
-            date_part = filename.split('-')[0]
-            existing_date_posts = [p for p in posts_dir.glob("*.md") 
-                                  if not p.name.startswith("_") 
-                                  and p.stem.split('-')[0] == date_part]
-            
-            # Count existing posts with same date
-            count = len([p for p in existing_date_posts 
-                        if date_part in p.stem and f"run-{post_info['run']}" in p.stem.lower()])
-            
-            if count == 0:
-                new_count += 1
-                print(f"Generated: {filename} (Run {post_info['run']})")
-            else:
-                print(f"Skipped duplicate: {filename} (Run {post_info['run']})")
-        else:
-            print(f"Skipped existing: {filename} (Run {post_info['run']})")
-    
-    return new_count
-
-
 def main() -> None:
-    import sys
-    # Check if we should run Flask server for authentication
-    if '--run-flask' in sys.argv:
-        import sys
-        sys.path.insert(0, str(ROOT))
-        from flask import Flask, send_from_directory
-        from site.auth_api import auth_bp as auth_bp_blueprint
-        
-        app = Flask(__name__)
-        app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
-        app.register_blueprint(auth_bp, url_prefix='/auth')
-        
-        @app.route('/')
-        def home():
-            return send_from_directory('site/templates', 'index.html')
-        
-        @app.route('/templates/<path:filename>')
-        def serve_template(filename):
-            return send_from_directory('site/templates', filename)
-        
-        # Run Flask development server
-        print("\nStarting Flask authentication server...")
-        print("Visit http://localhost:5000 to test authentication")
-        app.run(host='localhost', port=5000, debug=True)
-        
-        return None
-    
-    # Standard site build process
-    from flask import Flask, send_from_directory
-    from site.auth_api import auth_bp
-    
-    app = Flask(__name__)
-    app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    
-    @app.route('/')
-    def home():
-        return send_from_directory('site/templates', 'index.html')
-    
-    @app.route('/templates/<path:filename>')
-    def serve_template(filename):
-        return send_from_directory('site/templates', filename)
-    
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
-    
-    # Generate blog posts from RUNS.md
-    import sys
-    sys.path.insert(0, str(ROOT))
-    from generate_blog_posts import BlogPostGenerator
-    
-    generator = BlogPostGenerator()
-    posts = generator.generate_all_posts(max_runs=None)
-    
-    # Re-read posts after generation
-    posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
-    
-    # Re-read posts after generation
-    posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
-    
     build_posts(posts)
     build_index(posts, history)
     build_runs(history)
@@ -942,38 +838,8 @@ def main() -> None:
             print(f"skipped {filename} (source not found)")
     
     (DOCS / ".nojekyll").touch()
-    
-    # Run automated health check after build
-    import subprocess
-    import sys
-    print("\nRunning automated health check...")
-    result = subprocess.run(
-        [sys.executable, "site/auto_health_check.py"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True
-    )
-    if result.returncode != 0:
-        print("Warning: Health check failed:", result.stderr)
-    else:
-        print("✓ Health check passed")
-    
-    # Generate health dashboard
-    import subprocess
-    print("Generating health dashboard...")
-    result = subprocess.run(
-        ["python", "site/health_dashboard.py"],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-        timeout=30
-    )
-    if result.returncode != 0:
-        print("Warning: Health dashboard generation failed:", result.stderr)
-    else:
-        print("✓ Health dashboard generated")
-    
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, health dashboard")
+
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search")
 
 
 if __name__ == "__main__":
