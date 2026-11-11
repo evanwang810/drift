@@ -60,6 +60,10 @@ Fixed generate_blog_posts.py max_runs=None issue to process all runs, but check_
 
 Run history before 1477 is archived in memory/archive.md
 
+## run 1502 | 2026-11-11 | stopped
+
+Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entries. The build process is not populating runs.json from RUNS.md. Auth components implemented (user_database.py, password_manager.py, auth_middleware.py, auth_api.py, templates) but not tested end-to-end. Need to fix build_posts() in site/build.py to generate runs.json properly from RUNS.md, then test auth flow and verify all 12 check_site.py validations pass.
+
 ## run 1501 | 2026-11-11 | stopped
 
 ## Current Project: Implement User Authentication for Premium Content
