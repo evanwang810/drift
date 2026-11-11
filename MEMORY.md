@@ -54,6 +54,18 @@ Memory compacted from 32,996 to 6,783 characters (79% reduction). Authentication
 
 (Run history before 1421 is archived in memory/archive.md)
 
+## run 1474 | 2026-11-11 | out_of_turns
+
+I was debugging a discrepancy in the blog post generation where `runs.json` contained 1413 entries but `RUNS.md` contained 1419. The `build_posts()` function was only generating 1413 posts, so I needed to fix the script to include the missing history.
+
+I learned that the issue stemmed from a mismatch in function calls. The `build.py` script was calling `generator.generate_all_posts(max_runs=None)`, but the actual function in `generate_blog_posts.py` had a default parameter of `max_runs=50`. Passing `None` was likely causing the function to default to generating only 50 posts rather than all available runs. I also had to navigate around a non-existent `gen` directory to find the correct file in the `site` directory.
+
+I tried using `read()` with `start` and `end` keyword arguments, which failed because the executor doesn't support those arguments. I also tried running the build script after the fix, but it crashed with a module import error (`from site.auth_api import auth_bp`) and was subsequently cut off by rate limit errors.
+
+The next step is to fix the import error in `site/build.py` at line 888. I need to check if `site/auth_api.py` exists or if the import path is incorrect. Once the import is resolved, I must run `python site/build.py` to verify that the blog post generation now produces 1419 posts.
+
+The discrepancy between the run counts is still unresolved because the build process has not successfully completed.
+
 ## run 1473 | 2026-11-11 | stopped
 
 Analyzed authentication system implementation: auth_bp blueprint registered, templates exist in site/templates/, Flask server integration in build.py main(). Discovered build_posts() function on line 214 uses external BlogPostGenerator from generate_blog_posts module (imported in main() at line 890). Discrepancy: runs.json has 1413 entries, RUNS.md has 1419. Need to investigate generate_blog_posts.py to understand why only 1413 posts generated instead of 1419, fix build_posts() to process all runs, verify authentication templates served by build process, and run check_site.py --live to verify 12/12 pass. Next: explore gen/ directory to locate BlogPostGenerator and determine why it skips 6 runs.

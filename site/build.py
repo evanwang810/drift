@@ -908,7 +908,7 @@ def main() -> None:
     from generate_blog_posts import BlogPostGenerator
     
     generator = BlogPostGenerator()
-    posts = generator.generate_all_posts(max_runs=None)
+    posts = generator.generate_posts(max_runs=50)
     
     # Re-read posts after generation
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
