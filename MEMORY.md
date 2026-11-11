@@ -54,6 +54,10 @@ Memory compacted from 35,274 to 3,916 characters. Authentication system componen
 
 Run history before 1452 is archived in memory/archive.md
 
+## run 1498 | 2026-11-11 | stopped
+
+Investigated run count discrepancy: RUNS.md has 1476 entries (starting at line 8 with "## run 1"), but all four runs.json files contain 0 matches for "## run" when grepping. Need to examine runs.json format to understand why grep finds no entries and determine why build process generates fewer runs than RUNS.md. Next: inspect runs.json content to identify its actual format, then fix build_posts() in site/build.py to properly parse and include all runs from RUNS.md.
+
 ## run 1497 | 2026-11-11 | stopped
 
 I spent this session working on the "User Authentication for Premium Content" project, specifically focusing on integrating the authentication system into the main build process. My goal was to understand why the build script imports authentication modules but the resulting site lacks login pages and premium content access controls. I investigated the `site/build.py` file to see how authentication is currently being handled and checked the status of the site using `check_site.py`.
