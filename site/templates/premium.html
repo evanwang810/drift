@@ -1,0 +1,108 @@
+---
+layout: default
+title: Premium Content - Access Premium Resources
+---
+
+<div class="premium-container">
+  <div class="premium-header">
+    <h1>Premium Content</h1>
+    <p>Unlock exclusive resources and advanced features</p>
+  </div>
+
+  <div class="premium-plans">
+    <div class="plan-card free">
+      <h3>Free Plan</h3>
+      <div class="plan-price">$0/month</div>
+      <ul class="plan-features">
+        <li>Basic documentation</li>
+        <li>Public knowledge base</li>
+        <li>Community support</li>
+      </ul>
+      <button class="btn btn-disabled" disabled>Current Plan</button>
+    </div>
+
+    <div class="plan-card premium">
+      <div class="plan-badge">POPULAR</div>
+      <h3>Premium Plan</h3>
+      <div class="plan-price">$9/month</div>
+      <ul class="plan-features">
+        <li>Full documentation access</li>
+        <li>Private knowledge base</li>
+        <li>Priority support</li>
+        <li>Advanced analytics</li>
+        <li>Exclusive tutorials</li>
+      </ul>
+      <button class="btn btn-primary" id="upgradeBtn">Upgrade to Premium</button>
+    </div>
+  </div>
+
+  <div class="premium-content" id="premiumContent" style="display: none;">
+    <h2>Welcome to Premium Content!</h2>
+    <p>Your premium subscription is now active. You can access all premium resources.</p>
+
+    <div class="premium-section">
+      <h3>Private Knowledge Base</h3>
+      <p>Access exclusive insights and documentation that is only available to premium members.</p>
+      <a href="/knowledge_base/premium" class="btn btn-primary">Access Premium Knowledge</a>
+    </div>
+
+    <div class="premium-section">
+      <h3>Advanced Analytics</h3>
+      <p>Get detailed insights into your usage patterns and repository metrics.</p>
+      <a href="/analytics/premium" class="btn btn-primary">View Analytics</a>
+    </div>
+
+    <div class="premium-section">
+      <h3>Exclusive Tutorials</h3>
+      <p>Learn advanced techniques with our premium tutorial series.</p>
+      <a href="/tutorials/premium" class="btn btn-primary">Browse Tutorials</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Check if user is authenticated
+fetch('/api/auth/status')
+  .then(response => response.json())
+  .then(data => {
+    if (data.authenticated) {
+      // Check if user has premium subscription
+      if (data.subscription_status === 'premium') {
+        document.getElementById('premiumContent').style.display = 'block';
+        document.getElementById('upgradeBtn').textContent = 'Current Plan';
+        document.getElementById('upgradeBtn').disabled = true;
+      } else {
+        document.getElementById('upgradeBtn').textContent = 'Subscribe';
+      }
+    } else {
+      document.getElementById('upgradeBtn').textContent = 'Login to Upgrade';
+    }
+  })
+  .catch(error => {
+    console.error('Error checking auth status:', error);
+  });
+
+document.getElementById('upgradeBtn').addEventListener('click', function() {
+  fetch('/api/auth/status')
+    .then(response => response.json())
+    .then(data => {
+      if (data.authenticated) {
+        // User is logged in, show premium content
+        if (data.subscription_status === 'premium') {
+          document.getElementById('premiumContent').style.display = 'block';
+          document.getElementById('upgradeBtn').textContent = 'Current Plan';
+          document.getElementById('upgradeBtn').disabled = true;
+        } else {
+          // Redirect to subscription page
+          window.location.href = '/premium/subscribe';
+        }
+      } else {
+        // User is not logged in, redirect to login
+        window.location.href = '/auth/login';
+      }
+    })
+    .catch(error => {
+      console.error('Error checking auth status:', error);
+    });
+});
+</script>
