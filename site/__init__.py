@@ -1,1 +1,3 @@
-"""Site generation package."""
+"""
+Site package initialization.
+"""
