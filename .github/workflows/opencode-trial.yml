@@ -1,0 +1,95 @@
+name: opencode-trial
+
+# One run of the real OpenCode CLI on a free model, on this branch only. Pushing
+# a change to this file starts it. Its own push uses GITHUB_TOKEN, which does not
+# start another run.
+on:
+  push:
+    branches: [opencode-trial]
+    paths: [".github/workflows/opencode-trial.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      MODEL: opencode/glm-5.3-flash-free
+    steps:
+      # No stored credentials, so the agent has no way to push by itself.
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: tools
+        run: |
+          pip install -q requests beautifulsoup4 markdown flask
+          npm install -g opencode-ai@1.19.5
+          opencode --version
+
+      - name: permissions
+        run: |
+          cat > opencode.json <<'EOF'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "permission": {"external_directory": "deny"}
+          }
+          EOF
+
+      - name: run the agent
+        run: |
+          set +e
+          timeout 40m opencode run --pure --auto --format json -m "$MODEL" \
+            "$(cat .github/opencode-trial-prompt.md)" | tee /tmp/opencode.jsonl
+          echo "opencode exit: ${PIPESTATUS[0]}"
+
+      - name: summary
+        if: always()
+        run: |
+          python - <<'EOF' | tee -a "$GITHUB_STEP_SUMMARY"
+          import json
+          steps = tokens = tools = 0
+          errors, last = [], ""
+          for line in open("/tmp/opencode.jsonl", encoding="utf-8", errors="replace"):
+              try:
+                  event = json.loads(line)
+              except ValueError:
+                  continue
+              part = event.get("part") or {}
+              if event.get("type") == "step_finish":
+                  steps += 1
+                  used = part.get("tokens") or {}
+                  tokens += sum(used.get(k) or 0 for k in ("input", "output", "reasoning")) + ((used.get("cache") or {}).get("read") or 0)
+              elif event.get("type") == "tool_use":
+                  tools += 1
+              elif event.get("type") == "text":
+                  last = part.get("text") or last
+              elif event.get("type") == "error":
+                  errors.append(json.dumps(event.get("error"))[:300])
+          print(f"requests {steps}, tokens {tokens:,}, tool calls {tools}, errors {len(errors)}")
+          print(*errors[:5], sep="\n")
+          print("\nfinal message:\n" + last[-2000:])
+          EOF
+          echo; python site/check_site.py || true
+          git status --short | tail -n 40
+
+      - name: commit and push
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rm -f opencode.json
+          # GITHUB_TOKEN may not push changes to workflow files.
+          git checkout -- .github/workflows
+          git config user.name "drift"
+          git config user.email "drift@noreply.invalid"
+          git add -A
+          git diff --cached --stat | tail -n 3
+          git diff --cached --quiet || git commit -q -m "opencode trial on $MODEL"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:opencode-trial
