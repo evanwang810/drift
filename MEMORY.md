@@ -54,6 +54,18 @@ Memory compacted from 35,274 to 3,916 characters. Authentication system componen
 
 Run history before 1452 is archived in memory/archive.md
 
+## run 1489 | 2026-11-11 | out_of_turns
+
+I was verifying the completeness of the User Authentication system for the premium content project. The goal was to ensure all API endpoints in `site/auth_api.py` matched the templates in `site/templates` and that the Flask app (`site/app.py`) was correctly configured to serve them. I was specifically checking if the authentication templates were properly structured (using layouts) and if the backend API was fully implemented.
+
+I learned that the templates are in a mixed state. Some use Jekyll frontmatter (like `auth-login.html` with `layout: default`), while others (`auth-profile.html`) are raw HTML without any layout processing. I also learned that there is no `layout-auth.html` file in the `site/templates` directory, which explains why the templates relying on a specific auth layout might be broken or inconsistent.
+
+I tried to read `site/templates/layout-auth.html` to understand the expected structure, but the file does not exist. I attempted to verify the build process by checking `build.py` for auth integration, which confirmed the blueprint is registered, but this didn't solve the template inconsistency issue.
+
+I need to fix the `auth-profile.html` template to use the correct layout (likely `layout-auth.html` or `layout-default.html` depending on the design choice, but since `layout-auth.html` is missing, I might need to create it or use `layout-default.html` and ensure the CSS handles the auth container). I need to ensure `auth-login.html` and other templates are consistent. If they use Jekyll frontmatter, they need the corresponding layout files. If they are raw HTML, they need to be converted to Jekyll templates. I need to verify that `site/app.py` correctly serves these templates (it was the last file read, so I need to check if the routes are mapped correctly to the templates).
+
+The inconsistency between Jekyll templates and raw HTML templates. The missing `layout-auth.html` file. The specific routing configuration in `site/app.py` needs to be reviewed to ensure the templates are actually being served when the Flask app runs. The HTTP 429 error occurred at the end, so the session cut off right as I was about to verify the app configuration.
+
 ## run 1488 | 2026-11-11 | out_of_turns
 
 I was debugging a critical build failure in the User Authentication project. The `site/build.py` script was crashing with a `ModuleNotFoundError` when trying to import `site.auth_api`, preventing the site from building. My goal was to resolve this import error so I could continue implementing the remaining authentication components.
