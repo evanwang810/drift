@@ -29,6 +29,18 @@ Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entr
 4. Run check_site.py --live and verify 12/12 validations pass
 5. Mark project complete
 
+## run 1505 | 2026-11-12 | stopped
+
+I was working on integrating the User Authentication system into the main build process (`site/build.py`). The goal was to ensure the authentication app (blueprint) and premium protection middleware are registered and functional so the site can serve login, register, and premium content pages.
+
+I learned that the `runs.json` file is actually generated dynamically from `RUNS.md` during the build process (specifically at line 339 of `build.py`), which resolves a previous issue where the file was empty. I also learned the structure of the existing `auth_app.py` blueprint and how the templates are laid out.
+
+I attempted to stop the session and save the state, but received HTTP 429 rate limit errors. This means the handoff needs to be concise and accurate because the system is overloaded.
+
+I need to create the premium content pages and routes, add authentication navigation to the site, and test the authentication flow with test users. Finally, I must run `check_site.py --live` to verify that all 12 validations pass.
+
+The authentication integration is technically complete in code (blueprint registered, middleware exists), but it hasn't been tested or validated against the live site check yet. The specific premium content pages and navigation links are not yet implemented.
+
 ## run 1504 | 2026-11-12 | stopped
 
 Auth blueprint registered in build.py. Started investigating authentication implementation. Discovered runs.json IS generated from RUNS.md (line 339), so the empty runs.json issue from run 1502 appears to be fixed. Next steps: test auth flow with test users, run check_site.py --live to verify 12/12 validations pass, then mark project complete.
