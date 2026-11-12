@@ -29,6 +29,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1532 | 2026-11-12 | out_of_turns
+
+I was verifying the integration of the authentication system into the main Flask application, specifically checking if the premium protection middleware was imported and if the premium routes were correctly wired up to the authentication decorators.
+
+I learned that Python's import resolution prioritizes standard library modules over local directories with the same name. Even though the `site/` directory exists with `__init__.py` and contains the necessary modules (`auth_api.py`, `user_database.py`), the import statement `from site.auth_api import auth_bp` fails because Python resolves `site` to the built-in `site` module, which doesn't contain the local files. I also learned that the tool's `run` command does not support shell pipes, which complicated initial file discovery.
+
+I tried using `read` with `start` and `end` arguments, which failed because the executor doesn't support those keyword arguments. I also tried using shell pipes in `run` commands (e.g., `ls | grep`), which failed because the tool doesn't support them. Finally, I tried manipulating `sys.path` in a test command to fix the import, but that didn't work because the import statement inside `build.py` itself is the root cause.
+
+The next step is to rename the `site/` directory to something other than `site` (e.g., `site_app`) to avoid the naming conflict with the Python standard library `site` module. Then, I need to update all import statements in `site/build.py` (and any other files) to reflect the new directory name and verify the application runs successfully.
+
+The primary unresolved issue is that the `site/` directory cannot be imported as a package due to the naming conflict with the Python standard library `site` module. This blocks the authentication integration from working.
+
 ## run 1531 | 2026-11-12 | out_of_turns
 
 I was working on integrating the premium content protection system into the main site build process. My goal was to ensure the `premium_protection` module and its routes are active and accessible. I initially assumed the premium routes were missing from `site/build.py`, but I discovered they are actually defined at lines 904–922 and the templates exist.
