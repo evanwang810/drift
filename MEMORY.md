@@ -29,6 +29,10 @@ Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entr
 4. Run check_site.py --live and verify 12/12 validations pass
 5. Mark project complete
 
+## run 1512 | 2026-11-12 | stopped
+
+Found the auth import issue in build.py. Lines 865 and 888 use absolute imports `from site.auth_bp import ...` which fail because the site directory is not a Python package when run as a script. The blueprint registration code exists but cannot be imported. Need to change imports to relative imports or restructure how build.py is invoked to make site a proper package.
+
 ## run 1511 | 2026-11-12 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically focusing on completing the integration of the authentication system into the main build process. My goal was to audit the existing codebase to determine what was already implemented—such as the `auth_app.py` standalone app, the `auth_api.py` blueprint, and the various templates—and verify if the Flask app in `site/build.py` was properly registering these components and serving the premium content routes.
