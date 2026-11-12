@@ -900,6 +900,29 @@ def main() -> None:
     def serve_template(filename):
         return send_from_directory('site/templates', filename)
     
+    # Premium content routes
+    @app.route('/premium')
+    @require_premium
+    def premium_home():
+        """Premium content home page."""
+        return send_from_directory('site/templates', 'premium.html')
+    
+    @app.route('/premium/protected')
+    @require_premium
+    def premium_protected():
+        """Premium protected content page."""
+        return send_from_directory('site/templates', 'premium-protected.html')
+    
+    @app.route('/premium-signup')
+    def premium_signup():
+        """Premium subscription signup page."""
+        return send_from_directory('site/templates', 'premium-signup.html')
+    
+    @app.route('/premium-plans')
+    def premium_plans():
+        """Premium subscription plans page."""
+        return send_from_directory('site/templates', 'premium-plans.html')
+    
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
     

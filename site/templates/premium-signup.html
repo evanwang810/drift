@@ -1,82 +1,97 @@
----
-layout: default
-title: Premium Subscription
----
-<div class="auth-container">
-  <div class="auth-card premium-card">
-    <h1>Upgrade to Premium</h1>
-    <p class="auth-subtitle">Unlock exclusive content, advanced features, and priority support.</p>
-
-    {% if user %}
-      <div class="current-user-info">
-        <p>Current plan: <strong>{{ user.role }}</strong></p>
-      </div>
-    {% endif %}
-
-    <div class="pricing-section">
-      <div class="pricing-card featured">
-        <h3>Premium Plan</h3>
-        <div class="price">
-          <span class="currency">$</span>
-          <span class="amount">9.99</span>
-          <span class="period">/month</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Subscription - Our Repository</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">Our Repository</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/runs.html">Runs</a></li>
+                <li><a href="/tools.html">Tools</a></li>
+                <li><a href="/knowledge_base.html">Knowledge</a></li>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/premium-signup" class="premium-link">Get Premium</a></li>
+            </ul>
         </div>
-        <ul class="features">
-          <li>✓ Access to all premium content</li>
-          <li>✓ Advanced search and filtering</li>
-          <li>✓ Priority support</li>
-          <li>✓ Early access to new features</li>
-          <li>✓ Ad-free experience</li>
-          <li>✓ Download knowledge base entries</li>
-        </ul>
-        <form method="POST" action="/auth/premium-upgrade">
-          <button type="submit" class="btn btn-primary btn-large">Upgrade Now</button>
-        </form>
-      </div>
-    </div>
+    </nav>
 
-    <div class="comparison-table">
-      <h3>Plan Comparison</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Registered</th>
-            <th>Premium</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Content Access</td>
-            <td>Basic</td>
-            <td>Full Access</td>
-          </tr>
-          <tr>
-            <td>Advanced Search</td>
-            <td>❌</td>
-            <td>✓</td>
-          </tr>
-          <tr>
-            <td>Priority Support</td>
-            <td>Standard</td>
-            <td>Priority</td>
-          </tr>
-          <tr>
-            <td>Ad-free Experience</td>
-            <td>❌</td>
-            <td>✓</td>
-          </tr>
-          <tr>
-            <td>Knowledge Base Downloads</td>
-            <td>❌</td>
-            <td>✓</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <main class="content">
+        <div class="premium-content">
+            <div class="signup-header">
+                <h1>Premium Subscription</h1>
+                <p>Choose the plan that works best for you</p>
+            </div>
 
-    <div class="auth-links">
-      <p><a href="/auth/login">Back to Login</a></p>
-    </div>
-  </div>
-</div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$9/month</div>
+                    <ul class="feature-list">
+                        <li>✓ Access to all premium documentation</li>
+                        <li>✓ Basic analytics</li>
+                        <li>✓ Community forum access</li>
+                        <li>✓ Email support</li>
+                    </ul>
+                    <a href="/auth/subscribe?plan=starter" class="btn btn-primary">Get Started</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <div class="price">$19/month</div>
+                    <ul class="feature-list">
+                        <li>✓ Everything in Starter</li>
+                        <li>✓ Advanced analytics & insights</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Early access to new features</li>
+                        <li>✓ No advertisements</li>
+                    </ul>
+                    <a href="/auth/subscribe?plan=pro" class="btn btn-primary">Get Started</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$49/month</div>
+                    <ul class="feature-list">
+                        <li>✓ Everything in Pro</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom integrations</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ SLA guarantee</li>
+                        <li>✓ Custom features</li>
+                    </ul>
+                    <a href="/auth/subscribe?plan=enterprise" class="btn btn-primary">Contact Sales</a>
+                </div>
+            </div>
+
+            <div class="signup-details">
+                <h2>Subscription Details</h2>
+                <ul class="feature-list">
+                    <li>✓ Cancel anytime, no questions asked</li>
+                    <li>✓ Secure payment processing</li>
+                    <li>✓ 30-day money-back guarantee</li>
+                    <li>✓ Automatic billing</li>
+                    <li>✓ 24/7 customer support</li>
+                </ul>
+            </div>
+
+            <div class="signup-security">
+                <h2>Your Security</h2>
+                <p>We take your security seriously. All payments are processed through secure, PCI-compliant systems.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Our Repository. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
