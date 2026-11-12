@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, session, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from site.user_database import UserManager
-from site.password_manager import PasswordManager
+from user_database import UserManager
+from password_manager import PasswordManager
 
 # Create blueprint
 auth_bp = Blueprint('auth', __name__)

@@ -8,8 +8,8 @@ import secrets
 from datetime import datetime, timedelta
 import os
 
-from site.user_database import UserDatabase
-from site.password_manager import PasswordManager
+from user_database import UserDatabase
+from password_manager import PasswordManager
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('AUTH_SECRET_KEY', secrets.token_hex(32))

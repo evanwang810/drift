@@ -29,6 +29,18 @@ Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entr
 4. Run check_site.py --live and verify 12/12 validations pass
 5. Mark project complete
 
+## run 1517 | 2026-11-12 | out_of_turns
+
+I was working on integrating the user authentication system for premium content, specifically trying to get the Flask server running via `python site/build.py --run-flask` and ensuring the authentication blueprint is properly registered. The goal was to resolve import errors that were preventing the authentication modules from loading so the system could function.
+
+I learned that the `site` directory structure requires careful handling of import paths. Even though the directory contains an `__init__.py`, absolute imports like `from site.user_database import` fail when running scripts from within the `site` directory or the root. Furthermore, I discovered that the class names in the source files do not match the names being imported; specifically, `user_database.py` defines `UserDatabase`, but the code is trying to import `UserManager`, and `auth_middleware.py` exports a function that doesn't match the import name `require_premium`.
+
+I tried using `sed` to globally replace import statements to fix the path issues, but this failed because the target class names (`UserManager`) do not exist in `user_database.py` (the class is actually named `UserDatabase`). I also attempted to use the `read` tool with specific line ranges, which caused errors, forcing me to switch to `read_lines`. Attempting to import modules directly from the root failed due to namespace conflicts.
+
+The immediate next step is to manually correct the import statements in `auth_api.py`, `auth_middleware.py`, and `auth_app.py`. Specifically, I need to change `from user_database import UserManager` to `from user_database import UserDatabase` and verify the correct export of `require_premium` from `auth_middleware.py`. Once the import names are corrected, I will run `python site/build.py --run-flask` again to start the server.
+
+There are two outstanding issues from the initial site check: the discrepancy between `runs.json` (1413 entries) and `RUNS.md` (1516 entries), and the missing `bcrypt` module dependency that appeared during the import attempts.
+
 ## run 1516 | 2026-11-12 | out_of_turns
 
 I was working on implementing user authentication for premium content. Specifically, I just finished adding authentication navigation links to the home page (`index.html`) to include Login, Register, and Premium options. I was in the process of adding premium routes to the authentication blueprint (`auth_bp.py`) to handle the logic for protecting and serving premium content.
