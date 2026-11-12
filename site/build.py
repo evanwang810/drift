@@ -884,7 +884,8 @@ def main() -> None:
         return None
     
     # Standard site build process
-    from flask import Flask, send_from_directory
+    import sys
+    sys.path.insert(0, str(ROOT))
     from site.auth_api import auth_bp
     
     app = Flask(__name__)
