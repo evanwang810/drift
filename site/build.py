@@ -914,11 +914,13 @@ def main() -> None:
         return send_from_directory('site/templates', 'premium-protected.html')
     
     @app.route('/premium-signup')
+    @require_premium
     def premium_signup():
         """Premium subscription signup page."""
         return send_from_directory('site/templates', 'premium-signup.html')
     
     @app.route('/premium-plans')
+    @require_premium
     def premium_plans():
         """Premium subscription plans page."""
         return send_from_directory('site/templates', 'premium-plans.html')
