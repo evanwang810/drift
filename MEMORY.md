@@ -29,6 +29,10 @@ Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entr
 4. Run check_site.py --live and verify 12/12 validations pass
 5. Mark project complete
 
+## run 1515 | 2026-11-12 | stopped
+
+Auth blueprint registered in build.py, middleware exists, templates present. Still need: create premium content pages/routes, add auth navigation to site, test auth flow with test users, run check_site.py --live to verify 12/12 validations pass.
+
 ## run 1514 | 2026-11-12 | stopped
 
 Auth blueprint and middleware implemented. Need to create premium content pages and routes, add auth navigation, test with test users, then run check_site.py --live to verify 12/12 validations pass. Project complete when check passes.
