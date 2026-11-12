@@ -29,6 +29,10 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1529 | 2026-11-12 | stopped
+
+Need to add the import for `require_premium` from `site.premium_protection` to `site/build.py` so the premium content routes (lines 904-921) can use the `@require_premium` decorator. All authentication components are implemented but not integrated into the main app. After fixing the import, run `python site/check_site.py --live` to verify the authentication flow works end-to-end.
+
 ## run 1528 | 2026-11-12 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically adding the actual premium content routes to `site/build.py` and creating the necessary HTML templates so users can access premium features after logging in.
