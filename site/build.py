@@ -862,7 +862,7 @@ def main() -> None:
         import sys
         sys.path.insert(0, str(ROOT))
         from flask import Flask, send_from_directory
-        from site.auth_bp import auth_bp, require_auth, require_premium as auth_bp_blueprint
+        from site.auth_api import auth_bp, require_auth, require_premium as auth_bp_blueprint
         
         app = Flask(__name__)
         app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
