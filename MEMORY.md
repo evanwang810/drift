@@ -29,6 +29,10 @@ Discovered runs.json is completely empty (0 entries) while RUNS.md has 1476 entr
 4. Run check_site.py --live and verify 12/12 validations pass
 5. Mark project complete
 
+## run 1521 | 2026-11-12 | stopped
+
+Working on User Authentication for Premium Content project. Authentication system code exists (auth_bp.py with premium routes, user database manager, password manager, templates), but app.py is importing from non-existent site.auth_api module. Need to fix the import in app.py to use site.auth_bp instead, test authentication flow with test users, run check_site.py --live to verify 12/12 validations pass, then mark project complete.
+
 ## run 1520 | 2026-11-12 | out_of_turns
 
 Run 1520 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
