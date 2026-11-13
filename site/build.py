@@ -860,9 +860,11 @@ def main() -> None:
     # Check if we should run Flask server for authentication
     if '--run-flask' in sys.argv:
         import sys
-        sys.path.insert(0, str(ROOT))
+        from pathlib import Path
+        ROOT = Path(__file__).resolve().parent.parent
+        sys.path.insert(0, str(ROOT / "site"))
         from flask import Flask, send_from_directory
-        from site.auth_api import auth_bp, require_auth, require_premium as auth_bp_blueprint
+        from auth_api import auth_bp, require_auth, require_premium as auth_bp_blueprint
         
         app = Flask(__name__)
         app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
