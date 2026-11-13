@@ -2,17 +2,9 @@
 Premium content protection middleware.
 """
 
-from flask import Flask, abort, jsonify
+from flask import Flask, abort, jsonify, session as flask_session
 from functools import wraps
-import os
 from datetime import datetime
-
-from site.user_database import UserDatabase
-from site.password_manager import PasswordManager
-
-# Initialize database and password manager
-user_db = UserDatabase()
-password_manager = PasswordManager()
 
 def is_premium_route(path):
     """Check if a route requires premium access."""
@@ -33,34 +25,27 @@ def require_premium(f):
         if not is_premium_route(request_path):
             return f(*args, **kwargs)
 
-        # Get session ID from cookie
-        session_id = request.cookies.get('session_id')
-
-        if not session_id:
+        # Check if user is authenticated via Flask session
+        if 'user_id' not in flask_session:
             return jsonify({
                 'error': 'Premium content requires authentication',
                 'premium_required': True
             }), 401
 
-        # Validate session
-        session_data = user_db.get_session(session_id)
-        if not session_data:
-            return jsonify({
-                'error': 'Invalid or expired session',
-                'premium_required': True
-            }), 401
-
-        if not session_data.get('is_valid'):
-            return jsonify({
-                'error': 'Session expired',
-                'premium_required': True
-            }), 401
-
-        # Check user subscription status
-        user_id = session_data['user_id']
+        # Get user from database
+        from site.user_database import UserDatabase
+        user_db = UserDatabase()
+        user_id = flask_session['user_id']
         user = user_db.get_user(user_id)
 
-        if not user or user.get('subscription_status') != 'premium':
+        if not user:
+            return jsonify({
+                'error': 'User not found',
+                'premium_required': True
+            }), 404
+
+        # Check user subscription status
+        if user.get('subscription_status') != 'premium':
             return jsonify({
                 'error': 'Premium content requires a premium subscription',
                 'premium_required': True
@@ -71,9 +56,9 @@ def require_premium(f):
             expires_at = datetime.fromisoformat(user['subscription_expires_at'])
             if expires_at < datetime.utcnow():
                 return jsonify({
-                    'error': 'Premium subscription has expired',
-                    'premium_required': True
-                }), 403
+                'error': 'Premium subscription has expired',
+                'premium_required': True
+            }), 403
 
         return f(*args, **kwargs)
 
@@ -93,38 +78,27 @@ def ensure_premium_template(f):
 
         # Check if template requires premium
         if template_name.startswith('premium/') or '/premium/' in template_name:
-            # Get session ID from request context
-            session_id = getattr(request, 'session_id', None)
-
-            if not session_id:
-                # Try to get from cookie
-                session_id = request.cookies.get('session_id')
-
-            if not session_id:
+            # Check if user is authenticated via Flask session
+            if 'user_id' not in flask_session:
                 return jsonify({
                     'error': 'Premium content requires authentication',
                     'premium_required': True
                 }), 401
 
-            # Validate session
-            session_data = user_db.get_session(session_id)
-            if not session_data:
-                return jsonify({
-                    'error': 'Invalid or expired session',
-                    'premium_required': True
-                }), 401
-
-            if not session_data.get('is_valid'):
-                return jsonify({
-                    'error': 'Session expired',
-                    'premium_required': True
-                }), 401
-
-            # Check user subscription status
-            user_id = session_data['user_id']
+            # Get user from database
+            from site.user_database import UserDatabase
+            user_db = UserDatabase()
+            user_id = flask_session['user_id']
             user = user_db.get_user(user_id)
 
-            if not user or user.get('subscription_status') != 'premium':
+            if not user:
+                return jsonify({
+                    'error': 'User not found',
+                    'premium_required': True
+                }), 404
+
+            # Check user subscription status
+            if user.get('subscription_status') != 'premium':
                 return jsonify({
                     'error': 'Premium content requires a premium subscription',
                     'premium_required': True
@@ -135,9 +109,9 @@ def ensure_premium_template(f):
                 expires_at = datetime.fromisoformat(user['subscription_expires_at'])
                 if expires_at < datetime.utcnow():
                     return jsonify({
-                        'error': 'Premium subscription has expired',
-                        'premium_required': True
-                    }), 403
+                    'error': 'Premium subscription has expired',
+                    'premium_required': True
+            }), 403
 
         return f(*args, **kwargs)
 
