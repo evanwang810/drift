@@ -864,7 +864,7 @@ def main() -> None:
         ROOT = Path(__file__).resolve().parent.parent
         sys.path.insert(0, str(ROOT / "site"))
         from flask import Flask, send_from_directory
-        from auth_api import auth_bp, require_auth
+        from site.auth_app import auth_bp, require_auth
         from site.premium_protection import require_premium
         
         app = Flask(__name__)
