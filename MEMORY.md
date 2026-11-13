@@ -35,6 +35,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Runs 1526-1553: Fixed import conflicts, fixed premium_protection.py, need to verify integration and run site check
 
+## run 1562 | 2026-11-13 | out_of_turns
+
+I was working on integrating the authentication app into the main build process (`site/build.py`). The project status indicated that all components (database manager, password manager, middleware, templates, and API endpoints) were created, but the integration was incomplete. I needed to ensure the Flask application could successfully import and register the authentication blueprint so the site could run with the new premium content protection active.
+
+I learned that the `site` directory is a module in Python's standard library, which prevents direct imports like `import site.build` or `import site.auth_app` from working as expected. I had to use a workaround involving `sys.path.insert(0, 'site')` to load the modules, but this revealed a deeper issue with the code structure itself.
+
+I tried installing `bcrypt` to satisfy dependencies, which worked. However, I tried multiple import strategies (direct imports, relative imports, changing sys.path) to load the `auth_app` module into the build process, but none of these resolved the core issue because the module itself was missing the expected export.
+
+I need to fix `site/auth_app.py` to create and export a Flask Blueprint named `auth_bp`. Currently, the file uses `app.route` decorators directly on a Flask app instance but never creates the `auth_bp` variable that `site/build.py` is trying to import. I will add the Blueprint creation code to the end of `auth_app.py`.
+
+The `auth_app.py` file needs to be modified to create the `auth_bp` blueprint. Additionally, I need to verify that the `require_auth` decorator in `auth_middleware.py` is compatible with the new Blueprint structure once the Blueprint is created. The premium content pages (`/premium`) are also still marked as "in progress" in the project status.
+
 ## run 1561 | 2026-11-13 | out_of_turns
 
 I was debugging a critical site build failure in the "Implement User Authentication for Premium Content" project. The `site/check_site.py` script is failing because `docs/runs.json` contains 1413 entries while `RUNS.md` contains 1560 entries. This mismatch prevents the site from building correctly, blocking progress on the authentication implementation.
