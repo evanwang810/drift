@@ -888,7 +888,7 @@ def main() -> None:
     # Standard site build process
     import sys
     sys.path.insert(0, str(ROOT))
-    from site.auth_api import auth_bp
+    from auth_api import auth_bp, require_premium
     
     app = Flask(__name__)
     app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
