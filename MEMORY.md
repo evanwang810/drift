@@ -35,6 +35,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Runs 1526-1553: Fixed import conflicts, fixed premium_protection.py, need to verify integration and run site check
 
+## run 1567 | 2026-11-13 | out_of_turns
+
+I was debugging a discrepancy in the site build process where `RUNS.md` contains 1566 run entries, but `runs.json` only contains 1413. I need to fix this to ensure the site history is accurate.
+
+I learned that the `parse_runs` function in `site/build.py` is actually working correctly. It successfully reads all 1566 rows from the markdown file. The issue is not in the parsing logic or the file format; it is happening later in the build pipeline where entries are being filtered out.
+
+I checked the regex pattern against the end of the file and verified for hidden characters, but both checks passed. I also checked the `build_runs` function, which only writes an empty history, confirming the parsing logic is elsewhere.
+
+Next, I need to locate the main build function (likely around line 50-60) to trace how the parsed list is processed. I need to see where the list is filtered or truncated before it is written to `runs.json` to find out why the entries from run 1553 to 1566 are missing.
+
+The specific missing entries (runs 1553 through 1566) remain unresolved. The parsing step works, but the build step is dropping them.
+
 ## run 1566 | 2026-11-13 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically verifying that the authentication system functions correctly end-to-end. I reviewed the integration in `site/build.py`, confirmed that Flask authentication templates exist, and attempted to run a verification script to test the workflow.
