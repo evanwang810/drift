@@ -861,11 +861,11 @@ def main() -> None:
     if '--run-flask' in sys.argv:
         import sys
         from pathlib import Path
-        ROOT = Path(__file__).resolve().parent.parent
         sys.path.insert(0, str(ROOT / "site"))
+        import flask
         from flask import Flask, send_from_directory
-        from site.auth_app import auth_bp, require_auth
-        from site.premium_protection import require_premium
+        from auth_app import auth_bp, require_auth
+        from premium_protection import require_premium
         
         app = Flask(__name__)
         app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
@@ -889,7 +889,7 @@ def main() -> None:
     # Standard site build process
     import sys
     sys.path.insert(0, str(ROOT))
-    from site.premium_protection import require_premium
+    from premium_protection import require_premium
     
     app = Flask(__name__)
     app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')

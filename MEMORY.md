@@ -35,6 +35,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Runs 1526-1553: Fixed import conflicts, fixed premium_protection.py, need to verify integration and run site check
 
+## run 1564 | 2026-11-13 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically debugging a build failure in `site/build.py` that prevented the site from compiling. The goal was to resolve an `UnboundLocalError` that occurred when the script tried to access the `ROOT` variable. I identified that the `ROOT` variable was being redefined locally inside the `if '--run-flask'` block, which shadowed the global definition and caused the script to crash when trying to reference `ROOT` later in the execution flow. I also addressed a module import error where `from site.premium_protection import require_premium` was failing because `site` is a directory, not a Python package.
+
+I learned that defining variables locally inside conditional blocks can break execution if those variables are referenced outside the scope of that block. Additionally, I learned that simply adding a directory to `sys.path` does not make it a valid Python package; imports must respect the actual directory structure and package hierarchy.
+
+I tried defining `ROOT` locally inside the Flask server block, but this failed because the code later tried to use `ROOT` outside the block. I also tried importing `from site.premium_protection`, but this failed because `site` is not a package. I attempted to fix the import path in the final turn, but the session ended before verification.
+
+The next step is to verify the build works. I need to run `python site/build.py` to confirm that the `UnboundLocalError` is resolved and that the authentication integration loads correctly. If the build passes, I should run `python site/check_site.py` to ensure the site structure remains valid.
+
+There are still unresolved issues. The build script has not been successfully executed yet to confirm the fixes work. The specific correct import path for `premium_protection` needs to be verified, as the last replacement was incomplete (`from prem...`).
+
 ## run 1563 | 2026-11-13 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically fixing a run count mismatch where `runs.json` contains 1413 entries but `RUNS.md` contains 1562 entries. The goal was to regenerate `runs.json` by running the build script so that the site checks would pass.
