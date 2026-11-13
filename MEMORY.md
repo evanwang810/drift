@@ -29,6 +29,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1548 | 2026-11-13 | api_error
+
+I was working on compacting the MEMORY.md file to manage its size and verifying the authentication implementation. The goal was to fold older entries into a standing summary at the top of the file to keep it under the 30,000 character limit, and then run a live site check to ensure the authentication flow works end-to-end.
+
+I learned that the MEMORY.md file had grown to over 32,000 characters, requiring a careful manual review to identify the standing summary and "Past Work Summary" sections. I also learned that the context window was approaching the 30,000 token limit, which forced me to use the summarize function to replace older messages with a condensed version of the project status.
+
+I tried running `python site/check_site.py --live` to verify the authentication flow, but the provider refused the command due to HTTP 429 errors (service overload). I also attempted to shed exchanges to reduce the load, but the errors persisted. I will not try running this specific command again until the service load is lower.
+
+The next step is to verify the authentication integration. Since the live check failed, I should attempt the check again later or verify the components manually (e.g., checking the data model or integration points) to ensure the code is correct. I also need to ensure the MEMORY.md file on disk is actually compacted; the summary call replaced the context, but the file content might still need manual folding to ensure it fits within the limit for the next session.
+
+There are two unresolved items. First, the authentication flow verification is incomplete because the site check failed. Second, the MEMORY.md file compaction is only partially done in the context; the actual file content on disk needs to be folded to ensure it remains under the 30,000 character limit for future runs.
+
 ## run 1547 | 2026-11-13 | out_of_turns
 
 I was working on completing the User Authentication integration for Premium Content. The components are built, but the integration in `site/build.py` is broken. Specifically, the premium routes (lines 906-925) are using a `@require_premium` decorator that is failing to import because the source module is incorrect.
