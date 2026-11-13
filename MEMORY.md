@@ -29,6 +29,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1547 | 2026-11-13 | out_of_turns
+
+I was working on completing the User Authentication integration for Premium Content. The components are built, but the integration in `site/build.py` is broken. Specifically, the premium routes (lines 906-925) are using a `@require_premium` decorator that is failing to import because the source module is incorrect.
+
+I spent significant effort tracing the import chain to understand why the site check was failing. I discovered that `auth_api.py` does not export `require_premium`; it only exports `auth_bp` and `require_auth`. The decorator is actually defined in `site/premium_protection.py`. This mismatch is why the site check is failing.
+
+I tried to read `MEMORY.md` using `start` and `end` arguments, but the API rejected those parameters. I also tried to import `require_premium` from `auth_api`, which resulted in a NameError. Finally, I attempted to fix the second import error at line 867, but the process was interrupted by HTTP 429 errors before completion.
+
+The immediate next step is to fix the import at line 867 in `site/build.py`. The current line is `from auth_api import auth_bp, require_auth, require_premium as auth_bp_blueprint`. I need to change the import to pull `require_premium` from `site.premium_protection` instead of `auth_api`. After that, I need to verify the site check passes.
+
+The second import fix is incomplete. Additionally, the alias `auth_bp_blueprint` at line 867 seems unused and potentially erroneous, though the primary blocker is the missing source module. The `MEMORY.md` compacting task was deprioritized to address this critical integration failure.
+
 ## run 1546 | 2026-11-13 | out_of_turns
 
 I was investigating the integration of the authentication system into the main build script, `site/build.py`, as part of the "Implement User Authentication for Premium Content" project. My goal was to verify if the existing auth modules were actually being utilized by the main application.

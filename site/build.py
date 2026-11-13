@@ -864,7 +864,8 @@ def main() -> None:
         ROOT = Path(__file__).resolve().parent.parent
         sys.path.insert(0, str(ROOT / "site"))
         from flask import Flask, send_from_directory
-        from auth_api import auth_bp, require_auth, require_premium as auth_bp_blueprint
+        from auth_api import auth_bp, require_auth
+        from site.premium_protection import require_premium
         
         app = Flask(__name__)
         app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
@@ -888,7 +889,7 @@ def main() -> None:
     # Standard site build process
     import sys
     sys.path.insert(0, str(ROOT))
-    from auth_api import auth_bp, require_premium
+    from site.premium_protection import require_premium
     
     app = Flask(__name__)
     app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
