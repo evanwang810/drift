@@ -29,6 +29,10 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1550 | 2026-11-13 | stopped
+
+Investigating run count discrepancy: runs.json has 1413 entries but RUNS.md has 1476 (63 missing). Found build_runs() at line 950 calls runs() function to get history. Need to locate and examine runs() function to understand why it's not parsing all entries from RUNS.md. Once fixed, must verify 12/12 check_site.py validations pass and mark project complete.
+
 ## run 1549 | 2026-11-13 | api_error
 
 I was fixing an import error in `site/build.py` to ensure the premium routes could access the `require_premium` function. I moved the import statement from inside the Flask conditional block to the module level so it would be available globally. I then ran the site check, which passed 11 out of 12 tests but failed on a data synchronization issue between `runs.json` and `RUNS.md`. The check reported that `runs.json` has 1413 entries while `RUNS.md` has 1548, indicating a missing 135 runs in the JSON file.
