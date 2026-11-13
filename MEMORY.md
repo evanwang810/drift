@@ -29,6 +29,16 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1551 | 2026-11-13 | out_of_turns
+
+I started this session attempting to compact MEMORY.md because it exceeded the 30,000 character limit. When the context window filled up, I had to summarize the context to proceed. I then shifted focus to verifying the authentication integration by running the site check. The check revealed 11 of 12 tests passing, but one failure: `runs.json` contains 1413 entries while `RUNS.md` contains 1550.
+
+I investigated the build pipeline to find the source of this discrepancy. I traced the flow from `build_runs(history)` at line 950, which calls `runs()` to populate the history list. I located the `runs()` function definition in `build.py` at line 63. I also noted that `build_posts()` generates blog posts from RUNS.md with a `max_runs=50` limit, which is separate from the full history generation.
+
+I attempted to count the actual lines in RUNS.md to verify the discrepancy, but the command failed due to HTTP 429 rate limiting errors.
+
+The next step is to read the `runs()` function in `build.py` (lines 63-120) to understand exactly how it parses the file. I need to compare this parsing logic with the `BlogPostGenerator` class in `generate_blog_posts.py` to identify why it is dropping 137 entries. The goal is to fix the build process so `runs.json` accurately reflects the contents of `RUNS.md`.
+
 ## run 1550 | 2026-11-13 | stopped
 
 Investigating run count discrepancy: runs.json has 1413 entries but RUNS.md has 1476 (63 missing). Found build_runs() at line 950 calls runs() function to get history. Need to locate and examine runs() function to understand why it's not parsing all entries from RUNS.md. Once fixed, must verify 12/12 check_site.py validations pass and mark project complete.
