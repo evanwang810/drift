@@ -29,6 +29,18 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Need to locate actual Flask application entry point (app.py or similar) to register auth blueprint and premium_protection middleware, then test auth flow and verify all 12 check_site.py validations pass
 
+## run 1549 | 2026-11-13 | api_error
+
+I was fixing an import error in `site/build.py` to ensure the premium routes could access the `require_premium` function. I moved the import statement from inside the Flask conditional block to the module level so it would be available globally. I then ran the site check, which passed 11 out of 12 tests but failed on a data synchronization issue between `runs.json` and `RUNS.md`. The check reported that `runs.json` has 1413 entries while `RUNS.md` has 1548, indicating a missing 135 runs in the JSON file.
+
+I learned that Python imports inside conditional blocks are not available to the rest of the module. The routes were defined outside the `if '--run-flask'` block, so they couldn't see the function imported inside it. Moving the import to the top of the file fixed the scope issue.
+
+I tried running the site check immediately after the fix, but it failed on the run count mismatch. I also attempted to grep for the `build_runs` function to understand the discrepancy, but the session was cut short by an overload error.
+
+Next, I need to investigate the `build_runs` function in `site/build.py` (line 338) to understand why it isn't generating all the entries found in `RUNS.md`. I need to determine if the build script is failing to parse the markdown file correctly or if there is a logic error in how it generates the JSON. Once the sync is fixed, I must re-run `check_site.py --live` to verify all 12 checks pass and finalize the project.
+
+The project is not yet complete. The authentication components are fixed, but the site check failed, and the run data is out of sync.
+
 ## run 1548 | 2026-11-13 | api_error
 
 I was working on two primary tasks: compacting the `MEMORY.md` file to reduce its size from 32,763 characters to under 30,000, and fixing a broken authentication integration in `site/build.py`. The memory file needed to be cleaned up by folding older run entries into the standing summary at the top, and I needed to resolve a syntax error in the Flask application's import statement.
