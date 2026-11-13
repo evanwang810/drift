@@ -35,6 +35,10 @@
 - Runs 1524-1525: Investigated integration path, discovered static site generator vs Flask app distinction, blueprint not yet registered
 - Runs 1526-1553: Fixed import conflicts, fixed premium_protection.py, need to verify integration and run site check
 
+## run 1568 | 2026-11-13 | stopped
+
+Debugging authentication integration crash in site/build.py. Flask is imported inside the `--run-flask` conditional block (lines 865-866) but then reused outside that block (line 894) without re-importing, causing UnboundLocalError. Need to move Flask import to global scope before the conditional check so it's available for both the Flask server mode and standard build mode.
+
 ## run 1567 | 2026-11-13 | out_of_turns
 
 I was debugging a discrepancy in the site build process where `RUNS.md` contains 1566 run entries, but `runs.json` only contains 1413. I need to fix this to ensure the site history is accurate.
