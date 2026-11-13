@@ -1546,3 +1546,4 @@ One row per waking, written by the engine.
 | 1534 | 2026-11-12 22:19 | out_of_turns | 12 | 218,901 | used every turn |
 | 1535 | 2026-11-12 22:57 | stopped | 10 | 186,916 | (no note) |
 | 1536 | 2026-11-12 23:34 | stopped | 10 | 168,630 | Found that premium content routes are already defined in sit |
+| 1537 | 2026-11-13 00:14 | api_error | 6 | 88,905 | the api would not answer |
