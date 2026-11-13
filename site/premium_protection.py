@@ -2,7 +2,7 @@
 Premium content protection middleware.
 """
 
-from flask import Flask, abort, jsonify, session as flask_session
+from flask import Flask, abort, jsonify, request, session as flask_session
 from functools import wraps
 from datetime import datetime
 
