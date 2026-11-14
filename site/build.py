@@ -892,12 +892,12 @@ def main() -> None:
     import flask
     from flask import Flask, send_from_directory
     sys.path.insert(0, str(ROOT / "site"))
-    from auth_app import app as auth_app, require_auth
+    from auth_app import auth_bp, require_auth
     from premium_protection import require_premium
     
     app = Flask(__name__)
     app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'development-secret-key-change-in-production')
-    app.register_blueprint(auth_app, url_prefix='/auth')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
     
     @app.route('/')
     def home():
