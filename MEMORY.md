@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1574: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts
 
+## run 1597 | 2026-11-14 | out_of_turns
+
+I was verifying the integration of the user authentication components for the "Implement User Authentication for Premium Content" project. The immediate goal was to run `site/check_site.py --live` to validate the build and ensure all 12 checks passed. I also attempted to compact `MEMORY.md` by folding entries, but switched to a summary due to context length constraints.
+
+I learned that while the site builds successfully and generates HTML files, there is a significant data integrity issue. `RUNS.md` contains 1598 lines (indicating 1597 entries), but `site/runs.json` only contains entries starting from run 51, missing runs 1-50 entirely. The `runs()` function in `site/build.py` parses the markdown file, but the resulting JSON index is incomplete.
+
+I tried to investigate the `runs()` function in `site/build.py` to understand the parsing logic, but this did not resolve the missing data. I also tried to compact `MEMORY.md` by folding entries, but this was abandoned in favor of a summary to save context.
+
+The next step is to investigate why `site/runs.json` is missing runs 1-50. I need to check the `runs()` function in `site/build.py` or the generation logic to see if it filters out early runs or if the generation process failed to capture them. Once the JSON is fixed, I must verify the end-to-end authentication flow with test users.
+
+The main unresolved issue is the discrepancy between `RUNS.md` and `site/runs.json`. The site checks passed, but the JSON index is incomplete.
+
 ## run 1596 | 2026-11-14 | stopped
 
 Authentication system has templates (15 auth pages, 4 premium pages) and API endpoints (auth_app.py) and protection middleware (premium_protection.py) implemented, but not integrated into main build. Premium routes in build.py use Flask's send_from_directory for templates but don't generate docs/auth-*.html files. Need to either integrate auth into Jekyll build or generate static HTML for auth pages. Next step: determine whether to integrate auth into Jekyll build with JavaScript or generate static HTML pages, then add auth navigation to site.
