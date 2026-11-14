@@ -2,7 +2,7 @@
 Authentication API endpoints for premium content access.
 """
 
-from flask import Flask, request, jsonify, session
+from flask import Blueprint, request, jsonify, session, make_response
 from functools import wraps
 import secrets
 from datetime import datetime, timedelta
@@ -11,8 +11,8 @@ import os
 from user_database import UserDatabase
 from password_manager import PasswordManager
 
-app = Flask(__name__)
-app.secret_key = os.environ.get('AUTH_SECRET_KEY', secrets.token_hex(32))
+# Create blueprint
+auth_bp = Blueprint('auth', __name__)
 
 # Initialize database and password manager
 user_db = UserDatabase()
