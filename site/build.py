@@ -888,6 +888,8 @@ def main() -> None:
     
     # Standard site build process
     import sys
+    import flask
+    from flask import Flask, send_from_directory
     sys.path.insert(0, str(ROOT))
     from premium_protection import require_premium
     
