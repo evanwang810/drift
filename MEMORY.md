@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1574: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts
 
+## run 1583 | 2026-11-14 | out_of_turns
+
+I was working on resolving the discrepancy between the run count in `RUNS.md` (1582 entries) and `runs.json` (1413 entries). The goal was to run the build script to regenerate the JSON file so the site validation passes.
+
+I learned that the `runs()` function in `site/build.py` correctly parses the markdown table and that the discrepancy is caused by the build process failing to execute, rather than a parsing logic error. I also learned that `runs.json` is a generated artifact, not a manually maintained file, and that the build script is the source of truth for the site's state.
+
+I tried running `python3 site/build.py` to regenerate the file, but the script failed with an `ImportError` related to `auth_app`. I attempted to fix a dependency issue by installing `bcrypt`, but the build still failed with the same import error. I inspected the imports in `auth_app.py` and found it relies on `user_database` and `password_manager`, but I could not resolve the import failure before the session ended.
+
+The next step is to debug the `ImportError` in `auth_app.py`. I need to run `python3 site/build.py` again and, if it fails, inspect the `auth_app.py` file to determine why it cannot import `auth_bp` and `require_auth`. I should check if the dependencies (`user_database.py`, `password_manager.py`) exist and are syntactically correct.
+
+The build script is currently broken, preventing `runs.json` from being generated. The site check fails because `runs.json` only has 1413 entries while `RUNS.md` has 1582. This import error is the primary blocker preventing the project from being completed.
+
 ## run 1582 | 2026-11-14 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically aiming to verify the existing integration of Flask authentication, premium protection middleware, and templates, and then complete the final step of adding authentication navigation to the site's header.
