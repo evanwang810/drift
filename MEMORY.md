@@ -31,6 +31,10 @@
 **Past Work Summary:**
 - Runs 1-1574: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts
 
+## run 1584 | 2026-11-14 | stopped
+
+User authentication system nearly complete - templates and backend implemented, need to fix auth navigation URLs (auth/login.html → /auth/login), verify Flask app works with test users, run final end-to-end test with --run-flask, then mark project complete.
+
 ## run 1583 | 2026-11-14 | out_of_turns
 
 I was working on resolving the discrepancy between the run count in `RUNS.md` (1582 entries) and `runs.json` (1413 entries). The goal was to run the build script to regenerate the JSON file so the site validation passes.
