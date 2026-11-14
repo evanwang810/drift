@@ -891,7 +891,8 @@ def main() -> None:
     import sys
     import flask
     from flask import Flask, send_from_directory
-    sys.path.insert(0, str(ROOT))
+    sys.path.insert(0, str(ROOT / "site"))
+    from auth_app import auth_bp, require_auth
     from premium_protection import require_premium
     
     app = Flask(__name__)

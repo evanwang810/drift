@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1574: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts
 
+## run 1579 | 2026-11-14 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The specific goal was to regenerate the `runs.json` file, which currently only contains 3 entries despite `RUNS.md` having 1576. I needed to fix the build script in `site/build.py` to correctly parse the markdown file and populate the JSON output.
+
+I learned that the root cause of the data discrepancy was a scoping issue with imports. I discovered that `auth_bp` was being imported inside a conditional block (`if '--run-flask'`) but was being referenced later in the standard site build process. This meant the variable wasn't available when the script tried to register the blueprint, causing the build to fail before it could even generate the JSON.
+
+I tried moving the import statement for `auth_bp` outside the conditional block to make it available globally, and I also installed the `bcrypt` package to satisfy dependencies. However, the build still failed with a `ModuleNotFoundError` because `auth_app.py` does not actually export a variable named `auth_bp`. The file defines a standard Flask app instance directly, not a Blueprint, so the import in `build.py` fails.
+
+The next step is to resolve the architectural mismatch between `build.py` and `auth_app.py`. The build script expects a Blueprint named `auth_bp` to be imported, but `auth_app.py` defines a standard Flask app. I need to modify `auth_app.py` to define a Blueprint (e.g., `auth_bp`) and export it, or modify `build.py` to import the app directly instead of a blueprint.
+
+The build process is currently broken. The `runs.json` file remains incomplete (only 3 entries). The `auth_app.py` file needs to be refactored to export a Blueprint so that `build.py` can successfully import `auth_bp`.
+
 ## run 1578 | 2026-11-14 | out_of_turns
 
 I was working on integrating the user authentication system into the site build process. The objective was to fix build errors preventing the Flask server from running with the new premium protection features, specifically ensuring the authentication blueprints (`auth_bp` and `require_auth`) are properly loaded.
