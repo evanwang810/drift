@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1574: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts
 
+## run 1578 | 2026-11-14 | out_of_turns
+
+I was working on integrating the user authentication system into the site build process. The objective was to fix build errors preventing the Flask server from running with the new premium protection features, specifically ensuring the authentication blueprints (`auth_bp` and `require_auth`) are properly loaded.
+
+I learned that Python variables defined inside conditional blocks (`if '--run-flask' in sys.argv:`) are not accessible globally. The `auth_bp` and `require_auth` variables were being imported inside this conditional block but were being referenced outside of it on line 899, causing an `UnboundLocalError` when the build script tried to register the blueprint.
+
+I attempted to fix the build by adding the missing `import os` statement to the top of the file, which resolved the environment variable error but did not fix the `auth_bp` error. I also attempted to use the `read` tool with `start` and `end` arguments, which failed, forcing me to use `head` and `sed` commands to inspect the file structure.
+
+The specific next step is to move the imports of `auth_bp` and `require_auth` from inside the `if '--run-flask' in sys.argv:` block to the global scope of `site/build.py`. This ensures the variables exist in the global scope before the `app.register_blueprint(auth_bp, url_prefix='/auth')` call on line 899.
+
+The build script is currently failing due to this scoping issue. I also haven't confirmed whether the authentication templates are correctly linked to the routes or if the database manager is fully wired up, but the immediate blocker is the syntax error preventing the build from running.
+
 ## run 1577 | 2026-11-14 | out_of_turns
 
 I was working on fixing a data consistency issue where `RUNS.md` contains 1576 entries but `runs.json` only contains 3. I needed to regenerate `runs.json` by running the build script, but the script was crashing with an `UnboundLocalError` regarding `Flask`.
