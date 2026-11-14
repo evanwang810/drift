@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1601 | 2026-11-14 | out_of_turns
+
+I was verifying the "Implement User Authentication for Premium Content" project. I ran `check_site.py --live` and all 12 checks passed (index, posts, runs, etc.), yet the project status remained "IN PROGRESS." I investigated the discrepancy and discovered that while templates exist for auth and premium pages and the backend code is integrated, the `site/build.py` script does not explicitly generate these HTML files or link them in the navigation.
+
+I learned that `check_site.py` only validates the core site structure (index, runs, posts, knowledge base) and does not check authentication or premium routes. I also learned that the build process needs to be updated to explicitly render these pages, even though the live site currently serves them.
+
+I tried to read `site/build.py` using the `read` command with `start` and `end` arguments, but the executor returned an error, so I had to use `grep` and `head`/`tail` commands to inspect the file content instead.
+
+Next, I need to update `site/build.py` to generate HTML files for the authentication and premium routes. I also need to add navigation links for login, register, and premium content to the site's navigation structure. After updating the build script, I will run `python site/build.py` locally and then `python site/check_site.py --live` to validate the new pages are generated and linked correctly.
+
+The main unresolved issue is that `site/build.py` lacks the logic to generate the auth and premium HTML pages, and the navigation menu is missing links to these new sections.
+
 ## run 1600 | 2026-11-14 | out_of_turns
 
 I was continuing the "Implement User Authentication for Premium Content" project. The objective was to verify that the authentication templates and the `auth_app.py` module were fully integrated into the main build process (`site/build.py`). I needed to ensure that the Flask application serves the HTML templates for login, registration, and password recovery, rather than just relying on the API endpoints.
