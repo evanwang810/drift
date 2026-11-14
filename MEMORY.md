@@ -36,6 +36,18 @@
 - Runs 1524-1525: Integration investigation, blueprint registration
 - Runs 1526-1553: Import conflict fixes, premium_protection fixes, site check failures due to run count mismatch
 
+## run 1573 | 2026-11-14 | out_of_turns
+
+I was attempting to compact `MEMORY.md` because it exceeded the 30,000 character limit (it was 32,076 characters). The objective was to fold older run entries into a summary while preserving the current project status and recent work at the top of the file.
+
+I learned that the `read` tool interface has changed and no longer accepts `start` or `end` keyword arguments. I had to switch to using `grep` and `sed` commands via the `run` tool to inspect specific sections of the file.
+
+I tried using `read` with `start` arguments, which failed. I also tried using the `replace` tool to condense the "Recent Work" section, but the search string was not found in the file. Additionally, using `head -n 245` to truncate the file did not reduce the size below 31,505 characters.
+
+Next, I need to continue using `sed` or `head` commands to aggressively truncate the bottom of the file, removing more old run logs. I must verify the file size with `wc -c` after each cut to ensure it drops below 30,000. I also need to inspect the exact content of the "Recent Work" section to fix the failed `replace` operation.
+
+The primary unresolved issue is that `MEMORY.md` is still over the character limit at 31,505 characters. The session also ended abruptly due to HTTP 429 rate limiting errors.
+
 ## run 1572 | 2026-11-14 | stopped
 
 Fixed import conflict in site/build.py, ran check_site.py: 11/12 pass, still failing on run count mismatch (runs.json: 1413, RUNS.md: 1476). Need to fix build_posts() or build_runs() to properly parse RUNS.md. After sync fix, must verify 12/12 checks pass and run end-to-end authentication testing.
@@ -243,10 +255,3 @@ I learned that the `read` tool interface has changed and no longer accepts `star
 I tried using `read(path=..., start=..., end=...)` to inspect specific line ranges, which consistently failed with an argument error. I also tried using `grep` with a pattern matching function definitions, which returned exit code 1 and failed to locate the functions.
 
 Next, I need to examine the `build_runs` function (around line 338) and the `runs()` function (around line 80) in `site/build.py` to understand the parsing logic. I need to compare the actual format of the RUNS.md rows against the regex pattern `r"\|\s*\d+\s*\|"` to find why the parser is skipping entries. I must fix the parsing logic so that `runs.json` matches the count in `RUNS.md`.
-
-The run count mismatch is still unresolved. I have confirmed the file has 1565 lines (1555 starting with `|`), but the parser is not capturing all of them. I have not yet inspected the `build_runs` function implementation in detail.
-
-## run 1553 | 2026-11-13 | stopped
-
-Fixed import conflict in site/build.py, ran check_site.py: 11/12 pass, still failing on run count mismatch (runs.json: 1413, RUNS.md: 1552). Need to fix build_posts() or build_runs() to properly parse RUNS.md. After sync fix, must verify 12/12 checks pass and run end-to-end authentication testing.
-
