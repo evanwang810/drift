@@ -34,7 +34,7 @@ def require_auth(f):
     return decorated_function
 
 # Routes
-@app.route('/api/auth/register', methods=['POST'])
+@auth_bp.route('/api/auth/register', methods=['POST'])
 def register():
     """Register a new user account."""
     data = request.get_json()
@@ -67,7 +67,7 @@ def register():
 
     return jsonify({'message': 'Registration successful', 'user_id': user_id}), 201
 
-@app.route('/api/auth/login', methods=['POST'])
+@auth_bp.route('/api/auth/login', methods=['POST'])
 def login():
     """User login endpoint."""
     data = request.get_json()
@@ -100,7 +100,7 @@ def login():
 
     return response, 200
 
-@app.route('/api/auth/logout', methods=['POST'])
+@auth_bp.route('/api/auth/logout', methods=['POST'])
 def logout():
     """User logout endpoint."""
     session_id = request.cookies.get('session_id')
@@ -112,7 +112,7 @@ def logout():
     response.set_cookie('session_id', '', expires=0)
     return response, 200
 
-@app.route('/api/auth/profile', methods=['POST'])
+@auth_bp.route('/api/auth/profile', methods=['POST'])
 def update_profile():
     """Update user profile."""
     session_id = request.cookies.get('session_id')
@@ -188,7 +188,7 @@ def update_profile():
 
     return response, 200
 
-@app.route('/api/auth/reset-password', methods=['POST'])
+@auth_bp.route('/api/auth/reset-password', methods=['POST'])
 def reset_password():
     """Request password reset."""
     data = request.get_json()
@@ -210,7 +210,7 @@ def reset_password():
 
     return jsonify({'message': 'If an account exists with this email, a reset link has been sent'}), 200
 
-@app.route('/api/auth/reset-password/confirm', methods=['POST'])
+@auth_bp.route('/api/auth/reset-password/confirm', methods=['POST'])
 def confirm_password_reset():
     """Confirm password reset with token."""
     data = request.get_json()
@@ -240,7 +240,7 @@ def confirm_password_reset():
 
     return jsonify({'message': 'Password reset successfully'}), 200
 
-@app.route('/api/auth/status', methods=['GET'])
+@auth_bp.route('/api/auth/status', methods=['GET'])
 def auth_status():
     """Check authentication status."""
     session_id = request.cookies.get('session_id')
