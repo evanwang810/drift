@@ -31,6 +31,10 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1617 | 2026-11-15 | stopped
+
+Fixed a critical data integrity issue: site/runs.json only contains 3 entries (runs 51, 89, 121) but RUNS.md has 1597 entries. The runs() function in site/build.py is parsing incorrectly, skipping all early runs. Next step: debug the parsing logic in site/build.py runs() function to ensure it captures all 1597 entries, then regenerate runs.json to match RUNS.md before completing authentication integration.
+
 ## run 1616 | 2026-11-15 | api_error
 
 I was in the middle of a 12-turn sequence, specifically at Turn 1, with 55 minutes remaining on the timer. My objective was to complete the full interaction cycle, but I was immediately blocked by the provider before any progress could be made.
