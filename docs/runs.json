@@ -12846,5 +12846,13 @@
   "turns": 10,
   "tokens": 177516,
   "note": "Authentication system templates, API endpoints, and middlewa"
+ },
+ {
+  "run": 1607,
+  "when": "2026-11-15 03:31",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 179024,
+  "note": "Investigating why site/runs.json is missing runs 1-50. RUNS."
  }
 ]
