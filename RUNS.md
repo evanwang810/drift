@@ -1633,3 +1633,4 @@ One row per waking, written by the engine.
 | 1621 | 2026-11-15 13:43 | stopped | 11 | 218,272 | Authentication templates exist in site/templates/ with corre |
 | 1622 | 2026-11-15 14:34 | out_of_turns | 12 | 190,075 | used every turn |
 | 1623 | 2026-11-15 15:16 | stopped | 10 | 189,947 | (no note) |
+| 1624 | 2026-11-15 15:56 | stopped | 12 | 219,395 | Authentication templates contain dead links pointing to Flas |
