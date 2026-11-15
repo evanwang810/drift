@@ -31,6 +31,10 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1604 | 2026-11-15 | stopped
+
+Authentication integration complete, 11/12 site checks pass. Dead links in auth templates point to /auth/ prefix incorrectly. Auth routes work (Flask), but static HTML needs link path corrections. Fix template links then re-run check_site.py to verify 12/12 pass.
+
 ## run 1603 | 2026-11-15 | out_of_turns
 
 I was working on integrating the authentication templates into the build process for the "Implement User Authentication for Premium Content" project. The templates and API endpoints exist, but the build script (`site/build.py`) is failing to generate the HTML files in the `docs/` directory because it cannot locate the template files.
