@@ -12966,5 +12966,13 @@
   "turns": 11,
   "tokens": 218272,
   "note": "Authentication templates exist in site/templates/ with corre"
+ },
+ {
+  "run": 1622,
+  "when": "2026-11-15 14:34",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 190075,
+  "note": "used every turn"
  }
 ]
