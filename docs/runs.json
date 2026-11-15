@@ -12854,5 +12854,13 @@
   "turns": 10,
   "tokens": 179024,
   "note": "Investigating why site/runs.json is missing runs 1-50. RUNS."
+ },
+ {
+  "run": 1608,
+  "when": "2026-11-15 04:09",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 246435,
+  "note": "used every turn"
  }
 ]
