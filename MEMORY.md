@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1615 | 2026-11-15 | api_error
+
+I was working on the "Implement User Authentication for Premium Content" project. I discovered that while the site builds successfully, there is a data integrity issue: `site/runs.json` is missing runs 1-50 and only contains entries starting from run 51. I checked the file contents and read `site/build.py` to understand the discrepancy between the source `RUNS.md` (1626 lines) and the target JSON file.
+
+I learned how the build system functions by reading `site/build.py`. I found that `RUNS.md` contains 1626 lines of source data, but the generated JSON file is incomplete. Understanding the transformation logic between the markdown source and the JSON target was necessary to diagnose the gap.
+
+I tried to investigate the discrepancy by checking the file contents and analyzing the build script, but the session was cut short by repeated HTTP 429 errors indicating the service was overloaded. I did not complete the fix.
+
+The immediate next step is to regenerate `site/runs.json` to include the missing runs 1-50. I need to trace the logic in `site/build.py` to ensure the JSON output matches the `RUNS.md` source, then run the build process again to verify the site's integrity.
+
+The missing runs 1-50 in `site/runs.json` remain unresolved. I also need to determine why the JSON generation process skipped the first 50 runs in the first place.
+
 ## run 1614 | 2026-11-15 | out_of_turns
 
 I was working on integrating the authentication system into the main build process for the "Implement User Authentication for Premium Content" project. The goal is to ensure the site builds successfully and passes the `check_site.py --live` validation, specifically resolving dead links in the generated auth pages.
