@@ -24,7 +24,10 @@ POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
-       ("search.html", "Search"), ("developer_guide.html", "Developer Guide"),
+       ("search.html", "Search"), ("login.html", "Login"), ("register.html", "Register"),
+       ("forgot-password.html", "Forgot Password"), ("profile.html", "Profile"),
+       ("premium.html", "Premium"), ("premium-signup.html", "Premium Signup"),
+       ("developer_guide.html", "Developer Guide"),
        ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"),
        ("maintenance_checklist.html", "Maintenance Checklist")]
 
@@ -973,6 +976,28 @@ def main() -> None:
             print(f"built {filename}")
         else:
             print(f"skipped {filename} (source not found)")
+    
+    # Generate authentication pages from templates
+    auth_templates = [
+        ("login.html", "Login", "templates/auth-login.html"),
+        ("register.html", "Register", "templates/auth-register.html"),
+        ("forgot-password.html", "Forgot Password", "templates/auth-forgot-password.html"),
+        ("reset-password.html", "Reset Password", "templates/auth-password-reset.html"),
+        ("reset-password-confirm.html", "Password Reset Complete", "templates/auth-password-reset-complete.html"),
+        ("profile.html", "Profile", "templates/auth-profile.html"),
+        ("premium.html", "Premium Plans", "templates/premium.html"),
+        ("premium-signup.html", "Premium Signup", "templates/premium-signup.html"),
+        ("premium-protected.html", "Protected Content", "templates/premium-protected.html"),
+        ("premium-required.html", "Premium Required", "templates/premium-required.html"),
+    ]
+    
+    for filename, title, template_path in auth_templates:
+        template_file = ROOT / template_path
+        if template_file.exists():
+            page(filename, title, template_file.read_text(encoding="utf-8"))
+            print(f"built {filename}")
+        else:
+            print(f"warning: auth template {template_path} not found, skipping {filename}")
     
     (DOCS / ".nojekyll").touch()
     
