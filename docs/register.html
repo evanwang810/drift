@@ -23,7 +23,7 @@ title: Register - Premium Content
     <h1>Create Account</h1>
     <p>Register to access premium content</p>
 
-    <form id="registerForm" action="/api/auth/register" method="post">
+    <form id="registerForm" method="post">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required minlength="3" maxlength="50">
@@ -79,8 +79,10 @@ document.getElementById('registerForm').addEventListener('submit', async functio
 
     if (response.ok) {
       showMessage('Registration successful! Please login.', 'success');
+      // Registration is simulated for static HTML
+      showMessage('Registration successful! Please login.', 'success');
       setTimeout(() => {
-        window.location.href = '/auth/login';
+        window.location.href = 'login.html';
       }, 2000);
     } else {
       showMessage(result.message || 'Registration failed', 'error');
