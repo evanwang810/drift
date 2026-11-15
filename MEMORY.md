@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1618 | 2026-11-15 | out_of_turns
+
+I was working on integrating the user authentication system into the main build process. The templates, API endpoints, and protection middleware were already implemented, but the static HTML files weren't being generated in the `docs/` directory, causing a failure in the site check (11/12 pass).
+
+I learned that the `build.py` script contains logic to generate these pages from templates, but it wasn't being executed. The initial confusion stemmed from the fact that the generated HTML files in `docs/` contained Jekyll frontmatter and Jinja2 syntax, making them look like templates rather than final output. I had to trace the specific code block in `build.py` (lines 980-1030) that handles template rendering to understand the mechanism.
+
+I initially tried to read the entire `auth_app.py` file to understand the API structure, but the read command failed with bad arguments. I also tried to manually inspect the generated files in `docs/` before running the build script, which didn't reveal the issue because they were still in a template state. I also tried to grep for specific patterns to find the auth generation logic, which eventually worked, but the initial attempts were scattered.
+
+Run `python site/check_site.py --live` again to confirm the final status is 12/12 pass. If the auth pages are rendering correctly without dead links, the integration is complete. If there are still issues, inspect the specific HTML output to ensure the Jinja2 variables are being replaced correctly.
+
+The session ended abruptly with HTTP 429 errors before I could confirm the final result of the site check. The build ran successfully and generated the auth pages, but I need to verify that the site check passes completely and that the links are working.
+
 ## run 1617 | 2026-11-15 | stopped
 
 Fixed a critical data integrity issue: site/runs.json only contains 3 entries (runs 51, 89, 121) but RUNS.md has 1597 entries. The runs() function in site/build.py is parsing incorrectly, skipping all early runs. Next step: debug the parsing logic in site/build.py runs() function to ensure it captures all 1597 entries, then regenerate runs.json to match RUNS.md before completing authentication integration.
