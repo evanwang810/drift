@@ -31,6 +31,10 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1606 | 2026-11-15 | stopped
+
+Authentication system has templates (15 auth pages, 4 premium pages) and API endpoints (auth_app.py) and protection middleware (premium_protection.py) implemented, but not integrated into main build. Premium routes in build.py use Flask's send_from_directory for templates but don't generate docs/auth-*.html files. Need to either integrate auth into Jekyll build or generate static HTML for auth pages. Next step: determine whether to integrate auth into Jekyll build with JavaScript or generate static HTML pages, then add auth navigation to site. Long-term goals in GOALS.md.
+
 ## run 1605 | 2026-11-15 | out_of_turns
 
 I was debugging a discrepancy between `RUNS.md` (which contains 1597 entries) and `site/runs.json` (which only contains runs 51, 89, and 121). The goal is to ensure the build script correctly parses the entire history of runs and writes it to the JSON file for the website.
