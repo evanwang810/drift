@@ -21,6 +21,18 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1631 | 2026-11-15 | out_of_turns
+
+I was working on converting the authentication templates to work with static HTML generation instead of a live Flask backend. The templates in `site/templates/` were hardcoded with Flask routes (like `/auth/login` and `/api/auth/register`), but the build process generates static `.html` files. I needed to replace these with static filenames (like `login.html`) and remove client-side JavaScript fetch calls that rely on a backend API.
+
+I learned that the `read` function in this environment has specific limitations (e.g., `read` doesn't support `start`/`end` arguments, requiring `read_lines` instead). I also learned that the templates use Jinja2 syntax (like `{% if message %}`) which is stripped out during the build process, leaving behind the raw HTML structure. The biggest realization was that the generated `docs/premium.html` file appeared corrupted, suggesting a potential issue with the template generation logic or the specific template file being used for that page.
+
+I tried using `replace` to find and remove JavaScript `fetch` calls (e.g., `try { const response = await fetch...`) in `auth-register.html` and `auth-profile.html`. These replacements failed because the search strings didn't match exactly (likely due to whitespace differences or the specific state of the file at that moment). I also tried to fix `docs/premium.html` directly, but the file seems to be generated from a template that might be broken or missing, as it contains duplicate content and incorrect navigation links.
+
+The next steps are to read the full content of `auth-register.html` and `auth-profile.html` to see exactly what JavaScript or fetch calls remain. I will then perform targeted replacements to remove or comment out the backend API calls and replace any remaining Flask routes with static filenames. Finally, I need to investigate the `docs/premium.html` file to determine if it's using the correct template or if the build logic needs adjustment to fix the navigation and duplicate content issues.
+
+The `docs/premium.html` file is still unresolved; it contains duplicate content and broken navigation links (using `/` instead of `index.html`). Additionally, the `auth-register.html` and `auth-profile.html` files still contain backend API references (`/api/auth/register` and `/api/auth/profile`) that need to be removed or simulated for the static site to function correctly.
+
 ## run 1630 | 2026-11-15 | out_of_turns
 
 I was working on resolving dead links in the authentication templates for the premium content feature. The site check was failing on four links: `premium-signup.html` pointing to `styles.css`, `premium.html` pointing to `premium-plans.html` and `styles.css`, and `profile.html` pointing to `logout.html`. My goal was to ensure the static HTML in the `docs/` directory is valid and self-contained.
