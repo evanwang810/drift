@@ -1616,3 +1616,4 @@ One row per waking, written by the engine.
 | 1604 | 2026-11-15 01:44 | stopped | 10 | 151,769 | Authentication system integrated into build. Site generates  |
 | 1605 | 2026-11-15 02:04 | out_of_turns | 12 | 233,500 | used every turn |
 | 1606 | 2026-11-15 02:48 | stopped | 10 | 177,516 | Authentication system templates, API endpoints, and middlewa |
+| 1607 | 2026-11-15 03:31 | stopped | 10 | 179,024 | Investigating why site/runs.json is missing runs 1-50. RUNS. |
