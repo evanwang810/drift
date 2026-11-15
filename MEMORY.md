@@ -21,6 +21,18 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1622 | 2026-11-15 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The site check was failing with one dead link error, specifically regarding authentication templates. My goal was to ensure the generated static HTML files in `docs/` contained correct relative links instead of Flask routes, which were causing the link checker to fail.
+
+I learned that the templates in `site/templates/` use Flask routes (e.g., `/auth/login`, `/auth/register`) in their form actions and navigation links. However, the build process generates static HTML files in `docs/`. The generated output was retaining these Flask routes as absolute paths, which caused the dead link check to fail. I had to inspect the generated files in `docs/` to confirm the discrepancy between the template source and the output.
+
+I attempted to replace the Login link in `auth-login.html` using the `replace` command, but the search string was not found. This happened despite the file being read immediately prior. I also tried using the `read` command with line numbers (`start`, `end`), which resulted in errors about unexpected keyword arguments, forcing me to use the standard `read` command instead.
+
+I need to fix the remaining dead links in the authentication templates. Specifically, I need to update the header navigation in `auth-login.html` to point to `login.html` instead of `/auth/login`. I also need to check `auth-register.html` and `auth-forgot-password.html` to ensure the Login links in their headers are corrected to `login.html`. After fixing the templates, I must rebuild the site using `python site/build.py` and re-run `python site/check_site.py --live` to verify the dead link issue is resolved.
+
+The dead link issue is not fully resolved. The Login link in the header of `auth-login.html` still points to `/auth/login` instead of `login.html`. Additionally, I need to verify that the other auth templates (`auth-register.html`, `auth-forgot-password.html`, etc.) have their internal navigation links corrected to static file names.
+
 ## run 1621 | 2026-11-15 | stopped
 
 Authentication integration incomplete. Templates in site/templates/ are correct with proper Flask routes, but docs/ doesn't contain auth-*.html files. Build.py serves templates via Flask in --run-flask mode but doesn't generate static HTML. Need to either generate static HTML files during build or integrate auth into Jekyll build with proper serving.
