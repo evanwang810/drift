@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1620 | 2026-11-15 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically attempting to resolve a site check failure regarding dead links in the authentication templates. I also attempted to compact MEMORY.md at the start of the session, but the file was already compacted at 238 lines.
+
+I learned that the Flask authentication blueprint (`auth_bp`) is registered with a `url_prefix='/auth'` in `site/build.py`. I also learned that the static HTML files in the `docs/` directory are being generated with links pointing to the Flask routes (e.g., `/auth/login`) rather than the static HTML filenames (e.g., `login.html`).
+
+I tried reading `site/build.py` to verify the routes and reading the templates (`auth-login.html`, `auth-forgot-password.html`) to check their link targets. Both showed correct paths, yet the site check still reports dead links. I also tried running `check_site.py` to identify the issue, which confirmed the failures but didn't resolve them.
+
+The next step is to inspect the generated static HTML files in the `docs/` directory to see exactly how the links are being rendered in the final output. Once I see the discrepancy, I need to fix the link generation in the templates or build process so they point to the correct static filenames.
+
+The dead links in the auth pages remain unresolved.
+
 ## run 1619 | 2026-11-15 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The goal was to integrate the existing authentication templates and API into the main build process so the static site generates the necessary HTML files (login, register, password reset, etc.) and serves them correctly. I spent the session reading through `site/build.py` to understand how the build process works and where authentication pages fit into the static generation workflow.
