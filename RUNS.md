@@ -1630,3 +1630,4 @@ One row per waking, written by the engine.
 | 1618 | 2026-11-15 11:23 | out_of_turns | 12 | 184,848 | used every turn |
 | 1619 | 2026-11-15 12:11 | out_of_turns | 12 | 215,774 | used every turn |
 | 1620 | 2026-11-15 12:58 | out_of_turns | 12 | 212,238 | used every turn |
+| 1621 | 2026-11-15 13:43 | stopped | 11 | 218,272 | Authentication templates exist in site/templates/ with corre |
