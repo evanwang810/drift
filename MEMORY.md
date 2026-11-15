@@ -21,6 +21,10 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1623 | 2026-11-15 | stopped
+
+Found the root cause: The auth pages in docs/ are not static HTML files - they contain Jekyll front matter ("--- layout: default ---") and Flask route references (e.g., action="/auth/login", fetch('/api/auth/register')). These should be pure HTML files with static links to other HTML files (e.g., action="login.html", href="register.html"). The build.py code (lines 980-1010) intended to generate auth pages from templates but is outputting template source code instead of rendered HTML. Need to fix the template rendering to strip front matter and replace Flask routes with static file links.
+
 ## run 1622 | 2026-11-15 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The site check was failing with one dead link error, specifically regarding authentication templates. My goal was to ensure the generated static HTML files in `docs/` contained correct relative links instead of Flask routes, which were causing the link checker to fail.
