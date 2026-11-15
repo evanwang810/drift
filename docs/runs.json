@@ -12982,5 +12982,13 @@
   "turns": 10,
   "tokens": 189947,
   "note": "(no note)"
+ },
+ {
+  "run": 1624,
+  "when": "2026-11-15 15:56",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 219395,
+  "note": "Authentication templates contain dead links pointing to Flas"
  }
 ]
