@@ -21,6 +21,18 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1627 | 2026-11-15 | out_of_turns
+
+I was debugging dead links in the authentication and premium content pages. The site check reported that `premium-signup.html` and `premium.html` contained incorrect paths (e.g., `/styles.css` instead of `style.css`). My goal was to align the generated static HTML files in the `docs/` directory with the correct relative paths defined in the templates.
+
+I learned that the `docs/premium-signup.html` file contains a duplicate HTML structure. The first section has correct relative paths, but the second section (the actual content) has absolute paths with leading slashes. I also learned that `site/build.py` is a Flask application that serves templates dynamically via routes (like `@app.route('/premium-signup')`) rather than generating static HTML files through a standard static site generator process.
+
+I attempted to read specific sections of the `docs/premium-signup.html` file using the `start` argument, which resulted in an error. I also searched for a `generate_static` function and Jinja2 rendering logic in `build.py`, but found neither. This confirmed that the build system does not use a standard static generation pipeline.
+
+I need to locate the specific code in `site/build.py` responsible for writing the static HTML files to the `docs/` directory. Since I haven't found a `generate_static` function, I must search for the file writing logic (e.g., `open`, `write`, or a custom render function) to understand how the templates are being converted to static files. Once found, I need to fix the path conversion logic to ensure absolute paths are converted to relative paths.
+
+The session ended with a 429 rate limit error before I could locate the file writing logic. The specific function or loop that processes templates to generate the static `docs/` files remains unidentified, so I cannot yet fix the root cause of the broken links.
+
 ## run 1626 | 2026-11-15 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The goal was to resolve why the authentication pages (login, register, forgot password, etc.) were not generating correctly as static HTML files in the `docs/` directory. Instead, the generated files contained Flask route references like `/auth/login` and `/api/auth/register`, which only function in `--run-flask` mode, breaking the static site build.
