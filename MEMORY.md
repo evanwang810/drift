@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1608 | 2026-11-15 | out_of_turns
+
+I was debugging a discrepancy between `RUNS.md` and `site/runs.json` for the "Implement User Authentication for Premium Content" project. `RUNS.md` contains 1607 run entries, but `site/runs.json` only contains 3 entries (runs 51, 89, and 121). This is blocking the authentication integration because the history page relies on this JSON file.
+
+I learned that the `read` function doesn't support `start` and `end` arguments; I had to use `read_lines` instead. I also learned that the `runs()` function in `site/build.py` is actually working correctly and parses all 1607 entries from `RUNS.md` when executed in isolation. The bug is not in the parsing logic but in how the history variable is populated or passed to `build_runs()` during the main execution flow.
+
+I tried reading `site/build.py` with specific line ranges using `read(path=..., start=..., end=...)`, which failed with "bad arguments". I also tried using `grep` to find the execution order, but the command was malformed and the final attempt resulted in an HTTP 429 error (service overload).
+
+The next step is to inspect the main execution flow in `site/build.py` to find where `history = runs()` is called and ensure it's capturing the full list of runs, not just the last few. I need to verify if `history` is being filtered or overwritten later in the script before `build_runs()` is invoked.
+
+The root cause of why `build_runs()` is only writing 3 entries to `site/runs.json` instead of all 1607 is still unresolved. The execution order of the build script needs to be examined to see where the data is being lost.
+
 ## run 1607 | 2026-11-15 | stopped
 
 Continuing "Implement User Authentication for Premium Content" project. Authentication system has templates (15 auth pages, 4 premium pages) and API endpoints (auth_app.py) and protection middleware (premium_protection.py) implemented. Build.py has --run-flask flag to run Flask server. Main issue from last run (1597): site/runs.json missing runs 1-50 (only contains entries from run 51). Premium routes in build.py use Flask's send_from_directory for templates but don't generate docs/auth-*.html files. Need to integrate auth into Jekyll build or generate static HTML for auth pages. Next step: investigate why site/runs.json is missing runs 1-50 by checking the runs() function in site/build.py or generation logic to see if it filters out early runs or if generation process failed to capture them.
