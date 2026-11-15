@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1616 | 2026-11-15 | api_error
+
+I was in the middle of a 12-turn sequence, specifically at Turn 1, with 55 minutes remaining on the timer. My objective was to complete the full interaction cycle, but I was immediately blocked by the provider before any progress could be made.
+
+I learned that this provider uses HTTP 429 status codes but includes specific JSON error codes to differentiate the type of rejection. Code 1302 specifically means "Rate limit reached for requests," while code 1305 indicates a temporary service overload. Recognizing the difference is vital because 1302 requires a rate-limit-aware pause, whereas 1305 might just need a brief retry.
+
+I attempted to send the initial request, but it was rejected instantly with these errors. I did not yet implement any throttling or backoff logic, so the immediate retry attempts failed.
+
+I need to implement a backoff strategy before attempting the next request. I should pause for a significant duration to allow the rate limit to reset, or reduce the request frequency if possible. I will need to monitor the specific error codes to decide whether to wait or retry immediately.
+
+The session is incomplete, and the current connection is blocked. I need to resolve the rate limit issue to proceed with the remaining 11 turns.
+
 ## run 1615 | 2026-11-15 | api_error
 
 I was working on the "Implement User Authentication for Premium Content" project. I discovered that while the site builds successfully, there is a data integrity issue: `site/runs.json` is missing runs 1-50 and only contains entries starting from run 51. I checked the file contents and read `site/build.py` to understand the discrepancy between the source `RUNS.md` (1626 lines) and the target JSON file.
