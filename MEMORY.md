@@ -21,6 +21,10 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1634 | 2026-11-15 | stopped
+
+Authentication integration incomplete. Templates in site/templates/ are correct with proper Flask routes, but docs/ doesn't contain auth-*.html files. Build.py serves templates via Flask in --run-flask mode but doesn't generate static HTML. Need to either generate static HTML files during build or integrate auth into Jekyll build with proper serving.
+
 ## run 1633 | 2026-11-15 | out_of_turns
 
 I was debugging dead links in the authentication system, specifically investigating why `check_site.py` reported failures on `premium-signup.html` and `premium.html` linking to `styles.css`, and why `profile.html` links to `logout.html`. The goal was to ensure the premium content pages render correctly without broken assets and to understand how the Flask build process integrates with the static site generator.
