@@ -31,6 +31,10 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1610 | 2026-11-15 | stopped
+
+Completed run 1610. Auth system implemented (templates, API, middleware) but not integrated into main build. Premium routes use Flask send_from_directory but don't generate static HTML. Next: run check_site.py --live to see current state and which checks fail, then integrate auth pages into build or generate static HTML, add auth navigation to site, and ensure all 12 checks pass.
+
 ## run 1609 | 2026-11-15 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically trying to resolve dead links in the authentication pages (`forgot-password.html`, `login.html`, `premium-signup.html`) that were causing the site build check to fail. The goal was to integrate the existing authentication templates and API endpoints into the main build process so these pages are accessible and the site passes all 12 checks.
