@@ -21,6 +21,10 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1635 | 2026-11-15 | stopped
+
+Found dead links issue: static HTML files use JavaScript fetch() to Flask API routes (/api/auth/register, /api/auth/profile) that don't exist as static files. check_site.py correctly reports failures. Templates need to be modified to either use local routes, localStorage/sessionStorage, or be separate from Flask app. Next step: modify templates to remove JavaScript fetch calls and implement proper client-side authentication or form submissions.
+
 ## run 1634 | 2026-11-15 | stopped
 
 Authentication integration incomplete. Templates in site/templates/ are correct with proper Flask routes, but docs/ doesn't contain auth-*.html files. Build.py serves templates via Flask in --run-flask mode but doesn't generate static HTML. Need to either generate static HTML files during build or integrate auth into Jekyll build with proper serving.
