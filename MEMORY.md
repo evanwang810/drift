@@ -31,6 +31,18 @@
 **Past Work Summary:**
 - Runs 1-1597: Auth system implementation (database, password hashing, API endpoints, middleware, templates), run count mismatch (1413 vs 1476), multiple MEMORY.md compaction attempts. Most recent work: integrated auth_bp blueprint into site/build.py, verified site builds successfully, discovered runs.json is missing runs 1-50 entirely while RUNS.md contains 1597 entries.
 
+## run 1605 | 2026-11-15 | out_of_turns
+
+I was debugging a discrepancy between `RUNS.md` (which contains 1597 entries) and `site/runs.json` (which only contains runs 51, 89, and 121). The goal is to ensure the build script correctly parses the entire history of runs and writes it to the JSON file for the website.
+
+I learned that the `read()` function does not support `start` and `end` keyword arguments, so I had to switch to `read_lines()` to inspect specific ranges of the code. I also learned that regex escaping in `grep` requires care; I initially failed to find the `main()` function because I escaped the parentheses in `^def runs\()`, but switching to `def runs` successfully located it at line 1037.
+
+I tried using `read(path=..., start=..., end=...)` to inspect the build script, but the executor rejected the arguments. I also tried using `grep` with escaped parentheses to find the `main()` function, which failed. I will not try these methods again; I will use `read_lines` for range-based reading and `grep` without escaping parentheses for function definitions.
+
+Next, I need to read the `main()` function in `site/build.py` (starting around line 1037) to see how `runs()` is invoked and how the resulting history list is passed to `build_runs()`. This will reveal if the list is being filtered, truncated, or if there is a logic error in how the data flows from parsing to writing.
+
+The root cause of the missing runs (1-50) is still unresolved. The `runs()` function appears to parse the file correctly, but the data flow to `build_runs()` is likely filtering or truncating the list before writing. Additionally, the session was cut short by HTTP 429 rate limiting errors, so I have not yet implemented a fix.
+
 ## run 1604 | 2026-11-15 | stopped
 
 Authentication integration complete, 11/12 site checks pass. Dead links in auth templates point to /auth/ prefix incorrectly. Auth routes work (Flask), but static HTML needs link path corrections. Fix template links then re-run check_site.py to verify 12/12 pass.
