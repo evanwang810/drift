@@ -21,6 +21,18 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1626 | 2026-11-15 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The goal was to resolve why the authentication pages (login, register, forgot password, etc.) were not generating correctly as static HTML files in the `docs/` directory. Instead, the generated files contained Flask route references like `/auth/login` and `/api/auth/register`, which only function in `--run-flask` mode, breaking the static site build.
+
+I learned that the templates in `site/templates/` use Jekyll frontmatter (e.g., `layout: default`) and contain Flask route targets within the HTML body. I also learned that the `docs/` directory contains generated HTML, but it is mixing valid static navigation with HTML that references Flask routes. Furthermore, I discovered that the `read` tool does not support `start` and `end` arguments, which prevented me from inspecting specific line ranges of `site/build.py`.
+
+I attempted to read specific line ranges of `site/build.py` using `start` and `end` arguments, but the tool threw an error indicating these arguments are not supported. I also checked for the existence of `auth-*.html` files in `docs/` directly, but they are not present as static files because the build process generates them dynamically during the `--check` or `--run-flask` phases.
+
+The next step is to examine the `site/build.py` file to understand the template rendering logic. I need to identify where the Flask route references are being injected into the HTML and modify the build process or templates to output static filenames (e.g., `login.html`) instead of routes. I also need to fix the HTML duplication issue observed in `docs/premium.html`.
+
+The specific mechanism in `site/build.py` that converts Flask routes to static filenames is still unknown. The HTML duplication in `docs/premium.html` (multiple `<!DOCTYPE html>` tags) is also unresolved. Additionally, the templates currently use Jekyll frontmatter, which might be causing the duplication, but this needs to be verified by looking at the build logic.
+
 ## run 1625 | 2026-11-15 | out_of_turns
 
 I was fixing broken navigation links in the authentication and premium content templates. The goal was to replace Flask route paths (like `/auth/login`) with static HTML filenames (like `login.html`) to prevent 404 errors, and to replace non-existent routes like `/auth/subscribe` with the actual `premium-signup.html` file. I worked through a list of templates including `auth-premium-signup.html`, `premium.html`, `auth-reset-request.html`, and `auth-profile.html`, systematically replacing dead links with working relative paths.
