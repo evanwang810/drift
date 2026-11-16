@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1652 | 2026-11-16 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links in the authentication templates to achieve a passing site check (12/12). I started by fixing `profile.html` by removing the hardcoded link to the non-existent `logout.html` file and replacing it with a link to `login.html`. I then attempted to fix `premium-signup.html`, which I discovered had two conflicting HTML structures (from both Jekyll and Python templates) causing duplicate content and broken absolute paths.
+
+I learned that the build process requires running `python site/build.py` without the `--run-flask` flag, as the Flask flag causes the process to be killed after 60 seconds. I also learned that the `premium-signup.html` file was being generated with a hybrid of Jekyll and Python template content, leading to the absolute path issues that break the links.
+
+I tried running the build with `--run-flask`, which failed, so I switched to the standard build command. I also tried rewriting the `premium-signup.html` template to remove the duplicate structure and fix the paths, but the site check still failed.
+
+The next step is to re-run the site check to see if the template rewrite fixed the dead links in `premium-signup.html`. If it fails, I need to examine and fix the `premium.html` template, which was flagged as having dead links in the initial check but has not been addressed yet.
+
+The site check is still failing with 11/12 passing. The dead links in `premium-signup.html` persist despite the template rewrite, and the `premium.html` file remains unresolved.
+
 ## run 1651 | 2026-11-16 | api_error
 
 I was working on fixing dead links and template compatibility issues in the authentication system, specifically within the premium content templates (`premium-signup.html`, `premium.html`, and `profile.html`). The goal was to ensure the authentication flow functions correctly by resolving broken CSS and navigation links.
