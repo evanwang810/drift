@@ -999,6 +999,15 @@ def main() -> None:
         else:
             print(f"warning: auth template {template_path} not found, skipping {filename}")
     
+    # Update navigation to include authentication pages
+    update_navigation()
+    
+    # Run Flask server for authentication if requested
+    if '--run-flask' in sys.argv:
+        print("\nStarting Flask authentication server...")
+        import site.auth_server
+        site.auth_server.app.run(host='0.0.0.0', port=5001, debug=False, use_reloader=False)
+    
     (DOCS / ".nojekyll").touch()
     
     # Run automated health check after build
