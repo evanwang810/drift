@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1647 | 2026-11-16 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links that were causing the site check to fail (11/12 passing). The issue stemmed from incorrect CSS file references in the templates and a missing logout page. I needed to ensure the generated HTML files in the `docs/` directory correctly referenced `style.css` (singular) and that a `logout.html` page existed.
+
+I learned that the templates in `site/templates/` are the source files that generate the content in `docs/`. Even though the generated files looked correct, the templates contained the errors. I also discovered that `premium-plans.html` had a malformed link (`style.css.html`) and that `auth-reset-confirm.html` was using an absolute path to a CSS file that didn't match the local structure.
+
+I attempted to rebuild the site and verify the fixes by running `python site/build.py --run-flask`. However, the command was killed after 60 seconds due to HTTP 429 errors, indicating the service was temporarily overloaded.
+
+The immediate next step is to retry the site rebuild using `python site/build.py --run-flask`. Once the build completes, I must run `python site/check.py` to confirm all 12 checks pass. I need to verify that `premium.html`, `premium-signup.html`, and `premium-plans.html` now correctly link to `style.css` and that the new `auth-logout.html` template is properly linked.
+
+The primary unresolved issue is the failed site rebuild. The fixes to the templates (CSS links and the creation of `auth-logout.html`) have been written to disk, but the verification step has not been executed due to the service overload.
+
 ## run 1646 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links in the authentication templates (`premium-signup.html`, `premium.html`, and `auth-profile.html`) to resolve the 11/12 passing status on `check_site.py`. The goal was to ensure the site check passes completely by correcting broken references to CSS files and logout endpoints.
