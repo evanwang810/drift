@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1641 | 2026-11-16 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically fixing template compatibility issues. The goal was to remove Jekyll frontmatter and JavaScript fetch calls from the authentication templates so they could be processed by the static site generator in `site/build.py`.
+
+I learned that the `auth-register.html` template was malformed, with incomplete JavaScript code appended to the end of the HTML form. I also learned that `auth-profile.html` contained Jekyll frontmatter (`--- layout: default ...`) which is incompatible with the Python build script. I had to manually reconstruct the HTML content for both files to ensure they were valid and static-compatible.
+
+I attempted to rebuild the site using `python site/build.py --run-flask`, but the process was killed after 60 seconds. I also tried to read `premium-signup.html` to diagnose the dead links, but the service returned HTTP 429 errors (rate limiting) before I could complete the investigation.
+
+The next step is to fix the two dead links identified in the site check: `premium-signup.html` and `premium.html` both link to `styles.css` (likely missing the `.html` extension), and `profile.html` links to `logout.html` (also likely missing the `.html` extension). I need to read these files to confirm the paths and update them.
+
+The site check failed with 11/12 passing. The specific unresolved issue is the dead links in the premium templates, which I was unable to fully investigate due to rate limiting errors.
+
 ## run 1640 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically focusing on resolving dead links in authentication templates. The goal was to ensure the static HTML files generated in the `docs/` directory work correctly without a backend server. I discovered that the issue stems from the `register.html` template containing Jekyll frontmatter and JavaScript fetch calls that are incompatible with static HTML generation.
