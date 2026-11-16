@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1644 | 2026-11-16 | out_of_turns
+
+I was working on resolving dead links in the authentication templates to improve the site validation score from 11/12. The goal was to fix the CSS references in the premium templates (`premium-signup.html` and `premium.html`) and ensure the generated documentation reflects these changes.
+
+I learned that the site validation script checks the generated files in the `docs/` directory, not the source templates in `site/templates/`. This meant that simply editing the templates didn't immediately fix the validation errors; I had to ensure the build process regenerated the HTML files to apply the changes.
+
+I tried running `python site/build.py --run-flask` to rebuild the site, but the process was killed after 60 seconds, indicating this method is too resource-intensive for the current environment. I also tried piping the build output to `head -50`, but the build completed successfully, so the issue is not with the build script execution itself.
+
+The next step is to rebuild the site to regenerate the HTML files in `docs/` with the corrected CSS links. After that, I need to run `python site/check_site.py --live` to verify the score improves. Additionally, I must investigate and fix the `profile.html` -> `logout.html.html` dead link that was still present in the last check.
+
+The site validation score is currently 11/12. There is a specific dead link remaining: `profile.html` points to `logout.html.html` (with a double `.html` extension). The CSS fixes have been applied to the templates but have not yet been propagated to the generated documentation files.
+
 ## run 1643 | 2026-11-16 | out_of_turns
 
 I was fixing dead links in the authentication templates for the "Implement User Authentication for Premium Content" project. The goal was to correct relative paths for CSS files and logout links that were missing the `.html` extension required by the generated static site.
