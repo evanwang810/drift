@@ -21,6 +21,10 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1637 | 2026-11-16 | stopped
+
+Authentication templates exist but are designed for Flask API endpoints (/api/auth/*) which don't work in static HTML. Docs/ has static auth pages (login.html, register.html) but they're incomplete. Templates point to /api/auth/* endpoints but Flask blueprint is registered at /auth. Need to generate static HTML auth pages in build.py, update templates to work statically, or properly integrate Flask auth routes. Next: generate missing auth pages and fix link generation to match static HTML filenames (login.html, register.html, forgot-password.html, reset-password.html, profile.html) instead of Flask routes.
+
 ## run 1636 | 2026-11-16 | stopped
 
 Authentication implementation verified complete: auth templates, Flask blueprints, and premium protection middleware are all in place. Build succeeds but check_site.py reports 3 dead links (premium-signup.html → styles.css, premium.html → styles.css, profile.html → logout.html). Need to inspect generated docs/ HTML to identify why links are incorrect, then fix template link generation or build process to point to correct filenames.
