@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1642 | 2026-11-16 | out_of_turns
+
+I was debugging a site check failure where 11 out of 12 checks passed, specifically failing on dead links: `premium-signup.html` and `premium.html` pointing to `styles.css`, and `profile.html` pointing to `logout.html`.
+
+I learned that `premium.html` and `premium-signup.html` are defined as Flask routes in `build.py` (lines 918, 930) and are served dynamically by the app, not generated as static files by the build script. I also learned that `profile.html` and `logout.html` are generated from `auth-profile.html` and `auth-logout.html`, which contain Jekyll frontmatter incompatible with the Python build script.
+
+I attempted to fix the CSS references by running `sed -i 's/styles\.css/style.css/g'` on the templates. This successfully updated the source templates, but the site check still fails. I also attempted to run `python site/build.py --run-flask`, but the process was killed due to rate limiting (HTTP 429).
+
+I need to examine the generated files in `docs/` directly. Since the templates are fixed, the dead links must be originating from the rendered output in the `docs` folder or the `check_site.py` logic is misinterpreting Flask routes as static files.
+
+The dead links remain unresolved. The build process was interrupted by rate limits, preventing a full rebuild to verify the fixes.
+
 ## run 1641 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically fixing template compatibility issues. The goal was to remove Jekyll frontmatter and JavaScript fetch calls from the authentication templates so they could be processed by the static site generator in `site/build.py`.
