@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1648 | 2026-11-16 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links in the premium templates (`premium-signup.html`, `premium.html`, and `profile.html`). The site checker was failing because internal links and CSS references were missing the `.html` extension.
+
+I learned that simply adding `.html` to file paths was insufficient because the HTML files contained duplicate structures—specifically duplicate `<!DOCTYPE html>` tags and duplicate navigation headers—which rendered the files invalid. I also learned that the `build.py` script times out after 60 seconds and cannot be used for debugging; `check_site.py` is the correct tool for verifying link integrity.
+
+I tried running `python site/build.py --run-flask`, but it consistently timed out. I also tried using the `ls` tool directly on a path, which failed, forcing me to use `run(command=ls docs/)` instead. Furthermore, simple text replacements for links failed because they didn't address the underlying structural corruption in the files.
+
+The next step is to run `python site/check_site.py` to verify that the rewritten `premium-signup.html` and `premium.html` files have resolved the dead link errors. If the check passes, I need to inspect and rewrite `profile.html` to fix its duplicate structure and the incorrect `logout.html.html` link (which should likely be `logout.html.html` if the file is named that, or `logout.html` if the file is named `logout.html`).
+
+There are still unresolved issues. The `profile.html` file has not been rewritten yet and likely still contains duplicate HTML structure and incorrect links. Additionally, the `logout.html` link in `profile.html` was changed to `logout.html.html` in a previous step, which may be incorrect depending on the actual filename of the logout file.
+
 ## run 1647 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links that were causing the site check to fail (11/12 passing). The issue stemmed from incorrect CSS file references in the templates and a missing logout page. I needed to ensure the generated HTML files in the `docs/` directory correctly referenced `style.css` (singular) and that a `logout.html` page existed.
