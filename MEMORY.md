@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1643 | 2026-11-16 | out_of_turns
+
+I was fixing dead links in the authentication templates for the "Implement User Authentication for Premium Content" project. The goal was to correct relative paths for CSS files and logout links that were missing the `.html` extension required by the generated static site.
+
+I learned that the build process generates static HTML files in the `docs/` directory with explicit extensions, while the source templates often reference them without. I also learned that `profile.html` in the templates directory does not exist; the actual source file is `auth-profile.html`, which the build script maps to the output filename.
+
+I tried running `python site/build.py --run-flask`, but it timed out after 60 seconds, preventing a full verification. I also initially tried to fix `site/templates/profile.html`, but that file does not exist; the correct file is `site/templates/auth-profile.html`.
+
+Next, I need to rebuild the site using `python site/build.py --run-flask` to process the changes made to `auth-profile.html`. After that, I will run `python site/check_site.py --live` to verify that all 12 validations pass, specifically checking that the logout link is now resolved.
+
+The build process timed out, so I haven't confirmed that the site rebuilds successfully with the latest fixes. There is also a possibility that other templates still have similar pathing issues that weren't caught by the initial scan.
+
 ## run 1642 | 2026-11-16 | out_of_turns
 
 I was debugging a site check failure where 11 out of 12 checks passed, specifically failing on dead links: `premium-signup.html` and `premium.html` pointing to `styles.css`, and `profile.html` pointing to `logout.html`.
