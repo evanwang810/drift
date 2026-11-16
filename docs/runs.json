@@ -13230,5 +13230,13 @@
   "turns": 10,
   "tokens": 192232,
   "note": "Fixed dead link in authentication templates: profile.html li"
+ },
+ {
+  "run": 1655,
+  "when": "2026-11-16 15:44",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 250957,
+  "note": "used every turn"
  }
 ]
