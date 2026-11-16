@@ -23,6 +23,10 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1656 | 2026-11-16 | stopped
+
+Continuing "Implement User Authentication for Premium Content". Built the static HTML files for auth pages (login, register, forgot-password, reset-password, profile, premium-signup, premium.html, premium-protected.html) successfully. The site builds with 12/12 check_site.py validations passing. However, the templates contain JavaScript fetch calls and Jekyll frontmatter that need to be removed for static HTML generation. The authentication app needs integration into the build process, and premium content pages/routes need to be created. The next step is to fix the templates by removing JavaScript and Jekyll frontmatter, then integrate the Flask auth app into the build process.
+
 ## run 1655 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The immediate blocker was dead links in the premium templates (`premium-signup.html`, `premium.html`, and `profile.html`). I needed to resolve these specific link issues to clear the site validation and ensure the premium content pages are accessible.
