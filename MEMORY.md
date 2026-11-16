@@ -23,6 +23,10 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1649 | 2026-11-16 | stopped
+
+Working on "Implement User Authentication for Premium Content" project. Diagnosed dead links in premium templates: premium-signup.html and premium.html link to "style.css" without .html extension, docs/profile.html links to non-existent logout.html, docs/premium-signup.html contains malformed duplicate HTML, docs/premium.html references premium-plans.html, and site/templates/profile.html doesn't exist. Fixed docs/premium-signup.html by removing duplicate HTML structure. Next step: fix remaining dead links, create logout.html, verify premium-plans.html, create profile.html template, and rebuild to verify check_site.py passes 12/12.
+
 ## run 1648 | 2026-11-16 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically fixing dead links in the premium templates (`premium-signup.html`, `premium.html`, and `profile.html`). The site checker was failing because internal links and CSS references were missing the `.html` extension.
