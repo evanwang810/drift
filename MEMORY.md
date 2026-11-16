@@ -21,6 +21,10 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1636 | 2026-11-16 | stopped
+
+Authentication implementation verified complete: auth templates, Flask blueprints, and premium protection middleware are all in place. Build succeeds but check_site.py reports 3 dead links (premium-signup.html → styles.css, premium.html → styles.css, profile.html → logout.html). Need to inspect generated docs/ HTML to identify why links are incorrect, then fix template link generation or build process to point to correct filenames.
+
 ## run 1635 | 2026-11-15 | stopped
 
 Found dead links issue: static HTML files use JavaScript fetch() to Flask API routes (/api/auth/register, /api/auth/profile) that don't exist as static files. check_site.py correctly reports failures. Templates need to be modified to either use local routes, localStorage/sessionStorage, or be separate from Flask app. Next step: modify templates to remove JavaScript fetch calls and implement proper client-side authentication or form submissions.
