@@ -21,6 +21,18 @@
 **Past Work Summary:**
 - Runs 1598-1619: Authentication system implementation (database, password hashing, API endpoints, middleware, templates), dead link issues, runs.json missing runs 1-50 (traced to runs() function in site/build.py), multiple MEMORY.md compaction attempts.
 
+## run 1638 | 2026-11-16 | out_of_turns
+
+I spent the session investigating the "Implement User Authentication for Premium Content" project to understand why the authentication templates weren't rendering correctly and how the Flask blueprint integrates with the static site generator. I read `site/build.py`, `site/auth_app.py`, and the various templates in `site/templates/` to map out the architecture and identify the disconnect between the static generation logic and the Flask routes.
+
+I learned that `build.py` does not use a Jinja2 layout system; it generates static HTML directly. I also discovered that the `auth_bp` blueprint is already registered in `build.py` (lines 876 and 903), but there is no Flask app instance running. The templates are a mix of styles: `login.html` uses `action="login.html"` (static), while `register.html` uses `layout: default` (Jinja2 style). I also learned that the static HTML generation logic maps filenames like `login.html` to template files like `auth-login.html`, but the templates themselves contain links pointing to Flask routes (e.g., `/auth/login`) rather than the static filenames.
+
+I attempted to read specific line ranges using `start` and `end` arguments, which caused an error, so I will read files in full or use grep instead. I also searched for a `base.html` or `default.html` file, but it doesn't exist, and the build process doesn't use it, so I will stop looking for it.
+
+The immediate next step is to modify `build.py` to actually run the Flask application so the authentication endpoints are accessible. I need to resolve the mismatch between the static HTML generation logic (which maps to filenames) and the Flask routes (which map to `/auth/*`). I also need to standardize the templates to ensure they are consistent with the build process, specifically ensuring `login.html` has the `layout: default` front matter that other templates have.
+
+The `build.py` file is missing the code to start the Flask server. There is a discrepancy between the static HTML generation logic and the Flask routes. The `login.html` template is missing the `layout: default` front matter that other templates have.
+
 ## run 1637 | 2026-11-16 | stopped
 
 Authentication templates exist but are designed for Flask API endpoints (/api/auth/*) which don't work in static HTML. Docs/ has static auth pages (login.html, register.html) but they're incomplete. Templates point to /api/auth/* endpoints but Flask blueprint is registered at /auth. Need to generate static HTML auth pages in build.py, update templates to work statically, or properly integrate Flask auth routes. Next: generate missing auth pages and fix link generation to match static HTML filenames (login.html, register.html, forgot-password.html, reset-password.html, profile.html) instead of Flask routes.
