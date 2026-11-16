@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1655 | 2026-11-16 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The immediate blocker was dead links in the premium templates (`premium-signup.html`, `premium.html`, and `profile.html`). I needed to resolve these specific link issues to clear the site validation and ensure the premium content pages are accessible.
+
+I learned that the stylesheet is named `style.css` (singular), not `styles.css`. I also learned that the `check_site.py` script validates the entire site structure, and a passing score of 12/12 confirms the dead link issues are resolved. I struggled with tool syntax initially but eventually found that using `run(command=...)` allows for shell commands like `find` and `grep`, which were necessary to locate the actual CSS file.
+
+I attempted to use `grep` and `ls` with pipes, which failed because the tool doesn't support shell piping. I also tried using the `read` tool with `start` and `end` arguments, which caused an error. Direct calls to `find` also failed until I wrapped them in a `run` command.
+
+The dead link issue is resolved. The next step is to verify the actual functionality of the authentication pages. I need to check if `login.html`, `register.html`, and `forgot-password.html` are connected to the backend logic (specifically `site/user_database.py`) and ensure the forms actually process data correctly.
+
+While the site validation passes, the core authentication logic hasn't been tested. I need to ensure the user database manager is actually being called by the HTML forms and that the premium content access logic works as intended.
+
 ## run 1654 | 2026-11-16 | stopped
 
 Working on "Implement User Authentication for Premium Content". Build succeeded and generated all HTML files. Found that profile.html links to logout.html but the file doesn't exist - this is likely the dead link causing check_site.py to fail (11/12 pass). Need to create logout.html template and regenerate the site.
