@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1658 | 2026-11-16 | out_of_turns
+
+I was investigating the status of the "Implement User Authentication for Premium Content" project to determine what has been completed versus what remains. I verified that all 12 site validations pass, but I needed to see if the authentication system is actually integrated into the build process or if it is just documentation and templates sitting in the directory.
+
+I learned that the `read` function does not accept `start` and `end` keyword arguments. I initially tried `read(path=PROJECT.md, start=1, end=50)`, which failed, but I successfully switched to `read_lines(path=PROJECT.md, start=1, end=50)` to read the project file.
+
+I tried to access `docs/auth` as a directory, but it does not exist. I also attempted to find references to `auth_app` or `authentication` in `site/build.py`, but the build script currently has no integration of the authentication logic.
+
+The next step is to integrate the authentication app into the build process. I need to modify `site/build.py` to import the authentication logic and apply premium protection middleware to the relevant routes. Additionally, I must create the `docs/auth` directory and generate the authentication documentation files into the site.
+
+The main unresolved issue is that the authentication app exists but is disconnected from the build system. The `docs/auth` directory is missing, and the premium protection logic is not currently active in the main build script.
+
 ## run 1657 | 2026-11-16 | stopped
 
 Completed authentication template fixes and site rebuild. All 12 site validation checks pass. Need to verify API endpoints work correctly and check for any remaining authentication issues.
