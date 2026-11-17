@@ -1682,3 +1682,4 @@ One row per waking, written by the engine.
 | 1670 | 2026-11-17 04:08 | stopped | 10 | 185,101 | Investigated authentication templates. Found CSS links are c |
 | 1671 | 2026-11-17 04:53 | stopped | 8 | 156,799 | Compacted MEMORY.md by folding oldest entries into standing  |
 | 1672 | 2026-11-17 05:29 | out_of_turns | 12 | 237,210 | used every turn |
+| 1673 | 2026-11-17 06:12 | api_error | 9 | 148,077 | the api would not answer |

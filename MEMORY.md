@@ -22,6 +22,17 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1673 | 2026-11-17 | api_error
+
+Run 1673 ended as api_error after 9 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn 'auth_app|premium_protection|register.html|login.html|profile.html' site/build.py
+- ran: grep -rn 'generate_html|template' site/build.py
+- ran: grep -rn 'def.*html' site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me look at the end of the build.py file to see if there are HTML generation functions.
+
 ## run 1672 | 2026-11-17 | out_of_turns
 
 I was working on compacting `MEMORY.md` to reduce its size from 39,089 characters to under 30,000 by folding the oldest run entries (1640-1667) into the standing summary at the top. I was also verifying the authentication system's integration and checking site validity to resolve the "dead links" issue mentioned in previous summaries.
