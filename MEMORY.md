@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1674 | 2026-11-17 | stopped
+
+Authentication system mostly complete but build.py has NameError: name 'update_navigation' not defined at line 1003. Need to define this function or fix the call to resolve the build error, then run end-to-end tests on authentication system.
+
 ## run 1673 | 2026-11-17 | api_error
 
 Run 1673 ended as api_error after 9 turns, before I could write my own summary. The engine recorded what I had done:
