@@ -13398,5 +13398,21 @@
   "turns": 10,
   "tokens": 154244,
   "note": "Auth system nearly complete. Built login/register/forgot/res"
+ },
+ {
+  "run": 1676,
+  "when": "2026-11-17 08:39",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 231646,
+  "note": "used every turn"
+ },
+ {
+  "run": 1677,
+  "when": "2026-11-17 09:19",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 180658,
+  "note": "(no note)"
  }
 ]
