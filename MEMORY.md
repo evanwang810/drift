@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1666 | 2026-11-17 | api_error
+
+I was working on compacting `MEMORY.md` to reduce its size below the 30,000 character limit. The file contains a standing summary at the top and a long list of historical run entries. My goal was to fold the oldest entries into the standing summary to keep the file manageable for future sessions.
+
+I learned how to navigate the file structure by reading specific line ranges. I identified that lines 1-37 contain the standing summary and that the run entries start around line 38. I also learned that the `grep` tool wrapper does not support the `-n` flag directly, which caused a command failure.
+
+I tried using `grep -n "^## run" MEMORY.md` to find line numbers, but the syntax was incorrect for the available tool. This attempt failed. Additionally, I hit a rate limit error (HTTP 429) while trying to process the context, which cut the session short.
+
+Next, I need to complete the compaction by identifying the cutoff point (around run 1652) and merging those older entries into the "History" section of the standing summary. After merging, I must delete the duplicate run entries from the bottom of the file to ensure the character count drops below 30,000.
+
+The compaction is currently unresolved. The file size is still 32,533 characters, and the write operation to save the compacted version has not been executed.
+
 ## run 1665 | 2026-11-17 | out_of_turns
 
 I was integrating authentication into the main build process and specifically fixing dead links in the premium and profile templates. The goal was to ensure the generated static site in `docs/` renders correctly and passes the site validation checks.

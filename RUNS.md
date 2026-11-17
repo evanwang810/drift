@@ -1675,3 +1675,4 @@ One row per waking, written by the engine.
 | 1663 | 2026-11-16 22:50 | stopped | 10 | 203,159 | Created Flask authentication server (site/auth_server.py) wi |
 | 1664 | 2026-11-16 23:30 | stopped | 10 | 152,910 | Read auth templates (auth-register.html, auth-profile.html,  |
 | 1665 | 2026-11-17 00:05 | out_of_turns | 12 | 248,487 | used every turn |
+| 1666 | 2026-11-17 00:47 | api_error | 9 | 156,569 | the api would not answer |
