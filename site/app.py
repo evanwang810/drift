@@ -1,277 +1,173 @@
-"""
-Flask application for serving the drift website with authentication API.
-"""
+"""Flask application for the repository website with authentication and premium content."""
 
-import os
-import json
+from flask import Flask, render_template, jsonify, request, session, make_response
+from functools import wraps
+import secrets
+from datetime import datetime, timedelta
 from pathlib import Path
 
-from flask import Flask, send_from_directory, render_template, redirect, url_for, request, jsonify
-from werkzeug.exceptions import NotFound
+from user_database import UserDatabase
+from password_manager import PasswordManager
 
-from site.build import build_all, page, POSTS, EXTENSIONS, NAV
-from site.auth_api import auth_bp
-from site.user_database import UserManager
-from site.password_manager import PasswordManager
+# Initialize Flask app
+app = Flask(__name__)
+app.secret_key = secrets.token_hex(32)
 
-# Create Flask app
-app = Flask(__name__, static_folder='site/static', template_folder='site/templates')
-
-# Configure session
-app.secret_key = os.getenv('SECRET_KEY', 'development-secret-key-change-in-production')
-
-# Initialize managers
-user_manager = UserManager()
+# Initialize database and password manager
+user_db = UserDatabase()
 password_manager = PasswordManager()
 
-# Import blueprint
-app.register_blueprint(auth_bp, url_prefix='/auth')
+# Premium content protected routes decorator
+def require_auth(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        session_id = request.cookies.get('session_id')
+        if not session_id:
+            return jsonify({'error': 'Authentication required'}), 401
 
+        session_data = user_db.get_session(session_id)
+        if not session_data or not session_data.get('is_valid'):
+            return jsonify({'error': 'Invalid or expired session'}), 401
 
-# Route handlers for static pages
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Premium content protection decorator
+def require_premium(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Check if route requires premium
+        request_path = request.path
+        if not request_path.startswith('/premium'):
+            return f(*args, **kwargs)
+
+        # Check if user is authenticated
+        if 'user_id' not in session:
+            return jsonify({
+                'error': 'Premium content requires authentication',
+                'premium_required': True
+            }), 401
+
+        # Get user from database
+        user_id = session['user_id']
+        user = user_db.get_user(user_id)
+
+        if not user:
+            return jsonify({
+                'error': 'User not found',
+                'premium_required': True
+            }), 404
+
+        # Check user subscription status
+        if user.get('subscription_status') != 'premium':
+            return jsonify({
+                'error': 'Premium content requires a premium subscription',
+                'premium_required': True
+            }), 403
+
+        # Check if subscription is active
+        if user.get('subscription_expires_at'):
+            expires_at = datetime.fromisoformat(user['subscription_expires_at'])
+            if expires_at < datetime.utcnow():
+                return jsonify({
+                    'error': 'Premium subscription has expired',
+                    'premium_required': True
+                }), 403
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+# Routes
 @app.route('/')
 def index():
-    """Serve the home page."""
-    if not Path('docs/index.html').exists():
-        return "Home page not found. Build the site first."
-    return send_from_directory('docs', 'index.html')
+    """Home page."""
+    return render_template('index.html')
 
+@app.route('/login')
+def login():
+    """Login page."""
+    return render_template('auth-login.html')
 
-@app.route('/runs.html')
-def runs():
-    """Serve the runs page."""
-    if not Path('docs/runs.html').exists():
-        return "Runs page not found. Build the site first."
-    return send_from_directory('docs', 'runs.html')
+@app.route('/register')
+def register():
+    """Register page."""
+    return render_template('auth-register.html')
 
+@app.route('/forgot-password')
+def forgot_password():
+    """Forgot password page."""
+    return render_template('auth-forgot-password.html')
 
-@app.route('/tools.html')
-def tools():
-    """Serve the tools page."""
-    if not Path('docs/tools.html').exists():
-        return "Tools page not found. Build the site first."
-    return send_from_directory('docs', 'tools.html')
+@app.route('/profile')
+def profile():
+    """User profile page (requires auth)."""
+    if 'user_id' not in session:
+        return jsonify({'error': 'Authentication required'}), 401
 
+    user_id = session['user_id']
+    user = user_db.get_user(user_id)
 
-@app.route('/metrics.html')
-def metrics():
-    """Serve the metrics page."""
-    if not Path('docs/metrics.html').exists():
-        return "Metrics page not found. Build the site first."
-    return send_from_directory('docs', 'metrics.html')
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
 
+    return render_template('auth-profile.html', user=user)
 
-@app.route('/knowledge_base.html')
-def knowledge_base():
-    """Serve the knowledge base page."""
-    if not Path('docs/knowledge_base.html').exists():
-        return "Knowledge base page not found. Build the site first."
-    return send_from_directory('docs', 'knowledge_base.html')
+@app.route('/premium')
+@require_premium
+def premium():
+    """Premium content page (requires premium subscription)."""
+    return render_template('premium.html')
 
+@app.route('/premium/signup')
+def premium_signup():
+    """Premium signup page (guests can see plans)."""
+    return render_template('auth-premium-signup.html')
 
-@app.route('/search.html')
-def search():
-    """Serve the search page."""
-    if not Path('docs/search.html').exists():
-        return "Search page not found. Build the site first."
-    return send_from_directory('docs', 'search.html')
-
-
-@app.route('/developer_guide.html')
-def developer_guide():
-    """Serve the developer guide page."""
-    if not Path('docs/developer_guide.html').exists():
-        return "Developer guide not found. Build the site first."
-    return send_from_directory('docs', 'developer_guide.html')
-
-
-@app.route('/contributing.html')
-def contributing():
-    """Serve the contributing page."""
-    if not Path('docs/contributing.html').exists():
-        return "Contributing page not found. Build the site first."
-    return send_from_directory('docs', 'contributing.html')
-
-
-@app.route('/troubleshooting.html')
-def troubleshooting():
-    """Serve the troubleshooting page."""
-    if not Path('docs/troubleshooting.html').exists():
-        return "Troubleshooting page not found. Build the site first."
-    return send_from_directory('docs', 'troubleshooting.html')
-
-
-@app.route('/maintenance_checklist.html')
-def maintenance_checklist():
-    """Serve the maintenance checklist page."""
-    if not Path('docs/maintenance_checklist.html').exists():
-        return "Maintenance checklist not found. Build the site first."
-    return send_from_directory('docs', 'maintenance_checklist.html')
-
-
-@app.route('/feedback.html')
-def feedback():
-    """Serve the feedback page."""
-    if not Path('docs/feedback.html').exists():
-        return "Feedback page not found. Build the site first."
-    return send_from_directory('docs', 'feedback.html')
-
-
-@app.route('/feedback-dashboard.html')
-def feedback_dashboard():
-    """Serve the feedback dashboard page."""
-    if not Path('docs/feedback-dashboard.html').exists():
-        return "Feedback dashboard not found. Build the site first."
-    return send_from_directory('docs', 'feedback-dashboard.html')
-
-
-@app.route('/analytics-dashboard.html')
-def analytics_dashboard():
-    """Serve the analytics dashboard page."""
-    if not Path('docs/analytics-dashboard.html').exists():
-        return "Analytics dashboard not found. Build the site first."
-    return send_from_directory('docs', 'analytics-dashboard.html')
-
-
-@app.route('/authentication-data-model.html')
-def authentication_data_model():
-    """Serve the authentication data model page."""
-    if not Path('docs/authentication-data-model.html').exists():
-        return "Authentication data model page not found. Build the site first."
-    return send_from_directory('docs', 'authentication-data-model.html')
-
-
-@app.route('/newsletter-subscription.html')
-def newsletter_subscription():
-    """Serve the newsletter subscription page."""
-    if not Path('docs/newsletter-subscription.html').exists():
-        return "Newsletter subscription page not found. Build the site first."
-    return send_from_directory('docs', 'newsletter-subscription.html')
-
-
-@app.route('/quarterly-review-template.html')
-def quarterly_review_template():
-    """Serve the quarterly review template page."""
-    if not Path('docs/quarterly-review-template.html').exists():
-        return "Quarterly review template not found. Build the site first."
-    return send_from_directory('docs', 'quarterly-review-template.html')
-
-
-@app.route('/quarterly-review-procedure.html')
-def quarterly_review_procedure():
-    """Serve the quarterly review procedure page."""
-    if not Path('docs/quarterly-review-procedure.html').exists():
-        return "Quarterly review procedure not found. Build the site first."
-    return send_from_directory('docs', 'quarterly-review-procedure.html')
-
-
-@app.route('/quarterly-review-outcomes-q1-2027.html')
-def quarterly_review_outcomes_q1_2027():
-    """Serve the quarterly review outcomes page."""
-    if not Path('docs/quarterly-review-outcomes-q1-2027.html').exists():
-        return "Quarterly review outcomes page not found. Build the site first."
-    return send_from_directory('docs', 'quarterly-review-outcomes-q1-2027.html')
-
-
-@app.route('/auth/login', methods=['GET', 'POST'])
-def auth_login():
-    """Serve the login page or handle login POST."""
-    if request.method == 'GET':
-        return render_template('auth-login.html')
-    elif request.method == 'POST':
-        # Handle login via POST to /auth/login
-        data = request.get_json()
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Login endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/register', methods=['GET', 'POST'])
-def auth_register():
-    """Serve the register page or handle registration POST."""
-    if request.method == 'GET':
-        return render_template('auth-register.html')
-    elif request.method == 'POST':
-        # Handle registration via POST to /auth/register
-        data = request.get_json()
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Registration endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/profile', methods=['GET'])
-def auth_profile():
-    """Serve the profile page."""
-    if not Path('docs/auth-profile.html').exists():
-        return "Profile page not found. Build the site first."
-    return send_from_directory('docs', 'auth-profile.html')
-
-
-@app.route('/auth/logout', methods=['POST'])
-def auth_logout():
-    """Serve the logout page or handle logout POST."""
-    if request.method == 'GET':
-        return render_template('auth-login.html')
-    elif request.method == 'POST':
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Logout endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/reset-password', methods=['GET', 'POST'])
-def auth_reset_password():
-    """Serve the reset password page or handle reset POST."""
-    if request.method == 'GET':
-        return render_template('auth-password-reset.html')
-    elif request.method == 'POST':
-        # Handle password reset via POST to /auth/reset-password
-        data = request.get_json()
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Reset password endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/reset-password-confirm', methods=['GET', 'POST'])
-def auth_reset_password_confirm():
-    """Serve the password reset confirmation page."""
-    if request.method == 'GET':
-        token = request.args.get('token', '')
-        return render_template('auth-password-reset-confirm.html', token=token)
-    elif request.method == 'POST':
-        # Handle password reset confirmation via POST to /auth/reset-password-confirm
-        data = request.get_json()
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Reset password confirmation endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/change-password', methods=['POST'])
-def auth_change_password():
-    """Serve the change password page or handle change password POST."""
-    if request.method == 'POST':
-        # This will be handled by the auth_bp blueprint
-        return jsonify({'message': 'Change password endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/verify-token', methods=['GET'])
-def auth_verify_token():
-    """Serve the verify token endpoint."""
-    # This will be handled by the auth_bp blueprint
-    return jsonify({'message': 'Verify token endpoint handled by auth_bp'}), 200
-
-
-@app.route('/auth/premium', methods=['GET'])
-def auth_premium():
-    """Serve the check premium endpoint."""
-    # This will be handled by the auth_bp blueprint
-    return jsonify({'message': 'Premium check endpoint handled by auth_bp'}), 200
-
-
-# API routes for authentication
-@app.route('/api/auth/login', methods=['POST'])
-def api_login():
-    """API endpoint for login."""
+# API Endpoints (from auth_app.py)
+@app.route('/api/auth/register', methods=['POST'])
+def register():
+    """Register a new user account."""
     data = request.get_json()
+
+    username = data.get('username', '').strip()
+    email = data.get('email', '').strip().lower()
+    password = data.get('password', '')
+
+    # Validation
+    if not username or len(username) < 3:
+        return jsonify({'error': 'Username must be at least 3 characters'}), 400
+
+    if not email or '@' not in email:
+        return jsonify({'error': 'Invalid email address'}), 400
+
+    if not password or len(password) < 8:
+        return jsonify({'error': 'Password must be at least 8 characters'}), 400
+
+    # Check if user already exists
+    if user_db.user_exists(username):
+        return jsonify({'error': 'Username already taken'}), 409
+
+    if user_db.email_exists(email):
+        return jsonify({'error': 'Email already registered'}), 409
+
+    # Create user
+    user_id = user_db.create_user(username, email, password)
+    if not user_id:
+        return jsonify({'error': 'Failed to create user'}), 500
+
+    return jsonify({'message': 'Registration successful', 'user_id': user_id}), 201
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    """User login endpoint."""
+    data = request.get_json()
+
     username = data.get('username', '').strip()
     password = data.get('password', '')
 
     # Get user
-    user = user_manager.get_user(username)
+    user = user_db.get_user_by_username(username)
     if not user:
         return jsonify({'error': 'Invalid credentials'}), 401
 
@@ -279,244 +175,222 @@ def api_login():
     if not password_manager.verify_password(password, user['password_hash']):
         return jsonify({'error': 'Invalid credentials'}), 401
 
-    # Check if account is active
-    if not user.get('is_active', True):
-        return jsonify({'error': 'Account is inactive'}), 403
+    # Create session
+    session_id = secrets.token_hex(32)
+    expires_at = datetime.utcnow() + timedelta(hours=24)
+    user_db.create_session(session_id, user['user_id'], expires_at)
 
-    # Set up session
-    session_id = user_manager.create_session(user['id'])
-    session_data = user_manager.get_session(session_id)
-
-    return jsonify({
+    # Set secure cookie
+    response = jsonify({
         'message': 'Login successful',
-        'session_id': session_id,
+        'user_id': user['user_id'],
         'username': user['username'],
-        'email': user['email'],
-        'premium': user.get('premium', False)
-    }), 200
+        'email': user['email']
+    })
+    response.set_cookie('session_id', session_id, httponly=True, secure=True, samesite='Strict')
 
+    return response, 200
 
 @app.route('/api/auth/logout', methods=['POST'])
-def api_logout():
-    """API endpoint for logout."""
-    session_id = request.headers.get('X-Session-ID')
+def logout():
+    """User logout endpoint."""
+    session_id = request.cookies.get('session_id')
+
     if session_id:
-        user_manager.end_session(session_id)
+        user_db.delete_session(session_id)
 
-    return jsonify({'message': 'Logout successful'}), 200
+    response = jsonify({'message': 'Logout successful'})
+    response.set_cookie('session_id', '', expires=0)
+    return response, 200
 
-
-@app.route('/api/auth/profile', methods=['GET'])
-def api_auth_profile():
-    """API endpoint for getting user profile."""
-    session_id = request.headers.get('X-Session-ID')
+@app.route('/api/auth/profile', methods=['POST'])
+def update_profile():
+    """Update user profile."""
+    session_id = request.cookies.get('session_id')
     if not session_id:
-        return jsonify({'error': 'Not authenticated'}), 401
+        return jsonify({'error': 'Authentication required'}), 401
 
-    user_data = user_manager.get_session(session_id)
-    if not user_data:
+    session_data = user_db.get_session(session_id)
+    if not session_data or not session_data.get('is_valid'):
         return jsonify({'error': 'Invalid session'}), 401
 
-    user = user_manager.get_user_by_id(user_data['user_id'])
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
+    data = request.get_json()
+    user_id = session_data['user_id']
 
-    return jsonify({
-        'user_id': user['id'],
-        'username': user['username'],
-        'email': user['email'],
-        'premium': user.get('premium', False),
-        'created_at': user.get('created_at'),
-        'is_active': user.get('is_active', True)
-    }), 200
+    # Update email if provided
+    if 'email' in data:
+        if user_db.email_exists(data['email']) and user_db.get_user_by_email(data['email'])['user_id'] != user_id:
+            return jsonify({'error': 'Email already registered'}), 409
+        user_db.update_user_email(user_id, data['email'])
 
+    # Update username if provided
+    if 'username' in data:
+        if user_db.user_exists(data['username']) and user_db.get_user_by_username(data['username'])['user_id'] != user_id:
+            return jsonify({'error': 'Username already taken'}), 409
+        user_db.update_user_username(user_id, data['username'])
 
-@app.route('/api/auth/change-password', methods=['POST'])
-def api_change_password():
-    """API endpoint for changing password."""
-    session_id = request.headers.get('X-Session-ID')
+    # Update password if provided
+    if 'new_password' in data and data['new_password']:
+        if not password_manager.verify_password(data.get('old_password', ''), user_db.get_user(user_id)['password_hash']):
+            return jsonify({'error': 'Current password is incorrect'}), 401
+        user_db.update_user_password(user_id, data['new_password'])
+
+    return jsonify({'message': 'Profile updated successfully'})
+
+@app.route('/api/auth/status', methods=['GET'])
+def auth_status():
+    """Check authentication status."""
+    session_id = request.cookies.get('session_id')
     if not session_id:
-        return jsonify({'error': 'Not authenticated'}), 401
+        return jsonify({'authenticated': False})
 
-    data = request.get_json()
-    current_password = data.get('current_password', '')
-    new_password = data.get('new_password', '')
-    confirm_password = data.get('confirm_password', '')
+    session_data = user_db.get_session(session_id)
+    if not session_data or not session_data.get('is_valid'):
+        return jsonify({'authenticated': False})
 
-    # Validate input
-    if not current_password or not new_password or not confirm_password:
-        return jsonify({'error': 'All password fields are required'}), 400
-
-    if new_password != confirm_password:
-        return jsonify({'error': 'New passwords do not match'}), 400
-
-    if len(new_password) < 8:
-        return jsonify({'error': 'New password must be at least 8 characters'}), 400
-
-    # Get user
-    user_data = user_manager.get_session(session_id)
-    if not user_data:
-        return jsonify({'error': 'Invalid session'}), 401
-
-    user = user_manager.get_user_by_id(user_data['user_id'])
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-
-    # Verify current password
-    if not password_manager.verify_password(current_password, user['password_hash']):
-        return jsonify({'error': 'Current password is incorrect'}), 401
-
-    # Update password
-    new_password_hash = password_manager.hash_password(new_password)
-    user_manager.update_password(user['id'], new_password_hash)
-
-    return jsonify({'message': 'Password changed successfully'}), 200
-
-
-@app.route('/api/auth/reset-password', methods=['POST'])
-def api_reset_password():
-    """API endpoint for password reset."""
-    data = request.get_json()
-    email = data.get('email', '').strip()
-
-    if not email:
-        return jsonify({'error': 'Email is required'}), 400
-
-    # Get user by email
-    user = user_manager.get_user_by_email(email)
+    user_id = session_data['user_id']
+    user = user_db.get_user(user_id)
 
     if not user:
-        # Don't reveal if email exists for security
-        return jsonify({'message': 'If an account exists with this email, a reset link will be sent'}), 200
-
-    # Generate reset token
-    token = secrets.token_urlsafe(32)
-    expiry = datetime.utcnow() + TOKEN_EXPIRY
-
-    # Store reset token
-    user_manager.store_reset_token(user['id'], token, expiry)
-
-    # In production, send actual email here
-    # For now, return the reset URL (this would normally be an email)
-    reset_url = f"{os.getenv('FRONTEND_URL', 'http://localhost:5000')}/auth/reset-password-confirm?token={token}"
-
-    return jsonify({
-        'message': 'Password reset link sent',
-        'reset_url': reset_url
-    }), 200
-
-
-@app.route('/api/auth/reset-password-confirm', methods=['POST'])
-def api_reset_password_confirm():
-    """API endpoint for password reset confirmation."""
-    data = request.get_json()
-    token = data.get('token', '')
-    new_password = data.get('new_password', '')
-    confirm_password = data.get('confirm_password', '')
-
-    # Validate input
-    if not token or not new_password or not confirm_password:
-        return jsonify({'error': 'All fields are required'}), 400
-
-    if new_password != confirm_password:
-        return jsonify({'error': 'Passwords do not match'}), 400
-
-    if len(new_password) < 8:
-        return jsonify({'error': 'Password must be at least 8 characters'}), 400
-
-    # Verify token
-    user = user_manager.verify_reset_token(token)
-
-    if not user:
-        return jsonify({'error': 'Invalid or expired token'}), 400
-
-    # Update password
-    new_password_hash = password_manager.hash_password(new_password)
-    user_manager.update_password(user['id'], new_password_hash)
-    user_manager.clear_reset_token(user['id'])
-
-    return jsonify({'message': 'Password reset successfully'}), 200
-
-
-@app.route('/api/auth/verify-token', methods=['GET'])
-def api_verify_token():
-    """API endpoint for verifying authentication token."""
-    session_id = request.headers.get('X-Session-ID')
-    if not session_id:
-        return jsonify({'error': 'Not authenticated'}), 401
-
-    user_data = user_manager.get_session(session_id)
-    if not user_data:
-        return jsonify({'error': 'Invalid session'}), 401
-
-    user = user_manager.get_user_by_id(user_data['user_id'])
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'authenticated': False})
 
     return jsonify({
         'authenticated': True,
-        'user_id': user['id'],
+        'user_id': user['user_id'],
         'username': user['username'],
-        'premium': user.get('premium', False)
-    }), 200
+        'email': user['email'],
+        'subscription_status': user.get('subscription_status', 'free'),
+        'subscription_expires_at': user.get('subscription_expires_at')
+    })
 
+@app.route('/api/auth/reset-password', methods=['POST'])
+def reset_password():
+    """Request password reset."""
+    data = request.get_json()
+    email = data.get('email', '').strip().lower()
 
-@app.route('/api/auth/premium', methods=['GET'])
-def api_premium():
-    """API endpoint for checking premium access."""
-    session_id = request.headers.get('X-Session-ID')
-    if not session_id:
-        return jsonify({'premium': False}), 200
+    if not email or '@' not in email:
+        return jsonify({'error': 'Invalid email address'}), 400
 
-    user_data = user_manager.get_session(session_id)
-    if not user_data:
-        return jsonify({'premium': False}), 200
-
-    user = user_manager.get_user_by_id(user_data['user_id'])
+    # Check if user exists
+    user = user_db.get_user_by_email(email)
     if not user:
-        return jsonify({'premium': False}), 200
+        # Don't reveal if email exists for security
+        return jsonify({'message': 'If an account exists with this email, you will receive reset instructions'}), 200
 
-    return jsonify({'premium': user.get('premium', False)}), 200
+    # Generate reset token
+    reset_token = secrets.token_hex(32)
+    expires_at = datetime.utcnow() + timedelta(hours=1)
+    user_db.create_password_reset(reset_token, user['user_id'], expires_at)
 
+    # Here you would normally send an email with the reset token
+    # For now, we'll store it in the database for demo purposes
+    return jsonify({'message': 'Password reset instructions sent to your email'}), 200
 
-# Serve static files
-@app.route('/css/<path:filename>')
-def serve_css(filename):
-    """Serve CSS files."""
-    return send_from_directory('site/static/css', filename)
+@app.route('/api/auth/reset-password/confirm', methods=['POST'])
+def reset_password_confirm():
+    """Confirm password reset with token."""
+    data = request.get_json()
+    token = data.get('token', '')
+    new_password = data.get('new_password', '')
 
+    if not token:
+        return jsonify({'error': 'Reset token is required'}), 400
 
-@app.route('/js/<path:filename>')
-def serve_js(filename):
-    """Serve JavaScript files."""
-    return send_from_directory('site/static/js', filename)
+    if not new_password or len(new_password) < 8:
+        return jsonify({'error': 'Password must be at least 8 characters'}), 400
 
+    # Validate token
+    reset_data = user_db.get_password_reset(token)
+    if not reset_data or not reset_data.get('is_valid'):
+        return jsonify({'error': 'Invalid or expired reset token'}), 400
 
-@app.route('/images/<path:filename>')
-def serve_images(filename):
-    """Serve image files."""
-    return send_from_directory('site/static/images', filename)
+    user_id = reset_data['user_id']
+    user_db.update_user_password(user_id, new_password)
+    user_db.delete_password_reset(token)
 
+    return jsonify({'message': 'Password reset successful. You can now login with your new password'})
 
-# Build the site
-@app.before_request
-def build_site():
-    """Build the site before serving any request."""
-    build_all()
+# Premium routes
+@app.route('/premium/plan', methods=['GET'])
+def premium_plan():
+    """View premium plan details."""
+    return render_template('premium-plans.html')
 
+@app.route('/api/premium/subscribe', methods=['POST'])
+def subscribe():
+    """Subscribe to premium plan."""
+    data = request.get_json()
+    plan_type = data.get('plan', 'monthly')
 
-# Error handlers
-@app.errorhandler(404)
-def not_found(error):
-    """Handle 404 errors."""
-    return render_template('404.html'), 404
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        return jsonify({'error': 'Authentication required'}), 401
 
+    session_data = user_db.get_session(session_id)
+    if not session_data or not session_data.get('is_valid'):
+        return jsonify({'error': 'Invalid session'}), 401
 
-@app.errorhandler(500)
-def internal_error(error):
-    """Handle 500 errors."""
-    return render_template('500.html'), 500
+    user_id = session_data['user_id']
+    user = user_db.get_user(user_id)
 
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Calculate subscription duration
+    if plan_type == 'monthly':
+        duration = timedelta(days=30)
+    elif plan_type == 'yearly':
+        duration = timedelta(days=365)
+    else:
+        return jsonify({'error': 'Invalid plan type'}), 400
+
+    # Calculate expiration date
+    expires_at = datetime.utcnow() + duration
+
+    # Update user subscription
+    user_db.update_user_subscription(user_id, 'premium', expires_at.isoformat())
+
+    return jsonify({
+        'message': 'Premium subscription activated successfully',
+        'subscription_status': 'premium',
+        'subscription_expires_at': expires_at.isoformat()
+    })
+
+@app.route('/api/premium/cancel', methods=['POST'])
+def cancel_subscription():
+    """Cancel premium subscription."""
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        return jsonify({'error': 'Authentication required'}), 401
+
+    session_data = user_db.get_session(session_id)
+    if not session_data or not session_data.get('is_valid'):
+        return jsonify({'error': 'Invalid session'}), 401
+
+    user_id = session_data['user_id']
+    user = user_db.get_user(user_id)
+
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Cancel subscription (set to free)
+    user_db.update_user_subscription(user_id, 'free', None)
+
+    return jsonify({'message': 'Premium subscription cancelled successfully'})
+
+# Protected content routes
+@app.route('/premium/content')
+@require_premium
+def premium_content():
+    """Protected premium content page."""
+    return render_template('premium-content.html')
+
+@app.route('/premium/protected')
+@require_premium
+def protected_content():
+    """Another protected content page."""
+    return render_template('premium-protected.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

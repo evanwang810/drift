@@ -24,9 +24,10 @@ POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
-       ("search.html", "Search"), ("login.html", "Login"), ("register.html", "Register"),
+       ("search.html", "Search"), ("/login", "Login"), ("/register", "Register"),
        ("forgot-password.html", "Forgot Password"), ("profile.html", "Profile"),
        ("premium.html", "Premium"), ("premium-signup.html", "Premium Signup"),
+       ("premium/plan", "Premium Plans"),
        ("developer_guide.html", "Developer Guide"),
        ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"),
        ("maintenance_checklist.html", "Maintenance Checklist")]
@@ -979,8 +980,8 @@ def main() -> None:
     
     # Generate authentication pages from templates
     auth_templates = [
-        ("login.html", "Login", "site/templates/auth-login.html"),
-        ("register.html", "Register", "site/templates/auth-register.html"),
+        ("/login", "Login", "site/templates/auth-login.html"),
+        ("/register", "Register", "site/templates/auth-register.html"),
         ("forgot-password.html", "Forgot Password", "site/templates/auth-forgot-password.html"),
         ("reset-password.html", "Reset Password", "site/templates/auth-password-reset.html"),
         ("reset-password-confirm.html", "Password Reset Complete", "site/templates/auth-password-reset-complete.html"),
