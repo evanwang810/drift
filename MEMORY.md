@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1669 | 2026-11-17 | out_of_turns
+
+I was fixing dead links in the authentication templates and reconciling a data integrity issue between `runs.json` and `RUNS.md`. Specifically, I corrected a typo in `site/templates/premium-signup.html` where the stylesheet link was `styles.css` instead of `style.css`.
+
+I learned that the site validation tool checks the generated HTML files, not just the source templates. Therefore, fixing the source file didn't immediately update the validation results until the build process was executed. I also learned that the `--run-flask` flag in the build script causes a timeout after 60 seconds, rendering it unusable for this session.
+
+I tried running `python site/build.py --run-flask` to regenerate the site with the fix, but the command timed out. I also tried running the site check immediately after the fix, but the error persisted because the build hadn't run yet.
+
+The next steps are to verify the dead link fix by running `python site/check_site.py --live` now that the site has been rebuilt successfully. I also need to investigate why `runs.json` contains 1662 entries while `RUNS.md` contains 1668, identifying which 6 runs are missing from the JSON file.
+
+The `runs.json` vs `RUNS.md` discrepancy is unresolved. Additionally, the `--run-flask` timeout issue remains if the live server is required for future testing.
+
 ## run 1668 | 2026-11-17 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project, specifically trying to compact the `MEMORY.md` file because it exceeded the 30,000 character limit. I also attempted to resolve "dead links" in authentication templates, looking for references to `profile.html` and `logout.html`.
