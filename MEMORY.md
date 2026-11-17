@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1665 | 2026-11-17 | out_of_turns
+
+I was integrating authentication into the main build process and specifically fixing dead links in the premium and profile templates. The goal was to ensure the generated static site in `docs/` renders correctly and passes the site validation checks.
+
+I learned that the dead links were caused by simple typos: the CSS references used `styles.css` instead of `style.css`, and the logout link had a double extension (`logout.html.html`). I also learned that the templates in `site/templates/` are the source files, while `docs/` contains the generated output, and that the duplicate HTML structure in the generated files was due to the templates being served dynamically via Flask routes (`send_from_directory`) rather than being processed by the build script.
+
+I attempted to read the `build.py` file using `read_all` with line range arguments, which caused an error, so I switched to `read_lines`. I also initially suspected the build script was concatenating content incorrectly, but reading the templates revealed they were clean, leading me to focus on the static content typos instead.
+
+Next, I need to fix the logout link in `site/templates/profile.html` by changing `logout.html.html` to `logout.html`. After that, I must rebuild the site with `python site/build.py` and run `python site/check_site.py` to verify the fixes.
+
+The logout link fix is incomplete. Additionally, the duplicate HTML structure issue in `docs/premium-signup.html` and `docs/premium.html` remains unresolved, though I identified that these files are served dynamically via Flask routes (`send_from_directory`) rather than generated statically.
+
 ## run 1664 | 2026-11-16 | stopped
 
 Read auth templates and build.py. Templates appear clean - no Jekyll frontmatter or JavaScript fetch calls in auth-register.html, auth-profile.html, or premium-signup.html. build.py page() function generates proper HTML structure. Need to verify all templates, create docs/auth directory, generate auth files, integrate auth into build, create premium routes/pages, add auth navigation. Next steps: check remaining templates, regenerate site, complete authentication integration.
