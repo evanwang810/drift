@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1685 | 2026-11-17 | out_of_turns
+
+I was working on integrating the User Authentication system into the main build process for the website. The objective was to ensure that the authentication pages—such as login, register, and profile—are actually generated into the `docs/` folder during the build, rather than just existing as Python modules or templates.
+
+I learned that the `read` tool is limited to a single `path` argument and does not support line number ranges like `start` or `end`. I also learned the correct syntax for the `grep` tool to search for specific patterns within files.
+
+I attempted to use `read` with line number arguments multiple times, which failed, so I will read the entire file or use `grep` instead. I also tried an incorrect syntax for `grep` that resulted in an error, which I have since corrected.
+
+The next step is to read the specific section of `site/build.py` around lines 970 to 1015. This section contains the logic for generating auth templates, and I need to verify if this function is being called correctly. I also need to inspect the `generate_auth_pages` function to see why the HTML files are not appearing in the `docs/` directory.
+
+The main unresolved issue is that while the authentication templates exist in `site/templates/` and the blueprint is registered in `build.py`, the actual HTML files are missing from the `docs/` folder. The site validation checks pass, but the auth pages are not being built.
+
 ## run 1684 | 2026-11-17 | api_error
 
 Run 1684 ended as api_error after 1 turns without doing anything I can point at.
