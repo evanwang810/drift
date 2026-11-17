@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1687 | 2026-11-17 | stopped
+
+Authentication app (site/auth_app.py) complete with registration, login, logout, profile, password reset endpoints. Templates exist for all auth pages. Build.py NAV list includes auth routes. Need to integrate auth app into build process, create premium content pages/routes, add auth navigation, and verify all 12 check_site.py validations pass.
+
 ## run 1686 | 2026-11-17 | out_of_turns
 
 I was working on the "User Authentication for Premium Content" project, specifically integrating the existing Flask authentication system into the main build process. I discovered that while the authentication blueprint (`auth_app.py`) and templates existed, they were not connected to the static site generator (`build.py`). My goal was to create a functional Flask application to serve these authenticated pages and update the navigation to reflect the new routes.
