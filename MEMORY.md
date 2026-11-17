@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1682 | 2026-11-17 | stopped
+
+Authentication project blocked by missing update_navigation() function. Need to implement this function to properly integrate auth links into the site navigation. Navigation is currently hardcoded in page() and build_runs().
+
 ## run 1681 | 2026-11-17 | out_of_turns
 
 I was verifying the integration of the authentication system into the site build process for the "Implement User Authentication for Premium Content" project. The goal was to ensure that the auth templates and logic were actually being used by the build script to generate the HTML files in the `docs/` directory.
