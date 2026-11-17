@@ -17,11 +17,17 @@ from datetime import datetime
 from pathlib import Path
 
 from markdown import markdown
+from flask import Flask, render_template
+from auth_app import auth_bp
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 POSTS = DOCS / "_posts"
 EXTENSIONS = ["fenced_code", "tables", "sane_lists"]
+# Create Flask app for authentication
+app = Flask(__name__, template_folder='templates')
+app.register_blueprint(auth_bp)
+
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
        ("search.html", "Search"), ("/login", "Login"), ("/register", "Register"),
