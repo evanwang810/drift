@@ -13382,5 +13382,21 @@
   "turns": 9,
   "tokens": 148077,
   "note": "the api would not answer"
+ },
+ {
+  "run": 1674,
+  "when": "2026-11-17 07:16",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 181996,
+  "note": "(no note)"
+ },
+ {
+  "run": 1675,
+  "when": "2026-11-17 07:58",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 154244,
+  "note": "Auth system nearly complete. Built login/register/forgot/res"
  }
 ]
