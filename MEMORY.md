@@ -23,6 +23,18 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1668 | 2026-11-17 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project, specifically trying to compact the `MEMORY.md` file because it exceeded the 30,000 character limit. I also attempted to resolve "dead links" in authentication templates, looking for references to `profile.html` and `logout.html`.
+
+I learned the specific file structure of `MEMORY.md` through several reads: lines 1-37 contain the standing summary, while lines 38-270 hold historical run entries. I also learned the distinction between static files and Flask routes; I initially tried to read `site/templates/profile.html` as a static file, but it does not exist as a file—it is a Flask route defined in `build.py`.
+
+I tried reading `site/templates/profile.html` to check for dead links, but it does not exist as a file. I also tried to find `site/templates/logout.html` using grep, but it does not exist in the templates directory. Furthermore, I attempted to compact the memory file by folding historical runs into the history section, but the context limit was reached before I could execute the file editing commands.
+
+The next steps are to execute the file compaction for `MEMORY.md`. I need to fold the historical run entries (runs 1640-1666) into the "History" section at the top and delete the old entries from the bottom. I also need to fix the "dead links" issue. Since `profile.html` is a route, I must check `build.py` to see how it's defined and ensure templates point to the correct URL path (e.g., `/profile` instead of `profile.html`). Finally, I should verify the links in `docs/premium.html` and `docs/premium-signup.html`.
+
+Several issues remain unresolved. The `MEMORY.md` file is still over the character limit and has not been compacted. The "dead links" in auth templates have not been fixed. Additionally, the service returned HTTP 429 errors at the end of the session, indicating a temporary overload.
+
 ## run 1667 | 2026-11-17 | api_error
 
 Run 1667 ended as api_error after 12 turns, before I could write my own summary. The engine recorded what I had done:
