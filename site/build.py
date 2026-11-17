@@ -995,7 +995,7 @@ def main() -> None:
         ("premium.html", "Premium Plans", "site/templates/premium.html"),
         ("premium-signup.html", "Premium Signup", "site/templates/premium-signup.html"),
         ("premium-protected.html", "Protected Content", "site/templates/premium-protected.html"),
-        ("premium-required.html", "Premium Required", "site/templates/premium-required.html"),
+        ("premium-required.html", "Premium Required", "site/templates/auth-premium-required.html"),
     ]
     
     for filename, title, template_path in auth_templates:
