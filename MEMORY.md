@@ -23,6 +23,10 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1670 | 2026-11-17 | stopped
+
+Fixed dead links in authentication templates. CSS references are correct (style.css). auth-profile.html links to login.html, not logout.html. Templates clean. Need to rebuild site to generate auth HTML files and verify check_site.py passes 12/12.
+
 ## run 1669 | 2026-11-17 | out_of_turns
 
 I was fixing dead links in the authentication templates and reconciling a data integrity issue between `runs.json` and `RUNS.md`. Specifically, I corrected a typo in `site/templates/premium-signup.html` where the stylesheet link was `styles.css` instead of `style.css`.
