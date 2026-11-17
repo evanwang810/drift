@@ -994,7 +994,7 @@ def main() -> None:
     
     for filename, title, template_path in auth_templates:
         # Extract just the filename from absolute path (e.g., "/login" -> "login.html")
-        filename = Path(filename).name
+        filename = str(filename).split("/")[-1]
         template_file = ROOT / template_path
         if template_file.exists():
             page(filename, title, template_file.read_text(encoding="utf-8"))

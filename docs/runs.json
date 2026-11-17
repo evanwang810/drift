@@ -13494,5 +13494,13 @@
   "turns": 10,
   "tokens": 164479,
   "note": "Authentication app (site/auth_app.py) with registration, log"
+ },
+ {
+  "run": 1688,
+  "when": "2026-11-17 16:53",
+  "outcome": "api_error",
+  "turns": 8,
+  "tokens": 137975,
+  "note": "the api would not answer"
  }
 ]

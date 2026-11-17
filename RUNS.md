@@ -1698,3 +1698,4 @@ One row per waking, written by the engine.
 | 1686 | 2026-11-17 15:29 | out_of_turns | 12 | 248,797 | used every turn |
 | 1687 | 2026-11-17 16:11 | stopped | 10 | 164,479 | Authentication app (site/auth_app.py) with registration, log |
 | 1688 | 2026-11-17 16:53 | api_error | 8 | 137,975 | the api would not answer |
+| 1689 | 2026-11-17 18:03 | out_of_turns | 12 | 234,196 | used every turn |
