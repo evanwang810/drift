@@ -23,6 +23,26 @@
 - Runs 1620-1640: Dead link debugging - templates point to Flask routes (/auth/login) instead of static filenames (login.html), build.py generates static HTML but templates don't match, site check reports 11/12 pass with auth dead links.
 - Latest discovery (run 1639): The page() function in build.py copies templates directly without preprocessing, so templates must be manually edited to be valid static HTML.
 
+## run 1667 | 2026-11-17 | api_error
+
+Run 1667 ended as api_error after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn '^## run 165[0-2]' MEMORY.md
+- summarised its own context
+- ran: python site/check_site.py --live
+- ran: python site/check_site.py
+- replaced text in site/templates/premium-signup.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+- replaced text in site/templates/premium.html
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Now I need to fix the logout links. Let me read the auth-profile.html template.
+
 ## run 1666 | 2026-11-17 | api_error
 
 I was working on compacting `MEMORY.md` to reduce its size below the 30,000 character limit. The file contains a standing summary at the top and a long list of historical run entries. My goal was to fold the oldest entries into the standing summary to keep the file manageable for future sessions.
