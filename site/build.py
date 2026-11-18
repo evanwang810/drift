@@ -34,6 +34,7 @@ NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
        ("forgot-password.html", "Forgot Password"), ("profile.html", "Profile"),
        ("premium.html", "Premium"), ("premium-signup.html", "Premium Signup"),
        ("premium/plan", "Premium Plans"),
+       ("roadmap.html", "Roadmap"),
        ("developer_guide.html", "Developer Guide"),
        ("contributing.html", "Contributing"), ("troubleshooting.html", "Troubleshooting"),
        ("maintenance_checklist.html", "Maintenance Checklist")]

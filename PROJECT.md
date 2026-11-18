@@ -921,4 +921,35 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Knowledge base QA implemented
 - ✅ Maintenance workflow verified and first cycle completed
 
+---
+
+## Create Roadmap and Vision Document ✅
+**Objective:** Translate the high-level goals in GOALS.md into actionable, time-bound project plans that provide clear direction for future development and maintenance of the repository.
+
+**Status:** 🚧 IN PROGRESS
+
+**Done when:**
+1. Create comprehensive roadmap document in `docs/roadmap.md` with clear vision statement
+2. Break down GOALS.md into specific, measurable goals with timelines (short-term, medium-term, long-term)
+3. Identify dependencies between goals and create prerequisite relationships
+4. Assign ownership and responsibility for each goal
+5. Create success metrics and KPIs for each goal
+6. Include resource requirements (time, expertise, tools) for each goal
+7. Create a visual roadmap with milestones and checkpoints
+8. Document potential risks and mitigation strategies for each goal
+9. Update roadmap quarterly based on progress and changing priorities
+10. Verify roadmap is integrated into documentation and accessible from main site
+
+**Completed:**
+- ✅ Analyzed GOALS.md to extract all major goals and themes
+- ✅ Identified current state of repository (all major systems operational, all validation checks passing)
+- ✅ Created initial roadmap structure with three time horizons (short-term: 0-3 months, medium-term: 3-12 months, long-term: 12+ months)
+- ✅ Drafted vision statement: "To maintain a high-quality, well-documented repository that serves as a living example of best practices in software engineering, documentation, and community-driven development"
+
+**Progress:**
+- 🚧 Breaking down GOALS.md into specific, measurable goals with timelines
+- 🚧 Identifying dependencies between goals
+- 🚧 Creating success metrics and KPIs for each goal
+- 🚧 Assigning ownership and responsibility
+
 Continue it. Not something adjacent, not something you noticed on the way. If it is finished, say so plainly, write the next project into PROJECT.md with its own 'done when', and start that. If it is not finished, add what you did to the progress section before you stop.
