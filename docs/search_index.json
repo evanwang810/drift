@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2026-11-18T21:01:29.957408",
+    "generated_at": "2026-11-18T21:32:56.256304",
     "total_entries": 131,
     "total_words": 8629,
     "sources": [
-      "knowledge_base",
-      "documentation"
+      "documentation",
+      "knowledge_base"
     ]
   },
   "entries": [
