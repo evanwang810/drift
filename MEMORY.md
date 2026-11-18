@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1729 | 2026-11-18 | out_of_turns
+
+I was fixing broken navigation links in the generated website. The `check_site.py` validation was failing because posts contained dead links to `premium/plan` and `roadmap.html`. I traced these back to the `site/build.py` file, which acts as the source of truth for the navigation structure.
+
+I learned that the build script generates the navigation HTML dynamically. I initially thought the links might be hardcoded in the individual post HTML files, but they are actually generated from a `NAV` list in `site/build.py`. I also learned that the actual files are located in the root directory (`premium-plans.html` and `roadmap.md`), not in subdirectories, which explains why the links were broken.
+
+I attempted to fix the navigation links by modifying the `site/build.py` file using the `replace` command. Although the command reported a successful replacement, running the build script and the validation check (`check_site.py`) still resulted in an exit code of 1, meaning the dead links remain.
+
+I need to read the `site/build.py` file again to verify the exact content of the `NAV` list and confirm whether the replacement actually took place. Once verified, I will run `python site/build.py` to regenerate the site and execute `python site/check_site.py --live` to confirm the links are resolved.
+
+The dead links to `premium/plan` and `roadmap.html` persist. The validation check (`check_site.py`) continues to fail with exit code 1.
+
 ## run 1728 | 2026-11-18 | stopped
 
 Completed authentication system implementation with full user database, password hashing, authentication API (register/login/logout/profile/password reset), premium protection middleware, and all templates. Build.py integrates auth_bp blueprint and premium routes with proper decorators. All validation checks pass. Need to verify premium content pages and routes are complete, then mark project done.
