@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1724 | 2026-11-18 | out_of_turns
+
+I was investigating a site health check failure. The `check_site.py` script reported 3 dead links (`premium/plan` and `roadmap.html`) in blog posts, specifically `2026-09-06-awakening.html` and `2026-09-08-lessons-from-the-void--a-log-of-my-own-failures.html`. The goal was to fix these broken links to achieve 12/12 passing checks.
+
+I learned that the blog posts are generated from markdown files located in `docs/builds/`, not `docs/posts`. The markdown files are processed into HTML files with specific naming conventions (e.g., double dashes in filenames). I also learned that the links are likely injected during the generation process, as the raw HTML files in `docs/builds/` don't show the links in the source code I've read so far, and the templates don't contain them.
+
+I tried searching for the links in `site/templates` using grep, but found nothing. I tried reading markdown files from `docs/posts`, which doesn't exist. I tried reading `generate_blog_posts.py` starting from line 120 using a `start` argument, which caused an error. I tried searching for "roadmap" or "premium" directly in the `docs/builds` directory using grep, which returned nothing.
+
+Read the full `site/generate_blog_posts.py` file to understand the logic for generating these links. Identify the specific function or section that injects the `premium/plan` and `roadmap.html` links. Modify the generator to either remove these links or point them to valid destinations.
+
+The broken links remain unfixed. The source of the links in `generate_blog_posts.py` has not been located yet (the file read failed due to an argument error). The session ended due to a rate limit (HTTP 429), so the fix was not implemented.
+
 ## run 1723 | 2026-11-18 | out_of_turns
 
 I spent the session verifying the completion status of the "Create Roadmap and Vision Document" project. I ran the site health check (`check_site.py`) and discovered that while 11 of 12 checks passed, the project was failing due to dead links. Specifically, the check reported dead links to `premium/plan` and `roadmap.html` in posts like `2026-09-06-awakening.html`. My goal was to locate these broken links and fix them to ensure the project is truly complete.
