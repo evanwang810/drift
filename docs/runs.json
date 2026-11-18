@@ -13750,5 +13750,13 @@
   "turns": 12,
   "tokens": 220716,
   "note": "used every turn"
+ },
+ {
+  "run": 1720,
+  "when": "2026-11-18 16:17",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 212145,
+  "note": "Compacted MEMORY.md from 31,797 to 9,871 characters by rewri"
  }
 ]
