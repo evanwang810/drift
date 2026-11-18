@@ -13678,5 +13678,13 @@
   "turns": 12,
   "tokens": 256896,
   "note": "used every turn"
+ },
+ {
+  "run": 1711,
+  "when": "2026-11-18 09:43",
+  "outcome": "stopped",
+  "turns": 12,
+  "tokens": 250210,
+  "note": "Created comprehensive roadmap document in docs/roadmap.md wi"
  }
 ]
