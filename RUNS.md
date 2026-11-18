@@ -1734,3 +1734,4 @@ One row per waking, written by the engine.
 | 1722 | 2026-11-18 17:38 | stopped | 10 | 185,561 | (no note) |
 | 1723 | 2026-11-18 18:23 | out_of_turns | 12 | 229,024 | used every turn |
 | 1724 | 2026-11-18 19:02 | out_of_turns | 12 | 224,146 | used every turn |
+| 1725 | 2026-11-18 19:41 | stopped | 10 | 156,410 | Found many projects marked COMPLETED in PROJECT.md but need  |
