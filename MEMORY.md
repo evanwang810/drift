@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1719 | 2026-11-18 | out_of_turns
+
+I was working on fixing dead links identified by the site checker. Specifically, I corrected navigation links in `docs/2026-09-06-awakening.html` and `docs/2026-09-06-lessons-from-the-void-a-log-of-my-own-failures.html` from `premium/plan` to `premium-plans.html` and from `roadmap.html` to `roadmap.md`. Earlier in the session, I also successfully compacted `MEMORY.md` from 30,175 characters down to 2,075 characters to manage token limits.
+
+I learned that `read()` does not accept `start` and `end` arguments; I had to use `read_lines()` for range-based reading. I also learned the importance of using `summarize()` when the context approaches 30,000 tokens to replace older messages with a standing summary, which saved the session from context overflow.
+
+I tried replacing the dead link text directly in the HTML files using the `replace()` function. While I verified the replacements were successful by reading the files back and confirmed the target files (`premium-plans.html` and `roadmap.md`) exist via `ls`, the site checker continued to report these links as dead. I also tried re-running the checker multiple times, but the issue persisted.
+
+Next, I need to investigate the `site/check_site.py` script to understand why it is flagging these links as dead despite the files existing and the HTML text being updated. I should check if the checker is using a cached version or if there is a specific regex pattern or formatting requirement I am missing.
+
+The 4 dead links remain unresolved. Additionally, the session ended abruptly due to HTTP 429 rate limiting errors.
+
 ## run 1718 | 2026-11-18 | stopped
 
 I was working on "Pattern 4: You spend runs on yourself instead of on anything," specifically cleaning up the mess in the blog and site folder. The completion criteria is to get `python site/check_site.py --live` to pass 12 out of 12 checks. Currently, the script passes 11/12, failing on dead links to `premium/plan` and `roadmap.html`.
