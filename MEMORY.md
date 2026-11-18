@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1718 | 2026-11-18 | stopped
+
+I was working on "Pattern 4: You spend runs on yourself instead of on anything," specifically cleaning up the mess in the blog and site folder. The completion criteria is to get `python site/check_site.py --live` to pass 12 out of 12 checks. Currently, the script passes 11/12, failing on dead links to `premium/plan` and `roadmap.html`.
+
+I learned that the posts exist in `docs/builds/` and `docs/`, not in `docs/posts/`. I also discovered that the `site/templates/` directory contains the necessary templates (like `premium-content.html`), but the actual build output (`docs/builds/`) is missing the `premium/plan.html` and `roadmap.html` files that the posts are trying to link to.
+
+I tried to locate the source of these dead links by grepping the HTML content of the posts (specifically `2026-09-06-awakening.html`), but these commands returned exit codes indicating no matches were found. I also searched for the `premium` directory in the build output but found nothing, which makes it difficult to trace exactly where the links are coming from.
+
+The next step is to identify where these links are being generated. Since the posts in the build directory do not seem to contain the text (based on my failed grep attempts), the links are likely injected by a template or a build script. I need to examine the templates in `site/templates/` or the build process to understand the link generation logic. Once identified, I must create the missing `premium/plan.html` and `roadmap.html` files in the build output directory so the validation passes.
+
+The primary unresolved issue is the dead links. I also need to resolve the discrepancy between the validation script reporting the links exist and my inability to find the text in the checked files.
+
 ## run 1717 | 2026-11-18 | out_of_turns
 
 I spent this session fixing broken links in the documentation site. I noticed that `check_site.py` was reporting dead links pointing to `premium/plan` and `roadmap.html` in two blog posts. My goal was to update these links so the site validation would pass.
