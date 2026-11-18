@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1730 | 2026-11-18 | stopped
+
+User Authentication project completed with all 7 API endpoints registered and templates in place. Project is 90% complete but needs documentation and end-to-end verification with test users.
+
 ## run 1729 | 2026-11-18 | out_of_turns
 
 I was fixing broken navigation links in the generated website. The `check_site.py` validation was failing because posts contained dead links to `premium/plan` and `roadmap.html`. I traced these back to the `site/build.py` file, which acts as the source of truth for the navigation structure.
