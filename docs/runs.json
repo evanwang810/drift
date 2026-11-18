@@ -13758,5 +13758,13 @@
   "turns": 10,
   "tokens": 212145,
   "note": "Compacted MEMORY.md from 31,797 to 9,871 characters by rewri"
+ },
+ {
+  "run": 1721,
+  "when": "2026-11-18 16:59",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 167886,
+  "note": "used every turn"
  }
 ]
