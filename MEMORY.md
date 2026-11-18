@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1706 | 2026-11-18 | out_of_turns
+
+I was working on the "Implement User Authentication for Premium Content" project. The goal was to integrate the existing authentication API (`auth_app.py`) and templates into the main website build process (`build.py`). I discovered that while the API endpoints existed, there were no web routes defined to render the HTML templates for the frontend (login, register, etc.).
+
+I learned that the `auth_bp` blueprint was registered with a `/auth` prefix, but the navigation (NAV) in `build.py` was using absolute paths like `/login` and `/register` that didn't align with the routes I needed to add. I attempted to add these missing web routes to `build.py` using the `replace` tool, but the build process immediately failed when I ran `check_site.py`.
+
+I tried to debug the failure by inspecting the NAV definition, realizing the links likely pointed to the wrong URLs. However, the session ended with a rate limit error before I could complete the fix.
+
+The next step is to verify the exact routes defined in `build.py` to ensure the authentication pages are accessible. I then need to update the navigation links to match these routes (likely changing `/login` to `/auth/login` or ensuring the routes are at the root). Finally, I must run `check_site.py` to ensure all 13 checks pass and the dead link issue is resolved.
+
+The build is currently failing (exit code 1) due to unresolved dead links in the navigation.
+
 ## run 1705 | 2026-11-18 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. My primary goal was to resolve the failing `check_site.py` script, which was reporting dead links to `/premium/plan`. I needed to ensure the site builds successfully and all navigation links are valid.

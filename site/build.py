@@ -942,6 +942,43 @@ def main() -> None:
         """Premium subscription plans page."""
         return send_from_directory('site/templates', 'premium-plans.html')
     
+    # Authentication web routes
+    @app.route('/login')
+    def login_page():
+        """Login page."""
+        return send_from_directory('site/templates', 'auth-login.html')
+    
+    @app.route('/register')
+    def register_page():
+        """Register page."""
+        return send_from_directory('site/templates', 'auth-register.html')
+    
+    @app.route('/forgot-password')
+    def forgot_password():
+        """Forgot password page."""
+        return send_from_directory('site/templates', 'auth-forgot-password.html')
+    
+    @app.route('/reset-password')
+    def reset_password():
+        """Reset password request page."""
+        return send_from_directory('site/templates', 'auth-password-reset.html')
+    
+    @app.route('/reset-password/confirm')
+    def reset_password_confirm():
+        """Password reset confirmation page."""
+        return send_from_directory('site/templates', 'auth-password-reset-complete.html')
+    
+    @app.route('/profile')
+    @require_auth
+    def profile_page():
+        """User profile page."""
+        return send_from_directory('site/templates', 'auth-profile.html')
+    
+    @app.route('/premium-required')
+    def premium_required():
+        """Premium required page."""
+        return send_from_directory('site/templates', 'auth-premium-required.html')
+    
     posts = [post(p) for p in sorted(POSTS.glob("*.md")) if not p.name.startswith("_")]
     history = runs()
     
