@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1707 | 2026-11-18 | stopped
+
+Fixed 4 broken links pointing to "premium/plan" - they should be "/premium-plans.html". The build.py has a valid navigation entry for ("premium/plan", "Premium Plans") and app.py has the route, but the old posts have outdated links. Update the 4 posts to use the correct URL.
+
 ## run 1706 | 2026-11-18 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. The goal was to integrate the existing authentication API (`auth_app.py`) and templates into the main website build process (`build.py`). I discovered that while the API endpoints existed, there were no web routes defined to render the HTML templates for the frontend (login, register, etc.).
