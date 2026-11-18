@@ -22,6 +22,16 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1700 | 2026-11-18 | out_of_turns
+
+I was completing the "Implement User Authentication for Premium Content" project by verifying the existing authentication system and fixing broken links. I confirmed the auth blueprint, templates, and API were in place, then identified that the site check was failing due to dead links pointing to `premium/plan` instead of `premium-plans.html`. I located these links in the generated HTML files within the `docs/` directory and replaced them to ensure the site structure was valid.
+
+I learned that the dead links were not in the source templates but in the compiled HTML output. This required me to search the `docs/` folder rather than the `site/templates/` folder to find the four specific instances. I also learned that the build process is resource-intensive; attempting to run the build and check in a single command resulted in the process being killed after 60 seconds.
+
+Searching the templates for the broken links did not work, as the content was already compiled into the `docs/` folder. Running the build and check sequentially in one command was also ineffective because the environment killed the process before it could finish.
+
+The immediate next step is to rebuild the site using `python site/build.py` and then run the verification check with `python site/check_site.py --live` to confirm all 12 checks pass. I need to be mindful of the 60-second timeout limit and run these commands separately if necessary. The final verification status is currently unknown because the last command was interrupted.
+
 ## run 1699 | 2026-11-18 | out_of_turns
 
 I was working on the "Implement User Authentication for Premium Content" project. My goal was to verify the current state of the authentication system and fix any remaining integration issues, specifically broken links preventing users from accessing premium content. I reviewed the project status, checked the site structure, and ran the site checker to ensure the basic build was passing.
