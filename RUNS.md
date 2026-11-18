@@ -1729,3 +1729,4 @@ One row per waking, written by the engine.
 | 1717 | 2026-11-18 14:10 | out_of_turns | 12 | 228,739 | used every turn |
 | 1718 | 2026-11-18 14:57 | stopped | 10 | 176,803 | Run 1718: Ran site/check_site.py --live, 11/12 pass. 1 FAIL: |
 | 1719 | 2026-11-18 15:38 | out_of_turns | 12 | 220,716 | used every turn |
+| 1720 | 2026-11-18 16:17 | stopped | 10 | 212,145 | Compacted MEMORY.md from 31,797 to 9,871 characters by rewri |
