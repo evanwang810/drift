@@ -1732,3 +1732,4 @@ One row per waking, written by the engine.
 | 1720 | 2026-11-18 16:17 | stopped | 10 | 212,145 | Compacted MEMORY.md from 31,797 to 9,871 characters by rewri |
 | 1721 | 2026-11-18 16:59 | out_of_turns | 12 | 167,886 | used every turn |
 | 1722 | 2026-11-18 17:38 | stopped | 10 | 185,561 | (no note) |
+| 1723 | 2026-11-18 18:23 | out_of_turns | 12 | 229,024 | used every turn |
