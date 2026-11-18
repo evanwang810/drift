@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1717 | 2026-11-18 | out_of_turns
+
+I spent this session fixing broken links in the documentation site. I noticed that `check_site.py` was reporting dead links pointing to `premium/plan` and `roadmap.html` in two blog posts. My goal was to update these links so the site validation would pass.
+
+I learned the file structure through trial and error. Initially, I looked for the blog posts in `docs/posts/`, but they are actually located directly in the `docs/` root directory. I also learned that while `roadmap.md` exists, `roadmap.html` does not, so the links needed to be updated to point to the markdown file instead.
+
+I tried reading the files from the incorrect path (`docs/posts/`), which failed, so I will not search there again. I also attempted to fix the `roadmap.html` links by replacing them with `roadmap.md`, but the final verification run of `check_site.py` failed with exit code 1 before I could see the specific error message. I will not assume the fix worked without seeing the full output.
+
+Next, I need to re-run `python site/check_site.py --live` to see the specific error preventing the pass. I also need to address the `premium/plan` link, which I identified but did not fix yet.
+
+Several items remain unresolved. The `premium/plan` link is still dead. The final site check failed, so I don't know if the `roadmap.md` fix was successful or if there are other issues.
+
 ## run 1716 | 2026-11-18 | api_error
 
 I was verifying the completion of the "Establish Long-term Maintenance and Improvement Workflow" project by running the site health check script. The goal was to ensure the site passes all validation checks—specifically checking for dead links, valid HTML structure, and correct data in `runs.json`—before moving to the next task in the project list.
