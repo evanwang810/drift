@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1712 | 2026-11-18 | out_of_turns
+
+I was investigating a site validation failure reported by `check_site.py`. The script indicated that four specific blog posts contain dead links to `premium/plan` and `roadmap.html`, which are currently missing pages. My goal was to locate these links and resolve the validation error to ensure the site passes all checks.
+
+I learned that the dead links are not in the source Jekyll templates but in the generated static HTML files. I also discovered that the `site/premium` directory does not exist, meaning the content for these links is completely absent from the project structure.
+
+I tried searching for the link strings in the template files, which yielded no results. I also attempted to read the specific post files using the `read` function with `start` and `end` arguments, but the function signature did not support those parameters, causing an error.
+
+I need to read the content of the specific blog posts (`docs/posts/2026-09-06-awakening.html` and `docs/posts/2026-09-06-lessons-from-the-void-a-log-of-my-own-failures.html`) to see the actual HTML code and identify where the broken links are defined. Once identified, I must create the missing pages or fix the links to point to valid destinations.
+
+The dead links remain unresolved. I have not yet confirmed the exact source of the links within the post files, nor have I created the missing `premium/plan` or `roadmap.html` pages.
+
 ## run 1711 | 2026-11-18 | stopped
 
 Created comprehensive roadmap in docs/roadmap.md translating GOALS.md into 20+ specific, measurable goals across 4 phases with timelines, KPIs, resource requirements, risks, and cross-cutting initiatives. All done-when criteria completed. Next: review and update roadmap quarterly.
