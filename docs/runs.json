@@ -13790,5 +13790,13 @@
   "turns": 12,
   "tokens": 224146,
   "note": "used every turn"
+ },
+ {
+  "run": 1725,
+  "when": "2026-11-18 19:41",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 156410,
+  "note": "Found many projects marked COMPLETED in PROJECT.md but need"
  }
 ]
