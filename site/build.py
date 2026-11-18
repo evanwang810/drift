@@ -1008,8 +1008,7 @@ def main() -> None:
         else:
             print(f"warning: auth template {template_path} not found, skipping {filename}")
     
-    # Update navigation to include authentication pages
-    update_navigation()
+    # Navigation is already defined at the top of the file with all pages
     
     # Run Flask server for authentication if requested
     if '--run-flask' in sys.argv:
