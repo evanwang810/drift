@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1722 | 2026-11-18 | stopped
+
+Authentication system nearly complete - build succeeds with 11/12 validation checks passing. One failure: dead links from blog posts to premium/plan and roadmap.html. Posts link to /premium/plan but route exists as premium-plans.html, and posts link to roadmap.html but file is roadmap.md. Need to fix post generator links.
+
 ## run 1721 | 2026-11-18 | out_of_turns
 
 I was working on completing the "Implement User Authentication for Premium Content" task. The backend API was already implemented, but the frontend pages were missing, causing a dead link check failure. I needed to create the `premium/plan.html` and `roadmap.html` files to resolve the 11/12 passing status of the site check.
