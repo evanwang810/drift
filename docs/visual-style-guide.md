@@ -2,365 +2,272 @@
 
 ## Overview
 
-This document establishes the visual identity for the repository website, ensuring consistency, readability, and aesthetic appeal while maintaining a professional, technical documentation feel.
+This guide establishes the visual identity for the repository website, ensuring consistency, accessibility, and aesthetic appeal while maintaining readability and functionality.
 
-## Design Principles
+## Design Philosophy
 
-### 1. Readability First
-- Content is the primary focus
-- High contrast between text and background
-- Legible font sizes for all content
-- Comfortable line lengths for reading
+The design philosophy prioritizes:
+- **Readability**: Content must be the primary focus with clear hierarchy
+- **Accessibility**: High contrast ratios and readable fonts for all users
+- **Consistency**: Repeated visual elements across all pages
+- **Minimalism**: Clean, uncluttered interface with purposeful design elements
+- **Professionalism**: A polished, trustworthy appearance suitable for documentation and knowledge sharing
 
-### 2. Professional Tone
-- Clean, minimal aesthetic
-- No excessive decoration or ornamentation
-- Consistent use of whitespace
-- Technical but approachable
-
-### 3. Technical Documentation Style
-- Similar to documentation sites like MDN, Stripe Docs, or Ruby on Rails Guides
-- Code blocks with syntax highlighting
-- Clear hierarchy and organization
-- Professional color palette
-
-## Color Scheme
+## Color Palette
 
 ### Primary Colors
 
-#### Background Colors
-- **Light Background (Main):** `#F8F9FA` - Off-white for main content areas
-- **White:** `#FFFFFF` - For cards, sidebars, and containers
-- **Dark Background (Footer):** `#1A1A2E` - Deep blue-black for footer
+#### Primary Brand Color
+- **Hex**: #2563eb
+- **Name**: Royal Blue
+- **Usage**: Primary buttons, links, active states, accents
+- **Rationale**: Trustworthy and professional, widely used in documentation sites
+
+#### Secondary Accent Color
+- **Hex**: #10b981
+- **Name**: Emerald Green
+- **Usage**: Success states, positive highlights, verification badges
+- **Rationale**: Green provides positive feedback and indicates success
+
+### Semantic Colors
+
+#### Error/Warning
+- **Error**: #ef4444 (Red)
+- **Warning**: #f59e0b (Amber)
+- **Neutral**: #6b7280 (Gray)
 
 #### Text Colors
-- **Primary Text:** `#2C3E50` - Dark slate blue for main headings and content
-- **Secondary Text:** `#586F7C` - Muted gray for body text and meta information
-- **Muted Text:** `#95A5A6` - Very light gray for captions and metadata
-- **White Text:** `#FFFFFF` - For text on dark backgrounds
+- **Primary text**: #1f2937 (Dark Gray)
+- **Secondary text**: #6b7280 (Medium Gray)
+- **Muted text**: #9ca3af (Light Gray)
+- **Code blocks**: #1e293b (Very Dark Gray)
 
-#### Accent Colors
-- **Primary Accent:** `#3498DB` - Bright blue for links, buttons, and highlights
-- **Secondary Accent:** `#E74C3C` - Soft red for errors and warnings
-- **Success:** `#27AE60` - Green for success indicators
-- **Info:** `#16A085` - Teal for informational elements
-
-### Semantic Color Usage
-
-| Purpose | Background | Text |
-|---------|-----------|------|
-| Links | Transparent | `#3498DB` |
-| Buttons | `#3498DB` | White |
-| Code Blocks | `#1E1E1E` | `#F8F8F2` |
-| Code Inline | `#F8F9FA` | `#E74C3C` |
-| Headings | Transparent | `#2C3E50` |
-| Body Text | Transparent | `#586F7C` |
-| Alerts/Notes | `#FFF3E0` | `#D84315` |
+### Background Colors
+- **Page background**: #ffffff (White)
+- **Section backgrounds**:
+  - Light: #f9fafb (Very Light Gray)
+  - Medium: #f3f4f6 (Light Gray)
+  - Dark: #1f2937 (Dark Gray - for code blocks)
 
 ## Typography
 
 ### Font Family
 
-```css
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-```
-
-This uses system fonts for best performance and native feel on all platforms.
+- **Primary font**: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
+- **Monospace font**: "SF Mono", "Fira Code", "Consolas", "Monaco", monospace
+- **Fallback**: System fonts ensure fast loading and native feel
 
 ### Font Sizes
 
-| Element | Size | Line Height |
-|---------|------|-------------|
-| H1 | 2.5rem (40px) | 1.2 |
-| H2 | 2rem (32px) | 1.3 |
-| H3 | 1.5rem (24px) | 1.4 |
-| H4 | 1.25rem (20px) | 1.5 |
-| Body | 1rem (16px) | 1.6 |
-| Code | 0.875rem (14px) | 1.5 |
-| Small | 0.875rem (14px) | 1.5 |
+- **Display**: 2.5rem (40px) - Page titles
+- **H1**: 2rem (32px) - Main headings
+- **H2**: 1.5rem (24px) - Section headings
+- **H3**: 1.25rem (20px) - Subsection headings
+- **Body**: 1rem (16px) - Main content
+- **Small**: 0.875rem (14px) - Captions, metadata
+- **Code**: 0.875rem (14px) - Inline code
 
 ### Font Weights
 
-- **Regular:** 400 (body text)
-- **Medium:** 500 (headings)
-- **Bold:** 700 (strong emphasis, code)
+- **Regular**: 400 - Body text
+- **Medium**: 500 - Emphasis, highlights
+- **Bold**: 700 - Headings, important text
 
-## Spacing
+## Spacing System
 
 ### Base Unit
-- 8px base unit for all spacing
+- 4px grid system for consistent spacing
 
-### Spacing Scale
+### Scale
+- 4px: xs (small spacing)
+- 8px: sm (element spacing)
+- 12px: md (section spacing)
+- 16px: lg (major spacing)
+- 24px: xl (page spacing)
+- 32px: 2xl (section spacing)
+- 48px: 3xl (page section spacing)
 
-| Purpose | Size |
-|---------|------|
-| Tiny (0.25rem) | 4px |
-| Small (0.5rem) | 8px |
-| Medium (1rem) | 16px |
-| Large (1.5rem) | 24px |
-| XL (2rem) | 32px |
-| XXL (3rem) | 48px |
-
-### Layout Spacing
-
-```css
-/* Container padding */
---spacing-container: 2rem;
-
-/* Element spacing */
---spacing-element: 1rem;
-
-/* Section spacing */
---spacing-section: 2rem;
-
-/* Large section spacing */
---spacing-section-large: 4rem;
-```
-
-## Borders and Shadows
-
-### Border Radius
-
-```css
---radius-sm: 4px;
---radius-md: 8px;
---radius-lg: 12px;
---radius-xl: 16px;
-```
-
-### Border Widths
-
-```css
---border-light: 1px solid #E0E0E0;
---border-medium: 2px solid #E0E0E0;
-```
-
-### Shadows
-
-```css
---shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
---shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
---shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-```
-
-## Components
+## UI Components
 
 ### Buttons
 
-```css
-/* Primary Button */
-.button {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  border: none;
-  transition: all 0.2s ease;
-}
+#### Primary Button
+- **Background**: #2563eb (Royal Blue)
+- **Text**: #ffffff (White)
+- **Padding**: 0.5rem 1rem
+- **Border radius**: 0.375rem
+- **Hover**: #1d4ed8 (Darker Blue)
+- **Active**: #1e40af (Darkest Blue)
 
-.button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-```
+#### Secondary Button
+- **Background**: #ffffff (White)
+- **Text**: #2563eb (Royal Blue)
+- **Border**: 1px solid #2563eb
+- **Padding**: 0.5rem 1rem
+- **Border radius**: 0.375rem
+- **Hover**: #eff6ff (Light Blue Background)
 
 ### Cards
 
-```css
-.card {
-  background: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: var(--spacing-element);
-  border: var(--border-light);
-}
-```
+- **Background**: #ffffff (White)
+- **Border**: 1px solid #e5e7eb (Light Gray)
+- **Border radius**: 0.5rem
+- **Padding**: 1.5rem
+- **Shadow**: 0 1px 3px rgba(0, 0, 0, 0.1)
+- **Hover shadow**: 0 4px 6px rgba(0, 0, 0, 0.1)
 
-### Code Blocks
+### Inputs
 
-```css
-.code-block {
-  background: #1E1E1E;
-  border-radius: var(--radius-md);
-  padding: 1rem;
-  overflow-x: auto;
-  font-family: "Consolas", "Monaco", "Courier New", monospace;
-}
+- **Background**: #ffffff (White)
+- **Border**: 1px solid #d1d5db (Medium Gray)
+- **Padding**: 0.5rem 0.75rem
+- **Border radius**: 0.375rem
+- **Focus border**: 2px solid #2563eb (Royal Blue)
+- **Focus ring**: 0 0 0 3px rgba(37, 99, 235, 0.1)
 
-.code-block code {
-  color: #F8F8F2;
-}
-```
+### Tables
+
+- **Border**: 1px solid #e5e7eb (Light Gray)
+- **Header background**: #f9fafb (Very Light Gray)
+- **Cell padding**: 0.75rem
+- **Row hover**: #f9fafb (Very Light Gray)
+- **Text alignment**: Left
+
+### Icons
+
+- **Style**: Minimal, outline style
+- **Size**: 1.25rem (20px) for main icons
+- **Color**: #6b7280 (Medium Gray)
+- **Stroke width**: 2px
 
 ## Layout
 
 ### Container
+- **Max width**: 1200px
+- **Padding**: 0 1.5rem
+- **Centered**: Yes
 
-```css
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-container);
-}
-```
+### Grid System
+- **Columns**: 12
+- **Gap**: 1.5rem
+- **Responsive breakpoints**:
+  - Mobile: 1 column
+  - Tablet: 2-3 columns
+  - Desktop: 3-4 columns
 
-### Header
+### Responsive Design
 
-```css
-.header {
-  background: white;
-  border-bottom: var(--border-light);
-  padding: 1rem var(--spacing-container);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
-}
-```
+#### Mobile (≤ 640px)
+- Single column layout
+- Larger touch targets (44px minimum)
+- Simple navigation
+- Optimized spacing
 
-### Main Content
+#### Tablet (641px - 1024px)
+- 2-column grid
+- Balanced spacing
+- Medium touch targets
 
-```css
-.main-content {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem var(--spacing-container);
-}
-```
-
-## Responsive Design
-
-### Breakpoints
-
-```css
-/* Mobile */
-@media (max-width: 768px) {
-  /* Styles for mobile devices */
-}
-
-/* Tablet */
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* Styles for tablets */
-}
-
-/* Desktop */
-@media (min-width: 1025px) {
-  /* Styles for desktop */
-}
-```
-
-### Mobile Adjustments
-
-- Smaller font sizes
-- More vertical spacing
-- Simplified navigation
-- Touch-friendly buttons (minimum 44px height)
-- Stacked layouts instead of side-by-side
+#### Desktop (1025px+)
+- Full grid layout
+- Maximum 1200px container
+- Optimal spacing
 
 ## Accessibility
 
 ### Color Contrast
-
-- Minimum 4.5:1 contrast ratio for normal text
-- Minimum 3:1 contrast ratio for large text
-- All text on colored backgrounds meets WCAG AA standards
+- Minimum WCAG AA: 4.5:1 for body text
+- Minimum WCAG AAA: 7:1 for body text
+- Use contrast checker for all color combinations
 
 ### Focus States
+- Clear visible focus indicators
+- Minimum 2px outline
+- Color contrast: 3:1 minimum
 
+### Font Accessibility
+- Line height: 1.5 for body text
+- Letter spacing: Normal (no adjustment)
+- Orphan control: No orphaned lines (allow widows)
+
+## Design Tokens
+
+### Colors
 ```css
-*:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
+--color-primary: #2563eb;
+--color-primary-hover: #1d4ed8;
+--color-primary-active: #1e40af;
+--color-secondary: #10b981;
+--color-error: #ef4444;
+--color-warning: #f59e0b;
+--color-text-primary: #1f2937;
+--color-text-secondary: #6b7280;
+--color-text-muted: #9ca3af;
+--color-bg-page: #ffffff;
+--color-bg-light: #f9fafb;
+--color-bg-medium: #f3f4f6;
+--color-bg-dark: #1f2937;
 ```
 
-### Semantic HTML
-
-- Use proper heading hierarchy (h1 -> h2 -> h3)
-- Use `<button>` for interactive elements
-- Use `<a>` for links
-- Use `<main>`, `<nav>`, `<footer>` for structure
-
-## Icons
-
-### Icon Style
-
-- Simple, line-based icons
-- Consistent stroke width (1.5px)
-- 24x24px base size
-- Neutral colors (gray or blue)
-
-### Icon Library
-
-Recommended: Heroicons (SVG inline) or Lucide (clean, modern icons)
-
-## Animation
-
-### Smooth Transitions
-
+### Spacing
 ```css
-transition: all 0.2s ease-in-out;
+--spacing-xs: 4px;
+--spacing-sm: 8px;
+--spacing-md: 12px;
+--spacing-lg: 16px;
+--spacing-xl: 24px;
+--spacing-2xl: 32px;
+--spacing-3xl: 48px;
 ```
 
-### Fade In
-
+### Typography
 ```css
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out;
-}
+--font-size-display: 2.5rem;
+--font-size-h1: 2rem;
+--font-size-h2: 1.5rem;
+--font-size-h3: 1.25rem;
+--font-size-body: 1rem;
+--font-size-small: 0.875rem;
+--font-weight-regular: 400;
+--font-weight-medium: 500;
+--font-weight-bold: 700;
 ```
+
+## Constraints
+
+### What Not to Do
+- ❌ Use more than 3 colors (primary, secondary, semantic)
+- ❌ Use harsh or jarring color combinations
+- ❌ Reduce line spacing below 1.5 for body text
+- ❌ Use inline styles for layout
+- ❌ Rely on color alone for information
+- ❌ Use low contrast color combinations
+- ❌ Use decorative elements that serve no purpose
+
+### Best Practices
+- ✅ Use system fonts for performance
+- ✅ Provide alternative text for all images
+- ✅ Ensure all interactive elements have focus states
+- ✅ Test colors on different devices
+- ✅ Verify contrast ratios before implementation
+- ✅ Keep design consistent across all pages
+- ✅ Use whitespace to improve readability
 
 ## Implementation Notes
 
-### CSS Architecture
+### CSS File Organization
+1. Reset styles
+2. Base typography
+3. Layout components
+4. UI components
+5. Responsive utilities
+6. Print styles
 
-1. **Base styles** in `_base.css` (reset, typography, colors)
-2. **Layout styles** in `_layout.css` (container, grid, flexbox)
-3. **Component styles** in `_components.css` (buttons, cards, inputs)
-4. **Utilities** in `_utilities.css` (spacing, text alignment, etc.)
-5. **Responsive overrides** in `_responsive.css`
+### Browser Support
+- Modern browsers: Chrome, Firefox, Safari, Edge (last 2 versions)
+- Progressive enhancement approach
+- Graceful degradation for older browsers
 
-### CSS Loading Order
+## Version History
 
-1. Reset/Base styles
-2. Variables/Custom properties
-3. Typography
-4. Layout
-5. Components
-6. Responsive
-
-## Design Decisions
-
-### Why This Color Scheme?
-
-1. **Professional Blue:** Trustworthy, professional, technical
-2. **Gray Scale:** Clean, reduces visual noise
-3. **High Contrast:** Ensures readability (WCAG AA compliant)
-4. **Subtle Accents:** Highlights important elements without overwhelming
-
-### Why System Fonts?
-
-1. **Performance:** Native fonts load instantly
-2. **Familiarity:** Users expect system fonts
-3. **Consistency:** Matches the user's OS
-4. **Maintainability:** No external dependencies
-
-### Why 8px Spacing Grid?
-
-1. **Consistency:** Easy to maintain alignment
-2. **Flexibility:** Easy to scale up or down
-3. **Common Practice:** Industry standard
-
-## Future Enhancements
-
-- Dark mode support
-- Custom icon set integration
-- Animated transitions for navigation
-- Smooth scrolling behavior
-- Print styles for documentation
+- **v1.0** (2026-11-19): Initial visual style guide created
