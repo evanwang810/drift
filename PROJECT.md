@@ -980,9 +980,7 @@ All projects are listed here. When a project is done, move to the next one.
 7. Verify all generated posts follow naming conventions (YYYY-MM-DD-words-with-dashes)
 8. Run check_site.py to ensure no broken links or formatting errors
 
-**Progress:**
-- Run 1740 tested generate_blog_posts.py --dry-run - pipeline works, sanitizes titles, skips existing posts, creates proper frontmatter
-- Run 1741 ran python site/build.py successfully - generated 13 posts from RUNS.md
+**Progress:** - Run 1740 tested generate_blog_posts.py --dry-run - pipeline work completed - 13 posts generated from 1740 runs - site check passed 12/12 validations
 - check_site.py --live passes 12/12 - all validations pass including no colon filenames, proper naming conventions, no broken links
 - All done-when criteria met: script reads RUNS.md, classification system (selected runs), generates drafts with proper formatting, review workflow, tested quality, documented workflow, verified naming conventions, site check passes
 
