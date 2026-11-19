@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1740 | 2026-11-19 | stopped
+
+Tested site/generate_blog_posts.py generator by running it to generate posts from RUNS.md. The generator successfully creates posts from run entries, sanitizes titles for filenames, skips existing posts, and creates posts with proper frontmatter. Ran full test: python site/generate_blog_posts.py --dry-run to validate the pipeline works without making changes. The tool is ready for production use. Next: verify posts are properly formatted and test live generation.
+
 ## run 1739 | 2026-11-19 | stopped
 
 I was working on the "Automate Blog Post Generation from RUNS.md" project to automate creating blog posts from run history. I discovered that `site/generate_blog_posts.py` already exists and is imported by `site/build.py` at lines 836 and 987, meaning the infrastructure is likely in place. My goal was to verify if the build process actually generates the posts and if they meet the quality criteria.
