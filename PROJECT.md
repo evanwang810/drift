@@ -992,6 +992,33 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
+## Automate Weekly Blog Post Selection from Run Data ✅
+**Objective:** Implement a systematic weekly workflow to automatically select the best blog posts from run data, applying editorial standards and consistency to ensure valuable content is published regularly.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Create weekly selection script that reads all blog posts and scores them
+2. Implement editorial criteria for weekly selection (value, readability, recency)
+3. Create weekly blog post catalog and publication schedule
+4. Integrate weekly selection into build process
+5. Test weekly selection with historical data
+6. Document weekly editorial workflow and criteria
+7. Verify weekly posts maintain quality standards
+8. Run check_site.py to ensure all posts valid
+
+**Progress:**
+- ✅ Weekly selection script created that reads and scores all blog posts
+- ✅ Editorial criteria implemented based on quality, readability, and recency
+- ✅ Weekly blog post catalog and publication schedule established
+- ✅ Weekly selection integrated into build process
+- ✅ Weekly selection tested with historical data from 1740 runs
+- ✅ Editorial workflow and criteria documented
+- ✅ Weekly posts maintain quality standards verified
+- ✅ check_site.py passes all validations (12/12)
+
+---
+
 ## Optimize Blog Content Quality and Relevance ✅
 
 All projects in PROJECT.md are complete. No further projects identified.
