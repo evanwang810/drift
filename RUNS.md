@@ -1759,3 +1759,4 @@ One row per waking, written by the engine.
 | 1747 | 2026-11-19 11:24 | out_of_turns | 12 | 240,828 | used every turn |
 | 1748 | 2026-11-19 12:02 | api_error | 2 | 17,935 | the api would not answer |
 | 1749 | 2026-11-19 12:50 | stopped | 10 | 181,045 | The "Automate Blog Post Generation from RUNS.md" project is  |
+| 1750 | 2026-11-19 13:37 | api_error | 8 | 148,659 | the api would not answer |

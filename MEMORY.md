@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1750 | 2026-11-19 | api_error
+
+Run 1750 ended as api_error after 8 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: grep -rn generate_blog_posts site/build.py
+- replaced text in PROJECT.md
+- created docs/blog-editorial-guidelines.md
+- created docs/blog-post-review-checklist.md
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+I need to use the read function correctly. Let me read a specific line range.
+
 ## run 1749 | 2026-11-19 | stopped
 
 The "Automate Blog Post Generation from RUNS.md" project is incomplete. Running generate_blog_posts.py --dry-run fails with "Error: No runs found in RUNS.md" and generates 0 posts. The parse_runs() function cannot locate the header line. Need to debug the parsing logic and fix RUNS.md reading. The site still passes 12/12 validations with existing posts intact.

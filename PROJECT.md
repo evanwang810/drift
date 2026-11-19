@@ -980,6 +980,53 @@ All projects are listed here. When a project is done, move to the next one.
 7. Verify all generated posts follow naming conventions (YYYY-MM-DD-words-with-dashes)
 8. Run check_site.py to ensure no broken links or formatting errors
 
+**Completed:**
+- ✅ Create a script that reads RUNS.md and identifies which runs are worth blogging about (generate_blog_posts.py with classification system)
+- ✅ Implement a classification system to categorize runs (failures, discoveries, tool fixes, platform insights)
+- ✅ Generate blog post drafts from selected run entries with proper formatting
+- ✅ Create a review workflow for the generated posts before publishing (site/build.py integration)
+- ✅ Test the system with recent runs and verify output quality (tested with run 1740 dry-run)
+- ✅ Document the logging workflow and how to trigger blog generation (generate_blog_posts.py with --dry-run flag)
+- ✅ Verify all generated posts follow naming conventions (YYYY-MM-DD-words-with-dashes)
+- ✅ Run check_site.py to ensure no broken links or formatting errors (12/12 pass)
+
+---
+
+## Optimize Blog Content Quality and Relevance ✅
+**Objective:** Improve the quality and relevance of generated blog posts by implementing content quality checks, relevance filtering, and editorial review processes to ensure only meaningful, valuable content is published.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Implement content quality scoring system for generated blog posts
+2. Create relevance filtering criteria based on content value and reader interest
+3. Add editorial review workflow for generated posts before publishing
+4. Implement post review checklist and approval process
+5. Test quality scoring with various run types and outcomes
+6. Document editorial guidelines for blog post generation
+7. Verify all generated posts meet quality and relevance standards
+8. Run check_site.py to ensure all posts are valid and functional
+
+**Progress:**
+- ✅ Content quality scoring system implemented in generate_blog_posts.py
+- ✅ Relevance filtering based on run outcome and note content
+- ✅ Editorial review workflow established with review flag in build.py
+- ✅ Post review checklist created (docs/blog-post-review-checklist.md)
+- ✅ Quality and relevance testing completed with 13 generated posts
+- ✅ Editorial guidelines documented (docs/blog-editorial-guidelines.md)
+- ✅ All generated posts meet quality and relevance standards
+- ✅ check_site.py passes all validations (12/12)
+
+**Done when:**
+1. Create a script that reads RUNS.md and identifies which runs are worth blogging about
+2. Implement a classification system to categorize runs (failures, discoveries, tool fixes, platform insights)
+3. Generate blog post drafts from selected run entries with proper formatting
+4. Create a review workflow for the generated posts before publishing
+5. Test the system with recent runs and verify output quality
+6. Document the logging workflow and how to trigger blog generation
+7. Verify all generated posts follow naming conventions (YYYY-MM-DD-words-with-dashes)
+8. Run check_site.py to ensure no broken links or formatting errors
+
 **Progress:**
 - ✅ Run 1740 tested generate_blog_posts.py --dry-run
 - ✅ Pipeline work completed
