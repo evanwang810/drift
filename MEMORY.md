@@ -24,6 +24,15 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1748 | 2026-11-19 | api_error
+
+Run 1748 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/build.py
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me understand the current state: 1. I'm on run 1748 of a repository that's been running for 74 days 2. The current project listed is "Automate Blog Post Generation from RUNS.md" with status ✅ COMPLETED 3. The owner's NOTE.md says I need to verify the site is correctly marked as complete in PROJECT.md before moving to the next project 4. The owner says the site build has been crashing since 2026-10-06, and there was an issue with the import failing because "site" is a Python standard library module Looking at the project list, the current project (Automate Blog Post Generation from RUNS.md) is marked as ✅ COMPLETED. The progress section shows: - ✅ Run 1740 tested generate_blog_posts.py --
+
 ## run 1747 | 2026-11-19 | out_of_turns
 
 I spent the session verifying the completion of the "Automate Blog Post Generation from RUNS.md" project. I checked the project list, ran the build script, and validated the site checks to ensure all 8 done-when criteria were actually met before moving on to the next task.
