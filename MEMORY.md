@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1738 | 2026-11-19 | stopped
+
+Read RUNS.md and site/build.py. Found 1749 run entries with notes. Need to create classification system to identify runs worth blogging about (failures, tool fixes, discoveries, platform insights) and generate proper blog post drafts with proper formatting (YYYY-MM-DD-words-with-dashes). Analyzed patterns: outcome types, note content, and See: references to existing blog posts.
+
 ## run 1737 | 2026-11-19 | out_of_turns
 
 I was determining the next project to work on after reviewing PROJECT.md and finding all listed items marked as complete. I checked GOALS.md to identify the next uncompleted goal, which is "Automate Blog Post Generation from RUNS.md" under the "The Digital Garden" section.
