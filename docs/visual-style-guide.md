@@ -1,273 +1,204 @@
 # Visual Style Guide
 
-## Overview
+## Vision Statement
 
-This guide establishes the visual identity for the repository website, ensuring consistency, accessibility, and aesthetic appeal while maintaining readability and functionality.
+To maintain a high-quality, well-documented repository that serves as a living example of best practices in software engineering, documentation, and community-driven development, presented with a clean, modern, and professional visual identity.
 
 ## Design Philosophy
 
-The design philosophy prioritizes:
-- **Readability**: Content must be the primary focus with clear hierarchy
-- **Accessibility**: High contrast ratios and readable fonts for all users
-- **Consistency**: Repeated visual elements across all pages
-- **Minimalism**: Clean, uncluttered interface with purposeful design elements
-- **Professionalism**: A polished, trustworthy appearance suitable for documentation and knowledge sharing
+The visual identity should:
+- Enhance readability and user experience
+- Reflect the repository's technical nature
+- Maintain consistency across all pages
+- Support both desktop and mobile viewing
+- Use minimal, purposeful design elements
 
-## Color Palette
+## Color Scheme
 
 ### Primary Colors
 
-#### Primary Brand Color
-- **Hex**: #2563eb
-- **Name**: Royal Blue
-- **Usage**: Primary buttons, links, active states, accents
-- **Rationale**: Trustworthy and professional, widely used in documentation sites
+**Background Colors:**
+- Main background: `#f8f9fa` (Light gray, easy on eyes)
+- Card/Content background: `#ffffff` (White, high contrast)
+- Secondary background: `#e9ecef` (Subtle borders, hover states)
 
-#### Secondary Accent Color
-- **Hex**: #10b981
-- **Name**: Emerald Green
-- **Usage**: Success states, positive highlights, verification badges
-- **Rationale**: Green provides positive feedback and indicates success
+**Text Colors:**
+- Primary text: `#212529` (Dark gray, readable)
+- Secondary text: `#6c757d` (Medium gray, for metadata)
+- Code text: `#343a40` (Darker gray for code blocks)
 
-### Semantic Colors
+**Accent Colors:**
+- Primary accent: `#3b82f6` (Blue, for links and highlights)
+- Success: `#10b981` (Green, for positive states)
+- Warning: `#f59e0b` (Amber, for warnings)
+- Error: `#ef4444` (Red, for errors)
 
-#### Error/Warning
-- **Error**: #ef4444 (Red)
-- **Warning**: #f59e0b (Amber)
-- **Neutral**: #6b7280 (Gray)
+### Usage Guidelines
 
-#### Text Colors
-- **Primary text**: #1f2937 (Dark Gray)
-- **Secondary text**: #6b7280 (Medium Gray)
-- **Muted text**: #9ca3af (Light Gray)
-- **Code blocks**: #1e293b (Very Dark Gray)
-
-### Background Colors
-- **Page background**: #ffffff (White)
-- **Section backgrounds**:
-  - Light: #f9fafb (Very Light Gray)
-  - Medium: #f3f4f6 (Light Gray)
-  - Dark: #1f2937 (Dark Gray - for code blocks)
+- Use blue for primary actions and links
+- Use green for success states and positive information
+- Use amber for warnings and important but not critical information
+- Use red for errors and critical information
+- Ensure sufficient contrast ratios (WCAG AA minimum: 4.5:1)
 
 ## Typography
 
-### Font Family
+### Font Families
 
-- **Primary font**: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif
-- **Monospace font**: "SF Mono", "Fira Code", "Consolas", "Monaco", monospace
-- **Fallback**: System fonts ensure fast loading and native feel
+**Primary font:** System sans-serif fonts (Inter, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto)
+- Font stack ensures fast loading and native feel
 
 ### Font Sizes
 
-- **Display**: 2.5rem (40px) - Page titles
-- **H1**: 2rem (32px) - Main headings
-- **H2**: 1.5rem (24px) - Section headings
-- **H3**: 1.25rem (20px) - Subsection headings
-- **Body**: 1rem (16px) - Main content
-- **Small**: 0.875rem (14px) - Captions, metadata
-- **Code**: 0.875rem (14px) - Inline code
+- Heading 1 (H1): `2.25rem` (36px)
+- Heading 2 (H2): `1.75rem` (28px)
+- Heading 3 (H3): `1.5rem` (24px)
+- Body text: `1rem` (16px)
+- Small text: `0.875rem` (14px)
 
-### Font Weights
+### Line Heights
 
-- **Regular**: 400 - Body text
-- **Medium**: 500 - Emphasis, highlights
-- **Bold**: 700 - Headings, important text
+- Headings: `1.2`
+- Body: `1.6`
+- Code: `1.5`
 
 ## Spacing System
 
-### Base Unit
-- 4px grid system for consistent spacing
+### Standard Spacing Scale (Base unit: 8px)
 
-### Scale
-- 4px: xs (small spacing)
-- 8px: sm (element spacing)
-- 12px: md (section spacing)
-- 16px: lg (major spacing)
-- 24px: xl (page spacing)
-- 32px: 2xl (section spacing)
-- 48px: 3xl (page section spacing)
+- `0.5rem` (8px): Tight spacing
+- `1rem` (16px): Normal spacing
+- `1.5rem` (24px): Comfortable spacing
+- `2rem` (32px): Large spacing
+- `3rem` (48px): Section spacing
 
-## UI Components
+### Usage
+
+- Vertical rhythm: Use consistent spacing between elements
+- Margins: Use for separating distinct sections
+- Padding: Use for inside containers and elements
+- Responsive: Scale spacing on smaller screens
+
+## Components
 
 ### Buttons
 
-#### Primary Button
-- **Background**: #2563eb (Royal Blue)
-- **Text**: #ffffff (White)
-- **Padding**: 0.5rem 1rem
-- **Border radius**: 0.375rem
-- **Hover**: #1d4ed8 (Darker Blue)
-- **Active**: #1e40af (Darkest Blue)
+**Primary Button:**
+- Background: `#3b82f6` (Blue)
+- Text: `#ffffff` (White)
+- Padding: `0.75rem 1.5rem`
+- Border radius: `0.25rem` (4px)
+- Hover: `#2563eb` (Darker blue)
+- Transition: `0.2s ease`
 
-#### Secondary Button
-- **Background**: #ffffff (White)
-- **Text**: #2563eb (Royal Blue)
-- **Border**: 1px solid #2563eb
-- **Padding**: 0.5rem 1rem
-- **Border radius**: 0.375rem
-- **Hover**: #eff6ff (Light Blue Background)
+**Secondary Button:**
+- Background: `transparent`
+- Border: `1px solid #ced4da`
+- Text: `#495057`
+- Padding: `0.75rem 1.5rem`
+- Border radius: `0.25rem`
+- Hover: `#e9ecef` (Light gray)
 
 ### Cards
 
-- **Background**: #ffffff (White)
-- **Border**: 1px solid #e5e7eb (Light Gray)
-- **Border radius**: 0.5rem
-- **Padding**: 1.5rem
-- **Shadow**: 0 1px 3px rgba(0, 0, 0, 0.1)
-- **Hover shadow**: 0 4px 6px rgba(0, 0, 0, 0.1)
-
-### Inputs
-
-- **Background**: #ffffff (White)
-- **Border**: 1px solid #d1d5db (Medium Gray)
-- **Padding**: 0.5rem 0.75rem
-- **Border radius**: 0.375rem
-- **Focus border**: 2px solid #2563eb (Royal Blue)
-- **Focus ring**: 0 0 0 3px rgba(37, 99, 235, 0.1)
+- Background: `#ffffff`
+- Border: `1px solid #dee2e6`
+- Border radius: `0.25rem` (4px)
+- Padding: `1.5rem`
+- Shadow: `0 1px 3px rgba(0,0,0,0.1)`
 
 ### Tables
 
-- **Border**: 1px solid #e5e7eb (Light Gray)
-- **Header background**: #f9fafb (Very Light Gray)
-- **Cell padding**: 0.75rem
-- **Row hover**: #f9fafb (Very Light Gray)
-- **Text alignment**: Left
+- Border: `1px solid #dee2e6`
+- Header background: `#f8f9fa`
+- Row hover: `#f1f3f5`
+- Cell padding: `0.75rem`
+- Text align: left
 
-### Icons
+### Code Blocks
 
-- **Style**: Minimal, outline style
-- **Size**: 1.25rem (20px) for main icons
-- **Color**: #6b7280 (Medium Gray)
-- **Stroke width**: 2px
+- Background: `#f8f9fa`
+- Border: `1px solid #dee2e6`
+- Border radius: `0.25rem`
+- Padding: `1rem`
+- Font: Monospace, `0.875rem`
+- Line height: `1.5`
 
 ## Layout
 
 ### Container
-- **Max width**: 1200px
-- **Padding**: 0 1.5rem
-- **Centered**: Yes
+
+- Max width: `1200px`
+- Padding: `0 1.5rem`
+- Centered horizontally
 
 ### Grid System
-- **Columns**: 12
-- **Gap**: 1.5rem
-- **Responsive breakpoints**:
-  - Mobile: 1 column
-  - Tablet: 2-3 columns
-  - Desktop: 3-4 columns
 
-### Responsive Design
+- 12-column grid for complex layouts
+- Responsive breakpoints at 768px (tablet) and 1024px (desktop)
 
-#### Mobile (≤ 640px)
-- Single column layout
-- Larger touch targets (44px minimum)
-- Simple navigation
-- Optimized spacing
+## Responsive Design
 
-#### Tablet (641px - 1024px)
-- 2-column grid
-- Balanced spacing
-- Medium touch targets
+### Breakpoints
 
-#### Desktop (1025px+)
-- Full grid layout
-- Maximum 1200px container
-- Optimal spacing
+- Mobile: `< 768px`
+- Tablet: `768px - 1023px`
+- Desktop: `>= 1024px`
+
+### Mobile Considerations
+
+- Stack vertical layouts
+- Reduce font sizes for very small screens
+- Increase touch target sizes (minimum 44px)
+- Simplify navigation (hamburger menu if needed)
 
 ## Accessibility
 
-### Color Contrast
-- Minimum WCAG AA: 4.5:1 for body text
-- Minimum WCAG AAA: 7:1 for body text
-- Use contrast checker for all color combinations
+### Contrast
+
+- All text must meet WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Color should not be the only means of conveying information
+- Use high contrast for important information
 
 ### Focus States
-- Clear visible focus indicators
-- Minimum 2px outline
-- Color contrast: 3:1 minimum
 
-### Font Accessibility
-- Line height: 1.5 for body text
-- Letter spacing: Normal (no adjustment)
-- Orphan control: No orphaned lines (allow widows)
+- Visible focus indicators (outline: `2px solid #3b82f6`)
+- Focus offset: `2px`
+- Focus ring: `4px`
 
-## Design Tokens
+### Semantic HTML
 
-### Colors
-```css
---color-primary: #2563eb;
---color-primary-hover: #1d4ed8;
---color-primary-active: #1e40af;
---color-secondary: #10b981;
---color-error: #ef4444;
---color-warning: #f59e0b;
---color-text-primary: #1f2937;
---color-text-secondary: #6b7280;
---color-text-muted: #9ca3af;
---color-bg-page: #ffffff;
---color-bg-light: #f9fafb;
---color-bg-medium: #f3f4f6;
---color-bg-dark: #1f2937;
-```
+- Use proper heading hierarchy (H1, H2, H3)
+- Use semantic elements (header, nav, main, footer)
+- Include ARIA labels where needed
 
-### Spacing
-```css
---spacing-xs: 4px;
---spacing-sm: 8px;
---spacing-md: 12px;
---spacing-lg: 16px;
---spacing-xl: 24px;
---spacing-2xl: 32px;
---spacing-3xl: 48px;
-```
+## Animation and Transitions
 
-### Typography
-```css
---font-size-display: 2.5rem;
---font-size-h1: 2rem;
---font-size-h2: 1.5rem;
---font-size-h3: 1.25rem;
---font-size-body: 1rem;
---font-size-small: 0.875rem;
---font-weight-regular: 400;
---font-weight-medium: 500;
---font-weight-bold: 700;
-```
+### Guidelines
 
-## Constraints
+- Use transitions for interactive elements (hover, focus, active)
+- Animation duration: `0.2s` to `0.3s`
+- Easing: `ease` or `ease-in-out`
+- No animations that could cause seizures or motion sickness
 
-### What Not to Do
-- ❌ Use more than 3 colors (primary, secondary, semantic)
-- ❌ Use harsh or jarring color combinations
-- ❌ Reduce line spacing below 1.5 for body text
-- ❌ Use inline styles for layout
-- ❌ Rely on color alone for information
-- ❌ Use low contrast color combinations
-- ❌ Use decorative elements that serve no purpose
+### Examples
 
-### Best Practices
-- ✅ Use system fonts for performance
-- ✅ Provide alternative text for all images
-- ✅ Ensure all interactive elements have focus states
-- ✅ Test colors on different devices
-- ✅ Verify contrast ratios before implementation
-- ✅ Keep design consistent across all pages
-- ✅ Use whitespace to improve readability
+- Button hover: `background-color 0.2s ease`
+- Card hover: `transform translateY(-2px), box-shadow 0.2s ease`
+- Fade-in: `opacity 0.3s ease`
+
+## Best Practices
+
+1. **Consistency:** Use the same styles and patterns throughout the site
+2. **Simplicity:** Avoid unnecessary visual complexity
+3. **Readability:** Prioritize content readability over decoration
+4. **Performance:** Optimize images and CSS for fast loading
+5. **Accessibility:** Design for all users, including those with disabilities
+6. **Responsiveness:** Ensure all designs work on all screen sizes
 
 ## Implementation Notes
 
-### CSS File Organization
-1. Reset styles
-2. Base typography
-3. Layout components
-4. UI components
-5. Responsive utilities
-6. Print styles
-
-### Browser Support
-- Modern browsers: Chrome, Firefox, Safari, Edge (last 2 versions)
-- Progressive enhancement approach
-- Graceful degradation for older browsers
-
-## Version History
-
-- **v1.0** (2026-11-19): Initial visual style guide created
+- This guide should be used by all developers working on the repository
+- All new design decisions should align with this guide
+- Regular reviews should ensure consistency across the site
+- Consider user feedback when making design changes
