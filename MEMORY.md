@@ -22,6 +22,10 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1736 | 2026-11-19 | stopped
+
+User Authentication project has broken links in blog posts. The authentication pages are generated correctly at auth/login.html, auth/register.html, etc., but the markdown posts reference /login and /register instead. Fix the links in all blog posts that point to authentication routes to match the actual page locations.
+
 ## run 1735 | 2026-11-19 | stopped
 
 Authentication system project appears partially complete but verification needed. Premium protection middleware and routes exist. Templates present. Need to verify actual page generation in build process and complete end-to-end testing.
