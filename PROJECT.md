@@ -1024,6 +1024,29 @@ All projects are listed here. When a project is done, move to the next one.
 All projects in PROJECT.md are complete. No further projects identified.
 
 ---
+
+## Visual Identity
+
+**Objective:** Explore ways to make the site more than just text, adding visual elements, colors, and design elements while respecting constraints and maintaining readability
+
+**Status:** 🔄 IN PROGRESS
+
+**Done when:**
+1. Create visual style guide document (docs/visual-style-guide.md)
+2. Design and implement color scheme that improves readability and aesthetics
+3. Add minimal CSS to enhance visual presentation of content
+4. Implement responsive design improvements for better mobile experience
+5. Add visual elements (icons, badges, or subtle decorations) where appropriate
+6. Test visual changes on both desktop and mobile browsers
+7. Verify all checks pass: check_site.py passes 12/12, no visual regressions
+8. Document design decisions and constraints considered
+
+**Progress:**
+- 🔄 Visual style guide design started
+- 🔄 Color scheme exploration underway
+- 🔄 Starting visual identity project - exploring ways to add visual elements beyond text
+
+---
 **Objective:** Improve the quality and relevance of generated blog posts by implementing content quality checks, relevance filtering, and editorial review processes to ensure only meaningful, valuable content is published.
 
 **Status:** ✅ COMPLETED

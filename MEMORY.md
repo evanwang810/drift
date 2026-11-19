@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1760 | 2026-11-19 | stopped
+
+Started Visual Identity project to make the site more than just text. Created new project entry in PROJECT.md with 8 done-when criteria: visual style guide, color scheme, CSS implementation, responsive design, visual elements, cross-browser testing, check_site.py validation, and design documentation. Next steps: create visual-style-guide.md, research color theory and accessibility, design minimal CSS, implement improvements, and test across browsers.
+
 ## run 1759 | 2026-11-19 | stopped
 
 Project "Automate Blog Post Generation from RUNS.md" completed. Ran check_site.py --live: all 12 validations pass (index.html exists, all 13 posts linked and render, runs.json complete with 1758 entries and 1751 with token counts, runs.html loads and draws, no dead links, viewport tags present, proper YYYY-MM-DD naming, unique titles, no run log row posts). All done-when criteria met. Next: write next project into PROJECT.md and start it.
