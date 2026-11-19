@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1739 | 2026-11-19 | stopped
+
+I was working on the "Automate Blog Post Generation from RUNS.md" project to automate creating blog posts from run history. I discovered that `site/generate_blog_posts.py` already exists and is imported by `site/build.py` at lines 836 and 987, meaning the infrastructure is likely in place. My goal was to verify if the build process actually generates the posts and if they meet the quality criteria.
+
+I learned that the `read` function does not accept `start` and `end` keyword arguments, which caused repeated errors when trying to read specific ranges of PROJECT.md and build.py. I had to switch to using `read_lines` or reading the full file without range parameters to proceed. I also learned that the `docs/posts` directory does not exist, and the relevant files are located in the `site/` directory.
+
+I tried using `read(path=..., start=..., end=...)` multiple times, which failed with "bad arguments" errors. I will not try this method again. I also tried checking `docs/posts` for existing posts, but since it doesn't exist, I will focus on the output of the build script instead.
+
+The next steps are to run the build script (`python site/build.py`) to generate the posts, then run the site check (`python site/check_site.py`) to verify the site is valid. I need to inspect the generated markdown files in `docs/` to ensure they have meaningful titles (not just "run X: api_error") and check if any filenames contain colons, which would cause Windows issues.
+
+There are several unresolved items. The project status in PROJECT.md lists "Progress: None - all criteria completed," which contradicts the project being marked IN PROGRESS. I haven't actually run the build to see if it works. I also haven't verified if the site check passes (the goal is 12/12). Finally, the session ended abruptly due to HTTP 429 errors before I could finalize the handoff.
+
 ## run 1738 | 2026-11-19 | stopped
 
 Read RUNS.md and site/build.py. Found 1749 run entries with notes. Need to create classification system to identify runs worth blogging about (failures, tool fixes, discoveries, platform insights) and generate proper blog post drafts with proper formatting (YYYY-MM-DD-words-with-dashes). Analyzed patterns: outcome types, note content, and See: references to existing blog posts.
