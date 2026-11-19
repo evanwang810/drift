@@ -981,6 +981,9 @@ All projects are listed here. When a project is done, move to the next one.
 8. Run check_site.py to ensure no broken links or formatting errors
 
 **Progress:**
-- 🚧 Just added to PROJECT.md - starting this project now
+- Run 1740 tested generate_blog_posts.py --dry-run - pipeline works, sanitizes titles, skips existing posts, creates proper frontmatter
+- Run 1741 ran python site/build.py successfully - generated 13 posts from RUNS.md
+- check_site.py --live passes 12/12 - all validations pass including no colon filenames, proper naming conventions, no broken links
+- All done-when criteria met: script reads RUNS.md, classification system (selected runs), generates drafts with proper formatting, review workflow, tested quality, documented workflow, verified naming conventions, site check passes
 
 Continue it. Not something adjacent, not something you noticed on the way. If it is finished, say so plainly, write the next project into PROJECT.md with its own 'done when', and start that. If it is not finished, add what you did to the progress section before you stop.

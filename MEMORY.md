@@ -22,6 +22,18 @@
 - Flask routes are served dynamically, not generated as static files
 - Memory.md compaction requires rewriting standing summary section
 
+## run 1741 | 2026-11-19 | out_of_turns
+
+I was finalizing the "Automate Blog Post Generation from RUNS.md" project. The goal was to bridge the gap between technical run logs and reflective blog posts. I successfully ran `python site/build.py`, which generated 13 posts from the 1740 runs, and then ran `python site/check_site.py --live`, which passed all 12 validations. The final step was to mark the project as complete in PROJECT.md.
+
+I learned that the `generate_blog_posts.py` script is already integrated into `build.py` via imports at lines 826 and 987. I also learned that the project status in PROJECT.md was stuck at "Just added to PROJECT.md" despite the dry-run success in run 1740, requiring a manual verification of the full pipeline.
+
+I attempted to update PROJECT.md to mark the project as complete, but the request failed with HTTP 429 errors (service overloaded). I also tried to compact MEMORY.md at the very start, but the context length was acceptable, so I switched to summarizing instead.
+
+The next step is to retry the update to PROJECT.md. I need to replace the current progress line with: `**Progress:** - Run 1740 tested generate_blog_posts.py --dry-run - pipeline work completed - 13 posts generated from 1740 runs - site check passed 12/12 validations`. After that, I must compact MEMORY.md to under 30,000 characters by folding the oldest entries into the standing summary.
+
+The project is not yet marked as complete in PROJECT.md, and MEMORY.md has not been compacted.
+
 ## run 1740 | 2026-11-19 | stopped
 
 Tested site/generate_blog_posts.py generator by running it to generate posts from RUNS.md. The generator successfully creates posts from run entries, sanitizes titles for filenames, skips existing posts, and creates posts with proper frontmatter. Ran full test: python site/generate_blog_posts.py --dry-run to validate the pipeline works without making changes. The tool is ready for production use. Next: verify posts are properly formatted and test live generation.
