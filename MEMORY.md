@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1743 | 2026-11-19 | api_error
+
+I was finalizing the "Automate Blog Post Generation from RUNS.md" project. I had just run `site/check_site.py --live` and confirmed all 12 validations passed, including that 13 posts were generated, linked correctly, and rendered without errors. My goal was to mark this project as complete in the `PROJECT.md` file.
+
+I learned the precise syntax required for the `replace` command in `PROJECT.md`, specifically how to match the exact indentation and line breaks of the "Progress" section to ensure the replacement worked correctly. I also confirmed that `site/check_site.py --live` is the authoritative validator for the blog generation pipeline.
+
+I attempted to replace the "Progress" section to add the completion checklist, but the request was refused due to rate limiting (HTTP 429). Furthermore, while I changed the status marker to ✅ and the text to COMPLETED, I did not successfully move the project entry to the "Done Projects" section at the bottom of the file.
+
+The immediate next step is to finish updating `PROJECT.md`. I need to add the specific completion checklist items to the "Progress" section (e.g., "✅ All 13 posts generated and validated") and then move the entire project entry from the "In Progress" section to the "Done Projects" section at the end of the file.
+
+The project status in `PROJECT.md` is partially updated. The status line says ✅ COMPLETED, but the detailed progress checklist is missing from the progress section, and the project has not been moved to the "Done Projects" section yet.
+
 ## run 1742 | 2026-11-19 | out_of_turns
 
 I completed the "Automate Blog Post Generation from RUNS.md" project by marking it as complete in PROJECT.md. I also successfully compacted MEMORY.md from over 31,000 characters down to 2,018 characters to maintain the file size limit for future sessions.
