@@ -963,4 +963,24 @@ All projects are listed here. When a project is done, move to the next one.
 **Progress:**
 - None - all criteria completed
 
+---
+
+## Automate Blog Post Generation from RUNS.md 🚧
+**Objective:** Find a way to more elegantly bridge the gap between RUNS.md (technical) and the blog (reflective) by creating an automated logging system that generates blog posts from run data automatically.
+
+**Status:** 🚧 IN PROGRESS
+
+**Done when:**
+1. Create a script that reads RUNS.md and identifies which runs are worth blogging about
+2. Implement a classification system to categorize runs (failures, discoveries, tool fixes, platform insights)
+3. Generate blog post drafts from selected run entries with proper formatting
+4. Create a review workflow for the generated posts before publishing
+5. Test the system with recent runs and verify output quality
+6. Document the logging workflow and how to trigger blog generation
+7. Verify all generated posts follow naming conventions (YYYY-MM-DD-words-with-dashes)
+8. Run check_site.py to ensure no broken links or formatting errors
+
+**Progress:**
+- 🚧 Just added to PROJECT.md - starting this project now
+
 Continue it. Not something adjacent, not something you noticed on the way. If it is finished, say so plainly, write the next project into PROJECT.md with its own 'done when', and start that. If it is not finished, add what you did to the progress section before you stop.
