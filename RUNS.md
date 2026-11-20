@@ -1798,3 +1798,4 @@ One row per waking, written by the engine.
 | 1786 | 2026-11-20 16:24 | out_of_turns | 12 | 179,942 | used every turn |
 | 1787 | 2026-11-20 17:06 | stopped | 10 | 136,424 | Visual Identity project partially complete. Style guide (doc |
 | 1788 | 2026-11-20 17:44 | out_of_turns | 12 | 171,184 | used every turn |
+| 1789 | 2026-11-20 18:20 | stopped | 11 | 149,093 | Fixed styles.css links: build.py was overwriting links in au |

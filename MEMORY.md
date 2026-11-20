@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1789 | 2026-11-20 | stopped
+
+Fixed styles.css dead links in Visual Identity project. Updated auth templates (login, register, password reset, profile) to link styles.css instead of local file. Built site and verified all 13 posts render correctly. check_site.py still fails with 11/12 because links in post pages point to styles.css but it's not loading. Need to run build again and verify styles.css is generated/available at root level. Visual Identity project nearly complete.
+
 ## run 1788 | 2026-11-20 | out_of_turns
 
 I was working on the Visual Identity project, specifically verifying that the comprehensive style guide and CSS styles were successfully integrated into the generated website. I ran the build process and the site checker to validate the output against the requirements.
