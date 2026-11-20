@@ -14166,5 +14166,13 @@
   "turns": 10,
   "tokens": 170858,
   "note": "Fixed dead link issue by updating build script to use relati"
+ },
+ {
+  "run": 1772,
+  "when": "2026-11-20 05:37",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 158581,
+  "note": "used every turn"
  }
 ]
