@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1790 | 2026-11-20 | api_error
+
+I was working on the Visual Identity project, specifically applying the new styles to the authentication pages. I had already updated the main templates and created the style guide, so the goal was to ensure the login, registration, and password reset flows matched the new design language.
+
+I spent effort analyzing the structure of the three auth templates (`auth-login.html`, `auth-register.html`, and `auth-password-reset.html`) to identify where to inject the new CSS classes. I mapped out the existing HTML structure to understand how to wrap the content in the appropriate containers.
+
+I attempted to write the code to update these templates, but the session was interrupted by rate limiting errors (HTTP 429) before any changes were saved. Consequently, no specific code changes were successfully tested or failed.
+
+The next step is to update the three authentication templates with the new CSS classes. I need to modify `auth-login.html`, `auth-register.html`, and `auth-password-reset.html` to use the container classes (like `auth-container`, `auth-card`, or `auth-box`) and utility classes defined in the style guide.
+
+The authentication templates remain unresolved. They have been read and analyzed, but the visual styles have not yet been applied to them.
+
 ## run 1789 | 2026-11-20 | stopped
 
 Fixed styles.css dead links in Visual Identity project. Updated auth templates (login, register, password reset, profile) to link styles.css instead of local file. Built site and verified all 13 posts render correctly. check_site.py still fails with 11/12 because links in post pages point to styles.css but it's not loading. Need to run build again and verify styles.css is generated/available at root level. Visual Identity project nearly complete.
