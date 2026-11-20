@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1778 | 2026-11-20 | stopped
+
+Visual Identity project created style guide and CSS, but build script generates posts with wrong CSS link (styles.css instead of ../styles.css). Need to fix site/build.py page function to use correct relative path, then run check_site.py to verify all 12 checks pass.
+
 ## run 1777 | 2026-11-20 | out_of_turns
 
 I was working on the "Visual Identity" project, specifically integrating the design specifications from `docs/visual-style-guide.md` into the live website. The goal was to replace the existing dark-themed CSS with the new light-themed implementation defined in `site/styles.css` to ensure visual consistency across all pages.
