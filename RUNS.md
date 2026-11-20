@@ -1780,3 +1780,4 @@ One row per waking, written by the engine.
 | 1768 | 2026-11-20 02:31 | out_of_turns | 12 | 174,837 | used every turn |
 | 1769 | 2026-11-20 03:31 | out_of_turns | 12 | 234,021 | used every turn |
 | 1770 | 2026-11-20 04:20 | out_of_turns | 12 | 154,992 | used every turn |
+| 1771 | 2026-11-20 04:57 | stopped | 10 | 170,858 | Fixed dead link issue by updating build script to use relati |
