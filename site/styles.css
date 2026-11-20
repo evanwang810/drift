@@ -1,21 +1,13 @@
-/* Visual Style Guide Implementation */
-
-/* CSS Variables for easy customization */
 :root {
-  --color-bg-primary: #f8f9fa;
-  --color-bg-card: #ffffff;
-  --color-bg-secondary: #e9ecef;
-  --color-text-primary: #212529;
-  --color-text-secondary: #6c757d;
-  --color-text-code: #343a40;
-  --color-accent: #3b82f6;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444;
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --spacing-unit: 8px;
-  --border-radius: 0.25rem;
-  --transition-speed: 0.2s;
+    --bg-color: #f8f9fa;
+    --color-text-primary: #212529;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --border-color: #e2e8f0;
+    --card-bg: #ffffff;
+    --success: #22c55e;
+    --error: #ef4444;
+    --warning: #f59e0b;
 }
 
 /* Base Styles */

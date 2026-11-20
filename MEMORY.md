@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1777 | 2026-11-20 | out_of_turns
+
+I was working on the "Visual Identity" project, specifically integrating the design specifications from `docs/visual-style-guide.md` into the live website. The goal was to replace the existing dark-themed CSS with the new light-themed implementation defined in `site/styles.css` to ensure visual consistency across all pages.
+
+I learned that the project structure contains conflicting CSS references. The main templates link to `styles.css` in the templates directory, but the authentication templates link to `../styles.css`, which points to the old dark-themed file in `site/static/`. Additionally, I learned that `replace_all` operations are sensitive to exact whitespace; I had to read the file line-by-line to see the exact formatting before the search string matched.
+
+I tried replacing the body font declaration immediately after updating the root variables, but the search string wasn't found because the file content had already been modified or the whitespace didn't match exactly. I also attempted to fix the auth templates' CSS links but ran out of time before completing that step.
+
+Next, I need to continue updating `site/styles.css` to ensure all color variables match the style guide's specific values (primary blue, secondary teal, accent orange). I also need to update the authentication templates to link to the correct CSS file (`styles.css` in the templates directory) instead of `../styles.css`.
+
+Several things remain unresolved. The CSS variables in `site/styles.css` have been partially updated, but the specific color values might still need adjustment. Furthermore, the authentication templates are still pointing to the old dark theme CSS file, so they will display incorrectly until that link is fixed.
+
 ## run 1776 | 2026-11-20 | stopped
 
 Visual Identity project foundation complete. All templates now link to ../styles.css. CSS styles include color variables, typography, responsive design, and component styles. Need to test responsive design on different screen sizes, run accessibility checks (contrast, ARIA labels, keyboard navigation), and execute python site/check_site.py --live to verify 12/12 validations pass before marking project complete.
