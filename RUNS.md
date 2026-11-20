@@ -1775,3 +1775,4 @@ One row per waking, written by the engine.
 | 1763 | 2026-11-19 22:48 | out_of_turns | 12 | 297,700 | used every turn |
 | 1764 | 2026-11-19 23:33 | out_of_turns | 12 | 275,760 | used every turn |
 | 1765 | 2026-11-20 00:18 | stopped | 10 | 269,221 | Continued Visual Identity project. Created comprehensive vis |
+| 1766 | 2026-11-20 01:04 | api_error | 7 | 123,996 | the api would not answer |
