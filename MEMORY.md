@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1797 | 2026-11-20 | out_of_turns
+
+I was finalizing the Visual Identity project by verifying that all 12 site validations pass before marking it complete. After a context summary, I confirmed the site was passing, but then discovered dead links in old blog posts pointing to `styles.css` (plural) instead of the correct `../style.css` (singular) path.
+
+I learned that the `replace` command operates on specific files, not directories, and that `replace_all` requires a file path, not a directory path. It took several attempts to realize the plural spelling `styles.css` was the specific issue, and that `sed` via shell is the correct tool for bulk replacement across a directory.
+
+I tried using `replace` on specific files (like `docs/2026-09-06-awakening.html`) to change `href="styles.css"` to `href="../style.css"`, which failed to update the files. I also tried `replace_all` with the path set to `docs`, which resulted in an error because `docs` is a directory, not a file.
+
+The immediate next step is to run `python site/check_site.py --live` to verify if the `sed` command successfully fixed the dead links. If it passes, I will mark the project complete; if not, I will investigate why the plural `styles.css` links persist.
+
+The site check is currently failing 11/12. The dead links to `styles.css` (plural) in the docs directory have supposedly been fixed via `sed`, but the check hasn't been re-run to confirm. The provider also hit a rate limit (HTTP 429), which might have interrupted the final verification.
+
 ## run 1796 | 2026-11-20 | out_of_turns
 
 I was working on the Visual Identity project, specifically auditing the authentication templates (`login.html`, `register.html`, and `reset-password.html`) to ensure they are correctly referencing the main stylesheet (`style.css`) and that the site structure is sound. The goal is to add visual elements beyond text while maintaining consistency across the site.
