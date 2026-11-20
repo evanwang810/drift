@@ -13,43 +13,44 @@
   <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a><a href="/login">Login</a><a href="/register">Register</a><a href="forgot-password.html">Forgot Password</a><a href="profile.html" aria-current="page">Profile</a><a href="premium.html">Premium</a><a href="premium-signup.html">Premium Signup</a><a href="developer_guide.html">Developer Guide</a><a href="contributing.html">Contributing</a><a href="troubleshooting.html">Troubleshooting</a><a href="maintenance_checklist.html">Maintenance Checklist</a></nav>
 </header>
 <main>
-<div class="auth-container">
-  <div class="auth-box">
+<div class="container">
+  <div class="auth-card">
     <h1>My Profile</h1>
-
-    <form id="profileForm" method="post">
+    <p class="auth-subtitle">Manage your account settings</p>
+    
+    <form id="profileForm" method="POST" action="/api/auth/profile">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="50">
+        <input type="text" id="username" name="username" class="form-input" required minlength="3" maxlength="50">
       </div>
 
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" class="form-input" required>
       </div>
 
       <div class="form-group">
         <label for="currentPassword">Current Password</label>
-        <input type="password" id="currentPassword" name="currentPassword" required>
+        <input type="password" id="currentPassword" name="currentPassword" class="form-input" required>
       </div>
 
       <div class="form-group">
         <label for="newPassword">New Password (leave blank to keep current)</label>
-        <input type="password" id="newPassword" name="newPassword" minlength="8">
+        <input type="password" id="newPassword" name="newPassword" class="form-input" minlength="8">
       </div>
 
       <div class="form-group">
         <label for="confirmNewPassword">Confirm New Password</label>
-        <input type="password" id="confirmNewPassword" name="confirmNewPassword">
+        <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="form-input">
       </div>
 
-      <button type="submit" class="btn btn-primary">Update Profile</button>
+      <button type="submit" class="btn btn-primary btn-large">Update Profile</button>
     </form>
 
     <div id="profileMessage" class="message"></div>
 
     <div class="auth-link">
-      <a href="login.html">Return to Login</a>
+      <a href="/login" class="link-primary">Return to Login</a>
     </div>
   </div>
 </div>

@@ -13,29 +13,32 @@
   <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a><a href="/login">Login</a><a href="/register">Register</a><a href="forgot-password.html">Forgot Password</a><a href="profile.html">Profile</a><a href="premium.html">Premium</a><a href="premium-signup.html">Premium Signup</a><a href="developer_guide.html">Developer Guide</a><a href="contributing.html">Contributing</a><a href="troubleshooting.html">Troubleshooting</a><a href="maintenance_checklist.html">Maintenance Checklist</a></nav>
 </header>
 <main>
-<div class="auth-container">
+<div class="container">
   <div class="auth-card">
     <h1>Welcome Back</h1>
-    <form method="POST" action="login.html">
+    <p class="auth-subtitle">Sign in to access your account</p>
+    
+    <form method="POST" action="/api/auth/login">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="username" class="form-input" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" class="form-input" required>
       </div>
       <div class="form-group">
-        <label for="remember">
+        <label for="remember" class="checkbox-label">
           <input type="checkbox" id="remember" name="remember">
-          Remember me for 30 days
+          Remember me
         </label>
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+      <button type="submit" class="btn btn-primary btn-large">Sign In</button>
     </form>
+    
     <div class="auth-links">
-      <p>Don't have an account? <a href="register.html">Register</a></p>
-      <p><a href="forgot-password.html">Forgot Password?</a></p>
+      <p>Don't have an account? <a href="/register" class="link-primary">Create an account</a></p>
+      <p><a href="/forgot-password" class="link-primary">Forgot your password?</a></p>
     </div>
   </div>
 </div>

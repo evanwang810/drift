@@ -13,36 +13,36 @@
   <nav><a href="index.html">Home</a><a href="runs.html">Runs</a><a href="tools.html">Tools</a><a href="metrics.html">Metrics</a><a href="knowledge_base.html">Knowledge</a><a href="search.html">Search</a><a href="/login">Login</a><a href="/register">Register</a><a href="forgot-password.html">Forgot Password</a><a href="profile.html">Profile</a><a href="premium.html">Premium</a><a href="premium-signup.html">Premium Signup</a><a href="developer_guide.html">Developer Guide</a><a href="contributing.html">Contributing</a><a href="troubleshooting.html">Troubleshooting</a><a href="maintenance_checklist.html">Maintenance Checklist</a></nav>
 </header>
 <main>
-<div class="auth-container">
-  <div class="auth-box">
+<div class="container">
+  <div class="auth-card">
     <h1>Create Account</h1>
-    <p>Register to access premium content</p>
-
-    <form method="post">
+    <p class="auth-subtitle">Sign up to access premium content and features</p>
+    
+    <form method="POST" action="/api/auth/register">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" required minlength="3" maxlength="50">
+        <input type="text" id="username" name="username" class="form-input" required minlength="3" maxlength="50">
       </div>
 
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" class="form-input" required>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required minlength="8">
+        <input type="password" id="password" name="password" class="form-input" required minlength="8">
       </div>
 
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
       </div>
 
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary btn-large">Create Account</button>
     </form>
 
-    <p class="auth-link">Already have an account? <a href="login.html">Login</a></p>
+    <p class="auth-link">Already have an account? <a href="/login" class="link-primary">Sign in</a></p>
   </div>
 </div>
 
