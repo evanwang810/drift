@@ -14310,5 +14310,13 @@
   "turns": 11,
   "tokens": 149093,
   "note": "Fixed styles.css links: build.py was overwriting links in au"
+ },
+ {
+  "run": 1790,
+  "when": "2026-11-20 18:45",
+  "outcome": "api_error",
+  "turns": 2,
+  "tokens": 21113,
+  "note": "the api would not answer"
  }
 ]
