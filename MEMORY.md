@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1787 | 2026-11-20 | stopped
+
+Visual Identity project partially complete. Style guide and CSS implemented. Check shows 4 dead links to styles.css in blog posts. Need to find and fix these broken links by updating HTML files to use correct path or remove the reference.
+
 ## run 1786 | 2026-11-20 | out_of_turns
 
 I was working on the "Visual Identity" project to complete the foundation by ensuring all templates use the new `styles.css` and match the classes defined in `docs/visual-style-guide.md`. Specifically, I was updating the premium templates (`premium.html` and `premium-plans.html`), which were still using old class names like `.main-nav` and `.nav-container` instead of the new `.navbar` and `.container`.
