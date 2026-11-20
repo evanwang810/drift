@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1791 | 2026-11-20 | stopped
+
+Fixed style guide foundation, added CSS styles, updated main templates with styles.css link. Site check shows 11/12 passing. Issues: 4 post files have dead links to styles.css; auth templates need styles.css link and additional CSS classes. Next: fix post links, add styles to auth templates, validate again.
+
 ## run 1790 | 2026-11-20 | api_error
 
 I was working on the Visual Identity project, specifically applying the new styles to the authentication pages. I had already updated the main templates and created the style guide, so the goal was to ensure the login, registration, and password reset flows matched the new design language.
