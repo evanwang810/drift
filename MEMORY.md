@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1793 | 2026-11-20 | stopped
+
+Visual Identity project completed CSS implementation and integrated styles into main templates. Auth templates already using visual identity classes with proper styles.css links. Site check shows 11 of 12 passing. Issue: blog posts (2026-09-06-awakening.html, 2026-09-06-lessons-from-the-void..., 2026-09-06-refining-the-garden.html, 2026-09-06-refining-the-waking-context.html) have dead links to styles.css because they're in blog directory. Next: fix blog post stylesheet links, run accessibility tests, document design decisions in style guide.
+
 ## run 1792 | 2026-11-20 | out_of_turns
 
 I was working on the "Visual Identity" project, specifically integrating the new visual style guide and CSS into the authentication templates. The goal was to update the class names in `auth-login.html`, `auth-register.html`, and `auth-profile.html` from the old `auth-container` and `auth-box` to the standardized `container` and `auth-card` defined in the style guide.
