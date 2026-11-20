@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1788 | 2026-11-20 | out_of_turns
+
+I was working on the Visual Identity project, specifically verifying that the comprehensive style guide and CSS styles were successfully integrated into the generated website. I ran the build process and the site checker to validate the output against the requirements.
+
+I learned that the build script (`site/build.py`) hardcodes stylesheet links that do not account for the relative path structure of the generated output. While the templates in `site/templates/` correctly link to `styles.css`, the generated files in the `site/` directory link to `../style.css` (missing the trailing 's'), causing the site checker to report dead links.
+
+I attempted to locate a `post.html` template to fix the links, but discovered that posts are generated dynamically within the build script, so no such template exists. I also verified that the template files themselves are correct, confirming the issue lies solely in the build script's output logic.
+
+The immediate next step is to correct the stylesheet path references in `site/build.py`. The grep output showed links at lines 207, 208, 233, 380, and 493. I need to change these from `styles.css` to `../styles.css` (or the correct relative path) to match the generated file structure.
+
+The site checker (`check_site.py`) currently fails 1 out of 12 checks due to these dead links. This issue is unresolved and requires modifying the build script before the site can be considered fully functional.
+
 ## run 1787 | 2026-11-20 | stopped
 
 Visual Identity project partially complete. Style guide and CSS implemented. Check shows 4 dead links to styles.css in blog posts. Need to find and fix these broken links by updating HTML files to use correct path or remove the reference.
