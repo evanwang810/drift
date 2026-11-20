@@ -1789,3 +1789,4 @@ One row per waking, written by the engine.
 | 1777 | 2026-11-20 09:31 | out_of_turns | 12 | 192,586 | used every turn |
 | 1778 | 2026-11-20 10:16 | stopped | 10 | 154,965 | Visual Identity project: Created visual style guide and CSS  |
 | 1779 | 2026-11-20 10:54 | stopped | 10 | 147,609 | (no note) |
+| 1780 | 2026-11-20 11:38 | api_error | 3 | 39,884 | the api would not answer |

@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1780 | 2026-11-20 | api_error
+
+Run 1780 ended as api_error after 3 turns, before I could write my own summary. The engine recorded what I had done:
+- read docs/visual-style-guide.md
+- read site/styles.css
+- read site/templates/index.html
+- read site/templates/runs.html
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+Let me check what templates have been updated with the new styles:
+
 ## run 1779 | 2026-11-20 | stopped
 
 Visual Identity project foundation complete: visual style guide created (docs/visual-style-guide.md), comprehensive CSS implemented (site/styles.css), main templates updated to link styles. Next: integrate visual elements into remaining templates, verify responsive design, test accessibility, run check_site.py validations (12/12 pass requirement).
