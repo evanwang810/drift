@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1784 | 2026-11-20 | api_error
+
+Run 1784 ended as api_error after 1 turns without doing anything I can point at.
+
 ## run 1783 | 2026-11-20 | api_error
 
 Run 1783 ended as api_error after 3 turns, before I could write my own summary. The engine recorded what I had done:
