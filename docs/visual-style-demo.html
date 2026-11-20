@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Style Guide Demo</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav class="nav">
+    <div class="nav-logo">Visual Style Guide</div>
+    <ul class="nav-links">
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#typography">Typography</a></li>
+      <li><a href="#components">Components</a></li>
+      <li><a href="#forms">Forms</a></li>
+      <li><a href="#responsive">Responsive</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" class="container">
+    <h1>Visual Style Guide Demo</h1>
+    <p>This page demonstrates all the visual elements defined in the style guide. Resize your browser to see responsive behavior.</p>
+
+    <section id="colors" class="mt-xl mb-xl">
+      <h2>Colors</h2>
+
+      <h3>Background Colors</h3>
+      <div class="mt-sm">
+        <div style="background-color: #ffffff; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Base Background:</strong> #ffffff
+        </div>
+        <div style="background-color: #f8f9fa; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Secondary Background:</strong> #f8f9fa
+        </div>
+        <div style="background-color: #e9ecef; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Tertiary Background:</strong> #e9ecef
+        </div>
+      </div>
+
+      <h3>Text Colors</h3>
+      <div class="mt-sm">
+        <div style="color: #212529; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Primary Text:</strong> #212529
+        </div>
+        <div style="color: #495057; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Secondary Text:</strong> #495057
+        </div>
+        <div style="color: #6c757d; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Muted Text:</strong> #6c757d
+        </div>
+      </div>
+
+      <h3>Accent Colors</h3>
+      <div class="mt-sm">
+        <div style="background-color: #0d6efd; color: white; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Primary Accent:</strong> #0d6efd
+        </div>
+        <div style="background-color: #198754; color: white; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Success:</strong> #198754
+        </div>
+        <div style="background-color: #ffc107; color: #212529; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Warning:</strong> #ffc107
+        </div>
+        <div style="background-color: #dc3545; color: white; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Error:</strong> #dc3545
+        </div>
+        <div style="background-color: #0dcaf0; color: #212529; padding: 1rem; border: 1px solid #dee2e6; margin-bottom: 0.5rem;">
+          <strong>Info:</strong> #0dcaf0
+        </div>
+      </div>
+
+      <h3>Badges</h3>
+      <div class="mt-sm">
+        <span class="badge">Default</span>
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-success">Success</span>
+        <span class="badge badge-warning">Warning</span>
+        <span class="badge badge-error">Error</span>
+      </div>
+    </section>
+
+    <section id="typography" class="mt-xl mb-xl">
+      <h2>Typography</h2>
+
+      <h3>Headings</h3>
+      <div class="mt-sm">
+        <h1>H1: Page Title</h1>
+        <h2>H2: Section Title</h2>
+        <h3>H3: Subsection</h3>
+        <h4>H4: Subheading</h4>
+        <h5>H5: Sub-subheading</h5>
+        <h6>H6: Smallest Heading</h6>
+      </div>
+
+      <h3>Body Text</h3>
+      <div class="mt-sm">
+        <p>
+          <strong>Paragraph:</strong> This is a paragraph of text demonstrating the body typography. It should be easy to read with good line height and appropriate font size.
+        </p>
+        <p>
+          <strong>Secondary Text:</strong> This is secondary text used for descriptions, captions, and auxiliary information. It uses a slightly darker color for visual hierarchy.
+        </p>
+        <p>
+          <strong>Muted Text:</strong> This is muted text used for metadata, labels, and less important information. It has the lowest contrast of the text colors.
+        </p>
+      </div>
+
+      <h3>Code</h3>
+      <div class="mt-sm">
+        <p>Inline code: <code>const greeting = "Hello, World!";</code></p>
+        <pre><code>function example() {
+  console.log("Hello, World!");
+  return true;
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="components" class="mt-xl mb-xl">
+      <h2>Components</h2>
+
+      <h3>Cards</h3>
+      <div class="mt-sm">
+        <div class="card">
+          <h3>Card Title</h3>
+          <p>This is a card component with padding, border, and subtle shadow. Cards are used to group related content together.</p>
+          <a href="#" class="btn btn-primary">Learn More</a>
+        </div>
+
+        <div class="card">
+          <h3>Card with List</h3>
+          <ul>
+            <li>Feature one</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+          </ul>
+          <a href="#" class="btn btn-secondary">View Details</a>
+        </div>
+      </div>
+
+      <h3>Buttons</h3>
+      <div class="mt-sm">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-secondary">Secondary Button</button>
+        <button class="btn" style="background-color: #6c757d; color: white;">Disabled Button</button>
+      </div>
+
+      <h3>Alerts</h3>
+      <div class="mt-sm">
+        <div class="alert alert-success">
+          <strong>Success:</strong> This is a success message. It's green with dark green text for good visibility.
+        </div>
+        <div class="alert alert-warning">
+          <strong>Warning:</strong> This is a warning message. It's yellow with dark yellow text for good visibility.
+        </div>
+        <div class="alert alert-error">
+          <strong>Error:</strong> This is an error message. It's red with dark red text for good visibility.
+        </div>
+        <div class="alert alert-info">
+          <strong>Info:</strong> This is an informational message. It's light blue with dark blue text for good visibility.
+        </div>
+      </div>
+
+      <h3>Lists</h3>
+      <div class="mt-sm">
+        <h4>Unordered List</h4>
+        <ul>
+          <li>Item one</li>
+          <li>Item two</li>
+          <li>Item three</li>
+        </ul>
+
+        <h4>Ordered List</h4>
+        <ol>
+          <li>First step</li>
+          <li>Second step</li>
+          <li>Third step</li>
+        </ol>
+      </div>
+
+      <h3>Blockquote</h3>
+      <div class="mt-sm">
+        <blockquote>
+          <p>"This is a blockquote. It's used to highlight important information or quote someone. It has a left border and light background for visual distinction."</p>
+          <footer>— Unknown Author</footer>
+        </blockquote>
+      </div>
+
+      <h3>Tables</h3>
+      <div class="mt-sm">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John Doe</td>
+              <td>Developer</td>
+              <td><span class="badge badge-success">Active</span></td>
+            </tr>
+            <tr>
+              <td>Jane Smith</td>
+              <td>Designer</td>
+              <td><span class="badge badge-warning">Pending</span></td>
+            </tr>
+            <tr>
+              <td>Bob Johnson</td>
+              <td>Manager</td>
+              <td><span class="badge badge-error">Inactive</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="forms" class="mt-xl mb-xl">
+      <h2>Forms</h2>
+
+      <div class="card">
+        <form>
+          <div class="form-group">
+            <label for="input-email" class="form-label">Email Address</label>
+            <input type="email" id="input-email" class="form-input" placeholder="you@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="select-role" class="form-label">Role</label>
+            <select id="select-role" class="form-select">
+              <option value="">Select a role</option>
+              <option value="developer">Developer</option>
+              <option value="designer">Designer</option>
+              <option value="manager">Manager</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Select Options</label>
+            <div>
+              <label style="margin-right: 1rem;">
+                <input type="checkbox" style="margin-right: 0.5rem;">
+                Option One
+              </label>
+              <label>
+                <input type="checkbox" style="margin-right: 0.5rem;">
+                Option Two
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="textarea" class="form-label">Message</label>
+            <textarea id="textarea" class="form-input" rows="4" placeholder="Enter your message..."></textarea>
+          </div>
+
+          <div class="mt-sm">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="responsive" class="mt-xl mb-xl">
+      <h2>Responsive Design</h2>
+      <p>This section demonstrates responsive behavior. Resize your browser to see how elements adapt to different screen sizes.</p>
+
+      <h3>Grid Layout Demo</h3>
+      <div class="mt-sm" style="display: grid; gap: var(--spacing-md); grid-template-columns: 1fr;">
+        <div class="card">
+          <h3>Mobile View</h3>
+          <p>On mobile, the grid is single column with full width content.</p>
+        </div>
+      </div>
+
+      <div class="mt-sm" style="display: grid; gap: var(--spacing-md); grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="card">
+          <h3>Card 1</h3>
+          <p>This card is responsive and will stack on smaller screens.</p>
+        </div>
+        <div class="card">
+          <h3>Card 2</h3>
+          <p>This card is responsive and will stack on smaller screens.</p>
+        </div>
+        <div class="card">
+          <h3>Card 3</h3>
+          <p>This card is responsive and will stack on smaller screens.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-xl mb-xl" style="border-top: 1px solid var(--color-dark-border); padding: var(--spacing-xl) 0; text-align: center; color: var(--color-muted-text);">
+    <p>Visual Style Guide Demo • Built with CSS Variables and Modern Design Principles</p>
+  </footer>
+</body>
+</html>

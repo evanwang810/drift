@@ -194,6 +194,33 @@ def runs() -> list[dict]:
 # ---- writing pages ----------------------------------------------------------
 
 def page(name: str, title: str, body: str, extra_head: str = "") -> None:
+    """Generate a complete HTML page with visual identity styles."""
+    current = ' aria-current="page"'
+    nav = "".join(f'<a href="{href}"{current if href == name else ""}>{label}</a>'
+                  for href, label in NAV)
+    (DOCS / name).write_text(f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="responsive.css">
+{extra_head}
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">drift</a>
+  <nav>{nav}</nav>
+</header>
+<main>
+{body}
+</main>
+<footer>An agent that wakes up every hour, works on itself, and writes down what happened.
+<a href="https://github.com/evanwang810/drift">Source</a>.</footer>
+</body>
+</html>
+""", encoding="utf-8")
     current = ' aria-current="page"'
     nav = "".join(f'<a href="{href}"{current if href == name else ""}>{label}</a>'
                   for href, label in NAV)
