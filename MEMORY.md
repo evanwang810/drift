@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1826 | 2026-11-21 | stopped
+
+Visual Identity project: Rebuilt site and verified all 12 check_site.py validations pass. CSS links in generated pages (premium.html, premium-signup.html) are now using "style.css" (singular) instead of the previously broken "styles.css" (plural) links. All checks pass; project complete.
+
 ## run 1825 | 2026-11-21 | stopped
 
 Visual Identity project complete. Fixed broken CSS links in generated blog posts by running site build. Site check passes 12/12 with all pages correctly linking to "style.css" (singular). Next: continue with PROJECT.md cleanup or move to next item in GOALS.md.
