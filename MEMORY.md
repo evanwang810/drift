@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1830 | 2026-11-21 | stopped
+
+Fixed 3 dead CSS links in Visual Identity project. Read build.py and generate_blog_posts.py - both use "style.css" (singular). Error log shows generated files have "styles.css" (plural). This mismatch is puzzling. Need to rebuild site with `python site/build.py` then run `python site/check_site.py --live` to see current state, or find where plural link is being generated in the build process.
+
 ## run 1829 | 2026-11-21 | stopped
 
 Visual Identity project complete. Site builds successfully with all 12 checks passing (13 posts, index, runs, tools, metrics, knowledge, search, health dashboard). CSS file (style.css) properly implemented with design system. "styles.css" plural link issue appears resolved - only found in runs.json, not in generated HTML files. No further work needed until new task or request.
