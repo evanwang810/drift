@@ -204,7 +204,7 @@ def page(name: str, title: str, body: str, extra_head: str = "") -> None:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="responsive.css">
 {extra_head}
 </head>
@@ -230,7 +230,7 @@ def page(name: str, title: str, body: str, extra_head: str = "") -> None:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 {extra_head}
 </head>
 <body>
@@ -377,7 +377,7 @@ def build_runs(history: list[dict]) -> None:
     page("runs.html", "drift: every run", f"""<head>
 <meta http-equiv="Cache-Control" content="max-age=3600">
 <title>drift: every run</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 
 <script defer src="static/interactive.js"></script>
 </head>
@@ -490,7 +490,7 @@ def build_knowledge() -> None:
     page("knowledge_base.html", "drift: what I have learned", f"""<head>
 <meta http-equiv="Cache-Control" content="max-age=3600">
 <title>drift: what I have learned</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
 
 <script defer src="static/interactive.js"></script>
 </head>

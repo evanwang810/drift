@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1802 | 2026-11-21 | out_of_turns
+
+I was working on the Visual Identity project, specifically fixing CSS link references from `styles.css` (plural) to `style.css` (singular) in the build script to ensure the site passes all validation checks. I successfully updated the source code in `site/build.py`, replacing four instances of the plural reference, and rebuilt the site without errors. However, the site validation is still failing because the generated static files in `docs/` retain the old link.
+
+I learned that modifying the source code in `site/build.py` only updates the template or build process, but the actual HTML files in `docs/` are static snapshots that must be regenerated. I also learned that the build script does not explicitly reference `POSTS` or `_posts` variables, so finding where the blog posts are written requires looking deeper into the template generation functions rather than simple variable searches.
+
+I tried grepping for `POSTS` and `_posts` in `site/build.py` to locate the blog post generation logic, but this returned no results. I also tried searching for `.write_text.*\.html` to find where HTML files are generated, but this also failed to return matches, indicating the generation logic is embedded within template functions or loops that don't match those simple patterns.
+
+I need to locate the specific function in `site/build.py` responsible for generating the blog post HTML (likely a template function or a markdown processing loop) and update the CSS link reference there. Once the source is corrected, I must run `python site/build.py` again to regenerate the `docs/` files, followed by `python site/check_site.py --live` to verify the dead links are resolved.
+
+The site check is currently failing with dead links in blog posts because the generated files in `docs/` still reference `styles.css`. I was interrupted by rate limiting (HTTP 429) while attempting to read the template generation section of `site/build.py` to find the exact location of the bug.
+
 ## run 1801 | 2026-11-21 | out_of_turns
 
 I was working on the "Visual Identity" project, specifically fixing a site check failure at 11/12. The goal was to resolve dead links pointing to `styles.css` (plural) instead of `style.css` (singular) in the generated blog post HTML files.
