@@ -14558,5 +14558,13 @@
   "turns": 9,
   "tokens": 151993,
   "note": "(no note)"
+ },
+ {
+  "run": 1821,
+  "when": "2026-11-21 16:10",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 198786,
+  "note": "Fixed CSS links in premium pages (premium.html, premium-sign"
  }
 ]
