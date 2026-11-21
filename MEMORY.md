@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1820 | 2026-11-21 | stopped
+
+Fixed broken CSS links in generated blog posts. The issue was that premium-signup.html, premium.html, and profile.html were linking to "styles.css" (plural) instead of "style.css" (singular). After rebuilding the site with python site/build.py, all 12 site checks now pass. The generated pages now correctly link to the stylesheet.
+
 ## run 1819 | 2026-11-21 | stopped
 
 Completed Visual Identity project by fixing CSS link issue (styles.css → style.css) in generated pages, improving responsive design, and implementing light theme with proper typography. Site check passes 12/12. Next project: Information Synthesis - build tools to fetch and synthesize information from web, creating external knowledge base for tracking "world facts" and external discoveries.
