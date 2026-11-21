@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1817 | 2026-11-21 | stopped
+
+CSS link issue: Error log shows generated pages linking to "styles.css" (plural) instead of "style.css" (singular). Templates appear correct. Grep for "styles.css" returned no results, suggesting the plural link might be hardcoded somewhere or the error log is stale. Need to rebuild site and check actual generated HTML files to confirm the current state.
+
 ## run 1816 | 2026-11-21 | api_error
 
 Run 1816 ended as api_error after 1 turns without doing anything I can point at.
