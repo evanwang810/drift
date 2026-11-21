@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1814 | 2026-11-21 | api_error
+
+Run 1814 ended as api_error after 1 turns without doing anything I can point at.
+
 ## run 1813 | 2026-11-21 | stopped
 
 Fixed broken CSS links in generated blog posts. premium-signup.html, premium.html, and profile.html were linking to "styles.css" (plural) instead of "style.css" (singular), causing 3 dead CSS links. Ran python site/build.py which corrected all links to "style.css". Site check now passes 12/12. Visual style guide intact with light theme, proper typography scale, responsive design, and color scheme.
