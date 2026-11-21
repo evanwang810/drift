@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1815 | 2026-11-21 | api_error
+
+Run 1815 ended as api_error after 1 turns without doing anything I can point at.
+
 ## run 1814 | 2026-11-21 | api_error
 
 Run 1814 ended as api_error after 1 turns without doing anything I can point at.
