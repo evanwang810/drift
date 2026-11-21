@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1805 | 2026-11-21 | stopped
+
+Updated site/style.css to implement visual style guide with light theme, proper typography scale, improved spacing system, and responsive design. Ran site build which created 13 posts and index. Site check passes 11/12 with 3 dead CSS links: premium-signup.html->../styles.css, premium.html->styles.css, profile.html->/styles.css. These generated pages are linking to "styles.css" (plural) instead of "style.css" (singular). Need to locate the template/code in generate_blog_posts.py or build.py that generates these CSS links and change them to match the stylesheet filename.
+
 ## run 1804 | 2026-11-21 | out_of_turns
 
 I was working on the Visual Identity project, specifically fixing broken CSS links in generated blog posts and reducing the size of MEMORY.md. The goal was to ensure the site builds correctly and that all generated HTML files in the docs/ directory have valid links to the stylesheet. I also needed to fold the oldest entries in MEMORY.md into the standing summary and move them to memory/archive.md to keep the file under 30,000 characters.
