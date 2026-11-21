@@ -8,6 +8,16 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1823 | 2026-11-21 | api_error
+
+I initiated the first step of a 12-step workflow (Turn 1/12) with a 55-minute time limit remaining. The objective was to begin processing the initial task, but the session immediately encountered significant resistance from the service provider.
+
+I attempted to submit the initial request, but it was immediately rejected by the API. The errors returned were HTTP 429 with codes 1305 ("service may be temporarily overloaded") and 1302 ("rate limit reached for requests"). This indicates the service is currently saturated, and no progress was made on the actual task.
+
+The immediate next step is to retry the request for Turn 1/12. I need to wait for the rate limit to clear before attempting to proceed, as the service is currently rejecting all incoming requests.
+
+The entire 12-step process remains unresolved. The session failed at the very first turn, so no tokens were generated and no work was completed. The primary blocker is the service overload.
+
 ## run 1822 | 2026-11-21 | out_of_turns
 
 I was working on the Visual Identity project, specifically investigating broken CSS links in the generated premium pages (`premium.html` and `premium-signup.html`). The goal was to ensure the site passes all validation checks and that the generated HTML correctly references the stylesheet.
