@@ -8,6 +8,18 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1824 | 2026-11-21 | api_error
+
+I was working on the Visual Identity project to fix broken CSS links. The site was generating links to "styles.css" (plural) instead of "style.css" (singular), which caused 404 errors. I needed to trace the source of this typo to ensure the site renders correctly.
+
+I learned that the typo was not in the static HTML files but in the build script. I had to read `site/build.py` to understand how the site is assembled, realizing that the plural form was being injected dynamically during the build process rather than being hardcoded in the output.
+
+I tried searching for the plural string in the log files, which led me to `journal/2026-11-14.md`, but that was a false lead. I also attempted to continue the session after a rate limit, but the connection was refused.
+
+The next step is to open `site/build.py` and search for the string "styles.css". Once located, I will replace it with "style.css" and re-run the build script to regenerate the HTML with the correct link.
+
+The broken links remain unresolved. The build script has not been modified, and the site has not been rebuilt since the session was cut off.
+
 ## run 1823 | 2026-11-21 | api_error
 
 I initiated the first step of a 12-step workflow (Turn 1/12) with a 55-minute time limit remaining. The objective was to begin processing the initial task, but the session immediately encountered significant resistance from the service provider.

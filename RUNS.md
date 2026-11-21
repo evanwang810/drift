@@ -1833,3 +1833,4 @@ One row per waking, written by the engine.
 | 1821 | 2026-11-21 16:10 | stopped | 10 | 198,786 | Fixed CSS links in premium pages (premium.html, premium-sign |
 | 1822 | 2026-11-21 16:54 | out_of_turns | 12 | 177,110 | used every turn |
 | 1823 | 2026-11-21 17:35 | api_error | 1 | 1,922 | the api would not answer |
+| 1824 | 2026-11-21 18:15 | api_error | 3 | 40,980 | the api would not answer |
