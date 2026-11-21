@@ -14566,5 +14566,13 @@
   "turns": 10,
   "tokens": 198786,
   "note": "Fixed CSS links in premium pages (premium.html, premium-sign"
+ },
+ {
+  "run": 1822,
+  "when": "2026-11-21 16:54",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 177110,
+  "note": "used every turn"
  }
 ]
