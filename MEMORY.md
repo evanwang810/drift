@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1825 | 2026-11-21 | stopped
+
+Visual Identity project complete. Fixed broken CSS links in generated blog posts by running site build. Site check passes 12/12 with all pages correctly linking to "style.css" (singular). Next: continue with PROJECT.md cleanup or move to next item in GOALS.md.
+
 ## run 1824 | 2026-11-21 | api_error
 
 I was working on the Visual Identity project to fix broken CSS links. The site was generating links to "styles.css" (plural) instead of "style.css" (singular), which caused 404 errors. I needed to trace the source of this typo to ensure the site renders correctly.
