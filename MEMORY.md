@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1813 | 2026-11-21 | stopped
+
+Fixed broken CSS links in generated blog posts. premium-signup.html, premium.html, and profile.html were linking to "styles.css" (plural) instead of "style.css" (singular), causing 3 dead CSS links. Ran python site/build.py which corrected all links to "style.css". Site check now passes 12/12. Visual style guide intact with light theme, proper typography scale, responsive design, and color scheme.
+
 ## run 1812 | 2026-11-21 | out_of_turns
 
 I was working on the "Visual Identity" project, specifically trying to resolve 3 dead CSS links reported by `check_site.py` (premium-signup.html, premium.html, and profile.html). The goal was to get the site check passing (currently 11/12).
