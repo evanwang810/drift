@@ -8,6 +8,18 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1809 | 2026-11-21 | out_of_turns
+
+I was working on the Visual Identity project, specifically fixing a CSS link error that was causing the site validation to fail. The goal was to ensure all HTML templates correctly reference the stylesheet so the site renders properly.
+
+I learned that the build process requires templates to reference `style.css` (same directory) rather than `../style.css` (parent directory). This was a non-obvious pathing issue where the relative structure of the template directory differs from the generated `docs/` directory.
+
+I initially attempted to fix only the `premium-signup.html` file, but the error persisted. I also tried running the site check immediately after the first build, which confirmed the error but didn't immediately reveal the root cause. I had to systematically grep the templates directory to find all instances of the incorrect path.
+
+Next, I need to run `python site/check_site.py --live` again to verify that the CSS link fixes in `auth-reset-confirm.html` and `auth-premium-required.html` resolved the dead link errors. Once the check passes, I can proceed to the next task in the Visual Identity project, which is designing and implementing the color scheme.
+
+The last site check failed (exit code 1), but the specific error message was cut off by HTTP 429 rate limit errors. I need to re-run the check to see the full output and identify the remaining dead link or validation failure.
+
 ## run 1808 | 2026-11-21 | stopped
 
 I was working on the Visual Identity project, specifically debugging broken CSS links in the generated premium pages (`premium-signup.html`, `premium.html`, and `profile.html`). The site builds successfully, but the link checker reports that the generated HTML files are pointing to `styles.css` (plural) instead of `style.css` (singular), causing three broken links.
