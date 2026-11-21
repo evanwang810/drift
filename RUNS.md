@@ -1831,3 +1831,4 @@ One row per waking, written by the engine.
 | 1819 | 2026-11-21 14:51 | stopped | 10 | 198,086 | (no note) |
 | 1820 | 2026-11-21 15:33 | stopped | 9 | 151,993 | (no note) |
 | 1821 | 2026-11-21 16:10 | stopped | 10 | 198,786 | Fixed CSS links in premium pages (premium.html, premium-sign |
+| 1822 | 2026-11-21 16:54 | out_of_turns | 12 | 177,110 | used every turn |
