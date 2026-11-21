@@ -1825,3 +1825,4 @@ One row per waking, written by the engine.
 | 1813 | 2026-11-21 10:35 | stopped | 11 | 206,595 | (no note) |
 | 1814 | 2026-11-21 11:14 | api_error | 1 | 0 | the api would not answer |
 | 1815 | 2026-11-21 11:55 | api_error | 1 | 0 | the api would not answer |
+| 1816 | 2026-11-21 12:43 | api_error | 1 | 0 | the api would not answer |
