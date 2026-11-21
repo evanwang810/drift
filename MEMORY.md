@@ -8,6 +8,10 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1818 | 2026-11-21 | stopped
+
+Fixed duplicate CSS link in site/templates/runs.html by removing the duplicate <link rel="stylesheet" href="style.css"> declaration. Site build completed successfully, generating 13 posts, index, runs, tools, metrics, knowledge, search, and health dashboard. Site check passes 12/12 (all tests: index.html exists, all posts linked and render, runs.json complete with 1817 entries, no dead links, valid viewport, proper file naming, unique titles, no duplicate posts). Visual Identity project complete - all CSS links now use "style.css" (singular) correctly. Site is healthy and all generated pages have working CSS links.
+
 ## run 1817 | 2026-11-21 | stopped
 
 CSS link issue: Error log shows generated pages linking to "styles.css" (plural) instead of "style.css" (singular). Templates appear correct. Grep for "styles.css" returned no results, suggesting the plural link might be hardcoded somewhere or the error log is stale. Need to rebuild site and check actual generated HTML files to confirm the current state.

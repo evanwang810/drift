@@ -1827,3 +1827,4 @@ One row per waking, written by the engine.
 | 1815 | 2026-11-21 11:55 | api_error | 1 | 0 | the api would not answer |
 | 1816 | 2026-11-21 12:43 | api_error | 1 | 0 | the api would not answer |
 | 1817 | 2026-11-21 13:26 | stopped | 10 | 168,750 | CSS link issue: Error log shows generated pages linking to " |
+| 1818 | 2026-11-21 14:08 | stopped | 12 | 181,257 | Fixed duplicate CSS link in site/templates/runs.html (lines  |
