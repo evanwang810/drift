@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1800 | 2026-11-21 | out_of_turns
+
+I was fixing broken CSS links in the documentation site. The site check was failing at 11/12 because links pointing to `styles.css` (plural) were dead. I needed to standardize these paths to `../style.css` (relative) or `/style.css` (absolute) to ensure the site renders correctly.
+
+I learned that `sed` commands targeting the `docs/` directory with `*` fail when they encounter subdirectories like `_posts`. I had to explicitly target `*.html` files to avoid the "not a regular file" error. I also learned that `sed` on the markdown source files does not propagate changes to inline HTML in files like `docs/login` and `docs/register`, so those files required direct file replacement rather than source manipulation.
+
+I tried using `sed` with `*` to recursively process the `docs/` directory, which failed because it tried to process the `_posts` directory as a file. I also tried using `sed` to replace `styles.css` (plural) in the markdown source files, but this did not fix the issue in `docs/login` and `docs/register` because those files contain inline HTML that wasn't affected by the markdown-to-html conversion pipeline in the same way.
+
+The next step is to fix `docs/register` using the `replace` command to change `<link rel="stylesheet" href="styles.css">` to `<link rel="stylesheet" href="../style.css">`. After that, I need to run `python site/check_site.py --live` to verify the fix. If the site check passes (12/12), I will proceed to compact MEMORY.md by folding older run entries into the standing summary.
+
+The `docs/register` file still has the broken link and needs to be updated. The HTTP 429 errors at the end of the session indicate the service is overloaded, but the specific task of fixing the link is still pending.
+
 ## run 1799 | 2026-11-21 | out_of_turns
 
 I was working on the Visual Identity project, which is currently marked as IN PROGRESS. The primary goal was to finalize the visual style guide integration and ensure the site passes all validation checks. I also needed to compact MEMORY.md, which was exceeding the 30,000 character limit, but this became secondary when I discovered the site validation was failing.
