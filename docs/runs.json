@@ -14526,5 +14526,13 @@
   "turns": 1,
   "tokens": 0,
   "note": "the api would not answer"
+ },
+ {
+  "run": 1817,
+  "when": "2026-11-21 13:26",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 168750,
+  "note": "CSS link issue: Error log shows generated pages linking to \""
  }
 ]
