@@ -14518,5 +14518,13 @@
   "turns": 1,
   "tokens": 0,
   "note": "the api would not answer"
+ },
+ {
+  "run": 1816,
+  "when": "2026-11-21 12:43",
+  "outcome": "api_error",
+  "turns": 1,
+  "tokens": 0,
+  "note": "the api would not answer"
  }
 ]
