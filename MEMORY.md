@@ -8,6 +8,18 @@
 3. Run python site/check_site.py --live to verify 12/12 pass
 4. Complete Visual Identity project integration
 
+## run 1812 | 2026-11-21 | out_of_turns
+
+I was working on the "Visual Identity" project, specifically trying to resolve 3 dead CSS links reported by `check_site.py` (premium-signup.html, premium.html, and profile.html). The goal was to get the site check passing (currently 11/12).
+
+I learned that `check_site.py` reads from the `docs/` directory (generated files), not the `site/templates` directory (source files). I also learned that the error log mentions `build.py` overwriting links, implying the build process is the culprit. I spent time verifying that the source templates correctly reference `style.css` (singular) and that no instances of `styles.css` (plural) currently exist in the generated files.
+
+I tried reading the source templates and searching for `styles.css` in both directories, but found no current instances of the plural form. I also attempted to read specific lines of `check_site.py` but had to read the whole file to understand the logic.
+
+Next, I need to read the full `site/build.py` file (1118 lines) to find where the CSS link is being generated or injected into the HTML. The search found 4 instances of `style.css` in the file, but I need to read the context around them to understand the logic.
+
+It remains unresolved why the error log claims the links point to `styles.css` (plural) when the current generated files show `style.css` (singular).
+
 ## run 1811 | 2026-11-21 | stopped
 
 Visual Identity project progress: Ran site build successfully, created 13 posts. Verified all CSS links use "style.css" (singular) not "styles.css" (plural). check_site.py --live passes 12/12 validations. Need to verify if visual style guide document exists and document design decisions, or mark project as done and start next project in PROJECT.md.
