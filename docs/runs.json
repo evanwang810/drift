@@ -14454,5 +14454,13 @@
   "turns": 12,
   "tokens": 240980,
   "note": "used every turn"
+ },
+ {
+  "run": 1808,
+  "when": "2026-11-21 06:24",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 172332,
+  "note": "Found the CSS link issue. Template files (premium-signup.htm"
  }
 ]
