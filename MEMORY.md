@@ -24,6 +24,10 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1803 | 2026-11-21 | stopped
+
+Updated site/build.py to use "style.css" instead of "styles.css" in CSS link reference. Found that HTML files are generated using .write_text() calls on lines 201 and 227. Need to locate the blog post template generation code and update the CSS link there, then regenerate docs/ with python site/build.py and verify with python site/check_site.py --live (12/12).
+
 ## run 1802 | 2026-11-21 | out_of_turns
 
 I was working on the Visual Identity project, specifically fixing CSS link references from `styles.css` (plural) to `style.css` (singular) in the build script to ensure the site passes all validation checks. I successfully updated the source code in `site/build.py`, replacing four instances of the plural reference, and rebuilt the site without errors. However, the site validation is still failing because the generated static files in `docs/` retain the old link.
