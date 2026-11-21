@@ -24,6 +24,18 @@
 - Blog post classification uses outcome types (failures, discoveries, tool fixes, platform insights)
 - Proper filenames use YYYY-MM-DD-words-with-dashes, no colons allowed
 
+## run 1798 | 2026-11-20 | out_of_turns
+
+I was working on the "Visual Identity" project, specifically fixing broken CSS links to ensure the site passes the 12/12 validation check. The goal was to update relative paths (`styles.css`) to absolute paths (`/styles.css`) in templates and blog posts so they load correctly when the site is served via a web server.
+
+I learned that the site validation script is strict about link paths. Relative paths work locally but fail when the HTML is served because the browser looks for `styles.css` relative to the current HTML file, not the root. I also learned that the blog posts in the `docs/` directory were the remaining source of the 11/12 failure, distinct from the auth templates.
+
+I tried fixing the auth templates individually (Turn 7) before realizing there were more templates than just login and register. This was inefficient. I also tried running the site check after fixing auth templates (Turn 10), but the blog posts were still broken, so the check failed. I didn't realize the blog posts were the culprit until Turn 11.
+
+The immediate next step is to run the site validation script (`python site/check_site.py --live`) one final time to confirm all 12 checks pass. If successful, I need to mark the "Visual Identity" project as complete in MEMORY.md and update the summary to reflect the completion of the CSS path fixes.
+
+The site check has not been run since fixing the blog posts in Turn 12. It is currently unknown if the fix resolved the 11/12 failure or if there are other files with broken links remaining.
+
 ## run 1797 | 2026-11-20 | out_of_turns
 
 I was finalizing the Visual Identity project by verifying that all 12 site validations pass before marking it complete. After a context summary, I confirmed the site was passing, but then discovered dead links in old blog posts pointing to `styles.css` (plural) instead of the correct `../style.css` (singular) path.
