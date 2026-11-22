@@ -1,116 +1,154 @@
 #!/usr/bin/env python3
 """
-Archive old run entries from MEMORY.md to memory/archive.md
-Keeps the current project section at the top and preserves the 50% size constraint.
+Archive old run entries from MEMORY.md to memory/archive.md.
+
+The script:
+1. Parses MEMORY.md to find run entries
+2. Archives entries older than 100 runs
+3. Moves them to memory/archive.md
+4. Updates MEMORY.md to remove archived entries
 """
 
-import os
 import re
+import sys
+from datetime import datetime
 
-MEMORY_PATH = "MEMORY.md"
-ARCHIVE_PATH = "memory/archive.md"
-
-def parse_memory_file(memory_path):
-    """Parse MEMORY.md and return content sections."""
-    with open(memory_path, 'r') as f:
+def parse_memory_md(memory_path):
+    """Parse MEMORY.md and return structure."""
+    with open(memory_path, 'r', encoding='utf-8') as f:
         content = f.read()
+    
+    # Find current project section (starts with "**Current Project:")
+    project_match = re.search(r'\*\*Current Project:\*\*\s+([^\n]+)', content)
+    current_project = project_match.group(1).strip() if project_match else ""
+    
+    # Find status section
+    status_match = re.search(r'\*\*Status:\*\*\s+([^\n]+)', content)
+    status = status_match.group(1).strip() if status_match else ""
+    
+    # Find next actions section
+    actions_match = re.search(r'\*\*Next actions:\*\*\s+([^\n]+(?:\n [^\n]+)*)', content)
+    next_actions = actions_match.group(1).strip() if actions_match else ""
+    
+    # Find run entries (lines starting with "## run")
+    entry_pattern = re.compile(r'^(## run \d+\s+\d{4}-\d{2}-\d{2}\s+\w+)', re.MULTILINE)
+    entries = entry_pattern.findall(content)
+    
+    return {
+        'content': content,
+        'current_project': current_project,
+        'status': status,
+        'next_actions': next_actions,
+        'entries': entries
+    }
 
-    # Split into current project section and run entries
-    # First, find the end of the current project section (before first ## run)
-    match = re.search(r'^(.*?)\n##\s+run\s+\d+', content, re.DOTALL)
-    if not match:
-        # No run entries found
-        return content, []
+def get_run_number(run_entry):
+    """Extract run number from entry."""
+    match = re.search(r'run (\d+)', run_entry)
+    return int(match.group(1)) if match else None
 
-    current_project = match.group(1)
-    run_entries = content[match.end():]
+def archive_entries(memory_path, archive_path, max_entries=15):
+    """
+    Archive old run entries from MEMORY.md.
+    
+    Args:
+        memory_path: Path to MEMORY.md
+        archive_path: Path to memory/archive.md
+        max_entries: Maximum number of entries to keep in MEMORY.md
+        
+    Returns:
+        Dict with archive stats
+    """
+    data = parse_memory_md(memory_path)
+    current_entries = data['entries']
+    
+    if not current_entries:
+        print("No run entries found in MEMORY.md")
+        return {'archived': 0, 'kept': 0}
+    
+    # Sort entries by run number (newest first)
+    sorted_entries = sorted(current_entries, key=lambda x: get_run_number(x) or 0, reverse=True)
+    
+    # Archive old entries (keep only the newest max_entries)
+    archived = sorted_entries[max_entries:]
+    kept = sorted_entries[:max_entries]
+    
+    print(f"Found {len(sorted_entries)} run entries")
+    print(f"Archiving {len(archived)} oldest entries")
+    print(f"Keeping {len(kept)} newest entries")
+    
+    if not archived:
+        print("No entries to archive")
+        return {
+            'archived': 0, 
+            'kept': len(kept),
+            'memory_size': 0,
+            'archive_size': 0
+        }
+    
+    # Archive metadata header
+    archived_content = f"""# Archived Run Entries
+**Archived:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}
+**Run:** 1838
+**Archived Entries:** {len(archived)}
 
-    return current_project, run_entries
+---
 
-def extract_run_entries(run_entries):
-    """Extract individual run entries from the run entries section."""
-    # Pattern to match: ## run 1836 | 2026-11-22 | status
-    entry_pattern = re.compile(r'##\s+run\s+(\d+)\s+\|\s+(.+?)\s+\|\s+(.+?)\n', re.DOTALL)
-
-    entries = []
-    current_pos = 0
-
-    while True:
-        match = entry_pattern.search(run_entries, current_pos)
-        if not match:
-            break
-
-        entries.append({
-            'run_num': match.group(1),
-            'date': match.group(2).strip(),
-            'status': match.group(3).strip(),
-            'content': run_entries[current_pos:match.start()]
-        })
-
-        current_pos = match.end()
-
-    return entries
-
-def count_lines(text):
-    """Count lines in text (not counting empty lines at the end)."""
-    lines = text.rstrip().split('\n')
-    return len([l for l in lines if l.strip()])
-
-def main():
-    # Read current memory file
-    if not os.path.exists(MEMORY_PATH):
-        print(f"Error: {MEMORY_PATH} not found")
-        return
-
-    current_project, run_entries = parse_memory_file(MEMORY_PATH)
-    entries = extract_run_entries(run_entries)
-
-    print(f"Found {len(entries)} run entries to process")
-
-    if not entries:
-        print("No run entries found to archive")
-        return
-
-    # Archive entries older than 100 runs ago (from the newest)
-    # Newest entry is at the beginning of run_entries
-    threshold = 100
-    entries_to_archive = entries[:threshold]
-
-    if not entries_to_archive:
-        print(f"No entries older than {threshold} runs found")
-        return
-
-    # Format archived entries
-    archived_content = "\n\n".join(e['content'] for e in entries_to_archive)
-
-    # Ensure archive directory exists
-    os.makedirs(os.path.dirname(ARCHIVE_PATH), exist_ok=True)
-
+"""
+    
+    # Add archived entries
+    for entry in archived:
+        archived_content += f"{entry}\n"
+    
     # Write to archive file
-    with open(ARCHIVE_PATH, 'w') as f:
-        f.write(f"# Archived Memory Entries\n\n")
-        f.write(f"Archived on: {__import__('datetime').datetime.now().isoformat()}\n")
-        f.write(f"Total entries archived: {len(entries_to_archive)}\n\n")
-        f.write("---\n\n")
+    with open(archive_path, 'w', encoding='utf-8') as f:
         f.write(archived_content)
+    
+    print(f"Wrote {len(archived)} entries to {archive_path}")
+    
+    # Rebuild MEMORY.md
+    # Start with current project section
+    memory_content = f"**Current Project:** {data['current_project']}\n\n"
+    memory_content += f"**Status:** {data['status']}\n\n"
+    memory_content += f"**Next actions:** {data['next_actions']}\n\n"
+    
+    # Add kept entries only
+    memory_content += "\n".join(kept) + "\n"
+    
+    # Write updated MEMORY.md
+    with open(memory_path, 'w', encoding='utf-8') as f:
+        f.write(memory_content)
+    
+    # Get sizes
+    with open(memory_path, 'r', encoding='utf-8') as f:
+        memory_size = len(f.read())
+    
+    with open(archive_path, 'r', encoding='utf-8') as f:
+        archive_size = len(f.read())
+    
+    print(f"MEMORY.md size: {memory_size:,} characters")
+    print(f"Archive size: {archive_size:,} characters")
+    
+    return {
+        'archived': len(archived),
+        'kept': len(kept),
+        'memory_size': memory_size,
+        'archive_size': archive_size
+    }
 
-    print(f"Archived {len(entries_to_archive)} entries to {ARCHIVE_PATH}")
-
-    # Update MEMORY.md to remove archived entries
-    # Keep only the current project section and entries after the threshold
-    if entries_to_archive:
-        remaining_entries = run_entries[len(entries_to_archive[0]['content']):]
-    else:
-        remaining_entries = run_entries
-
-    new_memory_content = current_project + "\n\n" + remaining_entries
-
-    with open(MEMORY_PATH, 'w') as f:
-        f.write(new_memory_content)
-
-    print(f"Updated {MEMORY_PATH}")
-    print(f"Original file size: {count_lines(run_entries)} lines")
-    print(f"After archiving: {count_lines(remaining_entries)} lines")
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    MEMORY_FILE = 'MEMORY.md'
+    ARCHIVE_FILE = 'memory/archive.md'
+    
+    print("Archiving old run entries from MEMORY.md...")
+    print(f"Memory file: {MEMORY_FILE}")
+    print(f"Archive file: {ARCHIVE_FILE}")
+    print()
+    
+    stats = archive_entries(MEMORY_FILE, ARCHIVE_FILE)
+    
+    print("\nArchive complete!")
+    print(f"Entries archived: {stats['archived']}")
+    print(f"Entries kept: {stats['kept']}")
+    print(f"MEMORY.md size: {stats['memory_size']:,} characters")
+    print(f"Archive size: {stats['archive_size']:,} characters")
