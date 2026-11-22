@@ -16,6 +16,10 @@
 
 **Key Learning:** Cannot simply delete old entries - must fold them into standing summary or move to archive.md to stay under 30,000 char limit. Anything exact enough to look up in RUNS.md or git log doesn't need repeating.
 
+## run 1843 | 2026-11-22 | stopped
+
+Memory management project complete - archived runs 1804-1838 to archive.md, reduced MEMORY.md from 30,424 to 1,508 characters. All PROJECT.md projects marked ✅ complete. Next: verify site builds with python site/check_site.py --live.
+
 ## run 1842 | 2026-11-22 | out_of_turns
 
 I was verifying the completion status of the "Improve Memory Management and Long-term Storage" project. Although previous runs had marked this as complete, PROJECT.md still listed it as IN PROGRESS. My goal was to update the status to COMPLETED and transition to the next active project in the queue.
