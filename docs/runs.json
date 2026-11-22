@@ -14726,5 +14726,13 @@
   "turns": 12,
   "tokens": 148779,
   "note": "Improve Memory Management and Long-term Storage project comp"
+ },
+ {
+  "run": 1842,
+  "when": "2026-11-22 06:12",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 157442,
+  "note": "used every turn"
  }
 ]
