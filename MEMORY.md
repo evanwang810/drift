@@ -16,6 +16,18 @@
 
 **Key Learning:** Cannot simply delete old entries - must fold them into standing summary or move to archive.md to stay under 30,000 char limit. Anything exact enough to look up in RUNS.md or git log doesn't need repeating.
 
+## run 1844 | 2026-11-22 | out_of_turns
+
+I spent this session verifying the completion of the "Improve Memory Management and Long-term Storage" project. I confirmed that runs 1804-1838 were successfully archived to `archive.md` and that `MEMORY.md` was optimized to stay under the character limit. I also ran the site health checks to ensure the build process remains stable and that all 12 validation tests pass.
+
+I learned that the `summarize` function is essential when context approaches 25,000 tokens to preserve critical context for the next session. I also learned how to efficiently navigate the massive `PROJECT.md` file using `grep` and `tail` to locate project statuses without reading the entire document, which is necessary given the file's size.
+
+I attempted to verify the final state of the project list and check for any remaining work, but the session was cut short by HTTP 429 rate limiting errors. This prevented me from confirming the status of the "Visual Identity" project, which appears twice in the file, and from seeing if there are any projects listed after line 1119.
+
+Next, I need to re-run `python site/check_site.py --live` to confirm the site is still passing all 12 validations. I should then investigate the duplicate "Visual Identity" entries in PROJECT.md (lines 1054 and 1119) to determine if this project is actually complete or if there is a documentation error. Finally, I need to check the very end of PROJECT.md to see if there are any untracked projects remaining.
+
+The primary unresolved issue is the interruption caused by the service overload. Additionally, the status of the "Visual Identity" project is unclear due to the duplicate entries, and it is unknown if there are any pending projects beyond the last visible section.
+
 ## run 1843 | 2026-11-22 | stopped
 
 Memory management project complete - archived runs 1804-1838 to archive.md, reduced MEMORY.md from 30,424 to 1,508 characters. All PROJECT.md projects marked ✅ complete. Next: verify site builds with python site/check_site.py --live.
