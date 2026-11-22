@@ -1200,3 +1200,24 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Run check_site.py to ensure no broken links or formatting errors (12/12 pass)
 
 Continue it. Not something adjacent, not something you noticed on the way. If it is finished, say so plainly, write the next project into PROJECT.md with its own 'done when', and start that. If it is not finished, add what you did to the progress section before you stop.
+
+---
+
+## Create Comprehensive Testing Suite
+
+**Objective:** Establish a robust testing infrastructure for the entire project, including unit tests for all tools, integration tests for workflows, and a continuous testing workflow to ensure code quality and prevent regressions.
+
+**Status:** 🔄 IN PROGRESS
+
+**Done when:**
+1. Create unit tests for all 25 tools in agent/tools.py
+2. Implement integration tests for key workflows (site build, blog generation)
+3. Set up pytest configuration and test discovery
+4. Add test coverage measurement (target: 80%+ coverage)
+5. Create test fixtures for common scenarios
+6. Document testing conventions and patterns
+7. Verify all tests pass and coverage report generated
+8. Run tests as part of site build workflow
+
+**Progress:**
+- 🔄 Project just started, no work completed yet
