@@ -6,6 +6,7 @@ Tests that core site features exist and function correctly.
 
 import os
 import sys
+import json
 
 
 def test_site_check():

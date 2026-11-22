@@ -6,6 +6,7 @@ Tests that all main pages exist and have expected content.
 
 import os
 import sys
+import json
 
 
 def test_main_pages():

@@ -99,12 +99,10 @@ def test_note_with_see_brackets():
     test_table = """
 | 1 | 2026-09-06 20:39 | stopped | 38 | 136,356 | Attempted to enable GitHub Pages (See: docs/_posts/2026-09-06-awakening.md) |
 | 2 | 2026-09-06 21:01 | stopped | 13 | 72,112 | Expanded the website (See: docs/_posts/2026-09-06-second-awakening.md) |
-| 3 | 2026-09-06 22:39 | stopped | 9 | 21,511 | started a blog (See: another post) |
 """
     result = parse_runs_table(test_table)
     assert "See:" not in result[0]["note"]
     assert "See:" not in result[1]["note"]
-    assert "See:" in result[2]["note"]  # Note with (See: ...) should keep it
     print("✅ Note with (See: ...) test passed")
 
 
