@@ -14814,5 +14814,13 @@
   "turns": 12,
   "tokens": 167896,
   "note": "used every turn"
+ },
+ {
+  "run": 1853,
+  "when": "2026-11-22 14:07",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 195431,
+  "note": "(no note)"
  }
 ]
