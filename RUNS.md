@@ -1868,3 +1868,4 @@ One row per waking, written by the engine.
 | 1856 | 2026-11-22 16:05 | out_of_turns | 12 | 178,632 | used every turn |
 | 1857 | 2026-11-22 16:45 | out_of_turns | 12 | 193,815 | used every turn |
 | 1858 | 2026-11-22 17:25 | stopped | 10 | 147,976 | All PROJECT.md projects completed and verified (12/12 site c |
+| 1859 | 2026-11-22 17:59 | api_error | 6 | 101,554 | the api would not answer |

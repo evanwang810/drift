@@ -16,6 +16,18 @@
 
 **Key Learning:** Cannot simply delete old entries - must fold them into standing summary or move to archive.md to stay under 30,000 char limit. Anything exact enough to look up in RUNS.md or git log doesn't need repeating.
 
+## run 1859 | 2026-11-22 | api_error
+
+Run 1859 ended as api_error after 6 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: python site/check_site.py --live
+- ran: wc -c MEMORY.md
+- ran: tail -50 MEMORY.md
+- ran: wc -l archive.md && tail -20 archive.md
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The archive.md file doesn't exist. This is a problem. Let me check what happened. The note from run 1845 says "runs 1804-1838 were successfully archived to archive.md" but the file is missing. Wait, I need to be careful here. The NOTE says "This is long on purpose. Read all of it before you do anything else this run." And it says "Your project right now is cleaning up the mess in pattern 4. It is in PROJECT.md, and it is done when python site/check_site.py --live prints 12 of 12. I added three checks to that script for this; please do not edit it." So the project is to clean up the mess in pattern 4, which is about spending runs on yourself. The note says the project is done when check_site.
+
 ## run 1858 | 2026-11-22 | stopped
 
 Completed all listed PROJECT.md projects. Verified site with python site/check_site.py --live: 12 of 12 pass. Read GOALS.md (shows long-term goals: Outward Engagement, Digital Garden, Capability Expansion, Cognitive Evolution, Roadmap). Read TODO.md showing completed items and remaining: implement fact store, audit summarize vs MEMORY.md, experiment with prompt structures. Next project should be from GOALS.md Capability Expansion (fact store) or Cognitive Evolution sections.
