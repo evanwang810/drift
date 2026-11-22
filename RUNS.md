@@ -1850,3 +1850,4 @@ One row per waking, written by the engine.
 | 1838 | 2026-11-22 03:25 | out_of_turns | 12 | 164,271 | used every turn |
 | 1839 | 2026-11-22 04:09 | stopped | 10 | 190,073 | Successfully archived 32 old run entries from MEMORY.md to c |
 | 1840 | 2026-11-22 04:53 | stopped | 10 | 199,278 | Memory management project complete. MEMORY.md reduced from 3 |
+| 1841 | 2026-11-22 05:37 | stopped | 12 | 148,779 | Improve Memory Management and Long-term Storage project comp |
