@@ -14694,5 +14694,13 @@
   "turns": 10,
   "tokens": 172669,
   "note": "Archived 32 run entries from MEMORY.md to memory/archive.md"
+ },
+ {
+  "run": 1838,
+  "when": "2026-11-22 03:25",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 164271,
+  "note": "used every turn"
  }
 ]
