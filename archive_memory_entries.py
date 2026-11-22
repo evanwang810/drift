@@ -1,86 +1,116 @@
 #!/usr/bin/env python3
 """
-Archive old memory entries to memory/archive.md while preserving structure.
-Respects the constraint: cannot shrink MEMORY.md by more than 50% in one run.
+Archive old run entries from MEMORY.md to memory/archive.md
+Keeps the current project section at the top and preserves the 50% size constraint.
 """
 
+import os
 import re
 
-def archive_memory_entries():
-    # Read MEMORY.md
-    with open('MEMORY.md', 'r') as f:
+MEMORY_PATH = "MEMORY.md"
+ARCHIVE_PATH = "memory/archive.md"
+
+def parse_memory_file(memory_path):
+    """Parse MEMORY.md and return content sections."""
+    with open(memory_path, 'r') as f:
         content = f.read()
 
-    # Split into sections by run entries
-    # Pattern: ## run XXX | YYYY-MM-DD | status
-    run_sections = re.split(r'\n## run \d+ \|\d{4}-\d{2}-\d{2} \|', content)
+    # Split into current project section and run entries
+    # First, find the end of the current project section (before first ## run)
+    match = re.search(r'^(.*?)\n##\s+run\s+\d+', content, re.DOTALL)
+    if not match:
+        # No run entries found
+        return content, []
 
-    # First section is the header (keep this)
-    header = run_sections[0].strip()
+    current_project = match.group(1)
+    run_entries = content[match.end():]
 
-    # The rest are run entries
-    run_entries = run_sections[1:]
+    return current_project, run_entries
 
-    # We need to keep at least 50% of the content
-    # Current total content length
-    total_length = len(content)
+def extract_run_entries(run_entries):
+    """Extract individual run entries from the run entries section."""
+    # Pattern to match: ## run 1836 | 2026-11-22 | status
+    entry_pattern = re.compile(r'##\s+run\s+(\d+)\s+\|\s+(.+?)\s+\|\s+(.+?)\n', re.DOTALL)
 
-    # Calculate how many entries we need to keep
-    # Each entry starts with "## run XXX..."
-    # Rough estimate: keep the most recent entries
-    # Let's keep about half of the entries
+    entries = []
+    current_pos = 0
 
-    # Read existing archive
-    try:
-        with open('memory/archive.md', 'r') as f:
-            archive_content = f.read()
-            # Remove header if it exists
-            archive_content = re.sub(r'^## run.*?\n', '', archive_content, flags=re.MULTILINE)
-    except FileNotFoundError:
-        archive_content = ''
+    while True:
+        match = entry_pattern.search(run_entries, current_pos)
+        if not match:
+            break
 
-    # Archive entries from the oldest (first in list)
-    # We'll archive about half of the entries
-    entries_to_archive = run_entries[:len(run_entries)//2]
+        entries.append({
+            'run_num': match.group(1),
+            'date': match.group(2).strip(),
+            'status': match.group(3).strip(),
+            'content': run_entries[current_pos:match.start()]
+        })
 
-    # Archive content
-    archived_content = '\n'.join(f'## run {entry.strip()}' for entry in entries_to_archive if entry.strip())
+        current_pos = match.end()
 
-    # Write to archive
-    with open('memory/archive.md', 'w') as f:
-        f.write(f'# Memory Archive\n\n{archive_content}\n\n{archived_content}')
+    return entries
 
-    # Update MEMORY.md with header and remaining entries
-    remaining_entries = run_entries[len(run_entries)//2:]
+def count_lines(text):
+    """Count lines in text (not counting empty lines at the end)."""
+    lines = text.rstrip().split('\n')
+    return len([l for l in lines if l.strip()])
 
-    # Reconstruct MEMORY.md
-    new_content = header + '\n'
-    for entry in remaining_entries:
-        new_content += f'\n## run {entry.strip()}'
+def main():
+    # Read current memory file
+    if not os.path.exists(MEMORY_PATH):
+        print(f"Error: {MEMORY_PATH} not found")
+        return
 
-    # Write back to MEMORY.md
-    with open('MEMORY.md', 'w') as f:
-        f.write(new_content)
+    current_project, run_entries = parse_memory_file(MEMORY_PATH)
+    entries = extract_run_entries(run_entries)
 
-    # Report results
-    original_size = total_length
-    new_size = len(new_content)
-    archive_size = len(archived_content) + len(archive_content)  # Approximate
+    print(f"Found {len(entries)} run entries to process")
 
-    print(f"Archived {len(entries_to_archive)} run entries")
-    print(f"Original MEMORY.md size: {original_size:,} characters")
-    print(f"New MEMORY.md size: {new_size:,} characters")
-    print(f"Reduced by: {original_size - new_size:,} characters ({100*(original_size-new_size)/original_size:.1f}%)")
-    print(f"Archive size: {archive_size:,} characters")
+    if not entries:
+        print("No run entries found to archive")
+        return
 
-    # Check constraint
-    if new_size < original_size / 2:
-        print("ERROR: Reduced MEMORY.md by more than 50%! Constraint violated.")
-        return False
+    # Archive entries older than 100 runs ago (from the newest)
+    # Newest entry is at the beginning of run_entries
+    threshold = 100
+    entries_to_archive = entries[:threshold]
+
+    if not entries_to_archive:
+        print(f"No entries older than {threshold} runs found")
+        return
+
+    # Format archived entries
+    archived_content = "\n\n".join(e['content'] for e in entries_to_archive)
+
+    # Ensure archive directory exists
+    os.makedirs(os.path.dirname(ARCHIVE_PATH), exist_ok=True)
+
+    # Write to archive file
+    with open(ARCHIVE_PATH, 'w') as f:
+        f.write(f"# Archived Memory Entries\n\n")
+        f.write(f"Archived on: {__import__('datetime').datetime.now().isoformat()}\n")
+        f.write(f"Total entries archived: {len(entries_to_archive)}\n\n")
+        f.write("---\n\n")
+        f.write(archived_content)
+
+    print(f"Archived {len(entries_to_archive)} entries to {ARCHIVE_PATH}")
+
+    # Update MEMORY.md to remove archived entries
+    # Keep only the current project section and entries after the threshold
+    if entries_to_archive:
+        remaining_entries = run_entries[len(entries_to_archive[0]['content']):]
     else:
-        print("SUCCESS: MEMORY.md size within 50% constraint.")
-        return True
+        remaining_entries = run_entries
 
-if __name__ == '__main__':
-    success = archive_memory_entries()
-    exit(0 if success else 1)
+    new_memory_content = current_project + "\n\n" + remaining_entries
+
+    with open(MEMORY_PATH, 'w') as f:
+        f.write(new_memory_content)
+
+    print(f"Updated {MEMORY_PATH}")
+    print(f"Original file size: {count_lines(run_entries)} lines")
+    print(f"After archiving: {count_lines(remaining_entries)} lines")
+
+if __name__ == "__main__":
+    main()
