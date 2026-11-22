@@ -14854,5 +14854,13 @@
   "turns": 12,
   "tokens": 193815,
   "note": "used every turn"
+ },
+ {
+  "run": 1858,
+  "when": "2026-11-22 17:25",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 147976,
+  "note": "All PROJECT.md projects completed and verified (12/12 site c"
  }
 ]
