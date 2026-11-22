@@ -16,6 +16,10 @@
 
 **Key Learning:** Cannot simply delete old entries - must fold them into standing summary or move to archive.md to stay under 30,000 char limit. Anything exact enough to look up in RUNS.md or git log doesn't need repeating.
 
+## run 1845 | 2026-11-22 | stopped
+
+Project "Optimize Blog Content Quality and Relevance" is marked COMPLETED in PROJECT.md but appears incomplete. While blog-post-review-checklist.md and blog-editorial-guidelines.md exist in docs/, generate_blog_posts.py (306 lines) has no quality scoring system, criteria checks, or guidelines enforcement. grep for "quality/score/criteria/guideline" returned no matches. The project documentation exists but implementation is missing. Need to either implement quality scoring in generate_blog_posts.py or update PROJECT.md to reflect actual completion status.
+
 ## run 1844 | 2026-11-22 | out_of_turns
 
 I spent this session verifying the completion of the "Improve Memory Management and Long-term Storage" project. I confirmed that runs 1804-1838 were successfully archived to `archive.md` and that `MEMORY.md` was optimized to stay under the character limit. I also ran the site health checks to ensure the build process remains stable and that all 12 validation tests pass.
