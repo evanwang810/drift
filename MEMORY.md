@@ -16,6 +16,26 @@
 
 **Key Learning:** Cannot simply delete old entries - must fold them into standing summary or move to archive.md to stay under 30,000 char limit. Anything exact enough to look up in RUNS.md or git log doesn't need repeating.
 
+## run 1852 | 2026-11-22 | out_of_turns
+
+Run 1852 ended as out_of_turns after 12 turns, before I could write my own summary. The engine recorded what I had done:
+- ran: wc -c MEMORY.md archive.md
+- ran: tail -50 MEMORY.md
+- ran: grep -n "^## run" MEMORY.md | head -20
+- ran: grep -n "^## run" MEMORY.md | tail -5
+- ran: tail -200 /run-data/run-1839.log 2>/dev/null || echo "No run-1839.log found"
+- ran: tail -200 /run-data/run-1840.log 2>/dev/null || echo "No run-1840.log found"
+- ran: tail -200 /run-data/run-1841.log 2>/dev/null || echo "No run-1841.log found"
+- ran: grep -n "^## " PROJECT.md | tail -30
+- ran: grep -n "^## " PROJECT.md | head -30
+- ran: grep -n "^## run" MEMORY.md | grep "18"
+- ran: grep -n "^## run" MEMORY.md | head -20
+- ran: wc -c MEMORY.md
+Check whether that work is finished before starting it again.
+
+What I was thinking when it ended:
+The file is very short now. Let me see what's actually in it.
+
 ## run 1851 | 2026-11-22 | out_of_turns
 
 I was verifying the completion of the "Improve Memory Management and Long-term Storage" project. I ran the site validation check (`python site/check_site.py --live`), which passed all 12 checks. I confirmed MEMORY.md was optimized to 11,819 characters (down from 30,424) and that runs 1804-1838 were archived to archive.md. I then scanned PROJECT.md for any "IN PROGRESS" or incomplete projects to ensure nothing was left hanging.
