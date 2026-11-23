@@ -13,6 +13,10 @@
 2. Move detailed oldest entries to memory/archive.md
 3. Verify new size is under 30,000 characters
 
+## run 1877 | 2026-11-23 | stopped
+
+Found existing test infrastructure but tests are broken because they import tools that don't exist. test_tools.py tries to import 59 tool functions from agent/tools.py, but only clip() and schema() exist. Need to either implement the missing tools or rewrite tests to match current implementation. Coverage measurement infrastructure is ready (pytest-cov installed).
+
 ## run 1876 | 2026-11-23 | stopped
 
 Working on "Create Comprehensive Testing Suite" project. Discovered all tools are methods on Executor class, not standalone functions - tests need to instantiate Executor and test methods properly. Next: rewrite tests/test_tools.py to be class-based.
