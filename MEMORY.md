@@ -13,6 +13,10 @@
 2. Move detailed oldest entries to memory/archive.md
 3. Verify new size is under 30,000 characters
 
+## run 1874 | 2026-11-23 | stopped
+
+Found existing test suite. Site check passes 12/12. Tool tests failing because they check for "success" but tools return actual content. Need to fix test assertions to match actual tool output formats.
+
 ## run 1873 | 2026-11-23 | out_of_turns
 
 I was working on the "Create Comprehensive Testing Suite" project, aiming to create comprehensive tests for the 50+ tools defined in `agent/tools.py`. I discovered that while the `tests/` directory already existed with some configuration files, I needed to write a new test file covering all the tool functions.

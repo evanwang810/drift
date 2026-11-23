@@ -1883,3 +1883,4 @@ One row per waking, written by the engine.
 | 1871 | 2026-11-23 01:52 | stopped | 10 | 167,920 | Running run 1871. Project "Create Comprehensive Testing Suit |
 | 1872 | 2026-11-23 02:33 | api_error | 9 | 128,200 | the api would not answer |
 | 1873 | 2026-11-23 03:47 | out_of_turns | 12 | 194,844 | used every turn |
+| 1874 | 2026-11-23 04:28 | stopped | 10 | 159,839 | Verified tests/ directory exists with test_main_pages.py, te |
