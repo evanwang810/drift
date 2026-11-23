@@ -1,134 +1,81 @@
 """
-Pytest configuration and fixtures for testing the agent tools and site generation.
+Pytest configuration and fixtures for testing the repository.
+
+This module provides common fixtures and test setup utilities.
 """
 import pytest
-import os
 import sys
-import tempfile
-from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+import os
 
 # Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-
-def create_mock_runs_data(num_runs=10):
-    """Create mock RUNS.md data for testing."""
-    import datetime
-    
-    runs = []
-    for i in range(1, num_runs + 1):
-        date = (datetime.date.today() - datetime.timedelta(days=i)).isoformat()
-        runs.append([
-            f"{date} UTC",
-            f"2026-11-{23 + i:02d} UTC",
-            f"run {i}",
-            f"Testing run {i}",
-            "completed",
-            "stdout",
-            "stderr"
-        ])
-    
-    return runs
-
-
-def create_mock_runs_md():
-    """Create a temporary RUNS.md file for testing."""
-    import datetime
-    
-    header = [
-        "Date (UTC)",
-        "End Time (UTC)",
-        "Run Number",
-        "Note",
-        "Status",
-        "Stdout",
-        "Stderr"
-    ]
-    
-    runs = create_mock_runs_data(10)
-    
-    md_lines = ["| " + " | ".join(header) + " |"]
-    md_lines.append("| " + " | ".join(["---"] * 7) + " |")
-    
-    for run in runs:
-        md_lines.append("| " + " | ".join(run) + " |")
-    
-    content = "\n".join(md_lines)
-    
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as f:
-        f.write(content)
-        return f.name
-
-
-def create_mock_runs_json():
-    """Create a temporary runs.json file for testing."""
-    import json
-    import datetime
-    
-    runs = []
-    for i in range(1, 11):
-        date = (datetime.date.today() - datetime.timedelta(days=i)).isoformat()
-        runs.append({
-            "date": date,
-            "end_time": f"2026-11-{23 + i:02d} UTC",
-            "run_number": i,
-            "note": f"Testing run {i}",
-            "status": "completed",
-            "stdout": "stdout",
-            "stderr": "stderr",
-            "token_count": 1000 + i * 100
-        })
-    
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-        json.dump(runs, f)
-        return f.name
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
 @pytest.fixture
 def temp_dir():
-    """Create a temporary directory for test files."""
+    """Create a temporary directory for test file operations."""
+    import tempfile
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
 
 
 @pytest.fixture
-def mock_runs_md():
-    """Create a temporary RUNS.md file for testing."""
-    path = create_mock_runs_md()
-    yield path
-    os.unlink(path)
+def sample_runs_md():
+    """Sample RUNS.md content for testing."""
+    return """# Run Log
+
+| Date | Run | Duration | Tokens | Success | Note |
+|------|-----|----------|--------|---------|------|
+| 2026-11-20 | 1865 | 1m 23s | 24,500 | success | Fixed memory management |
+| 2026-11-21 | 1866 | 2m 45s | 32,100 | success | Archived old entries |
+| 2026-11-22 | 1867 | 1m 10s | 18,900 | success | Completed memory project |
+| 2026-11-22 | 1868 | 3m 20s | 41,200 | failure | Rate limit error |
+
+
+# Run Log (continued)
+
+| Date | Run | Duration | Tokens | Success | Note |
+|------|-----|----------|--------|---------|------|
+| 2026-11-23 | 1869 | 1m 45s | 25,300 | success | Testing suite setup |
+"""
 
 
 @pytest.fixture
-def mock_runs_json():
-    """Create a temporary runs.json file for testing."""
-    path = create_mock_runs_json()
-    yield path
-    os.unlink(path)
+def sample_knowledge_base():
+    """Sample knowledge base JSON for testing."""
+    return {
+        "entries": [
+            {
+                "title": "Test Entry 1",
+                "description": "A test entry for testing purposes",
+                "type": "discovery",
+                "tags": ["test", "sample"],
+                "source": "run_1869",
+                "implementation": "Test fixture",
+                "verification": "Test fixture",
+                "impact": "Test impact"
+            },
+            {
+                "title": "Test Entry 2",
+                "description": "Another test entry",
+                "type": "tool_fix",
+                "tags": ["test", "sample"],
+                "source": "run_1869",
+                "implementation": "Test fixture",
+                "verification": "Test fixture",
+                "impact": "Test impact"
+            }
+        ]
+    }
 
 
 @pytest.fixture
-def mock_tool_calls():
-    """Mock tool call tracking."""
-    from agent.tools import _tool_calls
-    
-    original_calls = _tool_calls.copy()
-    _tool_calls.clear()
-    
-    yield _tool_calls
-    
-    _tool_calls.clear()
-    _tool_calls.update(original_calls)
-
-
-@pytest.fixture
-def reset_tool_calls():
-    """Reset tool calls between tests."""
-    from agent.tools import _tool_calls
-    
-    _tool_calls.clear()
-    
-    yield
-    
-    _tool_calls.clear()
+def sample_run_data():
+    """Sample run data for testing."""
+    return {
+        "runs": [
+            {"run": 1865, "date": "2026-11-20", "duration": "1m 23s", "tokens": 24500, "success": "success", "note": "Fixed memory management"},
+            {"run": 1866, "date": "2026-11-21", "duration": "2m 45s", "tokens": 32100, "success": "success", "note": "Archived old entries"},
+            {"run": 1867, "date": "2026-11-22", "duration": "1m 10s", "tokens": 18900, "success": "success", "note": "Completed memory project"},
+        ]
+    }
