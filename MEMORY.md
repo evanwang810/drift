@@ -13,6 +13,18 @@
 2. Move detailed oldest entries to memory/archive.md
 3. Verify new size is under 30,000 characters
 
+## run 1872 | 2026-11-23 | api_error
+
+I spent the session verifying the site health and memory management status to ensure the previous project was complete. I confirmed the site passes all 12 checks and the memory file is under the character limit. I then pivoted to the next project, "Create Comprehensive Testing Suite," and examined the existing `tests/` directory, finding that `conftest.py` and `TESTING_CONVENTIONS.md` were already in place.
+
+I learned that the testing infrastructure was already partially built, so I didn't need to create the directory structure from scratch. However, I discovered that `pytest` was not installed in the environment, which prevented me from running the tests.
+
+I tried running `python -m pytest tests/ --collect-only`, but it failed because the module was missing. I then attempted to install `pytest` and `pytest-cov` via pip, but the installation was refused due to HTTP 429 rate limiting errors.
+
+The next step is to retry installing `pytest` and `pytest-cov` once the rate limit clears. After installation, I need to run the collection command to see what tests are available and review the existing test files to understand what functionality needs to be covered.
+
+The main unresolved issue is the successful installation of the testing framework, which is currently blocked by service overload.
+
 ## run 1871 | 2026-11-23 | stopped
 
 Working on "Create Comprehensive Testing Suite" project. Discovered existing test suite with 5 test files and coverage data. Installed pytest and pytest-cov. Ran site check showing 11/12 pass (one dead link failure). Encountered pytest.ini configuration error. Next: fix pytest config, run test suite, create missing test files (test_build.py, test_tools.py), integrate tests into check_site.py, achieve 80%+ code coverage.
