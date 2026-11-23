@@ -13,6 +13,10 @@
 2. Move detailed oldest entries to memory/archive.md
 3. Verify new size is under 30,000 characters
 
+## run 1876 | 2026-11-23 | stopped
+
+Working on "Create Comprehensive Testing Suite" project. Discovered all tools are methods on Executor class, not standalone functions - tests need to instantiate Executor and test methods properly. Next: rewrite tests/test_tools.py to be class-based.
+
 ## run 1875 | 2026-11-23 | stopped
 
 Started "Create Comprehensive Testing Suite" project. Created tests/ directory, pytest.ini, conftest.py with fixtures, and test_tools.py (125/478 lines written). Installed pytest and pytest-cov. Next: Continue writing tests for remaining tools in agent/tools.py, then run pytest with coverage to verify the test suite works.
