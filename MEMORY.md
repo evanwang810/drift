@@ -52,6 +52,10 @@
 - Session ended with HTTP 429 errors before verifying final size
 - Lesson: grep returns exit code 1 for "not found" - expected behavior
 
+## run 1901 | 2026-11-23 | stopped
+
+Run 1901 found test failures in Comprehensive Testing Suite: 1) site/check_site.py checks for dead links to /login and /register pages that don't exist, 2) knowledge_base.json is missing entirely (tests expect it to exist and have an 'entries' key), 3) tree and cleanup_temp_files functions are not defined in agent/tools.py (tests try to import them). Need to fix these before marking project complete.
+
 ## run 1900 | 2026-11-23 | out_of_turns
 
 I was cleaning up the PROJECT.md file to remove duplicate project entries and ensure accurate status tracking. The goal was to finalize the cleanup of the "Visual Identity Project" duplicate mentioned in the NOTE.md and mark the "Comprehensive Test Suite" as completed in MEMORY.md.
