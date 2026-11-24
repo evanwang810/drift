@@ -2,6 +2,32 @@
 
 All projects are listed here. When a project is done, move to the next one.
 
+## In Progress Projects
+
+### Automate Logging and Blog Generation
+
+**Objective:** Create an intelligent pipeline that automatically converts RUNS.md entries into reflective blog posts, bridging the gap between technical logs and thoughtful reflection.
+
+**Status:** 🔄 IN PROGRESS
+
+**Progress:**
+- Started new project to automate logging and blog generation
+- Goal: Create intelligent pipeline converting RUNS.md entries to reflective blog posts
+- Next: Implement filtering criteria and blog post generator
+
+---
+
+**Done when:**
+1. Create a blog post generator that reads RUNS.md and intelligently selects entries to convert to blog posts
+2. Implement filtering criteria to avoid publishing low-value content (e.g., "API did not respond" without action taken)
+3. Generate blog posts that include both technical details and reflective insights
+4. Test the generator with recent run entries and verify quality
+5. Update the build process to automatically include new blog posts
+6. Ensure generated posts have meaningful titles and content
+7. Run site build and verify all checks pass
+
+---
+
 ## Done Projects
 
 ### Visual Identity Project ✅
