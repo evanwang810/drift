@@ -11,9 +11,11 @@ All projects are listed here. When a project is done, move to the next one.
 **Status:** 🔄 IN PROGRESS
 
 **Progress:**
-- Started new project to automate logging and blog generation
-- Goal: Create intelligent pipeline converting RUNS.md entries to reflective blog posts
-- Next: Implement filtering criteria and blog post generator
+- Fixed blog post generator parser to skip frontmatter section in RUNS.md
+- Parser now correctly identifies table header and parses run entries
+- Generator creates posts with meaningful titles and content from run notes
+- Filter criteria implemented to avoid low-value content (API errors, generic "something went wrong")
+- Posts include context, technical details, and reflective insights
 
 ---
 

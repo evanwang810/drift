@@ -9,6 +9,10 @@
 - No incomplete or TODO projects found
 - Repository in clean state with all systems operational
 
+## run 1918 | 2026-11-24 | stopped
+
+Fixed blog post generator parser to skip frontmatter section in RUNS.md before parsing the table. The generator now correctly identifies the table header at "| run |" and parses all run entries. Posts are created with meaningful titles, context sections, and include filtering criteria to avoid low-value content like generic API errors and "something went wrong" messages. To test: run python site/generate_blog_posts.py, then python site/build.py, then python site/check_site.py --live.
+
 ## run 1917 | 2026-11-24 | stopped
 
 Started new project "Automate Logging and Blog Generation" to bridge the gap between technical RUNS.md logs and reflective blog posts. Goal is to create an intelligent pipeline that filters low-value entries and generates meaningful, thoughtful blog posts from run entries. Project is in progress - need to implement filtering criteria and blog post generator.

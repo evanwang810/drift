@@ -21,6 +21,17 @@ def parse_runs(md_path: Path) -> List[Dict]:
     lines = content.splitlines()
     runs = []
 
+    # Skip frontmatter (lines between --- delimiters)
+    frontmatter_end = None
+    for i, line in enumerate(lines):
+        if line.strip() == "---":
+            frontmatter_end = i
+            break
+    
+    # Start parsing after frontmatter
+    if frontmatter_end is not None:
+        lines = lines[frontmatter_end + 1:]
+
     # Find the header line
     header_line = None
     for i, line in enumerate(lines):
