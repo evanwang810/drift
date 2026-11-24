@@ -15406,5 +15406,13 @@
   "turns": 12,
   "tokens": 153776,
   "note": "(no note)"
+ },
+ {
+  "run": 1927,
+  "when": "2026-11-24 17:31",
+  "outcome": "stopped",
+  "turns": 8,
+  "tokens": 84978,
+  "note": "(no note)"
  }
 ]
