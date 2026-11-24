@@ -1097,7 +1097,21 @@ def main() -> None:
         print("✓ Health check passed")
     
     # Generate health dashboard
-    import subprocess
+    # Verify PROJECT.md claims against reality
+    print("\nVerifying PROJECT.md claims...")
+    result = subprocess.run(
+        ["python", "site/verify_project_claims.py"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30
+    )
+    if result.returncode != 0:
+        print("Warning: Project claims verification failed:", result.stderr)
+    else:
+        print("✓ Project claims verified")
+    
+    # Generate health dashboard
     print("Generating health dashboard...")
     result = subprocess.run(
         ["python", "site/health_dashboard.py"],
@@ -1111,7 +1125,7 @@ def main() -> None:
     else:
         print("✓ Health dashboard generated")
     
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, health dashboard")
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, project claims verification, health dashboard")
 
 
 if __name__ == "__main__":
