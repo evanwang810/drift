@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "created_at": "2026-11-24T19:25:19.177081",
+    "version": "1.0",
+    "last_updated": "2026-11-24T19:25:19.525562"
+  },
+  "sources": {
+    "https://www.wikipedia.org": {
+      "first_seen": "2026-11-24T19:25:19.277838",
+      "entry_count": 1
+    },
+    "https://www.python.org": {
+      "first_seen": "2026-11-24T19:25:19.323019",
+      "entry_count": 1
+    },
+    "https://github.com": {
+      "first_seen": "2026-11-24T19:25:19.439651",
+      "entry_count": 1
+    },
+    "https://example.com": {
+      "first_seen": "2026-11-24T19:25:19.525543",
+      "entry_count": 1
+    }
+  },
+  "entries": [
+    {
+      "id": "ae3a65005c0a",
+      "source_url": "https://www.wikipedia.org",
+      "title": "Web Page: https://www.wikipedia.org",
+      "content_summary": "Wikipedia Wikipedia The Free Encyclopedia English 7,267,000+ articles æ¥æ¬èª 1,528,000+ è¨äº Deutsch 3.168.000+ Artikel Ð ÑÑÑÐºÐ¸Ð¹ 2Â 130Â 000+ ÑÑÐ°ÑÐµÐ¹ FranÃ§ais 2â¯790â¯000+ articles EspaÃ±ol 2.151.000+ artÃ­culos ä¸­æ 1,567,000+ æ¡ç® / æ¢ç® Italiano 1.997.000+ voci ÙØ§Ø±Ø³Û Û±Ù¬Û±Û°Û´Ù¬Û°Û°Û°+ Ù ÙØ§ÙÙ Polski 1Â 715Â 000+ haseÅ Search Wikipedia Afrikaans Shqip Ø§ÙØ¹Ø±Ø¨ÙØ© Asturianu AzÉrbaycanca ÐÑÐ»Ð³Ð°ÑÑÐºÐ¸ é©åèª / BÃ¢n-lÃ¢m-gÃº à¦¬à¦¾à¦à¦²à¦¾ ÐÐµÐ»Ð°...",
+      "headlines": [
+        "Wikipedia Wikipedia The Free Encyclopedia English 7,267,000+ articles æ¥æ¬èª 1,528,000+ è¨äº Deutsch 3",
+        "168",
+        "000+ Artikel Ð ÑÑÑÐºÐ¸Ð¹ 2Â 130Â 000+ ÑÑÐ°ÑÐµÐ¹ FranÃ§ais 2â¯790â¯000+ articles EspaÃ±ol 2"
+      ],
+      "key_facts": [
+        "Wikipedia Wikipedia The Free Encyclopedia English 7,267,000+ articles æ¥æ¬èª 1,528,000+ è¨äº Deutsch 3",
+        "000+ Artikel Ð ÑÑÑÐºÐ¸Ð¹ 2Â 130Â 000+ ÑÑÐ°ÑÐµÐ¹ FranÃ§ais 2â¯790â¯000+ articles EspaÃ±ol 2",
+        "000+ artÃ­culos ä¸­æ 1,567,000+ æ¡ç® / æ¢ç® Italiano 1",
+        "An important update for readers in the United States",
+        "You deserve an explanation, so please don't skip this 1-minute read"
+      ],
+      "entities": [
+        "Wikipedia",
+        "The",
+        "Free",
+        "Encyclopedia",
+        "English",
+        "Deutsch",
+        "Artikel",
+        "Italiano",
+        "Polski",
+        "Search"
+      ],
+      "extracted_at": "2026-11-24T19:25:19.277838"
+    },
+    {
+      "id": "ad2c2dcc2186",
+      "source_url": "https://www.python.org",
+      "title": "Web Page: https://www.python.org",
+      "content_summary": "Welcome to Python.org Notice: This page displays a fallback because interactive scripts did not run. Possible causes include disabled JavaScript or failure to load scripts or stylesheets. Skip to content &#9660; Close Python PSF Docs PyPI Jobs Community &#9650; The Python Network Donate &equiv; Menu Search This Site GO A A Smaller Larger Reset Socialize LinkedIn Mastodon Chat on IRC Twitter About Applications Quotes Getting Started Help Downloads All releases Source code Windows macOS Android iO...",
+      "headlines": [
+        "Welcome to Python",
+        "org Notice: This page displays a fallback because interactive scripts did not run",
+        "Possible causes include disabled JavaScript or failure to load scripts or stylesheets"
+      ],
+      "key_facts": [
+        "org Notice: This page displays a fallback because interactive scripts did not run",
+        "Possible causes include disabled JavaScript or failure to load scripts or stylesheets",
+        "print ( a , end = ' ' )",
+        ">>> fib ( 1000 ) 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 Functions Defined The core of extensible programming is defining functions"
+      ],
+      "entities": [
+        "Welcome",
+        "Python",
+        "Notice",
+        "This",
+        "Possible",
+        "Skip",
+        "Close",
+        "Docs",
+        "Jobs",
+        "Community"
+      ],
+      "extracted_at": "2026-11-24T19:25:19.323019"
+    },
+    {
+      "id": "aec2b6079bc2",
+      "source_url": "https://github.com",
+      "title": "Web Page: https://github.com",
+      "content_summary": "GitHub · Change is constant. GitHub keeps you ahead. · GitHub · GitHub Skip to content Navigation Menu Sign in Products Platform GitHub Repository hosting, code review, and collaboration Copilot AI coding agent for tasks, projects, and automated work Build & Ship Actions CI/CD and automation Code Quality Quality analysis, fixes, and enforcement Codespaces Cloud development environments Secure Code Security Vulnerability detection and remediation Secret Protection Secret scanning and leak prevent...",
+      "headlines": [
+        "GitHub · Change is constant",
+        "GitHub keeps you ahead",
+        "· GitHub · GitHub Skip to content Navigation Menu Sign in Products Platform GitHub Repository hosting, code review, and collaboration Copilot AI coding agent for tasks, projects, and automated work Build & Ship Actions CI/CD and automation Code Quality Quality analysis, fixes, and enforcement Codespaces Cloud development environments Secure Code Security Vulnerability detection and remediation Secret Protection Secret scanning and leak prevention All Features Developers Learn Documentation Training Certifications Build Build with Copilot Customize Copilot Integrations Explore Trending repos GitHub Sponsors Developer articles Changelog Changelog Your source for the latest features, improvements, and fixes across GitHub products, all in one place"
+      ],
+      "key_facts": [
+        "GitHub · Change is constant",
+        "GitHub keeps you ahead",
+        "Pricing Search / Sign in Sign up You signed in with another tab or window",
+        "Reload to refresh your session",
+        "You signed out in another tab or window"
+      ],
+      "entities": [
+        "Change",
+        "Skip",
+        "Navigation",
+        "Menu",
+        "Sign",
+        "Products",
+        "Platform",
+        "Repository",
+        "Copilot",
+        "Build"
+      ],
+      "extracted_at": "2026-11-24T19:25:19.439651"
+    },
+    {
+      "id": "6a9fc0523ef8",
+      "source_url": "https://example.com",
+      "title": "Web Page: https://example.com",
+      "content_summary": "Example Domain This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes....",
+      "headlines": [
+        "Example Domain This domain is for use in documentation examples without needing permission",
+        "This is not a service; avoid relying on it for testing and monitoring purposes"
+      ],
+      "key_facts": [
+        "Example Domain This domain is for use in documentation examples without needing permission",
+        "This is not a service; avoid relying on it for testing and monitoring purposes"
+      ],
+      "entities": [
+        "Example",
+        "Domain",
+        "This",
+        "Example Domain This domain is for use in documentation examples without needing permission",
+        "This is not a service"
+      ],
+      "extracted_at": "2026-11-24T19:25:19.525543"
+    }
+  ]
+}
