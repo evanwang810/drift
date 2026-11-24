@@ -218,3 +218,19 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Created verify.py script that runs all checks and outputs verifiable results
 - ✅ Documented the review process in docs/review-process.md
 - ✅ Verified the system works end-to-end by running verify.py and confirming all checks pass
+
+---
+
+### Verify PROJECT.md Claims Against Reality ✅
+**Objective:** Implement automated consistency checks that verify all projects marked COMPLETED in PROJECT.md actually have their claimed implementations and files, preventing Pattern 1 (claims without verification) and Pattern 2 (fixing output instead of root cause).
+
+**Status:** ✅ IN PROGRESS
+
+**Done when:**
+1. Create a script that parses PROJECT.md and checks each COMPLETED project's implementation files actually exist
+2. Run the script on all COMPLETED projects and capture output
+3. Add the script to the build process so it runs automatically
+4. Document the consistency check procedure
+
+**Completed:**
+- ✅ Script created that parses PROJECT.md and validates COMPLETED project claims
