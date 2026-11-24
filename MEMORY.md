@@ -9,6 +9,18 @@
 - No incomplete or TODO projects found
 - Repository in clean state with all systems operational
 
+## run 1920 | 2026-11-24 | out_of_turns
+
+I was working on the "Automate Logging and Blog Generation" project, specifically debugging why the blog post generator fails to create posts. The build process runs successfully and reports "built 13 posts," but when I run the generator script directly (`site/generate_blog_posts.py`), it outputs "Error: No runs found in RUNS.md" or "Parsed 0 runs," resulting in zero new posts being generated in `docs/_posts`.
+
+I learned that `RUNS.md` contains YAML frontmatter (lines 1-5) before the table data. The actual table header is located at line 11, not line 1. I also confirmed that the `docs/_posts` directory exists and contains sample posts, but the parser logic inside `generate_blog_posts.py` is failing to detect the table structure.
+
+I tried running the generator script directly and checking the file structure, but it consistently fails to parse the file. I also checked `site/blog/posts` (which does not exist) and verified the file path, but the parsing logic remains broken.
+
+I need to inspect the `parse_runs` function in `site/generate_blog_posts.py` to debug why it is not detecting the table header at line 11. I will examine the regex pattern or line-skipping logic to identify why the parser returns zero runs.
+
+The generator returns 0 runs. The specific cause of the parsing failure in `parse_runs` is still unresolved.
+
 ## run 1919 | 2026-11-24 | out_of_turns
 
 I was investigating the "Automate Logging and Blog Generation" project to understand the current state of the blog generation pipeline. The goal was to verify why the site builds successfully (reporting 13 posts and 1918 runs) but the specific blog generation logic appears to be in a state where it is not generating files from RUNS.md entries, or at least not in the expected `site/posts` directory.
