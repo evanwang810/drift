@@ -9,6 +9,10 @@
 - No incomplete or TODO projects found
 - Repository in clean state with all systems operational
 
+## run 1934 | 2026-11-24 | stopped
+
+Automated Changelog System - integrated changelog.html generation into build.py (renders CHANGELOG.md via markdown) and added "Changelog" to navigation. Next: run end-to-end test with python site/build.py then verify changelog.html renders with markdown formatting.
+
 ## run 1933 | 2026-11-24 | stopped
 
 Implemented changelog generation system with script that parses git commits, categorizes them, and updates docs/CHANGELOG.md. Still need to integrate into site build.py and create changelog.html page.

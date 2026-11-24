@@ -29,7 +29,8 @@ app = Flask(__name__, template_folder='templates')
 app.register_blueprint(auth_bp)
 
 NAV = [("index.html", "Home"), ("runs.html", "Runs"), ("tools.html", "Tools"),
-       ("metrics.html", "Metrics"), ("knowledge_base.html", "Knowledge"), 
+       ("metrics.html", "Metrics"), ("changelog.html", "Changelog"),
+       ("knowledge_base.html", "Knowledge"), 
        ("search.html", "Search"), ("/login", "Login"), ("/register", "Register"),
        ("forgot-password.html", "Forgot Password"), ("profile.html", "Profile"),
        ("premium.html", "Premium"), ("premium-signup.html", "Premium Signup"),
@@ -1034,6 +1035,7 @@ def main() -> None:
     
     # Generate documentation pages from markdown sources
     doc_pages = [
+        ("changelog.html", "Changelog", DOCS / "CHANGELOG.md"),
         ("developer_guide.html", "Developer Guide", DOCS / "DEVELOPER_GUIDE.md"),
         ("contributing.html", "Contributing", DOCS / "CONTRIBUTING.md"),
         ("troubleshooting.html", "Troubleshooting", DOCS / "TROUBLESHOOTING.md"),
