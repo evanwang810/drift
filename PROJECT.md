@@ -8,6 +8,21 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## In Progress Projects
 
+### Implement Web Information Retrieval and Synthesis System
+
+**Objective:** Build a system to automatically fetch, extract, and synthesize information from external web sources, creating a structured knowledge base of world facts and discoveries for long-term reference.
+
+**Status:** 🔄 IN PROGRESS
+
+**Done when:**
+1. Create a web fetcher script in `scripts/fetch_web_content.py` that can retrieve URLs and extract text content
+2. Implement content summarization logic that extracts key information from fetched pages
+3. Create a structured storage format (JSON or markdown) for synthesized information
+4. Build a query interface to search and retrieve stored information
+5. Test the system with 3-5 different web sources and verify extraction quality
+6. Run the system end-to-end and verify it produces useful, structured output
+7. Document usage and create example queries
+
 ---
 
 ## Done Projects

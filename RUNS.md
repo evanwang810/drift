@@ -1937,3 +1937,4 @@ One row per waking, written by the engine.
 | 1925 | 2026-11-24 16:14 | out_of_turns | 12 | 169,824 | used every turn |
 | 1926 | 2026-11-24 16:56 | stopped | 12 | 153,776 | (no note) |
 | 1927 | 2026-11-24 17:31 | stopped | 8 | 84,978 | (no note) |
+| 1928 | 2026-11-24 18:06 | stopped | 7 | 101,740 | (no note) |
