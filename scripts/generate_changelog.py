@@ -1,274 +1,230 @@
 #!/usr/bin/env python3
-"""
-Automated Changelog Generator
+"""Generate changelog entries from git commits.
 
-This script reads git commit messages and automatically updates the CHANGELOG.md
-file with categorized change entries.
+This script reads git commit messages and generates structured changelog entries
+in the Keep a Changelog format, organized by type (Added, Changed, Fixed, etc.).
 
 Usage:
-    python scripts/generate_changelog.py
-    python scripts/generate_changelog.py --verbose
-    python scripts/generate_changelog.py --reset
+    python scripts/generate_changelog.py --since <commit> --until <commit>
+    python scripts/generate_changelog.py --last <n>  # last n commits
+    python scripts/generate_changelog.py --all       # all commits
 """
 
+import argparse
 import subprocess
-import re
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
+import re
 
 
-def get_recent_commits(limit=20):
-    """Get recent git commits with their messages."""
-    try:
-        result = subprocess.run(
-            ['git', 'log', '-n', str(limit), '--pretty=format:%H|%s|%ad|%an'],
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        commits = []
-        for line in result.stdout.strip().split('\n'):
-            if line:
-                parts = line.split('|')
-                if len(parts) == 4:
-                    commit_hash, message, date, author = parts
-                    commits.append({
-                        'hash': commit_hash,
-                        'message': message,
-                        'date': date,
-                        'author': author
-                    })
-        return commits
-    except subprocess.CalledProcessError as e:
-        print(f"Error getting commits: {e}")
-        return []
+def get_git_commits(since=None, until=None, n=None):
+    """Get git commit messages with formatting."""
+    cmd = ["git", "log", "--pretty=format:%H|%s|%an|%ad|%ai"]
 
-
-def categorize_message(message):
-    """
-    Categorize a commit message based on keywords.
-
-    Returns: 'added', 'changed', 'fixed', 'removed', 'deprecated', or 'other'
-    """
-    message_lower = message.lower()
-
-    if any(keyword in message_lower for keyword in ['added', 'new', 'create', 'implement', 'add']):
-        return 'added'
-    elif any(keyword in message_lower for keyword in ['changed', 'modify', 'update', 'improve', 'optimize']):
-        return 'changed'
-    elif any(keyword in message_lower for keyword in ['fix', 'bug', 'error', 'resolve', 'correct']):
-        return 'fixed'
-    elif any(keyword in message_lower for keyword in ['removed', 'delete', 'remove', 'drop']):
-        return 'removed'
-    elif any(keyword in message_lower for keyword in ['deprecated', 'obsolete', 'obsolete']):
-        return 'deprecated'
+    if n:
+        cmd.extend(["-n", str(n)])
+    if since:
+        cmd.extend(["--since", since])
+    if until:
+        cmd.extend(["--until", until])
     else:
-        return 'other'
+        # Default to last 30 days if no date specified
+        cmd.extend(["--since", "30 days ago"])
+
+    cmd.append("--date=short")
+
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    commits = []
+    for line in result.stdout.strip().split("\n"):
+        if line:
+            hash_, message, author, date, _ = line.split("|")
+            commits.append({
+                "hash": hash_,
+                "message": message,
+                "author": author,
+                "date": date
+            })
+    return commits
 
 
-def format_commit_for_changelog(commit):
-    """Format a commit for inclusion in the changelog."""
-    category = categorize_message(commit['message'])
-    formatted = f"- {commit['message']} ({commit['author']})"
-    return formatted
+def categorize_change(message):
+    """Categorize a commit message into a changelog type.
+
+    Uses heuristics based on commit message prefixes and content.
+    """
+    message = message.lower()
+
+    # Check for explicit prefixes first
+    if message.startswith(("fix:", "fix: ", "bugfix:", "bugfix: ")):
+        return "Fixed"
+    elif message.startswith(("feat:", "feat: ", "feature:", "feature: ")):
+        return "Added"
+    elif message.startswith(("docs:", "docs: ", "documentation:", "documentation: ")):
+        return "Added"  # Documentation is added
+    elif message.startswith(("refactor:", "refactor: ")):
+        return "Changed"
+    elif message.startswith(("remove:", "remove: ", "delete:", "delete: ")):
+        return "Removed"
+    elif message.startswith(("deprecated:", "deprecated: ")):
+        return "Deprecated"
+    elif message.startswith(("security:", "security: ")):
+        return "Security"
+
+    # Heuristics for uncategorized messages
+    if re.search(r"(fix|bug|issue|resolve|correct)", message):
+        return "Fixed"
+    elif re.search(r"(add|new|implement|create)", message):
+        return "Added"
+    elif re.search(r"(change|update|modify|improve)", message):
+        return "Changed"
+    elif re.search(r"(remove|delete|drop|eliminate)", message):
+        return "Removed"
+    elif re.search(r"(deprecate|obsolete|deprecated)", message):
+        return "Deprecated"
+
+    # Default
+    return "Changed"
 
 
-def update_changelog(commits, changelog_path='docs/CHANGELOG.md'):
-    """Update the CHANGELOG.md file with recent commits."""
-    changelog = Path(changelog_path)
-
-    if not changelog.exists():
-        print(f"Changelog not found at {changelog_path}")
-        return
-
-    # Read existing changelog
-    with open(changelog, 'r') as f:
-        content = f.read()
-
-    # Find the [Unreleased] section
-    unreleased_pattern = r'## \[Unreleased\]?\n\n### Added\n((?:### Added|### Changed|### Fixed|### Removed|### Deprecated|### Security)\n(.*\n)*?)## \['
-    unreleased_match = re.search(unreleased_pattern, content, re.MULTILINE)
-
-    if not unreleased_match:
-        print("Could not find [Unreleased] section in CHANGELOG.md")
-        return
-
-    # Get the unreleased section content
-    current_unreleased = unreleased_match.group(1)
-
-    # Categorize commits
-    categories = {
-        'added': [],
-        'changed': [],
-        'fixed': [],
-        'removed': [],
-        'deprecated': [],
-        'other': []
-    }
+def generate_changelog_entries(commits, since_date=None):
+    """Generate structured changelog entries from commits."""
+    categories = defaultdict(list)
 
     for commit in commits:
-        category = categorize_message(commit['message'])
-        if category in categories:
-            categories[category].append(format_commit_for_changelog(commit))
+        message = commit["message"]
+        date = commit["date"]
+        hash_ = commit["hash"]
 
-    # Build new unreleased section
-    new_unreleased = "### Added\n"
-    if categories['added']:
-        new_unreleased += "\n".join(categories['added']) + "\n\n"
+        # Skip very short commits (like "Update" or "Fix")
+        if len(message.split()) < 2:
+            continue
+
+        category = categorize_change(message)
+        categories[category].append({
+            "message": message,
+            "date": date,
+            "hash": hash_
+        })
+
+    return categories
+
+
+def format_changelog_entry(category, entries, unreleased=False):
+    """Format a changelog section."""
+    if not entries:
+        return ""
+
+    lines = []
+    section = category if category != "Added" else "Added"
+
+    if unreleased:
+        lines.append(f"### {section} (Unreleased)")
     else:
-        new_unreleased += "None\n\n"
+        # Get the most recent date for this section
+        dates = sorted(set(e["date"] for e in entries))
+        if dates:
+            lines.append(f"### {section} - {dates[0]}")
 
-    new_unreleased += "### Changed\n"
-    if categories['changed']:
-        new_unreleased += "\n".join(categories['changed']) + "\n\n"
-    else:
-        new_unreleased += "None\n\n"
+    for entry in entries:
+        # Format the commit message
+        formatted = entry["message"].strip()
+        # Escape brackets for markdown
+        formatted = formatted.replace("[", "\\[").replace("]", "\\]")
+        lines.append(f"- {formatted} ([`{entry['hash'][:7]}`]({entry['hash']}))")
 
-    new_unreleased += "### Fixed\n"
-    if categories['fixed']:
-        new_unreleased += "\n".join(categories['fixed']) + "\n\n"
-    else:
-        new_unreleased += "None\n\n"
-
-    new_unreleased += "### Removed\n"
-    if categories['removed']:
-        new_unreleased += "\n".join(categories['removed']) + "\n\n"
-    else:
-        new_unreleased += "None\n\n"
-
-    new_unreleased += "### Deprecated\n"
-    if categories['deprecated']:
-        new_unreleased += "\n".join(categories['deprecated']) + "\n\n"
-    else:
-        new_unreleased += "None\n\n"
-
-    new_unreleased += "### Security\n"
-    new_unreleased += "None\n\n"
-
-    # Replace the unreleased section
-    new_content = content.replace(current_unreleased, new_unreleased)
-
-    # Write the updated changelog
-    with open(changelog, 'w') as f:
-        f.write(new_content)
-
-    print(f"Updated {changelog_path} with {len(commits)} commits")
+    lines.append("")  # Empty line between sections
+    return "\n".join(lines)
 
 
-def reset_changelog(changelog_path='docs/CHANGELOG.md'):
-    """Reset the CHANGELOG.md to a clean state."""
-    changelog = Path(changelog_path)
+def render_changelog(categories, unreleased=True):
+    """Render the complete changelog."""
+    changelog = []
 
-    if not changelog.exists():
-        print(f"Changelog not found at {changelog_path}")
-        return
+    # Keep a Changelog header
+    changelog.append("# Changelog")
+    changelog.append("")
+    changelog.append("All notable changes to this project will be documented in this file.")
+    changelog.append("")
+    changelog.append("The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),")
+    changelog.append("and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).")
+    changelog.append("")
 
-    reset_content = """# Changelog
+    # Unreleased section
+    if unreleased:
+        unreleased_entries = categories.get("Added", []) + categories.get("Changed", []) + \
+                           categories.get("Fixed", []) + categories.get("Removed", []) + \
+                           categories.get("Deprecated", []) + categories.get("Security", [])
+        if unreleased_entries:
+            changelog.append("## [Unreleased]")
+            changelog.append("")
+            changelog.append("### Added")
+            for entry in categories.get("Added", []):
+                formatted = entry["message"].strip().replace("[", "\\[").replace("]", "\\]")
+                changelog.append(f"- {formatted} ([`{entry['hash'][:7]}`]({entry['hash']}))")
+            changelog.append("")
 
-This file contains all notable changes to this repository.
+            for category in ["Changed", "Fixed", "Removed", "Deprecated", "Security"]:
+                if categories.get(category):
+                    changelog.append(f"### {category}")
+                    for entry in categories.get(category, []):
+                        formatted = entry["message"].strip().replace("[", "\\[").replace("]", "\\]")
+                        changelog.append(f"- {formatted} ([`{entry['hash'][:7]}`]({entry['hash']}))")
+                    changelog.append("")
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+    changelog.append("")
+    changelog.append("---")
+    changelog.append("")
+    changelog.append("## Change Categories")
+    changelog.append("")
+    changelog.append("- **Added** - New features")
+    changelog.append("- **Changed** - Changes in existing functionality")
+    changelog.append("- **Deprecated** - Soon-to-be removed features")
+    changelog.append("- **Removed** - Removed features")
+    changelog.append("- **Fixed** - Any bug fixes")
+    changelog.append("- **Security** - Security vulnerabilities")
+    changelog.append("")
 
-## [Unreleased]
-
-### Added
-- None
-
-### Changed
-- None
-
-### Fixed
-- None
-
-### Removed
-- None
-
-### Deprecated
-- None
-
-### Security
-- None
-
----
-
-## [2026-11-24]
-
-### Added
-- Automated changelog and release notes system
-
-### Changed
-- None
-
-### Fixed
-- None
-
-### Removed
-- None
-
----
-
-## Change Categories
-
-- **Added** - New features
-- **Changed** - Changes in existing functionality
-- **Deprecated** - Soon-to-be removed features
-- **Removed** - Removed features
-- **Fixed** - Any bug fixes
-- **Security** - Security vulnerabilities
-
----
-
-## Version History
-
-### [2026-11-24] - Initial Changelog
-- Created automated changelog system
-"""
-
-    with open(changelog, 'w') as f:
-        f.write(reset_content)
-
-    print(f"Reset {changelog_path} to clean state")
+    return "\n".join(changelog)
 
 
 def main():
-    """Main function to generate changelog."""
-    import sys
+    parser = argparse.ArgumentParser(description="Generate changelog from git commits")
+    parser.add_argument("--since", help="Commits since this date (YYYY-MM-DD)")
+    parser.add_argument("--until", help="Commits until this date (YYYY-MM-DD)")
+    parser.add_argument("--last", type=int, help="Last n commits")
+    parser.add_argument("--all", action="store_true", help="Include all commits (default: last 30 days)")
+    parser.add_argument("--unreleased", action="store_true", default=True, help="Include unreleased section")
+    parser.add_argument("--output", help="Output file (default: docs/CHANGELOG.md)")
 
-    verbose = '--verbose' in sys.argv
-    reset = '--reset' in sys.argv
+    args = parser.parse_args()
 
-    if reset:
-        reset_changelog()
-        return
+    # Get commits
+    commits = get_git_commits(since=args.since, until=args.until, n=args.last)
+    if not commits:
+        print("No commits found for the specified criteria.")
+        return 1
 
-    # Get recent commits
-    commits = get_recent_commits(limit=20)
+    print(f"Found {len(commits)} commits")
 
-    if verbose:
-        print(f"Found {len(commits)} recent commits:")
-        for commit in commits:
-            print(f"  - {commit['message']} ({commit['author']})")
-        print()
+    # Categorize changes
+    categories = generate_changelog_entries(commits)
 
-    # Categorize commits
-    categories = {}
-    for commit in commits:
-        category = categorize_message(commit['message'])
-        if category not in categories:
-            categories[category] = []
-        categories[category].append(commit)
+    # Count entries by category
+    for category, entries in sorted(categories.items()):
+        print(f"  {category}: {len(entries)}")
 
-    if verbose:
-        print("Categorized commits:")
-        for category, category_commits in categories.items():
-            if category_commits:
-                print(f"  {category}: {len(category_commits)} commits")
-        print()
+    # Render and write changelog
+    changelog_content = render_changelog(categories, unreleased=args.unreleased)
 
-    # Update changelog
-    update_changelog(commits)
+    output_path = Path(args.output) if args.output else Path("docs/CHANGELOG.md")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(changelog_content, encoding="utf-8")
+
+    print(f"\nChangelog written to {output_path}")
+
+    return 0
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    raise SystemExit(main())
