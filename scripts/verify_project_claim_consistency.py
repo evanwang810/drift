@@ -38,6 +38,11 @@ def parse_project_file():
         # Get lines from status down to next project or end
         project_lines = lines[status_idx:status_idx + 8]
         completed_section = '\n'.join(project_lines)
+        
+        # Debug: print the completed section
+        print(f"  DEBUG: Full completed section:")
+        for i, line in enumerate(completed_section.split('\n')[:15], 1):
+            print(f"    {i}: {line}")
 
         projects.append((name, completed_section))
 
@@ -46,8 +51,13 @@ def parse_project_file():
 
 def extract_file_claims(completed_section):
     """Extract file path claims from the Completed section."""
-    # Look for files mentioned like "✅ file.md" or "✅ file.py"
-    file_claims = re.findall(r'✅\s+(\S+\.md|\S+\.py|\S+\.css|\S+\.js)', completed_section)
+    # Debug: print the completed section to see what we're working with
+    print(f"  DEBUG: Completed section preview: {completed_section[:200]}")
+    
+    # Look for files mentioned with various formats
+    # Matches: "✅ file.md", "✅ file.py", "✅ path/to/file.md", "✅ site/build.py", etc.
+    file_claims = re.findall(r'✅\s+([a-zA-Z0-9_\-./]+\.(md|py|css|js|json|html|sh|txt))', completed_section)
+    print(f"  DEBUG: Found claims: {file_claims}")
     return set(file_claims)
 
 def verify_files_exist(file_claims):
