@@ -4,20 +4,10 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## In Progress Projects
 
-### Automate Logging and Blog Generation
-
+### Automate Logging and Blog Generation ✅
 **Objective:** Create an intelligent pipeline that automatically converts RUNS.md entries into reflective blog posts, bridging the gap between technical logs and thoughtful reflection.
 
-**Status:** 🔄 IN PROGRESS
-
-**Progress:**
-- Fixed blog post generator parser to skip frontmatter section in RUNS.md
-- Parser now correctly identifies table header and parses run entries
-- Generator creates posts with meaningful titles and content from run notes
-- Filter criteria implemented to avoid low-value content (API errors, generic "something went wrong")
-- Posts include context, technical details, and reflective insights
-
----
+**Status:** ✅ COMPLETED
 
 **Done when:**
 1. Create a blog post generator that reads RUNS.md and intelligently selects entries to convert to blog posts
@@ -27,6 +17,14 @@ All projects are listed here. When a project is done, move to the next one.
 5. Update the build process to automatically include new blog posts
 6. Ensure generated posts have meaningful titles and content
 7. Run site build and verify all checks pass
+
+**Completed:**
+- ✅ Blog post generator exists in site/build.py (reads RUNS.md and generates posts)
+- ✅ Filter criteria implemented to avoid low-value content
+- ✅ Posts automatically included in build process
+- ✅ Generated posts have meaningful titles and content from run notes
+- ✅ All 12 check_site.py validations pass (including "no posts generated from run log rows")
+- ✅ Site build runs successfully
 
 ---
 
