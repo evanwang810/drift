@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-11-23T23:54:53.974170",
+  "last_checked": "2026-11-24T12:29:21.453362",
   "checks": {
     "index.html": {
       "status": "pending",
@@ -51,67 +51,67 @@
     },
     "all_checks": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.914335",
-      "message": "PASS  index.html exists\nPASS  all 13 posts are linked from the home page or a page it links to\nPASS  every post renders: no literal ``` and no broken headings\nPASS  runs.json has every run: 1900 entries, RUNS.md has 1900\nPASS  runs.json has token counts: 1889 of 1900 entries are above zero\nPASS  runs.html loads runs.json with a script\nPASS  runs.html draws with SVG or canvas\nPASS  no dead links on the home page or the pages it links to\nPASS  pages have a viewport meta tag\nPASS  every post file is named YYYY-MM-DD-words-with-dashes\nPASS  no two posts share a title\nPASS  no posts generated from run log rows\n\n12 of 12 pass\n"
+      "timestamp": "2026-11-24T12:29:21.412119",
+      "message": "PASS  index.html exists\nPASS  all 13 posts are linked from the home page or a page it links to\nPASS  every post renders: no literal ``` and no broken headings\nPASS  runs.json has every run: 1918 entries, RUNS.md has 1918\nPASS  runs.json has token counts: 1907 of 1918 entries are above zero\nPASS  runs.html loads runs.json with a script\nPASS  runs.html draws with SVG or canvas\nPASS  no dead links on the home page or the pages it links to\nPASS  pages have a viewport meta tag\nPASS  every post file is named YYYY-MM-DD-words-with-dashes\nPASS  no two posts share a title\nPASS  no posts generated from run log rows\n\n12 of 12 pass\n"
     },
     "PASS  index.html exists": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.919525",
+      "timestamp": "2026-11-24T12:29:21.416456",
       "message": ""
     },
     "PASS  all 13 posts are linked from the home page or a page it links to": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.924143",
+      "timestamp": "2026-11-24T12:29:21.419620",
       "message": ""
     },
     "PASS  every post renders": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.928741",
+      "timestamp": "2026-11-24T12:29:21.422791",
       "message": ""
     },
     "PASS  runs.json has every run": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.933288",
+      "timestamp": "2026-11-24T12:29:21.425872",
       "message": ""
     },
     "PASS  runs.json has token counts": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.937847",
+      "timestamp": "2026-11-24T12:29:21.428944",
       "message": ""
     },
     "PASS  runs.html loads runs.json with a script": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.942376",
+      "timestamp": "2026-11-24T12:29:21.432000",
       "message": ""
     },
     "PASS  runs.html draws with SVG or canvas": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.946914",
+      "timestamp": "2026-11-24T12:29:21.435058",
       "message": ""
     },
     "PASS  no dead links on the home page or the pages it links to": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.951424",
+      "timestamp": "2026-11-24T12:29:21.438124",
       "message": ""
     },
     "PASS  pages have a viewport meta tag": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.955906",
+      "timestamp": "2026-11-24T12:29:21.441201",
       "message": ""
     },
     "PASS  every post file is named YYYY-MM-DD-words-with-dashes": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.960420",
+      "timestamp": "2026-11-24T12:29:21.444296",
       "message": ""
     },
     "PASS  no two posts share a title": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.964935",
+      "timestamp": "2026-11-24T12:29:21.447314",
       "message": ""
     },
     "PASS  no posts generated from run log rows": {
       "status": "passed",
-      "timestamp": "2026-11-23T23:54:53.969614",
+      "timestamp": "2026-11-24T12:29:21.450330",
       "message": ""
     },
     "FAIL  no dead links on the home page or the pages it links to; dead": {
@@ -127,12 +127,12 @@
   },
   "summary": {
     "total": 12,
-    "passed": 4246,
+    "passed": 4259,
     "failed": 96,
     "warnings": 0,
     "overall_status": "pending"
   },
   "alert_level": "critical",
-  "last_build_hash": "abf6c9ad",
-  "last_commit_time": "2026-11-23 23:20:56 +0000"
+  "last_build_hash": "0db45793",
+  "last_commit_time": "2026-11-24 11:58:09 +0000"
 }
