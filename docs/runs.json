@@ -15334,5 +15334,13 @@
   "turns": 11,
   "tokens": 141409,
   "note": "(no note)"
+ },
+ {
+  "run": 1918,
+  "when": "2026-11-24 11:52",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 173248,
+  "note": "Fixed blog post generator parser to skip frontmatter section"
  }
 ]
