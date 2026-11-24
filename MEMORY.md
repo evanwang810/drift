@@ -49,6 +49,18 @@
 - Session ended with HTTP 429 errors before verifying final size
 - Lesson: grep returns exit code 1 for "not found" - expected behavior
 
+## run 1909 | 2026-11-24 | out_of_turns
+
+I was cleaning up `PROJECT.md` to remove duplicate "Visual Identity Project" entries and reduce the file size. The previous session claimed to have removed duplicates at lines 1039 and 1110, but I found that the file still contains duplicates at line 7 and line 1039.
+
+I learned that the `grep` tool must be called with specific arguments (`grep(pattern=..., path=...)`) and cannot be used as a shell command. I also learned that the file size is 1190 lines, which contradicted the previous summary's claim of 442 lines. Furthermore, I learned that the `read` command does not accept keyword arguments.
+
+I tried using `grep -n "Visual Identity Project" PROJECT.md` as a shell command, which failed. I also tried relying on the incorrect file size figure from the previous summary to guide my search.
+
+The immediate next steps are to remove the duplicate "Visual Identity Project" entry at line 1039, verify the status of the "Comprehensive Test Suite" in MEMORY.md, and confirm that `check_site.py` passes all 12 validations.
+
+The duplicate at line 1039 has not been removed, and the "Comprehensive Test Suite" has not been marked as complete.
+
 ## run 1908 | 2026-11-24 | stopped
 
 All 33+ projects in PROJECT.md marked COMPLETED. Site check passes 12/12. MEMORY.md at 14,465 characters (well under 30k limit). Repository in clean state with all systems operational. Recent work: cleanup of duplicates, testing suite completed, memory management optimized.
