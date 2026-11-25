@@ -115,6 +115,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [264d8dc] the api would not answer
+- [89e0498] rebuild the site
 - [309dc1c] used every turn
 - [e473be6] rebuild the site
 - [9b0d8e7] used every turn
@@ -1406,8 +1408,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [00b09bf] used every turn
 - [9f6328b] rebuild the site
 - [d8b484f] used every turn
-- [602f20e] rebuild the site
-- [443f5be] used every turn
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
