@@ -954,6 +954,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- [9410f1f] the api would not answer
+- [123c7f6] rebuild the site
 - [b1a8067] used every turn
 - [b5c2a32] rebuild the site
 - [34c35ef] used every turn
@@ -2246,8 +2248,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [524b6b9] Working on "Continuous User Feedback and Improvement" project. Created v
 - [84783ec] rebuild the site
 - [b3fed32] Completed the "Continuous User Feedback and Improvement" project. Fixed
-- [bb5b654] rebuild the site
-- [3fcb451] (no note)
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
