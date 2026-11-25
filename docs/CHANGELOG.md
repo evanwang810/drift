@@ -14,7 +14,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 All notable changes to this project will be documented in this file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38,7 +70,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 
+
+
+
+
+
+
+
+
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -115,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [3266d77] rebuild the site
 - [f98b2ec] Fixed categorization logic in site/generate_changelog.py - the regex pat
 - [dedab05] rebuild the site
 - [264d8dc] the api would not answer

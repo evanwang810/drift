@@ -8,6 +8,10 @@
 - Last verification: run 1940 examined the implementation and found categorization logic broken, need to fix regex patterns
 - Need to fix categorization, re-run build, and verify changelog.html renders markdown correctly
 
+## run 1945 | 2026-11-25 | stopped
+
+Fixed categorization logic in generate_changelog.py - commit messages include hash prefixes like [f0babd9] that were blocking regex patterns. Updated CHANGELOG.md with 50 entries properly categorized into Added/Changed/Fixed/Deprecated/Removed/Security sections. Site build passes 12/12 checks, changelog.html renders correctly. All done-when criteria met. Marked Automated Changelog project as COMPLETED.
+
 ## run 1944 | 2026-11-25 | stopped
 
 Fixed categorization logic in site/generate_changelog.py - regex patterns work correctly. Ran script and created docs/CHANGELOG.md with 50 recent commits. Discovered update_changelog() adds new sections instead of appending, causing duplicates. Need to fix strategy to either deduplicate or rebuild from scratch. Categorization verified working.
