@@ -88,11 +88,11 @@ def categorize_commit(message: str) -> str:
         ],
         "changed": [
             "change", "modify", "update", "improve", "refactor",
-            "enhance", "optimize", "fix", "correct"
+            "enhance", "optimize", "correct", "repair", "patch"
         ],
         "fixed": [
             "fix", "resolve", "bug", "error", "issue", "resolve",
-            "correct", "repair", "patch"
+            "obsolete"
         ],
         "removed": [
             "remove", "delete", "eliminate", "drop", "deprecate",

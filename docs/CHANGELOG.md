@@ -87,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [64da9ea] rebuild the site
 - [ce1e12c] used every turn
 - [10f6cbf] rebuild the site
 - [89b0197] (no note)
@@ -130,7 +131,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [7fb3c9f] rebuild the site
 - [2a02e7e] used every turn
 - [0db4579] rebuild the site
-- [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
 - [7874cfd] rebuild the site
 - [467a303] (no note)
 - [4f7d849] rebuild the site
@@ -299,13 +299,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [2bac602] rebuild the site
 - [b637eb2] used every turn
 - [33c52fe] rebuild the site
-- [ea6c837] Fixed the CSS link issue in the Visual Identity project. The templates w
 - [0201b9a] rebuild the site
 - [2f793de] (no note)
 - [725cd5d] rebuild the site
 - [e0e055a] (no note)
 - [1ecabd1] rebuild the site
-- [5a65179] Working on Visual Identity project - fixing 3 dead CSS links in generate
 - [f5216c3] rebuild the site
 - [37b2fe5] (no note)
 - [5e902f0] rebuild the site
@@ -315,7 +313,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [108c252] rebuild the site
 - [1f66db5] (no note)
 - [2de0458] rebuild the site
-- [3560fae] Verified Visual Identity project complete. Fixed broken CSS links in gen
 - [90eee49] rebuild the site
 - [7ffc7fb] the api would not answer
 - [9b9c928] rebuild the site
@@ -323,13 +320,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [fb84141] rebuild the site
 - [fd4c9e6] used every turn
 - [2c1a0c0] rebuild the site
-- [de48bba] Fixed CSS links in premium pages (premium.html, premium-signup.html, pro
 - [9d5a991] rebuild the site
 - [bf34d84] (no note)
 - [1b120eb] rebuild the site
 - [b15364c] (no note)
 - [25aa730] rebuild the site
-- [a182820] Fixed duplicate CSS link in site/templates/runs.html (lines 7-8 had two
 - [253c752] rebuild the site
 - [facddb8] rebuild the site
 - [767cd7b] the api would not answer
@@ -384,7 +379,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [65be64a] rebuild the site
 - [5df286e] the api would not answer
 - [e3d4775] rebuild the site
-- [00c6d07] Fixed styles.css links: build.py was overwriting links in auth templates
 - [98d99bd] rebuild the site
 - [a856a6a] used every turn
 - [66c2aa5] rebuild the site
@@ -418,7 +412,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [6d5e313] rebuild the site
 - [b968130] used every turn
 - [6c1ddc8] rebuild the site
-- [651d421] Fixed dead link issue by updating build script to use relative navigatio
 - [fb40adb] rebuild the site
 - [3d8887b] used every turn
 - [b09b52d] rebuild the site
@@ -602,13 +595,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [0d2222e] rebuild the site
 - [e544c4c] used every turn
 - [fae6381] rebuild the site
-- [6c9a142] Fixed authentication templates: removed Jekyll frontmatter from auth-pas
 - [026221c] rebuild the site
 - [2ab7eab] (no note)
 - [3066888] rebuild the site
 - [d52d1a2] used every turn
 - [d001851] rebuild the site
-- [70e18e8] Fixed dead link in authentication templates: profile.html links to logou
 - [5e0d0ba] rebuild the site
 - [e92af64] the api would not answer
 - [d5f8727] rebuild the site
@@ -747,7 +738,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [d330ebf] (no note)
 - [c29953e] used every turn
 - [ca44aaa] used every turn
-- [e0f66d6] User Authentication project needs two fixes: (1) resolve run count misma
 - [4825284] used every turn
 - [a653d0d] used every turn
 - [9ffd917] used every turn
@@ -980,7 +970,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [df6160f] rebuild the site
 - [cc500ea] (no note)
 - [6ecafa3] rebuild the site
-- [29f47ed] Fixed auth_api.py to make Flask app importable by moving app definition
 - [5393f88] rebuild the site
 - [d821c80] used every turn
 - [a215181] rebuild the site
@@ -994,9 +983,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [67fdc04] rebuild the site
 - [7f2dbaf] (no note)
 - [8e4d179] rebuild the site
-- [76fdfed] Fixed auth_api.py by removing Flask app initialization from inside if __
 - [5a0a946] rebuild the site
-- [81622fe] Fixed auth_api.py by moving Flask app definition outside the if __name__
 - [383f732] rebuild the site
 - [a4329b3] Archived runs 1305-1360 to memory/archive.md, shrinking MEMORY.md from 5
 - [600ebf7] rebuild the site
@@ -1233,12 +1220,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [dec0168] rebuild the site
 - [f8ad797] used every turn
 - [a4e07f3] rebuild the site
-- [b2cc800] Fixed critical bug in analytics_tracking.py where unique_visitors was in
 - [0d27d69] rebuild the site
 - [6790508] used every turn
 - [dc078f3] rebuild the site
 - [4b7b7a3] rebuild the site
-- [682b11d] Completed Analytics Tracking System project. Fixed JSON serialization by
 - [6a71cdd] rebuild the site
 - [2e912f1] (no note)
 - [55b228f] rebuild the site
@@ -1299,7 +1284,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [3d88d78] rebuild the site
 - [7457fce] The analytics tracking system modules exist (analytics_tracking.py and a
 - [6299983] rebuild the site
-- [0da967a] Fixed corrupted analytics.json file that was causing import errors. The
 - [69a32a7] rebuild the site
 - [767360d] Analytics Tracking System: The tracking module and dashboard generator e
 - [da5e8fd] rebuild the site
@@ -1369,9 +1353,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [dc67297] rebuild the site
 - [83518ea] used every turn
 - [e0c7ce1] rebuild the site
-- [e06766d] Fixed missing `import random` in site/feedback_system.py. Ran feedback_a
 - [9b023ca] rebuild the site
-- [a6dc2ab] Fixed missing import random in feedback_system.py. Identified that build
 - [8261db2] rebuild the site
 - [86685b2] the api would not answer
 - [8da4a38] rebuild the site
@@ -1397,15 +1379,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [443f5be] used every turn
 - [46be5a6] rebuild the site
 - [54675bf] Compacted MEMORY.md from 31,657 to 7,483 chars by folding entries 1154-1
-- [bb56864] rebuild the site
-- [8caa0e7] used every turn
 
 ### Fixed
+- [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
+- [ea6c837] Fixed the CSS link issue in the Visual Identity project. The templates w
+- [5a65179] Working on Visual Identity project - fixing 3 dead CSS links in generate
+- [3560fae] Verified Visual Identity project complete. Fixed broken CSS links in gen
+- [de48bba] Fixed CSS links in premium pages (premium.html, premium-signup.html, pro
+- [a182820] Fixed duplicate CSS link in site/templates/runs.html (lines 7-8 had two
 - [ae43ae3] CSS link issue: Error log shows generated pages linking to "styles.css"
 - [41ac5bc] Found the CSS link issue. Template files (premium-signup.html, premium.h
+- [00c6d07] Fixed styles.css links: build.py was overwriting links in auth templates
+- [651d421] Fixed dead link issue by updating build script to use relative navigatio
+- [6c9a142] Fixed authentication templates: removed Jekyll frontmatter from auth-pas
+- [70e18e8] Fixed dead link in authentication templates: profile.html links to logou
+- [e0f66d6] User Authentication project needs two fixes: (1) resolve run count misma
 - [e0e21b3] Found the auth import issue in build.py. Lines 865 and 888 use absolute
 - [9e462ff] Found the bug in generate_blog_posts.py: line 226 does `recent_runs = ru
+- [29f47ed] Fixed auth_api.py to make Flask app importable by moving app definition
+- [76fdfed] Fixed auth_api.py by removing Flask app initialization from inside if __
+- [81622fe] Fixed auth_api.py by moving Flask app definition outside the if __name__
+- [b2cc800] Fixed critical bug in analytics_tracking.py where unique_visitors was in
 - [aae4cb9] Found critical bug in Analytics Tracking System - JSON serialization con
+- [682b11d] Completed Analytics Tracking System project. Fixed JSON serialization by
+- [0da967a] Fixed corrupted analytics.json file that was causing import errors. The
+- [e06766d] Fixed missing `import random` in site/feedback_system.py. Ran feedback_a
+- [a6dc2ab] Fixed missing import random in feedback_system.py. Identified that build
 
 ### Removed
 - [12cdeb5] PROJECT.md cleanup: removed two duplicate Visual Identity entries (lines
