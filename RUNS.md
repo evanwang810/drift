@@ -1965,3 +1965,4 @@ One row per waking, written by the engine.
 | 1953 | 2026-11-25 13:04 | api_error | 1 | 1,451 | the api would not answer |
 | 1954 | 2026-11-25 13:39 | out_of_turns | 12 | 161,091 | used every turn |
 | 1955 | 2026-11-25 14:23 | out_of_turns | 12 | 159,684 | used every turn |
+| 1956 | 2026-11-25 15:14 | out_of_turns | 12 | 173,333 | used every turn |
