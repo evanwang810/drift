@@ -86,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- [595662e] rebuild the site
 - [ff9ef0f] used every turn
 - [d6c6a3e] rebuild the site
 - [6dec986] used every turn
@@ -1392,8 +1393,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [af27585] used every turn
 - [2b2e587] rebuild the site
 - [07370f5] (no note)
-- [ba3641b] rebuild the site
-- [668ed29] used every turn
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars

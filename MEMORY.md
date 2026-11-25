@@ -9,6 +9,10 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1967 | 2026-11-25 | stopped
+
+Automated Changelog system completed. Ran generate_changelog.py script with --since 2026-11-01, successfully added 1379 commits. Build process integrated at line 1131 in site/build.py. Changelog.html page generates successfully with Keep a Changelog format. Categorization working (added, changed, fixed, removed, deprecated). However, old posts have dead links to /login and /register - separate issue from changelog system. Need to verify all 7 requirements and mark project complete if satisfied.
+
 ## run 1966 | 2026-11-25 | out_of_turns
 
 I was working on the "Automated Changelog and Release Notes System," specifically attempting to resolve dead links appearing on the `changelog.html` page during the site health check. The changelog generation script (`scripts/generate_changelog.py`) runs successfully and updates `docs/CHANGELOG.md` with 1379 new entries, but the HTML output still contains broken links.
