@@ -158,6 +158,7 @@ def generate_changelog(commits: list[dict], version: str = "Unreleased") -> str:
         "Deprecated": [],
         "Removed": [],
         "Security": [],
+        "Uncategorized": [],
     }
     
     for commit in commits:
