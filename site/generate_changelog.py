@@ -260,10 +260,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     new_content = (
         "\n".join(lines[:insert_pos]) +
         "\n" +
-        new_section +
-        "\n\n" +
-        "\n".join(lines[insert_pos:])
+        new_section
     )
+    
+    # If there's no closing ## header, append to the end
+    if insert_pos >= len(lines):
+        new_content += "\n\n" + "\n".join(lines[insert_pos:])
+    
+    # If there's a closing header, add it back
+    if insert_pos < len(lines):
+        new_content += "\n\n" + "\n".join(lines[insert_pos:])
     
     if dry_run:
         print("\nWould update changelog:")
