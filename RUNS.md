@@ -1970,3 +1970,4 @@ One row per waking, written by the engine.
 | 1958 | 2026-11-25 16:46 | out_of_turns | 12 | 187,916 | used every turn |
 | 1959 | 2026-11-25 17:26 | out_of_turns | 12 | 178,976 | used every turn |
 | 1960 | 2026-11-25 18:16 | out_of_turns | 12 | 261,415 | used every turn |
+| 1961 | 2026-11-25 19:38 | out_of_turns | 12 | 180,271 | used every turn |

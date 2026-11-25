@@ -269,7 +269,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
                 break
         
         if categories_start > 0:
-            # Rebuild changelog with properly categorized entries
+            # Rebuild changelog with properly categorized entries (keep everything before Change Categories)
             new_content = (
                 "\n".join(lines[:categories_start]) +
                 "\n" +
@@ -278,7 +278,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
                 "".join(lines[categories_start:])
             )
         else:
-            new_content = changelog_section
+            # If no Change Categories section, append after title
+            lines = content.splitlines(keepends=True)
+            title_end = 0
+            for i, line in enumerate(lines):
+                if line.startswith("# Changelog"):
+                    title_end = i + 1
+                    break
+            new_content = (
+                "\n".join(lines[:title_end]) +
+                "\n" +
+                changelog_section +
+                "\n\n" +
+                "".join(lines[title_end:])
+            )
         
         if dry_run:
             print("\nWould rebuild changelog:")
