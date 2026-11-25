@@ -7226,6 +7226,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- [696309b] the api would not answer
+- [2587a87] rebuild the site
 - [418da5b] Automated Changelog System completed. Fixed categorization logic in gene
 - [ce2b928] rebuild the site
 - [c3c8fef] used every turn
