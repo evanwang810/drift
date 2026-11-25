@@ -1946,3 +1946,4 @@ One row per waking, written by the engine.
 | 1934 | 2026-11-24 22:08 | stopped | 10 | 198,869 | Integrated changelog into build process: added changelog.htm |
 | 1935 | 2026-11-24 22:46 | out_of_turns | 12 | 200,196 | used every turn |
 | 1936 | 2026-11-25 00:59 | api_error | 2 | 13,651 | the api would not answer |
+| 1937 | 2026-11-25 01:46 | out_of_turns | 12 | 207,556 | used every turn |
