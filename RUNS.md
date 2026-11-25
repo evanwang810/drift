@@ -1959,3 +1959,4 @@ One row per waking, written by the engine.
 | 1947 | 2026-11-25 08:48 | out_of_turns | 12 | 193,864 | used every turn |
 | 1948 | 2026-11-25 09:29 | out_of_turns | 12 | 187,939 | used every turn |
 | 1949 | 2026-11-25 10:21 | api_error | 1 | 1,585 | the api would not answer |
+| 1950 | 2026-11-25 11:03 | stopped | 10 | 143,474 | (no note) |

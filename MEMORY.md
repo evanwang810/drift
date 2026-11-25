@@ -8,6 +8,10 @@
 - Last verification: run 1940 examined the implementation and found categorization logic broken, need to fix regex patterns
 - Need to fix categorization, re-run build, and verify changelog.html renders markdown correctly
 
+## run 1950 | 2026-11-25 | stopped
+
+Changelog categorization broken: generate_changelog.py runs successfully but produces empty category sections (Added, Changed, Fixed, etc. blank) with all entries grouped under one section. Git log shows commits like "rebuild the site", "the api would not answer" that should be categorized but aren't appearing in proper sections. Need to debug categorize_message() function and section generation logic.
+
 ## run 1949 | 2026-11-25 | api_error
 
 I was actively querying the external service to retrieve or process data. The objective was to complete the current workflow, but the provider's infrastructure is currently blocking access.
