@@ -86,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- [ff9ef0f] used every turn
 - [d6c6a3e] rebuild the site
 - [6dec986] used every turn
 - [ef161c1] rebuild the site
