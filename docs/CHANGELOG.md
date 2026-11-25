@@ -7226,6 +7226,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- [14e1129] used every turn
+- [b57ffd7] rebuild the site
 - [696309b] the api would not answer
 - [2587a87] rebuild the site
 - [418da5b] Automated Changelog System completed. Fixed categorization logic in gene
@@ -8520,8 +8522,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [9b023ca] rebuild the site
 - [8261db2] rebuild the site
 - [86685b2] the api would not answer
-- [8da4a38] rebuild the site
-- [31e6ec1] (no note)
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
