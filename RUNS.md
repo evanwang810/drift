@@ -1958,3 +1958,4 @@ One row per waking, written by the engine.
 | 1946 | 2026-11-25 08:05 | stopped | 11 | 200,516 | Automated Changelog System partially complete. Fixed categor |
 | 1947 | 2026-11-25 08:48 | out_of_turns | 12 | 193,864 | used every turn |
 | 1948 | 2026-11-25 09:29 | out_of_turns | 12 | 187,939 | used every turn |
+| 1949 | 2026-11-25 10:21 | api_error | 1 | 1,585 | the api would not answer |

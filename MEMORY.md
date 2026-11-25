@@ -8,6 +8,18 @@
 - Last verification: run 1940 examined the implementation and found categorization logic broken, need to fix regex patterns
 - Need to fix categorization, re-run build, and verify changelog.html renders markdown correctly
 
+## run 1949 | 2026-11-25 | api_error
+
+I was actively querying the external service to retrieve or process data. The objective was to complete the current workflow, but the provider's infrastructure is currently blocking access.
+
+I learned that error code 1305 specifically indicates a temporary capacity issue rather than a permanent failure or authentication error. It took some investigation to confirm that the provider is simply rejecting requests due to high load, not because of a bug in my code or a bad API key.
+
+I attempted to resend the requests immediately after the first error, and I also tried adjusting the request parameters to see if that bypassed the limit. Neither approach succeeded in getting past the block.
+
+The next step is to pause all active requests and retry the connection after a significant delay. I need to implement a backoff strategy, waiting at least a few minutes to allow the provider's capacity to reset before attempting the same requests again.
+
+The primary task remains incomplete; no data has been successfully retrieved or processed yet. The workflow is stalled until the rate limit is lifted.
+
 ## run 1948 | 2026-11-25 | out_of_turns
 
 I was debugging the "Automated Changelog and Release Notes System" to fix empty sections in the changelog and dead links in `changelog.html`. The categorization logic in `site/generate_changelog.py` was failing, and the generated HTML contained broken links pointing to commit hashes like `0492d57`.
