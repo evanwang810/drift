@@ -121,18 +121,69 @@ def categorize_message(message: str) -> tuple[str, str]:
     # This helps catch commits like "rebuild the site" that don't have clear keywords
     message_lower = message.lower()
     
-    # Check for common commit message patterns
-    if any(word in message_lower for word in ["rebuild", "update", "refresh", "reset"]):
+    # Check for common commit message patterns (using regex for better matching)
+    rebuild_patterns = [
+        r"\brebuild\s+the\s+site\b",
+        r"\bupdate\s+(?:the\s+)?site\b",
+        r"\brefresh\s+(?:the\s+)?site\b",
+        r"\breset\s+(?:the\s+)?site\b",
+        r"\brebuild\b",
+        r"\bupdate\b",
+        r"\brefresh\b",
+        r"\breset\b",
+    ]
+    
+    fix_patterns = [
+        r"\bfix\b",
+        r"\bbugfix\b",
+        r"\brepair\b",
+        r"\bresolve\b",
+        r"\bcorrect\b",
+        r"\bissue\s+\w+\b",  # issue #123
+        r"\bbug\s+\w+\b",    # bug #123
+        r"\bproblem\s+\w+\b", # problem #123
+        r"\berror\s+\w+\b",   # error #123
+    ]
+    
+    add_patterns = [
+        r"\badd\b",
+        r"\bnew\b",
+        r"\bcreate\b",
+        r"\bimplement\b",
+        r"\bfeature\b",
+    ]
+    
+    remove_patterns = [
+        r"\bremove\b",
+        r"\bdelete\b",
+        r"\bdrop\b",
+        r"\beliminate\b",
+    ]
+    
+    deprecate_patterns = [
+        r"\bdeprecate\b",
+        r"\blegacy\b",
+        r"\bobsolete\b",
+    ]
+    
+    security_patterns = [
+        r"\bsecurity\b",
+        r"\bvulnerability\b",
+        r"\bpatch\b",
+    ]
+    
+    # Check patterns in order of specificity
+    if any(re.search(pattern, message_lower) for pattern in rebuild_patterns):
         return "Changed", message
-    elif any(word in message_lower for word in ["fix", "bug", "error", "issue", "problem"]):
+    elif any(re.search(pattern, message_lower) for pattern in fix_patterns):
         return "Fixed", message
-    elif any(word in message_lower for word in ["add", "new", "create", "implement", "feature"]):
+    elif any(re.search(pattern, message_lower) for pattern in add_patterns):
         return "Added", message
-    elif any(word in message_lower for word in ["remove", "delete", "drop", "eliminate"]):
+    elif any(re.search(pattern, message_lower) for pattern in remove_patterns):
         return "Removed", message
-    elif any(word in message_lower for word in ["deprecate", "legacy"]):
+    elif any(re.search(pattern, message_lower) for pattern in deprecate_patterns):
         return "Deprecated", message
-    elif any(word in message_lower for word in ["security", "vulnerability", "patch"]):
+    elif any(re.search(pattern, message_lower) for pattern in security_patterns):
         return "Security", message
     
     # Last resort: capitalize first letter

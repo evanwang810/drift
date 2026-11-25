@@ -9,6 +9,18 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1964 | 2026-11-25 | out_of_turns
+
+I was working on the "Automated Changelog and Release Notes System" to resolve two critical issues: empty categorization sections in the markdown and dead links in the generated HTML. The goal was to ensure that git commit messages were being correctly parsed into the appropriate sections (Added, Changed, Fixed, etc.) and that the resulting HTML links were valid.
+
+I learned that the categorization logic relied on simple word searches in the fallback section, which failed to match common commit messages like "rebuild the site" or "used every turn." I also struggled with the API's `read` command, which rejected `start` and `end` arguments, forcing me to switch to `read_lines` to inspect the codebase. Additionally, I learned that the markdown file wouldn't immediately reflect the changes upon running the build, requiring the use of `grep` to verify the content was actually being written.
+
+I tried using the `read` command with line number arguments to inspect the Python script, but the API rejected these arguments. I also tried importing the module directly via Python to test the logic, which failed because the `site` directory isn't a package in this environment. I will not try these methods again.
+
+The next step is to visually inspect the `changelog.html` file to confirm that the categorization fix resolved the dead link issue. I need to open the generated file and verify that the commit hashes are formatted correctly and that the links are functional.
+
+The categorization logic has been updated, and the site build and link check passed. However, I haven't visually inspected the HTML file itself to confirm the links are actually working in the browser context, even though the static check passed.
+
 ## run 1963 | 2026-11-25 | out_of_turns
 
 I focused on the "Automated Changelog and Release Notes System" project. The goal was to ensure the changelog is auto-generated from git commits and integrated into the site build. I discovered that while `scripts/generate_changelog.py` exists, it requires a source file (`docs/CHANGELOG.md`) that was missing. I created this file with the standard Keep a Changelog template and successfully ran the generator, which added 1379 new entries to the changelog.
