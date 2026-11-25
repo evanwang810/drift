@@ -87,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [9b0d8e7] used every turn
 - [64da9ea] rebuild the site
 - [ce1e12c] used every turn
 - [10f6cbf] rebuild the site
