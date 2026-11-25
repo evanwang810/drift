@@ -18,27 +18,27 @@ from pathlib import Path
 # Using word boundaries to match keywords anywhere in the message
 CATEGORY_PATTERNS = {
     "Added": [
-        r"\b(add|new|implement|create|feature|introduce)\b",
+        r"(^|\s)(add|new|implement|create|feature|introduce)\b",
         r"\b(added|new feature|implemented|created)\b",
     ],
     "Changed": [
-        r"\b(change|modify|update|alter|adjust|improve|refactor|rewrite)\b",
+        r"(^|\s)(change|modify|update|alter|adjust|improve|refactor|rewrite)\b",
         r"\b(changed|modified|updated|adjusted|improved|refactored)\b",
     ],
     "Fixed": [
-        r"\b(fix|bugfix|repair|resolve|correct|issue|bug|problem|error)\b",
+        r"(^|\s)(fix|bugfix|repair|resolve|correct|issue|bug|problem|error)\b",
         r"\b(fixed|bug fixed|repaired|resolved|corrected)\b",
     ],
     "Deprecated": [
-        r"\b(deprecate|legacy|obsolete)\b",
+        r"(^|\s)(deprecate|legacy|obsolete)\b",
         r"\b(deprecated|legacy feature)\b",
     ],
     "Removed": [
-        r"\b(remove|eliminate|delete|drop)\b",
+        r"(^|\s)(remove|eliminate|delete|drop)\b",
         r"\b(removed|eliminated|deleted)\b",
     ],
     "Security": [
-        r"\b(security|vulnerability|patch)\b",
+        r"(^|\s)(security|vulnerability|patch)\b",
         r"\b(security fix|patch)\b",
     ],
 }

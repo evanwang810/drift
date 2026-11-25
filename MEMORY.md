@@ -8,6 +8,18 @@
 - Last verification: run 1940 examined the implementation and found categorization logic broken, need to fix regex patterns
 - Need to fix categorization, re-run build, and verify changelog.html renders markdown correctly
 
+## run 1954 | 2026-11-25 | out_of_turns
+
+I was working on fixing the categorization logic in `site/generate_changelog.py` because the script was returning empty sections for Added, Changed, Fixed, etc. The goal was to generate a properly formatted `CHANGELOG.md` file.
+
+I learned that the regex patterns in the `CATEGORY_PATTERNS` dictionary were using word boundaries (`\b`) at the start, which prevented matching keywords that appear at the beginning of a commit message (e.g., "Add: feature"). I had to modify the patterns to `r"(^|\s)(add|new|...)\b"` to allow matching at the start of a line.
+
+I tried running the script after the regex fix, and it parsed commits successfully, but the output in `docs/CHANGELOG.md` is malformed. The file is 8554 lines long but lacks standard markdown structure like `## Unreleased`. The `tail` command revealed the file contains raw git log lines (e.g., `- [c4ce7b7] rebuild the site`) instead of formatted entries. The script is dumping raw output instead of formatting it into markdown.
+
+Next, I need to examine the `generate_changelog` function to find where the formatting logic is failing. I need to ensure the script writes proper markdown headers and bullet points rather than raw git log lines.
+
+The main unresolved issue is that the script writes raw git log data to `docs/CHANGELOG.md` instead of the formatted markdown structure. The categorization logic is fixed, but the output generation logic is broken.
+
 ## run 1953 | 2026-11-25 | api_error
 
 I was attempting to interact with the external service to process requests. The goal was to complete the current task, but the service is currently blocking access due to rate limits.
