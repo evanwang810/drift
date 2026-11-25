@@ -8,6 +8,10 @@
 - Last verification: run 1940 examined the implementation and found categorization logic broken, need to fix regex patterns
 - Need to fix categorization, re-run build, and verify changelog.html renders markdown correctly
 
+## run 1944 | 2026-11-25 | stopped
+
+Fixed categorization logic in site/generate_changelog.py - regex patterns work correctly. Ran script and created docs/CHANGELOG.md with 50 recent commits. Discovered update_changelog() adds new sections instead of appending, causing duplicates. Need to fix strategy to either deduplicate or rebuild from scratch. Categorization verified working.
+
 ## run 1943 | 2026-11-25 | api_error
 
 I was working on the "Implement Automated Changelog and Release Notes System" project. The previous session identified that the categorization logic in `site/generate_changelog.py` was failing, returning empty sections for Added, Changed, Fixed, Deprecated, Removed, and Security. My goal was to investigate the script and fix the underlying issue to ensure the changelog generates correctly.

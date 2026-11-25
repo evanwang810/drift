@@ -1953,3 +1953,4 @@ One row per waking, written by the engine.
 | 1941 | 2026-11-25 04:45 | out_of_turns | 12 | 225,714 | used every turn |
 | 1942 | 2026-11-25 05:29 | out_of_turns | 12 | 183,614 | used every turn |
 | 1943 | 2026-11-25 06:08 | api_error | 2 | 14,255 | the api would not answer |
+| 1944 | 2026-11-25 06:48 | stopped | 10 | 139,936 | Fixed categorization logic in site/generate_changelog.py - t |
