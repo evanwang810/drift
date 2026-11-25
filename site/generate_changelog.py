@@ -183,12 +183,13 @@ def generate_changelog(commits: list[dict], version: str = "Unreleased") -> str:
     return "\n".join(section_lines)
 
 
-def update_changelog(commits: list[dict], dry_run: bool = False) -> bool:
+def update_changelog(commits: list[dict], dry_run: bool = False, force_rebuild: bool = False) -> bool:
     """Update CHANGELOG.md with new entries.
     
     Args:
         commits: List of commit dicts to add
         dry_run: If True, show what would be done without modifying files
+        force_rebuild: If True, rebuild entire changelog from all commits
         
     Returns:
         True if changelog was updated, False otherwise
@@ -235,55 +236,91 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     # Extract current version
     current_version = load_current_version(content)
     
-    # Generate new section
-    new_section = generate_changelog(commits, current_version)
-    
-    if not new_section:
-        print("No new commits to add to changelog.")
-        return False
-    
-    # Find the Unreleased section and append after it
-    lines = content.splitlines(keepends=True)
-    unreleased_start = 0
-    unreleased_end = len(lines)
-    
-    for i, line in enumerate(lines):
-        if line.startswith("## [Unreleased]"):
-            unreleased_start = i
-            # Find end of this section (next ## or end of file)
-            for j in range(i + 1, len(lines)):
-                if lines[j].startswith("## [") and "Change Categories" not in lines[j]:
-                    unreleased_end = j
-                    break
-            else:
-                # No closing ## found, end of file
-                unreleased_end = len(lines)
-            break
-    
-    if unreleased_start == 0:
-        print("Could not find Unreleased section in CHANGELOG.md")
-        return False
-    
-    # Insert new section after the Unreleased section (before the closing ## or end of file)
-    new_content = (
-        "\n".join(lines[:unreleased_end]) +
-        "\n" +
-        new_section
-    )
-    
-    # Add back the closing header if it exists
-    if unreleased_end < len(lines):
-        new_content += "\n\n" + "\n".join(lines[unreleased_end:])
-    
-    if dry_run:
-        print("\nWould update changelog:")
-        print("-" * 50)
-        print(new_section)
-        print("-" * 50)
+    if force_rebuild:
+        # Build changelog from all commits
+        all_commits = parse_commit_messages(limit=200)  # Get all commits
+        changelog_section = generate_changelog(all_commits, current_version)
+        
+        # Find the Change Categories section
+        lines = content.splitlines(keepends=True)
+        categories_start = 0
+        for i, line in enumerate(lines):
+            if "## Change Categories" in line:
+                categories_start = i
+                break
+        
+        if categories_start > 0:
+            # Rebuild changelog with properly categorized entries
+            new_content = (
+                "\n".join(lines[:categories_start]) +
+                "\n" +
+                changelog_section +
+                "\n\n" +
+                "".join(lines[categories_start:])
+            )
+        else:
+            new_content = changelog_section
+        
+        if dry_run:
+            print("\nWould rebuild changelog:")
+            print("-" * 50)
+            print(new_content[:500])
+            print("...")
+            print("-" * 50)
+        else:
+            changelog_path.write_text(new_content, encoding="utf-8")
+            print(f"Rebuilt {changelog_path}")
+            print(f"Updated with {len(all_commits)} properly categorized entries")
     else:
-        changelog_path.write_text(new_content, encoding="utf-8")
-        print(f"Updated {changelog_path}")
-        print(f"Added {len(commits)} new entries to {current_version} section")
+        # Generate new section from recent commits only
+        new_section = generate_changelog(commits, current_version)
+        
+        if not new_section:
+            print("No new commits to add to changelog.")
+            return False
+        
+        # Find the Unreleased section and append after it
+        lines = content.splitlines(keepends=True)
+        unreleased_start = 0
+        unreleased_end = len(lines)
+        
+        for i, line in enumerate(lines):
+            if line.startswith("## [Unreleased]"):
+                unreleased_start = i
+                # Find end of this section (next ## or end of file)
+                for j in range(i + 1, len(lines)):
+                    if lines[j].startswith("## [") and "Change Categories" not in lines[j]:
+                        unreleased_end = j
+                        break
+                else:
+                    # No closing ## found, end of file
+                    unreleased_end = len(lines)
+                break
+        
+        if unreleased_start == 0:
+            print("Could not find Unreleased section in CHANGELOG.md")
+            return False
+        
+        # Insert new section after the Unreleased section (before the closing ## or end of file)
+        new_content = (
+            "\n".join(lines[:unreleased_end]) +
+            "\n" +
+            new_section
+        )
+        
+        # Add back the closing header if it exists
+        if unreleased_end < len(lines):
+            new_content += "\n\n" + "\n".join(lines[unreleased_end:])
+        
+        if dry_run:
+            print("\nWould update changelog:")
+            print("-" * 50)
+            print(new_section)
+            print("-" * 50)
+        else:
+            changelog_path.write_text(new_content, encoding="utf-8")
+            print(f"Updated {changelog_path}")
+            print(f"Added {len(commits)} new entries to {current_version} section")
     
     return True
 
@@ -309,6 +346,11 @@ def main() -> None:
         "--force",
         action="store_true",
         help="Force update even if no new commits"
+    )
+    parser.add_argument(
+        "--force-rebuild",
+        action="store_true",
+        help="Force rebuild entire changelog from all commits"
     )
     
     args = parser.parse_args()
