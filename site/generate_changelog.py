@@ -15,27 +15,31 @@ from pathlib import Path
 
 
 # Category patterns for commit message classification
+# Using word boundaries to match keywords anywhere in the message
 CATEGORY_PATTERNS = {
     "Added": [
-        r"^\s*(?:add|new|implement|create|add.*feature)\s+",
-        r"^\s*(?:introduce|add.*new)\s+",
+        r"\b(add|new|implement|create|feature|introduce)\b",
+        r"\b(added|new feature|implemented|created)\b",
     ],
     "Changed": [
-        r"^\s*(?:change|modify|update|alter|adjust|improve)\s+",
-        r"^\s*(?:refactor|rewrite)\s+",
+        r"\b(change|modify|update|alter|adjust|improve|refactor|rewrite)\b",
+        r"\b(changed|modified|updated|adjusted|improved|refactored)\b",
     ],
     "Fixed": [
-        r"^\s*(?:fix|bugfix|repair|resolve|correct)\s+",
-        r"^\s*(?:issue|bug|problem|error)\s+",
+        r"\b(fix|bugfix|repair|resolve|correct|issue|bug|problem|error)\b",
+        r"\b(fixed|bug fixed|repaired|resolved|corrected)\b",
     ],
     "Deprecated": [
-        r"^\s*(?:deprecate|legacy|obsolete)\s+",
+        r"\b(deprecate|legacy|obsolete)\b",
+        r"\b(deprecated|legacy feature)\b",
     ],
     "Removed": [
-        r"^\s*(?:remove|eliminate|delete|drop)\s+",
+        r"\b(remove|eliminate|delete|drop)\b",
+        r"\b(removed|eliminated|deleted)\b",
     ],
     "Security": [
-        r"^\s*(?:security|vulnerability|patch)\s+",
+        r"\b(security|vulnerability|patch)\b",
+        r"\b(security fix|patch)\b",
     ],
 }
 
@@ -238,38 +242,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         print("No new commits to add to changelog.")
         return False
     
-    # Insert new section after the header
+    # Find the Unreleased section and append after it
     lines = content.splitlines(keepends=True)
+    unreleased_start = 0
+    unreleased_end = len(lines)
     
-    # Find the position after "## [Unreleased]"
-    insert_pos = 0
     for i, line in enumerate(lines):
         if line.startswith("## [Unreleased]"):
-            # Find the end of this section (next ## or end of file)
-            j = i + 1
-            while j < len(lines) and not lines[j].startswith("## ["):
-                j += 1
-            insert_pos = j
+            unreleased_start = i
+            # Find end of this section (next ## or end of file)
+            for j in range(i + 1, len(lines)):
+                if lines[j].startswith("## [") and "Change Categories" not in lines[j]:
+                    unreleased_end = j
+                    break
+            else:
+                # No closing ## found, end of file
+                unreleased_end = len(lines)
             break
     
-    if insert_pos == 0:
+    if unreleased_start == 0:
         print("Could not find Unreleased section in CHANGELOG.md")
         return False
     
-    # Insert new section
+    # Insert new section after the Unreleased section (before the closing ## or end of file)
     new_content = (
-        "\n".join(lines[:insert_pos]) +
+        "\n".join(lines[:unreleased_end]) +
         "\n" +
         new_section
     )
     
-    # If there's no closing ## header, append to the end
-    if insert_pos >= len(lines):
-        new_content += "\n\n" + "\n".join(lines[insert_pos:])
-    
-    # If there's a closing header, add it back
-    if insert_pos < len(lines):
-        new_content += "\n\n" + "\n".join(lines[insert_pos:])
+    # Add back the closing header if it exists
+    if unreleased_end < len(lines):
+        new_content += "\n\n" + "\n".join(lines[unreleased_end:])
     
     if dry_run:
         print("\nWould update changelog:")
