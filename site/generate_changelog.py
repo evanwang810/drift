@@ -117,8 +117,26 @@ def categorize_message(message: str) -> tuple[str, str]:
                 formatted = formatted[0].upper() + formatted[1:] if formatted else "Update"
                 return category, formatted
     
-    # Don't default to "Changed" - return uncategorized
-    return "Uncategorized", message
+    # Fallback: if no clear category found, categorize by message content
+    # This helps catch commits like "rebuild the site" that don't have clear keywords
+    message_lower = message.lower()
+    
+    # Check for common commit message patterns
+    if any(word in message_lower for word in ["rebuild", "update", "refresh", "reset"]):
+        return "Changed", message
+    elif any(word in message_lower for word in ["fix", "bug", "error", "issue", "problem"]):
+        return "Fixed", message
+    elif any(word in message_lower for word in ["add", "new", "create", "implement", "feature"]):
+        return "Added", message
+    elif any(word in message_lower for word in ["remove", "delete", "drop", "eliminate"]):
+        return "Removed", message
+    elif any(word in message_lower for word in ["deprecate", "legacy"]):
+        return "Deprecated", message
+    elif any(word in message_lower for word in ["security", "vulnerability", "patch"]):
+        return "Security", message
+    
+    # Last resort: capitalize first letter
+    return "Changed", message[0].upper() + message[1:] if message else "Update"
 
 
 def load_current_version(content: str) -> str:
