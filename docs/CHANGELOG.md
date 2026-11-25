@@ -171,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [7ffc897] Fixed categorization logic in generate_changelog.py - commit messages in
 - [3266d77] rebuild the site
 - [f98b2ec] Fixed categorization logic in site/generate_changelog.py - the regex pat
 - [dedab05] rebuild the site
