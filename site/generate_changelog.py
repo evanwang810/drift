@@ -117,8 +117,8 @@ def categorize_message(message: str) -> tuple[str, str]:
                 formatted = formatted[0].upper() + formatted[1:] if formatted else "Update"
                 return category, formatted
     
-    # Default to "Changed" for uncategorized messages
-    return "Changed", message
+    # Don't default to "Changed" - return uncategorized
+    return "Uncategorized", message
 
 
 def load_current_version(content: str) -> str:
