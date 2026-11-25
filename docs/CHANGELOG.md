@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [c175809] used every turn
 - [8770e19] rebuild the site
 - [53638f8] used every turn
 - [8424b4c] rebuild the site
@@ -1375,8 +1376,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [8caa0e7] used every turn
 - [a1e3adf] rebuild the site
 - [ce767a4] (no note)
-- [5c86f2f] rebuild the site
-- [87aa72a] (no note)
 
 ### Fixed
 - [ae43ae3] CSS link issue: Error log shows generated pages linking to "styles.css"
