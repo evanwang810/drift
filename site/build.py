@@ -1126,8 +1126,22 @@ def main() -> None:
         print("Warning: Health dashboard generation failed:", result.stderr)
     else:
         print("✓ Health dashboard generated")
-    
-    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, project claims verification, health dashboard")
+
+    # Generate changelog from git commits
+    print("\nGenerating changelog...")
+    result = subprocess.run(
+        ["python", "scripts/generate_changelog.py", "--since", "2026-11-01"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=30
+    )
+    if result.returncode != 0:
+        print("Warning: Changelog generation failed:", result.stderr)
+    else:
+        print("✓ Changelog generated")
+
+    print(f"built {len(posts)} posts, {len(history)} runs, index, runs, tools, metrics, knowledge, search, project claims verification, health dashboard, changelog")
 
 
 if __name__ == "__main__":
