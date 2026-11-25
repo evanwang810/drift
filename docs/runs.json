@@ -15566,5 +15566,13 @@
   "turns": 11,
   "tokens": 200516,
   "note": "Automated Changelog System partially complete. Fixed categor"
+ },
+ {
+  "run": 1947,
+  "when": "2026-11-25 08:48",
+  "outcome": "out_of_turns",
+  "turns": 12,
+  "tokens": 193864,
+  "note": "used every turn"
  }
 ]
