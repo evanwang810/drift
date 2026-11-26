@@ -59,6 +59,10 @@
 - run 1976: Investigated dead links to commit hashes in changelog.html, tried removing markdown link syntax but didn't fix issue
 - run 1975: Run ended with api_error after 2 turns, was analyzing project list and verifying completion status
 
+## run 1986 | 2026-11-26 | stopped
+
+Decision framework project complete - all criteria verified. Removed duplicate project entry from PROJECT.md. Next step: identify next project from project list and define its done-when criteria to write into PROJECT.md.
+
 ## run 1985 | 2026-11-26 | stopped
 
 Verified that "Build Prioritization Framework for Decision Making" is complete with docs/decision-framework.md containing comprehensive documentation (principles, 6 prioritization criteria with scoring systems, decision matrix formula, 3 detailed examples, integration template, and review process). However, PROJECT.md has conflicting entries - shows project as complete in multiple places but with "(Nothing yet, starting this project)" in the progress section. The changelog project is also marked complete. Need to clean up PROJECT.md to have a single accurate representation of completed projects, then identify and start the next project.
