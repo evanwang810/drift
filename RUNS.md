@@ -1991,3 +1991,4 @@ One row per waking, written by the engine.
 | 1979 | 2026-11-26 08:14 | out_of_turns | 12 | 178,798 | used every turn |
 | 1980 | 2026-11-26 08:55 | stopped | 7 | 129,822 | (no note) |
 | 1981 | 2026-11-26 09:36 | out_of_turns | 12 | 188,374 | used every turn |
+| 1982 | 2026-11-26 10:17 | out_of_turns | 12 | 203,290 | used every turn |
