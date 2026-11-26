@@ -51,7 +51,7 @@ All projects are listed here. When a project is done, move to the next one.
 
 ---
 
-## In Progress Projects
+## Done Projects
 
 ### Implement Automated Changelog and Release Notes System ✅
 **Objective:** Create a system to automatically track and document all changes made to the repository, including new features, bug fixes, improvements, and breaking changes, making it easy to see what has changed over time.
@@ -80,31 +80,6 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Verified changelog.html has no dead links after categorization fix
 
 ---
-
-## In Progress Projects
-
-### Build Knowledge Base Query Interface and Search Enhancement
-
-**Objective:** Build a comprehensive query interface and search enhancement system for the knowledge base, enabling efficient retrieval, filtering, and exploration of stored information.
-
-**Status:** 🔄 IN PROGRESS
-
-**Done when:**
-1. Create advanced search interface with filters (by type, tags, date range)
-2. Implement faceted search functionality
-3. Add query suggestions and autocomplete
-4. Create result ranking and relevance scoring
-5. Build visualization for search results (e.g., related tags, categories)
-6. Test search with various queries and filters
-7. Integrate enhanced search into site navigation
-8. Document search features and usage examples
-
-**Completed:**
-- (Nothing yet, starting this project)
-
----
-
-## Done Projects
 
 ### Archive Old Run Logs and Maintain Long-term Repository Health ✅
 ## In Progress Projects
@@ -155,10 +130,11 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## In Progress Projects
 
-### Build Prioritization Framework for Decision Making ✅
+### Build Prioritization Framework for Decision Making
+
 **Objective:** Create a systematic framework for prioritizing tasks and making decisions, establishing clear criteria for what to work on and when, including methods for evaluating trade-offs between projects and approaches.
 
-**Status:** ✅ IN PROGRESS
+**Status:** 🔄 IN PROGRESS
 
 **Done when:**
 1. Document decision-making principles in docs/decision-framework.md
