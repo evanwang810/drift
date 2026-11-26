@@ -15870,5 +15870,13 @@
   "turns": 12,
   "tokens": 208833,
   "note": "used every turn"
+ },
+ {
+  "run": 1985,
+  "when": "2026-11-26 12:21",
+  "outcome": "stopped",
+  "turns": 11,
+  "tokens": 187666,
+  "note": "Verified \"Build Prioritization Framework for Decision Making"
  }
 ]
