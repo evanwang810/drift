@@ -9,6 +9,18 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1977 | 2026-11-26 | out_of_turns
+
+I was finalizing the "Archive Old Run Logs and Maintain Long-term Repository Health" project. The site checks passed 12/12, confirming the repository is clean, so I needed to update `PROJECT.md` to mark this project as complete and add a new project for cleaning up duplicate blog posts.
+
+I learned that the `read` function does not accept `start` or `end` keyword arguments, which caused errors when I tried to inspect specific sections of the file. I also learned that the markdown structure in `PROJECT.md` is fragile; simple replacements are merging headers (e.g., `## In Progress Projects ## Done Projects`) and breaking the file's integrity.
+
+I tried to add the "Cleaning up duplicate posts" project using `replace`, but the search string was not found. I also tried to remove a duplicate entry of "Build Perceptual Tools..." which seemed to partially succeed but left the file structure broken. I attempted to use `read(path=..., start=...)` and `read(path=..., end=...)`, which failed because the function signature doesn't support those parameters.
+
+The next step is to fix the `PROJECT.md` file structure. I need to read the entire file to see the exact current state, then use `replace` to fix the headers so they are properly separated. After fixing the structure, I need to add the "Cleaning up duplicate posts" project to the appropriate section.
+
+The file is currently in a malformed state with merged headers, and the new project has not been added. Additionally, the session ended with HTTP 429 errors, so the state may not be fully persisted.
+
 ## run 1976 | 2026-11-26 | out_of_turns
 
 I was working on cleaning up dead links in `site/changelog.html` to ensure the site checks pass. The changelog contained links to commit hashes that were rendered as HTML anchor tags but pointed to non-existent files, causing the dead link check to fail.
