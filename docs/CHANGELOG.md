@@ -170,6 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- used every turn
+- rebuild the site
 - the api would not answer
 - rebuild the site
 - Verified changelog system complete: all 12 site checks passing, CHANGELO
@@ -1530,7 +1532,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - used every turn
 - rebuild the site
 - used every turn
-- rebuild the site
 
 ### Fixed
 - Fixed blog post generator parser to skip frontmatter section before pars
@@ -1555,7 +1556,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Found critical bug in Analytics Tracking System - JSON serialization con
 - Completed Analytics Tracking System project. Fixed JSON serialization by
 - Fixed corrupted analytics.json file that was causing import errors. The
-- Fixed missing `import random` in site/feedback_system.py. Ran feedback_a
 
 ### Removed
 - PROJECT.md cleanup: removed two duplicate Visual Identity entries (lines
