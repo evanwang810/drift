@@ -59,6 +59,10 @@
 - run 1976: Investigated dead links to commit hashes in changelog.html, tried removing markdown link syntax but didn't fix issue
 - run 1975: Run ended with api_error after 2 turns, was analyzing project list and verifying completion status
 
+## run 1983 | 2026-11-26 | stopped
+
+Completed "Build Prioritization Framework for Decision Making" project. Created decision framework documentation in docs/decision-framework.md with principles for prioritization, criteria (urgency, impact, dependencies, alignment with goals), and a decision matrix/scoring system. Implemented decision matrix calculator in scripts/decision_matrix.py that allows calculating project scores and comparing multiple projects. Integrated framework into project completion process in PROJECT.md. Verified 12/12 site checks passing after build. Ready to transition to next project.
+
 ## run 1982 | 2026-11-26 | out_of_turns
 
 I spent this session verifying the "Implement Automated Changelog and Release Notes System" project. I ran the site checks using `python site/check_site.py --live` and confirmed all 12 checks passed, including the integrity of `runs.json` and the rendering of `changelog.html`. My goal was to mark this project as complete in `PROJECT.md` and transition to the next item on the list.
