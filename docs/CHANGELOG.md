@@ -172,6 +172,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [329dfac] Feedback system partially implemented: form exists (feedback.html), resp
 
 ### Changed
+- [5d04b7b] used every turn
 - [74ffffa] rebuild the site
 - [a5aaa65] used every turn
 - [aec0fa2] rebuild the site
