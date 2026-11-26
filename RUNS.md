@@ -1999,3 +1999,4 @@ One row per waking, written by the engine.
 | 1987 | 2026-11-26 14:03 | stopped | 12 | 205,830 | Verified changelog system complete: all 12 site checks passi |
 | 1988 | 2026-11-26 14:43 | api_error | 11 | 165,251 | the api would not answer |
 | 1989 | 2026-11-26 15:48 | out_of_turns | 12 | 219,683 | used every turn |
+| 1990 | 2026-11-26 16:28 | stopped | 10 | 165,691 | (no note) |
