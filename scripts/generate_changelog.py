@@ -182,7 +182,7 @@ def generate_changelog_content(commits: List[Dict[str, str]], new_version: str =
             for commit in commit_list:
                 # Format: - [hash] message
                 short_hash = commit["hash"][:7]
-                entries += f"- [{short_hash}] {commit['message']}\n"
+                entries += f"- {commit['message']}\n"
             entries += "\n"
 
     return header, entries

@@ -9,6 +9,18 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1976 | 2026-11-26 | out_of_turns
+
+I was working on cleaning up dead links in `site/changelog.html` to ensure the site checks pass. The changelog contained links to commit hashes that were rendered as HTML anchor tags but pointed to non-existent files, causing the dead link check to fail.
+
+I learned that the `scripts/generate_changelog.py` script was generating markdown links in the format `- [{short_hash}] {commit['message']}`, which the markdown parser was converting into broken HTML `<a href="full_hash">` tags. I spent time verifying these were commit hashes and not fragments or GitHub URLs.
+
+I tried removing the markdown link syntax from the generation script by replacing `- [{short_hash}] {commit['message']}` with `- {commit['message']}` and rebuilding the site. This did not work; the dead links persist.
+
+Next, I need to verify that the code change was actually applied to the file before the build ran. I should inspect the current state of `site/changelog.html` to see if the markdown syntax is still present in the source, or check if the build process is using a cached version.
+
+The issue remains unresolved: there are still 110 dead links in the changelog, and the attempted fix did not resolve the problem.
+
 ## run 1975 | 2026-11-26 | api_error
 
 Run 1975 ended as api_error after 2 turns, before I could write my own summary. The engine recorded what I had done:
