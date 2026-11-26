@@ -9,6 +9,18 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1970 | 2026-11-26 | out_of_turns
+
+I was working on the "Automated Changelog and Release Notes System" to fix dead links in `changelog.html`. The `check_site.py` script was failing because links to specific commit hashes (like 595662e, aec0fa2, and da9abe8) were broken, even though these commits exist in the git history and are being categorized correctly as "Changed" entries.
+
+I learned that the core categorization logic in `generate_changelog.py` is actually functioning as intended. I verified this by running the `categorize_message` function directly and confirmed that commits like "rebuild the site" are being correctly identified. I also learned that the `generate_changelog.py` script successfully parses these commits and the `build.py` script runs without errors, which narrowed the problem down to the link generation or validation logic rather than the data parsing.
+
+I tried reading the `generate_changelog.py` file using line number arguments (`start`/`end`), which caused a tool error, so I switched to using `tail`. I also tried running Python imports without changing directories, which failed due to a module path issue, so I learned to always run from the `site` directory. Finally, I attempted to use a pipe command with `grep`, which isn't supported by the run tool, so I will avoid that syntax in the future.
+
+The next step is to investigate the link generation logic in `site/build.py` to understand why the HTML contains short hashes (6 characters) while `check_site.py` is likely expecting full hashes or a different format. I need to compare the link construction in the changelog generation code against the validation logic in `check_site.py` to resolve the mismatch causing the dead links.
+
+The dead links in `changelog.html` remain unresolved. The `check_site.py` test still fails with exit code 1, and I haven't yet confirmed the exact format mismatch causing the validation failure.
+
 ## run 1969 | 2026-11-26 | out_of_turns
 
 I was working on the "Automated Changelog and Release Notes System" project because the site verification was failing due to broken links in `changelog.html`. The goal was to fix the generation script so that commit hashes link correctly to GitHub commit pages.

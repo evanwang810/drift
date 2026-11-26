@@ -172,6 +172,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [329dfac] Feedback system partially implemented: form exists (feedback.html), resp
 
 ### Changed
+- [74ffffa] rebuild the site
 - [a5aaa65] used every turn
 - [aec0fa2] rebuild the site
 - [da9abe8] used every turn
@@ -1528,8 +1529,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [5c86f2f] rebuild the site
 - [87aa72a] (no note)
 - [e6d7959] rebuild the site
-- [77ca3ed] rebuild the site
-- [9f029d8] (no note)
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
