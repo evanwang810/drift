@@ -18,6 +18,7 @@ from pathlib import Path
 
 from markdown import markdown
 from flask import Flask, render_template
+from enhanced_search import EnhancedSearchEngine
 from auth_app import auth_bp
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -767,19 +768,44 @@ def build_metrics(history: list[dict]) -> None:
 
 
 def build_search_index() -> None:
-    """Build the search index from knowledge base, docs, and posts."""
-    import sys
-    sys.path.insert(0, str(ROOT))
-    from search_index import SearchIndex
-
-    index = SearchIndex()
-    index.add_all_files()
-    index.save_index(DOCS / "search_index.json")
+    """Build the enhanced search index from knowledge base, docs, and posts."""
+    search_engine = EnhancedSearchEngine(
+        ROOT / "scripts" / "knowledge_base.json",
+        DOCS,
+        POSTS
+    )
+    
+    # Generate search index
+    search_index = search_engine.index
+    
+    # Save search index
+    index_path = DOCS / "search_index.json"
+    with open(index_path, 'w', encoding='utf-8') as f:
+        json.dump(search_index, f, ensure_ascii=False, indent=2)
+    
+    print(f"Enhanced search index built: {index_path}")
+    print(f"Total entries: {index_path.stat().st_size} bytes")
+    
+    # Also build facet data
+    facets = search_engine.get_facets()
+    facets_path = DOCS / "search_facets.json"
+    with open(facets_path, 'w', encoding='utf-8') as f:
+        json.dump(facets, f, ensure_ascii=False, indent=2)
+    print(f"Facets saved: {facets_path}")
 
 
 def build_search_page(posts: list[dict], search_index_path: Path) -> str:
-    """Generate the search page HTML."""
+    """Generate the enhanced search page HTML with filters and faceted search."""
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from enhanced_search import EnhancedSearchEngine
+    
+    # Load search index
     search_index = json.loads(search_index_path.read_text(encoding="utf-8"))
+    
+    # Load facets
+    facets_path = search_index_path.parent / "search_facets.json"
+    facets = json.loads(facets_path.read_text(encoding="utf-8")) if facets_path.exists() else {}
 
     body = """
 <div class="search-container">
