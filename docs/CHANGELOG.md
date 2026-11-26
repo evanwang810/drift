@@ -170,6 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- used every turn
+- rebuild the site
 - Completed the "Build Prioritization Framework for Decision Making" proje
 - rebuild the site
 - used every turn
@@ -1528,8 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (no note)
 - rebuild the site
 - (no note)
-- rebuild the site
-- Working on "Continuous User Feedback and Improvement" project. Created v
 
 ### Fixed
 - Fixed blog post generator parser to skip frontmatter section before pars
