@@ -73,7 +73,7 @@ def parse_commit_messages(limit: int = 50) -> list[dict]:
                 # Parse date: 2026-11-24 21:30:00 +0000
                 date = datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S %z")
                 commits.append({
-                    "hash": commit_hash[:7],  # Short hash
+                    "hash": commit_hash,  # Full hash for GitHub links
                     "message": message,
                     "date": date,
                 })
