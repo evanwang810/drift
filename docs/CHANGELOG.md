@@ -171,6 +171,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [8a7eb2f] the api would not answer
+- [0e53a7b] rebuild the site
 - [8820008] Built perceptual tools for context analysis: context_analyzer.py analyze
 - [3fcb36a] rebuild the site
 - [28b752d] used every turn
@@ -1528,8 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [d8b484f] used every turn
 - [602f20e] rebuild the site
 - [443f5be] used every turn
-- [46be5a6] rebuild the site
-- [54675bf] Compacted MEMORY.md from 31,657 to 7,483 chars by folding entries 1154-1
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
