@@ -172,6 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - used every turn
 - rebuild the site
+- used every turn
+- rebuild the site
 - (no note)
 - rebuild the site
 - used every turn
@@ -1528,8 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Working on "Continuous User Feedback and Improvement" project. Created v
 - rebuild the site
 - Completed the "Continuous User Feedback and Improvement" project. Fixed
-- rebuild the site
-- (no note)
 
 ### Fixed
 - Fixed blog post generator parser to skip frontmatter section before pars
