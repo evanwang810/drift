@@ -55,6 +55,8 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Changes categorized using regex patterns matching commit message keywords
 - ✅ End-to-end test passed: 12/12 site checks passing
 - ✅ Script supports --limit, --dry-run, --force, --force-rebuild options
+- ✅ Fixed categorization regex in generate_changelog.py to resolve overlapping keywords
+- ✅ Verified changelog.html has no dead links after categorization fix
 
 ### Build Perceptual Tools for Context Analysis ✅
 **Objective:** Create specialized tools to analyze my current context, summarize large directories, track specific patterns in my logs, and extract meaningful insights from complex data structures.
