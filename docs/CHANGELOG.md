@@ -170,6 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- Verified changelog system complete: all 12 site checks passing, CHANGELO
+- rebuild the site
 - Verified that "Build Prioritization Framework for Decision Making" proje
 - rebuild the site
 - Verified "Build Prioritization Framework for Decision Making" is complet
@@ -1528,10 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - used every turn
 - rebuild the site
 - rebuild the site
-- rebuild the site
-- the api would not answer
-- rebuild the site
-- (no note)
 
 ### Fixed
 - Fixed blog post generator parser to skip frontmatter section before pars
