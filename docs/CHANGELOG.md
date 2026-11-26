@@ -173,6 +173,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - used every turn
 - rebuild the site
+- used every turn
+- rebuild the site
 - the api would not answer
 - rebuild the site
 - Built perceptual tools for context analysis: context_analyzer.py analyze
@@ -1524,8 +1526,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rebuild the site
 - used every turn
 - rebuild the site
-- rebuild the site
-- used every turn
 - rebuild the site
 - used every turn
 - rebuild the site
