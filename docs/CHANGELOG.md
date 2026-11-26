@@ -171,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [3fcb36a] rebuild the site
 - [28b752d] used every turn
 - [33c23f9] rebuild the site
 - [28b7190] used every turn
@@ -1528,8 +1529,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [443f5be] used every turn
 - [46be5a6] rebuild the site
 - [54675bf] Compacted MEMORY.md from 31,657 to 7,483 chars by folding entries 1154-1
-- [bb56864] rebuild the site
-- [8caa0e7] used every turn
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars

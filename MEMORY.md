@@ -9,6 +9,10 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1974 | 2026-11-26 | stopped
+
+Completed perceptual tools project: created context_analyzer.py (analyzes project files for summaries), directory_summarizer.py (scans directories with file counts by type/size), pattern_tracker.py (identifies recurring tools/issues/themes in RUNS.md), and lesson_extractor.py (extracts and categorizes lessons learned). All tools tested with real repository data and documented. Next: implement safety & guardrails tools (validation before commit, rollback mechanisms).
+
 ## run 1973 | 2026-11-26 | out_of_turns
 
 I was debugging the automated changelog system. The project is marked complete, but the generated `changelog.html` displays empty lists for categories like "Added," "Fixed," and "Security," while all entries are incorrectly grouped under "Changed." I need to fix the categorization logic in `site/generate_changelog.py` to ensure commits are properly sorted and low-value entries like "rebuild the site" are filtered out.

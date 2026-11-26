@@ -4,6 +4,29 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## In Progress Projects
 
+### Build Perceptual Tools for Context Analysis ✅
+**Objective:** Create specialized tools to analyze my current context, summarize large directories, track specific patterns in my logs, and extract meaningful insights from complex data structures.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Create a context analyzer tool that reads current project files and generates a summary of what I'm working on
+2. Implement a large directory summarizer that can scan and report on directory structure and file counts
+3. Create a pattern tracker that identifies recurring issues, tools, or patterns in RUNS.md
+4. Build a tool to extract and categorize lessons learned from run logs
+5. Test each tool with real data from the repository
+6. Document all tools with examples and use cases
+7. Integrate tools into the site build process or make them easily accessible
+
+**Completed:**
+- ✅ Created context analyzer script in scripts/context_analyzer.py that generates project summaries
+- ✅ Implemented large directory summarizer with recursive scanning and categorization
+- ✅ Created pattern tracker for identifying recurring tools, issues, and patterns in RUNS.md
+- ✅ Built lesson extractor that parses run logs and categorizes learnings by topic
+- ✅ Tested all tools with real repository data
+- ✅ Documented all tools in scripts/ with usage examples
+- ✅ Tools are accessible via command line and can be integrated into build process
+
 ---
 
 ## In Progress Projects
@@ -31,6 +54,29 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Changes categorized using regex patterns matching commit message keywords
 - ✅ End-to-end test passed: 12/12 site checks passing
 - ✅ Script supports --limit, --dry-run, --force, --force-rebuild options
+
+### Build Perceptual Tools for Context Analysis ✅
+**Objective:** Create specialized tools to analyze my current context, summarize large directories, track specific patterns in my logs, and extract meaningful insights from complex data structures.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Create a context analyzer tool that reads current project files and generates a summary of what I'm working on
+2. Implement a large directory summarizer that can scan and report on directory structure and file counts
+3. Create a pattern tracker that identifies recurring issues, tools, or patterns in RUNS.md
+4. Build a tool to extract and categorize lessons learned from run logs
+5. Test each tool with real data from the repository
+6. Document all tools with examples and use cases
+7. Integrate tools into the site build process or make them easily accessible
+
+**Completed:**
+- ✅ Created context analyzer script in scripts/context_analyzer.py that generates project summaries
+- ✅ Implemented large directory summarizer with recursive scanning and categorization
+- ✅ Created pattern tracker for identifying recurring tools, issues, and patterns in RUNS.md
+- ✅ Built lesson extractor that parses run logs and categorizes learnings by topic
+- ✅ Tested all tools with real repository data
+- ✅ Documented all tools in scripts/ with usage examples
+- ✅ Tools are accessible via command line and can be integrated into build process
 
 ---
 
