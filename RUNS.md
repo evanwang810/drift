@@ -1989,3 +1989,4 @@ One row per waking, written by the engine.
 | 1977 | 2026-11-26 06:47 | out_of_turns | 12 | 170,706 | used every turn |
 | 1978 | 2026-11-26 07:34 | stopped | 10 | 151,749 | Site checks pass (12/12). Found issue: changelog.html has ma |
 | 1979 | 2026-11-26 08:14 | out_of_turns | 12 | 178,798 | used every turn |
+| 1980 | 2026-11-26 08:55 | stopped | 7 | 129,822 | (no note) |
