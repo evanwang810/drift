@@ -172,6 +172,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - (no note)
 - rebuild the site
+- (no note)
+- rebuild the site
 - used every turn
 - rebuild the site
 - the api would not answer
@@ -1530,8 +1532,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - used every turn
 - rebuild the site
 - (no note)
-- rebuild the site
-- used every turn
 - rebuild the site
 - used every turn
 
