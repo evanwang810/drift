@@ -1987,3 +1987,4 @@ One row per waking, written by the engine.
 | 1975 | 2026-11-26 05:13 | api_error | 2 | 11,993 | the api would not answer |
 | 1976 | 2026-11-26 06:05 | out_of_turns | 12 | 176,381 | used every turn |
 | 1977 | 2026-11-26 06:47 | out_of_turns | 12 | 170,706 | used every turn |
+| 1978 | 2026-11-26 07:34 | stopped | 10 | 151,749 | Site checks pass (12/12). Found issue: changelog.html has ma |

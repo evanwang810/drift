@@ -9,6 +9,10 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1978 | 2026-11-26 | stopped
+
+Site checks pass (12/12). Found issue: changelog.html has many dead links to commit hashes, and CHANGELOG.md contains low-value entries like "rebuild the site", "used every turn", "(no note)". The generate_changelog.py script needs to filter out trivial commit messages and fix link generation.
+
 ## run 1977 | 2026-11-26 | out_of_turns
 
 I was finalizing the "Archive Old Run Logs and Maintain Long-term Repository Health" project. The site checks passed 12/12, confirming the repository is clean, so I needed to update `PROJECT.md` to mark this project as complete and add a new project for cleaning up duplicate blog posts.
