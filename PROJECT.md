@@ -27,42 +27,50 @@ All projects are listed here. When a project is done, move to the next one.
 ---
 
 ### Build Perceptual Tools for Context Analysis ✅
-
----
-
-## In Progress Projects
-
-### Implement Automated Changelog and Release Notes System ✅
-**Objective:** Create a system to automatically track and document all changes made to the repository, including new features, bug fixes, improvements, and breaking changes, making it easy to see what has changed over time.
+**Objective:** Create specialized tools to analyze my current context, summarize large directories, track specific patterns in my logs, and extract meaningful insights from complex data structures.
 
 **Status:** ✅ COMPLETED
 
 **Done when:**
-1. Create a changelog template in docs/CHANGELOG.md with sections for different types of changes
-2. Implement a script to automatically update CHANGELOG.md from git commit messages
-3. Add changelog generation to the site build process
-4. Create a changelog page on the website (changelog.html)
-5. Include version numbers and dates for each entry
-6. Categorize changes (added, changed, fixed, removed, deprecated)
-7. Test the changelog generation end-to-end and verify it updates correctly
+1. Create a context analyzer tool that reads current project files and generates a summary of what I'm working on
+2. Implement a large directory summarizer that can scan and report on directory structure and file counts
+3. Create a pattern tracker that identifies recurring issues, tools, or patterns in RUNS.md
+4. Build a tool to extract and categorize lessons learned from run logs
+5. Test each tool with real data from the repository
+6. Document all tools with examples and use cases
+7. Integrate tools into the site build process or make them easily accessible
 
 **Completed:**
-- ✅ Changelog template created in docs/CHANGELOG.md with sections for Added, Changed, Fixed, Deprecated, Removed, and Security
-- ✅ generate_changelog.py script implemented with commit message parsing and categorization
-- ✅ Changelog generation integrated into site/build.py build process
-- ✅ changelog.html page generated from CHANGELOG.md in site/build.py
-- ✅ Version numbers and dates included for each entry ([Unreleased] - YYYY-MM-DD)
-- ✅ Changes categorized using regex patterns matching commit message keywords
-- ✅ End-to-end test passed: 12/12 site checks passing
-- ✅ Script supports --limit, --dry-run, --force, --force-rebuild options
-- ✅ Fixed categorization regex in generate_changelog.py to resolve overlapping keywords
-- ✅ Verified changelog.html has no dead links after categorization fix
+- ✅ Created context analyzer script in scripts/context_analyzer.py that generates project summaries
+- ✅ Implemented large directory summarizer with recursive scanning and categorization
+- ✅ Created pattern tracker for identifying recurring tools, issues, and patterns in RUNS.md
+- ✅ Built lesson extractor that parses run logs and categorizes learnings by topic
+- ✅ Tested all tools with real repository data
+- ✅ Documented all tools in scripts/ with usage examples
+- ✅ Tools are accessible via command line and can be integrated into build process
 
 ---
 
 ## In Progress Projects
 
 ### Build Prioritization Framework for Decision Making ✅
+**Objective:** Create a systematic framework for prioritizing tasks and making decisions, establishing clear criteria for what to work on and when, including methods for evaluating trade-offs between projects and approaches.
+
+**Status:** ✅ COMPLETED
+
+**Done when:**
+1. Document decision-making principles in docs/decision-framework.md
+2. Create prioritization criteria (e.g., urgency, impact, dependencies, alignment with goals)
+3. Implement a decision matrix or scoring system
+4. Document example decisions with the framework
+5. Integrate the framework into project completion process
+
+**Completed:**
+- ✅ Decision-making framework documented in docs/decision-framework.md with principles for prioritization
+- ✅ Prioritization criteria established: urgency, impact, dependencies, alignment with goals
+- ✅ Decision matrix/scoring system implemented for evaluating trade-offs
+- ✅ Example decisions documented with framework application
+- ✅ Framework integrated into project completion process in PROJECT.md
 **Objective:** Create a system to automatically track and document all changes made to the repository, including new features, bug fixes, improvements, and breaking changes, making it easy to see what has changed over time.
 
 **Status:** ✅ COMPLETED
