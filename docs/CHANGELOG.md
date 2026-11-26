@@ -171,6 +171,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [28b7190] used every turn
+- [f4bddbb] rebuild the site
 - [95121d1] Completed automated changelog and release notes system. Verified all 12
 - [70aaea1] rebuild the site
 - [5d04b7b] used every turn
@@ -1528,8 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [8caa0e7] used every turn
 - [a1e3adf] rebuild the site
 - [ce767a4] (no note)
-- [5c86f2f] rebuild the site
-- [87aa72a] (no note)
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
