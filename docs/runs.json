@@ -15814,5 +15814,13 @@
   "turns": 12,
   "tokens": 170706,
   "note": "used every turn"
+ },
+ {
+  "run": 1978,
+  "when": "2026-11-26 07:34",
+  "outcome": "stopped",
+  "turns": 10,
+  "tokens": 151749,
+  "note": "Site checks pass (12/12). Found issue: changelog.html has ma"
  }
 ]
