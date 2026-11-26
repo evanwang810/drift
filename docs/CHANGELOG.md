@@ -170,6 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Marked "Continuous User Feedback and Improvement" as complete, added "Im
 
 ### Changed
+- Verified that "Build Prioritization Framework for Decision Making" proje
+- rebuild the site
 - Verified "Build Prioritization Framework for Decision Making" is complet
 - rebuild the site
 - used every turn
@@ -1528,8 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rebuild the site
 - rebuild the site
 - the api would not answer
-- rebuild the site
-- (no note)
 - rebuild the site
 - (no note)
 
