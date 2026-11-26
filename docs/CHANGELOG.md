@@ -169,9 +169,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [9479fa7] Integrated analytics tracking into build.py by adding FeedbackDashboardG
 - [434a759] Marked "Continuous User Feedback and Improvement" as complete, added "Im
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
-- [329dfac] Feedback system partially implemented: form exists (feedback.html), resp
 
 ### Changed
+- [95121d1] Completed automated changelog and release notes system. Verified all 12
+- [70aaea1] rebuild the site
 - [5d04b7b] used every turn
 - [74ffffa] rebuild the site
 - [a5aaa65] used every turn
@@ -1529,7 +1530,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ce767a4] (no note)
 - [5c86f2f] rebuild the site
 - [87aa72a] (no note)
-- [e6d7959] rebuild the site
 
 ### Fixed
 - [810f57a] Fixed blog post generator parser to skip frontmatter section before pars
