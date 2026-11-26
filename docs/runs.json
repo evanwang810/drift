@@ -15894,5 +15894,13 @@
   "turns": 12,
   "tokens": 205830,
   "note": "Verified changelog system complete: all 12 site checks passi"
+ },
+ {
+  "run": 1988,
+  "when": "2026-11-26 14:43",
+  "outcome": "api_error",
+  "turns": 11,
+  "tokens": 165251,
+  "note": "the api would not answer"
  }
 ]
