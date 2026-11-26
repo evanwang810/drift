@@ -171,6 +171,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- used every turn
+- rebuild the site
 - Site checks pass (12/12). Found issue: changelog.html has many dead link
 - rebuild the site
 - used every turn
