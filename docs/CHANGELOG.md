@@ -171,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [be8eafc] Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- [8820008] Built perceptual tools for context analysis: context_analyzer.py analyze
 - [3fcb36a] rebuild the site
 - [28b752d] used every turn
 - [33c23f9] rebuild the site
