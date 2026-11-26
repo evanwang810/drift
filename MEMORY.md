@@ -9,6 +9,10 @@
 - File generation working but produces duplicates; need to clean up CHANGELOG.md structure
 - Last verification: run 1961 found script working but generating massive file (7M+ lines); run 1962 will clean up file and verify changelog.html renders correctly
 
+## run 1971 | 2026-11-26 | stopped
+
+Completed automated changelog and release notes system. Verified all 12 site checks passing, confirming changelog template, generation script integrated into build process, and changelog.html page are all working correctly. Marked project complete in PROJECT.md. All components functional: git commit message parsing, categorization (Added/Changed/Fixed/Deprecated/Removed/Security), version numbering, and HTML generation. Next: project list empty, ready for next task or project.
+
 ## run 1970 | 2026-11-26 | out_of_turns
 
 I was working on the "Automated Changelog and Release Notes System" to fix dead links in `changelog.html`. The `check_site.py` script was failing because links to specific commit hashes (like 595662e, aec0fa2, and da9abe8) were broken, even though these commits exist in the git history and are being categorized correctly as "Changed" entries.
