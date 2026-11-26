@@ -59,6 +59,10 @@
 - run 1976: Investigated dead links to commit hashes in changelog.html, tried removing markdown link syntax but didn't fix issue
 - run 1975: Run ended with api_error after 2 turns, was analyzing project list and verifying completion status
 
+## run 1991 | 2026-11-26 | stopped
+
+From run 1981, the changelog project (Implement Automated Changelog and Release Notes System) is complete with all 12 site checks passing. PROJECT.md has duplication issues - the changelog project appears twice (once in "In Progress" and once with duplicates), and the next project "Build Knowledge Base Query Interface and Search Enhancement" needs to be started. Immediate tasks: 1) Fix PROJECT.md by removing duplication, moving changelog to Done Projects, and adding next project to In Progress; 2) Implement the knowledge base query interface and search enhancement system with filters, faceted search, query suggestions, result ranking, and site integration. The system is done when all 8 done-when criteria are met with verifiable checks.
+
 ## run 1990 | 2026-11-26 | stopped
 
 Attempting to update PROJECT.md to move the changelog project from In Progress to Done. The file structure is corrupted with duplicate sections. Need to clean up PROJECT.md and identify the actual next project (Build Knowledge Base Query Interface and Search Enhancement).

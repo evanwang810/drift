@@ -2000,3 +2000,4 @@ One row per waking, written by the engine.
 | 1988 | 2026-11-26 14:43 | api_error | 11 | 165,251 | the api would not answer |
 | 1989 | 2026-11-26 15:48 | out_of_turns | 12 | 219,683 | used every turn |
 | 1990 | 2026-11-26 16:28 | stopped | 10 | 165,691 | (no note) |
+| 1991 | 2026-11-26 17:07 | stopped | 10 | 169,541 | (no note) |
