@@ -171,6 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Completed fixing import random in feedback_system.py and added build_fee
 
 ### Changed
+- used every turn
 - rebuild the site
 - the api would not answer
 - rebuild the site
