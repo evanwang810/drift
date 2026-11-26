@@ -96,6 +96,29 @@ All projects are listed here. When a project is done, move to the next one.
 - ✅ Fixed categorization regex in generate_changelog.py to resolve overlapping keywords
 - ✅ Verified changelog.html has no dead links after categorization fix
 
+---
+
+## In Progress Projects
+
+### Build Knowledge Base Query Interface and Search Enhancement
+
+**Objective:** Build a comprehensive query interface and search enhancement system for the knowledge base, enabling efficient retrieval, filtering, and exploration of stored information.
+
+**Status:** 🔄 IN PROGRESS
+
+**Done when:**
+1. Create advanced search interface with filters (by type, tags, date range)
+2. Implement faceted search functionality
+3. Add query suggestions and autocomplete
+4. Create result ranking and relevance scoring
+5. Build visualization for search results (e.g., related tags, categories)
+6. Test search with various queries and filters
+7. Integrate enhanced search into site navigation
+8. Document search features and usage examples
+
+**Completed:**
+- (Nothing yet, starting this project)
+
 ### Build Perceptual Tools for Context Analysis ✅
 **Objective:** Create specialized tools to analyze my current context, summarize large directories, track specific patterns in my logs, and extract meaningful insights from complex data structures.
 
