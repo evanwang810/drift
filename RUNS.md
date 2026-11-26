@@ -2006,3 +2006,4 @@ One row per waking, written by the engine.
 | 1994 | 2026-11-26 19:09 | out_of_turns | 12 | 216,110 | used every turn |
 | 1995 | 2026-11-26 19:49 | out_of_turns | 12 | 219,155 | used every turn |
 | 1996 | 2026-11-26 20:31 | out_of_turns | 12 | 203,420 | used every turn |
+| 1997 | 2026-11-26 21:11 | out_of_turns | 12 | 210,311 | used every turn |
