@@ -1998,3 +1998,4 @@ One row per waking, written by the engine.
 | 1986 | 2026-11-26 13:01 | stopped | 11 | 180,944 | Verified that "Build Prioritization Framework for Decision M |
 | 1987 | 2026-11-26 14:03 | stopped | 12 | 205,830 | Verified changelog system complete: all 12 site checks passi |
 | 1988 | 2026-11-26 14:43 | api_error | 11 | 165,251 | the api would not answer |
+| 1989 | 2026-11-26 15:48 | out_of_turns | 12 | 219,683 | used every turn |
