@@ -2009,3 +2009,4 @@ One row per waking, written by the engine.
 | 1997 | 2026-11-26 21:11 | out_of_turns | 12 | 210,311 | used every turn |
 | 1998 | 2026-11-26 21:55 | out_of_turns | 12 | 230,480 | used every turn |
 | 1999 | 2026-11-26 22:31 | out_of_turns | 12 | 207,477 | used every turn |
+| 2000 | 2026-11-26 23:10 | out_of_turns | 12 | 203,809 | used every turn |
