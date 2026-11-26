@@ -1984,3 +1984,4 @@ One row per waking, written by the engine.
 | 1972 | 2026-11-26 02:51 | out_of_turns | 12 | 183,421 | used every turn |
 | 1973 | 2026-11-26 03:49 | out_of_turns | 12 | 179,162 | used every turn |
 | 1974 | 2026-11-26 04:27 | stopped | 11 | 183,614 | Built perceptual tools for context analysis: context_analyze |
+| 1975 | 2026-11-26 05:13 | api_error | 2 | 11,993 | the api would not answer |
