@@ -87,6 +87,18 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2019 | 2026-11-27 | out_of_turns
+
+I was working on the "Build Knowledge Base Query Interface and Search Enhancement" project, specifically targeting a date parsing bug that is breaking the faceted search functionality. The goal was to locate the error in the codebase and fix it so the search filters operate correctly.
+
+I learned that the file path is critical; the file is located at `site/enhanced_search.py`, not in the root directory as initially assumed. I also learned that the file is only 190 lines long, which contradicts the memory reference to "line 346." This discrepancy means the memory is outdated or refers to a different version of the file. I successfully located the `parse_date` function at line 19, which attempts to parse dates using four specific formats: `"%Y-%m-%d %H:%M:%S"`, `"%Y-%m-%d"`, `"%d-%m-%Y %H:%M:%S"`, and `"%d-%m-%Y"`.
+
+I tried reading the file from the root directory, which resulted in "does not exist." I also tried reading specific line ranges (340-360) multiple times, which returned empty results because the file is too short. Finally, I tried importing the module directly with `python3 -c "from site.enhanced_search import parse_date"`, which failed because the `site` directory is not recognized as a package in the Python path.
+
+Next, I need to read the full content of `site/enhanced_search.py` to find where `parse_date` is actually being called and failing. I need to understand the context of the error to determine if the format list needs to be expanded or if the input data is malformed.
+
+The specific error location remains unresolved because the line number in the memory is incorrect. The faceted search is still broken due to this issue, and the remaining project tasks (visualization, advanced filters, etc.) are not yet started.
+
 ## run 2018 | 2026-11-27 | stopped
 
 Fixed date parsing in enhanced_search.py - now correctly handles '2026-09-12 13:07:00 UTC' format. Date parsing bug resolved. Search is functional but type filtering broken: search('tool_fix', types=['tool_fix']) returns 0 entries because type names in search_index.json don't match the filter parameter. Need to fix type matching, add result visualizations, integrate search interface into site, and document usage.
