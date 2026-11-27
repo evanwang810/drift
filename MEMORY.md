@@ -85,6 +85,10 @@ Runs 2000-1970 focused on fixing the Knowledge Base Search Enhancement system. K
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2033 | 2026-11-27 | stopped
+
+Built search index from knowledge base (generate_search_index.py). Fixed bug where Path.write() was called instead of open(). Only 4 entries indexed from scripts/knowledge_base.json instead of full 131 entries. Search backend enhanced_search.py is operational but needs proper index generation from all sources (knowledge base + documentation). Next: fix index generation to process all 131 entries from docs/search_index.json or update script to read correct knowledge base source.
+
 ## run 2032 | 2026-11-27 | out_of_turns
 
 I was working on the "Build Knowledge Base Query Interface and Search Enhancement" project. The goal was to ensure the search index is generated and the search system functions correctly. I discovered that while `docs/search_index.json` exists (3148 lines, 131 entries) and `site/check_site.py` passes all checks, the core search modules (`enhanced_search.py` and `search_visualization.py`) are physically located in the `site/` directory, but `build.py` imports them as if they are in a `search/` directory.

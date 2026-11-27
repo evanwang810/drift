@@ -125,7 +125,8 @@ def generate_search_index(knowledge_path: Path, output_path: Path) -> dict:
 
     # Save search index
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    json.dump(search_index, output_path, indent=2, ensure_ascii=False)
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(search_index, f, indent=2, ensure_ascii=False)
 
     print(f"Search index saved to {output_path}")
     print(f"  Total entries: {len(search_entries)}")
@@ -137,7 +138,7 @@ def generate_search_index(knowledge_path: Path, output_path: Path) -> dict:
 
 def main():
     """Generate search index from knowledge base."""
-    knowledge_path = Path("agent/knowledge/knowledge.json")
+    knowledge_path = Path("docs/search_index.json")
     output_path = Path("docs/search_index.json")
 
     print("=" * 60)
