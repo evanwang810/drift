@@ -352,11 +352,11 @@ class EnhancedSearchEngine:
                 created_date = datetime.fromisoformat(created_at_field.replace('Z', '+00:00'))
             except ValueError:
                 try:
-                    # Try the '2026-09-12 13:07:00 UTC' format
-                    created_date = datetime.strptime(created_at_field, '%Y-%m-%d %H:%M:%S %Z')
+                    # Try the '2026-09-12 13:07:00 UTC' format (without timezone)
+                    created_date = datetime.strptime(created_at_field.split(' ')[0], '%Y-%m-%d')
                 except ValueError:
-                    # Try simple date format '2026-11-24'
                     try:
+                        # Try simple date format '2026-11-24'
                         created_date = datetime.strptime(created_at_field, '%Y-%m-%d')
                     except ValueError:
                         # Skip entries with invalid dates
