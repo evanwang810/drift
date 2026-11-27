@@ -23,8 +23,11 @@ def parse_date(date_str: str) -> Optional[datetime]:
         return datetime.fromisoformat(date_str)
     except ValueError:
         # Try common non-ISO formats
+        # Remove ' UTC' suffix if present
+        if date_str.endswith(' UTC'):
+            date_str = date_str[:-4]
+        
         for fmt in [
-            "%Y-%m-%d %H:%M:%S %Z",
             "%Y-%m-%d %H:%M:%S",
             "%Y-%m-%d",
             "%d-%m-%Y %H:%M:%S",
