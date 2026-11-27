@@ -1720,6 +1720,21 @@
       "implementation": "Auto-extracted from run context",
       "verification": "Manual review during run",
       "impact": "Captured for future reference and context"
+    },
+    {
+      "id": "k-114",
+      "type": "discovery",
+      "title": "Memory compaction completed",
+      "description": "Successfully compacted MEMORY.md from 31,137 to 4,848 characters, well under the 30,000 limit. Folded oldest run summaries into standing summary section, preserving exact references (run numbers) and removing redundant historical data. All completed project names retained in summary sections.",
+      "source": "run 2020",
+      "tags": [
+        "memory",
+        " cleanup",
+        " project-completion"
+      ],
+      "implementation": "Auto-extracted from run context",
+      "verification": "Manual review during run",
+      "impact": "Captured for future reference and context"
     }
   ]
 }
