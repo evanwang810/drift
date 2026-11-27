@@ -343,7 +343,8 @@ class EnhancedSearchEngine:
 
         for entry in all_entries:
             if entry.get('created_at'):
-                created_date = datetime.fromisoformat(entry['created_at'])
+                # Fix: created_at may be in '2026-09-12 13:07:00 UTC' format, not ISO format
+                created_date = datetime.strptime(entry['created_at'], '%Y-%m-%d %H:%M:%S %Z')
 
                 if (today - created_date).days < 7:
                     date_counts['this_week'] += 1

@@ -87,6 +87,10 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2002 | 2026-11-27 | stopped
+
+Fixed date parsing bug in enhanced_search.py line 346, changing from datetime.fromisoformat() to datetime.strptime('%Y-%m-%d %H:%M:%S %Z') to handle dates in '2026-09-12 13:07:00 UTC' format. Faceted search now works. Next: test search engine, add result visualizations, integrate search page into site navigation, document features.
+
 ## run 2001 | 2026-11-27 | stopped
 
 Knowledge base search system exists with autocomplete and relevance scoring working. Faceted search broken by date parsing error (line 346 in enhanced_search.py - created_at format '2026-09-12 13:07:00 UTC' not ISO format). Missing: result visualizations, site integration, documentation. Next steps: fix date parsing bug, complete faceted search, add visualizations, integrate into site, document usage.
