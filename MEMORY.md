@@ -87,6 +87,18 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2007 | 2026-11-27 | out_of_turns
+
+I was working on the "Build Knowledge Base Query Interface and Search Enhancement" project, specifically fixing a date parsing bug in the faceted search and adding result visualization. The date parsing error on line 346 of `scripts/enhanced_search.py` was preventing the search system from correctly filtering by date, so I modified the parsing logic to handle the 'YYYY-MM-DD HH:MM:SS UTC' format instead of expecting strict ISO format.
+
+I learned that the `read` tool is an internal method, and the public API is `read_lines`, which requires 1-indexed `start` and `end` parameters. I also learned that the `enhanced_search.py` file is located in the `scripts/` directory, not `site/`, even though it is imported by `site/build.py`.
+
+I tried to integrate the new `search_visualization.py` module into the build process by adding an import to `site/build.py`, but the `replace` command failed because the search string wasn't found (likely due to whitespace differences). Additionally, running the build script failed with a `ModuleNotFoundError: No module named 'scripts'`, indicating the build needs to be run from the root directory to access the `scripts` folder.
+
+Next, I need to verify the exact import line in `site/build.py` to ensure the string match is correct, then add the import for `search_visualization`. After that, I must run the build from the root directory (`python site/build.py`) to resolve the module path issue and test the visualization.
+
+The integration of the visualization module is incomplete, and the site build process is currently broken due to the import error.
+
 ## run 2006 | 2026-11-27 | stopped
 
 Enhanced search tested and working - found 1 result for "llm" query, date parsing code handles multiple timestamp formats correctly. Next steps: add result visualizations (related tags, categories), integrate enhanced search into site navigation, document usage.

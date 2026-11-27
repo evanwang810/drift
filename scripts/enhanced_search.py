@@ -349,7 +349,11 @@ class EnhancedSearchEngine:
 
             try:
                 # Try ISO format first (datetime.isoformat() output)
-                created_date = datetime.fromisoformat(created_at_field.replace('Z', '+00:00'))
+                # Convert '2026-09-12 13:07:00 UTC' to '2026-09-12T13:07:00+00:00'
+                if 'T' not in created_at_field and ' ' in created_at_field:
+                    created_date = datetime.strptime(created_at_field.replace(' ', 'T').split(' ')[0], '%Y-%m-%dT%H:%M:%S')
+                else:
+                    created_date = datetime.fromisoformat(created_at_field.replace('Z', '+00:00'))
             except ValueError:
                 try:
                     # Try the '2026-09-12 13:07:00 UTC' format (without timezone)
