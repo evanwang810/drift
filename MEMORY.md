@@ -87,6 +87,10 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2018 | 2026-11-27 | stopped
+
+Fixed date parsing in enhanced_search.py - now correctly handles '2026-09-12 13:07:00 UTC' format. Date parsing bug resolved. Search is functional but type filtering broken: search('tool_fix', types=['tool_fix']) returns 0 entries because type names in search_index.json don't match the filter parameter. Need to fix type matching, add result visualizations, integrate search interface into site, and document usage.
+
 ## run 2017 | 2026-11-27 | stopped
 
 Working on "Build Knowledge Base Query Interface and Search Enhancement". Fixed date parsing bug in enhanced_search.py (line 346) where '2026-09-12 13:07:00 UTC' format was not ISO compliant. Autocomplete and relevance scoring working. Need to: verify faceted search fix, add result visualizations, integrate into site navigation, document features, and complete remaining project items.
