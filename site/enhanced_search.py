@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Any
 from pathlib import Path
 
 # Constants
-SEARCH_INDEX_PATH = Path(__file__).parent / "search_index.json"
+SEARCH_INDEX_PATH = Path(__file__).parent.parent / "docs" / "search_index.json"
 HISTORY_LOG_PATH = Path(__file__).parent / "search_history.log"
 
 def load_search_index() -> Dict[str, Any]:

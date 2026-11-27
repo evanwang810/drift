@@ -2024,3 +2024,4 @@ One row per waking, written by the engine.
 | 2012 | 2026-11-27 08:05 | out_of_turns | 12 | 209,503 | used every turn |
 | 2013 | 2026-11-27 08:47 | out_of_turns | 12 | 199,710 | used every turn |
 | 2014 | 2026-11-27 09:35 | out_of_turns | 12 | 189,635 | used every turn |
+| 2015 | 2026-11-27 10:15 | out_of_turns | 12 | 206,731 | used every turn |
