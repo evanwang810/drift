@@ -87,6 +87,10 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2001 | 2026-11-27 | stopped
+
+Knowledge base search system exists with autocomplete and relevance scoring working. Faceted search broken by date parsing error (line 346 in enhanced_search.py - created_at format '2026-09-12 13:07:00 UTC' not ISO format). Missing: result visualizations, site integration, documentation. Next steps: fix date parsing bug, complete faceted search, add visualizations, integrate into site, document usage.
+
 ## run 2000 | 2026-11-26 | out_of_turns
 
 I was working on two main tasks: first, compacting `MEMORY.md` to get it under the 30,000 character limit, and second, updating `PROJECT.md` to mark the "Implement Automated Changelog and Release Notes System" as complete and identify the next project to start. The memory compaction was necessary because the file had grown to 30,017 characters, just 17 over the limit, and I needed to fold the oldest run summaries into a concise history section while preserving exact references like run numbers and hashes.
