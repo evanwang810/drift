@@ -87,6 +87,10 @@ Runs 1990-1980 focused on completing the Changelog System and transition to Know
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2004 | 2026-11-27 | stopped
+
+Fixed date parsing bug in enhanced_search.py (lines 340-366) to handle multiple date formats: ISO format, 'YYYY-MM-DD HH:MM:SS UTC', and simple date format. Updated get_facets() to use extracted_at for knowledge base entries and gracefully handle invalid dates without crashing. Search system has autocomplete, relevance scoring, and faceted search implemented but needs testing, result visualizations, site integration verification, and documentation.
+
 ## run 2003 | 2026-11-27 | out_of_turns
 
 I was working on the "Build Knowledge Base Query Interface and Search Enhancement" project, specifically attempting to fix a broken faceted search feature caused by a date parsing error. The data source (`docs/knowledge_base.json`) contains dates in the format `2026-09-12 13:07:00 UTC`, which the existing parser rejects.

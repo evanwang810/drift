@@ -342,18 +342,34 @@ class EnhancedSearchEngine:
         today = datetime.now()
 
         for entry in all_entries:
-            if entry.get('created_at'):
-                # Fix: created_at may be in '2026-09-12 13:07:00 UTC' format, not ISO format
-                created_date = datetime.strptime(entry['created_at'], '%Y-%m-%d %H:%M:%S %Z')
+            # Try created_at first, then extracted_at for knowledge base
+            created_at_field = entry.get('created_at') or entry.get('extracted_at')
+            if not created_at_field:
+                continue
 
-                if (today - created_date).days < 7:
-                    date_counts['this_week'] += 1
-                elif (today - created_date).days < 30:
-                    date_counts['this_month'] += 1
-                elif (today - created_date).days < 365:
-                    date_counts['this_year'] += 1
-                else:
-                    date_counts['older'] += 1
+            try:
+                # Try ISO format first (datetime.isoformat() output)
+                created_date = datetime.fromisoformat(created_at_field.replace('Z', '+00:00'))
+            except ValueError:
+                try:
+                    # Try the '2026-09-12 13:07:00 UTC' format
+                    created_date = datetime.strptime(created_at_field, '%Y-%m-%d %H:%M:%S %Z')
+                except ValueError:
+                    # Try simple date format '2026-11-24'
+                    try:
+                        created_date = datetime.strptime(created_at_field, '%Y-%m-%d')
+                    except ValueError:
+                        # Skip entries with invalid dates
+                        continue
+
+            if (today - created_date).days < 7:
+                date_counts['this_week'] += 1
+            elif (today - created_date).days < 30:
+                date_counts['this_month'] += 1
+            elif (today - created_date).days < 365:
+                date_counts['this_year'] += 1
+            else:
+                date_counts['older'] += 1
 
         return {
             'types': type_counts,
