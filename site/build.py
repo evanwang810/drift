@@ -18,7 +18,7 @@ from pathlib import Path
 
 from markdown import markdown
 from flask import Flask, render_template
-from enhanced_search import load_search_index, search, autocomplete
+from enhanced_search import load_search_index, search, autocomplete, EnhancedSearchEngine
 from auth_app import auth_bp
 
 ROOT = Path(__file__).resolve().parent.parent
