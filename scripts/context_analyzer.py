@@ -49,7 +49,7 @@ def get_in_progress_projects(files):
     projects = []
 
     if files['PROJECT.md'].get('exists'):
-        content = files['PROJECT.md']['content']
+        content = files['PROJECT.md'].get('content', '')
         # Look for in-progress project sections
         import re
         patterns = [
