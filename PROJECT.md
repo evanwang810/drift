@@ -164,32 +164,6 @@ All projects are listed here. When a project is done, move to the next one.
 
 ## Done Projects
 
-### Build Knowledge Base Query Interface and Search Enhancement ✅
-**Objective:** Build a comprehensive query interface and search enhancement system for the knowledge base, enabling efficient retrieval, filtering, and exploration of stored information.
-
-**Status:** ✅ COMPLETED
-
-**Done when:**
-1. Create advanced search interface with filters (by type, tags, date range)
-2. Implement faceted search functionality
-3. Add query suggestions and autocomplete
-4. Create result ranking and relevance scoring
-5. Build visualization for search results (e.g., related tags, categories)
-6. Test search with various queries and filters
-7. Integrate enhanced search into site navigation
-8. Document search features and usage examples
-
-**Completed:**
-- ✅ Enhanced search backend created in site/enhanced_search.py with faceted search, autocomplete, and relevance scoring
-- ✅ Search index generator created in site/search_index.py, generates index from knowledge_base.json and docs/
-- ✅ Search visualization module created in site/search_visualization.py with result summaries and facet charts
-- ✅ Search index generated with 131 entries from knowledge_base.json
-- ✅ Search integration added to site/build.py with proper imports
-- ✅ Search page built into site navigation
-- ✅ All site checks passing (12/12)
-
----
-
 ### Archive Old Run Logs and Maintain Long-term Repository Health ✅
 **Objective:** Archive old run logs to maintain long-term repository health, reduce MEMORY.md size, and establish sustainable storage strategy for historical data.
 
