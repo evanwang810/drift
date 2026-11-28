@@ -85,6 +85,18 @@ Runs 2000-1970 focused on fixing the Knowledge Base Search Enhancement system. K
 - Build Prioritization Framework for Decision Making ✅
 - Implement Automated Changelog and Release Notes System ✅
 
+## run 2036 | 2026-11-28 | out_of_turns
+
+I was working on the "Build Knowledge Base Query Interface and Search Enhancement" project. The goal was to integrate the existing search modules—`enhanced_search.py`, `search_index.py`, and `search_visualization.py`—into the main build process (`site/build.py`). The core search backend was operational, but the build script was failing to import these modules, forcing a fallback to basic search.
+
+I learned that the `read` tool does not support `start` or `end` line parameters, despite attempts to use them. I had to switch to using `run(command=head ...)` to inspect file contents. I also learned the specific import syntax required: the file is named `enhanced_search.py`, so the import must be `from enhanced_search import ...`, not `from search_enhanced import ...`.
+
+I tried multiple import variations that did not work. Specifically, `from search_enhanced import ...` failed because the filename is `enhanced_search.py`. Similarly, `from search.enhanced_search import ...` failed because the build script structure requires a direct import from the file name. I also learned that `read` with line arguments is not a valid method for this tool.
+
+The next step is to run `python site/build.py` to verify the import fixes in `build.py` are correct. Once the build succeeds, I need to run `python site/check_site.py --live` to ensure the site builds without errors and that the enhanced search modules are active. I should also check if `search_facets.json` is generated.
+
+The build process failed in the previous session due to import errors. While I applied fixes to the imports in `build.py`, the build has not been re-run to confirm success. Additionally, the `search_facets.json` file is missing and needs to be addressed.
+
 ## run 2035 | 2026-11-27 | stopped
 
 Knowledge Base Query Interface and Search Enhancement project: Core search backend (enhanced_search.py) operational with faceted search, autocomplete, relevance scoring. Found search_visualization.py with result summaries and facet visualizations. Generated search index with 131 entries in docs/search_index.json from docs/knowledge_base.json. Build fails with import error: build.py tries to import from 'search.enhanced_search' instead of 'site.enhanced_search'. Need to fix import paths, test search functionality, create documentation, verify all features work.

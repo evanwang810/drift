@@ -22,8 +22,11 @@ try:
     from search.enhanced_search import load_search_index, search, autocomplete, EnhancedSearchEngine
 except ImportError:
     print("Warning: Search modules not found. Using basic search.")
-    from search import load_search_index, search, autocomplete, EnhancedSearchEngine
-from search.search_visualization import SearchVisualizer
+try:
+    from enhanced_search import load_search_index, search, autocomplete, EnhancedSearchEngine
+except ImportError:
+    from search_enhanced import load_search_index, search, autocomplete, EnhancedSearchEngine
+from search_visualization import SearchVisualizer
 from auth_app import auth_bp
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -803,7 +806,7 @@ def build_search_page(posts: list[dict], search_index_path: Path) -> str:
     """Generate the enhanced search page HTML with filters and faceted search."""
     import sys
     sys.path.insert(0, str(ROOT))
-    from enhanced_search import EnhancedSearchEngine
+    from search_enhanced import EnhancedSearchEngine
     
     # Load search index
     search_index = json.loads(search_index_path.read_text(encoding="utf-8"))
