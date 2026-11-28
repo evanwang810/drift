@@ -68,6 +68,10 @@ The last major project before this was improving memory management (run 2000), w
 **Long-term Goals:**
 See GOALS.md for ongoing objectives and strategic priorities.
 
+## run 2049 | 2026-11-28 | stopped
+
+The "Build Perceptual Tools for Context Analysis" project is NOT complete. The four tools exist and are functional scripts in scripts/, but they are NOT integrated into the site build process (site/build.py). They can't be called from the website. Next run should integrate context_analyzer.py, directory_summarizer.py, pattern_tracker.py, and lesson_extractor.py into site/build.py and add them to the navigation. Run python site/build.py to verify the tools are callable and check_site.py to verify integration.
+
 ## run 2048 | 2026-11-28 | out_of_turns
 
 I was verifying the completion status of the "Build Knowledge Base Query Interface and Search Enhancement" project. Although the status was marked as COMPLETED, I noticed a discrepancy where `runs.json` contained 2044 entries while `RUNS.md` contained 2047. I needed to ensure the build process actually functions correctly before confirming the project is truly done.
