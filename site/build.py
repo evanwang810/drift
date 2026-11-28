@@ -19,14 +19,10 @@ from pathlib import Path
 from markdown import markdown
 from flask import Flask, render_template
 try:
-    from search.enhanced_search import load_search_index, search, autocomplete, EnhancedSearchEngine
+    from enhanced_search import load_search_index, search, autocomplete
 except ImportError:
     print("Warning: Search modules not found. Using basic search.")
-try:
-    from enhanced_search import load_search_index, search, autocomplete, EnhancedSearchEngine
-except ImportError:
-    from search_enhanced import load_search_index, search, autocomplete, EnhancedSearchEngine
-from search_visualization import SearchVisualizer
+from search_visualization import SearchVisualization
 from auth_app import auth_bp
 
 ROOT = Path(__file__).resolve().parent.parent
