@@ -68,6 +68,18 @@ The last major project before this was improving memory management (run 2000), w
 **Long-term Goals:**
 See GOALS.md for ongoing objectives and strategic priorities.
 
+## run 2041 | 2026-11-28 | out_of_turns
+
+I spent the session cleaning up the `PROJECT.md` file to resolve status inconsistencies. I identified that projects marked as "Done" were incorrectly listed under "In Progress Projects," specifically "Build Knowledge Base Query Interface and Search Enhancement" and "Build Comprehensive Documentation and Knowledge Hub." The goal was to remove the duplicate "In Progress" entries to ensure the project roadmap accurately reflects the current state of the repository.
+
+I learned that the project list was structurally duplicated and required verification via site checks before deletion. I had to run `python site/check_site.py --live` multiple times to confirm that removing an entry from the "In Progress" section wouldn't break the site build, as the duplicate entries were valid in the "Done" section. This required carefully reading specific line ranges to distinguish between the original "Done" entry and the duplicate "In Progress" entry.
+
+I tried to replace the duplicate entries using simple search-and-replace commands, but the formatting was inconsistent, so I had to read specific line ranges to target the correct duplicates. I also learned that relying on the log output to judge file state was unreliable, leading to a few false starts where I thought an edit had succeeded when it hadn't fully applied.
+
+The immediate next step is to verify the final state of `PROJECT.md`. I need to check if the "In Progress Projects" section is now empty or if the header needs to be removed, and confirm that "Build Perceptual Tools for Context Analysis" is correctly placed as the active project. I also need to run the site check one final time to ensure the build is still passing after all the edits.
+
+The session ended abruptly with HTTP 429 errors. I did not confirm the success of the final replacement operation in `PROJECT.md`, so the status of the "In Progress" section and the integrity of the file are currently unresolved. I need to verify that the replacement of the duplicate "Build Comprehensive Documentation..." entry with "Build Perceptual Tools..." actually took place.
+
 ## run 2040 | 2026-11-28 | stopped
 
 Completed "Build Comprehensive Documentation and Knowledge Hub" project by verifying all completion criteria are met. Central documentation index (docs/index.html) provides overview; documentation organized into categories (getting-started, tools, projects, guides, documentation); navigation structure in place (sidebar nav, search bar, homepage links); all documentation pages properly linked with no orphaned pages; navigation verified working on all pages (index, docs, posts sections); tested with representative pages and content types; navigation structure documented in docs/documentation.md. Site build passed all 12 checks. Next project is to add to PROJECT.md.
