@@ -773,6 +773,7 @@ def build_metrics(history: list[dict]) -> None:
 
 def build_search_index() -> None:
     """Build the enhanced search index from knowledge base, docs, and posts."""
+    from enhanced_search import EnhancedSearchEngine
     search_engine = EnhancedSearchEngine(
         ROOT / "scripts" / "knowledge_base.json",
         DOCS,
